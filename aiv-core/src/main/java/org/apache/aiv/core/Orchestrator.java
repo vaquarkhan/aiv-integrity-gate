@@ -52,9 +52,15 @@ public final class Orchestrator {
 
     /**
      * Run all enabled gates. Returns exit code: 0 = pass, 1 = fail.
+     * Skips all gates when commit message contains "/aiv skip".
      */
     public int run(Path workspace, String baseRef, String headRef) {
         Diff diff = diffProvider.getDiff(workspace, baseRef, headRef);
+        if (diff.isSkipRequested()) {
+            AIVResult aivResult = new AIVResult(true, List.of(new GateResult("skip", true, "Human override: /aiv skip in commit message")));
+            reportPublisher.publish(aivResult);
+            return 0;
+        }
         AIVConfig config = configProvider.getConfig(workspace);
         AIVContext context = new AIVContext(workspace, diff, config);
 

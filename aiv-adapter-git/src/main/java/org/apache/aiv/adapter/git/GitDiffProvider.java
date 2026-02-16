@@ -41,7 +41,77 @@ public final class GitDiffProvider implements DiffProvider {
     public Diff getDiff(Path workspace, String baseRef, String headRef) {
         String rawDiff = runGitDiff(workspace, baseRef, headRef);
         List<ChangedFile> files = parseChangedFiles(workspace, baseRef, headRef, rawDiff);
-        return new Diff(baseRef, headRef, files, rawDiff);
+        int[] loc = parseNumStat(workspace, baseRef, headRef);
+        String author = parseAuthor(workspace, baseRef, headRef);
+        boolean skip = parseSkipRequested(workspace, baseRef, headRef);
+        return new Diff(baseRef, headRef, files, rawDiff, loc[0], loc[1], author, skip);
+    }
+
+    private int[] parseNumStat(Path workspace, String baseRef, String headRef) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("git", "diff", "--numstat", baseRef + "..." + headRef);
+            pb.directory(workspace.toFile());
+            pb.redirectErrorStream(true);
+            Process p = pb.start();
+            int added = 0, deleted = 0;
+            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split("\\s+");
+                    if (parts.length >= 2) {
+                        added += parseNum(parts[0]);
+                        deleted += parseNum(parts[1]);
+                    }
+                }
+            }
+            return new int[]{added, deleted};
+        } catch (Exception e) {
+            return new int[]{0, 0};
+        }
+    }
+
+    private int parseNum(String s) {
+        if (s == null || s.equals("-")) return 0;
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private String parseAuthor(Path workspace, String baseRef, String headRef) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("git", "log", "-1", "--format=%ae", baseRef + ".." + headRef);
+            pb.directory(workspace.toFile());
+            pb.redirectErrorStream(true);
+            Process p = pb.start();
+            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
+                String line = reader.readLine();
+                return (line != null && !line.isBlank()) ? line.trim() : null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private boolean parseSkipRequested(Path workspace, String baseRef, String headRef) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("git", "log", "--pretty=%B", baseRef + ".." + headRef);
+            pb.directory(workspace.toFile());
+            pb.redirectErrorStream(true);
+            Process p = pb.start();
+            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains("/aiv skip") || line.contains("aiv skip")) {
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+        return false;
     }
 
     private String runGitDiff(Path workspace, String baseRef, String headRef) {

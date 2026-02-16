@@ -17,16 +17,19 @@
 
 package org.apache.aiv.plugin.design;
 
+import org.apache.aiv.model.AIVConfig;
 import org.apache.aiv.model.AIVContext;
 import org.apache.aiv.model.ChangedFile;
 import org.apache.aiv.model.GateResult;
 import org.apache.aiv.port.QualityGate;
+import org.apache.aiv.util.FileExtensions;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * Design compliance gate using Lucene BM25 + YAML rules. Checks forbidden/required patterns.
+ * Design compliance gate using YAML rules. Checks forbidden/required patterns.
+ * Supports multiple languages via configurable file extensions.
  *
  * @author Vaquar Khan
  */
@@ -42,6 +45,7 @@ public final class DesignComplianceGate implements QualityGate {
     @Override
     public GateResult evaluate(AIVContext context) {
         String rulesPath = getConfigString(context, RULES_PATH_KEY, ".aiv/design-rules.yaml");
+        Set<String> extensions = FileExtensions.fromConfig(getGateConfig(context));
         DesignRules rules = DesignRulesLoader.load(context.getWorkspace().resolve(rulesPath));
 
         if (rules == null || rules.getConstraints().isEmpty()) {
@@ -49,7 +53,7 @@ public final class DesignComplianceGate implements QualityGate {
         }
 
         for (ChangedFile file : context.getDiff().getChangedFiles()) {
-            if (!file.getPath().endsWith(".java")) {
+            if (!FileExtensions.matches(file.getPath(), extensions)) {
                 continue;
             }
             String content = file.getContent();
@@ -77,14 +81,16 @@ public final class DesignComplianceGate implements QualityGate {
         return GateResult.pass(getId());
     }
 
-    private String getConfigString(AIVContext context, String key, String defaultValue) {
+    private Map<String, Object> getGateConfig(AIVContext context) {
         return context.getConfig().getGates().stream()
                 .filter(g -> getId().equals(g.getId()))
                 .findFirst()
-                .map(g -> {
-                    Object v = g.getConfig().get(key);
-                    return v != null ? v.toString() : defaultValue;
-                })
-                .orElse(defaultValue);
+                .map(AIVConfig.GateConfig::getConfig)
+                .orElse(Map.of());
+    }
+
+    private String getConfigString(AIVContext context, String key, String defaultValue) {
+        Object v = getGateConfig(context).get(key);
+        return v != null ? v.toString() : defaultValue;
     }
 }

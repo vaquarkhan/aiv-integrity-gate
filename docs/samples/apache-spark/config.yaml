@@ -1,0 +1,24 @@
+# Sample AIV Config for Apache Spark
+#
+# Copy to your Spark fork: .aiv/config.yaml
+#
+# Author: Vaquar Khan
+
+gates:
+  - id: density
+    enabled: true
+    config:
+      ldr_threshold: 0.22
+      entropy_threshold: 3.6
+      refactor_net_loc_threshold: -50
+      trusted_authors: []
+  - id: design
+    enabled: true
+    config:
+      rules_path: .aiv/design-rules.yaml
+  - id: dependency
+    enabled: true
+    config:
+      whitelist: []
+  - id: invariant
+    enabled: true

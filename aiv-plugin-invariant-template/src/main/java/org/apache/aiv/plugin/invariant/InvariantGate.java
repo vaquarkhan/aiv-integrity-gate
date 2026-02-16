@@ -17,14 +17,18 @@
 
 package org.apache.aiv.plugin.invariant;
 
+import org.apache.aiv.model.AIVConfig;
 import org.apache.aiv.model.AIVContext;
-import org.apache.aiv.model.ChangedFile;
 import org.apache.aiv.model.GateResult;
 import org.apache.aiv.port.QualityGate;
+import org.apache.aiv.util.FileExtensions;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
- * Invariant gate using template-based property checks. For Java files, we run jqwik tests if present.
- * This gate passes by default when no invariant tests exist - actual PBT runs in the project's test phase.
+ * Invariant gate using template-based property checks. Counts source files
+ * matching configured extensions. Actual PBT runs in the project's test phase.
  *
  * @author Vaquar Khan
  */
@@ -37,12 +41,21 @@ public final class InvariantGate implements QualityGate {
 
     @Override
     public GateResult evaluate(AIVContext context) {
-        long javaFiles = context.getDiff().getChangedFiles().stream()
-                .filter(f -> f.getPath().endsWith(".java"))
+        Set<String> extensions = FileExtensions.fromConfig(getGateConfig(context));
+        long sourceFiles = context.getDiff().getChangedFiles().stream()
+                .filter(f -> FileExtensions.matches(f.getPath(), extensions))
                 .count();
-        if (javaFiles == 0) {
+        if (sourceFiles == 0) {
             return GateResult.pass(getId());
         }
         return GateResult.pass(getId());
+    }
+
+    private Map<String, Object> getGateConfig(AIVContext context) {
+        return context.getConfig().getGates().stream()
+                .filter(g -> getId().equals(g.getId()))
+                .findFirst()
+                .map(AIVConfig.GateConfig::getConfig)
+                .orElse(Map.of());
     }
 }

@@ -25,6 +25,7 @@
         <module>aiv-plugin-density</module>
         <module>aiv-plugin-design-lucene</module>
         <module>aiv-plugin-invariant-template</module>
+        <module>aiv-plugin-dependency</module>
         <module>aiv-adapter-git</module>
         <module>aiv-adapter-github</module>
         <module>aiv-cli</module>
@@ -55,6 +56,11 @@
             <dependency>
                 <groupId>org.apache.aiv</groupId>
                 <artifactId>aiv-plugin-invariant-template</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aiv</groupId>
+                <artifactId>aiv-plugin-dependency</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -30,6 +30,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.aiv</groupId>
+            <artifactId>aiv-plugin-dependency</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aiv</groupId>
             <artifactId>aiv-adapter-git</artifactId>
         </dependency>
         <dependency>

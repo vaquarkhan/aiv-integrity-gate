@@ -1,5 +1,8 @@
 # Sample AIV Design Rules for Apache Spark
 #
+# NOTE: Full sample (config + design-rules) is at docs/samples/apache-spark/
+# Copy design-rules.yaml from there. This file is kept for reference.
+#
 # Based on Spark contributing guide, SPIP process, and configuration docs.
 # Jira: https://issues.apache.org/jira/projects/SPARK
 # Contributing: https://spark.apache.org/contributing.html

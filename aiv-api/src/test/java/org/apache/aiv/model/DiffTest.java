@@ -44,4 +44,14 @@ class DiffTest {
         assertTrue(diff.getChangedFiles().isEmpty());
         assertEquals("", diff.getRawDiff());
     }
+
+    @Test
+    void extendedConstructor() {
+        var diff = new Diff("a", "b", List.of(), "", 10, 5, "dev@example.com", true);
+        assertEquals(10, diff.getLinesAdded());
+        assertEquals(5, diff.getLinesDeleted());
+        assertEquals(5, diff.getNetLoc());
+        assertEquals("dev@example.com", diff.getAuthorEmail());
+        assertTrue(diff.isSkipRequested());
+    }
 }

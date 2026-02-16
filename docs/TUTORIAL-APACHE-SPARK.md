@@ -353,7 +353,7 @@ gates:
 
 ## Sample Rules File
 
-A full sample rules file for Spark is at [samples/apache-spark-design-rules.yaml](samples/apache-spark-design-rules.yaml). Copy it to `.aiv/design-rules.yaml` in your Spark fork and adjust as needed.
+A full sample for Spark is at [samples/apache-spark/](samples/apache-spark/). Copy `config.yaml` and `design-rules.yaml` to `.aiv/` in your Spark fork and adjust as needed.
 
 ## See Also
 

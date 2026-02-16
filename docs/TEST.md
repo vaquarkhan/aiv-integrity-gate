@@ -62,6 +62,8 @@ gates:
     enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
+  - id: dependency
+    enabled: true
   - id: invariant
     enabled: true
 ```
@@ -70,6 +72,7 @@ gates:
 5. **What this does:**
    - `density` — Checks if code has enough logic (not just empty classes). `ldr_threshold: 0.25` = minimum 25% logic. `entropy_threshold: 3.8` = minimum randomness (catches copy-paste).
    - `design` — Checks your rules from `design-rules.yaml`.
+   - `dependency` — Validates Java imports against pom.xml and Python imports against requirements.txt.
    - `invariant` — Runs property-based checks.
    - To turn off a gate: change `enabled: true` to `enabled: false`.
 
@@ -285,9 +288,11 @@ Replace the "Build project" and "Run AIV" steps with:
 |----------|-----------|-----------------|
 | Unit | All JUnit tests pass | Exit 0 |
 | CLI | Run AIV on clean repo | PASS, exit 0 |
+| Skip | Commit message contains /aiv skip | PASS, exit 0 |
 | Density | Low logic density file | FAIL, exit 1 |
 | Design | Forbidden pattern in code | FAIL, exit 1 |
 | Design | Required pattern missing | FAIL, exit 1 |
+| Dependency | Unknown import in Java file | FAIL, exit 1 |
 | Config | Invalid YAML | Graceful fallback or error |
 | GitHub | PR triggers AIV job | Job runs, report visible |
 | GitHub | AIV fails on bad code | Job fails, PR blocked |
@@ -413,6 +418,20 @@ constraints:
 - Design gate fails
 - Message indicates required call missing
 - Exit code 1
+
+---
+
+### TC-06b: Skip override
+
+**Steps:**
+1. Add `/aiv skip` to a commit message in the PR (for example: `git commit -m "Fix typo /aiv skip"`).
+2. Run AIV on that branch.
+
+**Expected:**
+- All gates skipped
+- Exit code 0
+
+**Cleanup:** Revert the commit or create a new commit without the skip marker.
 
 ---
 

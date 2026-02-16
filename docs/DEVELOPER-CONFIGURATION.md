@@ -6,6 +6,22 @@ How to configure AIV for your project. All config lives under `.aiv/` in the rep
 
 ---
 
+## Pain Areas and Features
+
+| Pain Area | Feature |
+|-----------|---------|
+| Reviewer overload, low-quality PR flood | Density gate |
+| Design drift, wrong API usage | Design gate |
+| Unknown imports, supply-chain risk | Dependency gate |
+| Fragile edge-case code | Invariant gate |
+| Urgent merges | `/aiv skip` |
+| Legitimate refactors flagged | Refactor exception |
+| Core maintainer friction | Trusted authors |
+
+See [README.md](../README.md#problems-and-solutions) for the full mapping.
+
+---
+
 ## Quick Start
 
 1. Create `.aiv/config.yaml` (optional — defaults apply if missing)
@@ -63,13 +79,15 @@ gates:
     enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
+  - id: dependency
+    enabled: true
   - id: invariant
     enabled: true
 ```
 
 ### Step 4: Create `.aiv/design-rules.yaml`
 
-Create `.aiv/design-rules.yaml` with project-specific rules. Example for Iceberg:
+Create `.aiv/design-rules.yaml` with project-specific rules. A full Iceberg sample is at [samples/apache-iceberg/](samples/apache-iceberg/). Minimal example:
 
 ```yaml
 constraints:
@@ -168,6 +186,11 @@ gates:
     config:
       rules_path: .aiv/design-rules.yaml
 
+  - id: dependency
+    enabled: true
+    config:
+      whitelist: []   # optional: allow packages not in lockfile
+
   - id: invariant
     enabled: true
     config: {}
@@ -175,27 +198,67 @@ gates:
 
 ### Gate Reference
 
-| Gate ID    | Purpose                    | Config Keys           | Defaults                    |
-|------------|----------------------------|-----------------------|-----------------------------|
-| `density`  | Logic density + entropy    | `ldr_threshold`, `entropy_threshold` | 0.25, 3.8 |
-| `design`   | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
-| `invariant`| Invariant checks           | —                     | —                           |
+| Gate ID      | Purpose                    | Config Keys           | Defaults                    |
+|--------------|----------------------------|-----------------------|-----------------------------|
+| `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 3.8, -50 |
+| `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
+| `dependency` | Import vs lockfile         | `whitelist`           | —                           |
+| `invariant`  | Invariant checks           | —                     | —                           |
 
 ### Density Gate
 
-| Key                 | Type   | Description                                      | Default |
-|---------------------|--------|--------------------------------------------------|---------|
-| `ldr_threshold`     | float  | Min Logic Density Ratio (control flow vs structure) | 0.25 |
-| `entropy_threshold` | float  | Min Shannon entropy (flags boilerplate)          | 3.8     |
+| Key                       | Type   | Description                                      | Default |
+|---------------------------|--------|--------------------------------------------------|---------|
+| `ldr_threshold`           | float  | Min Logic Density Ratio (control flow vs structure) | 0.25 |
+| `entropy_threshold`       | float  | Min Shannon entropy (flags boilerplate)          | 3.8     |
+| `refactor_net_loc_threshold` | int | Skip density when net LOC <= this (e.g. -50)     | -50     |
+| `trusted_authors`         | list   | Author emails that bypass density check         | —       |
+| `file_extensions`         | list   | Extensions to validate                          | All common |
+| `languages`               | list   | Language names                                   | —       |
 
-- **LDR < threshold** → fail (too much scaffolding, too little logic)
-- **Entropy < threshold** → fail (repetitive/boilerplate code)
+- **LDR < threshold** → fail (too much scaffolding, too little logic). LDR runs for Java only.
+- **Entropy < threshold** → fail (repetitive/boilerplate code). Entropy runs for all configured extensions.
+- **Net LOC <= refactor_net_loc_threshold** → skip (refactoring intent).
+- **Author in trusted_authors** → skip.
+
+### Dependency Gate
+
+| Key         | Type   | Description                              | Default |
+|-------------|--------|------------------------------------------|---------|
+| `whitelist` | list   | Package names allowed without lockfile   | —       |
+
+Validates Java imports against `pom.xml` and Python imports against `requirements.txt` or `pyproject.toml`. Fails on unknown imports. Use `whitelist` to allow packages that are not in the lockfile (for example, JDK or standard library modules).
 
 ### Design Gate
 
-| Key          | Type   | Description              | Default                  |
-|--------------|--------|--------------------------|--------------------------|
-| `rules_path` | string | Path to design rules YAML | `.aiv/design-rules.yaml` |
+| Key               | Type   | Description                    | Default                  |
+|-------------------|--------|--------------------------------|--------------------------|
+| `rules_path`      | string | Path to design rules YAML      | `.aiv/design-rules.yaml` |
+| `file_extensions` | list   | Extensions to validate         | All common source extensions |
+| `languages`       | list   | Language names                 | —                        |
+
+### Multi-Language Support
+
+All gates support multiple languages via `file_extensions` or `languages`:
+
+```yaml
+gates:
+  - id: design
+    config:
+      rules_path: .aiv/design-rules.yaml
+      file_extensions: [".java", ".py", ".go", ".rs", ".kt"]
+  - id: density
+    config:
+      languages: [java, python, go]
+```
+
+Default extensions: `.java`, `.kt`, `.py`, `.go`, `.rs`, `.scala`, `.js`, `.ts`, `.jsx`, `.tsx`, `.c`, `.cpp`, `.h`, `.rb`, `.sh`, `.bash`
+
+Density LDR check runs for Java only; entropy runs for all configured extensions.
+
+### Human Override
+
+Add `/aiv skip` or `aiv skip` to any commit message in the PR. All gates are skipped.
 
 ### Disabling Gates
 
@@ -237,7 +300,7 @@ constraints:
     required_calls: [ExpireSnapshots]
 ```
 
-- **keywords:** Constraint applies only if file content or path contains any keyword. Empty = applies to all Java files.
+- **keywords:** Constraint applies only if file content or path contains any keyword. Empty = applies to all matched files.
 - **forbidden_calls:** Substring match in file content → fail.
 - **required_calls:** If constraint applies, file must contain all of these → fail if any missing.
 
@@ -321,7 +384,7 @@ No env vars required for default (free) mode. Config is read from `.aiv/` in the
 
 ### Too Many False Positives (Density)
 
-- Raise `ldr_threshold` (e.g. 0.2) or lower `entropy_threshold` (e.g. 3.5).
+- Lower `ldr_threshold` (e.g. 0.2) or lower `entropy_threshold` (e.g. 3.5).
 - Or disable the density gate: `enabled: false`.
 
 ### Design Rules Too Strict
@@ -344,11 +407,12 @@ AIV does not support path exclusions yet. Workaround: disable gates or adjust th
 
 When `.aiv/config.yaml` is missing:
 
-| Gate     | Enabled | Config                                      |
-|----------|---------|---------------------------------------------|
-| density  | true    | ldr_threshold: 0.25, entropy_threshold: 3.8 |
-| design   | true    | rules_path: .aiv/design-rules.yaml           |
-| invariant| true    | (none)                                      |
+| Gate      | Enabled | Config                                      |
+|-----------|---------|---------------------------------------------|
+| density   | true    | ldr_threshold: 0.25, entropy_threshold: 3.8 |
+| design    | true    | rules_path: .aiv/design-rules.yaml          |
+| dependency| true    | whitelist: []                               |
+| invariant | true    | (none)                                      |
 
 When `.aiv/design-rules.yaml` is missing or empty, the design gate passes (no constraints).
 

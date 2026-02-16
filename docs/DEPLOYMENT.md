@@ -6,6 +6,12 @@ Where the Java code goes, how to deploy it, and how to enable AIV in your projec
 
 ---
 
+## Why Enable AIV?
+
+AIV addresses common pain areas: reviewer overload (too many PRs), low-quality contributions (boilerplate, empty code), design drift (violations of project rules), wrong API usage, unknown imports, and the need to bypass checks for urgent merges or trusted authors. See [README.md](../README.md#problems-and-solutions) for the full pain-area-to-feature mapping.
+
+---
+
 ## Part 1: What "Deployment" Means Here
 
 There are **two different things** people mean by "deploy" in AIV:
@@ -23,11 +29,7 @@ There are **two different things** people mean by "deploy" in AIV:
 
 ### Picture This
 
-```mermaid
-flowchart TD
-    A[YOUR COMPUTER<br/>Write code, git push] --> B[GITHUB.COM<br/>Your repo lives here<br/>PR triggers temporary machine]
-    B --> C[GITHUB ACTIONS RUNNER<br/>Checkout code<br/>Build AIV or download JAR<br/>Run aiv-cli.jar --diff origin/main<br/>Read .aiv/config.yaml, design-rules.yaml<br/>Report pass/fail<br/>VM destroyed when done]
-```
+![Deployment flow: Your computer to GitHub to Actions runner](images/deployment-flow.png)
 
 **Summary:** Your Java code is in your repo. When a PR is opened, GitHub copies it to a temporary machine, runs AIV on it, and throws the machine away. Nothing stays "deployed" on a server.
 
@@ -85,6 +87,8 @@ gates:
     enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
+  - id: dependency
+    enabled: true
   - id: invariant
     enabled: true
 ```
@@ -238,15 +242,15 @@ jobs:
 
 | Step | Action | Done? |
 |------|--------|-------|
-| 1 | Create `.aiv` folder in repo root | ☐ |
-| 2 | Create `.aiv/config.yaml` with gate config | ☐ |
-| 3 | Create `.aiv/design-rules.yaml` with constraints | ☐ |
-| 4 | Create `.github/workflows` folder | ☐ |
-| 5 | Create `.github/workflows/aiv.yml` with workflow | ☐ |
-| 6 | `git add .aiv .github` | ☐ |
-| 7 | `git commit -m "Add AIV"` | ☐ |
-| 8 | `git push origin main` | ☐ |
-| 9 | Open a test PR and verify AIV runs | ☐ |
+| 1 | Create `.aiv` folder in repo root | |
+| 2 | Create `.aiv/config.yaml` with gate config | |
+| 3 | Create `.aiv/design-rules.yaml` with constraints | |
+| 4 | Create `.github/workflows` folder | |
+| 5 | Create `.github/workflows/aiv.yml` with workflow | |
+| 6 | `git add .aiv .github` | |
+| 7 | `git commit -m "Add AIV"` | |
+| 8 | `git push origin main` | |
+| 9 | Open a test PR and verify AIV runs | |
 
 ---
 

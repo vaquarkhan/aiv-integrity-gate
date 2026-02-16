@@ -87,6 +87,32 @@ class DensityGateTest {
         assertEquals(0, DensityGate.calculateLdr("not valid {"));
     }
 
+    @Test
+    void passesWhenRefactoringNetNegativeLoc() {
+        var gate = new DensityGate();
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.MODIFIED, "class Foo {}")),
+                "", 10, 100, null, false);
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of("refactor_net_loc_threshold", -50))),
+                Map.of());
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void passesWhenTrustedAuthor() {
+        var gate = new DensityGate();
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "aaaaaaaaaaaaaaaaaaaaaaaaaaaa")),
+                "", 1, 0, "committer@apache.org", false);
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", List.of("committer@apache.org")))),
+                Map.of());
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
     private AIVContext context(List<ChangedFile> files) {
         var diff = new Diff("main", "HEAD", files, "");
         var config = new AIVConfig(

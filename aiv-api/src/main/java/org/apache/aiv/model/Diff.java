@@ -31,12 +31,25 @@ public final class Diff {
     private final String headRef;
     private final List<ChangedFile> changedFiles;
     private final String rawDiff;
+    private final int linesAdded;
+    private final int linesDeleted;
+    private final String authorEmail;
+    private final boolean skipRequested;
 
     public Diff(String baseRef, String headRef, List<ChangedFile> changedFiles, String rawDiff) {
+        this(baseRef, headRef, changedFiles, rawDiff, 0, 0, null, false);
+    }
+
+    public Diff(String baseRef, String headRef, List<ChangedFile> changedFiles, String rawDiff,
+                int linesAdded, int linesDeleted, String authorEmail, boolean skipRequested) {
         this.baseRef = baseRef;
         this.headRef = headRef;
         this.changedFiles = changedFiles == null ? Collections.emptyList() : List.copyOf(changedFiles);
         this.rawDiff = rawDiff != null ? rawDiff : "";
+        this.linesAdded = linesAdded;
+        this.linesDeleted = linesDeleted;
+        this.authorEmail = authorEmail;
+        this.skipRequested = skipRequested;
     }
 
     public String getBaseRef() {
@@ -53,5 +66,25 @@ public final class Diff {
 
     public String getRawDiff() {
         return rawDiff;
+    }
+
+    public int getLinesAdded() {
+        return linesAdded;
+    }
+
+    public int getLinesDeleted() {
+        return linesDeleted;
+    }
+
+    public int getNetLoc() {
+        return linesAdded - linesDeleted;
+    }
+
+    public String getAuthorEmail() {
+        return authorEmail;
+    }
+
+    public boolean isSkipRequested() {
+        return skipRequested;
     }
 }

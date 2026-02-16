@@ -41,3 +41,7 @@ jacoco.exec
 *.war
 *.ear
 hs_err_pid*
+
+# Docs (internal / draft)
+docs/GAP-ANALYSIS.md
+docs/AIV-ARCHITECTURE-BRAINSTORM.md

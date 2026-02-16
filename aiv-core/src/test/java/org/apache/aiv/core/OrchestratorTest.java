@@ -63,6 +63,35 @@ class OrchestratorTest {
     }
 
     @Test
+    void skipsAllGatesWhenSkipRequested() {
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
+                return new Diff(baseRef, headRef, List.of(), "", 0, 0, null, true);
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(java.nio.file.Path workspace) {
+                return new AIVConfig(List.of(), java.util.Map.of());
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var reportPublisher = new ReportPublisher() {
+            @Override
+            public void publish(AIVResult result) {
+                results.add(result);
+            }
+        };
+        var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
+        int code = orch.run(Paths.get("."), "main", "HEAD");
+        assertEquals(0, code);
+        assertEquals(1, results.size());
+        assertTrue(results.get(0).isPassed());
+        assertTrue(results.get(0).getGateResults().stream().anyMatch(r -> "skip".equals(r.getGateId())));
+    }
+
+    @Test
     void reportPublisherIsInvoked() {
         var diffProvider = new DiffProvider() {
             @Override

@@ -21,16 +21,22 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import org.apache.aiv.model.AIVConfig;
 import org.apache.aiv.model.AIVContext;
 import org.apache.aiv.model.ChangedFile;
 import org.apache.aiv.model.GateResult;
 import org.apache.aiv.port.QualityGate;
+import org.apache.aiv.util.FileExtensions;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Logic density gate. Flags code with low ratio of control flow / transforms vs scaffolding.
+ * LDR check runs for Java only; entropy check runs for all configured languages.
+ * Skips when net LOC is negative (refactoring) or author is trusted.
  *
  * @author Vaquar Khan
  */
@@ -38,6 +44,7 @@ public final class DensityGate implements QualityGate {
 
     private static final double DEFAULT_LDR_THRESHOLD = 0.25;
     private static final double DEFAULT_ENTROPY_THRESHOLD = 3.8;
+    private static final int DEFAULT_REFACTOR_THRESHOLD = -50;
 
     @Override
     public String getId() {
@@ -46,11 +53,18 @@ public final class DensityGate implements QualityGate {
 
     @Override
     public GateResult evaluate(AIVContext context) {
+        if (isTrustedAuthor(context)) {
+            return GateResult.pass(getId());
+        }
+        if (isRefactoring(context)) {
+            return GateResult.pass(getId());
+        }
         double ldrThreshold = getThreshold(context, "ldr_threshold", DEFAULT_LDR_THRESHOLD);
         double entropyThreshold = getThreshold(context, "entropy_threshold", DEFAULT_ENTROPY_THRESHOLD);
+        Set<String> extensions = FileExtensions.fromConfig(getGateConfig(context));
 
         for (ChangedFile file : context.getDiff().getChangedFiles()) {
-            if (!file.getPath().endsWith(".java")) {
+            if (!FileExtensions.matches(file.getPath(), extensions)) {
                 continue;
             }
             String content = file.getContent();
@@ -64,13 +78,50 @@ public final class DensityGate implements QualityGate {
                         String.format("Low entropy (%.2f) in %s - possible boilerplate", entropy, file.getPath()));
             }
 
-            double ldr = calculateLdr(content);
-            if (ldr < ldrThreshold) {
-                return GateResult.fail(getId(),
-                        String.format("Low logic density (%.2f) in %s - threshold %.2f", ldr, file.getPath(), ldrThreshold));
+            if (file.getPath().toLowerCase().endsWith(".java")) {
+                double ldr = calculateLdr(content);
+                if (ldr < ldrThreshold) {
+                    return GateResult.fail(getId(),
+                            String.format("Low logic density (%.2f) in %s - threshold %.2f", ldr, file.getPath(), ldrThreshold));
+                }
             }
         }
         return GateResult.pass(getId());
+    }
+
+    private boolean isTrustedAuthor(AIVContext context) {
+        String author = context.getDiff().getAuthorEmail();
+        if (author == null || author.isBlank()) return false;
+        List<String> trusted = getTrustedAuthors(context);
+        return trusted.stream().anyMatch(t -> t.equalsIgnoreCase(author.trim()));
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<String> getTrustedAuthors(AIVContext context) {
+        Object v = getGateConfig(context).get("trusted_authors");
+        if (v instanceof List<?> list) {
+            return list.stream().filter(String.class::isInstance).map(String.class::cast).toList();
+        }
+        return List.of();
+    }
+
+    private boolean isRefactoring(AIVContext context) {
+        int threshold = getIntThreshold(context, "refactor_net_loc_threshold", DEFAULT_REFACTOR_THRESHOLD);
+        return context.getDiff().getNetLoc() <= threshold;
+    }
+
+    private int getIntThreshold(AIVContext context, String key, int defaultValue) {
+        Object v = getGateConfig(context).get(key);
+        if (v instanceof Number n) return n.intValue();
+        return defaultValue;
+    }
+
+    private Map<String, Object> getGateConfig(AIVContext context) {
+        return context.getConfig().getGates().stream()
+                .filter(g -> getId().equals(g.getId()))
+                .findFirst()
+                .map(AIVConfig.GateConfig::getConfig)
+                .orElse(Map.of());
     }
 
     private double getThreshold(AIVContext context, String key, double defaultValue) {

@@ -79,10 +79,36 @@ class DesignComplianceGateTest {
         assertTrue(r.isPassed());
     }
 
+    @Test
+    void validatesPythonWhenInExtensions(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: no-eval
+                keywords: []
+                forbidden_calls: [eval(]
+                required_calls: []
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = contextWithExtensions(dir, List.of(new ChangedFile("main.py", ChangedFile.ChangeType.ADDED, "x = eval('1+1')")), ".aiv/design-rules.yaml", List.of(".java", ".py"));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+    }
+
     private AIVContext context(Path workspace, List<ChangedFile> files, String rulesPath) {
         var diff = new Diff("main", "HEAD", files, "");
         var config = new AIVConfig(
                 List.of(new AIVConfig.GateConfig("design", true, Map.of("rules_path", rulesPath))),
+                Map.of()
+        );
+        return new AIVContext(workspace.toAbsolutePath(), diff, config);
+    }
+
+    private AIVContext contextWithExtensions(Path workspace, List<ChangedFile> files, String rulesPath, List<String> extensions) {
+        var diff = new Diff("main", "HEAD", files, "");
+        var gateConfig = Map.<String, Object>of("rules_path", rulesPath, "file_extensions", extensions);
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("design", true, gateConfig)),
                 Map.of()
         );
         return new AIVContext(workspace.toAbsolutePath(), diff, config);

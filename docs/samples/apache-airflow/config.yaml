@@ -1,0 +1,28 @@
+# Sample AIV Config for Apache Airflow
+#
+# Copy to your Airflow fork: .aiv/config.yaml
+#
+# Airflow is Python; density runs entropy checks. Design and dependency apply to .py files.
+#
+# Author: Vaquar Khan
+
+gates:
+  - id: density
+    enabled: true
+    config:
+      ldr_threshold: 0.25
+      entropy_threshold: 3.8
+      refactor_net_loc_threshold: -50
+      trusted_authors: []
+      file_extensions: [".py"]
+  - id: design
+    enabled: true
+    config:
+      rules_path: .aiv/design-rules.yaml
+      file_extensions: [".py"]
+  - id: dependency
+    enabled: true
+    config:
+      whitelist: []
+  - id: invariant
+    enabled: true

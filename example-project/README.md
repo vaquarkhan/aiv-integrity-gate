@@ -1,17 +1,12 @@
 # AIV Example Project
 
-Example project showing how AIV (Automated Integrity Validation) works with Git flow. Easy to understand.
+A minimal project that shows how AIV works with Git flow. Use it to see what passes and what fails.
 
 **Author:** Vaquar Khan
 
 ---
 
-## How It Works (Simple)
-
-```mermaid
-flowchart LR
-    A[You push code] --> B[GitHub runs AIV] --> C[Pass = green / Fail = red]
-```
+## How It Works
 
 1. You run `git push` or open a Pull Request.
 2. GitHub Actions starts a temporary machine.
@@ -20,19 +15,16 @@ flowchart LR
 
 ---
 
-## Where the Java Code Goes (Git Flow)
+## Where the Code Runs
 
-AIV does **not** deploy to a server. It runs on **GitHub's machines** when you push.
+AIV does not deploy to a server. It runs on GitHub's machines when you push.
 
-```mermaid
-flowchart TD
-    A[YOUR COMPUTER<br/>example-project/<br/>git add, commit, push] --> B[GITHUB.COM<br/>vaquarkhan/aiv-integrity-gate<br/>Push triggers aiv.yml]
-    B --> C[GITHUB ACTIONS RUNNER<br/>1. Checkout code<br/>2. Build AIV: mvn package -pl aiv-cli<br/>3. Run aiv-cli.jar --diff base --head HEAD<br/>4. Read .aiv/config.yaml, design-rules.yaml<br/>5. Check density, design, invariants<br/>6. Exit 0=PASS, Exit 1=FAIL]
-    C --> D[PASS Green]
-    C --> E[FAIL Red X]
-```
+1. You push from your computer to GitHub.
+2. GitHub runs the workflow defined in `.github/workflows/aiv.yml`.
+3. The workflow checks out the code, builds AIV, runs the CLI on the diff, and reports pass or fail.
+4. The temporary machine is destroyed when the run finishes.
 
-**Summary:** Your Java code stays in the GitHub repo. When you push, GitHub runs AIV on a temporary VM. No long-running server.
+Your Java code stays in the GitHub repo. When you push, GitHub runs AIV on a temporary VM. No long-running server.
 
 ---
 
@@ -40,14 +32,14 @@ flowchart TD
 
 | Scenario | What you push | AIV result |
 |----------|---------------|------------|
-| **PASS** | Good code (Calculator, App) | Green check |
-| **FAIL** | Code with `System.exit` | Red X — design rule violated |
+| Pass | Good code (Calculator, App) | Green check |
+| Fail | Code with `System.exit` | Red X — design rule violated |
 
-**Design rule in `.aiv/design-rules.yaml`:** Forbids `System.exit`. If your code contains it, AIV fails.
+The design rule in `.aiv/design-rules.yaml` forbids `System.exit`. If your code contains it, AIV fails.
 
 ---
 
-## Validate (Links)
+## Validate
 
 | Link | What you see |
 |------|--------------|
@@ -64,7 +56,7 @@ From the parent `aiv-gate` repo root:
 # Windows
 scripts\validate-example.bat
 
-# Linux/Mac
+# Linux or Mac
 ./scripts/validate-example.sh
 ```
 
@@ -83,14 +75,14 @@ java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace /path/to/aiv-gate --diff origin
 ```
 example-project/
 ├── .aiv/
-│   ├── config.yaml          ← Gate settings (density, design, invariant)
-│   └── design-rules.yaml    ← Forbidden: System.exit, Serializable
+│   ├── config.yaml          Gate settings (density, design, invariant)
+│   └── design-rules.yaml    Forbidden: System.exit, Serializable
 ├── .github/workflows/
-│   └── aiv.yml              ← Runs AIV on push and PR
+│   └── aiv.yml              Runs AIV on push and PR
 ├── src/main/java/com/example/
 │   ├── App.java
 │   ├── Calculator.java
-│   └── BadExample.java      ← Contains System.exit → FAIL
+│   └── BadExample.java      Contains System.exit, so AIV fails
 ├── pom.xml
 └── README.md (this file)
 ```
