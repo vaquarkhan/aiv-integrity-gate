@@ -6,6 +6,9 @@ on:
 jobs:
   aiv:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,7 +26,70 @@ jobs:
           mvn clean package -DskipTests -B -q
 
       - name: Run AIV
+        id: aiv
         run: |
           java -jar aiv-src/aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar \
             --workspace ${{ github.workspace }} \
-            --diff origin/${{ github.base_ref }}
+            --diff origin/${{ github.base_ref }} 2>&1 | tee aiv-report.txt
+          echo "exitcode=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Post AIV report to PR
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const reportPath = path.join(process.env.GITHUB_WORKSPACE, 'aiv-report.txt');
+            let raw = fs.existsSync(reportPath) ? fs.readFileSync(reportPath, 'utf8') : 'Report not available.';
+
+            const overallMatch = raw.match(/Overall:\s*(PASS|FAIL)/i);
+            const overall = overallMatch ? overallMatch[1].toUpperCase() : 'UNKNOWN';
+            const isPass = overall === 'PASS';
+
+            const violations = [];
+            const failRe = /^\s*(\w+):\s*FAIL\s*-\s*(.+)$/gm;
+            let m;
+            while ((m = failRe.exec(raw)) !== null) {
+              violations.push({ gate: m[1], msg: m[2].trim() });
+            }
+
+            let body = `## AIV Report\n\n`;
+            body += `**Status:** ${isPass ? 'PASS' : 'FAIL'}\n\n`;
+            if (violations.length > 0) {
+              body += `**Violations:**\n`;
+              violations.forEach(v => { body += `- **${v.gate}:** ${v.msg}\n`; });
+              body += `\n`;
+            }
+            body += `<details><summary>Full report</summary>\n\n\`\`\`\n${raw}\n\`\`\`\n</details>`;
+
+            const prNumber = context.payload.pull_request.number;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber
+            });
+            const aivComment = comments.find(c => c.user.type === 'Bot' && c.body.startsWith('## AIV Report'));
+
+            if (aivComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: aivComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: body
+              });
+            }
+
+      - name: Fail if AIV failed
+        run: |
+          if [ "${{ steps.aiv.outputs.exitcode }}" != "0" ]; then
+            exit 1
+          fi

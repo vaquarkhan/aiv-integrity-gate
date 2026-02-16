@@ -20,12 +20,14 @@ package org.apache.aiv.core;
 import org.apache.aiv.model.AIVConfig;
 import org.apache.aiv.model.AIVContext;
 import org.apache.aiv.model.AIVResult;
+import org.apache.aiv.model.ChangedFile;
 import org.apache.aiv.model.Diff;
 import org.apache.aiv.model.GateResult;
 import org.apache.aiv.port.ConfigProvider;
 import org.apache.aiv.port.DiffProvider;
 import org.apache.aiv.port.QualityGate;
 import org.apache.aiv.port.ReportPublisher;
+import org.apache.aiv.util.PathFilter;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -62,7 +64,12 @@ public final class Orchestrator {
             return 0;
         }
         AIVConfig config = configProvider.getConfig(workspace);
-        AIVContext context = new AIVContext(workspace, diff, config);
+        List<ChangedFile> filtered = diff.getChangedFiles().stream()
+                .filter(f -> !PathFilter.isExcluded(f.getPath(), config.getExcludePaths()))
+                .collect(Collectors.toList());
+        Diff filteredDiff = new Diff(diff.getBaseRef(), diff.getHeadRef(), filtered, diff.getRawDiff(),
+                diff.getLinesAdded(), diff.getLinesDeleted(), diff.getAuthorEmail(), diff.isSkipRequested());
+        AIVContext context = new AIVContext(workspace, filteredDiff, config);
 
         List<QualityGate> gates = loadGates();
         List<GateResult> results = new ArrayList<>();

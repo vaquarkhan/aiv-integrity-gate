@@ -20,6 +20,7 @@ package org.apache.aiv.model;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Configuration for AIV gates. Loaded from .aiv/config.yaml.
@@ -42,6 +43,22 @@ public final class AIVConfig {
 
     public Map<String, Object> getGlobalConfig() {
         return globalConfig;
+    }
+
+    /**
+     * Returns path patterns to exclude from validation (e.g. "**/generated/**", "**/*.pb.java").
+     */
+    @SuppressWarnings("unchecked")
+    public List<String> getExcludePaths() {
+        Object val = globalConfig.get("exclude_paths");
+        if (val instanceof List) {
+            return ((List<?>) val).stream()
+                    .filter(o -> o != null)
+                    .map(Object::toString)
+                    .filter(s -> !s.isBlank())
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
     }
 
     public static final class GateConfig {

@@ -6,6 +6,16 @@ Features and capabilities not yet supported in the AIV project. This document li
 
 ---
 
+## Recently Added
+
+| Feature | Status |
+|---------|--------|
+| Assignment Gate | Implemented. Workflow assigns PR author to linked issues when AIV passes. See [ASSIGNMENT-GATE.md](ASSIGNMENT-GATE.md). |
+| GitHub PR comment | Implemented. AIV report posted as PR comment (pass/fail, gate results). |
+| Path exclusions | Implemented. Config `exclude_paths` with glob patterns (e.g. `**/generated/**`). |
+
+---
+
 ## Summary: What Is Not Supported Yet
 
 | Category | Item | Status |
@@ -13,10 +23,10 @@ Features and capabilities not yet supported in the AIV project. This document li
 | Design validation | RAG-based semantic validation against design docs | Not implemented |
 | Invariant gate | Property-based test synthesis and execution | Placeholder only |
 | Legal | Snippet match / tainted code detection | Not implemented |
-| Configuration | Path exclusions (skip certain files or directories) | Not implemented |
+| Configuration | Path exclusions (skip certain files or directories) | Implemented |
 | Output | JUnit XML report | Not implemented |
 | Output | JSON report | Not implemented |
-| Output | GitHub PR comment | Not implemented |
+| Output | GitHub PR comment | Implemented |
 | Deployment | Docker image (`apache/aiv-gate`) | Not implemented |
 | CI | Reusable workflow (`apache/infrastructure-actions`) | Not implemented |
 | CI | GitHub App (webhook-based, no CI config) | Not implemented |
