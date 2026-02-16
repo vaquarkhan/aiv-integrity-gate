@@ -39,12 +39,16 @@ mvn -pl aiv-cli exec:java -Dexec.args="--diff origin/main"
 
 ## Example Project
 
-The [example-project/](example-project/) folder contains a minimal Java project with AIV configured. Validate AIV locally:
+The [example-project/](example-project/) folder shows how AIV works with Git flow. See [docs/EXAMPLE-WORKFLOW.md](docs/EXAMPLE-WORKFLOW.md) for where the Java code runs and pass/fail examples.
+
+Validate locally:
 
 ```bash
 scripts\validate-example.bat   # Windows
-./scripts/validate-example.sh # Linux/Mac
+./scripts/validate-example.sh  # Linux/Mac
 ```
+
+Validate on GitHub: [Actions](https://github.com/vaquarkhan/aiv-integrity-gate/actions) | [Commits](https://github.com/vaquarkhan/aiv-integrity-gate/commits/main)
 
 ## Tutorial
 

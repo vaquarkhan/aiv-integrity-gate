@@ -29,6 +29,122 @@ your-project/
 
 ---
 
+## Adding AIV to an Existing Project (e.g. Apache Iceberg)
+
+Step-by-step guide to enable AIV in any Git repo. No deployment — AIV is cloned and built by the workflow at runtime.
+
+### Step 1: Clone the target repo
+
+```bash
+git clone https://github.com/apache/iceberg.git
+cd iceberg
+```
+
+Or fork on GitHub and clone your fork.
+
+### Step 2: Create the `.aiv` folder
+
+```bash
+mkdir .aiv
+```
+
+### Step 3: Create `.aiv/config.yaml`
+
+Create `.aiv/config.yaml` with:
+
+```yaml
+gates:
+  - id: density
+    enabled: true
+    config:
+      ldr_threshold: 0.25
+      entropy_threshold: 3.8
+  - id: design
+    enabled: true
+    config:
+      rules_path: .aiv/design-rules.yaml
+  - id: invariant
+    enabled: true
+```
+
+### Step 4: Create `.aiv/design-rules.yaml`
+
+Create `.aiv/design-rules.yaml` with project-specific rules. Example for Iceberg:
+
+```yaml
+constraints:
+  - id: snapshot-expiration
+    keywords: [ExpireSnapshots, expireSnapshots]
+    forbidden_calls: [table.removeSnapshots]
+    required_calls: [ExpireSnapshots]
+```
+
+### Step 5: Create `.github/workflows/aiv.yml`
+
+Create `.github/workflows/` if it does not exist, then create `aiv.yml`:
+
+```yaml
+name: AIV Gate
+on:
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  aiv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Clone and build AIV
+        run: |
+          git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-src
+          cd aiv-src
+          mvn package -DskipTests -B -q -pl aiv-cli -am
+
+      - name: Run AIV
+        run: |
+          java -jar aiv-src/aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar \
+            --workspace ${{ github.workspace }} \
+            --diff origin/${{ github.base_ref }}
+```
+
+**Note:** If your main branch is not `main` or `master`, change the `branches` line (e.g. `branches: [develop]`).
+
+### Step 6: Commit and push
+
+```bash
+git add .aiv .github
+git commit -m "Add AIV gate for code validation"
+git push origin main
+```
+
+### Step 7: Verify
+
+1. Open a pull request to your fork (or upstream if you have access).
+2. The **AIV Gate** workflow runs automatically.
+3. Check the **Actions** tab for the run. Green = pass, red = fail.
+
+### Summary
+
+| Step | Action |
+|------|--------|
+| 1 | Clone the target repo |
+| 2 | `mkdir .aiv` |
+| 3 | Create `.aiv/config.yaml` |
+| 4 | Create `.aiv/design-rules.yaml` |
+| 5 | Create `.github/workflows/aiv.yml` |
+| 6 | `git add`, `commit`, `push` |
+| 7 | Open a PR and verify AIV runs |
+
+---
+
 ## 1. config.yaml
 
 **Path:** `.aiv/config.yaml`
@@ -247,3 +363,4 @@ Config is loaded at runtime. Invalid YAML or unknown keys are ignored; AIV falls
 ## See Also
 
 - [TUTORIAL.md](TUTORIAL.md) — Step-by-step guide with examples and testing
+- [EXAMPLE-WORKFLOW.md](EXAMPLE-WORKFLOW.md) — How AIV works with Git flow

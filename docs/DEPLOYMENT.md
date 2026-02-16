@@ -23,30 +23,10 @@ There are **two different things** people mean by "deploy" in AIV:
 
 ### Picture This
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  YOUR COMPUTER                                                   │
-│  - You write code                                                │
-│  - You run: git push                                             │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  GITHUB.COM (GitHub's servers)                                   │
-│  - Your repo lives here                                         │
-│  - When someone opens a PR, GitHub starts a temporary machine   │
-└──────────────────────────┬──────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  GITHUB ACTIONS RUNNER (temporary VM)                             │
-│  - GitHub checks out your code here                              │
-│  - Runs: mvn package (or downloads AIV JAR)                      │
-│  - Runs: java -jar aiv-cli.jar --diff origin/main                │
-│  - AIV reads .aiv/config.yaml and .aiv/design-rules.yaml         │
-│  - Reports pass/fail on the PR                                   │
-│  - VM is destroyed when done                                     │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    A[YOUR COMPUTER<br/>Write code, git push] --> B[GITHUB.COM<br/>Your repo lives here<br/>PR triggers temporary machine]
+    B --> C[GITHUB ACTIONS RUNNER<br/>Checkout code<br/>Build AIV or download JAR<br/>Run aiv-cli.jar --diff origin/main<br/>Read .aiv/config.yaml, design-rules.yaml<br/>Report pass/fail<br/>VM destroyed when done]
 ```
 
 **Summary:** Your Java code is in your repo. When a PR is opened, GitHub copies it to a temporary machine, runs AIV on it, and throws the machine away. Nothing stays "deployed" on a server.
