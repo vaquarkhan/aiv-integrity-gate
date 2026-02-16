@@ -1,3 +1,8 @@
+# Optional: skip generated code, protobuf files, etc.
+# exclude_paths:
+#   - "**/generated/**"
+#   - "**/*.pb.java"
+
 gates:
   - id: density
     enabled: true

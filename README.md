@@ -19,6 +19,7 @@ AIV runs on pull request diffs and checks code before it reaches human reviewers
 | Urgent merges | Need to bypass checks for hotfix or emergency | `/aiv skip` in commit message skips all gates |
 | Refactors flagged | Legitimate refactors remove more lines than they add; density gate would fail | Refactor exception: density skips when net lines <= threshold (default -50) |
 | Core maintainer friction | Trusted committers get unnecessary density failures | Trusted authors bypass density check |
+| Issue squatting | Contributors get assigned, then ghost or submit low-quality code | Assignment Gate: assign only after PR passes AIV |
 
 ---
 
@@ -118,6 +119,7 @@ Copy the config and design-rules files into your project's `.aiv/` folder and ad
 | [TUTORIAL-APACHE-SPARK.md](docs/TUTORIAL-APACHE-SPARK.md) | Apache Spark walkthrough |
 | [TUTORIAL-APACHE-ICEBERG.md](docs/TUTORIAL-APACHE-ICEBERG.md) | Apache Iceberg walkthrough |
 | [TUTORIAL-APACHE-AIRFLOW.md](docs/TUTORIAL-APACHE-AIRFLOW.md) | Apache Airflow walkthrough |
+| [ASSIGNMENT-GATE.md](docs/ASSIGNMENT-GATE.md) | Proof of Work: assign only after AIV passes |
 
 ---
 
@@ -126,6 +128,11 @@ Copy the config and design-rules files into your project's `.aiv/` folder and ad
 Create `.aiv/config.yaml`:
 
 ```yaml
+# Optional: skip generated paths
+# exclude_paths:
+#   - "**/generated/**"
+#   - "**/*.pb.java"
+
 gates:
   - id: density
     enabled: true

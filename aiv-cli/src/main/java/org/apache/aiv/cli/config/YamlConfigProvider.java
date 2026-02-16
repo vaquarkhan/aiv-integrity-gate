@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,8 +51,12 @@ public final class YamlConfigProvider implements ConfigProvider {
             }
             List<AIVConfig.GateConfig> gates = parseGates(root);
             @SuppressWarnings("unchecked")
-            Map<String, Object> global = (Map<String, Object>) root.getOrDefault("global", Collections.emptyMap());
-            return new AIVConfig(gates, global);
+            Map<String, Object> global = new HashMap<>(
+                    (Map<String, Object>) root.getOrDefault("global", Collections.emptyMap()));
+            if (root.containsKey("exclude_paths") && !global.containsKey("exclude_paths")) {
+                global.put("exclude_paths", root.get("exclude_paths"));
+            }
+            return new AIVConfig(gates, Collections.unmodifiableMap(global));
         } catch (Exception e) {
             return defaultConfig();
         }

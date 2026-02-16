@@ -397,9 +397,28 @@ No env vars required for default (free) mode. Config is read from `.aiv/` in the
 - Add more `forbidden_calls` for known bad patterns.
 - Use empty `keywords` to apply constraints to all Java files.
 
-### Skip AIV for Certain Paths
+### Path Exclusions
 
-AIV does not support path exclusions yet. Workaround: disable gates or adjust thresholds.
+Skip generated code, vendored dependencies, or other paths:
+
+```yaml
+# .aiv/config.yaml
+exclude_paths:
+  - "**/generated/**"
+  - "**/target/**"
+  - "**/*.pb.java"
+  - "**/vendor/**"
+
+gates:
+  - id: density
+    enabled: true
+  # ...
+```
+
+Glob patterns use Java PathMatcher syntax. Common patterns:
+- `**/generated/**` — any path containing `generated/`
+- `**/*.pb.java` — protobuf-generated Java files
+- `**/vendor/**` — vendored dependencies
 
 ---
 
