@@ -1,6 +1,6 @@
 # AIV Gate - Automated Integrity Validation
 
-Technical gate for code integrity validation in Apache projects. Catches logic density issues, design violations, and supports property-based invariant checks.
+Technical gate for code integrity validation in Apache projects. Validates logic density, design compliance, and invariants. Catches logic density issues, design violations, and supports property-based invariant checks.
 
 AIV (Automated Integrity Validation) is a technical gate for Apache and open source projects. It runs on pull request diffs to catch logic density issues, design rule violations, and low-quality code patterns before human review. No API keys required in default mode.
 
