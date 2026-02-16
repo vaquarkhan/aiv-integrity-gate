@@ -1,0 +1,36 @@
+name: AIV Gate
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  aiv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Build AIV
+        run: mvn package -DskipTests -B -q -pl aiv-cli -am
+
+      - name: Run AIV
+        run: |
+          cd aiv-cli/target
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }}
+          else
+            BASE="${{ github.event.before }}"
+            if [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+              echo "Initial push, skipping AIV"
+              exit 0
+            fi
+            java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD
+          fi
