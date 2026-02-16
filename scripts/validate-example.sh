@@ -1,7 +1,9 @@
 #!/bin/bash
 # Validate AIV by running it on the example project
 set -e
-cd "$(dirname "$0")/.."
-mvn clean package -DskipTests -B -q
-echo "Running AIV on example-project..."
-java -jar aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar --workspace . --diff origin/main
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+mvn package -DskipTests -B -q -pl aiv-cli -am
+echo "Running AIV..."
+cd aiv-cli/target
+java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace "$ROOT" --diff origin/main

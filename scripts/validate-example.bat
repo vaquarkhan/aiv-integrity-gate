@@ -1,5 +1,7 @@
 @echo off
 cd /d "%~dp0\.."
-call mvn clean package -DskipTests -B -q
-echo Running AIV on example-project...
-java -jar aiv-cli\target\aiv-cli-1.0.0-SNAPSHOT.jar --workspace . --diff origin/main
+set ROOT=%cd%
+call mvn package -DskipTests -B -q -pl aiv-cli -am
+echo Running AIV...
+cd aiv-cli\target
+java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace "%ROOT%" --diff origin/main

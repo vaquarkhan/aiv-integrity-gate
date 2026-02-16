@@ -4,3 +4,7 @@ constraints:
     keywords: [ExpireSnapshots, expireSnapshots]
     forbidden_calls: [table.removeSnapshots]
     required_calls: [ExpireSnapshots]
+  - id: no-system-exit
+    keywords: []
+    forbidden_calls: [System.exit]
+    required_calls: []

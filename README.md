@@ -37,6 +37,15 @@ Or via Maven:
 mvn -pl aiv-cli exec:java -Dexec.args="--diff origin/main"
 ```
 
+## Example Project
+
+The [example-project/](example-project/) folder contains a minimal Java project with AIV configured. Validate AIV locally:
+
+```bash
+scripts\validate-example.bat   # Windows
+./scripts/validate-example.sh # Linux/Mac
+```
+
 ## Tutorial
 
 - **[docs/TUTORIAL.md](docs/TUTORIAL.md)** — Step-by-step guide: what AIV does, how it works, free vs. paid config, and how to test
