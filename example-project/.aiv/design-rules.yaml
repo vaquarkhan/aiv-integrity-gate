@@ -1,0 +1,11 @@
+constraints:
+  - id: no-system-exit
+    keywords: []
+    forbidden_calls:
+      - System.exit
+    required_calls: []
+  - id: no-serialization
+    keywords: []
+    forbidden_calls:
+      - implements Serializable
+    required_calls: []

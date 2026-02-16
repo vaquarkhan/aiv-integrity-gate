@@ -1,0 +1,12 @@
+gates:
+  - id: density
+    enabled: true
+    config:
+      ldr_threshold: 0.25
+      entropy_threshold: 3.8
+  - id: design
+    enabled: true
+    config:
+      rules_path: .aiv/design-rules.yaml
+  - id: invariant
+    enabled: true

@@ -1,0 +1,29 @@
+name: AIV Gate
+on:
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  aiv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Clone and build AIV
+        run: |
+          git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-src
+          cd aiv-src
+          mvn clean package -DskipTests -B -q
+
+      - name: Run AIV
+        run: |
+          java -jar aiv-src/aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar \
+            --workspace ${{ github.workspace }} \
+            --diff origin/${{ github.base_ref }}
