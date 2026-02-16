@@ -1,0 +1,6 @@
+# Design constraints - forbidden and required patterns
+constraints:
+  - id: snapshot-expiration
+    keywords: [ExpireSnapshots, expireSnapshots]
+    forbidden_calls: [table.removeSnapshots]
+    required_calls: [ExpireSnapshots]
