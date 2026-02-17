@@ -19,6 +19,8 @@ package org.apache.aiv.core;
 
 import org.apache.aiv.model.AIVConfig;
 import org.apache.aiv.model.AIVContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.aiv.model.AIVResult;
 import org.apache.aiv.model.ChangedFile;
 import org.apache.aiv.model.Diff;
@@ -42,6 +44,7 @@ import java.util.stream.Collectors;
  */
 public final class Orchestrator {
 
+    private static final Logger log = LoggerFactory.getLogger(Orchestrator.class);
     private final DiffProvider diffProvider;
     private final ConfigProvider configProvider;
     private final ReportPublisher reportPublisher;
@@ -59,6 +62,7 @@ public final class Orchestrator {
     public int run(Path workspace, String baseRef, String headRef) {
         Diff diff = diffProvider.getDiff(workspace, baseRef, headRef);
         if (diff.isSkipRequested()) {
+            log.info("Skipping gates: /aiv skip found in commit message");
             AIVResult aivResult = new AIVResult(true, List.of(new GateResult("skip", true, "Human override: /aiv skip in commit message")));
             reportPublisher.publish(aivResult);
             return 0;
@@ -67,6 +71,9 @@ public final class Orchestrator {
         List<ChangedFile> filtered = diff.getChangedFiles().stream()
                 .filter(f -> !PathFilter.isExcluded(f.getPath(), config.getExcludePaths()))
                 .collect(Collectors.toList());
+        if (filtered.size() < diff.getChangedFiles().size()) {
+            log.debug("Excluded {} paths from validation", diff.getChangedFiles().size() - filtered.size());
+        }
         Diff filteredDiff = new Diff(diff.getBaseRef(), diff.getHeadRef(), filtered, diff.getRawDiff(),
                 diff.getLinesAdded(), diff.getLinesDeleted(), diff.getAuthorEmail(), diff.isSkipRequested());
         AIVContext context = new AIVContext(workspace, filteredDiff, config);
@@ -82,6 +89,7 @@ public final class Orchestrator {
             GateResult result = gate.evaluate(context);
             results.add(result);
             if (!result.isPassed()) {
+                log.info("Gate {} failed: {}", gate.getId(), result.getMessage());
                 overallPassed = false;
                 break;
             }

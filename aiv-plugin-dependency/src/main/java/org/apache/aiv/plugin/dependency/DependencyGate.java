@@ -143,7 +143,9 @@ public final class DependencyGate implements QualityGate {
             String groupId = extractGroupId(xml);
             if (groupId != null) allowed.add(groupId);
             for (String gav : extractDependencies(xml)) {
-                String g = gav.split(":")[0];
+                String[] parts = gav.split(":");
+                if (parts.length == 0) continue;
+                String g = parts[0];
                 if (g != null && !g.isEmpty()) allowed.add(g);
             }
         } catch (Exception e) {

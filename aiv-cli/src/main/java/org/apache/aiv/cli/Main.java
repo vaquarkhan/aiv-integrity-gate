@@ -21,6 +21,8 @@ import org.apache.aiv.adapter.git.GitDiffProvider;
 import org.apache.aiv.adapter.github.StdoutReportPublisher;
 import org.apache.aiv.cli.config.YamlConfigProvider;
 import org.apache.aiv.core.Orchestrator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,6 +33,8 @@ import java.nio.file.Paths;
  * @author Vaquar Khan
  */
 public final class Main {
+
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         System.exit(run(args));
@@ -51,11 +55,15 @@ public final class Main {
             }
         }
 
-        var diffProvider = new GitDiffProvider();
-        var configProvider = new YamlConfigProvider();
-        var reportPublisher = new StdoutReportPublisher();
-        var orchestrator = new Orchestrator(diffProvider, configProvider, reportPublisher);
-
-        return orchestrator.run(workspace, baseRef, headRef);
+        try {
+            var diffProvider = new GitDiffProvider();
+            var configProvider = new YamlConfigProvider();
+            var reportPublisher = new StdoutReportPublisher();
+            var orchestrator = new Orchestrator(diffProvider, configProvider, reportPublisher);
+            return orchestrator.run(workspace, baseRef, headRef);
+        } catch (IllegalArgumentException e) {
+            log.error("AIV error: {}", e.getMessage());
+            return 1;
+        }
     }
 }

@@ -20,13 +20,17 @@ package org.apache.aiv.adapter.github;
 import org.apache.aiv.model.AIVResult;
 import org.apache.aiv.model.GateResult;
 import org.apache.aiv.port.ReportPublisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Publishes AIV result to stdout. CI can capture this for logs.
+ * Publishes AIV result via logging. CI captures from log output.
  *
  * @author Vaquar Khan
  */
 public final class StdoutReportPublisher implements ReportPublisher {
+
+    private static final Logger log = LoggerFactory.getLogger(StdoutReportPublisher.class);
 
     @Override
     public void publish(AIVResult result) {
@@ -42,6 +46,6 @@ public final class StdoutReportPublisher implements ReportPublisher {
             sb.append("\n");
         }
         sb.append("==================\n");
-        System.out.print(sb);
+        log.info(sb.toString());
     }
 }

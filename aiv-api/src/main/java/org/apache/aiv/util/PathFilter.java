@@ -49,13 +49,14 @@ public final class PathFilter {
                     return true;
                 }
             } catch (Exception e) {
-                // Fallback: simple contains/endsWith for common patterns
-                if (pattern.contains("**")) {
-                    String simple = pattern.replace("**/", "").replace("/**", "");
-                    if (normalized.contains(simple)) return true;
-                } else if (normalized.endsWith(pattern) || normalized.contains(pattern)) {
-                    return true;
-                }
+                // fall through to simple fallback
+            }
+            // Fallback: simple contains (handles Windows path matcher quirks)
+            if (pattern.contains("**")) {
+                String segment = pattern.replace("**/", "").replace("/**", "").replace("**", "");
+                if (!segment.isEmpty() && normalized.contains(segment)) return true;
+            } else if (normalized.endsWith(pattern) || normalized.contains(pattern)) {
+                return true;
             }
         }
         return false;

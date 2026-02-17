@@ -19,7 +19,9 @@ package org.apache.aiv.cli.config;
 
 import org.apache.aiv.model.AIVConfig;
 import org.apache.aiv.port.ConfigProvider;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -44,7 +46,7 @@ public final class YamlConfigProvider implements ConfigProvider {
         }
         try {
             String content = Files.readString(configPath);
-            Yaml yaml = new Yaml();
+            Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
             Map<String, Object> root = yaml.load(content);
             if (root == null) {
                 return defaultConfig();
@@ -58,7 +60,7 @@ public final class YamlConfigProvider implements ConfigProvider {
             }
             return new AIVConfig(gates, Collections.unmodifiableMap(global));
         } catch (Exception e) {
-            return defaultConfig();
+            throw new IllegalArgumentException("Invalid config at .aiv/config.yaml: " + e.getMessage(), e);
         }
     }
 

@@ -17,12 +17,16 @@
 
 package org.apache.aiv.adapter.github;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import org.apache.aiv.model.AIVResult;
 import org.apache.aiv.model.GateResult;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,37 +36,38 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class StdoutReportPublisherTest {
 
+    private ListAppender<ILoggingEvent> listAppender;
+
+    @BeforeEach
+    void attachListAppender() {
+        Logger logger = (Logger) LoggerFactory.getLogger(StdoutReportPublisher.class);
+        listAppender = new ListAppender<>();
+        listAppender.start();
+        logger.addAppender(listAppender);
+        logger.setLevel(Level.INFO);
+    }
+
     @Test
-    void publishWritesToStdout() {
-        var out = new ByteArrayOutputStream();
-        var prev = System.out;
-        System.setOut(new PrintStream(out));
-        try {
-            var publisher = new StdoutReportPublisher();
-            var result = new AIVResult(true, List.of(GateResult.pass("density")));
-            publisher.publish(result);
-            String output = out.toString();
-            assertTrue(output.contains("PASS"));
-            assertTrue(output.contains("density"));
-        } finally {
-            System.setOut(prev);
-        }
+    void publishLogsReport() {
+        var publisher = new StdoutReportPublisher();
+        var result = new AIVResult(true, List.of(GateResult.pass("density")));
+        publisher.publish(result);
+        String output = listAppender.list.stream()
+                .map(ILoggingEvent::getFormattedMessage)
+                .reduce("", (a, b) -> a + b);
+        assertTrue(output.contains("PASS"));
+        assertTrue(output.contains("density"));
     }
 
     @Test
     void publishShowsFailWhenNotPassed() {
-        var out = new ByteArrayOutputStream();
-        var prev = System.out;
-        System.setOut(new PrintStream(out));
-        try {
-            var publisher = new StdoutReportPublisher();
-            var result = new AIVResult(false, List.of(GateResult.fail("design", "forbidden")));
-            publisher.publish(result);
-            String output = out.toString();
-            assertTrue(output.contains("FAIL"));
-            assertTrue(output.contains("forbidden"));
-        } finally {
-            System.setOut(prev);
-        }
+        var publisher = new StdoutReportPublisher();
+        var result = new AIVResult(false, List.of(GateResult.fail("design", "forbidden")));
+        publisher.publish(result);
+        String output = listAppender.list.stream()
+                .map(ILoggingEvent::getFormattedMessage)
+                .reduce("", (a, b) -> a + b);
+        assertTrue(output.contains("FAIL"));
+        assertTrue(output.contains("forbidden"));
     }
 }

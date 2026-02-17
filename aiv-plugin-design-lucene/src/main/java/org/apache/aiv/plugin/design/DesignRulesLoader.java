@@ -17,7 +17,9 @@
 
 package org.apache.aiv.plugin.design;
 
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,7 +40,7 @@ public final class DesignRulesLoader {
         }
         try {
             String content = Files.readString(path);
-            Yaml yaml = new Yaml();
+            Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
             Map<String, Object> root = yaml.load(content);
             if (root == null) {
                 return new DesignRules(List.of());

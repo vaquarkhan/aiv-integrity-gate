@@ -59,19 +59,22 @@ public final class DesignComplianceGate implements QualityGate {
             String content = file.getContent();
             String path = file.getPath();
             for (DesignRules.Constraint c : rules.getConstraints()) {
+                String contentLower = content.toLowerCase();
+                String pathLower = path.toLowerCase();
                 boolean applies = c.getKeywords().isEmpty()
-                        || c.getKeywords().stream().anyMatch(k -> content.contains(k) || path.contains(k));
+                        || c.getKeywords().stream().anyMatch(k ->
+                        contentLower.contains(k.toLowerCase()) || pathLower.contains(k.toLowerCase()));
                 if (!applies) {
                     continue;
                 }
                 for (String forbidden : c.getForbiddenCalls()) {
-                    if (content.contains(forbidden)) {
+                    if (contentLower.contains(forbidden.toLowerCase())) {
                         return GateResult.fail(getId(),
                                 String.format("Forbidden call '%s' in %s (constraint: %s)", forbidden, path, c.getId()));
                     }
                 }
                 for (String required : c.getRequiredCalls()) {
-                    if (!content.contains(required)) {
+                    if (!contentLower.contains(required.toLowerCase())) {
                         return GateResult.fail(getId(),
                                 String.format("Required call '%s' missing in %s (constraint: %s)", required, path, c.getId()));
                     }

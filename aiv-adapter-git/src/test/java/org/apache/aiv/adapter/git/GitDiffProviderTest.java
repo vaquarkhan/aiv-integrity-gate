@@ -51,4 +51,14 @@ class GitDiffProviderTest {
         assertNotNull(diff);
         assertTrue(diff.getChangedFiles().isEmpty());
     }
+
+    @Test
+    void getDiffWithMaliciousRefThrows() {
+        var provider = new GitDiffProvider();
+        Path workspace = Paths.get(".").toAbsolutePath();
+        assertThrows(IllegalArgumentException.class, () ->
+                provider.getDiff(workspace, "; rm -rf /", "HEAD"));
+        assertThrows(IllegalArgumentException.class, () ->
+                provider.getDiff(workspace, "origin/main", "$(whoami)"));
+    }
 }
