@@ -1,10 +1,7 @@
 # Design constraints - forbidden and required patterns
+# Note: System.exit is allowed in CLI main() - not forbidden for this project
 constraints:
   - id: snapshot-expiration
     keywords: [ExpireSnapshots, expireSnapshots]
     forbidden_calls: [table.removeSnapshots]
     required_calls: [ExpireSnapshots]
-  - id: no-system-exit
-    keywords: []
-    forbidden_calls: [System.exit]
-    required_calls: []

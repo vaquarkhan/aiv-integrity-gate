@@ -57,4 +57,12 @@ class YamlConfigProviderTest {
         assertNotNull(ldr);
         assertEquals(0.3, ((Number) ldr).doubleValue(), 0.01);
     }
+
+    @Test
+    void getConfigWithMalformedYamlThrows(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), "gates: [unclosed");
+        var provider = new YamlConfigProvider();
+        assertThrows(IllegalArgumentException.class, () -> provider.getConfig(dir));
+    }
 }

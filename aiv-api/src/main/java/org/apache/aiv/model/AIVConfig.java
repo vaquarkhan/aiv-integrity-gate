@@ -46,7 +46,7 @@ public final class AIVConfig {
     }
 
     /**
-     * Returns path patterns to exclude from validation (e.g. "**/generated/**", "**/*.pb.java").
+     * Returns path patterns to exclude from validation (e.g. generated dirs, *.pb.java).
      */
     @SuppressWarnings("unchecked")
     public List<String> getExcludePaths() {
