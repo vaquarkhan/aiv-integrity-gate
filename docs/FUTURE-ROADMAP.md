@@ -13,6 +13,9 @@ Features and capabilities not yet supported in the AIV project. This document li
 | Assignment Gate | Implemented. Workflow assigns PR author to linked issues when AIV passes. See [ASSIGNMENT-GATE.md](ASSIGNMENT-GATE.md). |
 | GitHub PR comment | Implemented. AIV report posted as PR comment (pass/fail, gate results). |
 | Path exclusions | Implemented. Config `exclude_paths` with glob patterns (e.g. `**/generated/**`). |
+| Logging | Implemented. SLF4J and Logback. No System.out. |
+| Security hardening | Implemented. Ref validation, path traversal protection, YAML SafeConstructor, process timeout. |
+| Design gate case-insensitive | Implemented. Keywords and patterns match regardless of case. |
 
 ---
 
@@ -31,7 +34,7 @@ Features and capabilities not yet supported in the AIV project. This document li
 | CI | Reusable workflow (`apache/infrastructure-actions`) | Not implemented |
 | CI | GitHub App (webhook-based, no CI config) | Not implemented |
 | Density | Full LDR for Python, Go, Rust (AST-based) | Java only today |
-| Design | Config switch: `design.mode: lucene | rag` | Lucene only |
+| Design | Config switch: `design.mode: yaml | rag` | YAML rules only |
 | Invariant | Config switch: `invariant.strategy: template | llm_synthesis` | Template only (passes) |
 | Report | Slack, Jira, custom dashboards | Stdout only |
 | CI adapters | GitLab, Buildkite, Azure DevOps | GitHub Actions, Jenkins via docs only |
@@ -95,36 +98,24 @@ Features and capabilities not yet supported in the AIV project. This document li
 
 ---
 
-## 4. Path Exclusions
-
-**Status:** Not implemented.
-
-**Current:** All changed files matching configured extensions are checked. No way to exclude paths.
-
-**Missing:**
-- Config: `exclude_paths` or `include_paths` per gate or globally
-- Glob patterns (e.g., `**/generated/**`, `**/*.pb.java`)
-- Support in density, design, and dependency gates
-
-**Use case:** Skip generated code, vendored code, or third-party stubs.
-
-**Workaround:** Disable gates or adjust thresholds.
-
----
-
-## 5. Report Output Formats
+## 4. Report Output Formats
 
 **Status:** Stdout only.
 
-**Current:** `StdoutReportPublisher` prints a simple text report to stdout.
+**Current:** Report published via logging. GitHub workflow posts to PR comment. No JUnit XML or JSON.
 
 **Missing:**
 - JUnit XML report (for CI integration, e.g., Jenkins test results)
 - JSON report (for tooling, dashboards)
-- GitHub PR comment (post result as comment on PR)
 - Config: `--output junit.xml` or `--output json`
 
 **Use case:** Better CI integration, custom dashboards, PR visibility.
+
+---
+
+## 5. Path Exclusions
+
+**Status:** Implemented. See [FEATURES.md](FEATURES.md).
 
 ---
 
@@ -188,15 +179,15 @@ Features and capabilities not yet supported in the AIV project. This document li
 
 ---
 
-## 10. Design Mode: Config Switch (Lucene vs RAG)
+## 10. Design Mode: Config Switch (YAML vs RAG)
 
-**Status:** Lucene only.
+**Status:** YAML rules only.
 
-**Current:** Design gate uses YAML rules with Lucene for matching. No config switch.
+**Current:** Design gate uses YAML rules with substring matching. No config switch.
 
 **Missing:**
-- Config: `design.mode: lucene | rag`
-- When `rag`, use design-rag plugin instead of design-lucene
+- Config: `design.mode: yaml | rag`
+- When `rag`, use design-rag plugin
 - Provider config: `design.provider: openai | anthropic | ollama`
 
 **Use case:** Projects can opt into RAG when they have budget and API keys.
@@ -222,7 +213,7 @@ Features and capabilities not yet supported in the AIV project. This document li
 
 **Status:** Stdout only.
 
-**Current:** `ReportPublisher` interface exists; only `StdoutReportPublisher` is implemented.
+**Current:** `ReportPublisher` interface exists; `StdoutReportPublisher` logs report. GitHub PR comment via workflow.
 
 **Missing:**
 - `JUnitXmlReportPublisher`

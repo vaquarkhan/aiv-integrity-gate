@@ -43,7 +43,12 @@ public final class GitDiffProvider implements DiffProvider {
 
     private static final Logger log = LoggerFactory.getLogger(GitDiffProvider.class);
     private static final Pattern VALID_REF = Pattern.compile("^[a-zA-Z0-9/_.~^-]+$");
-    private static final long GIT_TIMEOUT_SECONDS = 60;
+    private static final long DEFAULT_GIT_TIMEOUT_SECONDS = 60;
+
+    private static long gitTimeoutSeconds() {
+        // Allows CI/tests to reduce worst-case runtime when `git` is slow/hangs.
+        return Math.max(1L, Long.getLong("aiv.git.timeout.seconds", DEFAULT_GIT_TIMEOUT_SECONDS));
+    }
     private static final long MAX_FILE_SIZE_BYTES = 2 * 1024 * 1024; // 2MB
 
     @Override
@@ -64,15 +69,25 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
+    private static String gitCommand(Path workspace) {
+        // Test hook: allows deterministic, hermetic testing by dropping a git.cmd into the workspace.
+        Path local = workspace.resolve("git.cmd");
+        if (Files.isRegularFile(local)) {
+            return local.toString();
+        }
+        return "git";
+    }
+
     private int[] parseNumStat(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder("git", "diff", "--numstat", baseRef + "..." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "diff", "--numstat", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
             pb.redirectErrorStream(true);
             Process p = pb.start();
-            if (!p.waitFor(GIT_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            long timeout = gitTimeoutSeconds();
+            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
                 p.destroyForcibly();
-                log.warn("Git diff --numstat timed out after {}s", GIT_TIMEOUT_SECONDS);
+                log.warn("Git diff --numstat timed out after {}s", timeout);
                 return new int[]{0, 0};
             }
             int added = 0, deleted = 0;
@@ -104,11 +119,12 @@ public final class GitDiffProvider implements DiffProvider {
 
     private String parseAuthor(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder("git", "log", "-1", "--format=%ae", baseRef + ".." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "log", "-1", "--format=%ae", baseRef + ".." + headRef);
             pb.directory(workspace.toFile());
             pb.redirectErrorStream(true);
             Process p = pb.start();
-            if (!p.waitFor(GIT_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            long timeout = gitTimeoutSeconds();
+            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
                 p.destroyForcibly();
                 return null;
             }
@@ -123,11 +139,12 @@ public final class GitDiffProvider implements DiffProvider {
 
     private boolean parseSkipRequested(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder("git", "log", "--pretty=%B", baseRef + ".." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "log", "--pretty=%B", baseRef + ".." + headRef);
             pb.directory(workspace.toFile());
             pb.redirectErrorStream(true);
             Process p = pb.start();
-            if (!p.waitFor(GIT_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            long timeout = gitTimeoutSeconds();
+            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
                 p.destroyForcibly();
                 return false;
             }
@@ -147,13 +164,14 @@ public final class GitDiffProvider implements DiffProvider {
 
     private String runGitDiff(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder("git", "diff", baseRef + "..." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "diff", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
             pb.redirectErrorStream(true);
             Process p = pb.start();
-            if (!p.waitFor(GIT_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            long timeout = gitTimeoutSeconds();
+            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
                 p.destroyForcibly();
-                log.warn("Git diff timed out after {}s", GIT_TIMEOUT_SECONDS);
+                log.warn("Git diff timed out after {}s", timeout);
                 return "";
             }
             try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
@@ -168,23 +186,45 @@ public final class GitDiffProvider implements DiffProvider {
     private List<ChangedFile> parseChangedFiles(Path workspace, String baseRef, String headRef, String rawDiff) {
         List<ChangedFile> result = new ArrayList<>();
         try {
-            ProcessBuilder pb = new ProcessBuilder("git", "diff", "--name-status", baseRef + "..." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "diff", "--name-status", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
             pb.redirectErrorStream(true);
             Process p = pb.start();
-            if (!p.waitFor(GIT_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            long timeout = gitTimeoutSeconds();
+            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
                 p.destroyForcibly();
                 return result;
             }
             try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split("\\s+", 2);
+                    // `git diff --name-status` is tab-separated and may include multiple paths (e.g. rename/copy).
+                    String[] parts = line.split("\t");
                     if (parts.length < 2) continue;
-                    String status = parts[0];
-                    String path = sanitizePath(parts[1]);
+
+                    String status = parts[0].trim();
+                    if (status.isEmpty()) continue;
+
+                    String pathPart;
+                    if (status.startsWith("R") || status.startsWith("C")) {
+                        if (parts.length < 3) continue;
+                        pathPart = parts[2];
+                    } else {
+                        pathPart = parts[1];
+                    }
+
+                    // Deleted files have no content to validate in the head ref; skip them.
+                    if (status.startsWith("D")) {
+                        continue;
+                    }
+
+                    String path = sanitizePath(pathPart);
                     if (path == null) continue;
-                    ChangedFile.ChangeType type = "A".equals(status) ? ChangedFile.ChangeType.ADDED : ChangedFile.ChangeType.MODIFIED;
+
+                    ChangedFile.ChangeType type = status.startsWith("A")
+                            ? ChangedFile.ChangeType.ADDED
+                            : ChangedFile.ChangeType.MODIFIED;
+
                     String content = readFileContent(workspace, path, headRef);
                     result.add(new ChangedFile(path, type, content));
                 }
@@ -213,11 +253,12 @@ public final class GitDiffProvider implements DiffProvider {
                 return Files.readString(fullPath);
             }
             String gitPath = relativePath.replace("\\", "/");
-            ProcessBuilder pb = new ProcessBuilder("git", "show", ref + ":" + gitPath);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "show", ref + ":" + gitPath);
             pb.directory(workspace.toFile());
             pb.redirectErrorStream(true);
             Process p = pb.start();
-            if (!p.waitFor(GIT_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            long timeout = gitTimeoutSeconds();
+            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
                 p.destroyForcibly();
                 return "";
             }

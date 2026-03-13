@@ -40,6 +40,24 @@ class YamlConfigProviderTest {
     }
 
     @Test
+    void getConfigWhenFileIsEmptyReturnsDefault(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), "");
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertFalse(config.getGates().isEmpty());
+    }
+
+    @Test
+    void missingGatesKeyReturnsDefaultGates(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), "global: {}\n");
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertFalse(config.getGates().isEmpty());
+    }
+
+    @Test
     void getConfigLoadsYaml(@TempDir Path dir) throws Exception {
         Files.createDirectories(dir.resolve(".aiv"));
         Files.writeString(dir.resolve(".aiv/config.yaml"), """
@@ -56,6 +74,69 @@ class YamlConfigProviderTest {
         Object ldr = config.getGates().get(0).getConfig().get("ldr_threshold");
         assertNotNull(ldr);
         assertEquals(0.3, ((Number) ldr).doubleValue(), 0.01);
+    }
+
+    @Test
+    void mergesTopLevelExcludePathsIntoGlobal(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            exclude_paths: ["**/generated/**"]
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertTrue(config.getExcludePaths().contains("**/generated/**"));
+    }
+
+    @Test
+    void globalExcludePathsTakesPrecedenceOverTopLevel(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            exclude_paths: ["**/generated/**"]
+            global:
+              exclude_paths: ["**/keep/**"]
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertFalse(config.getExcludePaths().contains("**/generated/**"));
+        assertTrue(config.getExcludePaths().contains("**/keep/**"));
+    }
+
+    @Test
+    void emptyGatesListReturnsDefaults(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), "gates: []\n");
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertTrue(config.getGates().size() >= 1);
+    }
+
+    @Test
+    void gateEnabledDefaultsToFalseWhenMissingAndNullConfigBecomesEmpty(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            gates:
+              - id: density
+                config: null
+            """);
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertEquals(1, config.getGates().size());
+        assertFalse(config.getGates().get(0).isEnabled());
+        assertNotNull(config.getGates().get(0).getConfig());
+        assertTrue(config.getGates().get(0).getConfig().isEmpty());
+    }
+
+    @Test
+    void wrongGlobalTypeThrows(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            global: 123
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        assertThrows(IllegalArgumentException.class, () -> provider.getConfig(dir));
     }
 
     @Test

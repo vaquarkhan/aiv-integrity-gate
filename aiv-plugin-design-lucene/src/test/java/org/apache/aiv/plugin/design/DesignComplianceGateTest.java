@@ -95,6 +95,88 @@ class DesignComplianceGateTest {
         assertFalse(r.isPassed());
     }
 
+    @Test
+    void failsWhenRequiredCallMissing(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: snapshot-expiration
+                keywords: []
+                forbidden_calls: []
+                required_calls: [ExpireSnapshots]
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = context(dir, List.of(new ChangedFile("a.java", ChangedFile.ChangeType.ADDED, "public class Foo {}")), ".aiv/design-rules.yaml");
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("Required"));
+    }
+
+    @Test
+    void appliesConstraintWhenKeywordMatchesPath(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: forbid-exit
+                keywords: [Main]
+                forbidden_calls: [System.exit]
+                required_calls: []
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = context(dir, List.of(new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED, "class Main { void x(){ System.exit(1); } }")), ".aiv/design-rules.yaml");
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("Forbidden"));
+    }
+
+    @Test
+    void ignoresNonMatchingExtensions(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: forbid-exit
+                keywords: []
+                forbidden_calls: [System.exit]
+                required_calls: []
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = context(dir, List.of(new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "System.exit(1)")), ".aiv/design-rules.yaml");
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
+    @Test
+    void passesWhenForbiddenListDoesNotMatch(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: forbid-foo
+                keywords: []
+                forbidden_calls: [foo()]
+                required_calls: []
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = context(dir, List.of(new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED, "class Main { void x(){} }")), ".aiv/design-rules.yaml");
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
+    @Test
+    void passesWhenRequiredCallPresent(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: require-foo
+                keywords: []
+                forbidden_calls: []
+                required_calls: [Foo.bar]
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = context(dir, List.of(new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED, "class Main { void x(){ Foo.bar(); } }")), ".aiv/design-rules.yaml");
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
     private AIVContext context(Path workspace, List<ChangedFile> files, String rulesPath) {
         var diff = new Diff("main", "HEAD", files, "");
         var config = new AIVConfig(

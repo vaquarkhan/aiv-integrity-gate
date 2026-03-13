@@ -61,6 +61,16 @@ class DensityGateTest {
     }
 
     @Test
+    void skipsNonMatchingExtensionAndEmptyContent() {
+        var gate = new DensityGate();
+        var ctx = context(List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "aaaa"),
+                new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "")
+        ));
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
     void failsWhenEntropyTooLow() {
         String code = "aaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         var gate = new DensityGate();
@@ -68,6 +78,32 @@ class DensityGateTest {
         var r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
         assertTrue(r.getMessage().contains("entropy"));
+    }
+
+    @Test
+    void failsWhenLdrTooLowForJava() {
+        String code = """
+            // random-ish comment to keep entropy from being the reason for failure
+            // 0123456789 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+            public class Foo {
+                public int bar() { return 1; }
+            }
+            """;
+        var gate = new DensityGate();
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of(
+                        "ldr_threshold", 0.90,
+                        "entropy_threshold", 0.0
+                ))),
+                Map.of()
+        );
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, code)),
+                "");
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("logic density"));
     }
 
     @Test
@@ -85,6 +121,26 @@ class DensityGateTest {
     @Test
     void calculateLdrInvalidJava() {
         assertEquals(0, DensityGate.calculateLdr("not valid {"));
+    }
+
+    @Test
+    void calculateLdrVisitsAllNodeTypes() {
+        String code = """
+            public class Foo {
+                public int bar(int x) {
+                    int y = x + 1;
+                    if (y > 0) { y = y + 1; }
+                    for (int i = 0; i < 2; i++) { y = y + i; }
+                    while (y < 10) { y = y + 1; }
+                    switch (y) { case 1: y = y + 1; break; default: y = y + 2; }
+                    helper(y);
+                    return y;
+                }
+                private void helper(int v) { System.out.println(v); }
+            }
+            """;
+        double ldr = DensityGate.calculateLdr(code);
+        assertTrue(ldr > 0);
     }
 
     @Test
@@ -108,6 +164,44 @@ class DensityGateTest {
                 "", 1, 0, "committer@apache.org", false);
         var config = new AIVConfig(
                 List.of(new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", List.of("committer@apache.org")))),
+                Map.of());
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void nonListTrustedAuthorsDoesNotBypassGate() {
+        var gate = new DensityGate();
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "aaaaaaaaaaaaaaaaaaaaaaaaaaaa")),
+                "", 1, 0, "committer@apache.org", false);
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", "committer@apache.org"))),
+                Map.of());
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        assertFalse(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void thresholdsDefaultWhenConfigTypesAreWrong() {
+        String code = """
+            public class Foo {
+                public int bar(int x) {
+                    if (x > 0) return x + 1;
+                    return x - 1;
+                }
+            }
+            """;
+        var gate = new DensityGate();
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, code)),
+                "");
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of(
+                        "ldr_threshold", "nope",
+                        "entropy_threshold", "nope",
+                        "refactor_net_loc_threshold", "nope"
+                ))),
                 Map.of());
         var ctx = new AIVContext(Paths.get("."), diff, config);
         assertTrue(gate.evaluate(ctx).isPassed());

@@ -19,9 +19,11 @@ package org.apache.aiv.util;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PathFilterTest {
@@ -43,5 +45,37 @@ class PathFilterTest {
     void emptyPatterns() {
         assertFalse(PathFilter.isExcluded("any/path.java", List.of()));
         assertFalse(PathFilter.isExcluded("any/path.java", null));
+    }
+
+    @Test
+    void globAndFallbackPatterns() {
+        assertTrue(PathFilter.isExcluded("src/main/java/com/example/Service.pb.java", List.of("glob:**/*.pb.java")));
+        assertTrue(PathFilter.isExcluded("src\\main\\java\\com\\example\\Service.pb.java", List.of("**/*.pb.java")));
+
+        // Invalid glob triggers fallback; segment extracted from pattern should still match.
+        assertTrue(PathFilter.isExcluded("src/[test].java", List.of("**[")));
+
+        // Non-** fallback: endsWith/contains paths.
+        assertTrue(PathFilter.isExcluded("src/main/java/com/example/App.java", List.of("App.java")));
+        assertTrue(PathFilter.isExcluded("src/main/java/com/example/App.java", List.of("com/example")));
+
+        // Null/blank patterns should be ignored.
+        assertFalse(PathFilter.isExcluded("src/main/java/com/example/App.java", Arrays.asList(null, "", "  ")));
+    }
+
+    @Test
+    void filterExcludedKeepsOnlyIncluded() {
+        List<String> input = List.of("a.java", "generated/x.java", "b.py");
+        List<String> out = PathFilter.filterExcluded(input, List.of("**/generated/**"));
+        assertFalse(out.contains("generated/x.java"));
+        assertTrue(out.contains("a.java"));
+        assertTrue(out.contains("b.py"));
+    }
+
+    @Test
+    void filterExcludedWithNoPatternsReturnsInputList() {
+        List<String> input = List.of("a.java", "b.java");
+        assertSame(input, PathFilter.filterExcluded(input, null));
+        assertSame(input, PathFilter.filterExcluded(input, List.of()));
     }
 }

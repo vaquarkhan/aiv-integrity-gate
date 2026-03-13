@@ -109,7 +109,7 @@ When the workflow runs:
 
 3. **Run AIV** — The CLI is invoked with `--workspace` pointing at your repo root and `--diff` pointing at the base branch. AIV reads `.aiv/config.yaml` and `.aiv/design-rules.yaml` from the workspace.
 
-4. **Report** — AIV prints pass or fail per gate and exits with 0 or 1. GitHub uses the exit code to mark the check as passed or failed.
+4. **Report** — AIV outputs pass or fail per gate via logging and exits with 0 or 1. GitHub uses the exit code to mark the check as passed or failed. The workflow posts the report as a PR comment so reviewers see results without opening Actions.
 
 ---
 

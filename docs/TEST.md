@@ -52,6 +52,8 @@ your-repo-name/
 3. Paste this content **exactly** (you can change numbers later):
 
 ```yaml
+# Optional: exclude_paths: ["**/generated/**", "**/*.pb.java"]
+
 gates:
   - id: density
     enabled: true
