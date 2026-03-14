@@ -74,7 +74,7 @@ This is what most people need. You are **not** deploying to a server. You are **
    - **Windows:** Right-click in folder → New → Text Document → rename to `config.yaml` (delete the .txt)
    - **Mac/Linux:** `touch .aiv/config.yaml` then edit with any text editor
 3. Open `config.yaml` in a text editor (Notepad, VS Code, etc.).
-4. Paste this **exactly**:
+4. Paste this **exactly** (add `exclude_paths` if you need to skip generated code):
 
 ```yaml
 gates:

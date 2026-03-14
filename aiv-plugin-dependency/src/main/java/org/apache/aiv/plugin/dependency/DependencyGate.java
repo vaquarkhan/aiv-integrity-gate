@@ -75,21 +75,17 @@ public final class DependencyGate implements QualityGate {
     }
 
     private GateResult checkJavaImports(String content, String path, Set<String> allowed, Set<String> whitelist) {
-        try {
-            ParseResult<CompilationUnit> result = new JavaParser().parse(content);
-            if (!result.isSuccessful() || result.getResult().isEmpty()) return null;
-            for (ImportDeclaration imp : result.getResult().get().getImports()) {
-                if (imp.isStatic()) continue;
-                String name = imp.getNameAsString();
-                if (isJavaBuiltin(name)) continue;
-                String pkg = name.contains(".") ? name.substring(0, name.lastIndexOf('.')) : name;
-                if (!isAllowed(pkg, allowed, whitelist)) {
-                    return GateResult.fail(getId(),
-                            String.format("Import '%s' in %s not in pom.xml - possible Dependency Confusion", name, path));
-                }
+        ParseResult<CompilationUnit> result = new JavaParser().parse(content);
+        if (!result.isSuccessful() || result.getResult().isEmpty()) return null;
+        for (ImportDeclaration imp : result.getResult().get().getImports()) {
+            if (imp.isStatic()) continue;
+            String name = imp.getNameAsString();
+            if (isJavaBuiltin(name)) continue;
+            String pkg = name.contains(".") ? name.substring(0, name.lastIndexOf('.')) : name;
+            if (!isAllowed(pkg, allowed, whitelist)) {
+                return GateResult.fail(getId(),
+                        String.format("Import '%s' in %s not in pom.xml - possible Dependency Confusion", name, path));
             }
-        } catch (Exception e) {
-            // skip on parse error
         }
         return null;
     }

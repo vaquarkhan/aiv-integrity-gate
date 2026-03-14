@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.IntConsumer;
 
 /**
  * CLI entry point. Usage: aiv run --workspace /path --diff origin/main
@@ -35,9 +36,10 @@ import java.nio.file.Paths;
 public final class Main {
 
     private static final Logger log = LoggerFactory.getLogger(Main.class);
+    static IntConsumer EXIT = System::exit;
 
     public static void main(String[] args) {
-        System.exit(run(args));
+        EXIT.accept(run(args));
     }
 
     static int run(String[] args) {

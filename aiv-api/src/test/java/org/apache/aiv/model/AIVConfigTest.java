@@ -19,6 +19,7 @@ package org.apache.aiv.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,5 +51,30 @@ class AIVConfigTest {
         var config = new AIVConfig(null, null);
         assertTrue(config.getGates().isEmpty());
         assertTrue(config.getGlobalConfig().isEmpty());
+    }
+
+    @Test
+    void excludePathsParsesListAndFiltersBlanks() {
+        var config = new AIVConfig(
+                List.of(),
+                Map.of("exclude_paths", Arrays.asList("**/generated/**", "", "  ", null, 123))
+        );
+        List<String> exclude = config.getExcludePaths();
+        assertTrue(exclude.contains("**/generated/**"));
+        assertTrue(exclude.contains("123"));
+        assertFalse(exclude.contains(""));
+    }
+
+    @Test
+    void excludePathsNonListReturnsEmpty() {
+        var config = new AIVConfig(List.of(), Map.of("exclude_paths", "not-a-list"));
+        assertTrue(config.getExcludePaths().isEmpty());
+    }
+
+    @Test
+    void gateConfigNullConfigBecomesEmptyMap() {
+        var gc = new AIVConfig.GateConfig("density", true, null);
+        assertNotNull(gc.getConfig());
+        assertTrue(gc.getConfig().isEmpty());
     }
 }

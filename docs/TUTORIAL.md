@@ -52,7 +52,7 @@ No API keys or paid services are required. Everything runs locally in your CI.
 
 6. **Invariant gate** — Runs template-based property checks (jqwik-ready). Passes by default.
 
-7. **Report** — Prints pass or fail per gate and exits with 0 (pass) or 1 (fail).
+7. **Report** — Outputs pass or fail per gate via logging and exits with 0 (pass) or 1 (fail). GitHub workflow posts the report as a PR comment.
 
 ### Pipeline Diagram
 
@@ -68,7 +68,7 @@ PR diff → Skip check → Density → Design → Dependency → Invariant → R
 
 ## Part 3: Configuration — Default Mode
 
-Default mode uses Lucene and YAML rules. No API keys, no paid services.
+Default mode uses YAML rules for design compliance. No API keys, no paid services.
 
 ### Step 1: Create the config directory
 
@@ -81,6 +81,11 @@ mkdir -p .aiv
 Create `.aiv/config.yaml`:
 
 ```yaml
+# Optional: skip generated paths
+# exclude_paths:
+#   - "**/generated/**"
+#   - "**/*.pb.java"
+
 gates:
   - id: density
     enabled: true
@@ -127,9 +132,9 @@ constraints:
     required_calls: [ExpireSnapshots]
 ```
 
-- **keywords** — The constraint applies only when the file content or path contains any keyword. Empty means it applies to all matched files.
-- **forbidden_calls** — Substring match in file content causes fail.
-- **required_calls** — When the constraint applies, the file must contain all of these.
+- **keywords** — The constraint applies only when the file content or path contains any keyword. Empty means it applies to all matched files. Matching is case-insensitive.
+- **forbidden_calls** — Substring match in file content (case-insensitive) causes fail.
+- **required_calls** — When the constraint applies, the file must contain all of these (case-insensitive).
 
 ### Step 4: Run AIV
 
@@ -354,5 +359,6 @@ gates:
 
 ## Next Steps
 
+- [FEATURES.md](FEATURES.md) — Implemented features
 - [DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md) — Full config reference
 - [TUTORIAL-APACHE-SPARK.md](TUTORIAL-APACHE-SPARK.md) — Apache Spark demo with Jira/SPIP

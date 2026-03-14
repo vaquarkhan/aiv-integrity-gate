@@ -51,4 +51,11 @@ class DesignRulesTest {
         var r = new DesignRules(List.of(c));
         assertEquals(1, r.getConstraints().size());
     }
+
+    @Test
+    void nullConstraintsBecomeEmpty() {
+        var r = new DesignRules(null);
+        assertNotNull(r.getConstraints());
+        assertTrue(r.getConstraints().isEmpty());
+    }
 }

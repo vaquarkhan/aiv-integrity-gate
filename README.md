@@ -110,7 +110,8 @@ Copy the config and design-rules files into your project's `.aiv/` folder and ad
 
 | Document | Contents |
 |----------|----------|
-| [FUTURE-ROADMAP.md](docs/FUTURE-ROADMAP.md) | Features not yet supported; planned work |
+| [FEATURES.md](docs/FEATURES.md) | Implemented features |
+| [FUTURE-ROADMAP.md](docs/FUTURE-ROADMAP.md) | Planned work and gaps |
 | [TUTORIAL.md](docs/TUTORIAL.md) | Step-by-step setup, configuration, and testing |
 | [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference |
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enabling AIV in your project and CI |

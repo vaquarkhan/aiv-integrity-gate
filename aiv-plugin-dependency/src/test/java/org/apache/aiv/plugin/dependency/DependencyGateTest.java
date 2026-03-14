@@ -112,6 +112,31 @@ class DependencyGateTest {
         assertTrue(gate.evaluate(ctx).isPassed());
     }
 
+    @Test
+    void passesWhenPythonImportInPyprojectToml(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("pyproject.toml"), """
+            [project]
+            dependencies = ["flask>=1.0", "requests"]
+            """);
+        var gate = new DependencyGate();
+        var ctx = context(dir, List.of(new ChangedFile("app.py", ChangedFile.ChangeType.ADDED,
+                "import flask\nfrom requests import get\n")));
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void passesWhenDependencyFilesUnreadable(@TempDir Path dir) throws Exception {
+        Files.createDirectory(dir.resolve("pom.xml"));
+        Files.createDirectory(dir.resolve("requirements.txt"));
+
+        var gate = new DependencyGate();
+        var ctx = context(dir, List.of(
+                new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED, "import com.fake.attacker.Evil;\nclass Main {}"),
+                new ChangedFile("app.py", ChangedFile.ChangeType.ADDED, "import fake_attacker\n")
+        ));
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
     private AIVContext context(List<ChangedFile> files) {
         return context(Path.of("."), files);
     }

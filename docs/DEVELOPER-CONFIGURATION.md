@@ -167,7 +167,7 @@ git push origin main
 
 **Path:** `.aiv/config.yaml`
 
-Controls which gates run and their thresholds. If the file is missing, AIV uses built-in defaults.
+Controls which gates run and their thresholds. If the file is missing, AIV uses built-in defaults. Malformed YAML throws an error instead of silently falling back.
 
 ### Full Example
 
@@ -300,9 +300,9 @@ constraints:
     required_calls: [ExpireSnapshots]
 ```
 
-- **keywords:** Constraint applies only if file content or path contains any keyword. Empty = applies to all matched files.
-- **forbidden_calls:** Substring match in file content → fail.
-- **required_calls:** If constraint applies, file must contain all of these → fail if any missing.
+- **keywords:** Constraint applies only if file content or path contains any keyword. Empty = applies to all matched files. Matching is case-insensitive.
+- **forbidden_calls:** Substring match in file content (case-insensitive) → fail.
+- **required_calls:** If constraint applies, file must contain all of these (case-insensitive) → fail if any missing.
 
 ### Example: No Java Serialization
 

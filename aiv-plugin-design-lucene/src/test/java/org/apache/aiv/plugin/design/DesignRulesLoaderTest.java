@@ -33,6 +33,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class DesignRulesLoaderTest {
 
     @Test
+    void canInstantiateForCoverage() {
+        assertNotNull(new DesignRulesLoader());
+    }
+
+    @Test
     void loadMissingFileReturnsEmpty() {
         var rules = DesignRulesLoader.load(Path.of("/nonexistent/path"));
         assertNotNull(rules);
@@ -58,6 +63,28 @@ class DesignRulesLoaderTest {
     void loadEmptyFileReturnsEmpty(@TempDir Path dir) throws Exception {
         Files.writeString(dir.resolve("empty.yaml"), "");
         var rules = DesignRulesLoader.load(dir.resolve("empty.yaml"));
+        assertTrue(rules.getConstraints().isEmpty());
+    }
+
+    @Test
+    void loadYamlWithoutConstraintsReturnsEmpty(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("no-constraints.yaml"), "foo: bar\n");
+        var rules = DesignRulesLoader.load(dir.resolve("no-constraints.yaml"));
+        assertNotNull(rules);
+        assertTrue(rules.getConstraints().isEmpty());
+    }
+
+    @Test
+    void loadInvalidYamlReturnsEmpty(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("invalid.yaml"), "constraints: [\n");
+        var rules = DesignRulesLoader.load(dir.resolve("invalid.yaml"));
+        assertTrue(rules.getConstraints().isEmpty());
+    }
+
+    @Test
+    void loadYamlWithWrongTypesReturnsEmpty(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("wrong-types.yaml"), "constraints: 123\n");
+        var rules = DesignRulesLoader.load(dir.resolve("wrong-types.yaml"));
         assertTrue(rules.getConstraints().isEmpty());
     }
 }
