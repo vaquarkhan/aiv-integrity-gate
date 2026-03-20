@@ -19,8 +19,10 @@ package org.apache.aiv.cli;
 
 import org.apache.aiv.adapter.git.GitDiffProvider;
 import org.apache.aiv.adapter.github.StdoutReportPublisher;
+import org.apache.aiv.cli.config.DocChecksConfigProvider;
 import org.apache.aiv.cli.config.YamlConfigProvider;
 import org.apache.aiv.core.Orchestrator;
+import org.apache.aiv.port.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +48,7 @@ public final class Main {
         Path workspace = Paths.get(".").toAbsolutePath();
         String baseRef = "origin/main";
         String headRef = "HEAD";
+        boolean includeDocChecks = false;
 
         for (int i = 0; i < args.length; i++) {
             if ("--workspace".equals(args[i]) && i + 1 < args.length) {
@@ -54,12 +57,17 @@ public final class Main {
                 baseRef = args[++i];
             } else if ("--head".equals(args[i]) && i + 1 < args.length) {
                 headRef = args[++i];
+            } else if ("--include-doc-checks".equals(args[i])) {
+                includeDocChecks = true;
             }
         }
 
         try {
             var diffProvider = new GitDiffProvider();
-            var configProvider = new YamlConfigProvider();
+            ConfigProvider configProvider = new YamlConfigProvider();
+            if (includeDocChecks) {
+                configProvider = new DocChecksConfigProvider(configProvider, true);
+            }
             var reportPublisher = new StdoutReportPublisher();
             var orchestrator = new Orchestrator(diffProvider, configProvider, reportPublisher);
             return orchestrator.run(workspace, baseRef, headRef);

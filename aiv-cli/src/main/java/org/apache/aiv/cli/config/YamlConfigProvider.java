@@ -70,7 +70,8 @@ public final class YamlConfigProvider implements ConfigProvider {
                         new AIVConfig.GateConfig("density", true, Map.of("ldr_threshold", 0.25, "entropy_threshold", 3.8)),
                         new AIVConfig.GateConfig("design", true, Map.of("rules_path", ".aiv/design-rules.yaml")),
                         new AIVConfig.GateConfig("dependency", true, Map.of()),
-                        new AIVConfig.GateConfig("invariant", true, Map.of())
+                        new AIVConfig.GateConfig("invariant", true, Map.of()),
+                        new AIVConfig.GateConfig("doc-integrity", false, Map.of("rules_path", ".aiv/doc-rules.yaml", "auto", true))
                 ),
                 Collections.emptyMap()
         );

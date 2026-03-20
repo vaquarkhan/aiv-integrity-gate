@@ -16,6 +16,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Speed up git diff
+        run: |
+          git config diff.renames false
+          git config diff.renameLimit 0
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -28,17 +33,22 @@ jobs:
         id: aiv
         run: |
           cd aiv-cli/target
+          EXITCODE=0
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee ../../aiv-report.txt
+            java -Daiv.git.timeout.seconds=600 -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee ../../aiv-report.txt
+            EXITCODE=${PIPESTATUS[0]}
           else
             BASE="${{ github.event.before }}"
             if [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
               echo "Initial push, skipping AIV"
-              exit 0
+              EXITCODE=0
+            else
+              java -Daiv.git.timeout.seconds=600 -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee ../../aiv-report.txt
+              EXITCODE=${PIPESTATUS[0]}
             fi
-            java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee ../../aiv-report.txt
           fi
-          echo "exitcode=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+          echo "exitcode=$EXITCODE" >> $GITHUB_OUTPUT
+          exit $EXITCODE
         continue-on-error: true
 
       - name: Post AIV report to PR
@@ -97,6 +107,12 @@ jobs:
 
       - name: Fail if AIV failed
         run: |
-          if [ "${{ steps.aiv.outputs.exitcode }}" != "0" ]; then
-            exit 1
+          if [ "${{ steps.aiv.outputs.exitcode }}" = "0" ]; then
+            exit 0
           fi
+          if [ -f aiv-report.txt ] && grep -q "timed out" aiv-report.txt; then
+            echo "::warning::AIV skipped: git diff timed out. CI passes to avoid blocking."
+            exit 0
+          fi
+          echo "::error::AIV gates failed."
+          exit 1

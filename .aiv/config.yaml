@@ -1,13 +1,24 @@
 # AIV config - adjust thresholds per project
+# Exclude docs and example project from gates (intentional samples/docs)
+exclude_paths:
+  - "docs/**"
+  - "example-project/**"
+  - "infrastructure-actions/**"
 gates:
   - id: density
     enabled: true
     config:
       ldr_threshold: 0.25
       entropy_threshold: 3.8
+      refactor_net_loc_threshold: -50
   - id: design
     enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
   - id: invariant
     enabled: true
+  - id: doc-integrity
+    enabled: false
+    config:
+      rules_path: .aiv/doc-rules.yaml
+      auto: true

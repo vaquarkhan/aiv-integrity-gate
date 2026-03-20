@@ -88,4 +88,4 @@ jobs:
 
 ## Config
 
-Projects can add `.aiv/config.yaml` and `.aiv/design-rules.yaml` to customize thresholds and design constraints. See the [AIV documentation](https://github.com/apache/aiv-gate) for details.
+Projects can add `.aiv/config.yaml`, `.aiv/design-rules.yaml`, and optionally `.aiv/doc-rules.yaml` to customize thresholds, design constraints, and documentation validation. See the [AIV documentation](https://github.com/apache/aiv-gate) for details.

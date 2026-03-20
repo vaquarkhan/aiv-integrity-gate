@@ -34,6 +34,7 @@ import org.apache.aiv.util.PathFilter;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
@@ -83,7 +84,7 @@ public final class Orchestrator {
         boolean overallPassed = true;
 
         for (QualityGate gate : gates) {
-            if (!isGateEnabled(gate.getId(), config)) {
+            if (!isGateEnabled(gate.getId(), config, filtered)) {
                 continue;
             }
             GateResult result = gate.evaluate(context);
@@ -106,11 +107,30 @@ public final class Orchestrator {
                 .collect(Collectors.toList());
     }
 
-    private boolean isGateEnabled(String gateId, AIVConfig config) {
-        return config.getGates().stream()
+    private boolean isGateEnabled(String gateId, AIVConfig config, List<ChangedFile> filteredFiles) {
+        boolean enabled = config.getGates().stream()
                 .filter(g -> g.getId().equals(gateId))
                 .findFirst()
                 .map(AIVConfig.GateConfig::isEnabled)
-                .orElse(true);
+                .orElse(!"doc-integrity".equals(gateId));
+        if (!enabled) return false;
+        if (!"doc-integrity".equals(gateId)) return true;
+        Object auto = config.getGates().stream()
+                .filter(g -> "doc-integrity".equals(g.getId()))
+                .findFirst()
+                .map(AIVConfig.GateConfig::getConfig)
+                .orElse(Map.of())
+                .get("auto");
+        if (!Boolean.TRUE.equals(auto)) return true;
+        return filteredFiles.stream().anyMatch(f -> isDocPath(f.getPath()));
+    }
+
+    private static boolean isDocPath(String path) {
+        if (path == null) return false;
+        String lower = path.toLowerCase().replace("\\", "/");
+        if (lower.endsWith(".md") || lower.endsWith(".txt") || lower.endsWith(".rst")) return true;
+        String base = lower.contains("/") ? lower.substring(lower.lastIndexOf("/") + 1) : lower;
+        return "agents.md".equals(base) || "claude.md".equals(base)
+                || "contributing.md".equals(base) || "readme.md".equals(base);
     }
 }

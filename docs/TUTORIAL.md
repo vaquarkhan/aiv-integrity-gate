@@ -1,6 +1,6 @@
 # AIV Tutorial: Step-by-Step Guide
 
-This guide walks you through AIV: what it does, how it works, how to configure it, and how to test it. No prior experience required.
+This guide walks you through AIV: what it does, how it works, how to configure it, and how to test it. Works with any project (Java, Python, Go, Rust, and more). No prior experience required.
 
 **Author:** Vaquar Khan
 
@@ -17,6 +17,8 @@ AIV runs on pull request diffs and checks code before it reaches human reviewers
 3. **Dependency validation** — Are new imports in Java and Python files declared in your lockfile? This catches typos and supply-chain risks where someone registers a fake package name.
 
 4. **Invariant checks** — Placeholder for property-based tests. The gate passes by default; real invariant checks run in your project's test phase.
+
+5. **Doc integrity** — Validates documentation files for path existence, cross-references, required mentions, and command completeness. Opt-in via `--include-doc-checks` or config with `auto: true`.
 
 AIV works with Java, Python, Go, Rust, Kotlin, Scala, JavaScript, TypeScript, C, C++, Ruby, and shell. The density gate runs full logic checks on Java only; other languages get entropy checks. Design and dependency checks apply to whatever languages you configure.
 
@@ -52,12 +54,14 @@ No API keys or paid services are required. Everything runs locally in your CI.
 
 6. **Invariant gate** — Runs template-based property checks (jqwik-ready). Passes by default.
 
-7. **Report** — Outputs pass or fail per gate via logging and exits with 0 (pass) or 1 (fail). GitHub workflow posts the report as a PR comment.
+7. **Doc integrity gate** — When enabled, validates .md, .txt, .rst files for path existence, cross-refs, required mentions, command completeness. With `auto: true`, runs only when diff has doc files.
+
+8. **Report** — Outputs pass or fail per gate via logging and exits with 0 (pass) or 1 (fail). GitHub workflow posts the report as a PR comment.
 
 ### Pipeline Diagram
 
 ```
-PR diff → Skip check → Density → Design → Dependency → Invariant → Report
+PR diff → Skip check → Density → Design → Dependency → Invariant → Doc Integrity → Report
               ↓            ↓         ↓          ↓           ↓
            (skip?)     (fail?)   (fail?)    (fail?)     (fail?)
               ↓            ↓         ↓          ↓           ↓
@@ -107,6 +111,12 @@ gates:
 
   - id: invariant
     enabled: true
+
+  - id: doc-integrity
+    enabled: false
+    config:
+      rules_path: .aiv/doc-rules.yaml
+      auto: true
 ```
 
 - **ldr_threshold** — Minimum logic density ratio. Lower values allow more scaffolding.
@@ -175,6 +185,7 @@ List committer email addresses in `trusted_authors` under the density gate confi
 | design    | file_extensions             | list   | All common | Extensions to validate                |
 | dependency| whitelist                   | list   | —       | Package names allowed without lockfile  |
 | invariant | —                           | —      | —       | No config yet                           |
+| doc-integrity | rules_path, auto        | .aiv/doc-rules.yaml | Path to doc rules; auto = run only when diff has doc files |
 
 ### Disabling gates
 
@@ -197,6 +208,7 @@ gates:
 | --workspace | Repo root path    | .              |
 | --diff      | Base ref for diff | origin/main    |
 | --head      | Head ref for diff | HEAD           |
+| --include-doc-checks | Enable doc-integrity gate for this run | off |
 
 ---
 

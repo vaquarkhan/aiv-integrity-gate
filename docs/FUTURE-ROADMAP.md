@@ -16,6 +16,7 @@ Features and capabilities not yet supported in the AIV project. This document li
 | Logging | Implemented. SLF4J and Logback. No System.out. |
 | Security hardening | Implemented. Ref validation, path traversal protection, YAML SafeConstructor, process timeout. |
 | Design gate case-insensitive | Implemented. Keywords and patterns match regardless of case. |
+| Doc Integrity gate | Implemented. Validates paths, cross-refs, required mentions, commands, path fabrication. Opt-in. |
 
 ---
 

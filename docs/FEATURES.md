@@ -14,6 +14,7 @@ Implemented features in the AIV project. All features run locally with no API ke
 | **Design** | YAML rules for forbidden and required patterns. Case-insensitive keyword matching. Supports multiple languages via configurable file extensions. |
 | **Dependency** | Validates Java imports vs pom.xml and Python imports vs requirements.txt. Catches typos and supply-chain risks. |
 | **Invariant** | Placeholder. Passes by default. Property-based test synthesis planned for future. |
+| **Doc Integrity** | Validates documentation: path existence, cross-references, required mentions, command completeness, path fabrication. Opt-in via `--include-doc-checks` or config. |
 
 ---
 
@@ -75,6 +76,7 @@ Implemented features in the AIV project. All features run locally with no API ke
 | aiv-plugin-density | Logic density and entropy |
 | aiv-plugin-design-lucene | Design compliance via YAML rules |
 | aiv-plugin-dependency | Import validation |
+| aiv-plugin-doc-integrity | Documentation integrity (paths, cross-refs, commands) |
 | aiv-plugin-invariant-template | Invariant gate (placeholder) |
 | aiv-adapter-git | Git diff provider |
 | aiv-adapter-github | Report publisher (logging) |

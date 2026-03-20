@@ -2,6 +2,8 @@
 
 AIV runs on pull request diffs and checks code before it reaches human reviewers. It flags contributions that pass syntax checks but lack substance, violate project rules, or introduce dependency risks.
 
+**Works with any project** — Java, Python, Go, Rust, Kotlin, Scala, JavaScript, TypeScript, C, C++, Ruby, shell, and more. Add `.aiv/config.yaml` to your repo and run AIV in CI. No API keys or paid services required.
+
 **Author:** Vaquar Khan
 
 ---
@@ -29,11 +31,13 @@ When someone opens a pull request, AIV runs a set of checks on the changed files
 
 1. **Density** — Does the code have enough real logic, or is it mostly scaffolding? Empty classes and copy-paste boilerplate get flagged.
 
-2. **Design** — Does the code follow your project's rules? You define forbidden patterns (for example, do not use `System.exit`) and required patterns (for example, snapshot expiration must use the ExpireSnapshots API).
+2. **Design** — Does the code follow your project's rules? You define forbidden patterns (for example, do not use `System.exit`) and required patterns (for example, use a specific API when a keyword appears).
 
 3. **Dependency** — Are new imports in Java and Python files declared in your lockfile? This helps catch typos and supply-chain attacks where someone registers a fake package name.
 
 4. **Invariant** — Placeholder for property-based tests. The gate passes by default; real invariant checks run in your project's test phase.
+
+5. **Doc Integrity** — Validates documentation files (.md, .txt, .rst): path existence, cross-references, required mentions, command completeness, path fabrication. Opt-in via `--include-doc-checks` or config with `auto: true` to run only when diff has doc files.
 
 AIV works with Java, Python, Go, Rust, Kotlin, Scala, JavaScript, TypeScript, C, C++, Ruby, and shell. The density gate runs full logic checks on Java only; other languages get entropy checks. Design and dependency checks apply to whatever languages you configure.
 
@@ -51,6 +55,7 @@ No API keys or paid services are required. Everything runs locally in your CI.
 | `aiv-plugin-design-lucene` | Design compliance via YAML rules |
 | `aiv-plugin-dependency` | Import validation against pom.xml and requirements.txt |
 | `aiv-plugin-invariant-template` | Invariant gate (passes by default) |
+| `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) |
 | `aiv-adapter-git` | Git diff provider |
 | `aiv-adapter-github` | Report publisher (stdout) |
 | `aiv-cli` | Command-line entry point |
@@ -96,13 +101,13 @@ scripts\validate-example.bat   # Windows
 
 ## Sample Configurations
 
-Ready-made rule sets for common projects:
+Example rule sets for common open-source projects. Copy into your project's `.aiv/` folder and adjust:
 
-- [Apache Spark](docs/samples/apache-spark/) — Config, design rules, SparkConf, deprecated APIs
-- [Apache Iceberg](docs/samples/apache-iceberg/) — Snapshot API, deprecation rules, architecture constraints
-- [Apache Airflow](docs/samples/apache-airflow/) — Python rules, days_ago, eval/exec, providers
+- [Apache Spark](docs/samples/apache-spark/) — SparkConf, deprecated APIs, SBT build rules
+- [Apache Iceberg](docs/samples/apache-iceberg/) — Snapshot API, schema evolution, architecture constraints
+- [Apache Airflow](docs/samples/apache-airflow/) — Python DAG rules, days_ago, eval/exec, providers
 
-Copy the config and design-rules files into your project's `.aiv/` folder and adjust as needed.
+Each sample includes `config.yaml`, `design-rules.yaml`, and `doc-rules.yaml`. Use `--include-doc-checks` to enable doc validation on demand.
 
 ---
 
@@ -148,17 +153,29 @@ gates:
     enabled: true
   - id: invariant
     enabled: true
+  - id: doc-integrity
+    enabled: false
+    config:
+      rules_path: .aiv/doc-rules.yaml
+      auto: true
 ```
 
 Create `.aiv/design-rules.yaml` with at least one constraint:
 
 ```yaml
 constraints:
-  - id: snapshot-expiration
-    keywords: [ExpireSnapshots, expireSnapshots]
+  - id: no-system-exit
+    keywords: []
+    forbidden_calls: [System.exit]
+    required_calls: []
+
+  - id: use-specific-api
+    keywords: [expireSnapshots]
     forbidden_calls: [table.removeSnapshots]
     required_calls: [ExpireSnapshots]
 ```
+
+Optional: add `.aiv/doc-rules.yaml` for documentation validation (paths, cross-refs, commands). Enable with `--include-doc-checks` or set `doc-integrity` gate to `enabled: true` in config.
 
 If you omit these files, AIV uses built-in defaults and looks for `.aiv/design-rules.yaml` when the design gate is enabled.
 
@@ -188,4 +205,14 @@ The step fails the job when any gate fails. No secrets are required for the defa
 
 ## License
 
-Apache License 2.0
+Copyright 2026 Vaquar Khan. All rights reserved.
+
+**Non-commercial use:** Permitted. You may use, copy, modify, and distribute the Work for non-commercial purposes, provided you retain copyright notices and include a copy of this License.
+
+**Commercial use:** Prohibited without explicit prior written permission from the author. Contact the author to request permission.
+
+**Research use:** Citation required. If you use this Work in academic research, publications, theses, or scholarly work, you must cite it. Example: *Vaquar Khan. AIV - Automated Integrity Validation (IP-X). [repository-url]. [Year].*
+
+**No warranty:** The Work is provided "AS IS" without warranty of any kind.
+
+See [LICENSE](LICENSE) for full terms and conditions.

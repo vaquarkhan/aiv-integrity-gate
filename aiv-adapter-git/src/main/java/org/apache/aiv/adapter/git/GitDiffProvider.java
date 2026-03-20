@@ -43,7 +43,7 @@ public final class GitDiffProvider implements DiffProvider {
 
     private static final Logger log = LoggerFactory.getLogger(GitDiffProvider.class);
     private static final Pattern VALID_REF = Pattern.compile("^[a-zA-Z0-9/_.~^-]+$");
-    private static final long DEFAULT_GIT_TIMEOUT_SECONDS = 60;
+    private static final long DEFAULT_GIT_TIMEOUT_SECONDS = 120;
 
     private static long gitTimeoutSeconds() {
         // Allows CI/tests to reduce worst-case runtime when `git` is slow/hangs.
@@ -133,6 +133,7 @@ public final class GitDiffProvider implements DiffProvider {
                 return (line != null && !line.isBlank()) ? line.trim() : null;
             }
         } catch (Exception e) {
+            log.debug("Could not parse author", e);
             return null;
         }
     }
@@ -157,7 +158,7 @@ public final class GitDiffProvider implements DiffProvider {
                 }
             }
         } catch (Exception e) {
-            // ignore
+            log.debug("Could not parse skip request", e);
         }
         return false;
     }
@@ -230,7 +231,7 @@ public final class GitDiffProvider implements DiffProvider {
                 }
             }
         } catch (Exception e) {
-            // fallback: no files
+            log.debug("Could not parse changed files", e);
         }
         return result;
     }
@@ -267,6 +268,7 @@ public final class GitDiffProvider implements DiffProvider {
                 return content.length() > MAX_FILE_SIZE_BYTES ? "" : content;
             }
         } catch (Exception e) {
+            log.debug("Could not read file content: {}", relativePath, e);
             return "";
         }
     }

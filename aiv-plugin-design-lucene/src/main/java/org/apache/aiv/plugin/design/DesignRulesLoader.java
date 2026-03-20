@@ -17,6 +17,8 @@
 
 package org.apache.aiv.plugin.design;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
@@ -33,6 +35,8 @@ import java.util.Map;
  * @author Vaquar Khan
  */
 public final class DesignRulesLoader {
+
+    private static final Logger log = LoggerFactory.getLogger(DesignRulesLoader.class);
 
     public static DesignRules load(Path path) {
         if (!Files.exists(path)) {
@@ -63,6 +67,7 @@ public final class DesignRulesLoader {
             }
             return new DesignRules(constraints);
         } catch (Exception e) {
+            log.debug("Could not load design rules from {}", path, e);
             return new DesignRules(List.of());
         }
     }
