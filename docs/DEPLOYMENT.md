@@ -1,6 +1,6 @@
 # AIV Deployment Guide
 
-Where the Java code goes, how to deploy it, and how to enable AIV in your project. Step-by-step instructions for beginners.
+Where the code goes, how to enable AIV in your project, and how it runs in CI. Works with any Git-based project (Java, Python, Go, Rust, and more). Step-by-step instructions for beginners.
 
 **Author:** Vaquar Khan
 
@@ -31,7 +31,7 @@ There are **two different things** people mean by "deploy" in AIV:
 
 ![Deployment flow: Your computer to GitHub to Actions runner](images/deployment-flow.png)
 
-**Summary:** Your Java code is in your repo. When a PR is opened, GitHub copies it to a temporary machine, runs AIV on it, and throws the machine away. Nothing stays "deployed" on a server.
+**Summary:** Your code is in your repo. When a PR is opened, GitHub copies it to a temporary machine, runs AIV on it, and throws the machine away. Nothing stays "deployed" on a server.
 
 ---
 
@@ -91,6 +91,11 @@ gates:
     enabled: true
   - id: invariant
     enabled: true
+  - id: doc-integrity
+    enabled: false
+    config:
+      rules_path: .aiv/doc-rules.yaml
+      auto: true
 ```
 
 5. Save the file.

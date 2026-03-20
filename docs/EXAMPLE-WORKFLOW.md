@@ -8,7 +8,7 @@ Step-by-step explanation of the example project and where the code runs.
 
 ## 1. Overview
 
-AIV runs when you push or open a Pull Request. It checks your changed files against density, design rules, dependency imports, and invariants. No server to deploy. GitHub runs it automatically on a temporary machine.
+AIV runs when you push or open a Pull Request. It checks your changed files against density, design rules, dependency imports, invariants, and optionally doc integrity (when enabled). No server to deploy. GitHub runs it automatically on a temporary machine.
 
 ---
 

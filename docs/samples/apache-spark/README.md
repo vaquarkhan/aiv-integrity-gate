@@ -1,6 +1,6 @@
 # Apache Spark AIV Sample
 
-Sample AIV configuration for Apache Spark. Based on Spark contributing guide, SPIP process, and configuration docs.
+Sample AIV configuration for Apache Spark. Based on Spark contributing guide, SPIP process, and configuration docs. Adapt the rules for your own project.
 
 **Author:** Vaquar Khan
 
@@ -24,7 +24,10 @@ Sample AIV configuration for Apache Spark. Based on Spark contributing guide, SP
 mkdir -p .aiv
 cp docs/samples/apache-spark/config.yaml .aiv/
 cp docs/samples/apache-spark/design-rules.yaml .aiv/
+cp docs/samples/apache-spark/doc-rules.yaml .aiv/
 ```
+
+Enable doc-integrity in config with `enabled: true` and `auto: true`, or use `--include-doc-checks` when running AIV.
 
 Add `.github/workflows/aiv.yml` per [DEVELOPER-CONFIGURATION.md](../../DEVELOPER-CONFIGURATION.md).
 

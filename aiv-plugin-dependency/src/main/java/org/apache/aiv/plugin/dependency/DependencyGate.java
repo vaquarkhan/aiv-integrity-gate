@@ -26,6 +26,8 @@ import org.apache.aiv.model.AIVContext;
 import org.apache.aiv.model.ChangedFile;
 import org.apache.aiv.model.GateResult;
 import org.apache.aiv.port.QualityGate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -44,6 +46,7 @@ import java.util.regex.Pattern;
  */
 public final class DependencyGate implements QualityGate {
 
+    private static final Logger log = LoggerFactory.getLogger(DependencyGate.class);
     private static final Set<String> JAVA_BUILTIN_PREFIXES = Set.of("java.", "javax.", "jakarta.");
     private static final Pattern PY_IMPORT = Pattern.compile("^\\s*(?:import|from)\\s+([a-zA-Z0-9_.]+)");
     private static final Pattern PY_FROM = Pattern.compile("^\\s*from\\s+([a-zA-Z0-9_.]+)\\s+import");
@@ -145,7 +148,7 @@ public final class DependencyGate implements QualityGate {
                 if (g != null && !g.isEmpty()) allowed.add(g);
             }
         } catch (Exception e) {
-            // ignore
+            log.debug("Could not load Maven dependencies from pom.xml", e);
         }
         return allowed;
     }
@@ -203,7 +206,7 @@ public final class DependencyGate implements QualityGate {
                     }
                 }
             } catch (Exception e) {
-                // ignore
+                log.debug("Could not load Python dependencies from {}", name, e);
             }
         }
         return allowed;

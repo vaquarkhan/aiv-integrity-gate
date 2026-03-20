@@ -17,6 +17,9 @@
 
 package org.apache.aiv.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,6 +32,8 @@ import java.util.stream.Collectors;
  * @author Vaquar Khan
  */
 public final class PathFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(PathFilter.class);
 
     private PathFilter() {}
 
@@ -49,7 +54,7 @@ public final class PathFilter {
                     return true;
                 }
             } catch (Exception e) {
-                // fall through to simple fallback
+                log.debug("Glob pattern match failed for {}: {}", pattern, e.getMessage());
             }
             // Fallback: simple contains (handles Windows path matcher quirks)
             if (pattern.contains("**")) {

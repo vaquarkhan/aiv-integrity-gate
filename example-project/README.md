@@ -75,8 +75,9 @@ java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace /path/to/aiv-gate --diff origin
 ```
 example-project/
 ├── .aiv/
-│   ├── config.yaml          Gate settings (density, design, invariant)
-│   └── design-rules.yaml    Forbidden: System.exit, Serializable
+│   ├── config.yaml          Gate settings (density, design, invariant, doc-integrity)
+│   ├── design-rules.yaml    Forbidden: System.exit, Serializable
+│   └── doc-rules.yaml       Doc integrity rules (optional)
 ├── .github/workflows/
 │   └── aiv.yml              Runs AIV on push and PR
 ├── src/main/java/com/example/

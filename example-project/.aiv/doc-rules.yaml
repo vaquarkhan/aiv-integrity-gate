@@ -1,0 +1,10 @@
+# Example doc rules for AIV validation
+# Customize for your project
+
+doc_constraints:
+  - id: readme-link
+    trigger_keywords: ["see also", "refer to"]
+    required_mentions: []
+    scope: [README.md]
+
+canonical_commands: []

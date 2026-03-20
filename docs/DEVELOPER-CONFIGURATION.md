@@ -1,6 +1,6 @@
 # AIV Developer Configuration Guide
 
-How to configure AIV for your project. All config lives under `.aiv/` in the repo root.
+How to configure AIV for your project. AIV works with any Git-based project (Java, Python, Go, Rust, and more). All config lives under `.aiv/` in the repo root.
 
 **Author:** Vaquar Khan
 
@@ -26,7 +26,8 @@ See [README.md](../README.md#problems-and-solutions) for the full mapping.
 
 1. Create `.aiv/config.yaml` (optional — defaults apply if missing)
 2. Create `.aiv/design-rules.yaml` (optional — for design compliance)
-3. Run AIV: `java -jar aiv-cli.jar --diff origin/main`
+3. Create `.aiv/doc-rules.yaml` (optional — for documentation validation)
+4. Run AIV: `java -jar aiv-cli.jar --diff origin/main`
 
 ---
 
@@ -36,7 +37,8 @@ See [README.md](../README.md#problems-and-solutions) for the full mapping.
 your-project/
 ├── .aiv/
 │   ├── config.yaml          # Gate thresholds and enable/disable
-│   └── design-rules.yaml    # Forbidden/required patterns
+│   ├── design-rules.yaml    # Forbidden/required patterns
+│   └── doc-rules.yaml       # Doc integrity (optional)
 ├── .github/
 │   └── workflows/
 │       └── ci.yml           # Add AIV job here
@@ -45,9 +47,9 @@ your-project/
 
 ---
 
-## Adding AIV to an Existing Project (e.g. Apache Iceberg)
+## Adding AIV to an Existing Project
 
-Step-by-step guide to enable AIV in any Git repo. No deployment — AIV is cloned and built by the workflow at runtime.
+Step-by-step guide to enable AIV in any Git repo. The example below uses Apache Iceberg; the same steps apply to any project. No deployment — AIV is cloned and built by the workflow at runtime.
 
 ### Step 1: Clone the target repo
 
@@ -204,6 +206,7 @@ gates:
 | `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
 | `dependency` | Import vs lockfile         | `whitelist`           | —                           |
 | `invariant`  | Invariant checks           | —                     | —                           |
+| `doc-integrity` | Documentation validation | `rules_path`, `auto` | `.aiv/doc-rules.yaml`       |
 
 ### Density Gate
 
@@ -228,6 +231,15 @@ gates:
 | `whitelist` | list   | Package names allowed without lockfile   | —       |
 
 Validates Java imports against `pom.xml` and Python imports against `requirements.txt` or `pyproject.toml`. Fails on unknown imports. Use `whitelist` to allow packages that are not in the lockfile (for example, JDK or standard library modules).
+
+### Doc Integrity Gate
+
+Disabled by default. Enable with `--include-doc-checks` or add to config with `enabled: true`. Validates markdown and text files (.md, .txt, .rst, AGENTS.md, CLAUDE.md, CONTRIBUTING.md) for: path existence, cross-reference validity, required mentions (YAML-configurable), command completeness, and path fabrication.
+
+| Key         | Type    | Description                                    | Default                |
+|-------------|---------|------------------------------------------------|------------------------|
+| `rules_path`| string  | Path to doc rules YAML                         | `.aiv/doc-rules.yaml`  |
+| `auto`      | boolean | When true, run only when diff has doc files    | false                  |
 
 ### Design Gate
 

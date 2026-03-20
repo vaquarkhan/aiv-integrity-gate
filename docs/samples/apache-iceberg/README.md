@@ -1,6 +1,6 @@
 # Apache Iceberg AIV Design Rules
 
-A comprehensive set of AIV rules for Apache Iceberg. These rules reject emoji in code, boilerplate comments, logic that does not match Iceberg standards, and code that violates the project architecture.
+A comprehensive set of AIV rules for Apache Iceberg. These rules reject emoji in code, boilerplate comments, logic that does not match Iceberg standards, and code that violates the project architecture. Adapt the rules for your own project.
 
 **Author:** Vaquar Khan
 
@@ -82,6 +82,7 @@ A comprehensive set of AIV rules for Apache Iceberg. These rules reject emoji in
 mkdir -p .aiv
 cp docs/samples/apache-iceberg/config.yaml .aiv/
 cp docs/samples/apache-iceberg/design-rules.yaml .aiv/
+cp docs/samples/apache-iceberg/doc-rules.yaml .aiv/
 ```
 
 Add `.github/workflows/aiv.yml` per [DEVELOPER-CONFIGURATION.md](../../DEVELOPER-CONFIGURATION.md).

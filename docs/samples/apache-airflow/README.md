@@ -1,6 +1,6 @@
 # Apache Airflow AIV Sample
 
-Sample AIV configuration for Apache Airflow. Airflow is a Python project; AIV checks Python files against design rules and dependencies.
+Sample AIV configuration for Apache Airflow. Airflow is a Python project; AIV checks Python files against design rules and dependencies. Adapt the rules for your own Python project.
 
 **Author:** Vaquar Khan
 
@@ -24,6 +24,7 @@ Sample AIV configuration for Apache Airflow. Airflow is a Python project; AIV ch
 mkdir -p .aiv
 cp docs/samples/apache-airflow/config.yaml .aiv/
 cp docs/samples/apache-airflow/design-rules.yaml .aiv/
+cp docs/samples/apache-airflow/doc-rules.yaml .aiv/
 ```
 
 Add `.github/workflows/aiv.yml` per [DEVELOPER-CONFIGURATION.md](../../DEVELOPER-CONFIGURATION.md). Airflow uses Python; ensure the workflow installs Java 17 for AIV CLI.

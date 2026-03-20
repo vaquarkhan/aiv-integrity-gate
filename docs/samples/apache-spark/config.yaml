@@ -22,3 +22,8 @@ gates:
       whitelist: []
   - id: invariant
     enabled: true
+  - id: doc-integrity
+    enabled: false
+    config:
+      rules_path: .aiv/doc-rules.yaml
+      auto: true

@@ -1,0 +1,23 @@
+# Documentation integrity rules for Spark-style projects.
+# Copy to .aiv/doc-rules.yaml and adjust as needed.
+
+doc_constraints:
+  - id: proto-regen-step
+    trigger_keywords: [".proto", "protobuf", "proto files"]
+    required_mentions: ["dev/connect-gen-protos.sh"]
+    scope: [AGENTS.md, CLAUDE.md, CONTRIBUTING.md]
+
+  - id: golden-files-env-var
+    trigger_keywords: ["SQLQueryTestSuite", "golden file"]
+    required_mentions: ["SPARK_GENERATE_GOLDEN_FILES"]
+    scope: [AGENTS.md, CLAUDE.md]
+
+canonical_commands:
+  - id: pyspark-sbt-build
+    pattern: "build/sbt.*-Phive.*package"
+    required_flags: ["clean"]
+    required_followup: ["test:compile"]
+
+  - id: proto-regen
+    pattern: "proto"
+    required_commands: ["dev/connect-gen-protos.sh"]

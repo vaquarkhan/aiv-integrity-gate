@@ -19,8 +19,9 @@ Your repo root must look like this when done:
 ```
 your-repo-name/
 ├── .aiv/                          ← Config folder (you create this)
-│   ├── config.yaml                ← Gate settings (density, design, invariant)
-│   └── design-rules.yaml          ← Forbidden/required patterns
+│   ├── config.yaml                ← Gate settings (density, design, invariant, doc-integrity)
+│   ├── design-rules.yaml          ← Forbidden/required patterns
+│   └── doc-rules.yaml             ← Doc integrity rules (optional)
 ├── .github/
 │   └── workflows/
 │       └── aiv.yml                ← GitHub Actions workflow (triggers AIV on PR)
@@ -68,6 +69,11 @@ gates:
     enabled: true
   - id: invariant
     enabled: true
+  - id: doc-integrity
+    enabled: false
+    config:
+      rules_path: .aiv/doc-rules.yaml
+      auto: true
 ```
 
 4. Save the file.
@@ -227,6 +233,7 @@ jobs:
 |------|------|---------|
 | config.yaml | `.aiv/config.yaml` | Enable/disable gates, set density thresholds |
 | design-rules.yaml | `.aiv/design-rules.yaml` | Forbidden and required patterns |
+| doc-rules.yaml | `.aiv/doc-rules.yaml` | Doc integrity (paths, cross-refs, commands) |
 | aiv.yml | `.github/workflows/aiv.yml` | Run AIV on every pull request |
 
 | config.yaml key | What to change | Effect |
@@ -455,6 +462,30 @@ gates:
 **Expected:**
 - All gates skipped
 - Exit code 0 (nothing to check)
+
+---
+
+### TC-07b: Doc integrity gate
+
+**Steps:**
+1. Create `.aiv/doc-rules.yaml`:
+```yaml
+doc_constraints:
+  - id: proto-rule
+    trigger_keywords: [".proto"]
+    required_mentions: ["connect-gen-protos.sh"]
+    scope: [README.md]
+```
+2. Enable doc-integrity: add to config or run with `--include-doc-checks`
+3. Create or edit README.md with "We use .proto files" but without "connect-gen-protos.sh"
+4. Run AIV with `--include-doc-checks`
+
+**Expected:**
+- Doc integrity gate fails
+- Message indicates required mention missing
+- Exit code 1
+
+**Cleanup:** Revert README change or add the required mention.
 
 ---
 
