@@ -28,17 +28,22 @@ jobs:
         id: aiv
         run: |
           cd aiv-cli/target
+          EXITCODE=0
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee ../../aiv-report.txt
+            EXITCODE=${PIPESTATUS[0]}
           else
             BASE="${{ github.event.before }}"
             if [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
               echo "Initial push, skipping AIV"
-              exit 0
+              EXITCODE=0
+            else
+              java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee ../../aiv-report.txt
+              EXITCODE=${PIPESTATUS[0]}
             fi
-            java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee ../../aiv-report.txt
           fi
-          echo "exitcode=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+          echo "exitcode=$EXITCODE" >> $GITHUB_OUTPUT
+          exit $EXITCODE
         continue-on-error: true
 
       - name: Post AIV report to PR
@@ -98,5 +103,10 @@ jobs:
       - name: Fail if AIV failed
         run: |
           if [ "${{ steps.aiv.outputs.exitcode }}" != "0" ]; then
+            echo "::error::AIV gates failed. See Run AIV step above for details."
+            if [ -f aiv-report.txt ]; then
+              echo "--- AIV Report ---"
+              cat aiv-report.txt
+            fi
             exit 1
           fi
