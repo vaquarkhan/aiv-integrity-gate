@@ -30,7 +30,7 @@ jobs:
           cd aiv-cli/target
           EXITCODE=0
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee ../../aiv-report.txt
+            java -Daiv.git.timeout.seconds=180 -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee ../../aiv-report.txt
             EXITCODE=${PIPESTATUS[0]}
           else
             BASE="${{ github.event.before }}"
@@ -38,7 +38,7 @@ jobs:
               echo "Initial push, skipping AIV"
               EXITCODE=0
             else
-              java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee ../../aiv-report.txt
+              java -Daiv.git.timeout.seconds=180 -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee ../../aiv-report.txt
               EXITCODE=${PIPESTATUS[0]}
             fi
           fi

@@ -43,7 +43,7 @@ public final class GitDiffProvider implements DiffProvider {
 
     private static final Logger log = LoggerFactory.getLogger(GitDiffProvider.class);
     private static final Pattern VALID_REF = Pattern.compile("^[a-zA-Z0-9/_.~^-]+$");
-    private static final long DEFAULT_GIT_TIMEOUT_SECONDS = 60;
+    private static final long DEFAULT_GIT_TIMEOUT_SECONDS = 120;
 
     private static long gitTimeoutSeconds() {
         // Allows CI/tests to reduce worst-case runtime when `git` is slow/hangs.
