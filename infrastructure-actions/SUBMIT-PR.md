@@ -42,4 +42,4 @@ in pull requests. Projects opt-in with 3 lines in .github/workflows.
 
 ## 5. actions.yml
 
-No entry needed for `apache/infrastructure-actions/*` - it's in the allowed namespace. The action uses `actions/checkout@v4` and `actions/setup-java@v4` which are already allowed.
+No entry needed for `apache/infrastructure-actions/*` - it's in the allowed namespace. The action uses `actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5` and `actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9` which are already allowed.

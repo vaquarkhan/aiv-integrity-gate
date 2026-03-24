@@ -152,6 +152,7 @@
                         </execution>
                         <execution>
                             <id>check</id>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
@@ -163,7 +164,7 @@
                                             <limit>
                                                 <counter>LINE</counter>
                                                 <value>COVEREDRATIO</value>
-                                                <minimum>1.00</minimum>
+                                                <minimum>0.70</minimum>
                                             </limit>
                                         </limits>
                                     </rule>

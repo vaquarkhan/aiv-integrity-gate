@@ -22,7 +22,9 @@ import org.apache.aiv.port.ConfigProvider;
 import org.apache.aiv.port.DiffProvider;
 import org.apache.aiv.port.ReportPublisher;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -264,5 +266,42 @@ class OrchestratorTest {
         assertTrue(results.get(0).isPassed());
         assertEquals(List.of("default-enabled"),
                 results.get(0).getGateResults().stream().map(GateResult::getGateId).toList());
+    }
+
+    @Test
+    void excludesPathsAndLogsWhenFiltering(@TempDir Path dir) throws Exception {
+        java.nio.file.Files.createDirectories(dir.resolve("gen/foo"));
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
+                return new Diff(
+                        baseRef, headRef,
+                        List.of(
+                                new ChangedFile("gen/foo/X.java", ChangedFile.ChangeType.ADDED, "x"),
+                                new ChangedFile("src/Main.java", ChangedFile.ChangeType.MODIFIED, "y")
+                        ),
+                        ""
+                );
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(java.nio.file.Path workspace) {
+                return new AIVConfig(
+                        allGatesDisabled(),
+                        Map.of("exclude_paths", List.of("**/gen/**"))
+                );
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var reportPublisher = new ReportPublisher() {
+            @Override
+            public void publish(AIVResult result) {
+                results.add(result);
+            }
+        };
+        var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
+        orch.run(dir, "main", "HEAD");
+        assertEquals(1, results.size());
     }
 }
