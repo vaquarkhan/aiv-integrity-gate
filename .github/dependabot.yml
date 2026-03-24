@@ -1,0 +1,12 @@
+# Dependabot config - GitHub Actions updates disabled per supply chain security
+# (see https://github.com/apache/iceberg/issues/15742)
+# Unreviewed action version bumps can cause workflows to silently fail if the
+# action isn't on the ASF allowlist. Action updates should go through manual
+# review and SHA pinning.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0

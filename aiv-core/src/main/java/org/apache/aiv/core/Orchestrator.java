@@ -39,7 +39,7 @@ import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
 /**
- * Runs the pipeline: diff → config → gates (in order) → publish. Short-circuits on first failure.
+ * Runs the pipeline: diff - config - gates (in order) - publish. Short-circuits on first failure.
  *
  * @author Vaquar Khan
  */

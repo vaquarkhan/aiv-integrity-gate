@@ -113,11 +113,11 @@ jobs:
   aiv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9
         with:
           distribution: temurin
           java-version: 17
@@ -368,7 +368,7 @@ java -jar aiv-cli.jar --diff origin/main --head feature-branch
 ### GitHub Actions
 
 ```yaml
-- uses: actions/checkout@v4
+- uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
   with:
     fetch-depth: 0
 - uses: apache/infrastructure-actions/aiv@main
