@@ -23,6 +23,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CommandCompletenessCheckerTest {
 
@@ -62,5 +63,71 @@ class CommandCompletenessCheckerTest {
         var rules = new DocRules(List.of(), List.of(cmd));
         var c = new CommandCompletenessChecker(rules);
         assertNull(c.validate("README.md", "Run build/sbt clean -Phive package and build/sbt test:compile"));
+    }
+
+    @Test
+    void failsWhenRequiredFollowupMissing() {
+        var cmd = new DocRules.CanonicalCommand("x", "mvn verify", List.of(),
+                List.of("install"), List.of());
+        var rules = new DocRules(List.of(), List.of(cmd));
+        var c = new CommandCompletenessChecker(rules);
+        String r = c.validate("README.md", "Run mvn verify on CI");
+        assertNotNull(r);
+        assertTrue(r.contains("followup"));
+    }
+
+    @Test
+    void failsWhenRequiredCommandMissing() {
+        var cmd = new DocRules.CanonicalCommand("x", "git push", List.of(), List.of(),
+                List.of("git status"));
+        var rules = new DocRules(List.of(), List.of(cmd));
+        var c = new CommandCompletenessChecker(rules);
+        String r = c.validate("README.md", "Then git push origin");
+        assertNotNull(r);
+        assertTrue(r.contains("required command"));
+    }
+
+    @Test
+    void passesWhenAllRequiredCommandsPresent() {
+        var cmd = new DocRules.CanonicalCommand("x", "mvn package", List.of(), List.of(),
+                List.of("clean", "install"));
+        var rules = new DocRules(List.of(), List.of(cmd));
+        var c = new CommandCompletenessChecker(rules);
+        assertNull(c.validate("README.md", "mvn clean install package"));
+    }
+
+    @Test
+    void runsMultipleCanonicalCommandRulesInSequence() {
+        var a = new DocRules.CanonicalCommand("a", "docker", List.of(), List.of(), List.of());
+        var b = new DocRules.CanonicalCommand("b", "compose", List.of(), List.of(), List.of());
+        var rules = new DocRules(List.of(), List.of(a, b));
+        var c = new CommandCompletenessChecker(rules);
+        assertNull(c.validate("README.md", "Run docker compose up"));
+    }
+
+    @Test
+    void passesWhenAllRequiredFollowupsPresent() {
+        var cmd = new DocRules.CanonicalCommand("x", "npm run", List.of(), List.of("build", "test"), List.of());
+        var rules = new DocRules(List.of(), List.of(cmd));
+        var c = new CommandCompletenessChecker(rules);
+        assertNull(c.validate("README.md", "npm run build and test locally"));
+    }
+
+    @Test
+    void skipsRuleWhenPatternNullOrEmpty() {
+        var skipNull = new DocRules.CanonicalCommand("a", null, List.of(), List.of(), List.of());
+        var skipEmpty = new DocRules.CanonicalCommand("b", "", List.of(), List.of(), List.of());
+        var run = new DocRules.CanonicalCommand("c", "echo", List.of(), List.of(), List.of());
+        var rules = new DocRules(List.of(), List.of(skipNull, skipEmpty, run));
+        var c = new CommandCompletenessChecker(rules);
+        assertNull(c.validate("README.md", "echo hello"));
+    }
+
+    @Test
+    void passesWhenRequiredCommandsEmpty() {
+        var cmd = new DocRules.CanonicalCommand("x", "gradle", List.of(), List.of(), List.of());
+        var rules = new DocRules(List.of(), List.of(cmd));
+        var c = new CommandCompletenessChecker(rules);
+        assertNull(c.validate("README.md", "use gradle wrapper"));
     }
 }

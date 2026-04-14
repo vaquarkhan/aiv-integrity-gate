@@ -1,0 +1,87 @@
+# Publishes all modules to Maven Central via Sonatype Central Portal.
+# Run manually after a GitHub Release exists (see workflow "Release (GitHub)") or when
+# you are ready to ship the same version to repo1.maven.org.
+#
+# Prerequisites: verified namespace on central.sonatype.com, user token, GPG key.
+# See docs/DEPLOYMENT.md (Maven Central section).
+#
+# Required repository secrets:
+#   CENTRAL_TOKEN_USERNAME, CENTRAL_TOKEN_PASSWORD, GPG_PRIVATE_KEY, GPG_PASSPHRASE
+#
+name: Publish to Maven Central
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Release version (no v prefix), must match the GitHub tag, e.g. 1.0.0'
+        required: true
+        type: string
+
+concurrency:
+  group: maven-central-${{ github.workflow }}-${{ github.event.inputs.release_version }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Resolve release version
+        id: ver
+        shell: bash
+        run: echo "version=${{ github.event.inputs.release_version }}" >> "$GITHUB_OUTPUT"
+
+      - name: Configure Maven settings for Central Portal
+        shell: bash
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>central</id>
+                <username>${CENTRAL_TOKEN_USERNAME}</username>
+                <password>${CENTRAL_TOKEN_PASSWORD}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+        env:
+          CENTRAL_TOKEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
+          CENTRAL_TOKEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
+
+      - name: Import GPG key
+        shell: bash
+        run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+          printf '%s\n' "pinentry-mode loopback" "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+          printf '%s\n' "$GPG_PRIVATE_KEY" | gpg --batch --import
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
+      - name: Set project version
+        shell: bash
+        run: mvn -B -ntp org.codehaus.mojo:versions-maven-plugin:2.16.2:set "-DnewVersion=${{ steps.ver.outputs.version }}" -DgenerateBackupPoms=false
+
+      - name: Deploy to Maven Central
+        shell: bash
+        run: mvn -B -ntp clean deploy -Pcentral-publish
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

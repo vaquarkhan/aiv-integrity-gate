@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Documentation integrity gate. Validates paths, cross-references, required mentions,
- * command completeness, and path fabrication in markdown and text files.
+ * Documentation integrity gate. Validates paths, cross-references, relative Markdown links,
+ * required mentions, command completeness, and path fabrication in markdown and text files.
  *
  * @author Vaquar Khan
  */
@@ -57,6 +57,7 @@ public final class DocIntegrityGate implements QualityGate {
 
         FileExistenceValidator fileExistence = new FileExistenceValidator(context.getWorkspace());
         CrossReferenceChecker crossRef = new CrossReferenceChecker(context.getWorkspace());
+        MarkdownLinkChecker mdLinks = new MarkdownLinkChecker(context.getWorkspace());
         RequiredMentionValidator requiredMention = new RequiredMentionValidator(rules);
         CommandCompletenessChecker commandChecker = new CommandCompletenessChecker(rules);
         PathFabricationDetector pathFabrication = new PathFabricationDetector(context);
@@ -69,6 +70,9 @@ public final class DocIntegrityGate implements QualityGate {
             if (v != null) violations.add(v);
 
             v = crossRef.validate(path, content);
+            if (v != null) violations.add(v);
+
+            v = mdLinks.validate(path, content);
             if (v != null) violations.add(v);
 
             v = requiredMention.validate(path, content);

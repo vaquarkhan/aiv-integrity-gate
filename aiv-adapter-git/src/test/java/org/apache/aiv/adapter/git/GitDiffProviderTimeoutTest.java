@@ -23,26 +23,25 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GitDiffProviderTimeoutTest {
 
     private static final String TIMEOUT_PROP = "aiv.git.timeout.seconds";
+    private static final String GIT_EXECUTABLE_PROP = "aiv.git.executable";
 
     @Test
     void getDiffGracefullyHandlesGitTimeouts(@TempDir Path workspace) throws Exception {
-        // Place a fake git.cmd in the workspace so ProcessBuilder("git", ...) resolves to it.
-        Files.writeString(workspace.resolve("git.cmd"),
-                "@echo off\r\n" +
-                        "set x=0\r\n" +
-                        ":loop\r\n" +
-                        "set /a x=x+1\r\n" +
-                        "goto loop\r\n");
+        Path slowGit = workspace.resolve(slowGitFilename());
+        writeInfiniteLoopScript(slowGit);
 
-        String previous = System.getProperty(TIMEOUT_PROP);
+        String previousTimeout = System.getProperty(TIMEOUT_PROP);
+        String previousGit = System.getProperty(GIT_EXECUTABLE_PROP);
         try {
             System.setProperty(TIMEOUT_PROP, "1");
+            System.setProperty(GIT_EXECUTABLE_PROP, slowGit.toAbsolutePath().toString());
 
             var provider = new GitDiffProvider();
             Diff diff = provider.getDiff(workspace.toAbsolutePath(), "HEAD", "HEAD");
@@ -55,11 +54,33 @@ class GitDiffProviderTimeoutTest {
             assertNull(diff.getAuthorEmail());
             assertFalse(diff.isSkipRequested());
         } finally {
-            if (previous == null) {
+            if (previousTimeout == null) {
                 System.clearProperty(TIMEOUT_PROP);
             } else {
-                System.setProperty(TIMEOUT_PROP, previous);
+                System.setProperty(TIMEOUT_PROP, previousTimeout);
             }
+            if (previousGit == null) {
+                System.clearProperty(GIT_EXECUTABLE_PROP);
+            } else {
+                System.setProperty(GIT_EXECUTABLE_PROP, previousGit);
+            }
+        }
+    }
+
+    private static String slowGitFilename() {
+        return System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win")
+                ? "slow-git.cmd"
+                : "slow-git.sh";
+    }
+
+    private static void writeInfiniteLoopScript(Path path) throws Exception {
+        String os = System.getProperty("os.name", "").toLowerCase(Locale.ROOT);
+        if (os.contains("win")) {
+            Files.writeString(path,
+                    "@echo off\r\n" + ":loop\r\n" + "goto loop\r\n");
+        } else {
+            Files.writeString(path, "#!/bin/sh\nwhile true; do :; done\n");
+            path.toFile().setExecutable(true, true);
         }
     }
 }

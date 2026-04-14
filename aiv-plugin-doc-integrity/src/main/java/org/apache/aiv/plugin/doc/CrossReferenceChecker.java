@@ -57,7 +57,7 @@ public final class CrossReferenceChecker {
         return null;
     }
 
-    private boolean resolveExists(String pathStr, String docPath) {
+    boolean resolveExists(String pathStr, String docPath) {
         String normalized = pathStr.replace("\\", "/").trim();
         if (normalized.startsWith("~/")) normalized = normalized.substring(2);
         else if (normalized.startsWith("/")) normalized = normalized.substring(1);
@@ -66,10 +66,10 @@ public final class CrossReferenceChecker {
             Path parent = workspace.resolve(docPath).getParent();
             if (parent != null) baseDir = parent;
         }
-        Path resolved = baseDir.resolve(normalized).normalize();
-        if (!resolved.startsWith(workspace.toAbsolutePath().normalize())) {
-            resolved = workspace.resolve(normalized).normalize();
-        }
+        Path workspaceAbs = workspace.toAbsolutePath().normalize();
+        Path primary = baseDir.resolve(normalized).normalize();
+        Path fromRoot = DocPathUtils.resolveFromWorkspaceRoot(workspace, normalized);
+        Path resolved = primary.startsWith(workspaceAbs) ? primary : fromRoot;
         if (Files.exists(resolved)) return true;
         Path withReadme = resolved.resolve("README.md");
         return Files.exists(withReadme);

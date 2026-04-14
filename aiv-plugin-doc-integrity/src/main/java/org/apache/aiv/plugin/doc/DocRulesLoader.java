@@ -34,6 +34,9 @@ public final class DocRulesLoader {
 
     private static final Logger log = LoggerFactory.getLogger(DocRulesLoader.class);
 
+    DocRulesLoader() {
+    }
+
     public static DocRules load(Path path) {
         if (!Files.exists(path)) {
             return new DocRules(List.of(), List.of());

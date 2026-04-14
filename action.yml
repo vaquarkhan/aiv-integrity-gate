@@ -1,0 +1,71 @@
+# AIV Integrity Gate — GitHub Marketplace / composite action
+# Usage (after a release is on Maven Central or you pass cli-jar-url):
+#   - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+#     with:
+#       fetch-depth: 0
+#   - uses: vaquarkhan/aiv-integrity-gate@v1
+#     with:
+#       base-ref: origin/${{ github.base_ref }}
+#
+# Author: Vaquar Khan
+name: 'AIV Integrity Gate'
+description: 'Run Automated Integrity Validation on PR diffs (density, design, dependency, optional doc checks). Downloads the CLI from Maven Central by default.'
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  base-ref:
+    description: 'Base ref for the diff (for example origin/main). On pull_request use origin/${{ github.base_ref }}.'
+    required: true
+  workspace:
+    description: 'Repository root to analyze'
+    required: false
+    default: '${{ github.workspace }}'
+  java-version:
+    description: 'JDK version used to run the CLI JAR'
+    required: false
+    default: '17'
+  aiv-version:
+    description: 'Released CLI version published as org.apache.aiv:aiv-cli (no -SNAPSHOT). Ignored if cli-jar-url is set.'
+    required: false
+    default: '1.0.0'
+  maven-central-base:
+    description: 'Maven repository base (no trailing slash). Path org/apache/aiv/... is appended.'
+    required: false
+    default: 'https://repo1.maven.org/maven2'
+  cli-jar-url:
+    description: 'Optional full URL to the aiv-cli JAR. When set, skips Maven Central and downloads this file instead (for example a GitHub Release asset before Central publish).'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Java
+      uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9
+      with:
+        distribution: 'temurin'
+        java-version: ${{ inputs.java-version }}
+
+    - name: Download AIV CLI
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [ -n "${{ inputs.cli-jar-url }}" ]; then
+          echo "Downloading CLI from cli-jar-url"
+          curl -fsSL -o "$GITHUB_WORKSPACE/aiv-cli.jar" "${{ inputs.cli-jar-url }}"
+        else
+          VERSION="${{ inputs.aiv-version }}"
+          BASE="${{ inputs.maven-central-base }}"
+          URL="$BASE/org/apache/aiv/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"
+          echo "Downloading $URL"
+          curl -fsSL -o "$GITHUB_WORKSPACE/aiv-cli.jar" "$URL" || {
+            echo "::error::Could not download $URL. Publish org.apache.aiv:aiv-cli:$VERSION to Maven Central, attach the JAR to a GitHub Release, and pass cli-jar-url, or build from source. See docs/DEPLOYMENT.md (Maven Central section)."
+            exit 1
+          }
+        fi
+
+    - name: Run AIV Gate
+      shell: bash
+      run: java -jar "$GITHUB_WORKSPACE/aiv-cli.jar" --workspace "${{ inputs.workspace }}" --diff "${{ inputs.base-ref }}"

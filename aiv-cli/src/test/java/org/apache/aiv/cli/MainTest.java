@@ -77,6 +77,18 @@ class MainTest {
     }
 
     @Test
+    void runWithIncludeDocChecks(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        int code = Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--include-doc-checks"
+        });
+        assertTrue(code == 0 || code == 1);
+    }
+
+    @Test
     void invalidGitRefIsHandledAndReturnsOne(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{
