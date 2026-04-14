@@ -1,6 +1,6 @@
 # AIV Developer Configuration Guide
 
-How to configure AIV for your project. AIV works with any Git-based project (Java, Python, Go, Rust, and more). All config lives under `.aiv/` in the repo root.
+You are in the right place if you need every knob AIV exposes: gates, YAML layout, CLI flags, and how defaults behave when files are missing. AIV works with any Git-based project (Java, Python, Go, Rust, and more). Project-specific settings live under `.aiv/` in the repo root.
 
 **Author:** Vaquar Khan
 
@@ -27,7 +27,9 @@ See [README.md](../README.md#problems-and-solutions) for the full mapping.
 1. Create `.aiv/config.yaml` (optional — defaults apply if missing)
 2. Create `.aiv/design-rules.yaml` (optional — for design compliance)
 3. Create `.aiv/doc-rules.yaml` (optional — for documentation validation)
-4. Run AIV: `java -jar aiv-cli.jar --diff origin/main`
+4. Run AIV: `java -jar aiv-cli.jar --diff origin/main` (add `--include-doc-checks` when you want doc integrity without editing YAML)
+
+If you are editing **this** AIV repository, run `mvn clean verify` before opening a PR so tests and the **100%** JaCoCo line gate stay green.
 
 ---
 
@@ -41,7 +43,7 @@ your-project/
 │   └── doc-rules.yaml       # Doc integrity (optional)
 ├── .github/
 │   └── workflows/
-│       └── ci.yml           # Add AIV job here
+│       └── aiv.yml          # AIV on PR/push (example: see upstream aiv-integrity-gate)
 └── ...
 ```
 
@@ -49,7 +51,7 @@ your-project/
 
 ## Adding AIV to an Existing Project
 
-Step-by-step guide to enable AIV in any Git repo. The example below uses Apache Iceberg; the same steps apply to any project. No deployment — AIV is cloned and built by the workflow at runtime.
+Step-by-step guide to enable AIV in any Git repo. The commands below clone Apache Iceberg only as a stand-in; use your own remote if you are not working on Iceberg. No deployment — AIV is cloned and built by the workflow at runtime.
 
 ### Step 1: Clone the target repo
 
@@ -89,7 +91,7 @@ gates:
 
 ### Step 4: Create `.aiv/design-rules.yaml`
 
-Create `.aiv/design-rules.yaml` with project-specific rules. A full Iceberg sample is at [samples/apache-iceberg/](samples/apache-iceberg/). Minimal example:
+Create `.aiv/design-rules.yaml` with project-specific rules. Minimal example:
 
 ```yaml
 constraints:
@@ -126,7 +128,7 @@ jobs:
         run: |
           git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-src
           cd aiv-src
-          mvn package -DskipTests -B -q -pl aiv-cli -am
+          mvn -B -ntp clean verify -pl aiv-cli -am
 
       - name: Run AIV
         run: |
@@ -207,6 +209,8 @@ gates:
 | `dependency` | Import vs lockfile         | `whitelist`           | —                           |
 | `invariant`  | Invariant checks           | —                     | —                           |
 | `doc-integrity` | Documentation validation | `rules_path`, `auto` | `.aiv/doc-rules.yaml`       |
+
+For every changed documentation file, **`doc-integrity`** also checks **relative Markdown links** `[label](path)` (skipping `http://`, `https://`, `mailto:`): the path must resolve to a file in the workspace. If the link includes a **`#fragment`** and the target ends with `.md`, a matching **ATX heading slug** (GitHub-style) must exist in that file. Optional rules in `doc-rules.yaml` add required mentions and canonical command checks.
 
 ### Density Gate
 
@@ -347,6 +351,7 @@ constraints:
 | `--workspace` | Path to repo root              | `.`            |
 | `--diff`      | Base ref for diff              | `origin/main`  |
 | `--head`      | Head ref for diff              | `HEAD`         |
+| `--include-doc-checks` | For this run, wrap config so the **doc-integrity** gate is enabled for documentation files (same effect as turning it on in YAML for local experiments). | (flag absent) |
 
 ### Examples
 
@@ -359,6 +364,9 @@ java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/develop
 
 # Compare two refs
 java -jar aiv-cli.jar --diff origin/main --head feature-branch
+
+# Also run doc integrity checks for this invocation
+java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/main --include-doc-checks
 ```
 
 ---
@@ -436,7 +444,7 @@ Glob patterns use Java PathMatcher syntax. Common patterns:
 
 ## 6. Defaults Summary
 
-When `.aiv/config.yaml` is missing:
+When `.aiv/config.yaml` is missing, the CLI’s built-in default (see `YamlConfigProvider`) turns on density, design, dependency, and invariant, and leaves **doc-integrity** present but **disabled** unless you enable it in YAML or pass `--include-doc-checks`.
 
 | Gate      | Enabled | Config                                      |
 |-----------|---------|---------------------------------------------|
@@ -444,6 +452,7 @@ When `.aiv/config.yaml` is missing:
 | design    | true    | rules_path: .aiv/design-rules.yaml          |
 | dependency| true    | whitelist: []                               |
 | invariant | true    | (none)                                      |
+| doc-integrity | false | rules_path: .aiv/doc-rules.yaml, auto: true |
 
 When `.aiv/design-rules.yaml` is missing or empty, the design gate passes (no constraints).
 
@@ -451,11 +460,13 @@ When `.aiv/design-rules.yaml` is missing or empty, the design gate passes (no co
 
 ## 7. Validation
 
-Config is loaded at runtime. Invalid YAML or unknown keys are ignored; AIV falls back to defaults. Check logs if behavior is unexpected.
+Config is loaded at runtime from `.aiv/config.yaml`. If the file **exists** but is not valid YAML or cannot be parsed into the expected shape, loading throws an `IllegalArgumentException` with a clear message (you will see it in CI logs). That is intentional: you get a hard failure instead of silent guessing.
+
+If the config file is **missing**, AIV uses the defaults in the table above. When something looks wrong, confirm the file path is `workspace/.aiv/config.yaml` and run a quick syntax check with any YAML linter.
 
 ---
 
 ## See Also
 
-- [TUTORIAL.md](TUTORIAL.md) — Step-by-step guide with examples and testing
-- [EXAMPLE-WORKFLOW.md](EXAMPLE-WORKFLOW.md) — How AIV works with Git flow
+- [README.md](../README.md) — Overview and quick start
+- [DEPLOYMENT.md](DEPLOYMENT.md) — CI, workflows, Maven Central / Marketplace

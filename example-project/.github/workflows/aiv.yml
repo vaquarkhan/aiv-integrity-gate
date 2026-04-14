@@ -23,7 +23,7 @@ jobs:
         run: |
           git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-src
           cd aiv-src
-          mvn clean package -DskipTests -B -q
+          mvn -B -ntp clean verify -pl aiv-cli -am
 
       - name: Run AIV
         id: aiv

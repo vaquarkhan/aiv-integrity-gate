@@ -33,9 +33,11 @@ import java.nio.file.Path;
 import java.util.Random;
 import java.util.List;
 import java.lang.reflect.Method;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+import java.nio.file.attribute.PosixFilePermissions;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Vaquar Khan
  */
@@ -277,10 +279,10 @@ class GitDiffProviderTest {
         // parseChangedFiles: exception path when workspace directory doesn't exist
         Path missing = repo.resolve("does-not-exist");
         Method parseChangedFiles = GitDiffProvider.class.getDeclaredMethod(
-                "parseChangedFiles", Path.class, String.class, String.class, String.class);
+                "parseChangedFiles", Path.class, String.class, String.class);
         parseChangedFiles.setAccessible(true);
         @SuppressWarnings("unchecked")
-        List<ChangedFile> files = (List<ChangedFile>) parseChangedFiles.invoke(new GitDiffProvider(), missing, "HEAD", "HEAD", "");
+        List<ChangedFile> files = (List<ChangedFile>) parseChangedFiles.invoke(new GitDiffProvider(), missing, "HEAD", "HEAD");
         assertNotNull(files);
         assertTrue(files.isEmpty());
 
@@ -302,6 +304,250 @@ class GitDiffProviderTest {
         Files.delete(repo.resolve("huge.txt"));
 
         assertEquals("", (String) read.invoke(new GitDiffProvider(), repo.toAbsolutePath(), "huge.txt", "HEAD"));
+    }
+
+    @Test
+    void gitTimeoutSecondsReadsPropertyOrDefault() throws Exception {
+        Method m = GitDiffProvider.class.getDeclaredMethod("gitTimeoutSeconds");
+        m.setAccessible(true);
+        String prop = "aiv.git.timeout.seconds";
+        String prev = System.getProperty(prop);
+        try {
+            System.clearProperty(prop);
+            assertEquals(120L, m.invoke(null));
+            System.setProperty(prop, "  ");
+            assertEquals(120L, m.invoke(null));
+            System.setProperty(prop, "  3 ");
+            assertEquals(3L, m.invoke(null));
+            System.setProperty(prop, "-9");
+            assertEquals(120L, m.invoke(null));
+            System.setProperty(prop, "not-a-number");
+            assertEquals(120L, m.invoke(null));
+        } finally {
+            if (prev == null) {
+                System.clearProperty(prop);
+            } else {
+                System.setProperty(prop, prev);
+            }
+        }
+    }
+
+    @Test
+    void maxGitCaptureBytesReadsPropertyOrDefault() throws Exception {
+        Method m = GitDiffProvider.class.getDeclaredMethod("maxGitCaptureBytes");
+        m.setAccessible(true);
+        String prop = "aiv.git.capture.max.bytes";
+        String prev = System.getProperty(prop);
+        try {
+            System.clearProperty(prop);
+            assertEquals(64L * 1024 * 1024, m.invoke(null));
+            System.setProperty(prop, "1024");
+            assertEquals(1024L, m.invoke(null));
+            System.setProperty(prop, "   ");
+            assertEquals(64L * 1024 * 1024, m.invoke(null));
+            System.setProperty(prop, "0");
+            assertEquals(64L * 1024 * 1024, m.invoke(null));
+            System.setProperty(prop, "bad");
+            assertEquals(64L * 1024 * 1024, m.invoke(null));
+        } finally {
+            if (prev == null) {
+                System.clearProperty(prop);
+            } else {
+                System.setProperty(prop, prev);
+            }
+        }
+    }
+
+    @Test
+    void gitProcessTimedOutWithZeroTimeoutWaitsUntilExit() throws Exception {
+        Method m = GitDiffProvider.class.getDeclaredMethod("gitProcessTimedOut", Process.class, long.class);
+        m.setAccessible(true);
+        ProcessBuilder pb = quickExitProcess();
+        Process p = pb.start();
+        assertFalse((boolean) m.invoke(null, p, 0L));
+    }
+
+    @Test
+    void gitProcessTimedOutClampsNonPositiveTimeoutToOneSecond() throws Exception {
+        Method m = GitDiffProvider.class.getDeclaredMethod("gitProcessTimedOut", Process.class, long.class);
+        m.setAccessible(true);
+        ProcessBuilder pb = quickExitProcess();
+        Process p = pb.start();
+        assertFalse((boolean) m.invoke(null, p, -5L));
+    }
+
+    @Test
+    void gitProcessTimedOutDestroysHungProcess(@TempDir Path dir) throws Exception {
+        Method m = GitDiffProvider.class.getDeclaredMethod("gitProcessTimedOut", Process.class, long.class);
+        m.setAccessible(true);
+        Path tmp = dir.resolve("hung" + slowGitExtension());
+        try {
+            writeHungProcessScript(tmp);
+            long t0 = System.nanoTime();
+            ProcessBuilder hangPb;
+            if (System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win")) {
+                hangPb = new ProcessBuilder(tmp.toAbsolutePath().toString());
+            } else {
+                hangPb = new ProcessBuilder("sh", tmp.toAbsolutePath().toString());
+            }
+            Process p = hangPb.start();
+            assertTrue((boolean) m.invoke(null, p, 1L));
+            assertTrue(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - t0) < 15_000);
+            p.waitFor(5, TimeUnit.SECONDS);
+        } finally {
+            for (int i = 0; i < 30; i++) {
+                try {
+                    Files.deleteIfExists(tmp);
+                    break;
+                } catch (java.nio.file.FileSystemException e) {
+                    Thread.sleep(100);
+                }
+            }
+        }
+    }
+
+    @Test
+    void runGitReadingFileReturnsEmptyStringWhenCaptureLimitExceeded(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        String cap = "aiv.git.capture.max.bytes";
+        String prevCap = System.getProperty(cap);
+        try {
+            System.setProperty(cap, "2");
+            Files.writeString(repo.resolve("z.txt"), "abcd\n", StandardCharsets.UTF_8);
+            runGit(repo, "add", "z.txt");
+            runGit(repo, "commit", "-m", "z");
+            String base = runGit(repo, "rev-parse", "HEAD~1").trim();
+            Diff diff = new GitDiffProvider().getDiff(repo.toAbsolutePath(), base, "HEAD");
+            assertNotNull(diff);
+            assertTrue(diff.getRawDiff().isEmpty());
+        } finally {
+            if (prevCap == null) {
+                System.clearProperty(cap);
+            } else {
+                System.setProperty(cap, prevCap);
+            }
+        }
+    }
+
+    @Test
+    void parseNumIgnoresNonNumericTokens() throws Exception {
+        Method parseNum = GitDiffProvider.class.getDeclaredMethod("parseNum", String.class);
+        parseNum.setAccessible(true);
+        var provider = new GitDiffProvider();
+        assertEquals(0, parseNum.invoke(provider, "x"));
+    }
+
+    @Test
+    void gitSubcommandsHitTimeoutBranchesWhenExecutableHangs(@TempDir Path dir) throws Exception {
+        Path slowGit = dir.resolve(System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win")
+                ? "slow-git.cmd" : "slow-git.sh");
+        if (System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win")) {
+            Files.writeString(slowGit, "@echo off\r\n:loop\r\ngoto loop\r\n");
+        } else {
+            Files.writeString(slowGit, "#!/bin/sh\nwhile true; do :; done\n");
+            slowGit.toFile().setExecutable(true, true);
+        }
+
+        String gitProp = "aiv.git.executable";
+        String toProp = "aiv.git.timeout.seconds";
+        String prevGit = System.getProperty(gitProp);
+        String prevTo = System.getProperty(toProp);
+        try {
+            System.setProperty(gitProp, slowGit.toAbsolutePath().toString());
+            System.setProperty(toProp, "1");
+
+            Path ws = dir.resolve("ws");
+            Files.createDirectories(ws);
+            var provider = new GitDiffProvider();
+
+            Method parseNumStat = GitDiffProvider.class.getDeclaredMethod(
+                    "parseNumStat", Path.class, String.class, String.class);
+            parseNumStat.setAccessible(true);
+            Method runCap = GitDiffProvider.class.getDeclaredMethod(
+                    "runGitReadingFile", ProcessBuilder.class, long.class);
+            runCap.setAccessible(true);
+            Method cfg = GitDiffProvider.class.getDeclaredMethod("configureGitChild", ProcessBuilder.class);
+            cfg.setAccessible(true);
+            ProcessBuilder sample = new ProcessBuilder(slowGit.toAbsolutePath().toString(), "diff", "HEAD...HEAD");
+            sample.directory(ws.toFile());
+            cfg.invoke(null, sample);
+            assertNull(runCap.invoke(null, sample, 1L));
+
+            int[] loc = (int[]) parseNumStat.invoke(provider, ws, "HEAD", "HEAD");
+            assertEquals(0, loc[0]);
+            assertEquals(0, loc[1]);
+
+            Method parseAuthor = GitDiffProvider.class.getDeclaredMethod(
+                    "parseAuthor", Path.class, String.class, String.class);
+            parseAuthor.setAccessible(true);
+            assertNull(parseAuthor.invoke(provider, ws, "HEAD", "HEAD"));
+
+            Method parseSkip = GitDiffProvider.class.getDeclaredMethod(
+                    "parseSkipRequested", Path.class, String.class, String.class);
+            parseSkip.setAccessible(true);
+            assertFalse((boolean) parseSkip.invoke(provider, ws, "HEAD", "HEAD"));
+
+            Method runGitDiff = GitDiffProvider.class.getDeclaredMethod(
+                    "runGitDiff", Path.class, String.class, String.class);
+            runGitDiff.setAccessible(true);
+            assertEquals("", runGitDiff.invoke(provider, ws, "HEAD", "HEAD"));
+
+            Method parseChangedFiles = GitDiffProvider.class.getDeclaredMethod(
+                    "parseChangedFiles", Path.class, String.class, String.class);
+            parseChangedFiles.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            List<ChangedFile> files = (List<ChangedFile>) parseChangedFiles.invoke(provider, ws, "HEAD", "HEAD");
+            assertTrue(files.isEmpty());
+
+            Path repo = dir.resolve("repo");
+            Files.createDirectories(repo);
+            initRepo(repo);
+            Files.writeString(repo.resolve("timeout-show.txt"), "in-git\n", StandardCharsets.UTF_8);
+            runGit(repo, "add", "timeout-show.txt");
+            runGit(repo, "commit", "-m", "ts");
+            Files.delete(repo.resolve("timeout-show.txt"));
+
+            Method readFileContent = GitDiffProvider.class.getDeclaredMethod(
+                    "readFileContent", Path.class, String.class, String.class);
+            readFileContent.setAccessible(true);
+            assertEquals("", readFileContent.invoke(
+                    provider, repo.toAbsolutePath(), "timeout-show.txt", "HEAD"));
+        } finally {
+            if (prevGit == null) {
+                System.clearProperty(gitProp);
+            } else {
+                System.setProperty(gitProp, prevGit);
+            }
+            if (prevTo == null) {
+                System.clearProperty(toProp);
+            } else {
+                System.setProperty(toProp, prevTo);
+            }
+        }
+    }
+
+    private static ProcessBuilder quickExitProcess() {
+        if (System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win")) {
+            return new ProcessBuilder("cmd", "/c", "exit", "0");
+        }
+        return new ProcessBuilder("true");
+    }
+
+    private static String slowGitExtension() {
+        return System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win") ? ".cmd" : ".sh";
+    }
+
+    private static void writeHungProcessScript(Path path) throws Exception {
+        String os = System.getProperty("os.name", "").toLowerCase(Locale.ROOT);
+        if (os.contains("win")) {
+            Files.writeString(path, "@echo off\r\n:loop\r\ngoto loop\r\n");
+        } else {
+            Files.writeString(path, "#!/bin/sh\nwhile true; do : ; done\n");
+            try {
+                Files.setPosixFilePermissions(path, PosixFilePermissions.fromString("rwx------"));
+            } catch (UnsupportedOperationException ignored) {
+            }
+        }
     }
 
     private static void initRepo(Path repo) throws Exception {

@@ -24,6 +24,7 @@ import org.apache.aiv.model.Diff;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -79,5 +80,22 @@ class PathFabricationDetectorTest {
         var ctx = context(Path.of("."), List.of());
         var d = new PathFabricationDetector(ctx);
         assertNull(d.validate("README.md", "Visit https://example.com/path"));
+    }
+
+    @Test
+    void completesWhenWorkspacePathIsMissing(@TempDir Path dir) {
+        Path missing = dir.resolve("no-such-workspace");
+        var ctx = context(missing, List.of());
+        var d = new PathFabricationDetector(ctx);
+        assertNull(d.validate("README.md", "plain text no path pattern match"));
+    }
+
+    @Test
+    void skipsUnencodedFilesDuringRepoWalk(@TempDir Path dir) throws Exception {
+        Path bad = dir.resolve("bad-utf8.md");
+        Files.write(bad, new byte[]{(byte) 0x80, (byte) 0xFF});
+        var ctx = context(dir, List.of());
+        var d = new PathFabricationDetector(ctx);
+        assertNull(d.validate("README.md", "no embedded repo path here"));
     }
 }

@@ -23,8 +23,10 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileExistenceValidatorTest {
 
@@ -60,5 +62,45 @@ class FileExistenceValidatorTest {
     void ignoresHttpUrls() {
         var v = new FileExistenceValidator(Path.of("."));
         assertNull(v.validate("README.md", "Visit https://example.com/docs"));
+    }
+
+    @Test
+    void resolvesTildePrefixAsRepoRelative(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("cfg/sub"));
+        Files.writeString(dir.resolve("cfg/sub/x.txt"), "x");
+        var v = new FileExistenceValidator(dir);
+        assertNull(v.validate("README.md", "Edit ~/cfg/sub/x.txt"));
+    }
+
+    @Test
+    void resolvesLeadingSlashAsRepoRelative(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("logs/app"));
+        Files.writeString(dir.resolve("logs/app/out.txt"), "x");
+        var v = new FileExistenceValidator(dir);
+        assertNull(v.validate("README.md", "Tail /logs/app/out.txt"));
+    }
+
+    @Test
+    void usesWorkspaceWhenDocPathHasNoFileParent(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("nested"));
+        Files.writeString(dir.resolve("nested/f.txt"), "x");
+        var v = new FileExistenceValidator(dir);
+        Path root = dir.getRoot();
+        assertNotNull(root);
+        String docPath = root.toString().replace('\\', '/');
+        if (!docPath.contains("/")) {
+            docPath = docPath + "/";
+        } else if (!docPath.endsWith("/") && docPath.length() > 1) {
+            docPath = docPath + "/";
+        }
+        assertTrue(docPath.contains("/"));
+        assertNull(v.validate(docPath, "nested/f.txt"));
+    }
+
+    @Test
+    void resolveExistsUsesWorkspaceRootWhenPrimaryPathEscapes(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("a/b/c"));
+        var v = new FileExistenceValidator(dir);
+        assertFalse(v.resolveExists("../../../../no-such-" + System.nanoTime() + ".log", "a/b/c/x.md"));
     }
 }

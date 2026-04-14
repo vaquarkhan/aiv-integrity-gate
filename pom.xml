@@ -10,6 +10,28 @@
     <packaging>pom</packaging>
     <name>AIV Gate - Automated Integrity Validation</name>
     <description>Technical gate for code integrity validation in Apache projects</description>
+    <url>https://github.com/vaquarkhan/aiv-integrity-gate</url>
+
+    <licenses>
+        <license>
+            <name>AIV Custom License (see LICENSE in repository)</name>
+            <url>https://github.com/vaquarkhan/aiv-integrity-gate/blob/main/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Vaquar Khan</name>
+            <url>https://github.com/vaquarkhan</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/vaquarkhan/aiv-integrity-gate.git</connection>
+        <developerConnection>scm:git:https://github.com/vaquarkhan/aiv-integrity-gate.git</developerConnection>
+        <url>https://github.com/vaquarkhan/aiv-integrity-gate</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,6 +39,10 @@
         <maven.compiler.target>17</maven.compiler.target>
         <junit.version>5.10.2</junit.version>
         <jacoco.version>0.8.12</jacoco.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+        <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
     </properties>
 
     <modules>
@@ -100,6 +126,11 @@
                 <artifactId>logback-classic</artifactId>
                 <version>1.4.14</version>
             </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>2.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -164,7 +195,7 @@
                                             <limit>
                                                 <counter>LINE</counter>
                                                 <value>COVEREDRATIO</value>
-                                                <minimum>0.70</minimum>
+                                                <minimum>1.00</minimum>
                                             </limit>
                                         </limits>
                                     </rule>
@@ -176,4 +207,77 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <!--
+      Maven Central (Sonatype Central Portal): activate with -Pcentral-publish
+      Requires: verified namespace on central.sonatype.com, user token in settings.xml (server id "central"),
+      GPG key for signing. See docs/DEPLOYMENT.md (Maven Central).
+    -->
+    <profiles>
+        <profile>
+            <id>central-publish</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <configuration>
+                            <doclint>none</doclint>
+                            <failOnError>false</failOnError>
+                            <quiet>true</quiet>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

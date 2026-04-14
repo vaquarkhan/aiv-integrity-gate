@@ -1,9 +1,8 @@
 # AIV config - adjust thresholds per project
-# Exclude docs and example project from gates (intentional samples/docs)
+# Exclude docs and example project from gates (documentation / demo layout)
 exclude_paths:
   - "docs/**"
   - "example-project/**"
-  - "infrastructure-actions/**"
 gates:
   - id: density
     enabled: true

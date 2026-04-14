@@ -76,4 +76,17 @@ class DocRulesLoaderTest {
         assertTrue(rules.getDocConstraints().isEmpty());
         assertTrue(rules.getCanonicalCommands().isEmpty());
     }
+
+    @Test
+    void returnsEmptyWhenYamlDocumentIsNull(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("doc-rules.yaml"), "");
+        var rules = DocRulesLoader.load(dir.resolve("doc-rules.yaml"));
+        assertTrue(rules.getDocConstraints().isEmpty());
+        assertTrue(rules.getCanonicalCommands().isEmpty());
+    }
+
+    @Test
+    void packagePrivateConstructorForCoverage() {
+        assertNotNull(new DocRulesLoader());
+    }
 }
