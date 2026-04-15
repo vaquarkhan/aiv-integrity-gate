@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.apache.aiv</groupId>
+        <groupId>io.github.vaquarkhan</groupId>
         <artifactId>aiv-gate</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -13,35 +13,35 @@
     <name>AIV CLI</name>
     <dependencies>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-plugin-density</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-plugin-design-lucene</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-plugin-invariant-template</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-plugin-dependency</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-plugin-doc-integrity</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-adapter-git</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-adapter-github</artifactId>
         </dependency>
         <dependency>
