@@ -74,7 +74,25 @@ jobs:
           printf '%s\n' "pinentry-mode loopback" > ~/.gnupg/gpg.conf
           printf '%s\n' "allow-loopback-pinentry" > ~/.gnupg/gpg-agent.conf
           gpgconf --kill gpg-agent || true
-          printf '%s\n' "$GPG_PRIVATE_KEY" | gpg --batch --pinentry-mode loopback --import
+          if [ -z "${GPG_PRIVATE_KEY:-}" ]; then
+            echo "::error::GPG_PRIVATE_KEY is empty."
+            exit 1
+          fi
+
+          KEY_FILE="$(mktemp)"
+          KEY_CONTENT="$GPG_PRIVATE_KEY"
+          if [[ "$KEY_CONTENT" == *\\n* ]]; then
+            KEY_CONTENT="$(printf '%b' "$KEY_CONTENT")"
+          fi
+
+          if [[ "$KEY_CONTENT" == *"BEGIN PGP PRIVATE KEY BLOCK"* ]]; then
+            printf '%s\n' "$KEY_CONTENT" > "$KEY_FILE"
+          else
+            printf '%s' "$KEY_CONTENT" | tr -d '\r\n\t ' | base64 --decode > "$KEY_FILE"
+          fi
+
+          gpg --batch --pinentry-mode loopback --import "$KEY_FILE"
+          rm -f "$KEY_FILE"
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
