@@ -70,7 +70,9 @@ jobs:
         run: |
           mkdir -p ~/.gnupg
           chmod 700 ~/.gnupg
-          printf '%s\n' "pinentry-mode loopback" "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+          printf '%s\n' "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          printf '%s\n' "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          gpgconf --kill gpg-agent || true
           printf '%s\n' "$GPG_PRIVATE_KEY" | gpg --batch --import
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
