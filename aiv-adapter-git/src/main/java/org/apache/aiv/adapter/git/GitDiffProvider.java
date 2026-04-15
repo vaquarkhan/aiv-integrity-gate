@@ -23,16 +23,14 @@ import org.apache.aiv.port.DiffProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Git-based diff provider. Runs git diff and parses output.
@@ -45,10 +43,85 @@ public final class GitDiffProvider implements DiffProvider {
     private static final Pattern VALID_REF = Pattern.compile("^[a-zA-Z0-9/_.~^-]+$");
     private static final long DEFAULT_GIT_TIMEOUT_SECONDS = 120;
 
-    private static long gitTimeoutSeconds() {
-        // Allows CI/tests to reduce worst-case runtime when `git` is slow/hangs.
-        return Math.max(1L, Long.getLong("aiv.git.timeout.seconds", DEFAULT_GIT_TIMEOUT_SECONDS));
+    /**
+     * Max bytes read from a captured {@code git} stdout temp file (default 64MB). Tests may set
+     * {@code aiv.git.capture.max.bytes} lower to exercise truncation without huge output.
+     */
+    private static long maxGitCaptureBytes() {
+        String raw = System.getProperty("aiv.git.capture.max.bytes");
+        if (raw == null || raw.isBlank()) {
+            return 64L * 1024 * 1024;
+        }
+        try {
+            long v = Long.parseLong(raw.trim());
+            return v < 1 ? 64L * 1024 * 1024 : v;
+        } catch (NumberFormatException e) {
+            return 64L * 1024 * 1024;
+        }
     }
+
+    /**
+     * Seconds to wait per {@code git} subprocess. From system property {@code aiv.git.timeout.seconds} when set;
+     * otherwise {@link #DEFAULT_GIT_TIMEOUT_SECONDS}. Value {@code 0} means wait until the process exits (use for
+     * large-repo benchmarks; risks a hung process if {@code git} stalls).
+     */
+    private static long gitTimeoutSeconds() {
+        String raw = System.getProperty("aiv.git.timeout.seconds");
+        if (raw == null || raw.isBlank()) {
+            return DEFAULT_GIT_TIMEOUT_SECONDS;
+        }
+        try {
+            long v = Long.parseLong(raw.trim());
+            return v < 0 ? DEFAULT_GIT_TIMEOUT_SECONDS : v;
+        } catch (NumberFormatException e) {
+            return DEFAULT_GIT_TIMEOUT_SECONDS;
+        }
+    }
+
+    /** @return true if the process did not finish (timed out and was destroyed). */
+    private static boolean gitProcessTimedOut(Process p, long timeoutSeconds) throws InterruptedException {
+        if (timeoutSeconds == 0) {
+            p.waitFor();
+            return false;
+        }
+        if (timeoutSeconds < 1) {
+            timeoutSeconds = 1;
+        }
+        if (p.waitFor(timeoutSeconds, TimeUnit.SECONDS)) {
+            return false;
+        }
+        p.destroyForcibly();
+        return true;
+    }
+
+    /**
+     * Runs {@code git} with stdout and stderr appended to a temp file so large diffs cannot deadlock on a full pipe,
+     * then reads that file after the process exits.
+     *
+     * @return captured output, or {@code null} if the process timed out and was destroyed
+     */
+    private static String runGitReadingFile(ProcessBuilder pb, long timeoutSeconds) throws Exception {
+        Path tmp = Files.createTempFile("aiv-git-", ".out");
+        try {
+            pb.redirectOutput(tmp.toFile());
+            pb.redirectError(ProcessBuilder.Redirect.DISCARD);
+            Process p = pb.start();
+            if (gitProcessTimedOut(p, timeoutSeconds)) {
+                log.warn("Git subprocess timed out after {}s (command: {})", timeoutSeconds, pb.command());
+                for (int i = 0; i < 20; i++) {
+                    LockSupport.parkNanos(50_000_000L);
+                }
+                return null;
+            }
+            if (!Files.isRegularFile(tmp) || Files.size(tmp) > maxGitCaptureBytes()) {
+                return "";
+            }
+            return Files.readString(tmp, StandardCharsets.UTF_8);
+        } finally {
+            Files.deleteIfExists(tmp);
+        }
+    }
+
     private static final long MAX_FILE_SIZE_BYTES = 2 * 1024 * 1024; // 2MB
 
     @Override
@@ -56,7 +129,7 @@ public final class GitDiffProvider implements DiffProvider {
         validateRef(baseRef);
         validateRef(headRef);
         String rawDiff = runGitDiff(workspace, baseRef, headRef);
-        List<ChangedFile> files = parseChangedFiles(workspace, baseRef, headRef, rawDiff);
+        List<ChangedFile> files = parseChangedFiles(workspace, baseRef, headRef);
         int[] loc = parseNumStat(workspace, baseRef, headRef);
         String author = parseAuthor(workspace, baseRef, headRef);
         boolean skip = parseSkipRequested(workspace, baseRef, headRef);
@@ -69,36 +142,40 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private static String gitCommand(Path workspace) {
-        // Test hook: allows deterministic, hermetic testing by dropping a git.cmd into the workspace.
-        Path local = workspace.resolve("git.cmd");
-        if (Files.isRegularFile(local)) {
-            return local.toString();
+    /**
+     * Git executable for child processes. Override with system property {@code aiv.git.executable} (tests only);
+     * otherwise {@code git} on {@code PATH}.
+     */
+    private static String gitCommand() {
+        String override = System.getProperty("aiv.git.executable");
+        if (override != null && !override.isBlank()) {
+            return override.trim();
         }
         return "git";
     }
 
+    /** Child processes are non-TTY; avoid pager or credential prompts hanging indefinitely. */
+    private static void configureGitChild(ProcessBuilder pb) {
+        pb.environment().put("GIT_TERMINAL_PROMPT", "0");
+        pb.environment().put("GIT_PAGER", "cat");
+    }
+
     private int[] parseNumStat(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "diff", "--numstat", baseRef + "..." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", "--numstat", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
-            pb.redirectErrorStream(true);
-            Process p = pb.start();
+            configureGitChild(pb);
             long timeout = gitTimeoutSeconds();
-            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
-                p.destroyForcibly();
-                log.warn("Git diff --numstat timed out after {}s", timeout);
+            String text = runGitReadingFile(pb, timeout);
+            if (text == null) {
                 return new int[]{0, 0};
             }
             int added = 0, deleted = 0;
-            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split("\\s+");
-                    if (parts.length >= 2) {
-                        added += parseNum(parts[0]);
-                        deleted += parseNum(parts[1]);
-                    }
+            for (String line : text.split("\n")) {
+                String[] parts = line.split("\\s+");
+                if (parts.length >= 2) {
+                    added += parseNum(parts[0]);
+                    deleted += parseNum(parts[1]);
                 }
             }
             return new int[]{added, deleted};
@@ -119,19 +196,16 @@ public final class GitDiffProvider implements DiffProvider {
 
     private String parseAuthor(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "log", "-1", "--format=%ae", baseRef + ".." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "log", "-1", "--format=%ae", baseRef + ".." + headRef);
             pb.directory(workspace.toFile());
-            pb.redirectErrorStream(true);
-            Process p = pb.start();
+            configureGitChild(pb);
             long timeout = gitTimeoutSeconds();
-            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
-                p.destroyForcibly();
+            String text = runGitReadingFile(pb, timeout);
+            if (text == null) {
                 return null;
             }
-            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
-                String line = reader.readLine();
-                return (line != null && !line.isBlank()) ? line.trim() : null;
-            }
+            String line = text.lines().findFirst().orElse("");
+            return (!line.isBlank()) ? line.trim() : null;
         } catch (Exception e) {
             log.debug("Could not parse author", e);
             return null;
@@ -140,21 +214,17 @@ public final class GitDiffProvider implements DiffProvider {
 
     private boolean parseSkipRequested(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "log", "--pretty=%B", baseRef + ".." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "log", "--pretty=%B", baseRef + ".." + headRef);
             pb.directory(workspace.toFile());
-            pb.redirectErrorStream(true);
-            Process p = pb.start();
+            configureGitChild(pb);
             long timeout = gitTimeoutSeconds();
-            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
-                p.destroyForcibly();
+            String text = runGitReadingFile(pb, timeout);
+            if (text == null) {
                 return false;
             }
-            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.contains("/aiv skip") || line.contains("aiv skip")) {
-                        return true;
-                    }
+            for (String line : text.split("\n")) {
+                if (line.contains("/aiv skip") || line.contains("aiv skip")) {
+                    return true;
                 }
             }
         } catch (Exception e) {
@@ -165,70 +235,62 @@ public final class GitDiffProvider implements DiffProvider {
 
     private String runGitDiff(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "diff", baseRef + "..." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
-            pb.redirectErrorStream(true);
-            Process p = pb.start();
+            configureGitChild(pb);
             long timeout = gitTimeoutSeconds();
-            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
-                p.destroyForcibly();
-                log.warn("Git diff timed out after {}s", timeout);
+            String text = runGitReadingFile(pb, timeout);
+            if (text == null) {
                 return "";
             }
-            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
-                return reader.lines().collect(Collectors.joining("\n"));
-            }
+            return text;
         } catch (Exception e) {
             log.debug("Could not run git diff: {}", e.getMessage());
             return "";
         }
     }
 
-    private List<ChangedFile> parseChangedFiles(Path workspace, String baseRef, String headRef, String rawDiff) {
+    private List<ChangedFile> parseChangedFiles(Path workspace, String baseRef, String headRef) {
         List<ChangedFile> result = new ArrayList<>();
         try {
-            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "diff", "--name-status", baseRef + "..." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", "--name-status", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
-            pb.redirectErrorStream(true);
-            Process p = pb.start();
+            configureGitChild(pb);
             long timeout = gitTimeoutSeconds();
-            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
-                p.destroyForcibly();
+            String nameStatus = runGitReadingFile(pb, timeout);
+            if (nameStatus == null) {
                 return result;
             }
-            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    // `git diff --name-status` is tab-separated and may include multiple paths (e.g. rename/copy).
-                    String[] parts = line.split("\t");
-                    if (parts.length < 2) continue;
+            for (String line : nameStatus.split("\n")) {
+                // `git diff --name-status` is tab-separated and may include multiple paths (e.g. rename/copy).
+                String[] parts = line.split("\t");
+                if (parts.length < 2) continue;
 
-                    String status = parts[0].trim();
-                    if (status.isEmpty()) continue;
+                String status = parts[0].trim();
+                if (status.isEmpty()) continue;
 
-                    String pathPart;
-                    if (status.startsWith("R") || status.startsWith("C")) {
-                        if (parts.length < 3) continue;
-                        pathPart = parts[2];
-                    } else {
-                        pathPart = parts[1];
-                    }
-
-                    // Deleted files have no content to validate in the head ref; skip them.
-                    if (status.startsWith("D")) {
-                        continue;
-                    }
-
-                    String path = sanitizePath(pathPart);
-                    if (path == null) continue;
-
-                    ChangedFile.ChangeType type = status.startsWith("A")
-                            ? ChangedFile.ChangeType.ADDED
-                            : ChangedFile.ChangeType.MODIFIED;
-
-                    String content = readFileContent(workspace, path, headRef);
-                    result.add(new ChangedFile(path, type, content));
+                String pathPart;
+                if (status.startsWith("R") || status.startsWith("C")) {
+                    if (parts.length < 3) continue;
+                    pathPart = parts[2];
+                } else {
+                    pathPart = parts[1];
                 }
+
+                // Deleted files have no content to validate in the head ref; skip them.
+                if (status.startsWith("D")) {
+                    continue;
+                }
+
+                String path = sanitizePath(pathPart);
+                if (path == null) continue;
+
+                ChangedFile.ChangeType type = status.startsWith("A")
+                        ? ChangedFile.ChangeType.ADDED
+                        : ChangedFile.ChangeType.MODIFIED;
+
+                String content = readFileContent(workspace, path, headRef);
+                result.add(new ChangedFile(path, type, content));
             }
         } catch (Exception e) {
             log.debug("Could not parse changed files", e);
@@ -254,19 +316,15 @@ public final class GitDiffProvider implements DiffProvider {
                 return Files.readString(fullPath);
             }
             String gitPath = relativePath.replace("\\", "/");
-            ProcessBuilder pb = new ProcessBuilder(gitCommand(workspace), "show", ref + ":" + gitPath);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "show", ref + ":" + gitPath);
             pb.directory(workspace.toFile());
-            pb.redirectErrorStream(true);
-            Process p = pb.start();
+            configureGitChild(pb);
             long timeout = gitTimeoutSeconds();
-            if (!p.waitFor(timeout, TimeUnit.SECONDS)) {
-                p.destroyForcibly();
+            String content = runGitReadingFile(pb, timeout);
+            if (content == null) {
                 return "";
             }
-            try (var reader = new BufferedReader(new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8))) {
-                String content = reader.lines().collect(Collectors.joining("\n"));
-                return content.length() > MAX_FILE_SIZE_BYTES ? "" : content;
-            }
+            return content.length() > MAX_FILE_SIZE_BYTES ? "" : content;
         } catch (Exception e) {
             log.debug("Could not read file content: {}", relativePath, e);
             return "";

@@ -80,7 +80,7 @@ public final class FileExistenceValidator {
         return s.contains("/") || s.startsWith("~/") || s.startsWith("/");
     }
 
-    private boolean resolveExists(String pathStr, String docPath) {
+    boolean resolveExists(String pathStr, String docPath) {
         String normalized = pathStr.replace("\\", "/").trim();
         if (normalized.startsWith("~/")) {
             normalized = normalized.substring(2);
@@ -92,10 +92,10 @@ public final class FileExistenceValidator {
             baseDir = workspace.resolve(docPath).getParent();
             if (baseDir == null) baseDir = workspace;
         }
-        Path resolved = baseDir.resolve(normalized).normalize();
-        if (!resolved.startsWith(workspace.toAbsolutePath().normalize())) {
-            resolved = workspace.resolve(normalized).normalize();
-        }
+        Path workspaceAbs = workspace.toAbsolutePath().normalize();
+        Path primary = baseDir.resolve(normalized).normalize();
+        Path fromRoot = DocPathUtils.resolveFromWorkspaceRoot(workspace, normalized);
+        Path resolved = primary.startsWith(workspaceAbs) ? primary : fromRoot;
         return Files.exists(resolved);
     }
 }

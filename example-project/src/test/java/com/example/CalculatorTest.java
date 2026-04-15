@@ -19,6 +19,13 @@ class CalculatorTest {
     }
 
     @Test
+    void multiply() {
+        Calculator calc = new Calculator();
+        assertEquals(6, calc.multiply(2, 3));
+        assertEquals(0, calc.multiply(0, 5));
+    }
+
+    @Test
     void divideByZero() {
         Calculator calc = new Calculator();
         assertThrows(IllegalArgumentException.class, () -> calc.divide(1, 0));

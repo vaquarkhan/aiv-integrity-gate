@@ -1,5 +1,5 @@
 AIV - Automated Integrity Validation (IP-X)
-Integrity Validation for any project like Apache Iceberg, Apache Spark, and Apache Airflow
+Integrity validation for pull-request diffs: works for Apache Software Foundation projects, company codebases, and personal repos alike.
 
 Copyright 2026 Vaquar Khan. All rights reserved.
 

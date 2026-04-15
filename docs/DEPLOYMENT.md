@@ -1,6 +1,6 @@
 # AIV Deployment Guide
 
-Where the code goes, how to enable AIV in your project, and how it runs in CI. Works with any Git-based project (Java, Python, Go, Rust, and more). Step-by-step instructions for beginners.
+“Deploying” AIV usually means dropping a few files into your repo so GitHub Actions (or another CI runner) can execute the JAR—no fleet of VMs to manage. This guide walks through that path with beginner-friendly steps; it works for any Git-based project (Java, Python, Go, Rust, and more).
 
 **Author:** Vaquar Khan
 
@@ -26,10 +26,6 @@ There are **two different things** people mean by "deploy" in AIV:
 ---
 
 ## Part 2: Where Does the Java Code Go?
-
-### Picture This
-
-![Deployment flow: Your computer to GitHub to Actions runner](images/deployment-flow.png)
 
 **Summary:** Your code is in your repo. When a PR is opened, GitHub copies it to a temporary machine, runs AIV on it, and throws the machine away. Nothing stays "deployed" on a server.
 
@@ -165,9 +161,9 @@ jobs:
 
       - name: Clone and build AIV
         run: |
-          git clone https://github.com/apache/aiv-gate.git aiv-src
+          git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-src
           cd aiv-src
-          mvn clean package -DskipTests -B -q
+          mvn -B -ntp clean verify -pl aiv-cli -am
 
       - name: Run AIV
         run: |
@@ -176,11 +172,13 @@ jobs:
             --diff origin/${{ github.base_ref }}
 ```
 
+Add `--include-doc-checks` on that `java -jar` line if you want documentation integrity enforced on every PR without relying only on `config.yaml`.
+
 4. **If your main branch is NOT `main` or `master`:** Change line 5. Example: `branches: [develop]`
 5. **If your project IS the AIV project itself:** Use this instead of "Clone and build AIV":
    ```yaml
-      - name: Build AIV
-        run: mvn clean package -DskipTests -B -q
+      - name: Test and package AIV CLI
+        run: mvn -B -ntp clean verify -pl aiv-cli -am
 
       - name: Run AIV
         run: |
@@ -267,14 +265,14 @@ This section is for people who maintain the AIV project and want to publish the 
 
 | Option | URL / Location | Who can use it |
 |--------|----------------|----------------|
-| **GitHub Releases** | `https://github.com/apache/aiv-gate/releases` | Anyone with the link |
+| **GitHub Releases** | `https://github.com/vaquarkhan/aiv-integrity-gate/releases` | Anyone with the link |
 | **Maven Central** | `https://repo.maven.apache.org/maven2/org/apache/aiv/aiv-cli/` | Anyone with Maven |
 
 ---
 
 ### Option A: Deploy to GitHub Releases
 
-**Prerequisites:** Write access to the `apache/aiv-gate` repo (or your fork for testing).
+**Prerequisites:** Write access to the `vaquarkhan/aiv-integrity-gate` repo (or your fork for testing).
 
 #### Step 1: Build the JAR
 
@@ -283,9 +281,9 @@ This section is for people who maintain the AIV project and want to publish the 
    ```bash
    cd /path/to/aiv-gate
    ```
-3. Build:
+3. Build and run tests (same as CI on this repo):
    ```bash
-   mvn clean package -DskipTests
+   mvn clean verify -pl aiv-cli -am
    ```
 4. The JAR is at: `aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar`
 
@@ -293,7 +291,7 @@ This section is for people who maintain the AIV project and want to publish the 
 
 #### Step 2: Create a GitHub Release
 
-1. Go to `https://github.com/apache/aiv-gate` (or your fork).
+1. Go to `https://github.com/vaquarkhan/aiv-integrity-gate` (or your fork).
 2. Click **Releases** (right side).
 3. Click **Create a new release**.
 4. **Tag:** Type `v1.0.0` (must start with `v`).
@@ -307,30 +305,75 @@ This section is for people who maintain the AIV project and want to publish the 
 
 The JAR is now at:
 ```
-https://github.com/apache/aiv-gate/releases/download/v1.0.0/aiv-cli-1.0.0.jar
+https://github.com/vaquarkhan/aiv-integrity-gate/releases/download/v1.0.0/aiv-cli-1.0.0.jar
 ```
 
 Others can use this in their workflow instead of building from source.
 
 ---
 
+### Option A2: Automated GitHub Release (recommended)
+
+This repository includes **[`.github/workflows/release-github.yml`](../.github/workflows/release-github.yml)**. When you push a version tag, CI builds the full reactor, runs tests, and creates a **GitHub Release** with the **`aiv-cli`** JAR attached.
+
+1. Ensure `main` is green (`mvn clean verify` locally if you changed code).
+2. Tag and push (example **1.0.0**):
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+3. Open **Actions → Release (GitHub)** and confirm the run succeeded; then open **Releases** on the repo and verify the JAR is attached.
+
+**Download URL pattern** (for `cli-jar-url` in the composite action):
+
+```
+https://github.com/vaquarkhan/aiv-integrity-gate/releases/download/vVERSION/aiv-cli-VERSION.jar
+```
+
+Replace `VERSION` with the numeric release (for example `1.0.0`).
+
+---
+
 ### Option B: Deploy to Maven Central
 
-**Prerequisites:**
-- Sonatype JIRA account (https://issues.sonatype.org)
-- GPG key for signing
-- GroupId `org.apache.aiv` must be approved (Apache projects have this)
+Publishing is implemented with the **`central-publish` Maven profile** (sources, Javadoc, GPG signing, Sonatype **Central Publishing** plugin) and **[`.github/workflows/publish-maven-central.yml`](../.github/workflows/publish-maven-central.yml)**.
 
-This is more involved. Summary of steps:
+**Why publish:** Other projects can depend on `org.apache.aiv:aiv-cli` without cloning this repo. After publishing, **Central Statistics** in the Sonatype UI shows download counts. The root **`action.yml`** composite action downloads the published JAR by default.
 
-1. Add `maven-deploy-plugin` and `nexus-staging-maven-plugin` to the parent `pom.xml`.
-2. Configure `distributionManagement` for Sonatype.
-3. Add GPG signing plugin.
-4. Run: `mvn clean deploy -P release`
-5. Log in to Sonatype Nexus, close and release the staging repo.
-6. Wait for sync to Maven Central (often 1–2 hours).
+**Namespace (`groupId`) and license:** The coordinate **`org.apache.*`** on Maven Central is normally reserved for **Apache Software Foundation** projects. If Sonatype does not verify `org.apache.aiv`, rename the Maven `groupId` across all POMs to a namespace you control (for example **`io.github.vaquarkhan`**) and register it at [central.sonatype.com](https://central.sonatype.com/). This repository uses a **custom license** ([LICENSE](../LICENSE)); Sonatype may ask follow-up questions for non-SPDX licenses.
 
-Full Maven Central deployment is documented at: https://central.sonatype.com/publish/publish-guide/
+**One-time setup**
+
+1. Register on the [Central Portal](https://central.sonatype.org/register/central-portal/) and **verify** your namespace.
+2. Create a **user token** (username + password) for API access; use them as Maven `server` credentials with id **`central`**.
+3. Create a **GPG** key pair for signing; publish the public key as Sonatype requires; store the private key and passphrase as GitHub **secrets** (`GPG_PRIVATE_KEY`, `GPG_PASSPHRASE`).
+
+**Secrets for the publish workflow**
+
+| Secret | Purpose |
+|--------|---------|
+| `CENTRAL_TOKEN_USERNAME` | Sonatype user token username |
+| `CENTRAL_TOKEN_PASSWORD` | Sonatype user token password |
+| `GPG_PRIVATE_KEY` | ASCII-armored private key |
+| `GPG_PASSPHRASE` | Passphrase for that key |
+
+**Local dry run (no upload to Central)**
+
+```bash
+mvn clean verify -Pcentral-publish -Dgpg.skip=true
+```
+
+Full deploy (uploads): configure `~/.m2/settings.xml` per [Sonatype’s Maven guide](https://central.sonatype.org/publish/publish-portal-maven/), then `mvn clean deploy -Pcentral-publish`. Release versions must **not** end in `-SNAPSHOT`; the workflow sets the version from the **workflow_dispatch** input **release_version** before `deploy`.
+
+**Workflow trigger:** **workflow_dispatch** only — open **Actions → Publish to Maven Central**, enter **release_version** (for example `1.0.0`, matching your GitHub tag). Configure the repository secrets listed above first.
+
+**Typical order:** push tag **`v1.0.0`** → wait for **Release (GitHub)** to finish → run **Publish to Maven Central** with **`1.0.0`**.
+
+**GitHub Marketplace:** Keep **`action.yml`** on the default branch; create a release (and optionally a **`v1`** tag) so consumers can use `vaquarkhan/aiv-integrity-gate@v1`. In the GitHub UI, use **Publish to Marketplace** for the action. Until the CLI is on Central, pass **`cli-jar-url`** to the action to use a GitHub Release asset.
+
+Official portal overview: [Publish to Central](https://central.sonatype.org/publish/publish-guide/).
 
 ---
 
@@ -344,7 +387,7 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
       - name: Download AIV CLI
         run: |
           curl -sL -o aiv-cli.jar \
-            "https://github.com/apache/aiv-gate/releases/download/v1.0.0/aiv-cli-1.0.0.jar"
+            "https://github.com/vaquarkhan/aiv-integrity-gate/releases/download/v1.0.0/aiv-cli-1.0.0.jar"
 
       - name: Run AIV
         run: |
@@ -362,7 +405,7 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
 | AIV job does not appear on PR | Workflow file must be at `.github/workflows/aiv.yml` and trigger on `pull_request` |
 | "No such file .aiv/config.yaml" | Config must be in repo root: `your-repo/.aiv/config.yaml` |
 | "java -jar" fails with "no main manifest" | Build the full project with `mvn clean package`; use the JAR from `aiv-cli/target/` |
-| Workflow fails on "clone aiv-gate" | Check GitHub is reachable; repo must be `apache/aiv-gate` or your fork |
+| Workflow fails on "clone aiv-gate" | Check GitHub is reachable; URL must be `vaquarkhan/aiv-integrity-gate` or your fork |
 | Design rules not applied | Ensure `design-rules.yaml` exists and `keywords` match your files |
 
 ---
@@ -380,6 +423,5 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
 
 ## See Also
 
-- [TEST.md](TEST.md) — Test cases and GitHub testing steps
-- [DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md) — Config reference
-- [TUTORIAL.md](TUTORIAL.md) — General AIV guide
+- [README.md](../README.md) — Overview, problems/solutions, minimal config
+- [DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md) — Full configuration reference

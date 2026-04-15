@@ -23,8 +23,10 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CrossReferenceCheckerTest {
 
@@ -53,5 +55,42 @@ class CrossReferenceCheckerTest {
     void returnsNullWhenNoCrossRefPhrases() {
         var c = new CrossReferenceChecker(Path.of("."));
         assertNull(c.validate("README.md", "Just some text without cross-refs"));
+    }
+
+    /**
+     * {@code workspace.resolve(docPath).getParent()} is null for a volume-root style docPath, so
+     * {@code baseDir} stays the workspace (see {@code CrossReferenceChecker#resolveExists}).
+     */
+    @Test
+    void resolvesFromWorkspaceWhenDocPathHasNoParent(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("nested"));
+        Files.writeString(dir.resolve("nested/README.md"), "x");
+        var c = new CrossReferenceChecker(dir);
+        Path root = dir.getRoot();
+        assertTrue(root != null);
+        String docPath = root.toString().replace('\\', '/');
+        if (!docPath.contains("/")) {
+            docPath = docPath + "/";
+        } else if (!docPath.endsWith("/") && docPath.length() > 1) {
+            docPath = docPath + "/";
+        }
+        assertTrue(docPath.contains("/"));
+        assertNull(c.validate(docPath, "Read the README in nested"));
+    }
+
+    @Test
+    void referToRelativePathOutsideThenInside(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("deep/nest/here"));
+        Files.writeString(dir.resolve("target.txt"), "found");
+        var c = new CrossReferenceChecker(dir);
+        assertNull(c.validate("deep/nest/here/doc.md",
+                "Refer to ../../../target.txt for details."));
+    }
+
+    @Test
+    void resolveExistsUsesWorkspaceRootWhenPrimaryPathEscapes(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("a/b/c"));
+        var c = new CrossReferenceChecker(dir);
+        assertFalse(c.resolveExists("../../../../no-such-file-" + System.nanoTime() + ".txt", "a/b/c/x.md"));
     }
 }

@@ -44,8 +44,24 @@ class OrchestratorTest {
                 new AIVConfig.GateConfig("fail", false, Map.of()),
                 new AIVConfig.GateConfig("afterfail", false, Map.of()),
                 new AIVConfig.GateConfig("assert-files", false, Map.of()),
-                new AIVConfig.GateConfig("default-enabled", false, Map.of())
+                new AIVConfig.GateConfig("default-enabled", false, Map.of()),
+                new AIVConfig.GateConfig("doc-integrity", false, Map.of())
         );
+    }
+
+    /** Every test gate explicit; only doc-integrity runs (others disabled). */
+    private static AIVConfig configOnlyDocIntegrityEnabled(Map<String, Object> docIntegrityGateOptions) {
+        return new AIVConfig(
+                List.of(
+                        new AIVConfig.GateConfig("pass", false, Map.of()),
+                        new AIVConfig.GateConfig("disabled", false, Map.of()),
+                        new AIVConfig.GateConfig("fail", false, Map.of()),
+                        new AIVConfig.GateConfig("afterfail", false, Map.of()),
+                        new AIVConfig.GateConfig("assert-files", false, Map.of()),
+                        new AIVConfig.GateConfig("default-enabled", false, Map.of()),
+                        new AIVConfig.GateConfig("doc-integrity", true, docIntegrityGateOptions)
+                ),
+                Map.of());
     }
 
     @Test
@@ -149,7 +165,8 @@ class OrchestratorTest {
                                 new AIVConfig.GateConfig("fail", true, Map.of()),
                                 new AIVConfig.GateConfig("afterfail", true, Map.of()),
                                 new AIVConfig.GateConfig("assert-files", false, Map.of()),
-                                new AIVConfig.GateConfig("default-enabled", false, Map.of())
+                                new AIVConfig.GateConfig("default-enabled", false, Map.of()),
+                                new AIVConfig.GateConfig("doc-integrity", false, Map.of())
                         ),
                         Map.of()
                 );
@@ -199,7 +216,8 @@ class OrchestratorTest {
                                 new AIVConfig.GateConfig("fail", false, Map.of()),
                                 new AIVConfig.GateConfig("afterfail", false, Map.of()),
                                 new AIVConfig.GateConfig("assert-files", true, Map.of()),
-                                new AIVConfig.GateConfig("default-enabled", false, Map.of())
+                                new AIVConfig.GateConfig("default-enabled", false, Map.of()),
+                                new AIVConfig.GateConfig("doc-integrity", false, Map.of())
                         ),
                         Map.of(
                                 "exclude_paths", List.of("**/generated/**"),
@@ -303,5 +321,128 @@ class OrchestratorTest {
         var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
         orch.run(dir, "main", "HEAD");
         assertEquals(1, results.size());
+    }
+
+    @Test
+    void docIntegrityRunsWhenEnabledWithoutAuto() {
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(Path workspace, String baseRef, String headRef) {
+                return new Diff(baseRef, headRef,
+                        List.of(new ChangedFile("src/Foo.java", ChangedFile.ChangeType.MODIFIED, "x")),
+                        "");
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(Path workspace) {
+                return configOnlyDocIntegrityEnabled(Map.of());
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var reportPublisher = new ReportPublisher() {
+            @Override
+            public void publish(AIVResult result) {
+                results.add(result);
+            }
+        };
+        var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
+        assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
+        assertEquals(List.of("doc-integrity"),
+                results.get(0).getGateResults().stream().map(GateResult::getGateId).toList());
+    }
+
+    @Test
+    void docIntegritySkippedWhenAutoWithoutDocPaths() {
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(Path workspace, String baseRef, String headRef) {
+                return new Diff(baseRef, headRef,
+                        List.of(new ChangedFile("src/Foo.java", ChangedFile.ChangeType.MODIFIED, "x")),
+                        "");
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(Path workspace) {
+                return configOnlyDocIntegrityEnabled(Map.of("auto", Boolean.TRUE));
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var reportPublisher = new ReportPublisher() {
+            @Override
+            public void publish(AIVResult result) {
+                results.add(result);
+            }
+        };
+        var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
+        assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
+        assertTrue(results.get(0).getGateResults().isEmpty());
+    }
+
+    @Test
+    void docIntegrityRunsWhenAutoWithDocLikePaths() {
+        var paths = List.of(
+                new ChangedFile("docs/a.md", ChangedFile.ChangeType.ADDED, ""),
+                new ChangedFile("notes.txt", ChangedFile.ChangeType.MODIFIED, ""),
+                new ChangedFile("guide.rst", ChangedFile.ChangeType.ADDED, ""),
+                new ChangedFile("dir\\Mixed.MD", ChangedFile.ChangeType.ADDED, ""),
+                new ChangedFile("AGENTS.md", ChangedFile.ChangeType.ADDED, ""),
+                new ChangedFile("subdir\\readme.md", ChangedFile.ChangeType.ADDED, ""),
+                new ChangedFile("CONTRIBUTING.md", ChangedFile.ChangeType.ADDED, ""),
+                new ChangedFile("CLAUDE.md", ChangedFile.ChangeType.ADDED, ""),
+                new ChangedFile(null, ChangedFile.ChangeType.ADDED, ""));
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(Path workspace, String baseRef, String headRef) {
+                return new Diff(baseRef, headRef, paths, "");
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(Path workspace) {
+                return configOnlyDocIntegrityEnabled(Map.of("auto", Boolean.TRUE));
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var reportPublisher = new ReportPublisher() {
+            @Override
+            public void publish(AIVResult result) {
+                results.add(result);
+            }
+        };
+        var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
+        assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
+        assertEquals(List.of("doc-integrity"),
+                results.get(0).getGateResults().stream().map(GateResult::getGateId).toList());
+    }
+
+    @Test
+    void docIntegrityRunsWhenAutoIsNotStrictTrue() {
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(Path workspace, String baseRef, String headRef) {
+                return new Diff(baseRef, headRef,
+                        List.of(new ChangedFile("x.java", ChangedFile.ChangeType.MODIFIED, "")),
+                        "");
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(Path workspace) {
+                return configOnlyDocIntegrityEnabled(Map.of("auto", "yes"));
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var reportPublisher = new ReportPublisher() {
+            @Override
+            public void publish(AIVResult result) {
+                results.add(result);
+            }
+        };
+        var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
+        assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
+        assertEquals(List.of("doc-integrity"),
+                results.get(0).getGateResults().stream().map(GateResult::getGateId).toList());
     }
 }

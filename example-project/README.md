@@ -1,6 +1,6 @@
 # AIV Example Project
 
-A minimal project that shows how AIV works with Git flow. Use it to see what passes and what fails.
+This is the smallest layout we could get away with while still looking like a real repo: config under `.aiv`, a workflow under `.github`, and enough code to show a pass and a fail. Use it when you want a hands-on demo without touching production.
 
 **Author:** Vaquar Khan
 
@@ -63,7 +63,7 @@ scripts\validate-example.bat
 Or manually:
 
 ```bash
-mvn package -DskipTests -B -q -pl aiv-cli -am
+mvn -B -ntp clean verify -pl aiv-cli -am
 cd aiv-cli/target
 java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace /path/to/aiv-gate --diff origin/main
 ```

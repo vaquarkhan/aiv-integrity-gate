@@ -18,6 +18,7 @@
 package org.apache.aiv.plugin.doc;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -53,11 +54,12 @@ public final class CommandCompletenessChecker {
                             docPath, pattern, followup, cmd.getId());
                 }
             }
-            for (String reqCmd : cmd.getRequiredCommands()) {
-                if (!content.contains(reqCmd)) {
-                    return String.format("Command in %s matches '%s' but missing required command '%s' (rule: %s)",
-                            docPath, pattern, reqCmd, cmd.getId());
-                }
+            Optional<String> missingReq = cmd.getRequiredCommands().stream()
+                    .filter(reqCmd -> !content.contains(reqCmd))
+                    .findFirst();
+            if (missingReq.isPresent()) {
+                return String.format("Command in %s matches '%s' but missing required command '%s' (rule: %s)",
+                        docPath, pattern, missingReq.get(), cmd.getId());
             }
         }
         return null;

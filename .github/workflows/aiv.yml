@@ -25,9 +25,10 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+          cache: maven
 
-      - name: Build AIV
-        run: mvn package -DskipTests -B -q -pl aiv-cli -am
+      - name: Test and package AIV CLI (full reactor for aiv-cli + JaCoCo)
+        run: mvn -B -ntp clean verify -pl aiv-cli -am
 
       - name: Run AIV
         id: aiv
