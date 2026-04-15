@@ -11,6 +11,7 @@
     <artifactId>aiv-cli</artifactId>
     <packaging>jar</packaging>
     <name>AIV CLI</name>
+    <description>Command-line runner that executes AIV gates on git diffs in CI or local workflows</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

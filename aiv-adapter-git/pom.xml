@@ -11,6 +11,7 @@
     <artifactId>aiv-adapter-git</artifactId>
     <packaging>jar</packaging>
     <name>AIV Adapter - Git</name>
+    <description>Diff provider adapter that reads changed files and hunks from Git</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

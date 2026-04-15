@@ -11,6 +11,7 @@
     <artifactId>aiv-plugin-design-lucene</artifactId>
     <packaging>jar</packaging>
     <name>AIV Plugin - Design Compliance (Lucene)</name>
+    <description>Enforces architecture and design constraints from YAML rules against changed code</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

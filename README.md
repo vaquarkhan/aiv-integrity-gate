@@ -34,6 +34,38 @@ Faster iteration locally: build with `mvn clean package` and run `java -jar aiv-
 
 ---
 
+## Install from Maven Central
+
+Namespace: `io.github.vaquarkhan`  
+Latest release shown in Central: `1.0.0`
+
+- Browse packages: [Sonatype namespace page](https://central.sonatype.com/namespace/io.github.vaquarkhan)
+- Maven repository path: [repo1.maven.org/io/github/vaquarkhan](https://repo1.maven.org/maven2/io/github/vaquarkhan/)
+
+Maven:
+
+```xml
+<dependency>
+  <groupId>io.github.vaquarkhan</groupId>
+  <artifactId>aiv-cli</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+Gradle (Groovy):
+
+```groovy
+implementation 'io.github.vaquarkhan:aiv-cli:1.0.0'
+```
+
+Gradle (Kotlin):
+
+```kotlin
+implementation("io.github.vaquarkhan:aiv-cli:1.0.0")
+```
+
+---
+
 ## Problems and Solutions
 
 | Pain Area | What Happens | Feature That Addresses It |
@@ -72,20 +104,22 @@ No API keys or paid services are required. Everything runs locally in your CI.
 
 ---
 
-## Modules
+## Choose Modules
 
-| Module | Purpose |
-|--------|---------|
-| `aiv-api` | Interfaces, models, and extension points |
-| `aiv-core` | Orchestrator that runs gates in sequence |
-| `aiv-plugin-density` | Logic density and entropy checks |
-| `aiv-plugin-design-lucene` | Design compliance via YAML rules |
-| `aiv-plugin-dependency` | Import validation against pom.xml and requirements.txt |
-| `aiv-plugin-invariant-template` | Invariant gate (passes by default) |
-| `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) |
-| `aiv-adapter-git` | Git diff provider |
-| `aiv-adapter-github` | Report publisher (stdout) |
-| `aiv-cli` | Command-line entry point |
+| Module | Purpose | Typical consumer |
+|--------|---------|------------------|
+| `aiv-cli` | End-to-end runner (includes core + default gates) | Most users running in CI |
+| `aiv-api` | Interfaces, models, and extension points | Plugin developers |
+| `aiv-core` | Orchestrator that runs gates in sequence | Plugin developers and advanced embedders |
+| `aiv-plugin-density` | Logic density and entropy checks | Optional gate module |
+| `aiv-plugin-design-lucene` | Design compliance via YAML rules | Optional gate module |
+| `aiv-plugin-dependency` | Import validation against `pom.xml` and `requirements.txt` | Optional gate module |
+| `aiv-plugin-invariant-template` | Invariant gate scaffold (passes by default) | Teams adding property/invariant checks |
+| `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) | Optional gate module |
+| `aiv-adapter-git` | Git diff provider | Integrators embedding AIV |
+| `aiv-adapter-github` | CI report publisher for GitHub-style output | Integrators embedding AIV |
+
+For most users, start with `aiv-cli` only.
 
 ---
 
@@ -154,6 +188,7 @@ Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cl
 |----------|----------|
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable AIV in your repo, CI workflows, Maven Central / Marketplace publishing |
 | [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference for gates and rules |
+| [CHANGELOG.md](CHANGELOG.md) | Release notes and compatibility notes |
 
 ---
 
