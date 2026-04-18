@@ -36,7 +36,7 @@ If you are editing **this** AIV repository, run `mvn clean verify` before openin
 ## File Layout
 
 ```
-your-project/
+repository-root/
 ├── .aiv/
 │   ├── config.yaml          # Gate thresholds and enable/disable
 │   ├── design-rules.yaml    # Forbidden/required patterns
@@ -51,7 +51,7 @@ your-project/
 
 ## Adding AIV to an Existing Project
 
-Step-by-step guide to enable AIV in any Git repo. The commands below clone Apache Iceberg only as a stand-in; use your own remote if you are not working on Iceberg. No deployment — AIV is cloned and built by the workflow at runtime.
+Step-by-step guide to enable AIV in any Git repository. The example commands use Apache Iceberg as a concrete sample target repository. Adapt the remote URL and branch strategy to your environment.
 
 ### Step 1: Clone the target repo
 

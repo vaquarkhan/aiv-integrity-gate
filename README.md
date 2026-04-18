@@ -18,7 +18,6 @@ Maintainers are facing a sharp rise in low-signal contributions: PRs that look b
 
 - **Live runs:** [GitHub Actions on this repository](https://github.com/vaquarkhan/aiv-integrity-gate/actions) — open a workflow run and expand the job to see pass/fail and logs.
 - **What to look for:** a failing run when a change trips **density** (too little real logic), **design** (forbidden calls or slop markers), or **dependency** (imports not backed by your lockfile). That is the same signal your contributors will see.
-- **Optional media:** If you add a screen recording, store it at `docs/images/aiv-ci-demo.gif` and reference it here so newcomers see a red check on a bad PR in one glance.
 
 ---
 
@@ -76,7 +75,7 @@ implementation("io.github.vaquarkhan:aiv-cli:1.0.0")
 | Design drift | Code violates project architecture, RFCs, or forbidden patterns | Design gate enforces YAML rules (forbidden and required patterns) |
 | Wrong API usage | Contributors use deprecated APIs or wrong patterns (e.g. in-memory list instead of ExpireSnapshots) | Design gate catches forbidden calls and missing required calls |
 | Unknown imports | Typos in package names or imports not declared in lockfile; supply-chain risk | Dependency gate validates Java imports vs pom.xml, Python vs requirements.txt |
-| Fragile edge-case code | Code passes example tests but fails on boundary inputs | Invariant gate (placeholder for property-based tests) |
+| Fragile edge-case code | Code passes example tests but fails on boundary inputs | Invariant gate extension point for project-specific property/invariant tests |
 | Urgent merges | Need to bypass checks for hotfix or emergency | `/aiv skip` in commit message skips all gates |
 | Refactors flagged | Legitimate refactors remove more lines than they add; density gate would fail | Refactor exception: density skips when net lines <= threshold (default -50) |
 | Core maintainer friction | Trusted committers get unnecessary density failures | Trusted authors bypass density check |
@@ -307,7 +306,7 @@ Copyright 2026 Vaquar Khan. All rights reserved.
 
 **Commercial use:** Prohibited without explicit prior written permission from the author. Contact the author to request permission.
 
-**Research use:** Citation required. If you use this Work in academic research, publications, theses, or scholarly work, you must cite it. Example: *Vaquar Khan. AIV - Automated Integrity Validation (IP-X). [repository-url]. [Year].*
+**Research use:** Citation required. If you use this Work in academic research, publications, theses, or scholarly work, you must cite it. Example: *Vaquar Khan. AIV - Automated Integrity Validation (IP-X). https://github.com/vaquarkhan/aiv-integrity-gate. 2026.*
 
 **No warranty:** The Work is provided "AS IS" without warranty of any kind.
 

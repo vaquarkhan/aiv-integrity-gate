@@ -1,96 +1,86 @@
 # AIV Example Project
 
-This is the smallest layout we could get away with while still looking like a real repo: config under `.aiv`, a workflow under `.github`, and enough code to show a pass and a fail. Use it when you want a hands-on demo without touching production.
+Reference implementation for integrating AIV in a repository with minimal setup. It includes gate configuration, workflow wiring, and sample code paths that demonstrate both passing and failing outcomes.
 
 **Author:** Vaquar Khan
 
 ---
 
-## How It Works
+## Scope
 
-1. You run `git push` or open a Pull Request.
-2. GitHub Actions starts a temporary machine.
-3. AIV builds and runs on your changed files.
-4. If rules pass: green check. If rules fail: red X.
+This example provides:
 
----
-
-## Where the Code Runs
-
-AIV does not deploy to a server. It runs on GitHub's machines when you push.
-
-1. You push from your computer to GitHub.
-2. GitHub runs the workflow defined in `.github/workflows/aiv.yml`.
-3. The workflow checks out the code, builds AIV, runs the CLI on the diff, and reports pass or fail.
-4. The temporary machine is destroyed when the run finishes.
-
-Your Java code stays in the GitHub repo. When you push, GitHub runs AIV on a temporary VM. No long-running server.
+- `.aiv` configuration and design rules
+- GitHub Actions workflow integration
+- representative Java files for design-gate verification
 
 ---
 
-## Pass vs Fail Examples
+## Execution Model
 
-| Scenario | What you push | AIV result |
-|----------|---------------|------------|
-| Pass | Good code (Calculator, App) | Green check |
-| Fail | Code with `System.exit` | Red X — design rule violated |
-
-The design rule in `.aiv/design-rules.yaml` forbids `System.exit`. If your code contains it, AIV fails.
+On push or pull request, GitHub Actions runs the workflow in `.github/workflows/aiv.yml`, builds the AIV CLI, evaluates the diff, and publishes status checks.
 
 ---
 
-## Validate
+## Expected Outcomes
 
-| Link | What you see |
-|------|--------------|
-| [GitHub Actions](https://github.com/vaquarkhan/aiv-integrity-gate/actions) | All AIV runs — green (pass) or red (fail) |
-| [Commits](https://github.com/vaquarkhan/aiv-integrity-gate/commits/main) | Each commit with its AIV status |
+| Scenario | Change | Result |
+|----------|--------|--------|
+| Pass | Application and utility changes that satisfy rules | Successful AIV check |
+| Fail | Any change that introduces `System.exit` | Failed design gate |
+
+The rule set in `.aiv/design-rules.yaml` prohibits `System.exit`.
 
 ---
 
-## Run AIV Locally
+## Validate in CI
 
-From the parent `aiv-gate` repo root:
+- [GitHub Actions](https://github.com/vaquarkhan/aiv-integrity-gate/actions) for workflow runs
+- [Commit history](https://github.com/vaquarkhan/aiv-integrity-gate/commits/main) for per-commit status
+
+---
+
+## Local Validation
+
+From the repository root:
 
 ```bash
 # Windows
 scripts\validate-example.bat
 
-# Linux or Mac
+# Linux or macOS
 ./scripts/validate-example.sh
 ```
 
-Or manually:
+Manual invocation:
 
 ```bash
 mvn -B -ntp clean verify -pl aiv-cli -am
-cd aiv-cli/target
-java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace /path/to/aiv-gate --diff origin/main
+java -jar aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar --workspace . --diff origin/main
 ```
 
 ---
 
-## Project Structure
+## Project Layout
 
-```
+```text
 example-project/
 ├── .aiv/
-│   ├── config.yaml          Gate settings (density, design, invariant, doc-integrity)
-│   ├── design-rules.yaml    Forbidden: System.exit, Serializable
-│   └── doc-rules.yaml       Doc integrity rules (optional)
+│   ├── config.yaml
+│   ├── design-rules.yaml
+│   └── doc-rules.yaml
 ├── .github/workflows/
-│   └── aiv.yml              Runs AIV on push and PR
+│   └── aiv.yml
 ├── src/main/java/com/example/
 │   ├── App.java
 │   ├── Calculator.java
-│   └── BadExample.java      Contains System.exit, so AIV fails
-├── pom.xml
-└── README.md (this file)
+│   └── BadExample.java
+└── pom.xml
 ```
 
 ---
 
-## Run Tests
+## Test Command
 
 ```bash
 mvn test
