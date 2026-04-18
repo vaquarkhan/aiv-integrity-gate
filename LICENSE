@@ -45,11 +45,11 @@ TERMS AND CONDITIONS
 
    In academic papers and publications:
      Vaquar Khan. AIV - Automated Integrity Validation (IP-X).
-     https://[repository-url]. [Year].
+     https://github.com/vaquarkhan/aiv-integrity-gate. 2026.
 
    In software or documentation:
      This work uses AIV (Automated Integrity Validation) by Vaquar Khan.
-     https://[repository-url]
+     https://github.com/vaquarkhan/aiv-integrity-gate
 
    You must provide a clear attribution that identifies the Work and
    its author in any publication, thesis, or derivative work that
@@ -67,5 +67,5 @@ TERMS AND CONDITIONS
 
 6. Contact
 
-   For permission requests (commercial use) or questions, contact:
-   Vaquar Khan
+   For permission requests (commercial use) or questions, open an issue:
+   https://github.com/vaquarkhan/aiv-integrity-gate/issues
