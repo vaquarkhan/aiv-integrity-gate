@@ -11,6 +11,7 @@
     <artifactId>aiv-plugin-invariant-template</artifactId>
     <packaging>jar</packaging>
     <name>AIV Plugin - Invariant (Template)</name>
+    <description>Template gate for invariant and property-based validation hooks</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

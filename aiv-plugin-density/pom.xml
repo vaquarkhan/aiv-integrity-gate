@@ -11,6 +11,7 @@
     <artifactId>aiv-plugin-density</artifactId>
     <packaging>jar</packaging>
     <name>AIV Plugin - Density Gate</name>
+    <description>Flags low-signal changes using logic-density and entropy-based checks</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

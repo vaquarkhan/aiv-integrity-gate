@@ -11,6 +11,7 @@
     <artifactId>aiv-adapter-github</artifactId>
     <packaging>jar</packaging>
     <name>AIV Adapter - GitHub</name>
+    <description>Report publisher adapter for GitHub-oriented CI output and summaries</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

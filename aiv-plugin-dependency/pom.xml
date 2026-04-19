@@ -11,6 +11,7 @@
     <artifactId>aiv-plugin-dependency</artifactId>
     <packaging>jar</packaging>
     <name>AIV Plugin - Dependency Gate</name>
+    <description>Validates imports and package usage against declared project dependencies</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

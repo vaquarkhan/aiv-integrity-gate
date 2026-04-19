@@ -11,6 +11,7 @@
     <artifactId>aiv-core</artifactId>
     <packaging>jar</packaging>
     <name>AIV Core</name>
+    <description>Orchestrates gate execution and aggregates pass/fail results for a diff</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

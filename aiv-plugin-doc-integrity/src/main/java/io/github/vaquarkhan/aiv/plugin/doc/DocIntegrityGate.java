@@ -86,6 +86,9 @@ public final class DocIntegrityGate implements QualityGate {
                 findings.add(Finding.atLine("doc-integrity.markdown-link", path, 1, v));
             }
 
+            v = mdLinks.validate(path, content);
+            if (v != null) violations.add(v);
+
             v = requiredMention.validate(path, content);
             if (v != null) {
                 violations.add(v);
