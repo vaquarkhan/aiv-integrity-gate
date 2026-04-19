@@ -117,7 +117,7 @@ public final class Orchestrator {
                         break;
                     }
                 } else {
-                    log.warn("Advisory (severity=warn): {} — {}", gate.getId(), result.getMessage());
+                    log.warn("Advisory (severity=warn): {} - {}", gate.getId(), result.getMessage());
                 }
             }
         }

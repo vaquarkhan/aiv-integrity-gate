@@ -30,7 +30,7 @@ public final class InitCommand {
         Files.createDirectories(dotAiv);
         Path config = dotAiv.resolve("config.yaml");
         if (Files.exists(config)) {
-            System.out.println(".aiv/config.yaml already exists — leaving it unchanged.");
+            System.out.println(".aiv/config.yaml already exists - leaving it unchanged.");
             return 0;
         }
 
@@ -111,7 +111,7 @@ public final class InitCommand {
 
     private static String defaultDesignRules() {
         return """
-                # Starter rules — tighten keywords and forbidden_calls for your codebase
+                # Starter rules - tighten keywords and forbidden_calls for your codebase
                 constraints:
                   - id: no-system-exit
                     keywords: []

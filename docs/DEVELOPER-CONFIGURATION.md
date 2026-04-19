@@ -24,9 +24,9 @@ See [README.md](../README.md#problems-and-solutions) for the full mapping.
 
 ## Quick Start
 
-1. Create `.aiv/config.yaml` (optional — defaults apply if missing)
-2. Create `.aiv/design-rules.yaml` (optional — for design compliance)
-3. Create `.aiv/doc-rules.yaml` (optional — for documentation validation)
+1. Create `.aiv/config.yaml` (optional - defaults apply if missing)
+2. Create `.aiv/design-rules.yaml` (optional - for design compliance)
+3. Create `.aiv/doc-rules.yaml` (optional - for documentation validation)
 4. Run AIV: `java -jar aiv-cli.jar --diff origin/main` (add `--include-doc-checks` when you want doc integrity without editing YAML)
 
 For a full walkthrough (install, CI, troubleshooting), see **[TUTORIAL.md](TUTORIAL.md)**.
@@ -79,7 +79,7 @@ gates:
 
 ## Adding AIV to an Existing Project
 
-Step-by-step guide to enable AIV in any Git repo. The commands below clone Apache Iceberg only as a stand-in; use your own remote if you are not working on Iceberg. No deployment — AIV is cloned and built by the workflow at runtime.
+Step-by-step guide to enable AIV in any Git repo. The commands below clone Apache Iceberg only as a stand-in; use your own remote if you are not working on Iceberg. No deployment - AIV is cloned and built by the workflow at runtime.
 
 ### Step 1: Clone the target repo
 
@@ -211,7 +211,7 @@ gates:
   - id: density
     enabled: true
     config:
-      ldr_threshold: 0.25      # Logic Density Ratio (0.0–1.0)
+      ldr_threshold: 0.25      # Logic Density Ratio (0.0-1.0)
       entropy_threshold: 3.8   # Shannon entropy minimum
 
   - id: design
@@ -235,8 +235,8 @@ gates:
 |--------------|----------------------------|-----------------------|-----------------------------|
 | `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 3.8, -50 |
 | `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
-| `dependency` | Import vs lockfile         | `whitelist`           | —                           |
-| `invariant`  | Invariant checks           | —                     | —                           |
+| `dependency` | Import vs lockfile         | `whitelist`           | -                           |
+| `invariant`  | Invariant checks           | -                     | -                           |
 | `doc-integrity` | Documentation validation | `rules_path`, `auto` | `.aiv/doc-rules.yaml`       |
 
 For every changed documentation file, **`doc-integrity`** also checks **relative Markdown links** `[label](path)` (skipping `http://`, `https://`, `mailto:`): the path must resolve to a file in the workspace. If the link includes a **`#fragment`** and the target ends with `.md`, a matching **ATX heading slug** (GitHub-style) must exist in that file. Optional rules in `doc-rules.yaml` add required mentions and canonical command checks.
@@ -248,9 +248,9 @@ For every changed documentation file, **`doc-integrity`** also checks **relative
 | `ldr_threshold`           | float  | Min Logic Density Ratio (control flow vs structure) | 0.25 |
 | `entropy_threshold`       | float  | Min Shannon entropy (flags boilerplate)          | 3.8     |
 | `refactor_net_loc_threshold` | int | Skip density when net LOC <= this (e.g. -50)     | -50     |
-| `trusted_authors`         | list   | Author emails that bypass density check         | —       |
+| `trusted_authors`         | list   | Author emails that bypass density check         | -       |
 | `file_extensions`         | list   | Extensions to validate                          | All common |
-| `languages`               | list   | Language names                                   | —       |
+| `languages`               | list   | Language names                                   | -       |
 
 - **LDR < threshold** → fail (too much scaffolding, too little logic). LDR runs for Java only.
 - **Entropy < threshold** → fail (repetitive/boilerplate code). Entropy runs for all configured extensions.
@@ -261,7 +261,7 @@ For every changed documentation file, **`doc-integrity`** also checks **relative
 
 | Key         | Type   | Description                              | Default |
 |-------------|--------|------------------------------------------|---------|
-| `whitelist` | list   | Package names allowed without lockfile   | —       |
+| `whitelist` | list   | Package names allowed without lockfile   | -       |
 
 Validates Java imports against `pom.xml` and Python imports against `requirements.txt` or `pyproject.toml`. Fails on unknown imports. Use `whitelist` to allow packages that are not in the lockfile (for example, JDK or standard library modules).
 
@@ -280,7 +280,7 @@ Disabled by default. Enable with `--include-doc-checks` or add to config with `e
 |-------------------|--------|--------------------------------|--------------------------|
 | `rules_path`      | string | Path to design rules YAML      | `.aiv/design-rules.yaml` |
 | `file_extensions` | list   | Extensions to validate         | All common source extensions |
-| `languages`       | list   | Language names                 | —                        |
+| `languages`       | list   | Language names                 | -                        |
 
 ### Multi-Language Support
 
@@ -303,7 +303,7 @@ Density LDR check runs for Java only; entropy runs for all configured extensions
 
 ### Human Override
 
-Put `/aiv skip` or `aiv skip` on its **own line** in the **latest** commit message on the PR head (anchored pattern— not a substring in unrelated prose). All gates are skipped for that run. If **`skip_allowlist`** is configured, the latest commit’s author email must match an entry.
+Put `/aiv skip` or `aiv skip` on its **own line** in the **latest** commit message on the PR head (anchored pattern - not a substring in unrelated prose). All gates are skipped for that run. If **`skip_allowlist`** is configured, the latest commit’s author email must match an entry.
 
 ### Disabling Gates
 
@@ -381,7 +381,12 @@ constraints:
 | `--diff`      | Base ref for diff              | `origin/main`  |
 | `--head`      | Head ref for diff              | `HEAD`         |
 | `--include-doc-checks` | For this run, wrap config so the **doc-integrity** gate is enabled for documentation files (same effect as turning it on in YAML for local experiments). | (flag absent) |
-| `--version`, `-V` | Print CLI version and exit   | —              |
+| `--doctor`    | Informational run: same checks, exit `0` (tune before enforcement). | (flag absent) |
+| `--output-json` *path* | Write a JSON report (`schema_version: 1`) after the run. | (no file) |
+| `--warnings-exit-code` *n* | If the run **passed** but there were **notices** (e.g. skipped oversized files), exit with code *n* (e.g. `4`) instead of `0`. | `0` (disabled) |
+| `--version`, `-V` | Print CLI version and exit   | -              |
+
+**Exit codes:** `0` = success; `1` = blocking gate failed; `2` = bad args/config; `3` = git failure. Optional non-zero exit when passes-with-notices if `--warnings-exit-code` is set.
 
 ### Examples
 
@@ -397,6 +402,9 @@ java -jar aiv-cli.jar --diff origin/main --head feature-branch
 
 # Also run doc integrity checks for this invocation
 java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/main --include-doc-checks
+
+# Machine-readable report for dashboards
+java -jar aiv-cli.jar --diff origin/main --output-json target/aiv-report.json
 ```
 
 ---
@@ -405,7 +413,7 @@ java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/main --include-doc
 
 ### GitHub Actions
 
-**Recommended (composite action — downloads shaded JAR from Maven Central):**
+**Recommended (composite action - downloads shaded JAR from Maven Central):**
 
 ```yaml
 - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
@@ -414,7 +422,7 @@ java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/main --include-doc
 - uses: vaquarkhan/aiv-integrity-gate@v1
   with:
     base-ref: origin/${{ github.base_ref }}
-    aiv-version: "1.0.2"
+    aiv-version: "1.0.3"
 ```
 
 See the repository root **`action.yml`** for optional inputs (`cli-jar-url`, `maven-central-base`, etc.).
@@ -471,9 +479,9 @@ gates:
 ```
 
 Glob patterns use Java PathMatcher syntax. Common patterns:
-- `**/generated/**` — any path containing `generated/`
-- `**/*.pb.java` — protobuf-generated Java files
-- `**/vendor/**` — vendored dependencies
+- `**/generated/**` - any path containing `generated/`
+- `**/*.pb.java` - protobuf-generated Java files
+- `**/vendor/**` - vendored dependencies
 
 ---
 
@@ -503,6 +511,6 @@ If the config file is **missing**, AIV uses the defaults in the table above. Whe
 
 ## See Also
 
-- [README.md](../README.md) — Overview and quick start
-- [TUTORIAL.md](TUTORIAL.md) — Detailed getting-started guide
-- [DEPLOYMENT.md](DEPLOYMENT.md) — CI, workflows, Maven Central / Marketplace
+- [README.md](../README.md) - Overview and quick start
+- [TUTORIAL.md](TUTORIAL.md) - Detailed getting-started guide
+- [DEPLOYMENT.md](DEPLOYMENT.md) - CI, workflows, Maven Central / Marketplace

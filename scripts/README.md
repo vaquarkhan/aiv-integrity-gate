@@ -1,6 +1,6 @@
 # Helper scripts
 
-Small utilities used by contributors and documentation—not installed as part of the Maven artifacts.
+Small utilities used by contributors and documentation - not installed as part of the Maven artifacts.
 
 ## validate-example
 
@@ -13,6 +13,10 @@ Small utilities used by contributors and documentation—not installed as part o
 
 **Requirements:** JDK 17, Maven 3.9+, Git.
 
-The JAR name includes the **current Maven project version** (for example `aiv-cli-1.0.2.jar`).
+The JAR name includes the **current Maven project version** (for example `aiv-cli-1.0.3.jar`).
+
+## print-maven-version
+
+**`print-maven-version.sh`** (Linux, macOS, Git Bash) prints the reactor root `<version>` from [`pom.xml`](../pom.xml) using `mvn help:evaluate`. Use it in scripts so download URLs stay aligned with the POM (see [docs/MAVEN-VERSION.md](../docs/MAVEN-VERSION.md)).
 
 **Author:** Vaquar Khan

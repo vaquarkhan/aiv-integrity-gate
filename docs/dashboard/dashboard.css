@@ -1,4 +1,4 @@
-/* AIV dashboard — light / dark themes (CSS variables) */
+/* AIV dashboard - light / dark themes (CSS variables) */
 
 :root[data-theme="light"] {
   color-scheme: light;

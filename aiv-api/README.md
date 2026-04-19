@@ -1,6 +1,6 @@
 # Module: `aiv-api`
 
-**Role:** Public **API surface** for AIV—interfaces, configuration models, and result types shared by `aiv-core`, plugins, and adapters.
+**Role:** Public **API surface** for AIV - interfaces, configuration models, and result types shared by `aiv-core`, plugins, and adapters.
 
 ## Key packages
 
@@ -13,11 +13,11 @@ Plugins implement `QualityGate` and are discovered via **Java SPI** (`META-INF/s
 
 ## Dependencies
 
-Minimal—this module is meant to stay lightweight so third-party gates can depend on it without pulling adapters.
+Minimal - this module is meant to stay lightweight so third-party gates can depend on it without pulling adapters.
 
 ## See also
 
-- [`aiv-core`](../aiv-core/README.md) — orchestration
-- [`DEVELOPER-CONFIGURATION.md`](../docs/DEVELOPER-CONFIGURATION.md) — YAML mapping to `AIVConfig`
+- [`aiv-core`](../aiv-core/README.md) - orchestration
+- [`DEVELOPER-CONFIGURATION.md`](../docs/DEVELOPER-CONFIGURATION.md) - YAML mapping to `AIVConfig`
 
 **Author:** Vaquar Khan

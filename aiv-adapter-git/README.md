@@ -1,6 +1,6 @@
 # Module: `aiv-adapter-git`
 
-**Role:** **Git-backed `DiffProvider`**—runs `git diff`, `git show`, and related commands to build a `Diff` model (changed files, raw patch, line stats, optional per-file net LOC, author info, skip directive parsing).
+**Role:** **Git-backed `DiffProvider`** - runs `git diff`, `git show`, and related commands to build a `Diff` model (changed files, raw patch, line stats, optional per-file net LOC, author info, skip directive parsing).
 
 ## Behavior highlights
 
@@ -11,7 +11,7 @@
 
 ## See also
 
-- [`aiv-api`](../aiv-api/README.md) — `DiffProvider` port
-- [`DEVELOPER-CONFIGURATION.md`](../docs/DEVELOPER-CONFIGURATION.md) — CLI refs
+- [`aiv-api`](../aiv-api/README.md) - `DiffProvider` port
+- [`DEVELOPER-CONFIGURATION.md`](../docs/DEVELOPER-CONFIGURATION.md) - CLI refs
 
 **Author:** Vaquar Khan

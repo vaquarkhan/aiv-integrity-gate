@@ -19,18 +19,19 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Clone and build AIV
+      - name: Download AIV CLI (Maven Central)
         run: |
-          git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-src
-          cd aiv-src
-          mvn -B -ntp clean verify -pl aiv-cli -am
+          curl -fsSL -o aiv-cli.jar \
+            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.3/aiv-cli-1.0.3.jar"
 
       - name: Run AIV
         id: aiv
         run: |
-          java -jar aiv-src/aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar \
-            --workspace ${{ github.workspace }} \
-            --diff origin/${{ github.base_ref }} 2>&1 | tee aiv-report.txt
+          set -o pipefail
+          java -jar aiv-cli.jar \
+            --workspace "${{ github.workspace }}" \
+            --diff "origin/${{ github.base_ref }}" \
+            --output-json aiv-report.json 2>&1 | tee aiv-report.txt
           echo "exitcode=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
         continue-on-error: true
 

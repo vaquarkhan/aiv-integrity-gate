@@ -1,6 +1,6 @@
 # Tutorial: Getting started with AIV Integrity Gate
 
-**Estimated time:** 45–60 minutes for a first end-to-end setup (local run + CI + optional dashboard)  
+**Estimated time:** 45-60 minutes for a first end-to-end setup (local run + CI + optional dashboard)  
 **Skill level:** Beginner to intermediate (comfortable with Git, YAML, and running a JAR)  
 **Last updated:** April 2026
 
@@ -40,7 +40,7 @@ This tutorial follows the style of AWS technical guides: it explains **what** yo
 | **JDK 17** | Temurin, Oracle, or another Java 17 distribution. |
 | **Git** | For local diffs and CI checkout. |
 | **Your project** | Any language mix; gates differ by file type (Java gets the deepest density analysis). |
-| **Network** | Only for downloading the CLI or cloning this repo—not required **during** a gate run. |
+| **Network** | Only for downloading the CLI or cloning this repo - not required **during** a gate run. |
 
 ### Costs
 
@@ -72,7 +72,7 @@ flowchart LR
 1. **Checkout** gives the runner a full Git history (fetch-depth 0 on GitHub Actions is recommended).
 2. **CLI** resolves the diff `base..head` (for PRs, base is usually the target branch; head is your PR branch).
 3. **Orchestrator** loads SPI-discovered gates, filters paths, runs enabled gates, aggregates results.
-4. **Exit code** `0` = all gates passed; `1` = at least one failure (unless you use skip—see below).
+4. **Exit code** `0` = all gates passed; `1` = at least one failure (unless you use skip - see below).
 
 ---
 
@@ -99,7 +99,7 @@ On a pull request, you typically want the diff between the merge-base of your PR
 
 The published **`aiv-cli`** artifact is a **shaded** (fat) JAR: you can run it with **`java -jar`** without a `lib/` directory.
 
-**Maven coordinates:** `io.github.vaquarkhan.aiv:aiv-cli:1.0.2` (adjust version as newer releases ship).
+**Maven coordinates:** `io.github.vaquarkhan.aiv:aiv-cli:1.0.3` (adjust version as newer releases ship).
 
 **Download URL pattern (Maven Central):**
 
@@ -107,17 +107,17 @@ The published **`aiv-cli`** artifact is a **shaded** (fat) JAR: you can run it w
 https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/VERSION/aiv-cli-VERSION.jar
 ```
 
-Example for **1.0.2**:
+Example for **1.0.3**:
 
 ```bash
 curl -fsSL -o aiv-cli.jar \
-  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.2/aiv-cli-1.0.2.jar"
+  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.3/aiv-cli-1.0.3.jar"
 java -jar aiv-cli.jar --version
 ```
 
-You should see a line like `aiv-cli 1.0.2`.
+You should see a line like `aiv-cli 1.0.3`.
 
-**Checkpoint:** If `java -jar` fails with `NoClassDefFoundError`, you are not using the shaded Central artifact—re-download from the path above or build with `mvn clean package -pl aiv-cli -am` from this repository.
+**Checkpoint:** If `java -jar` fails with `NoClassDefFoundError`, you are not using the shaded Central artifact - re-download from the path above or build with `mvn clean package -pl aiv-cli -am` from this repository.
 
 ---
 
@@ -146,7 +146,7 @@ gates:
     enabled: true
 ```
 
-`.aiv/design-rules.yaml` (example—tighten for your project):
+`.aiv/design-rules.yaml` (example - tighten for your project):
 
 ```yaml
 constraints:
@@ -181,7 +181,7 @@ java -jar /path/to/aiv-cli.jar --workspace . --diff origin/main
 
 You have two common patterns.
 
-### Pattern A — Composite action (downloads JAR from Central)
+### Pattern A - Composite action (downloads JAR from Central)
 
 Minimal job:
 
@@ -202,12 +202,12 @@ jobs:
       - uses: vaquarkhan/aiv-integrity-gate@v1
         with:
           base-ref: origin/${{ github.base_ref }}
-          aiv-version: "1.0.2"
+          aiv-version: "1.0.3"
 ```
 
 Inputs are documented in the repository root `action.yml`. You can override **`cli-jar-url`** to point at a GitHub Release asset if needed.
 
-### Pattern B — Build from source (full control)
+### Pattern B - Build from source (full control)
 
 Clone this repository inside the workflow and run `mvn clean verify -pl aiv-cli -am`, then `java -jar aiv-cli/target/aiv-cli-${VERSION}.jar`. The **`example-project`** and upstream **`.github/workflows/aiv.yml`** show concrete steps.
 
@@ -256,7 +256,7 @@ Use sparingly: document policy in your team handbook.
 
 ## Part 7: Optional static dashboard
 
-The folder **`docs/dashboard/`** in this repository contains a **static HTML/CSS/JS** dashboard (Chart.js via CDN) with light/dark themes. It does not call your CI—it visualizes **JSON** you export or aggregate.
+The folder **`docs/dashboard/`** in this repository contains a **static HTML/CSS/JS** dashboard (Chart.js via CDN) with light/dark themes. It does not call your CI - it visualizes **JSON** you export or aggregate.
 
 **Data shape (`schema_version: 1`):** an object with a `runs` array; each run has `timestamp`, `branch`, `commit`, `overall_pass`, optional `duration_ms`, and `gates` with `{ id, passed, message? }`.
 
@@ -273,7 +273,7 @@ Serve the folder over HTTP (or GitHub Pages). See `docs/dashboard/README.md` for
 | Too many density failures | Tune `ldr_threshold` / `entropy_threshold`, use `exclude_paths`, or use refactor/trusted-author options where appropriate. |
 | Dependency gate noise | Ensure imports align with `pom.xml` / Python requirements; use the gate’s whitelist in config if documented for your version. |
 | Design gate matches strings in comments | Prefer rules that make sense for substring matching or narrow with `keywords`; see developer guide. |
-| PR comment does not post | On forked PRs, `GITHUB_TOKEN` may be read-only for comments—check workflow permissions; job summary still works. |
+| PR comment does not post | On forked PRs, `GITHUB_TOKEN` may be read-only for comments - check workflow permissions; job summary still works. |
 
 ---
 
@@ -282,14 +282,14 @@ Serve the folder over HTTP (or GitHub Pages). See `docs/dashboard/README.md` for
 1. Read **[DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md)** for every gate and YAML key.
 2. Read **[DEPLOYMENT.md](DEPLOYMENT.md)** if you publish or consume Maven Central artifacts.
 3. Browse module **README.md** files under each Maven module for architecture notes.
-4. Run **`mvn clean verify`** if you contribute code—JaCoCo enforces line coverage on modules.
+4. Run **`mvn clean verify`** if you contribute code - JaCoCo enforces line coverage on modules.
 
 ---
 
 ## FAQ
 
 **Does AIV upload my code?**  
-No—not in the default configuration. It runs locally in the CI runner.
+No - not in the default configuration. It runs locally in the CI runner.
 
 **Does it work without GitHub?**  
 Yes. Any CI that provides a Git workspace and Java can run the same command line.

@@ -8,7 +8,7 @@ This module does **not** call the GitHub REST or Checks API directly; naming ref
 
 ## See also
 
-- [`aiv-api`](../aiv-api/README.md) — `ReportPublisher`
-- [`.github/README.md`](../.github/README.md) — workflows
+- [`aiv-api`](../aiv-api/README.md) - `ReportPublisher`
+- [`.github/README.md`](../.github/README.md) - workflows
 
 **Author:** Vaquar Khan

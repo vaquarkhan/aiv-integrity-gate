@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AIV Integrity Gate — dashboard</title>
+    <title>AIV Integrity Gate - dashboard</title>
     <link rel="stylesheet" href="dashboard.css" />
   </head>
   <body>
     <header class="app-header">
       <div class="brand">
         <h1>AIV dashboard</h1>
-        <p>Historical pass/fail, gate trends, and run duration — all from local JSON (no server).</p>
+        <p>Historical pass/fail, gate trends, and run duration - all from local JSON (no server).</p>
       </div>
       <div class="toolbar">
         <button type="button" class="btn btn-icon" id="theme-toggle" aria-label="Toggle color theme">
@@ -30,22 +30,22 @@
       <section class="kpi-grid" aria-label="Summary">
         <div class="kpi">
           <div class="label">Runs</div>
-          <div class="value" id="kpi-runs">—</div>
+          <div class="value" id="kpi-runs">-</div>
           <div class="sub">in current dataset</div>
         </div>
         <div class="kpi pass">
           <div class="label">Pass rate</div>
-          <div class="value" id="kpi-pass-rate">—</div>
+          <div class="value" id="kpi-pass-rate">-</div>
           <div class="sub">overall</div>
         </div>
         <div class="kpi fail">
           <div class="label">Failed runs</div>
-          <div class="value" id="kpi-fails">—</div>
+          <div class="value" id="kpi-fails">-</div>
           <div class="sub">count</div>
         </div>
         <div class="kpi">
           <div class="label">Top noisy gate</div>
-          <div class="value" id="kpi-top-gate" style="font-size: 1.1rem">—</div>
+          <div class="value" id="kpi-top-gate" style="font-size: 1.1rem">-</div>
           <div class="sub">by failure count</div>
         </div>
       </section>

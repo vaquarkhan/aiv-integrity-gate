@@ -1,4 +1,4 @@
-# `.aiv` — AIV configuration (this repository)
+# `.aiv` - AIV configuration (this repository)
 
 This directory holds the **dogfooding** configuration for **AIV Integrity Gate** itself: the same layout consumers use under their repo root.
 

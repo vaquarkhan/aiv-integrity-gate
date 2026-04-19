@@ -1,6 +1,6 @@
 # Module: `aiv-core`
 
-**Role:** **Orchestration**—loads configuration, obtains a `Diff` from the `DiffProvider`, runs all enabled `QualityGate` implementations, aggregates results, and publishes via `ReportPublisher`.
+**Role:** **Orchestration** - loads configuration, obtains a `Diff` from the `DiffProvider`, runs all enabled `QualityGate` implementations, aggregates results, and publishes via `ReportPublisher`.
 
 ## Responsibilities
 
@@ -11,11 +11,11 @@
 
 ## Main entry type
 
-- `io.github.vaquarkhan.aiv.core.Orchestrator` — primary API used by `aiv-cli`.
+- `io.github.vaquarkhan.aiv.core.Orchestrator` - primary API used by `aiv-cli`.
 
 ## See also
 
-- [`aiv-api`](../aiv-api/README.md) — ports and models
-- [`aiv-cli`](../aiv-cli/README.md) — command-line entry
+- [`aiv-api`](../aiv-api/README.md) - ports and models
+- [`aiv-cli`](../aiv-cli/README.md) - command-line entry
 
 **Author:** Vaquar Khan

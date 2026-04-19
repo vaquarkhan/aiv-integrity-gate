@@ -11,6 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
@@ -58,6 +59,13 @@ class ExplainCommandTest {
             ExplainCommand.resourceLoader = cl;
             assertEquals(0, ExplainCommand.run("testnl"));
         }
+    }
+
+    @Test
+    void privateConstructorForCoverage() throws Exception {
+        Constructor<ExplainCommand> c = ExplainCommand.class.getDeclaredConstructor();
+        c.setAccessible(true);
+        c.newInstance();
     }
 
     @Test

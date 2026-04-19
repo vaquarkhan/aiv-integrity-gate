@@ -17,6 +17,9 @@
 
 package io.github.vaquarkhan.aiv.cli;
 
+import io.github.vaquarkhan.aiv.model.AIVResult;
+import io.github.vaquarkhan.aiv.model.GateResult;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.io.TempDir;
@@ -33,6 +36,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -108,25 +112,25 @@ class MainTest {
     }
 
     @Test
-    void invalidGitRefIsHandledAndReturnsOne(@TempDir Path repo) throws Exception {
+    void invalidGitRefIsHandledAndReturnsTwo(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{
                 "--workspace", repo.toString(),
                 "--diff", "; rm -rf /",
                 "--head", "HEAD"
         });
-        assertEquals(1, code);
+        assertEquals(2, code);
     }
 
     @Test
-    void gitDiffFailureReturnsOne(@TempDir Path repo) throws Exception {
+    void gitDiffFailureReturnsThree(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{
                 "--workspace", repo.toString(),
                 "--diff", "nonexistent-ref-xyz",
                 "--head", "HEAD"
         });
-        assertEquals(1, code);
+        assertEquals(3, code);
     }
 
     @Test
@@ -186,7 +190,12 @@ class MainTest {
     @Test
     void unknownFlagDoesNotCrash(@TempDir Path repo) throws Exception {
         initRepo(repo);
-        int code = Main.run(new String[]{"--workspace", repo.toString(), "--not-a-real-flag"});
+        int code = Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--not-a-real-flag"
+        });
         assertTrue(code == 0 || code == 1);
     }
 
@@ -211,7 +220,7 @@ class MainTest {
         try {
             Main.EXIT = c -> code[0] = c;
             Main.main(new String[]{"--diff", "; rm -rf /"});
-            assertEquals(1, code[0]);
+            assertEquals(2, code[0]);
         } finally {
             Main.EXIT = previous;
         }
@@ -268,6 +277,87 @@ class MainTest {
                 "--head", "HEAD",
                 "--doctor"
         }));
+    }
+
+    @Test
+    void outputJsonWritesReport(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Path json = repo.resolve("aiv-report.json");
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--output-json", json.toString()
+        }));
+        assertTrue(Files.exists(json));
+        assertTrue(Files.readString(json).contains("\"schema_version\": 1"));
+    }
+
+    @Test
+    void invalidWarningsExitCodeReturnsTwo() {
+        assertEquals(2, Main.run(new String[]{"--warnings-exit-code", "not-a-number"}));
+    }
+
+    @Test
+    void mergeWarningsExitUsesConfiguredCodeWhenPassedWithNotices() {
+        var last = new AIVResult(true, List.of(GateResult.pass("g")), List.of("warn"));
+        assertEquals(4, Main.mergeWarningsExit(0, 4, last));
+    }
+
+    @Test
+    void mergeWarningsExitKeepsCoreWhenNoNotices() {
+        var last = new AIVResult(true, List.of(GateResult.pass("g")), List.of());
+        assertEquals(0, Main.mergeWarningsExit(0, 4, last));
+    }
+
+    @Test
+    void mergeWarningsExitKeepsFailureExit() {
+        var last = new AIVResult(true, List.of(GateResult.pass("g")), List.of("w"));
+        assertEquals(1, Main.mergeWarningsExit(1, 4, last));
+    }
+
+    @Test
+    void mergeWarningsExitWhenLastNull() {
+        assertEquals(0, Main.mergeWarningsExit(0, 4, null));
+    }
+
+    @Test
+    void mergeWarningsExitWhenRunDidNotPass() {
+        var last = new AIVResult(true, List.of(GateResult.pass("g")), List.of("w"));
+        assertEquals(0, Main.mergeWarningsExit(0, 0, last));
+    }
+
+    @Test
+    void outputJsonWhenTargetIsDirectoryReturnsTwo(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Path dir = repo.resolve("isdir");
+        Files.createDirectory(dir);
+        assertEquals(2, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--output-json", dir.toString()
+        }));
+    }
+
+    @Test
+    void warningsExitCodeParsesWithNormalRun(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        int code = Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--warnings-exit-code", "9"
+        });
+        assertTrue(code == 0 || code == 1);
+    }
+
+    @Test
+    void parseWorkspaceWithBareFlagOnlyUsesDefault() throws Exception {
+        Method parseWorkspace = Main.class.getDeclaredMethod("parseWorkspace", String[].class);
+        parseWorkspace.setAccessible(true);
+        Path w = (Path) parseWorkspace.invoke(null, (Object) new String[]{"--workspace"});
+        assertNotNull(w);
     }
 
     @Test

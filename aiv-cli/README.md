@@ -1,6 +1,6 @@
 # Module: `aiv-cli`
 
-**Role:** **Command-line entry point**—packages a runnable `Main` class and wires `GitDiffProvider`, `YamlConfigProvider`, optional doc-check wrapper, `StdoutReportPublisher`, and `Orchestrator`.
+**Role:** **Command-line entry point** - packages a runnable `Main` class and wires `GitDiffProvider`, `YamlConfigProvider`, optional doc-check wrapper, `StdoutReportPublisher`, and `Orchestrator`.
 
 ## Packaging
 
@@ -26,7 +26,7 @@ Exit codes: **0** = pass, **1** = failure or fatal error.
 
 ## See also
 
-- [`docs/TUTORIAL.md`](../docs/TUTORIAL.md) — end-to-end usage
-- [`aiv-adapter-git`](../aiv-adapter-git/README.md) — how diffs are produced
+- [`docs/TUTORIAL.md`](../docs/TUTORIAL.md) - end-to-end usage
+- [`aiv-adapter-git`](../aiv-adapter-git/README.md) - how diffs are produced
 
 **Author:** Vaquar Khan

@@ -1,5 +1,5 @@
 /**
- * AIV dashboard — expects JSON:
+ * AIV dashboard - expects JSON:
  * { "schema_version": 1, "runs": [ { "timestamp", "branch", "commit", "overall_pass",
  *   "duration_ms"?, "gates": [ { "id", "passed", "message"? } ] } ] }
  */
@@ -332,7 +332,7 @@ function updateKpis(runs) {
   setText("kpi-fails", String(total - passed));
   setText(
     "kpi-top-gate",
-    topGate ? `${topGate[0]} (${topGate[1]})` : "—"
+    topGate ? `${topGate[0]} (${topGate[1]})` : "-"
   );
 }
 
@@ -357,10 +357,10 @@ function fillTable(runs) {
       .join(", ");
     tr.innerHTML = `
       <td>${escapeHtml(ts)}</td>
-      <td>${escapeHtml(r.branch || "—")}</td>
+      <td>${escapeHtml(r.branch || "-")}</td>
       <td><code>${escapeHtml((r.commit || "").slice(0, 7))}</code></td>
       <td><span class="badge ${r.overall_pass ? "pass" : "fail"}">${r.overall_pass ? "PASS" : "FAIL"}</span></td>
-      <td>${escapeHtml(gates || "—")}</td>
+      <td>${escapeHtml(gates || "-")}</td>
     `;
     tbody.appendChild(tr);
   }

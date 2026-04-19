@@ -1,6 +1,6 @@
 # Module: `aiv-plugin-density`
 
-**Role:** **Density gate**—flags low-signal or boilerplate-heavy changes using:
+**Role:** **Density gate** - flags low-signal or boilerplate-heavy changes using:
 
 - **Logic Density Ratio (LDR)** for **Java** (control flow vs structural noise).
 - **Shannon entropy** and related heuristics for configured file types.
@@ -16,6 +16,6 @@ Typical YAML keys under the gate: `ldr_threshold`, `entropy_threshold`, `refacto
 
 ## See also
 
-- [`DEVELOPER-CONFIGURATION.md`](../docs/DEVELOPER-CONFIGURATION.md) — thresholds and defaults
+- [`DEVELOPER-CONFIGURATION.md`](../docs/DEVELOPER-CONFIGURATION.md) - thresholds and defaults
 
 **Author:** Vaquar Khan

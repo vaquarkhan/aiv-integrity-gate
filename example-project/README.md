@@ -33,7 +33,7 @@ Your Java code stays in the GitHub repo. When you push, GitHub runs AIV on a tem
 | Scenario | What you push | AIV result |
 |----------|---------------|------------|
 | Pass | Good code (Calculator, App) | Green check |
-| Fail | Code with `System.exit` | Red X — design rule violated |
+| Fail | Code with `System.exit` | Red X - design rule violated |
 
 The design rule in `.aiv/design-rules.yaml` forbids `System.exit`. If your code contains it, AIV fails.
 
@@ -43,7 +43,7 @@ The design rule in `.aiv/design-rules.yaml` forbids `System.exit`. If your code 
 
 | Link | What you see |
 |------|--------------|
-| [GitHub Actions](https://github.com/vaquarkhan/aiv-integrity-gate/actions) | All AIV runs — green (pass) or red (fail) |
+| [GitHub Actions](https://github.com/vaquarkhan/aiv-integrity-gate/actions) | All AIV runs - green (pass) or red (fail) |
 | [Commits](https://github.com/vaquarkhan/aiv-integrity-gate/commits/main) | Each commit with its AIV status |
 
 ---
@@ -101,5 +101,5 @@ mvn test
 
 ## See also
 
-- **[docs/TUTORIAL.md](../docs/TUTORIAL.md)** — full getting-started guide for any repository.
-- **[docs/DEVELOPER-CONFIGURATION.md](../docs/DEVELOPER-CONFIGURATION.md)** — configuration reference.
+- **[docs/TUTORIAL.md](../docs/TUTORIAL.md)** - full getting-started guide for any repository.
+- **[docs/DEVELOPER-CONFIGURATION.md](../docs/DEVELOPER-CONFIGURATION.md)** - configuration reference.

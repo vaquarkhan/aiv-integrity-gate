@@ -10,12 +10,14 @@ import io.github.vaquarkhan.aiv.adapter.github.StdoutReportPublisher;
 import io.github.vaquarkhan.aiv.cli.config.DocChecksConfigProvider;
 import io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider;
 import io.github.vaquarkhan.aiv.core.Orchestrator;
+import io.github.vaquarkhan.aiv.model.AIVResult;
 import io.github.vaquarkhan.aiv.port.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -67,6 +69,8 @@ public final class Main {
         String baseRef = "origin/main";
         String headRef = "HEAD";
         boolean includeDocChecks = false;
+        Path jsonOutputPath = null;
+        int warningsExitCode = 0;
 
         for (int i = 0; i < gateArgs.length; i++) {
             if ("--workspace".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
@@ -79,6 +83,15 @@ public final class Main {
                 includeDocChecks = true;
             } else if ("--doctor".equals(gateArgs[i])) {
                 doctor = true;
+            } else if ("--output-json".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+                jsonOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
+            } else if ("--warnings-exit-code".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+                try {
+                    warningsExitCode = Integer.parseInt(gateArgs[++i].trim());
+                } catch (NumberFormatException ex) {
+                    log.error("Invalid --warnings-exit-code (expected integer)");
+                    return 2;
+                }
             }
         }
 
@@ -88,16 +101,44 @@ public final class Main {
             if (includeDocChecks) {
                 configProvider = new DocChecksConfigProvider(configProvider, true);
             }
-            var reportPublisher = new StdoutReportPublisher();
-            var orchestrator = new Orchestrator(diffProvider, configProvider, reportPublisher);
-            return orchestrator.run(workspace, baseRef, headRef, doctor);
+            var recording = new RecordingReportPublisher(new StdoutReportPublisher());
+            var orchestrator = new Orchestrator(diffProvider, configProvider, recording);
+            int coreExit = orchestrator.run(workspace, baseRef, headRef, doctor);
+            AIVResult last = recording.getLastResult();
+            if (jsonOutputPath != null && last != null) {
+                try {
+                    Path parent = jsonOutputPath.getParent();
+                    if (parent != null) {
+                        Files.createDirectories(parent);
+                    }
+                    JsonReportWriter.write(last, jsonOutputPath, cliVersion());
+                } catch (IOException e) {
+                    log.error("Could not write --output-json: {}", e.getMessage());
+                    return 2;
+                }
+            }
+            if (doctor) {
+                return 0;
+            }
+            return mergeWarningsExit(coreExit, warningsExitCode, last);
         } catch (IllegalArgumentException e) {
             log.error("AIV error: {}", e.getMessage());
-            return 1;
+            return 2;
         } catch (IllegalStateException e) {
             log.error("AIV git error: {}", e.getMessage());
-            return 1;
+            return 3;
         }
+    }
+
+    /**
+     * When the run passed but the diff carried warnings, optionally map exit to {@code warningsExitCode} for CI.
+     */
+    static int mergeWarningsExit(int coreExit, int warningsExitCode, AIVResult last) {
+        if (coreExit == 0 && warningsExitCode > 0 && last != null && last.isPassed()
+                && !last.getNotices().isEmpty()) {
+            return warningsExitCode;
+        }
+        return coreExit;
     }
 
     private static String[] tail(String[] args) {

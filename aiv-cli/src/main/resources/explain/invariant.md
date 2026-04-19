@@ -6,4 +6,4 @@ Placeholder for **property-based** or custom invariants. The stock implementatio
 
 ## Default behavior
 
-No-op pass — disable in config if you want a cleaner report.
+No-op pass - disable in config if you want a cleaner report.

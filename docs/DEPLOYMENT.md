@@ -1,6 +1,6 @@
 # AIV Deployment Guide
 
-“Deploying” AIV usually means dropping a few files into your repo so GitHub Actions (or another CI runner) can execute the JAR—no fleet of VMs to manage. This guide walks through that path with beginner-friendly steps; it works for any Git-based project (Java, Python, Go, Rust, and more).
+“Deploying” AIV usually means dropping a few files into your repo so GitHub Actions (or another CI runner) can execute the JAR - no fleet of VMs to manage. This guide walks through that path with beginner-friendly steps; it works for any Git-based project (Java, Python, Go, Rust, and more).
 
 **Author:** Vaquar Khan
 
@@ -236,7 +236,7 @@ Add `--include-doc-checks` on that `java -jar` line if you want documentation in
 4. Commit the change.
 5. Click "Compare & pull request" or "Contribute" → "Open pull request".
 6. Create the pull request.
-7. Wait 1–2 minutes. You should see a check named **AIV Gate** or **aiv**.
+7. Wait 1-2 minutes. You should see a check named **AIV Gate** or **aiv**.
 8. Click "Details" to see the log. Green = pass, Red = fail.
 
 **You have deployed AIV.** It now runs automatically on every pull request.
@@ -287,7 +287,7 @@ This section is for people who maintain the AIV project and want to publish the 
    ```bash
    mvn clean verify -pl aiv-cli -am
    ```
-4. The shaded uber JAR is at: `aiv-cli/target/aiv-cli-<version>.jar` (version from the root POM, for example `1.0.2`).
+4. The shaded uber JAR is at: `aiv-cli/target/aiv-cli-<version>.jar` (version from the root POM, for example `1.0.3`).
 
 **Note:** The `aiv-cli` module is configured with the **Maven Shade** plugin so this artifact is a **single runnable JAR** (`java -jar` does not require a `lib/` directory).
 
@@ -369,7 +369,7 @@ mvn clean verify -Pcentral-publish -Dgpg.skip=true
 
 Full deploy (uploads): configure `~/.m2/settings.xml` per [Sonatype’s Maven guide](https://central.sonatype.org/publish/publish-portal-maven/), then `mvn clean deploy -Pcentral-publish`. Release versions must **not** end in `-SNAPSHOT`; the workflow sets the version from the **workflow_dispatch** input **release_version** before `deploy`.
 
-**Workflow trigger:** **workflow_dispatch** only — open **Actions → Publish to Maven Central**, enter **release_version** (for example `1.0.0`, matching your GitHub tag). Configure the repository secrets listed above first.
+**Workflow trigger:** **workflow_dispatch** only - open **Actions → Publish to Maven Central**, enter **release_version** (for example `1.0.0`, matching your GitHub tag). Configure the repository secrets listed above first.
 
 **Typical order:** push tag **`v1.0.0`** → wait for **Release (GitHub)** to finish → run **Publish to Maven Central** with **`1.0.0`**.
 
@@ -389,14 +389,14 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
       - name: Download AIV CLI
         run: |
           curl -fsSL -o aiv-cli.jar \
-            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.2/aiv-cli-1.0.2.jar"
+            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.3/aiv-cli-1.0.3.jar"
 
       - name: Run AIV
         run: |
           java -jar aiv-cli.jar --workspace . --diff origin/${{ github.base_ref }}
 ```
 
-**Change the URL** if the release is at a different version or location.
+**Change the URL** if the release is at a different version or location. From a checkout of this repo you can also run `bash scripts/install-aiv.sh 1.0.3` to download the same artifact into `./aiv-cli.jar`.
 
 ---
 
@@ -425,6 +425,6 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
 
 ## See Also
 
-- [README.md](../README.md) — Overview, problems/solutions, minimal config
-- [TUTORIAL.md](TUTORIAL.md) — Detailed getting-started walkthrough
-- [DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md) — Full configuration reference
+- [README.md](../README.md) - Overview, problems/solutions, minimal config
+- [TUTORIAL.md](TUTORIAL.md) - Detailed getting-started walkthrough
+- [DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md) - Full configuration reference
