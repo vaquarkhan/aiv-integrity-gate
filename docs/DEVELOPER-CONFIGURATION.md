@@ -29,6 +29,8 @@ See [README.md](../README.md#problems-and-solutions) for the full mapping.
 3. Create `.aiv/doc-rules.yaml` (optional — for documentation validation)
 4. Run AIV: `java -jar aiv-cli.jar --diff origin/main` (add `--include-doc-checks` when you want doc integrity without editing YAML)
 
+For a full walkthrough (install, CI, troubleshooting), see **[TUTORIAL.md](TUTORIAL.md)**.
+
 If you are editing **this** AIV repository, run `mvn clean verify` before opening a PR so tests and the **100%** JaCoCo line gate stay green.
 
 ---
@@ -45,6 +47,32 @@ your-project/
 │   └── workflows/
 │       └── aiv.yml          # AIV on PR/push (example: see upstream aiv-integrity-gate)
 └── ...
+```
+
+### Global keys (top level of `config.yaml`)
+
+Alongside `gates`, you may set:
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `exclude_paths` | list of strings | Glob patterns for paths to skip (generated code, vendor trees, etc.). |
+| `fail_fast` | boolean | If `true`, stop after the first failing gate. Default `false` runs all gates and aggregates failures. |
+| `skip_allowlist` | list of emails | If non-empty, only these author emails may honor `/aiv skip` on the latest commit (case-insensitive). |
+
+Example:
+
+```yaml
+exclude_paths:
+  - "**/generated/**"
+
+fail_fast: false
+
+skip_allowlist:
+  - "release@example.com"
+
+gates:
+  - id: density
+    enabled: true
 ```
 
 ---
@@ -132,7 +160,8 @@ jobs:
 
       - name: Run AIV
         run: |
-          java -jar aiv-src/aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar \
+          VERSION=$(cd aiv-src && mvn -q -DforceStdout -Dexpression=project.version help:evaluate)
+          java -jar aiv-src/aiv-cli/target/aiv-cli-${VERSION}.jar \
             --workspace ${{ github.workspace }} \
             --diff origin/${{ github.base_ref }}
 ```
@@ -274,7 +303,7 @@ Density LDR check runs for Java only; entropy runs for all configured extensions
 
 ### Human Override
 
-Add `/aiv skip` or `aiv skip` to any commit message in the PR. All gates are skipped.
+Put `/aiv skip` or `aiv skip` on its **own line** in the **latest** commit message on the PR head (anchored pattern— not a substring in unrelated prose). All gates are skipped for that run. If **`skip_allowlist`** is configured, the latest commit’s author email must match an entry.
 
 ### Disabling Gates
 
@@ -352,6 +381,7 @@ constraints:
 | `--diff`      | Base ref for diff              | `origin/main`  |
 | `--head`      | Head ref for diff              | `HEAD`         |
 | `--include-doc-checks` | For this run, wrap config so the **doc-integrity** gate is enabled for documentation files (same effect as turning it on in YAML for local experiments). | (flag absent) |
+| `--version`, `-V` | Print CLI version and exit   | —              |
 
 ### Examples
 
@@ -375,14 +405,19 @@ java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/main --include-doc
 
 ### GitHub Actions
 
+**Recommended (composite action — downloads shaded JAR from Maven Central):**
+
 ```yaml
 - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
   with:
     fetch-depth: 0
-- uses: apache/infrastructure-actions/aiv@main
+- uses: vaquarkhan/aiv-integrity-gate@v1
   with:
     base-ref: origin/${{ github.base_ref }}
+    aiv-version: "1.0.2"
 ```
+
+See the repository root **`action.yml`** for optional inputs (`cli-jar-url`, `maven-central-base`, etc.).
 
 ### Jenkins
 
@@ -469,4 +504,5 @@ If the config file is **missing**, AIV uses the defaults in the table above. Whe
 ## See Also
 
 - [README.md](../README.md) — Overview and quick start
+- [TUTORIAL.md](TUTORIAL.md) — Detailed getting-started guide
 - [DEPLOYMENT.md](DEPLOYMENT.md) — CI, workflows, Maven Central / Marketplace

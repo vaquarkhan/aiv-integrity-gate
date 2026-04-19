@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.apache.aiv</groupId>
+        <groupId>io.github.vaquarkhan</groupId>
         <artifactId>aiv-gate</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.3</version>
     </parent>
     <artifactId>aiv-adapter-github</artifactId>
     <packaging>jar</packaging>
     <name>AIV Adapter - GitHub</name>
     <dependencies>
         <dependency>
-            <groupId>org.apache.aiv</groupId>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-api</artifactId>
         </dependency>
         <dependency>

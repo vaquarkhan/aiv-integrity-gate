@@ -46,3 +46,6 @@ hs_err_pid*
 # Docs (internal / draft)
 docs/GAP-ANALYSIS.md
 docs/AIV-ARCHITECTURE-BRAINSTORM.md
+
+# Local CLI init output (not project config)
+aiv-cli/.aiv/

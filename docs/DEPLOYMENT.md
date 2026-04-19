@@ -167,7 +167,8 @@ jobs:
 
       - name: Run AIV
         run: |
-          java -jar aiv-src/aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar \
+          VERSION=$(cd aiv-src && mvn -q -DforceStdout -Dexpression=project.version help:evaluate)
+          java -jar aiv-src/aiv-cli/target/aiv-cli-${VERSION}.jar \
             --workspace ${{ github.workspace }} \
             --diff origin/${{ github.base_ref }}
 ```
@@ -182,7 +183,8 @@ Add `--include-doc-checks` on that `java -jar` line if you want documentation in
 
       - name: Run AIV
         run: |
-          java -jar aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar \
+          VERSION=$(mvn -q -DforceStdout -Dexpression=project.version help:evaluate)
+          java -jar aiv-cli/target/aiv-cli-${VERSION}.jar \
             --workspace . \
             --diff origin/${{ github.base_ref }}
    ```
@@ -266,7 +268,7 @@ This section is for people who maintain the AIV project and want to publish the 
 | Option | URL / Location | Who can use it |
 |--------|----------------|----------------|
 | **GitHub Releases** | `https://github.com/vaquarkhan/aiv-integrity-gate/releases` | Anyone with the link |
-| **Maven Central** | `https://repo.maven.apache.org/maven2/org/apache/aiv/aiv-cli/` | Anyone with Maven |
+| **Maven Central** | `https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/` | Anyone with Maven or curl |
 
 ---
 
@@ -285,9 +287,9 @@ This section is for people who maintain the AIV project and want to publish the 
    ```bash
    mvn clean verify -pl aiv-cli -am
    ```
-4. The JAR is at: `aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar`
+4. The shaded uber JAR is at: `aiv-cli/target/aiv-cli-<version>.jar` (version from the root POM, for example `1.0.2`).
 
-**Note:** If you need a fat JAR (single file with all dependencies), add the Maven Shade plugin to `aiv-cli/pom.xml`. The current build may produce a JAR that expects `lib/` next to it. For a standalone CLI, a fat JAR is simpler.
+**Note:** The `aiv-cli` module is configured with the **Maven Shade** plugin so this artifact is a **single runnable JAR** (`java -jar` does not require a `lib/` directory).
 
 #### Step 2: Create a GitHub Release
 
@@ -297,7 +299,7 @@ This section is for people who maintain the AIV project and want to publish the 
 4. **Tag:** Type `v1.0.0` (must start with `v`).
 5. **Title:** `v1.0.0` or `AIV CLI 1.0.0`.
 6. **Description:** Optional release notes.
-7. Under **Attach binaries**, drag and drop `aiv-cli-1.0.0-SNAPSHOT.jar` or click to upload.
+7. Under **Attach binaries**, drag and drop the shaded `aiv-cli-<version>.jar` from `aiv-cli/target/` after `mvn clean verify -pl aiv-cli -am`, or click to upload.
 8. **Rename the file** (optional): `aiv-cli-1.0.0.jar` so the URL is clean.
 9. Click **Publish release**.
 
@@ -340,9 +342,9 @@ Replace `VERSION` with the numeric release (for example `1.0.0`).
 
 Publishing is implemented with the **`central-publish` Maven profile** (sources, Javadoc, GPG signing, Sonatype **Central Publishing** plugin) and **[`.github/workflows/publish-maven-central.yml`](../.github/workflows/publish-maven-central.yml)**.
 
-**Why publish:** Other projects can depend on `org.apache.aiv:aiv-cli` without cloning this repo. After publishing, **Central Statistics** in the Sonatype UI shows download counts. The root **`action.yml`** composite action downloads the published JAR by default.
+**Why publish:** Other projects can depend on `io.github.vaquarkhan.aiv:aiv-cli` without cloning this repo. After publishing, **Central Statistics** in the Sonatype UI shows download counts. The root **`action.yml`** composite action downloads the published JAR by default.
 
-**Namespace (`groupId`) and license:** The coordinate **`org.apache.*`** on Maven Central is normally reserved for **Apache Software Foundation** projects. If Sonatype does not verify `org.apache.aiv`, rename the Maven `groupId` across all POMs to a namespace you control (for example **`io.github.vaquarkhan`**) and register it at [central.sonatype.com](https://central.sonatype.com/). This repository uses a **custom license** ([LICENSE](../LICENSE)); Sonatype may ask follow-up questions for non-SPDX licenses.
+**Namespace (`groupId`):** The coordinate **`io.github.vaquarkhan.aiv`** is used for published artifacts. If your Sonatype namespace policy requires a different `groupId`, align all POMs and the composite action’s **`maven-central-base`** / download path accordingly. This repository is licensed under the **Apache License 2.0** ([LICENSE](../LICENSE)).
 
 **One-time setup**
 
@@ -386,8 +388,8 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
 ```yaml
       - name: Download AIV CLI
         run: |
-          curl -sL -o aiv-cli.jar \
-            "https://github.com/vaquarkhan/aiv-integrity-gate/releases/download/v1.0.0/aiv-cli-1.0.0.jar"
+          curl -fsSL -o aiv-cli.jar \
+            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.2/aiv-cli-1.0.2.jar"
 
       - name: Run AIV
         run: |
@@ -404,7 +406,7 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
 |---------|---------------|
 | AIV job does not appear on PR | Workflow file must be at `.github/workflows/aiv.yml` and trigger on `pull_request` |
 | "No such file .aiv/config.yaml" | Config must be in repo root: `your-repo/.aiv/config.yaml` |
-| "java -jar" fails with "no main manifest" | Build the full project with `mvn clean package`; use the JAR from `aiv-cli/target/` |
+| "java -jar" fails with `NoClassDefFoundError` | Use the **shaded** JAR from Maven Central (`io.github.vaquarkhan.aiv:aiv-cli`) or build with `mvn clean verify -pl aiv-cli -am`; do not use a thin classpath-only JAR without dependencies |
 | Workflow fails on "clone aiv-gate" | Check GitHub is reachable; URL must be `vaquarkhan/aiv-integrity-gate` or your fork |
 | Design rules not applied | Ensure `design-rules.yaml` exists and `keywords` match your files |
 
@@ -424,4 +426,5 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
 ## See Also
 
 - [README.md](../README.md) — Overview, problems/solutions, minimal config
+- [TUTORIAL.md](TUTORIAL.md) — Detailed getting-started walkthrough
 - [DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md) — Full configuration reference

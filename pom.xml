@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.apache.aiv</groupId>
+    <groupId>io.github.vaquarkhan</groupId>
     <artifactId>aiv-gate</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.3</version>
     <packaging>pom</packaging>
     <name>AIV Gate - Automated Integrity Validation</name>
-    <description>Technical gate for code integrity validation in Apache projects</description>
+    <description>Automated integrity validation for pull-request diffs (local, no network)</description>
     <url>https://github.com/vaquarkhan/aiv-integrity-gate</url>
 
     <licenses>
         <license>
-            <name>AIV Custom License (see LICENSE in repository)</name>
-            <url>https://github.com/vaquarkhan/aiv-integrity-gate/blob/main/LICENSE</url>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -61,52 +61,52 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-plugin-density</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-plugin-design-lucene</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-plugin-invariant-template</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-plugin-dependency</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-plugin-doc-integrity</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-adapter-git</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-adapter-github</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aiv</groupId>
+                <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-cli</artifactId>
                 <version>${project.version}</version>
             </dependency>

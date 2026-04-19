@@ -3,19 +3,27 @@
 exclude_paths:
   - "docs/**"
   - "example-project/**"
+# Run all gates and aggregate failures (set true to stop at first failure)
+fail_fast: false
+# Optional: only these commit author emails may use /aiv skip on the latest commit
+# skip_allowlist:
+#   - maintainer@example.com
 gates:
   - id: density
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 3.8
+      entropy_threshold: 5.0
       refactor_net_loc_threshold: -50
   - id: design
     enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
-  - id: invariant
+  - id: dependency
     enabled: true
+    config: {}
+  - id: invariant
+    enabled: false
   - id: doc-integrity
     enabled: false
     config:

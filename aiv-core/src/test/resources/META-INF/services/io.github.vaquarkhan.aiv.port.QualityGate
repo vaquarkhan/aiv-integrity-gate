@@ -1,0 +1,7 @@
+io.github.vaquarkhan.aiv.core.testgates.PassGate
+io.github.vaquarkhan.aiv.core.testgates.DisabledGate
+io.github.vaquarkhan.aiv.core.testgates.FailGate
+io.github.vaquarkhan.aiv.core.testgates.AfterFailGate
+io.github.vaquarkhan.aiv.core.testgates.AssertChangedFilesGate
+io.github.vaquarkhan.aiv.core.testgates.DefaultEnabledGate
+io.github.vaquarkhan.aiv.core.testgates.DocIntegrityGate

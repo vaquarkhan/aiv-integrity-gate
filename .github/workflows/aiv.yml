@@ -28,15 +28,19 @@ jobs:
           cache: maven
 
       - name: Test and package AIV CLI (full reactor for aiv-cli + JaCoCo)
-        run: mvn -B -ntp clean verify -pl aiv-cli -am
+        id: build
+        run: |
+          mvn -B -ntp clean verify -pl aiv-cli -am
+          echo "version=$(mvn -q -DforceStdout -Dexpression=project.version help:evaluate)" >> $GITHUB_OUTPUT
 
       - name: Run AIV
         id: aiv
         run: |
-          cd aiv-cli/target
+          VERSION="${{ steps.build.outputs.version }}"
+          JAR="aiv-cli/target/aiv-cli-${VERSION}.jar"
           EXITCODE=0
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            java -Daiv.git.timeout.seconds=600 -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee ../../aiv-report.txt
+            java -Daiv.git.timeout.seconds=600 -jar "$JAR" --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee aiv-report.txt
             EXITCODE=${PIPESTATUS[0]}
           else
             BASE="${{ github.event.before }}"
@@ -44,13 +48,23 @@ jobs:
               echo "Initial push, skipping AIV"
               EXITCODE=0
             else
-              java -Daiv.git.timeout.seconds=600 -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee ../../aiv-report.txt
+              java -Daiv.git.timeout.seconds=600 -jar "$JAR" --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee aiv-report.txt
               EXITCODE=${PIPESTATUS[0]}
             fi
           fi
           echo "exitcode=$EXITCODE" >> $GITHUB_OUTPUT
           exit $EXITCODE
         continue-on-error: true
+
+      - name: AIV report to job summary
+        if: always()
+        run: |
+          if [ -f aiv-report.txt ]; then
+            echo "## AIV report" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat aiv-report.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Post AIV report to PR
         if: github.event_name == 'pull_request'

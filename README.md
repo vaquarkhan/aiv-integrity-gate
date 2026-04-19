@@ -30,7 +30,7 @@ You are done when a PR runs AIV and prints a report (pass or fail).
 2. **Add a workflow** — Copy [`example-project/.github/workflows/aiv.yml`](example-project/.github/workflows/aiv.yml) to `.github/workflows/aiv.yml` in your project. It checks out your code, clones this repo to build the CLI, and runs AIV on the PR diff. Update branch names if yours are not `main` / `master`.
 3. **Open a pull request** — Push a branch and open a PR; the workflow should appear under **Actions**. Intentionally violate a design rule (for example `System.exit` if you kept the sample rules) to see a **fail**, then fix it to see **pass**.
 
-Faster iteration locally: build with `mvn clean package` and run `java -jar aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar --diff origin/main` from your clone. Full setup and CI: [DEPLOYMENT.md](docs/DEPLOYMENT.md) and [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md).
+Faster iteration locally: build with `mvn clean verify -pl aiv-cli -am` and run `java -jar aiv-cli/target/aiv-cli-<version>.jar --diff origin/main` (version from `mvn -q -DforceStdout -Dexpression=project.version help:evaluate`). Full setup and CI: [docs/TUTORIAL.md](docs/TUTORIAL.md), [DEPLOYMENT.md](docs/DEPLOYMENT.md), and [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md).
 
 ---
 
@@ -45,7 +45,7 @@ Faster iteration locally: build with `mvn clean package` and run `java -jar aiv-
 | Wrong API usage | Contributors use deprecated APIs or wrong patterns (e.g. in-memory list instead of ExpireSnapshots) | Design gate catches forbidden calls and missing required calls |
 | Unknown imports | Typos in package names or imports not declared in lockfile; supply-chain risk | Dependency gate validates Java imports vs pom.xml, Python vs requirements.txt |
 | Fragile edge-case code | Code passes example tests but fails on boundary inputs | Invariant gate (placeholder for property-based tests) |
-| Urgent merges | Need to bypass checks for hotfix or emergency | `/aiv skip` in commit message skips all gates |
+| Urgent merges | Need to bypass checks for hotfix or emergency | `/aiv skip` on its own line in the **latest** PR commit skips all gates (optional `skip_allowlist` in config) |
 | Refactors flagged | Legitimate refactors remove more lines than they add; density gate would fail | Refactor exception: density skips when net lines <= threshold (default -50) |
 | Core maintainer friction | Trusted committers get unnecessary density failures | Trusted authors bypass density check |
 | Issue squatting | Contributors get assigned, then ghost or submit low-quality code | Assignment Gate: assign only after PR passes AIV |
@@ -84,7 +84,7 @@ No API keys or paid services are required. Everything runs locally in your CI.
 | `aiv-plugin-invariant-template` | Invariant gate (passes by default) |
 | `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) |
 | `aiv-adapter-git` | Git diff provider |
-| `aiv-adapter-github` | Report publisher (stdout) |
+| `aiv-adapter-github` | Report publisher (stdout / SLF4J for CI logs) |
 | `aiv-cli` | Command-line entry point |
 
 ---
@@ -97,10 +97,10 @@ Build the project:
 mvn clean package
 ```
 
-Run AIV from the repo root (compare your working tree to `origin/main`):
+Run AIV from the repo root (compare your working tree to `origin/main`). Replace the JAR name with your Maven `${project.version}` (for example `1.0.2`):
 
 ```bash
-java -jar aiv-cli/target/aiv-cli-1.0.0-SNAPSHOT.jar --diff origin/main
+java -jar aiv-cli/target/aiv-cli-1.0.2.jar --diff origin/main
 ```
 
 Or via Maven:
@@ -152,8 +152,12 @@ Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cl
 
 | Document | Contents |
 |----------|----------|
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable AIV in your repo, CI workflows, Maven Central / Marketplace publishing |
-| [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference for gates and rules |
+| [docs/TUTORIAL.md](docs/TUTORIAL.md) | Long-form getting started (walkthrough, CLI, CI, troubleshooting). |
+| [docs/README.md](docs/README.md) | Index of all guides. |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable AIV in your repo, CI workflows, Maven Central / Marketplace publishing. |
+| [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference for gates and rules. |
+| [docs/dashboard/README.md](docs/dashboard/README.md) | Static dashboard for JSON run history. |
+| `*/README.md` (per module) | Short module-specific notes (API, core, plugins, adapters, CLI). |
 
 ---
 
@@ -224,7 +228,7 @@ If you omit these files, AIV uses built-in defaults and looks for `.aiv/design-r
 
 ### GitHub Action (Marketplace / composite)
 
-After **`org.apache.aiv:aiv-cli`** is published to Maven Central (see [DEPLOYMENT.md](docs/DEPLOYMENT.md#option-b-deploy-to-maven-central)), consumers can run the **root** composite action:
+After **`io.github.vaquarkhan.aiv:aiv-cli`** is published to Maven Central (see [DEPLOYMENT.md](docs/DEPLOYMENT.md#option-b-deploy-to-maven-central)), consumers can run the **root** composite action. It downloads the **shaded** uber JAR from Central by default:
 
 ```yaml
 jobs:
@@ -237,10 +241,10 @@ jobs:
       - uses: vaquarkhan/aiv-integrity-gate@v1
         with:
           base-ref: origin/${{ github.base_ref }}
-          aiv-version: '1.0.0'
+          aiv-version: '1.0.2'
 ```
 
-Optional input **`cli-jar-url`** points to a JAR (for example a GitHub Release URL) if you are not on Central yet. Inputs are documented in [action.yml](action.yml).
+Optional input **`cli-jar-url`** points to a full URL for the shaded JAR (for example a GitHub Release asset) when you do not want the Central download. Inputs are documented in [action.yml](action.yml).
 
 ### Raw shell step
 
@@ -256,9 +260,9 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Human Override and Exceptions
 
-**Skip all gates:** Add `/aiv skip` or `aiv skip` to any commit message in the pull request. AIV skips all checks and reports pass.
+**Skip all gates:** Put **`/aiv skip`** or **`aiv skip`** on its **own line** in the **latest** commit message on the PR head (anchored match—not a substring inside unrelated text). If **`skip_allowlist`** is set in `.aiv/config.yaml`, only those author emails may use the directive.
 
-**Refactoring:** When a change removes more lines than it adds (net negative lines), the density gate skips the logic-density check. This avoids flagging legitimate refactors.
+**Refactoring:** Per-file net LOC can exempt density checks for deletions-heavy changes (see configuration reference).
 
 **Trusted authors:** List committer email addresses in `trusted_authors` under the density gate config. Those authors bypass the density check.
 
@@ -266,14 +270,4 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## License
 
-Copyright 2026 Vaquar Khan. All rights reserved.
-
-**Non-commercial use:** Permitted. You may use, copy, modify, and distribute the Work for non-commercial purposes, provided you retain copyright notices and include a copy of this License.
-
-**Commercial use:** Prohibited without explicit prior written permission from the author. Contact the author to request permission.
-
-**Research use:** Citation required. If you use this Work in academic research, publications, theses, or scholarly work, you must cite it. Example: *Vaquar Khan. AIV - Automated Integrity Validation (IP-X). [repository-url]. [Year].*
-
-**No warranty:** The Work is provided "AS IS" without warranty of any kind.
-
-See [LICENSE](LICENSE) for full terms and conditions.
+Licensed under the **Apache License 2.0**. See [LICENSE](LICENSE).

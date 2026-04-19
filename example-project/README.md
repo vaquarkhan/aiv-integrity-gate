@@ -60,13 +60,14 @@ scripts\validate-example.bat
 ./scripts/validate-example.sh
 ```
 
-Or manually:
+Or manually (from the **parent** `aiv-integrity-gate` root, after `mvn -B -ntp clean verify -pl aiv-cli -am`):
 
 ```bash
-mvn -B -ntp clean verify -pl aiv-cli -am
-cd aiv-cli/target
-java -jar aiv-cli-1.0.0-SNAPSHOT.jar --workspace /path/to/aiv-gate --diff origin/main
+VERSION=$(mvn -q -DforceStdout -Dexpression=project.version help:evaluate)
+java -jar aiv-cli/target/aiv-cli-${VERSION}.jar --workspace /path/to/aiv-gate --diff origin/main
 ```
+
+On Windows **cmd**, use `for /f` to capture `project.version` the same way as in `scripts/validate-example.bat`.
 
 ---
 
@@ -95,3 +96,10 @@ example-project/
 ```bash
 mvn test
 ```
+
+---
+
+## See also
+
+- **[docs/TUTORIAL.md](../docs/TUTORIAL.md)** — full getting-started guide for any repository.
+- **[docs/DEVELOPER-CONFIGURATION.md](../docs/DEVELOPER-CONFIGURATION.md)** — configuration reference.
