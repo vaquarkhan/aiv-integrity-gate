@@ -13,7 +13,7 @@ Small utilities used by contributors and documentation - not installed as part o
 
 **Requirements:** JDK 17, Maven 3.9+, Git.
 
-The JAR name includes the **current Maven project version** (for example `aiv-cli-1.0.3.jar`).
+The JAR name includes the **current Maven project version** (for example `aiv-cli-1.0.4.jar`).
 
 ## print-maven-version
 

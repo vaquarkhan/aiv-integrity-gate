@@ -6,6 +6,7 @@
 package io.github.vaquarkhan.aiv.cli;
 
 import io.github.vaquarkhan.aiv.adapter.git.GitDiffProvider;
+import io.github.vaquarkhan.aiv.adapter.github.GithubChecksPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.StdoutReportPublisher;
 import io.github.vaquarkhan.aiv.cli.config.DocChecksConfigProvider;
 import io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider;
@@ -21,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.function.IntConsumer;
 
 /**
@@ -32,6 +34,9 @@ public final class Main {
 
     private static final Logger log = LoggerFactory.getLogger(Main.class);
     static IntConsumer EXIT = System::exit;
+
+    /** Overridable for tests; production uses {@link System#getenv(String)}. */
+    static Function<String, String> GITHUB_ENV = System::getenv;
 
     public static void main(String[] args) {
         EXIT.accept(run(args));
@@ -70,6 +75,8 @@ public final class Main {
         String headRef = "HEAD";
         boolean includeDocChecks = false;
         Path jsonOutputPath = null;
+        Path sarifOutputPath = null;
+        boolean publishGithubChecks = false;
         int warningsExitCode = 0;
 
         for (int i = 0; i < gateArgs.length; i++) {
@@ -85,6 +92,10 @@ public final class Main {
                 doctor = true;
             } else if ("--output-json".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
                 jsonOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
+            } else if ("--output-sarif".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+                sarifOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
+            } else if ("--publish-github-checks".equals(gateArgs[i])) {
+                publishGithubChecks = true;
             } else if ("--warnings-exit-code".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
                 try {
                     warningsExitCode = Integer.parseInt(gateArgs[++i].trim());
@@ -105,15 +116,34 @@ public final class Main {
             var orchestrator = new Orchestrator(diffProvider, configProvider, recording);
             int coreExit = orchestrator.run(workspace, baseRef, headRef, doctor);
             AIVResult last = recording.getLastResult();
-            if (jsonOutputPath != null && last != null) {
+            if (last != null) {
                 try {
-                    Path parent = jsonOutputPath.getParent();
-                    if (parent != null) {
-                        Files.createDirectories(parent);
+                    if (jsonOutputPath != null) {
+                        Path parent = jsonOutputPath.getParent();
+                        if (parent != null) {
+                            Files.createDirectories(parent);
+                        }
+                        JsonReportWriter.write(last, jsonOutputPath, cliVersion());
                     }
-                    JsonReportWriter.write(last, jsonOutputPath, cliVersion());
+                    if (sarifOutputPath != null) {
+                        Path parent = sarifOutputPath.getParent();
+                        if (parent != null) {
+                            Files.createDirectories(parent);
+                        }
+                        SarifReportWriter.write(last, sarifOutputPath, cliVersion());
+                    }
+                    if (publishGithubChecks) {
+                        GithubChecksPublisher.publish(last, cliVersion(), GITHUB_ENV);
+                    }
                 } catch (IOException e) {
-                    log.error("Could not write --output-json: {}", e.getMessage());
+                    log.error("Could not write report: {}", e.getMessage());
+                    return 2;
+                } catch (IllegalStateException e) {
+                    log.error("GitHub Checks: {}", e.getMessage());
+                    return 2;
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.error("GitHub Checks interrupted");
                     return 2;
                 }
             }

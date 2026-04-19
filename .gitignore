@@ -12,6 +12,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # IDE
+.cursor/
 .idea/
 *.iml
 *.ipr

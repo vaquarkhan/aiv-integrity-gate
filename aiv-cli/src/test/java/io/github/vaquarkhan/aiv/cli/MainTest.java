@@ -17,10 +17,13 @@
 
 package io.github.vaquarkhan.aiv.cli;
 
+import com.sun.net.httpserver.HttpServer;
+import io.github.vaquarkhan.aiv.adapter.github.GithubChecksPublisher;
 import io.github.vaquarkhan.aiv.model.AIVResult;
 import io.github.vaquarkhan.aiv.model.GateResult;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.api.Test;
@@ -33,10 +36,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,6 +70,12 @@ class MainTest {
         } else {
             System.setProperty(TIMEOUT_PROP, previousTimeout);
         }
+    }
+
+    @AfterEach
+    void restoreGithubEnv() {
+        Main.GITHUB_ENV = System::getenv;
+        System.clearProperty(GithubChecksPublisher.CHECKS_URL_PROPERTY);
     }
 
     @Test
@@ -290,7 +305,104 @@ class MainTest {
                 "--output-json", json.toString()
         }));
         assertTrue(Files.exists(json));
-        assertTrue(Files.readString(json).contains("\"schema_version\": 1"));
+        assertTrue(Files.readString(json).contains("\"schema_version\": 2"));
+    }
+
+    @Test
+    void publishGithubChecksWithoutTokenReturnsTwo(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        assertEquals(2, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--publish-github-checks"
+        }));
+    }
+
+    @Test
+    void publishGithubChecksInterruptReturnsTwo(@TempDir Path repo) throws Exception {
+        CountDownLatch inHandler = new CountDownLatch(1);
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/repos/o/n/check-runs", exchange -> {
+            inHandler.countDown();
+            try {
+                Thread.sleep(300_000);
+            } catch (InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+            }
+            exchange.sendResponseHeaders(500, 0);
+            exchange.close();
+        });
+        server.setExecutor(Executors.newCachedThreadPool());
+        server.start();
+        try {
+            int port = server.getAddress().getPort();
+            System.setProperty(GithubChecksPublisher.CHECKS_URL_PROPERTY,
+                    "http://127.0.0.1:" + port + "/repos/o/n/check-runs");
+            Main.GITHUB_ENV = Map.of(
+                    "GITHUB_TOKEN", "tok",
+                    "GITHUB_REPOSITORY", "o/n",
+                    "GITHUB_SHA", "abcde"
+            )::get;
+            initRepo(repo);
+            AtomicInteger code = new AtomicInteger(-99);
+            Thread worker = new Thread(() -> code.set(Main.run(new String[]{
+                    "--workspace", repo.toString(),
+                    "--diff", "HEAD",
+                    "--head", "HEAD",
+                    "--publish-github-checks"
+            })));
+            worker.start();
+            assertTrue(inHandler.await(30, TimeUnit.SECONDS));
+            worker.interrupt();
+            worker.join(TimeUnit.MINUTES.toMillis(1));
+            assertEquals(2, code.get());
+        } finally {
+            server.stop(0);
+        }
+    }
+
+    @Test
+    void publishGithubChecksWithEnvPostsSuccessfully(@TempDir Path repo) throws Exception {
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/repos/o/n/check-runs", exchange -> {
+            exchange.sendResponseHeaders(201, 0);
+            exchange.close();
+        });
+        server.start();
+        try {
+            int port = server.getAddress().getPort();
+            System.setProperty(GithubChecksPublisher.CHECKS_URL_PROPERTY,
+                    "http://127.0.0.1:" + port + "/repos/o/n/check-runs");
+            Main.GITHUB_ENV = Map.of(
+                    "GITHUB_TOKEN", "tok",
+                    "GITHUB_REPOSITORY", "o/n",
+                    "GITHUB_SHA", "abcde"
+            )::get;
+            initRepo(repo);
+            assertEquals(0, Main.run(new String[]{
+                    "--workspace", repo.toString(),
+                    "--diff", "HEAD",
+                    "--head", "HEAD",
+                    "--publish-github-checks"
+            }));
+        } finally {
+            server.stop(0);
+        }
+    }
+
+    @Test
+    void outputSarifWritesReport(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Path sarif = repo.resolve("aiv.sarif");
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--output-sarif", sarif.toString()
+        }));
+        assertTrue(Files.exists(sarif));
+        assertTrue(Files.readString(sarif).contains("\"version\": \"2.1.0\""));
     }
 
     @Test
@@ -325,6 +437,34 @@ class MainTest {
     void mergeWarningsExitWhenRunDidNotPass() {
         var last = new AIVResult(true, List.of(GateResult.pass("g")), List.of("w"));
         assertEquals(0, Main.mergeWarningsExit(0, 0, last));
+    }
+
+    @Test
+    void mergeWarningsExitWhenPassedButNoNoticesDoesNotRemap() {
+        var last = new AIVResult(true, List.of(GateResult.pass("g")), List.of());
+        assertEquals(0, Main.mergeWarningsExit(0, 9, last));
+    }
+
+    @Test
+    void mergeWarningsExitWhenFailedKeepsCoreExit() {
+        var last = new AIVResult(false, List.of(GateResult.fail("g", "x")), List.of("w"));
+        assertEquals(1, Main.mergeWarningsExit(1, 9, last));
+    }
+
+    @Test
+    void readVersionFromStreamIoExceptionOnLoadReturnsDev() {
+        InputStream in = new InputStream() {
+            private int n;
+
+            @Override
+            public int read() throws IOException {
+                if (n++ == 0) {
+                    return 'x';
+                }
+                throw new IOException("x");
+            }
+        };
+        assertEquals("dev", Main.readVersionFromStream(in));
     }
 
     @Test

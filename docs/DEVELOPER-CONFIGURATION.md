@@ -382,7 +382,9 @@ constraints:
 | `--head`      | Head ref for diff              | `HEAD`         |
 | `--include-doc-checks` | For this run, wrap config so the **doc-integrity** gate is enabled for documentation files (same effect as turning it on in YAML for local experiments). | (flag absent) |
 | `--doctor`    | Informational run: same checks, exit `0` (tune before enforcement). | (flag absent) |
-| `--output-json` *path* | Write a JSON report (`schema_version: 1`) after the run. | (no file) |
+| `--output-json` *path* | Write a JSON report (`schema_version: 2`; per-gate `findings`) after the run. | (no file) |
+| `--output-sarif` *path* | Write SARIF 2.1.0 after the run (for Code Scanning / viewers). | (no file) |
+| `--publish-github-checks` | After a successful run, POST a GitHub Check run with annotations (needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `GITHUB_SHA` or `AIV_GITHUB_HEAD_SHA`). | (flag absent) |
 | `--warnings-exit-code` *n* | If the run **passed** but there were **notices** (e.g. skipped oversized files), exit with code *n* (e.g. `4`) instead of `0`. | `0` (disabled) |
 | `--version`, `-V` | Print CLI version and exit   | -              |
 
@@ -422,7 +424,7 @@ java -jar aiv-cli.jar --diff origin/main --output-json target/aiv-report.json
 - uses: vaquarkhan/aiv-integrity-gate@v1
   with:
     base-ref: origin/${{ github.base_ref }}
-    aiv-version: "1.0.3"
+    aiv-version: "1.0.4"
 ```
 
 See the repository root **`action.yml`** for optional inputs (`cli-jar-url`, `maven-central-base`, etc.).
@@ -440,6 +442,8 @@ stage('AIV') {
 ### Environment
 
 No env vars required for default (free) mode. Config is read from `.aiv/` in the workspace.
+
+For **`--publish-github-checks`:** set `GITHUB_TOKEN`, `GITHUB_REPOSITORY` (`owner/repo`), and `GITHUB_SHA` (or `AIV_GITHUB_HEAD_SHA` for PR head). Optional: `AIV_GITHUB_CHECKS_URL` to override the Checks API URL (advanced).
 
 ---
 

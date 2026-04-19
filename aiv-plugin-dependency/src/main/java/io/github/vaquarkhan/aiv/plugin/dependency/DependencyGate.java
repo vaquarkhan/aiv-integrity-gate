@@ -24,6 +24,7 @@ import com.github.javaparser.ast.ImportDeclaration;
 import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVContext;
 import io.github.vaquarkhan.aiv.model.ChangedFile;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.QualityGate;
 import org.slf4j.Logger;
@@ -64,30 +65,27 @@ public final class DependencyGate implements QualityGate {
         Set<String> whitelist = getWhitelist(context);
 
         List<String> violations = new ArrayList<>();
+        List<Finding> findings = new ArrayList<>();
         for (ChangedFile file : context.getDiff().getChangedFiles()) {
             String path = file.getPath();
             String content = file.getContent();
             if (path.endsWith(".java")) {
-                violations.addAll(checkJavaImports(content, path, javaAllowedPrefixes, whitelist));
+                checkJavaImports(content, path, javaAllowedPrefixes, whitelist, violations, findings);
             } else if (path.endsWith(".py")) {
-                String v = checkPythonImports(content, path, pyAllowed, whitelist);
-                if (v != null) {
-                    violations.add(v);
-                }
+                checkPythonImports(content, path, pyAllowed, whitelist, violations, findings);
             }
         }
         if (violations.isEmpty()) {
             return GateResult.pass(getId());
         }
-        return GateResult.fail(getId(), String.join("\n", violations));
+        return GateResult.fail(getId(), String.join("\n", violations), findings);
     }
 
-    private List<String> checkJavaImports(String content, String path, Set<String> allowedPrefixes,
-                                        Set<String> whitelist) {
-        List<String> out = new ArrayList<>();
+    private void checkJavaImports(String content, String path, Set<String> allowedPrefixes,
+                                  Set<String> whitelist, List<String> violations, List<Finding> findings) {
         ParseResult<CompilationUnit> result = new JavaParser().parse(content);
         if (!result.isSuccessful() || result.getResult().isEmpty()) {
-            return out;
+            return;
         }
         for (ImportDeclaration imp : result.getResult().get().getImports()) {
             if (imp.isStatic()) continue;
@@ -95,28 +93,35 @@ public final class DependencyGate implements QualityGate {
             if (isJavaBuiltin(name)) continue;
             String pkg = name.contains(".") ? name.substring(0, name.lastIndexOf('.')) : name;
             if (!isAllowed(pkg, allowedPrefixes, whitelist)) {
-                out.add(String.format(
+                String msg = String.format(
                         "Import '%s' in %s is not covered by declared dependencies (configure dependency gate whitelist if intentional)",
-                        name, path));
+                        name, path);
+                violations.add(msg);
+                int line = imp.getRange().map(r -> r.begin.line).orElse(1);
+                findings.add(Finding.atLine("dependency.unresolved-import", path, line, msg));
             }
         }
-        return out;
     }
 
-    private String checkPythonImports(String content, String path, Set<String> allowed, Set<String> whitelist) {
+    private void checkPythonImports(String content, String path, Set<String> allowed, Set<String> whitelist,
+                                    List<String> violations, List<Finding> findings) {
+        int lineNum = 0;
         for (String line : content.split("\n")) {
+            lineNum++;
             Matcher m = PY_IMPORT.matcher(line);
             if (!m.find()) continue;
             String mod = m.group(1).split("\\.")[0];
             if (mod.equals("__future__") || mod.startsWith("_")) continue;
             String modNorm = mod.replace("_", "-");
             if (!isAllowedPy(mod, modNorm, allowed, whitelist)) {
-                return String.format(
+                String msg = String.format(
                         "Import '%s' in %s not in requirements.txt (configure dependency gate whitelist if intentional)",
                         mod, path);
+                violations.add(msg);
+                findings.add(Finding.atLine("dependency.unresolved-python-import", path, lineNum, msg));
+                return;
             }
         }
-        return null;
     }
 
     private boolean isAllowedPy(String mod, String modNorm, Set<String> allowed, Set<String> whitelist) {

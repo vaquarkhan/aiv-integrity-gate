@@ -24,6 +24,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVContext;
 import io.github.vaquarkhan.aiv.model.ChangedFile;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.QualityGate;
 import io.github.vaquarkhan.aiv.util.FileExtensions;
@@ -64,6 +65,7 @@ public final class DensityGate implements QualityGate {
         Set<String> extensions = FileExtensions.fromConfig(getGateConfig(context));
 
         List<String> failures = new ArrayList<>();
+        List<Finding> findings = new ArrayList<>();
         for (ChangedFile file : context.getDiff().getChangedFiles()) {
             if (!FileExtensions.matches(file.getPath(), extensions)) {
                 continue;
@@ -75,26 +77,42 @@ public final class DensityGate implements QualityGate {
             if (fileHasRefactorExemption(context, file.getPath(), refactorThreshold)) {
                 continue;
             }
+            String path = file.getPath();
+            int anchorLine = firstNonBlankLine(content);
 
             int byteLen = content.getBytes(StandardCharsets.UTF_8).length;
             if (byteLen >= MIN_BYTES_FOR_ENTROPY) {
                 double entropy = calculateEntropy(content);
                 if (entropy < entropyThreshold) {
-                    failures.add(String.format("Low entropy (%.2f) in %s - possible boilerplate", entropy, file.getPath()));
+                    String msg = String.format("Low entropy (%.2f) in %s - possible boilerplate", entropy, path);
+                    failures.add(msg);
+                    findings.add(Finding.atLine("density.entropy", path, anchorLine, msg));
                 }
             }
 
-            if (file.getPath().toLowerCase().endsWith(".java")) {
+            if (path.toLowerCase().endsWith(".java")) {
                 double ldr = calculateLdr(content);
                 if (ldr < ldrThreshold) {
-                    failures.add(String.format("Low logic density (%.2f) in %s - threshold %.2f", ldr, file.getPath(), ldrThreshold));
+                    String msg = String.format("Low logic density (%.2f) in %s - threshold %.2f", ldr, path, ldrThreshold);
+                    failures.add(msg);
+                    findings.add(Finding.atLine("density.ldr", path, anchorLine, msg));
                 }
             }
         }
         if (failures.isEmpty()) {
             return GateResult.pass(getId());
         }
-        return GateResult.fail(getId(), String.join("\n", failures));
+        return GateResult.fail(getId(), String.join("\n", failures), findings);
+    }
+
+    private static int firstNonBlankLine(String content) {
+        String[] lines = content.split("\n", -1);
+        for (int i = 0; i < lines.length; i++) {
+            if (!lines[i].isBlank()) {
+                return i + 1;
+            }
+        }
+        return 1;
     }
 
     /**

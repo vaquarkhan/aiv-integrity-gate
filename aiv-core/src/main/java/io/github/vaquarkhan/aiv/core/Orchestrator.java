@@ -139,7 +139,7 @@ public final class Orchestrator {
         if (!"warn".equals(sev)) {
             return raw;
         }
-        return GateResult.advisory(gateId, raw.getMessage());
+        return GateResult.advisory(gateId, raw.getMessage(), raw.getFindings());
     }
 
     private static boolean shouldHonorSkip(Diff diff, AIVConfig config) {

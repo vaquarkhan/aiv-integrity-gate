@@ -21,6 +21,7 @@ import io.github.vaquarkhan.aiv.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -36,6 +37,16 @@ class DesignComplianceGateTest {
     @Test
     void getId() {
         assertEquals("design", new DesignComplianceGate().getId());
+    }
+
+    @Test
+    void lineOfCaseInsensitiveSubstringEdgeCases() throws Exception {
+        Method m = DesignComplianceGate.class.getDeclaredMethod("lineOfCaseInsensitiveSubstring", String.class, String.class);
+        m.setAccessible(true);
+        assertEquals(1, (int) m.invoke(null, "hello world", ""));
+        assertEquals(1, (int) m.invoke(null, "hello world", null));
+        assertEquals(1, (int) m.invoke(null, "hello world", "nomatch"));
+        assertEquals(2, (int) m.invoke(null, "a\nb", "b"));
     }
 
     @Test
@@ -82,6 +93,8 @@ class DesignComplianceGateTest {
         var r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
         assertTrue(r.getMessage().contains("Forbidden"));
+        assertFalse(r.getFindings().isEmpty());
+        assertTrue(r.getFindings().get(0).getRuleId().startsWith("design.forbidden."));
     }
 
     @Test
@@ -131,6 +144,7 @@ class DesignComplianceGateTest {
         var r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
         assertTrue(r.getMessage().contains("Required"));
+        assertTrue(r.getFindings().stream().anyMatch(f -> f.getRuleId().startsWith("design.required.")));
     }
 
     @Test

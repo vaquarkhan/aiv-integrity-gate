@@ -99,7 +99,7 @@ On a pull request, you typically want the diff between the merge-base of your PR
 
 The published **`aiv-cli`** artifact is a **shaded** (fat) JAR: you can run it with **`java -jar`** without a `lib/` directory.
 
-**Maven coordinates:** `io.github.vaquarkhan.aiv:aiv-cli:1.0.3` (adjust version as newer releases ship).
+**Maven coordinates:** `io.github.vaquarkhan.aiv:aiv-cli:1.0.4` (adjust version as newer releases ship).
 
 **Download URL pattern (Maven Central):**
 
@@ -107,15 +107,15 @@ The published **`aiv-cli`** artifact is a **shaded** (fat) JAR: you can run it w
 https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/VERSION/aiv-cli-VERSION.jar
 ```
 
-Example for **1.0.3**:
+Example for **1.0.4**:
 
 ```bash
 curl -fsSL -o aiv-cli.jar \
-  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.3/aiv-cli-1.0.3.jar"
+  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
 java -jar aiv-cli.jar --version
 ```
 
-You should see a line like `aiv-cli 1.0.3`.
+You should see a line like `aiv-cli 1.0.4`.
 
 **Checkpoint:** If `java -jar` fails with `NoClassDefFoundError`, you are not using the shaded Central artifact - re-download from the path above or build with `mvn clean package -pl aiv-cli -am` from this repository.
 
@@ -202,7 +202,7 @@ jobs:
       - uses: vaquarkhan/aiv-integrity-gate@v1
         with:
           base-ref: origin/${{ github.base_ref }}
-          aiv-version: "1.0.3"
+          aiv-version: "1.0.4"
 ```
 
 Inputs are documented in the repository root `action.yml`. You can override **`cli-jar-url`** to point at a GitHub Release asset if needed.

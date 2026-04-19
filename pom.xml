@@ -6,7 +6,7 @@
 
     <groupId>io.github.vaquarkhan</groupId>
     <artifactId>aiv-gate</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <packaging>pom</packaging>
     <name>AIV Gate - Automated Integrity Validation</name>
     <description>Automated integrity validation for pull-request diffs (local, no network)</description>
@@ -22,6 +22,7 @@
 
     <developers>
         <developer>
+            <id>vaquarkhan</id>
             <name>Vaquar Khan</name>
             <url>https://github.com/vaquarkhan</url>
         </developer>

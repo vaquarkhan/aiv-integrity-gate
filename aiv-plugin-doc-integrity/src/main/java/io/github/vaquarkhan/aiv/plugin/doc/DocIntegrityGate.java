@@ -20,6 +20,7 @@ package io.github.vaquarkhan.aiv.plugin.doc;
 import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVContext;
 import io.github.vaquarkhan.aiv.model.ChangedFile;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.QualityGate;
 
@@ -54,6 +55,7 @@ public final class DocIntegrityGate implements QualityGate {
         DocRules rules = DocRulesLoader.load(context.getWorkspace().resolve(rulesPath));
 
         List<String> violations = new ArrayList<>();
+        List<Finding> findings = new ArrayList<>();
 
         FileExistenceValidator fileExistence = new FileExistenceValidator(context.getWorkspace());
         CrossReferenceChecker crossRef = new CrossReferenceChecker(context.getWorkspace());
@@ -67,28 +69,46 @@ public final class DocIntegrityGate implements QualityGate {
             String content = file.getContent();
 
             String v = fileExistence.validate(path, content);
-            if (v != null) violations.add(v);
+            if (v != null) {
+                violations.add(v);
+                findings.add(Finding.atLine("doc-integrity.file-existence", path, 1, v));
+            }
 
             v = crossRef.validate(path, content);
-            if (v != null) violations.add(v);
+            if (v != null) {
+                violations.add(v);
+                findings.add(Finding.atLine("doc-integrity.cross-ref", path, 1, v));
+            }
 
             v = mdLinks.validate(path, content);
-            if (v != null) violations.add(v);
+            if (v != null) {
+                violations.add(v);
+                findings.add(Finding.atLine("doc-integrity.markdown-link", path, 1, v));
+            }
 
             v = requiredMention.validate(path, content);
-            if (v != null) violations.add(v);
+            if (v != null) {
+                violations.add(v);
+                findings.add(Finding.atLine("doc-integrity.required-mention", path, 1, v));
+            }
 
             v = commandChecker.validate(path, content);
-            if (v != null) violations.add(v);
+            if (v != null) {
+                violations.add(v);
+                findings.add(Finding.atLine("doc-integrity.command", path, 1, v));
+            }
 
             v = pathFabrication.validate(path, content);
-            if (v != null) violations.add(v);
+            if (v != null) {
+                violations.add(v);
+                findings.add(Finding.atLine("doc-integrity.path-fabrication", path, 1, v));
+            }
         }
 
         if (violations.isEmpty()) {
             return GateResult.pass(getId());
         }
-        return GateResult.fail(getId(), String.join("; ", violations));
+        return GateResult.fail(getId(), String.join("; ", violations), findings);
     }
 
     private List<ChangedFile> filterDocFiles(List<ChangedFile> files) {

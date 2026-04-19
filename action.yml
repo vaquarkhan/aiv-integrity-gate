@@ -29,7 +29,7 @@ inputs:
   aiv-version:
     description: 'Released CLI version (io.github.vaquarkhan.aiv:aiv-cli on Maven Central). Ignored if cli-jar-url is set.'
     required: false
-    default: '1.0.3'
+    default: '1.0.4'
   maven-central-base:
     description: 'Maven repository base (no trailing slash). Path io/github/vaquarkhan/aiv/aiv-cli/... is appended.'
     required: false

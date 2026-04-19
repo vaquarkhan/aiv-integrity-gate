@@ -78,6 +78,10 @@ class DensityGateTest {
         var r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
         assertTrue(r.getMessage().contains("entropy"));
+        assertFalse(r.getFindings().isEmpty());
+        assertEquals("density.entropy", r.getFindings().get(0).getRuleId());
+        assertEquals("x.java", r.getFindings().get(0).getFilePath());
+        assertTrue(r.getFindings().get(0).getStartLine() >= 1);
     }
 
     @Test
@@ -104,6 +108,17 @@ class DensityGateTest {
         var r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
         assertTrue(r.getMessage().contains("logic density"));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "density.ldr".equals(f.getRuleId())));
+    }
+
+    @Test
+    void anchorLineOneWhenContentIsOnlyNewlines() {
+        String code = "\n".repeat(500);
+        var gate = new DensityGate();
+        var ctx = context(List.of(new ChangedFile("only_nl.java", ChangedFile.ChangeType.ADDED, code)));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertEquals(1, r.getFindings().get(0).getStartLine());
     }
 
     @Test

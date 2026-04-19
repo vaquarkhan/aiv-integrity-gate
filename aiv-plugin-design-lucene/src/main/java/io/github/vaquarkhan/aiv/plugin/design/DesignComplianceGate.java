@@ -20,6 +20,7 @@ package io.github.vaquarkhan.aiv.plugin.design;
 import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVContext;
 import io.github.vaquarkhan.aiv.model.ChangedFile;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.QualityGate;
 import io.github.vaquarkhan.aiv.util.FileExtensions;
@@ -55,6 +56,7 @@ public final class DesignComplianceGate implements QualityGate {
         }
 
         List<String> violations = new ArrayList<>();
+        List<Finding> findings = new ArrayList<>();
         for (ChangedFile file : context.getDiff().getChangedFiles()) {
             if (!FileExtensions.matches(file.getPath(), extensions)) {
                 continue;
@@ -72,12 +74,17 @@ public final class DesignComplianceGate implements QualityGate {
                 }
                 for (String forbidden : c.getForbiddenCalls()) {
                     if (ruleSurface.contains(forbidden.toLowerCase())) {
-                        violations.add(String.format("Forbidden call '%s' in %s (constraint: %s)", forbidden, path, c.getId()));
+                        String msg = String.format("Forbidden call '%s' in %s (constraint: %s)", forbidden, path, c.getId());
+                        violations.add(msg);
+                        int line = lineOfCaseInsensitiveSubstring(content, forbidden);
+                        findings.add(Finding.atLine("design.forbidden." + c.getId(), path, line, msg));
                     }
                 }
                 for (String required : c.getRequiredCalls()) {
                     if (!ruleSurface.contains(required.toLowerCase())) {
-                        violations.add(String.format("Required call '%s' missing in %s (constraint: %s)", required, path, c.getId()));
+                        String msg = String.format("Required call '%s' missing in %s (constraint: %s)", required, path, c.getId());
+                        violations.add(msg);
+                        findings.add(Finding.atLine("design.required." + c.getId(), path, 1, msg));
                     }
                 }
             }
@@ -85,7 +92,19 @@ public final class DesignComplianceGate implements QualityGate {
         if (violations.isEmpty()) {
             return GateResult.pass(getId());
         }
-        return GateResult.fail(getId(), String.join("\n", violations));
+        return GateResult.fail(getId(), String.join("\n", violations), findings);
+    }
+
+    private static int lineOfCaseInsensitiveSubstring(String content, String needle) {
+        if (needle == null || needle.isEmpty()) {
+            return 1;
+        }
+        String lower = content.toLowerCase();
+        int idx = lower.indexOf(needle.toLowerCase());
+        if (idx < 0) {
+            return 1;
+        }
+        return content.substring(0, idx).split("\n", -1).length;
     }
 
     private Map<String, Object> getGateConfig(AIVContext context) {

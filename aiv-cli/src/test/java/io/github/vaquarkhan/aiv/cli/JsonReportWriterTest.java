@@ -6,6 +6,7 @@
 package io.github.vaquarkhan.aiv.cli;
 
 import io.github.vaquarkhan.aiv.model.AIVResult;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -27,7 +28,7 @@ class JsonReportWriterTest {
                 List.of("notice one"));
         JsonReportWriter.write(result, out, "9.9.9");
         String s = Files.readString(out);
-        assertTrue(s.contains("\"schema_version\": 1"));
+        assertTrue(s.contains("\"schema_version\": 2"));
         assertTrue(s.contains("\"aiv_cli_version\": \"9.9.9\""));
         assertTrue(s.contains("\"id\": \"density\""));
         assertTrue(s.contains("notice one"));
@@ -72,5 +73,21 @@ class JsonReportWriterTest {
         var c = JsonReportWriter.class.getDeclaredConstructor();
         c.setAccessible(true);
         c.newInstance();
+    }
+
+    @Test
+    void writesFindingsWithOptionalColumnsAndMultipleEntries(@TempDir Path dir) throws Exception {
+        Path out = dir.resolve("findings.json");
+        var withRange = new Finding("rule", "src\\Main.java", 2, 5, 2, 9, "m\"sg");
+        var plain = Finding.atLine("r2", "b.java", 99, "plain");
+        var result = new AIVResult(false,
+                List.of(GateResult.fail("g", "gate message\nhere", List.of(withRange, plain))),
+                List.of());
+        JsonReportWriter.write(result, out, "1.0");
+        String s = Files.readString(out);
+        assertTrue(s.contains("\"start_column\": 5"));
+        assertTrue(s.contains("\"end_line\": 2"));
+        assertTrue(s.contains("\"end_column\": 9"));
+        assertTrue(s.contains("\"src\\\\Main.java\"") || s.contains("Main.java"));
     }
 }

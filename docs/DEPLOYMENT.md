@@ -287,7 +287,7 @@ This section is for people who maintain the AIV project and want to publish the 
    ```bash
    mvn clean verify -pl aiv-cli -am
    ```
-4. The shaded uber JAR is at: `aiv-cli/target/aiv-cli-<version>.jar` (version from the root POM, for example `1.0.3`).
+4. The shaded uber JAR is at: `aiv-cli/target/aiv-cli-<version>.jar` (version from the root POM, for example `1.0.4`).
 
 **Note:** The `aiv-cli` module is configured with the **Maven Shade** plugin so this artifact is a **single runnable JAR** (`java -jar` does not require a `lib/` directory).
 
@@ -389,14 +389,14 @@ Replace the "Clone and build AIV" and "Run AIV" steps in your `aiv.yml` with:
       - name: Download AIV CLI
         run: |
           curl -fsSL -o aiv-cli.jar \
-            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.3/aiv-cli-1.0.3.jar"
+            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
 
       - name: Run AIV
         run: |
           java -jar aiv-cli.jar --workspace . --diff origin/${{ github.base_ref }}
 ```
 
-**Change the URL** if the release is at a different version or location. From a checkout of this repo you can also run `bash scripts/install-aiv.sh 1.0.3` to download the same artifact into `./aiv-cli.jar`.
+**Change the URL** if the release is at a different version or location. From a checkout of this repo you can also run `bash scripts/install-aiv.sh 1.0.4` to download the same artifact into `./aiv-cli.jar`.
 
 ---
 

@@ -21,6 +21,7 @@ import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVContext;
 import io.github.vaquarkhan.aiv.model.ChangedFile;
 import io.github.vaquarkhan.aiv.model.Diff;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -29,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -120,11 +122,98 @@ class DocIntegrityGateTest {
         assertTrue(r.isPassed());
     }
 
+    @Test
+    void usesDefaultRulesPathWhenGateConfigOmitsKey(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/doc-rules.yaml"), "doc_constraints: []\ncanonical_commands: []\n");
+        var gate = new DocIntegrityGate();
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Hello")
+        ), Map.of());
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void failsOnFileExistenceViolation(@TempDir Path dir) throws Exception {
+        var gate = new DocIntegrityGate();
+        Files.createDirectories(dir.resolve(".aiv"));
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED,
+                        "See nonexistent/path/to/file.txt for info")
+        ));
+        GateResult r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(ruleIds(r).contains("doc-integrity.file-existence"));
+    }
+
+    @Test
+    void failsOnCrossReferenceViolation(@TempDir Path dir) throws Exception {
+        var gate = new DocIntegrityGate();
+        Files.createDirectories(dir.resolve(".aiv"));
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Read the README in nonexistent/folder")
+        ));
+        GateResult r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(ruleIds(r).contains("doc-integrity.cross-ref"));
+    }
+
+    @Test
+    void failsOnBrokenMarkdownLink(@TempDir Path dir) throws Exception {
+        var gate = new DocIntegrityGate();
+        Files.createDirectories(dir.resolve(".aiv"));
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "[nope](./missing-target.md)")
+        ));
+        GateResult r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(ruleIds(r).contains("doc-integrity.markdown-link"));
+    }
+
+    @Test
+    void failsOnIncompleteCanonicalCommand(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/doc-rules.yaml"), """
+                doc_constraints: []
+                canonical_commands:
+                  - id: verify
+                    pattern: "mvn verify"
+                    required_flags: []
+                    required_followup: [install]
+                    required_commands: []
+                """);
+        var gate = new DocIntegrityGate();
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Run mvn verify on CI")
+        ));
+        GateResult r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(ruleIds(r).contains("doc-integrity.command"));
+    }
+
+    @Test
+    void failsOnPathFabrication(@TempDir Path dir) throws Exception {
+        var gate = new DocIntegrityGate();
+        Files.createDirectories(dir.resolve(".aiv"));
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Setup at ~/.virtualenvs/pyspark")
+        ));
+        GateResult r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(ruleIds(r).contains("doc-integrity.path-fabrication"));
+    }
+
+    private static List<String> ruleIds(GateResult r) {
+        return r.getFindings().stream().map(Finding::getRuleId).collect(Collectors.toList());
+    }
+
     private AIVContext context(Path workspace, List<ChangedFile> files) {
+        return context(workspace, files, Map.of("rules_path", ".aiv/doc-rules.yaml"));
+    }
+
+    private AIVContext context(Path workspace, List<ChangedFile> files, Map<String, Object> gateConfig) {
         var diff = new Diff("main", "HEAD", files, "", 0, 0, null, false);
-        var gates = List.of(
-                new AIVConfig.GateConfig("doc-integrity", true, Map.of("rules_path", ".aiv/doc-rules.yaml"))
-        );
+        var gates = List.of(new AIVConfig.GateConfig("doc-integrity", true, gateConfig));
         var config = new AIVConfig(gates, Map.of());
         return new AIVContext(workspace, diff, config);
     }

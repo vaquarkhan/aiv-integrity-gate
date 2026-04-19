@@ -486,7 +486,7 @@ class GitDiffProviderTest {
             System.setProperty(TIMEOUT_PROP, "1");
             IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
                     new GitDiffProvider().getDiff(repo.toAbsolutePath(), "HEAD", "HEAD"));
-            assertTrue(ex.getMessage().contains("numstat"));
+            assertTrue(ex.getMessage().contains("timed out"), ex::getMessage);
         } finally {
             if (prevGit == null) {
                 System.clearProperty("aiv.git.executable");
@@ -512,7 +512,7 @@ class GitDiffProviderTest {
             System.setProperty(TIMEOUT_PROP, "1");
             IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
                     new GitDiffProvider().getDiff(repo.toAbsolutePath(), "HEAD", "HEAD"));
-            assertTrue(ex.getMessage().contains("name-status"));
+            assertTrue(ex.getMessage().contains("timed out"), ex::getMessage);
         } finally {
             if (prevGit == null) {
                 System.clearProperty("aiv.git.executable");

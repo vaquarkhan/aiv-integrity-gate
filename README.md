@@ -38,10 +38,10 @@ They are great **whole-repo** static analyzers. AIV is a **diff-scoped** integri
 
 You are done when a PR runs AIV and prints a report (pass or fail).
 
-1. **Download the CLI (no clone required)** - From Maven Central, fetch the shaded uber JAR. The version must match the reactor `<version>` in this project’s root [`pom.xml`](pom.xml) (current line: **1.0.3**). See [docs/MAVEN-VERSION.md](docs/MAVEN-VERSION.md) for `${project.version}`, coordinates, and scripted downloads.
+1. **Download the CLI (no clone required)** - From Maven Central, fetch the shaded uber JAR. The version must match the reactor `<version>` in this project’s root [`pom.xml`](pom.xml) (current line: **1.0.4**). See [docs/MAVEN-VERSION.md](docs/MAVEN-VERSION.md) for `${project.version}`, coordinates, and scripted downloads.
 
    ```bash
-   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.3/aiv-cli-1.0.3.jar"
+   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
    ```
 
    From a **clone** of this repo you can resolve the version with Maven instead of hardcoding it:
@@ -126,10 +126,10 @@ Build the project:
 mvn clean package
 ```
 
-Run AIV from the repo root (compare your working tree to `origin/main`). Replace the JAR name with your Maven `${project.version}` (for example `1.0.3`):
+Run AIV from the repo root (compare your working tree to `origin/main`). Replace the JAR name with your Maven `${project.version}` (for example `1.0.4`):
 
 ```bash
-java -jar aiv-cli/target/aiv-cli-1.0.3.jar --diff origin/main
+java -jar aiv-cli/target/aiv-cli-1.0.4.jar --diff origin/main
 ```
 
 Or via Maven:
@@ -148,7 +148,7 @@ mvn -pl aiv-cli exec:java -Dexec.args="--diff origin/main"
 | `3` | Git subprocess failure (bad ref, dirty state, etc.). |
 | `4` (optional) | Set with `--warnings-exit-code 4` when the run **passed** but emitted **notices** (e.g. oversized files skipped from scanning). Default remains `0` in that case. |
 
-**Structured output:** `--output-json path/to/aiv-report.json` writes `schema_version: 1` plus gate results for CI dashboards (SARIF is [planned](CHANGELOG.md)).
+**Structured output:** `--output-json path/to/aiv-report.json` writes `schema_version: 2` with per-gate **`findings`** (file, line, message). **`--output-sarif`** writes SARIF 2.1.0; **`--publish-github-checks`** posts a GitHub Check with annotations (see [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md)). See [CHANGELOG.md](CHANGELOG.md).
 
 ### Working on this codebase
 
@@ -280,7 +280,7 @@ jobs:
       - uses: vaquarkhan/aiv-integrity-gate@v1
         with:
           base-ref: origin/${{ github.base_ref }}
-          aiv-version: '1.0.3'
+          aiv-version: '1.0.4'
 ```
 
 Optional input **`cli-jar-url`** points to a full URL for the shaded JAR (for example a GitHub Release asset) when you do not want the Central download. Inputs are documented in [action.yml](action.yml).
@@ -309,7 +309,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap (short)
 
-Shipped foundations: **init**, **doctor**, **explain**, per-gate **warn** severity, **JSON report** (`--output-json`). Next: **SARIF**, GitHub Checks annotations, **baseline** suppressions, optional **`aiv-plugin-security`** (secrets/CVE/patterns behind external binaries - see discussions in project docs). See [CHANGELOG.md](CHANGELOG.md).
+Shipped foundations: **init**, **doctor**, **explain**, per-gate **warn** severity, **JSON report** (`--output-json`, `schema_version: 2`), **SARIF** (`--output-sarif`), **GitHub Checks** (`--publish-github-checks`). Next: **baseline** suppressions, optional **`aiv-plugin-security`** (not in the repo yet — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md)). See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
