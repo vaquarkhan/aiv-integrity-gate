@@ -21,6 +21,8 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVContext;
@@ -223,7 +225,32 @@ public final class DensityGate implements QualityGate {
         DensityVisitor visitor = new DensityVisitor();
         visitor.visit(cu, null);
         int total = visitor.logicNodes + visitor.structureNodes;
-        return total == 0 ? 0 : (double) visitor.logicNodes / total;
+        if (total == 0) {
+            return 0;
+        }
+        double ldr = (double) visitor.logicNodes / total;
+        // Pure port-style interfaces have no executable bodies; LDR would be 0.0 but that is not "low-signal" slop.
+        if (ldr == 0.0d && topLevelTypesAreAllInterfaces(cu)) {
+            return 1.0;
+        }
+        return ldr;
+    }
+
+    /**
+     * True when every top-level type is a Java {@code interface} (e.g. SPI ports with only abstract methods).
+     */
+    static boolean topLevelTypesAreAllInterfaces(CompilationUnit cu) {
+        List<TypeDeclaration<?>> types = cu.getTypes();
+        if (types.isEmpty()) {
+            return false;
+        }
+        for (TypeDeclaration<?> td : types) {
+            if (td instanceof ClassOrInterfaceDeclaration cid && cid.isInterface()) {
+                continue;
+            }
+            return false;
+        }
+        return true;
     }
 
     private static class DensityVisitor extends VoidVisitorAdapter<Void> {

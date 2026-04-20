@@ -149,6 +149,18 @@ class DensityGateTest {
     }
 
     @Test
+    void calculateLdrTreatsInterfaceOnlyPortsAsNeutral() {
+        String code = """
+                public interface Port {
+                    void run();
+                }
+                """;
+        assertEquals(1.0, DensityGate.calculateLdr(code), 0.001);
+        assertTrue(DensityGate.topLevelTypesAreAllInterfaces(
+                com.github.javaparser.StaticJavaParser.parse(code)));
+    }
+
+    @Test
     void calculateLdrVisitsAllNodeTypes() {
         String code = """
             public class Foo {

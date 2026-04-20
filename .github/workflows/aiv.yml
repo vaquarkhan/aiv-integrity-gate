@@ -76,6 +76,7 @@ jobs:
           fi
           echo "exitcode=$EXITCODE" >> "$GITHUB_OUTPUT"
           printf '%s' "$EXITCODE" > aiv.exitcode
+          echo "AIV_EXITCODE=$EXITCODE" >> "$GITHUB_ENV"
           exit "$EXITCODE"
         continue-on-error: true
 
@@ -156,10 +157,13 @@ jobs:
         shell: bash
         run: |
           CODE='${{ steps.aiv.outputs.exitcode }}'
+          if [ -z "$CODE" ] && [ -n "${AIV_EXITCODE:-}" ]; then
+            CODE="$AIV_EXITCODE"
+          fi
           if [ -z "$CODE" ] && [ -f aiv.exitcode ]; then
             CODE="$(tr -d '\r\n' < aiv.exitcode)"
           fi
-          echo "AIV CLI exit code (from step output or aiv.exitcode): ${CODE:-<missing>}"
+          echo "AIV CLI exit code (output, env, or aiv.exitcode): ${CODE:-<missing>}"
           if [ "${CODE}" = "0" ]; then
             exit 0
           fi
