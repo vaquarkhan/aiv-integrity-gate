@@ -459,6 +459,15 @@ class GitDiffProviderTest {
     }
 
     @Test
+    void parseNumHandlesNullAndDashAsZero() throws Exception {
+        Method parseNum = GitDiffProvider.class.getDeclaredMethod("parseNum", String.class);
+        parseNum.setAccessible(true);
+        var provider = new GitDiffProvider();
+        assertEquals(0, parseNum.invoke(provider, (Object) null));
+        assertEquals(0, parseNum.invoke(provider, "-"));
+    }
+
+    @Test
     void getDiffFailsClosedWhenNumstatFails(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
         Path stub = writeDelegatingGitStub(repo, Map.of("failNumstat", true));
