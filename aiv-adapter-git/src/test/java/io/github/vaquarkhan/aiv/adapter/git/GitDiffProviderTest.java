@@ -266,6 +266,24 @@ class GitDiffProviderTest {
     }
 
     @Test
+    void privateReadFileContentRejectsAbsolutePathOutsideWorkspace(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+        initRepo(repo);
+
+        var provider = new GitDiffProvider();
+        Method m = GitDiffProvider.class.getDeclaredMethod("readFileContent", Path.class, String.class, String.class, List.class);
+        m.setAccessible(true);
+        var w = new ArrayList<String>();
+
+        Path outside = Files.createTempFile("aiv-outside-", ".txt").toAbsolutePath();
+        try {
+            // This absolute path is guaranteed to resolve outside the repo on any OS.
+            assertEquals("", (String) m.invoke(provider, repo.toAbsolutePath(), outside.toString(), "HEAD", w));
+        } finally {
+            Files.deleteIfExists(outside);
+        }
+    }
+
+    @Test
     void privateGitHelpersGracefullyHandleMissingWorkspace() throws Exception {
         var provider = new GitDiffProvider();
         Path missing = Path.of("this-directory-should-not-exist-12345").toAbsolutePath().resolve("missing");
