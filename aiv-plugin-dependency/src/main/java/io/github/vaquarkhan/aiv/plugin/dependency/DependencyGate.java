@@ -18,6 +18,7 @@
 package io.github.vaquarkhan.aiv.plugin.dependency;
 
 import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
@@ -46,6 +47,9 @@ import java.util.regex.Pattern;
  * @author Vaquar Khan
  */
 public final class DependencyGate implements QualityGate {
+
+    private static final JavaParser JAVA_PARSER = new JavaParser(
+            new ParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17));
 
     private static final Logger log = LoggerFactory.getLogger(DependencyGate.class);
     private static final Set<String> JAVA_BUILTIN_PREFIXES = Set.of("java.", "javax.", "jakarta.", "com.sun.");
@@ -83,7 +87,7 @@ public final class DependencyGate implements QualityGate {
 
     private void checkJavaImports(String content, String path, Set<String> allowedPrefixes,
                                   Set<String> whitelist, List<String> violations, List<Finding> findings) {
-        ParseResult<CompilationUnit> result = new JavaParser().parse(content);
+        ParseResult<CompilationUnit> result = JAVA_PARSER.parse(content);
         if (!result.isSuccessful() || result.getResult().isEmpty()) {
             return;
         }

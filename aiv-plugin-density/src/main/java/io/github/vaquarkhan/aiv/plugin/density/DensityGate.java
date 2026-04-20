@@ -18,6 +18,7 @@
 package io.github.vaquarkhan.aiv.plugin.density;
 
 import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
@@ -46,6 +47,9 @@ import java.util.Set;
  */
 public final class DensityGate implements QualityGate {
     private static final Logger log = LoggerFactory.getLogger(DensityGate.class);
+
+    private static final JavaParser JAVA_PARSER = new JavaParser(
+            new ParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17));
 
     private static final double DEFAULT_LDR_THRESHOLD = 0.25;
     private static final double DEFAULT_ENTROPY_THRESHOLD = 4.0;
@@ -211,7 +215,7 @@ public final class DensityGate implements QualityGate {
     }
 
     static double calculateLdr(String source) {
-        ParseResult<CompilationUnit> parseResult = new JavaParser().parse(source);
+        ParseResult<CompilationUnit> parseResult = JAVA_PARSER.parse(source);
         if (!parseResult.isSuccessful() || parseResult.getResult().isEmpty()) {
             return 0;
         }

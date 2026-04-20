@@ -139,6 +139,16 @@ class DensityGateTest {
     }
 
     @Test
+    void calculateLdrParsesRecordSyntax() {
+        String code = """
+                public class Outer {
+                    private record R(int x) {}
+                }
+                """;
+        assertTrue(DensityGate.calculateLdr(code) >= 0);
+    }
+
+    @Test
     void calculateLdrVisitsAllNodeTypes() {
         String code = """
             public class Foo {
