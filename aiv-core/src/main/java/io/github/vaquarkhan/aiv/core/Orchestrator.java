@@ -123,7 +123,11 @@ public final class Orchestrator {
             }
         }
 
-        AIVResult aivResult = new AIVResult(overallPassed, results, filteredDiff.getWarnings());
+        List<String> notices = new ArrayList<>(filteredDiff.getWarnings());
+        if (doctor) {
+            notices.add(0, "[DOCTOR] Informational run: gate outcomes are reported but not CI-blocking.");
+        }
+        AIVResult aivResult = new AIVResult(overallPassed, results, notices);
         reportPublisher.publish(aivResult);
         if (doctor) {
             log.info("Doctor mode: informational exit 0");

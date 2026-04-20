@@ -24,13 +24,16 @@ import io.github.vaquarkhan.aiv.model.Diff;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PathFabricationDetectorTest {
 
@@ -136,5 +139,14 @@ class PathFabricationDetectorTest {
         var ctx = context(dir, List.of());
         var d = detector(ctx);
         assertNull(d.validate("README.md", "no embedded repo path here"));
+    }
+
+    @Test
+    void extractPathLikeTokensHandlesNullInput() throws Exception {
+        Method m = PathFabricationDetector.class.getDeclaredMethod("extractPathLikeTokens", String.class);
+        m.setAccessible(true);
+        @SuppressWarnings("unchecked")
+        Set<String> tokens = (Set<String>) m.invoke(null, (Object) null);
+        assertTrue(tokens.isEmpty());
     }
 }

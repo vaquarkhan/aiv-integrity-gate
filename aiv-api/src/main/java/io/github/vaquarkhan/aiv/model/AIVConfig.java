@@ -78,6 +78,17 @@ public final class AIVConfig {
         return v instanceof Boolean && (Boolean) v;
     }
 
+    /**
+     * Input configuration schema version. Defaults to 1 when omitted.
+     */
+    public int getSchemaVersion() {
+        Object v = globalConfig.get("schema_version");
+        if (v instanceof Number n) {
+            return n.intValue();
+        }
+        return 1;
+    }
+
     public static final class GateConfig {
         private final String id;
         private final boolean enabled;

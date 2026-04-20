@@ -159,6 +159,12 @@ class DensityGateTest {
     }
 
     @Test
+    void effectiveEntropyThresholdRelaxesForSmallFiles() {
+        assertTrue(DensityGate.effectiveEntropyThreshold("Foo.java", 300, 4.0) < 4.0);
+        assertTrue(DensityGate.effectiveEntropyThreshold("foo.py", 1200, 4.0) < 4.0);
+    }
+
+    @Test
     void passesWhenRefactoringNetNegativeLoc() {
         var gate = new DensityGate();
         var diff = new Diff("main", "HEAD",
@@ -221,6 +227,22 @@ class DensityGateTest {
                 Map.of());
         var ctx = new AIVContext(Paths.get("."), diff, config);
         assertFalse(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void ldrThresholdZeroPathStillEvaluatesAndCoversWarningBranch() {
+        var gate = new DensityGate();
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "class Foo { int x(){ return 1; } }")),
+                "");
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of(
+                        "ldr_threshold", 0.0,
+                        "entropy_threshold", 0.0
+                ))),
+                Map.of());
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        assertTrue(gate.evaluate(ctx).isPassed());
     }
 
     @Test

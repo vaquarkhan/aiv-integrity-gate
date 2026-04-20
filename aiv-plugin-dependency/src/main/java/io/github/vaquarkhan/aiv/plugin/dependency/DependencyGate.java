@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
 public final class DependencyGate implements QualityGate {
 
     private static final Logger log = LoggerFactory.getLogger(DependencyGate.class);
-    private static final Set<String> JAVA_BUILTIN_PREFIXES = Set.of("java.", "javax.", "jakarta.");
+    private static final Set<String> JAVA_BUILTIN_PREFIXES = Set.of("java.", "javax.", "jakarta.", "com.sun.");
     private static final Pattern PY_IMPORT = Pattern.compile("^\\s*(?:import|from)\\s+([a-zA-Z0-9_.]+)");
     private static final Pattern GROUP_ID_TAG = Pattern.compile("<groupId>\\s*([^<]+?)\\s*</groupId>");
 

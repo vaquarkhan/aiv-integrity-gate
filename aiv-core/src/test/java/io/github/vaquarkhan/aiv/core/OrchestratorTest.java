@@ -400,6 +400,7 @@ class OrchestratorTest {
         assertEquals(0, orch.run(Paths.get("."), "main", "HEAD", true));
         assertEquals(1, results.size());
         assertFalse(results.get(0).isPassed());
+        assertTrue(results.get(0).getNotices().stream().anyMatch(n -> n.contains("[DOCTOR]")));
     }
 
     @Test

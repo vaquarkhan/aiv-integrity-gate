@@ -18,6 +18,7 @@
 package io.github.vaquarkhan.aiv.plugin.doc;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * If doc mentions trigger keywords, it must also mention required items.
@@ -33,9 +34,15 @@ public final class RequiredMentionValidator {
     }
 
     public String validate(String docPath, String content) {
-        if (rules == null || content == null) return null;
+        List<String> all = validateAll(docPath, content);
+        return all.isEmpty() ? null : all.get(0);
+    }
+
+    public List<String> validateAll(String docPath, String content) {
+        if (rules == null || content == null) return List.of();
         String contentLower = content.toLowerCase();
         String pathBase = docPath.contains("/") ? docPath.substring(docPath.lastIndexOf("/") + 1) : docPath;
+        List<String> violations = new ArrayList<>();
 
         for (DocRules.DocConstraint c : rules.getDocConstraints()) {
             if (!scopeMatches(c.getScope(), pathBase)) continue;
@@ -44,11 +51,12 @@ public final class RequiredMentionValidator {
             if (!triggerMatch) continue;
             for (String required : c.getRequiredMentions()) {
                 if (!contentLower.contains(required.toLowerCase())) {
-                    return String.format("Required mention '%s' missing in %s (constraint: %s)", required, docPath, c.getId());
+                    violations.add(String.format(
+                            "Required mention '%s' missing in %s (constraint: %s)", required, docPath, c.getId()));
                 }
             }
         }
-        return null;
+        return violations;
     }
 
     private boolean scopeMatches(List<String> scope, String pathBase) {

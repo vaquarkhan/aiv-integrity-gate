@@ -134,4 +134,10 @@ class AIVConfigTest {
         var gc = new AIVConfig.GateConfig("d", true, Map.of(), "  ");
         assertEquals("fail", gc.getSeverity());
     }
+
+    @Test
+    void schemaVersionDefaultsAndReadsNumber() {
+        assertEquals(1, new AIVConfig(List.of(), Map.of()).getSchemaVersion());
+        assertEquals(3, new AIVConfig(List.of(), Map.of("schema_version", 3)).getSchemaVersion());
+    }
 }

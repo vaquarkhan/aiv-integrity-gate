@@ -118,4 +118,20 @@ class StdoutReportPublisherTest {
         assertTrue(text.contains("g: PASS"));
         assertFalse(text.contains("g: PASS -"));
     }
+
+    @Test
+    void publishPrintsDoctorHeaderWhenDoctorNoticePresent() {
+        var publisher = new StdoutReportPublisher();
+        var result = new AIVResult(true, List.of(GateResult.pass("density")),
+                List.of("[DOCTOR] Informational run"));
+        var capture = new ByteArrayOutputStream();
+        PrintStream prev = System.out;
+        try {
+            System.setOut(new PrintStream(capture, true, StandardCharsets.UTF_8));
+            publisher.publish(result);
+        } finally {
+            System.setOut(prev);
+        }
+        assertTrue(capture.toString(StandardCharsets.UTF_8).contains("AIV Report (DOCTOR)"));
+    }
 }

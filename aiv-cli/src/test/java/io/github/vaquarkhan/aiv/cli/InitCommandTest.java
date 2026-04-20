@@ -23,7 +23,8 @@ class InitCommandTest {
         Files.writeString(root.resolve("Widget.jsx"), "export {}\n", StandardCharsets.UTF_8);
         assertEquals(0, InitCommand.run(root));
         String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
-        assertTrue(cfg.contains("entropy_threshold: 5.0"));
+        assertTrue(cfg.contains("schema_version: 1"));
+        assertTrue(cfg.contains("entropy_threshold: 4.0"));
         assertTrue(cfg.contains("java"));
         assertTrue(cfg.contains("js"));
     }
@@ -50,7 +51,7 @@ class InitCommandTest {
         assertEquals(0, InitCommand.run(root));
         String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
         assertTrue(cfg.contains("python"));
-        assertTrue(cfg.contains("entropy_threshold: 5.0"));
+        assertTrue(cfg.contains("entropy_threshold: 4.0"));
     }
 
     @Test
@@ -63,6 +64,28 @@ class InitCommandTest {
         assertEquals(0, InitCommand.run(root));
         String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
         assertTrue(cfg.contains("go"));
+    }
+
+    @Test
+    void detectsLanguagesFromBuildFilesWhenTreeHasNoSourceFiles(@TempDir Path root) throws Exception {
+        Files.writeString(root.resolve("pom.xml"), "<project/>", StandardCharsets.UTF_8);
+        Files.writeString(root.resolve("package.json"), "{}", StandardCharsets.UTF_8);
+        assertEquals(0, InitCommand.run(root));
+        String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
+        assertTrue(cfg.contains("java"));
+        assertTrue(cfg.contains("js"));
+    }
+
+    @Test
+    void detectsPythonGoAndRustFromBuildFiles(@TempDir Path root) throws Exception {
+        Files.writeString(root.resolve("requirements.txt"), "requests\n", StandardCharsets.UTF_8);
+        Files.writeString(root.resolve("go.mod"), "module example.com/demo\n", StandardCharsets.UTF_8);
+        Files.writeString(root.resolve("Cargo.toml"), "[package]\nname = \"demo\"\n", StandardCharsets.UTF_8);
+        assertEquals(0, InitCommand.run(root));
+        String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
+        assertTrue(cfg.contains("python"));
+        assertTrue(cfg.contains("go"));
+        assertTrue(cfg.contains("rust"));
     }
 
     @Test

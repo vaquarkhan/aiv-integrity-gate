@@ -19,6 +19,8 @@ package io.github.vaquarkhan.aiv.plugin.doc;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,7 @@ public final class CrossReferenceChecker {
     private static final Pattern[] CROSS_REF_PATTERNS = {
             Pattern.compile("(?i)read\\s+the\\s+README\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
             Pattern.compile("(?i)see\\s+the\\s+docs?\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("(?i)refer\\s+to\\s+([^\\s.,;:]+(?:/[\\w./-]+|\\.[A-Za-z0-9]{2,8}))", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("(?i)refer\\s+to\\s+(?:file|path|script|directory|folder|doc(?:umentation)?|readme)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
             Pattern.compile("(?i)README\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
             Pattern.compile("(?i)documentation\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE)
     };
@@ -44,17 +46,23 @@ public final class CrossReferenceChecker {
     }
 
     public String validate(String docPath, String content) {
-        if (content == null || content.isEmpty()) return null;
+        List<String> all = validateAll(docPath, content);
+        return all.isEmpty() ? null : all.get(0);
+    }
+
+    public List<String> validateAll(String docPath, String content) {
+        if (content == null || content.isEmpty()) return List.of();
+        List<String> violations = new ArrayList<>();
         for (Pattern p : CROSS_REF_PATTERNS) {
             Matcher m = p.matcher(content);
             while (m.find()) {
                 String ref = normalizeRefToken(m.group(1));
                 if (!ref.isEmpty() && looksLikePathReference(ref) && !resolveExists(ref, docPath)) {
-                    return String.format("Cross-reference '%s' in %s: referenced location does not exist", ref, docPath);
+                    violations.add(String.format("Cross-reference '%s' in %s: referenced location does not exist", ref, docPath));
                 }
             }
         }
-        return null;
+        return violations;
     }
 
     private static String normalizeRefToken(String raw) {

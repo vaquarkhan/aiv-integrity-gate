@@ -20,7 +20,9 @@ package io.github.vaquarkhan.aiv.plugin.doc;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,9 +48,15 @@ public final class MarkdownLinkChecker {
      * @return first violation message, or {@code null} if none
      */
     public String validate(String docPath, String content) {
+        List<String> all = validateAll(docPath, content);
+        return all.isEmpty() ? null : all.get(0);
+    }
+
+    public List<String> validateAll(String docPath, String content) {
         if (content == null || content.isEmpty()) {
-            return null;
+            return List.of();
         }
+        List<String> violations = new ArrayList<>();
         Path docDir = parentDir(docPath);
         Matcher m = LINK.matcher(content);
         while (m.find()) {
@@ -83,22 +91,24 @@ public final class MarkdownLinkChecker {
                 resolved = workspaceAbs.resolve(pathPart.replace("\\", "/")).normalize();
             }
             if (!resolved.startsWith(workspaceAbs)) {
-                return String.format("Markdown link in %s escapes workspace: %s", docPath, pathPart);
+                violations.add(String.format("Markdown link in %s escapes workspace: %s", docPath, pathPart));
+                continue;
             }
 
             if (!Files.isRegularFile(resolved)) {
-                return String.format("Markdown link in %s: target does not exist: %s", docPath, pathPart);
+                violations.add(String.format("Markdown link in %s: target does not exist: %s", docPath, pathPart));
+                continue;
             }
 
             if (fragment != null && !fragment.isEmpty()
                     && pathPart.toLowerCase(Locale.ROOT).endsWith(".md")) {
                 String anchorErr = validateAnchor(resolved, fragment, docPath, pathPart);
                 if (anchorErr != null) {
-                    return anchorErr;
+                    violations.add(anchorErr);
                 }
             }
         }
-        return null;
+        return violations;
     }
 
     private Path parentDir(String docPath) {

@@ -84,7 +84,7 @@ class CrossReferenceCheckerTest {
         Files.writeString(dir.resolve("target.txt"), "found");
         var c = new CrossReferenceChecker(dir);
         assertNull(c.validate("deep/nest/here/doc.md",
-                "Refer to ../../../target.txt for details."));
+                "Refer to file ../../../target.txt for details."));
     }
 
     @Test
@@ -104,6 +104,13 @@ class CrossReferenceCheckerTest {
     void doesNotFlagGenericReferToPhrase() {
         var c = new CrossReferenceChecker(Path.of("."));
         assertNull(c.validate("README.md", "Refer to section for details."));
+    }
+
+    @Test
+    void doesNotFlagHumanReferences() {
+        var c = new CrossReferenceChecker(Path.of("."));
+        assertNull(c.validate("README.md", "Refer to chapter 3 and refer to the auth team for guidance."));
+        assertNull(c.validate("README.md", "Refer to RFC 7807 for HTTP API semantics."));
     }
 
     @Test

@@ -185,6 +185,21 @@ class DependencyGateTest {
         assertTrue(gate.evaluate(ctx).isPassed());
     }
 
+    @Test
+    void treatsComSunImportsAsBuiltin(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("pom.xml"), """
+            <project>
+              <modelVersion>4.0.0</modelVersion>
+              <groupId>org.example</groupId>
+              <artifactId>app</artifactId>
+            </project>
+            """);
+        var gate = new DependencyGate();
+        var ctx = context(dir, List.of(new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED,
+                "import com.sun.net.httpserver.HttpServer;\nclass Main {}")));
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
     private AIVContext context(List<ChangedFile> files) {
         return context(Path.of("."), files);
     }

@@ -68,33 +68,27 @@ public final class DocIntegrityGate implements QualityGate {
             String path = file.getPath();
             String content = file.getContent();
 
-            String v = fileExistence.validate(path, content);
-            if (v != null) {
+            for (String v : fileExistence.validateAll(path, content)) {
                 addViolation(violations, findings, path, "doc-integrity.file-existence", "P1", v);
             }
 
-            v = crossRef.validate(path, content);
-            if (v != null) {
+            for (String v : crossRef.validateAll(path, content)) {
                 addViolation(violations, findings, path, "doc-integrity.cross-ref", "P1", v);
             }
 
-            v = mdLinks.validate(path, content);
-            if (v != null) {
+            for (String v : mdLinks.validateAll(path, content)) {
                 addViolation(violations, findings, path, "doc-integrity.markdown-link", "P1", v);
             }
 
-            v = requiredMention.validate(path, content);
-            if (v != null) {
+            for (String v : requiredMention.validateAll(path, content)) {
                 addViolation(violations, findings, path, "doc-integrity.required-mention", "P2", v);
             }
 
-            v = commandChecker.validate(path, content);
-            if (v != null) {
+            for (String v : commandChecker.validateAll(path, content)) {
                 addViolation(violations, findings, path, "doc-integrity.command", "P2", v);
             }
 
-            v = pathFabrication.validate(path, content);
-            if (v != null) {
+            for (String v : pathFabrication.validateAll(path, content)) {
                 addViolation(violations, findings, path, "doc-integrity.path-fabrication", "P1", v);
             }
         }

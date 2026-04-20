@@ -37,6 +37,7 @@ class YamlConfigProviderTest {
         var config = provider.getConfig(Path.of("/nonexistent"));
         assertNotNull(config);
         assertFalse(config.getGates().isEmpty());
+        assertEquals(1, config.getSchemaVersion());
     }
 
     @Test
@@ -145,6 +146,18 @@ class YamlConfigProviderTest {
     }
 
     @Test
+    void topLevelFailFastIsLoadedIntoGlobalConfig(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            fail_fast: true
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertTrue(config.isFailFast());
+    }
+
+    @Test
     void wrongGlobalTypeThrows(@TempDir Path dir) throws Exception {
         Files.createDirectories(dir.resolve(".aiv"));
         Files.writeString(dir.resolve(".aiv/config.yaml"), """
@@ -161,5 +174,50 @@ class YamlConfigProviderTest {
         Files.writeString(dir.resolve(".aiv/config.yaml"), "gates: [unclosed");
         var provider = new YamlConfigProvider();
         assertThrows(IllegalArgumentException.class, () -> provider.getConfig(dir));
+    }
+
+    @Test
+    void unsupportedSchemaVersionThrows(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            schema_version: 99
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        assertThrows(IllegalArgumentException.class, () -> provider.getConfig(dir));
+    }
+
+    @Test
+    void schemaVersionMustBeNumeric(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            schema_version: "v1"
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        assertThrows(IllegalArgumentException.class, () -> provider.getConfig(dir));
+    }
+
+    @Test
+    void schemaVersionMustBePositive(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            schema_version: 0
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        assertThrows(IllegalArgumentException.class, () -> provider.getConfig(dir));
+    }
+
+    @Test
+    void supportedSchemaVersionIsAccepted(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            schema_version: 1
+            gates: []
+            """);
+        var provider = new YamlConfigProvider();
+        var config = provider.getConfig(dir);
+        assertEquals(1, config.getSchemaVersion());
     }
 }

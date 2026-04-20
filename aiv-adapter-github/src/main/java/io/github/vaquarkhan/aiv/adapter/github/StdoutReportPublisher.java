@@ -35,7 +35,8 @@ public final class StdoutReportPublisher implements ReportPublisher {
     @Override
     public void publish(AIVResult result) {
         StringBuilder sb = new StringBuilder();
-        sb.append("=== AIV Report ===\n");
+        boolean doctor = result.getNotices().stream().anyMatch(n -> n != null && n.startsWith("[DOCTOR]"));
+        sb.append(doctor ? "=== AIV Report (DOCTOR) ===\n" : "=== AIV Report ===\n");
         sb.append("Overall: ").append(result.isPassed() ? "PASS" : "FAIL").append("\n");
         for (String n : result.getNotices()) {
             sb.append("WARN: ").append(n).append("\n");

@@ -204,6 +204,20 @@ class DocIntegrityGateTest {
         assertTrue(r.getMessage().contains("[P1]"));
     }
 
+    @Test
+    void reportsMultipleViolationsFromSingleDocFile(@TempDir Path dir) throws Exception {
+        var gate = new DocIntegrityGate();
+        Files.createDirectories(dir.resolve(".aiv"));
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED,
+                        "[missing](./missing.md)\nRefer to file does/not/exist.txt")
+        ));
+        GateResult r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(ruleIds(r).contains("doc-integrity.markdown-link"));
+        assertTrue(ruleIds(r).contains("doc-integrity.file-existence"));
+    }
+
     private static List<String> ruleIds(GateResult r) {
         return r.getFindings().stream().map(Finding::getRuleId).collect(Collectors.toList());
     }

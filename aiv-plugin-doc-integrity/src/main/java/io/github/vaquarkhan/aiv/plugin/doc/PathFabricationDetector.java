@@ -48,17 +48,17 @@ public final class PathFabricationDetector {
     private static final int MAX_FILES_TO_SCAN = 500;
     private static final int MAX_CHARS_PER_FILE = 50000;
 
-    private final String workspaceBlob;
+    private final Set<String> workspaceMentions;
     private final AIVContext context;
 
     /** Walks the workspace once at construction time. */
     public PathFabricationDetector(AIVContext context) {
         this.context = context;
-        this.workspaceBlob = walkWorkspace(context);
+        this.workspaceMentions = walkWorkspace(context);
     }
 
-    private static String walkWorkspace(AIVContext context) {
-        StringBuilder sb = new StringBuilder();
+    private static Set<String> walkWorkspace(AIVContext context) {
+        Set<String> mentions = new HashSet<>();
         Set<Path> seen = new HashSet<>();
         try {
             int count = 0;
@@ -75,7 +75,7 @@ public final class PathFabricationDetector {
                     try {
                         String content = Files.readString(p);
                         if (content.length() > MAX_CHARS_PER_FILE) content = content.substring(0, MAX_CHARS_PER_FILE);
-                        sb.append(" ").append(content);
+                        mentions.addAll(extractPathLikeTokens(content));
                     } catch (Exception e) {
                         log.debug("Skipping unreadable file {}", p, e);
                     }
@@ -84,34 +84,59 @@ public final class PathFabricationDetector {
         } catch (Exception e) {
             log.debug("Workspace walk failed", e);
         }
-        return sb.toString();
+        return mentions;
     }
 
     public String validate(String docPath, String content) {
-        if (content == null || content.isEmpty()) return null;
+        List<String> all = validateAll(docPath, content);
+        return all.isEmpty() ? null : all.get(0);
+    }
+
+    public List<String> validateAll(String docPath, String content) {
+        if (content == null || content.isEmpty()) return List.of();
         List<String> paths = extractPaths(content);
+        List<String> violations = new ArrayList<>();
         for (String p : paths) {
             if (!isLikelyPath(p) || isExcluded(p)) continue;
             if (!appearsOutsideCurrentDoc(p, docPath)) {
-                return String.format("Path '%s' in %s has no matches in codebase (possible fabrication)", p, docPath);
+                violations.add(String.format("Path '%s' in %s has no matches in codebase (possible fabrication)", p, docPath));
             }
         }
-        return null;
+        return violations;
     }
 
     private boolean appearsOutsideCurrentDoc(String candidate, String docPath) {
-        if (workspaceBlob.contains(candidate)) {
+        if (workspaceMentions.contains(candidate)) {
             return true;
         }
         for (ChangedFile f : context.getDiff().getChangedFiles()) {
             if (docPath.equals(f.getPath())) {
                 continue;
             }
-            if (f.getPath().contains(candidate) || f.getContent().contains(candidate)) {
+            if (f.getPath().contains(candidate) || f.getContent().contains(candidate)
+                    || extractPathLikeTokens(f.getContent()).contains(candidate)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private static Set<String> extractPathLikeTokens(String content) {
+        Set<String> result = new HashSet<>();
+        if (content == null || content.isEmpty()) {
+            return result;
+        }
+        Matcher structured = STRUCTURED_PATH_PATTERN.matcher(content);
+        while (structured.find()) {
+            String path = structured.group(1).trim();
+            if (!path.isEmpty()) result.add(path);
+        }
+        Matcher fileTokens = FILE_TOKEN_PATTERN.matcher(content);
+        while (fileTokens.find()) {
+            String token = fileTokens.group(1).trim();
+            if (!token.isEmpty()) result.add(token);
+        }
+        return result;
     }
 
     private List<String> extractPaths(String content) {

@@ -73,7 +73,7 @@ You are done when a PR runs AIV and prints a report (pass or fail).
 | Design drift | Code violates project architecture, RFCs, or forbidden patterns | Design gate enforces YAML rules (forbidden and required patterns) |
 | Wrong API usage | Contributors use deprecated APIs or wrong patterns (e.g. in-memory list instead of ExpireSnapshots) | Design gate catches forbidden calls and missing required calls |
 | Unknown imports | Typos in package names or imports not declared in lockfile; supply-chain risk | Dependency gate validates Java imports vs pom.xml, Python vs requirements.txt |
-| Fragile edge-case code | Code passes example tests but fails on boundary inputs | Invariant gate (placeholder for property-based tests) |
+| Fragile edge-case code | Code lands with unresolved merge state or placeholder markers | Invariant gate catches merge conflict markers and TODO placeholders |
 | Urgent merges | Need to bypass checks for hotfix or emergency | `/aiv skip` on its own line in the **latest** PR commit skips all gates (optional `skip_allowlist` in config) |
 | Refactors flagged | Legitimate refactors remove more lines than they add; density gate would fail | Refactor exception: density skips when net lines <= threshold (default -50) |
 | Core maintainer friction | Trusted committers get unnecessary density failures | Trusted authors bypass density check |
@@ -91,7 +91,7 @@ When someone opens a pull request, AIV runs a set of checks on the changed files
 
 3. **Dependency** - Are new imports in Java and Python files declared in your lockfile? This helps catch typos and supply-chain attacks where someone registers a fake package name.
 
-4. **Invariant** - Placeholder for property-based tests. The gate passes by default; real invariant checks run in your project's test phase.
+4. **Invariant** - Baseline invariants (merge-conflict markers and placeholder markers such as TBD/FIXME/XXX). Keep deeper project-specific invariants in your test suite.
 
 5. **Doc Integrity** - Validates documentation files (.md, .txt, .rst): path existence, cross-references, required mentions, command completeness, path fabrication. Opt-in via `--include-doc-checks` or config with `auto: true` to run only when diff has doc files.
 
@@ -108,12 +108,12 @@ No API keys or paid services are required. Everything runs locally in your CI.
 | `aiv-api` | Interfaces, models, and extension points |
 | `aiv-core` | Orchestrator that runs gates in sequence |
 | `aiv-plugin-density` | Logic density and entropy checks |
-| `aiv-plugin-design-lucene` | Design compliance via YAML rules |
+| `aiv-plugin-design-lucene` | Design compliance via YAML rules (module name kept for compatibility; runtime matcher is custom token/phrase matching) |
 | `aiv-plugin-dependency` | Import validation against pom.xml and requirements.txt |
 | `aiv-plugin-invariant-template` | Invariant gate (passes by default) |
 | `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) |
 | `aiv-adapter-git` | Git diff provider |
-| `aiv-adapter-github` | Report publisher (stdout / SLF4J for CI logs) |
+| `aiv-adapter-github` | Report publishers (stdout by default, optional GitHub Checks via `--publish-github-checks`) |
 | `aiv-cli` | Command-line entry point |
 
 ---
@@ -205,6 +205,7 @@ Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cl
 Create `.aiv/config.yaml`:
 
 ```yaml
+schema_version: 1
 # Optional: skip generated paths
 # exclude_paths:
 #   - "**/generated/**"
@@ -215,7 +216,7 @@ gates:
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 5.0
+      entropy_threshold: 4.0
   - id: design
     enabled: true
     config:
@@ -303,13 +304,13 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 **Refactoring:** Per-file net LOC can exempt density checks for deletions-heavy changes (see configuration reference).
 
-**Trusted authors:** List committer email addresses in `trusted_authors` under the density gate config. Bypass applies only when the latest head commit is signed and the signer email matches.
+**Trusted authors:** List committer email addresses in `trusted_authors` under the density gate config. Bypass applies only when the latest head commit is signed and the signer email matches. Treat this as project-policy convenience, not a standalone identity proof.
 
 ---
 
 ## Roadmap (short)
 
-Shipped foundations: **init**, **doctor**, **explain**, per-gate **warn** severity, **JSON report** (`--output-json`, `schema_version: 2`), **SARIF** (`--output-sarif`), **GitHub Checks** (`--publish-github-checks`). Next: **baseline** suppressions, optional **`aiv-plugin-security`** (not in the repo yet — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md)). See [CHANGELOG.md](CHANGELOG.md).
+Shipped foundations: **init**, **doctor** (explicitly labeled informational), **explain**, per-gate **warn** severity, **JSON report** (`--output-json`, `schema_version: 2`), **SARIF** (`--output-sarif`), **GitHub Checks** (`--publish-github-checks`). Next: **baseline** suppressions, optional **`aiv-plugin-security`** (not in the repo yet — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md)). See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

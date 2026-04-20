@@ -37,6 +37,7 @@ import java.util.Map;
  * @author Vaquar Khan
  */
 public final class YamlConfigProvider implements ConfigProvider {
+    static final int CONFIG_SCHEMA_VERSION = 1;
 
     @Override
     public AIVConfig getConfig(Path workspace) {
@@ -55,8 +56,13 @@ public final class YamlConfigProvider implements ConfigProvider {
             @SuppressWarnings("unchecked")
             Map<String, Object> global = new HashMap<>(
                     (Map<String, Object>) root.getOrDefault("global", Collections.emptyMap()));
+            Integer schemaVersion = parseSchemaVersion(root.get("schema_version"));
+            global.put("schema_version", schemaVersion);
             if (root.containsKey("exclude_paths") && !global.containsKey("exclude_paths")) {
                 global.put("exclude_paths", root.get("exclude_paths"));
+            }
+            if (root.containsKey("fail_fast") && !global.containsKey("fail_fast")) {
+                global.put("fail_fast", root.get("fail_fast"));
             }
             return new AIVConfig(gates, Collections.unmodifiableMap(global));
         } catch (Exception e) {
@@ -69,14 +75,14 @@ public final class YamlConfigProvider implements ConfigProvider {
                 List.of(
                         new AIVConfig.GateConfig("density", true, Map.of(
                                 "ldr_threshold", 0.25,
-                                "entropy_threshold", 5.0,
+                                "entropy_threshold", 4.0,
                                 "refactor_net_loc_threshold", -50)),
                         new AIVConfig.GateConfig("design", true, Map.of("rules_path", ".aiv/design-rules.yaml")),
                         new AIVConfig.GateConfig("dependency", true, Map.of()),
                         new AIVConfig.GateConfig("invariant", false, Map.of()),
                         new AIVConfig.GateConfig("doc-integrity", false, Map.of("rules_path", ".aiv/doc-rules.yaml", "auto", true))
                 ),
-                Map.of("fail_fast", false)
+                Map.of("fail_fast", false, "schema_version", CONFIG_SCHEMA_VERSION)
         );
     }
 
@@ -96,5 +102,23 @@ public final class YamlConfigProvider implements ConfigProvider {
                     config != null ? config : Map.of(), severity));
         }
         return gates.isEmpty() ? defaultConfig().getGates() : gates;
+    }
+
+    private Integer parseSchemaVersion(Object raw) {
+        if (raw == null) {
+            return CONFIG_SCHEMA_VERSION;
+        }
+        if (!(raw instanceof Number n)) {
+            throw new IllegalArgumentException("schema_version must be a number");
+        }
+        int parsed = n.intValue();
+        if (parsed <= 0) {
+            throw new IllegalArgumentException("schema_version must be >= 1");
+        }
+        if (parsed > CONFIG_SCHEMA_VERSION) {
+            throw new IllegalArgumentException(
+                    "unsupported schema_version " + parsed + " (max supported " + CONFIG_SCHEMA_VERSION + ")");
+        }
+        return parsed;
     }
 }

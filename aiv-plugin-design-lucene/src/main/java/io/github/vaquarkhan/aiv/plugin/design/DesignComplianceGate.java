@@ -114,7 +114,7 @@ public final class DesignComplianceGate implements QualityGate {
         }
         String normalizedPattern = pattern.toLowerCase();
         if (!isTokenPattern(normalizedPattern)) {
-            return surface.contains(normalizedPattern);
+            return phrasePattern(normalizedPattern).matcher(surface).find();
         }
         return tokenPattern(normalizedPattern).matcher(surface).find();
     }
@@ -144,6 +144,20 @@ public final class DesignComplianceGate implements QualityGate {
             }
         }
         regex.append("(?![a-z0-9_$])");
+        return Pattern.compile(regex.toString());
+    }
+
+    private static Pattern phrasePattern(String pattern) {
+        String normalized = pattern.trim().replaceAll("\\s+", " ");
+        StringBuilder regex = new StringBuilder("(?<![a-z0-9_$])");
+        String[] parts = normalized.split(" ");
+        for (int i = 0; i < parts.length; i++) {
+            regex.append(Pattern.quote(parts[i]));
+            if (i + 1 < parts.length) {
+                regex.append("\\s+");
+            }
+        }
+        regex.append("(?!\\s+[a-z0-9_$])(?![a-z0-9_$])");
         return Pattern.compile(regex.toString());
     }
 

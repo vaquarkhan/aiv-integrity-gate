@@ -1,5 +1,6 @@
-# AIV config - adjust thresholds per project
-# Exclude docs and example project from gates (documentation / demo layout)
+schema_version: 1
+# AIV config - tuned for this repository baseline.
+# Exclude docs and example project from code-focused gates.
 exclude_paths:
   - "docs/**"
   - "example-project/**"
@@ -12,7 +13,7 @@ gates:
   - id: density
     enabled: true
     config:
-      ldr_threshold: 0.0
+      ldr_threshold: 0.25
       entropy_threshold: 4.0
       refactor_net_loc_threshold: -50
   - id: design
@@ -21,13 +22,7 @@ gates:
       rules_path: .aiv/design-rules.yaml
   - id: dependency
     enabled: true
-    config:
-      whitelist:
-        - com.sun.net.httpserver
-        - com.github.javaparser
-        - com.github.javaparser.ast
-        - com.github.javaparser.ast.comments
-        - com.github.javaparser.ast.expr
+    config: {}
   - id: invariant
     enabled: false
   - id: doc-integrity

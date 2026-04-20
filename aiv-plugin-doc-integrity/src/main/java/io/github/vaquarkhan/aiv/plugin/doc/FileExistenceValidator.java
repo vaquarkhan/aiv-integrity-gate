@@ -45,14 +45,20 @@ public final class FileExistenceValidator {
     }
 
     public String validate(String docPath, String content) {
-        if (content == null || content.isEmpty()) return null;
+        List<String> all = validateAll(docPath, content);
+        return all.isEmpty() ? null : all.get(0);
+    }
+
+    public List<String> validateAll(String docPath, String content) {
+        if (content == null || content.isEmpty()) return List.of();
         List<String> paths = extractPaths(content);
+        List<String> violations = new ArrayList<>();
         for (String p : paths) {
             if (isLikelyPath(p) && !resolveExists(p, docPath)) {
-                return String.format("Path '%s' in %s does not exist in repo", p, docPath);
+                violations.add(String.format("Path '%s' in %s does not exist in repo", p, docPath));
             }
         }
-        return null;
+        return violations;
     }
 
     private List<String> extractPaths(String content) {

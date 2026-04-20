@@ -28,6 +28,8 @@ import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.QualityGate;
 import io.github.vaquarkhan.aiv.util.FileExtensions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -43,11 +45,12 @@ import java.util.Set;
  * @author Vaquar Khan
  */
 public final class DensityGate implements QualityGate {
+    private static final Logger log = LoggerFactory.getLogger(DensityGate.class);
 
     private static final double DEFAULT_LDR_THRESHOLD = 0.25;
-    private static final double DEFAULT_ENTROPY_THRESHOLD = 5.0;
+    private static final double DEFAULT_ENTROPY_THRESHOLD = 4.0;
     private static final int DEFAULT_REFACTOR_THRESHOLD = -50;
-    private static final int MIN_BYTES_FOR_ENTROPY = 400;
+    private static final int DEFAULT_MIN_BYTES_FOR_ENTROPY = 300;
 
     @Override
     public String getId() {
@@ -62,7 +65,11 @@ public final class DensityGate implements QualityGate {
         double ldrThreshold = getThreshold(context, "ldr_threshold", DEFAULT_LDR_THRESHOLD);
         double entropyThreshold = getThreshold(context, "entropy_threshold", DEFAULT_ENTROPY_THRESHOLD);
         int refactorThreshold = getIntThreshold(context, "refactor_net_loc_threshold", DEFAULT_REFACTOR_THRESHOLD);
+        int minBytesForEntropy = getIntThreshold(context, "entropy_min_bytes", DEFAULT_MIN_BYTES_FOR_ENTROPY);
         Set<String> extensions = FileExtensions.fromConfig(getGateConfig(context));
+        if (ldrThreshold <= 0) {
+            log.warn("density gate ldr_threshold={} disables logic-density blocking; set > 0 for enforcement", ldrThreshold);
+        }
 
         List<String> failures = new ArrayList<>();
         List<Finding> findings = new ArrayList<>();
@@ -81,9 +88,10 @@ public final class DensityGate implements QualityGate {
             int anchorLine = firstNonBlankLine(content);
 
             int byteLen = content.getBytes(StandardCharsets.UTF_8).length;
-            if (byteLen >= MIN_BYTES_FOR_ENTROPY) {
+            if (byteLen >= minBytesForEntropy) {
                 double entropy = calculateEntropy(content);
-                if (entropy < entropyThreshold) {
+                double effectiveEntropyThreshold = effectiveEntropyThreshold(path, byteLen, entropyThreshold);
+                if (entropy < effectiveEntropyThreshold) {
                     String msg = String.format("Low entropy (%.2f) in %s - possible boilerplate", entropy, path);
                     failures.add(msg);
                     findings.add(Finding.atLine("density.entropy", path, anchorLine, msg));
@@ -168,6 +176,18 @@ public final class DensityGate implements QualityGate {
                     return defaultValue;
                 })
                 .orElse(defaultValue);
+    }
+
+    static double effectiveEntropyThreshold(String path, int byteLen, double baseThreshold) {
+        double adjusted = baseThreshold;
+        String lowerPath = path == null ? "" : path.toLowerCase();
+        if (!lowerPath.endsWith(".java")) {
+            adjusted -= 0.2;
+        }
+        if (byteLen < 800) {
+            adjusted -= 0.4;
+        }
+        return Math.max(2.5, adjusted);
     }
 
     static double calculateEntropy(String text) {

@@ -97,27 +97,35 @@ jobs:
             body += `<details><summary>Full report</summary>\n\n\`\`\`\n${raw}\n\`\`\`\n</details>`;
 
             const prNumber = context.payload.pull_request.number;
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber
-            });
-            const aivComment = comments.find(c => c.user.type === 'Bot' && c.body.startsWith('## AIV Report'));
+            try {
+              const { data: comments } = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber
+              });
+              const aivComment = comments.find(c => c.user.type === 'Bot' && c.body.startsWith('## AIV Report'));
 
-            if (aivComment) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: aivComment.id,
-                body: body
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body: body
-              });
+              if (aivComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: aivComment.id,
+                  body: body
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  body: body
+                });
+              }
+            } catch (error) {
+              if (error && error.status === 403) {
+                core.warning('AIV PR comment skipped due to insufficient permissions (likely fork PR).');
+              } else {
+                throw error;
+              }
             }
 
       - name: Fail if AIV failed

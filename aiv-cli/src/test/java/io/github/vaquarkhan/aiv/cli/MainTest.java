@@ -92,9 +92,10 @@ class MainTest {
     }
 
     @Test
-    void runWithDefaultArgs() {
-        int code = Main.run(new String[0]);
-        assertTrue(code == 0 || code == 1 || code == 3);
+    void runWithDefaultArgsReturnsGitErrorForUnconfiguredWorkspace(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        int code = Main.run(new String[]{"--workspace", repo.toString()});
+        assertEquals(3, code);
     }
 
     @Test
@@ -292,6 +293,20 @@ class MainTest {
                 "--head", "HEAD",
                 "--doctor"
         }));
+    }
+
+    @Test
+    void doctorOutputJsonContainsDoctorNotice(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Path json = repo.resolve("doctor-report.json");
+        assertEquals(0, Main.run(new String[]{
+                "doctor",
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--output-json", json.toString()
+        }));
+        assertTrue(Files.readString(json, StandardCharsets.UTF_8).contains("[DOCTOR]"));
     }
 
     @Test
