@@ -161,6 +161,32 @@ class DensityGateTest {
     }
 
     @Test
+    void topLevelTypesAreAllInterfacesFalseWhenNoTypes() {
+        var cu = com.github.javaparser.StaticJavaParser.parse("package io.example;");
+        assertFalse(DensityGate.topLevelTypesAreAllInterfaces(cu));
+    }
+
+    @Test
+    void topLevelTypesAreAllInterfacesFalseWhenClassOrEnum() {
+        assertFalse(DensityGate.topLevelTypesAreAllInterfaces(
+                com.github.javaparser.StaticJavaParser.parse("class C {}")));
+        assertFalse(DensityGate.topLevelTypesAreAllInterfaces(
+                com.github.javaparser.StaticJavaParser.parse("enum E { A }")));
+    }
+
+    @Test
+    void topLevelTypesAreAllInterfacesTrueForMultipleInterfaces() {
+        String code = "interface A {} interface B {}";
+        assertTrue(DensityGate.topLevelTypesAreAllInterfaces(
+                com.github.javaparser.StaticJavaParser.parse(code)));
+    }
+
+    @Test
+    void calculateLdrStaysZeroForEmptyClass() {
+        assertEquals(0.0, DensityGate.calculateLdr("class C {}"), 0.001);
+    }
+
+    @Test
     void calculateLdrVisitsAllNodeTypes() {
         String code = """
             public class Foo {
