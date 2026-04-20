@@ -29,18 +29,36 @@ jobs:
 
       - name: Test and package AIV CLI (full reactor for aiv-cli + JaCoCo)
         id: build
+        shell: bash
         run: |
           mvn -B -ntp clean verify -pl aiv-cli -am
-          echo "version=$(mvn -q -DforceStdout -Dexpression=project.version help:evaluate)" >> $GITHUB_OUTPUT
+          VERSION="$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version -f pom.xml)"
+          VERSION="${VERSION//$'\r'/}"
+          VERSION="${VERSION//$'\n'/}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Built aiv-cli version: $VERSION"
 
       - name: Run AIV
         id: aiv
+        shell: bash
         run: |
+          set -o pipefail
           VERSION="${{ steps.build.outputs.version }}"
           JAR="aiv-cli/target/aiv-cli-${VERSION}.jar"
+          if [ ! -f "$JAR" ]; then
+            echo "::error::Missing CLI JAR: $JAR (version output was '$VERSION')"
+            ls -la aiv-cli/target/ || true
+            echo "exitcode=2" >> "$GITHUB_OUTPUT"
+            exit 2
+          fi
           EXITCODE=0
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            java -Daiv.git.timeout.seconds=600 -jar "$JAR" --workspace ${{ github.workspace }} --diff origin/${{ github.base_ref }} 2>&1 | tee aiv-report.txt
+            # Merge commit is HEAD; compare to PR base branch on origin (explicit head avoids ambiguity).
+            java -Daiv.git.timeout.seconds=600 -jar "$JAR" \
+              --workspace "${{ github.workspace }}" \
+              --diff "origin/${{ github.base_ref }}" \
+              --head "${{ github.sha }}" \
+              2>&1 | tee aiv-report.txt
             EXITCODE=${PIPESTATUS[0]}
           else
             BASE="${{ github.event.before }}"
@@ -48,12 +66,16 @@ jobs:
               echo "Initial push, skipping AIV"
               EXITCODE=0
             else
-              java -Daiv.git.timeout.seconds=600 -jar "$JAR" --workspace ${{ github.workspace }} --diff $BASE --head HEAD 2>&1 | tee aiv-report.txt
+              java -Daiv.git.timeout.seconds=600 -jar "$JAR" \
+                --workspace "${{ github.workspace }}" \
+                --diff "$BASE" \
+                --head HEAD \
+                2>&1 | tee aiv-report.txt
               EXITCODE=${PIPESTATUS[0]}
             fi
           fi
-          echo "exitcode=$EXITCODE" >> $GITHUB_OUTPUT
-          exit $EXITCODE
+          echo "exitcode=$EXITCODE" >> "$GITHUB_OUTPUT"
+          exit "$EXITCODE"
         continue-on-error: true
 
       - name: AIV report to job summary
@@ -129,13 +151,29 @@ jobs:
             }
 
       - name: Fail if AIV failed
+        if: always()
+        shell: bash
         run: |
-          if [ "${{ steps.aiv.outputs.exitcode }}" = "0" ]; then
+          CODE='${{ steps.aiv.outputs.exitcode }}'
+          echo "AIV CLI exit code (from step output): ${CODE:-<missing>}"
+          if [ "${CODE}" = "0" ]; then
             exit 0
           fi
           if [ -f aiv-report.txt ] && grep -q "timed out" aiv-report.txt; then
             echo "::warning::AIV skipped: git diff timed out. CI passes to avoid blocking."
             exit 0
           fi
-          echo "::error::AIV gates failed."
+          echo "::error::AIV gates failed (exit ${CODE:-unknown}). See job summary for the full report; fix gate findings or tune .aiv/config.yaml."
+          if [ -f aiv-report.txt ]; then
+            echo "--- aiv-report.txt (last 120 lines) ---"
+            tail -120 aiv-report.txt
+          fi
           exit 1
+
+      - name: Upload AIV report artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aiv-report
+          path: aiv-report.txt
+          if-no-files-found: ignore
