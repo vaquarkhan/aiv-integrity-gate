@@ -51,6 +51,16 @@ class ExplainCommandTest {
     }
 
     @Test
+    void findingRuleIdFallsBackToGateHelp() {
+        assertEquals(0, ExplainCommand.run("density.ldr"));
+    }
+
+    @Test
+    void nestedRuleIdFallsBackToGateHelp() {
+        assertEquals(0, ExplainCommand.run("design.forbidden.no-system-exit"));
+    }
+
+    @Test
     void helpWithoutTrailingNewlineStillPrintsOk(@TempDir Path root) throws Exception {
         Path md = root.resolve("explain/testnl.md");
         Files.createDirectories(md.getParent());

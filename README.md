@@ -215,7 +215,7 @@ gates:
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 3.8
+      entropy_threshold: 5.0
   - id: design
     enabled: true
     config:
@@ -303,7 +303,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 **Refactoring:** Per-file net LOC can exempt density checks for deletions-heavy changes (see configuration reference).
 
-**Trusted authors:** List committer email addresses in `trusted_authors` under the density gate config. Those authors bypass the density check.
+**Trusted authors:** List committer email addresses in `trusted_authors` under the density gate config. Bypass applies only when the latest head commit is signed and the signer email matches.
 
 ---
 

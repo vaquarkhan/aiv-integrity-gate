@@ -99,4 +99,18 @@ class CrossReferenceCheckerTest {
         assertTrue(CrossReferenceChecker.looksLikePathReference("config.json"));
         assertTrue(CrossReferenceChecker.looksLikePathReference("pom.xml"));
     }
+
+    @Test
+    void doesNotFlagGenericReferToPhrase() {
+        var c = new CrossReferenceChecker(Path.of("."));
+        assertNull(c.validate("README.md", "Refer to section for details."));
+    }
+
+    @Test
+    void trimsQuotedCrossRefToken(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("docs"));
+        Files.writeString(dir.resolve("docs/README.md"), "ok");
+        var c = new CrossReferenceChecker(dir);
+        assertNull(c.validate("README.md", "Read the README in \"docs\"."));
+    }
 }

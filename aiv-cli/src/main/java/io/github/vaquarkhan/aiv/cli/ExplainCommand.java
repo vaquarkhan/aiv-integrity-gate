@@ -27,13 +27,14 @@ public final class ExplainCommand {
             System.err.println("Usage: java -jar aiv-cli.jar explain <gate-or-topic-id>");
             return 1;
         }
-        String path = "explain/" + id.trim().toLowerCase() + ".md";
-        try (InputStream in = resourceLoader.getResourceAsStream(path)) {
-            if (in == null) {
+        String requested = id.trim().toLowerCase();
+        InputStream in = openBestEffortTopic(requested);
+        try (InputStream stream = in) {
+            if (stream == null) {
                 System.err.println("No embedded help for \"" + id + "\". Try: density, design, dependency, doc-integrity, invariant");
                 return 1;
             }
-            String text = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+            String text = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
             System.out.print(text);
             if (!text.endsWith("\n")) {
                 System.out.println();
@@ -43,5 +44,26 @@ public final class ExplainCommand {
             System.err.println("Could not read help: " + e.getMessage());
             return 1;
         }
+    }
+
+    private static InputStream openBestEffortTopic(String requested) {
+        InputStream direct = openTopic(requested);
+        if (direct != null) {
+            return direct;
+        }
+        int idx = requested.lastIndexOf('.');
+        while (idx > 0) {
+            String prefix = requested.substring(0, idx);
+            InputStream prefixed = openTopic(prefix);
+            if (prefixed != null) {
+                return prefixed;
+            }
+            idx = requested.lastIndexOf('.', idx - 1);
+        }
+        return null;
+    }
+
+    private static InputStream openTopic(String id) {
+        return resourceLoader.getResourceAsStream("explain/" + id + ".md");
     }
 }

@@ -78,7 +78,7 @@ gates:
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 3.8
+      entropy_threshold: 5.0
   - id: design
     enabled: true
     config:

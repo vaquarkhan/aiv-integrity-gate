@@ -18,15 +18,23 @@
 package io.github.vaquarkhan.aiv.plugin.invariant;
 
 import io.github.vaquarkhan.aiv.model.AIVContext;
+import io.github.vaquarkhan.aiv.model.ChangedFile;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.QualityGate;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 /**
- * No-op template gate for custom invariants. Enable in {@code .aiv/config.yaml} only after you add logic here.
+ * Generic invariant checks that should never reach mainline code.
  *
  * @author Vaquar Khan
  */
 public final class InvariantGate implements QualityGate {
+    private static final Pattern MERGE_CONFLICT_MARKER = Pattern.compile("(?m)^(<<<<<<<|=======|>>>>>>>)\\s");
+    private static final Pattern PLACEHOLDER_MARKER = Pattern.compile("(?i)\\b(TBD|FIXME|XXX)\\b");
 
     @Override
     public String getId() {
@@ -35,7 +43,27 @@ public final class InvariantGate implements QualityGate {
 
     @Override
     public GateResult evaluate(AIVContext context) {
-        return new GateResult(getId(), true,
-                "No-op template (disabled by default); implement invariants in this class or keep disabled");
+        List<String> failures = new ArrayList<>();
+        List<Finding> findings = new ArrayList<>();
+        for (ChangedFile f : context.getDiff().getChangedFiles()) {
+            String content = f.getContent();
+            if (content == null || content.isBlank()) {
+                continue;
+            }
+            if (MERGE_CONFLICT_MARKER.matcher(content).find()) {
+                String msg = "Merge conflict marker found in " + f.getPath();
+                failures.add(msg);
+                findings.add(Finding.atLine("invariant.merge-conflict", f.getPath(), 1, msg));
+            }
+            if (PLACEHOLDER_MARKER.matcher(content).find()) {
+                String msg = "Placeholder marker (TBD/FIXME/XXX) found in " + f.getPath();
+                failures.add(msg);
+                findings.add(Finding.atLine("invariant.placeholder", f.getPath(), 1, msg));
+            }
+        }
+        if (failures.isEmpty()) {
+            return GateResult.pass(getId());
+        }
+        return GateResult.fail(getId(), String.join("\n", failures), findings);
     }
 }

@@ -25,7 +25,7 @@ This tutorial follows the style of AWS technical guides: it explains **what** yo
 
 ### What AIV is
 
-**AIV (Automated Integrity Validation)** scans **only the diff** between two Git refs in your CI. It applies pluggable **gates** (density, design, dependency, optional doc integrity, and a template invariant gate). It does **not** send your source to a third party and does **not** require cloud API keys for its default behavior.
+**AIV (Automated Integrity Validation)** scans **only the diff** between two Git refs in your CI. It applies pluggable **gates** (density, design, dependency, optional doc integrity, and invariant checks for merge markers/placeholders). It does **not** send your source to a third party and does **not** require cloud API keys for its default behavior.
 
 ### What AIV is not
 
@@ -135,7 +135,7 @@ gates:
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 3.8
+      entropy_threshold: 5.0
   - id: design
     enabled: true
     config:

@@ -49,7 +49,36 @@ class InvariantGateTest {
         var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.ADDED, "class A {}")));
         var r = gate.evaluate(ctx);
         assertTrue(r.isPassed());
-        assertTrue(r.getMessage().contains("No-op"));
+    }
+
+    @Test
+    void ignoresBlankContentFiles() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED, "   \n")));
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
+    @Test
+    void failsOnMergeConflictMarker() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED,
+                "<<<<<<< HEAD\nclass A {}\n=======\nclass B {}\n>>>>>>> branch\n")));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("Merge conflict marker"));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.merge-conflict".equals(f.getRuleId())));
+    }
+
+    @Test
+    void failsOnPlaceholderMarker() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED,
+                "class A { // FIXME: finalize logic\n}\n")));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("Placeholder marker"));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.placeholder".equals(f.getRuleId())));
     }
 
     private AIVContext context(List<ChangedFile> files) {

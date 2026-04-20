@@ -29,10 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Design compliance gate using YAML rules. Checks forbidden/required patterns.
- * For {@code .java} sources, comments and string literals are stripped before substring checks.
+ * For {@code .java} sources, comments and string literals are stripped before token-aware checks.
  *
  * @author Vaquar Khan
  */
@@ -68,12 +69,12 @@ public final class DesignComplianceGate implements QualityGate {
             for (DesignRules.Constraint c : rules.getConstraints()) {
                 boolean applies = c.getKeywords().isEmpty()
                         || c.getKeywords().stream().anyMatch(k ->
-                        ruleSurface.contains(k.toLowerCase()) || pathLower.contains(k.toLowerCase()));
+                        containsPattern(ruleSurface, k) || containsPattern(pathLower, k));
                 if (!applies) {
                     continue;
                 }
                 for (String forbidden : c.getForbiddenCalls()) {
-                    if (ruleSurface.contains(forbidden.toLowerCase())) {
+                    if (containsPattern(ruleSurface, forbidden)) {
                         String msg = String.format("Forbidden call '%s' in %s (constraint: %s)", forbidden, path, c.getId());
                         violations.add(msg);
                         int line = lineOfCaseInsensitiveSubstring(content, forbidden);
@@ -81,7 +82,7 @@ public final class DesignComplianceGate implements QualityGate {
                     }
                 }
                 for (String required : c.getRequiredCalls()) {
-                    if (!ruleSurface.contains(required.toLowerCase())) {
+                    if (!containsPattern(ruleSurface, required)) {
                         String msg = String.format("Required call '%s' missing in %s (constraint: %s)", required, path, c.getId());
                         violations.add(msg);
                         findings.add(Finding.atLine("design.required." + c.getId(), path, 1, msg));
@@ -105,6 +106,45 @@ public final class DesignComplianceGate implements QualityGate {
             return 1;
         }
         return content.substring(0, idx).split("\n", -1).length;
+    }
+
+    private static boolean containsPattern(String surface, String pattern) {
+        if (surface == null || pattern == null || pattern.isBlank()) {
+            return false;
+        }
+        String normalizedPattern = pattern.toLowerCase();
+        if (!isTokenPattern(normalizedPattern)) {
+            return surface.contains(normalizedPattern);
+        }
+        return tokenPattern(normalizedPattern).matcher(surface).find();
+    }
+
+    private static boolean isTokenPattern(String pattern) {
+        for (int i = 0; i < pattern.length(); i++) {
+            char c = pattern.charAt(i);
+            boolean allowed = (c >= 'a' && c <= 'z')
+                    || (c >= '0' && c <= '9')
+                    || c == '_'
+                    || c == '$'
+                    || c == '.';
+            if (!allowed) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static Pattern tokenPattern(String pattern) {
+        String[] parts = pattern.split("\\.");
+        StringBuilder regex = new StringBuilder("(?<![a-z0-9_$])");
+        for (int i = 0; i < parts.length; i++) {
+            regex.append(Pattern.quote(parts[i]));
+            if (i + 1 < parts.length) {
+                regex.append("\\s*\\.\\s*");
+            }
+        }
+        regex.append("(?![a-z0-9_$])");
+        return Pattern.compile(regex.toString());
     }
 
     private Map<String, Object> getGateConfig(AIVContext context) {

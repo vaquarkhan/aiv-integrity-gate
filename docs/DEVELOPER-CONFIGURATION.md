@@ -106,7 +106,7 @@ gates:
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 3.8
+      entropy_threshold: 5.0
   - id: design
     enabled: true
     config:
@@ -212,7 +212,7 @@ gates:
     enabled: true
     config:
       ldr_threshold: 0.25      # Logic Density Ratio (0.0-1.0)
-      entropy_threshold: 3.8   # Shannon entropy minimum
+      entropy_threshold: 5.0   # Shannon entropy minimum
 
   - id: design
     enabled: true
@@ -233,7 +233,7 @@ gates:
 
 | Gate ID      | Purpose                    | Config Keys           | Defaults                    |
 |--------------|----------------------------|-----------------------|-----------------------------|
-| `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 3.8, -50 |
+| `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 5.0, -50 |
 | `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
 | `dependency` | Import vs lockfile         | `whitelist`           | -                           |
 | `invariant`  | Invariant checks           | -                     | -                           |
@@ -246,16 +246,16 @@ For every changed documentation file, **`doc-integrity`** also checks **relative
 | Key                       | Type   | Description                                      | Default |
 |---------------------------|--------|--------------------------------------------------|---------|
 | `ldr_threshold`           | float  | Min Logic Density Ratio (control flow vs structure) | 0.25 |
-| `entropy_threshold`       | float  | Min Shannon entropy (flags boilerplate)          | 3.8     |
+| `entropy_threshold`       | float  | Min Shannon entropy (flags boilerplate)          | 5.0     |
 | `refactor_net_loc_threshold` | int | Skip density when net LOC <= this (e.g. -50)     | -50     |
-| `trusted_authors`         | list   | Author emails that bypass density check         | -       |
+| `trusted_authors`         | list   | Author emails that bypass density when head commit is signed | - |
 | `file_extensions`         | list   | Extensions to validate                          | All common |
 | `languages`               | list   | Language names                                   | -       |
 
 - **LDR < threshold** → fail (too much scaffolding, too little logic). LDR runs for Java only.
 - **Entropy < threshold** → fail (repetitive/boilerplate code). Entropy runs for all configured extensions.
 - **Net LOC <= refactor_net_loc_threshold** → skip (refactoring intent).
-- **Author in trusted_authors** → skip.
+- **Author in trusted_authors + signed head commit** → skip.
 
 ### Dependency Gate
 
@@ -346,8 +346,8 @@ constraints:
 ```
 
 - **keywords:** Constraint applies only if file content or path contains any keyword. Empty = applies to all matched files. Matching is case-insensitive.
-- **forbidden_calls:** Substring match in file content (case-insensitive) → fail.
-- **required_calls:** If constraint applies, file must contain all of these (case-insensitive) → fail if any missing.
+- **forbidden_calls:** Token-aware, case-insensitive match in file content → fail.
+- **required_calls:** If constraint applies, file must contain all of these token-aware, case-insensitive patterns → fail if any missing.
 
 ### Example: No Java Serialization
 
@@ -495,7 +495,7 @@ When `.aiv/config.yaml` is missing, the CLI’s built-in default (see `YamlConfi
 
 | Gate      | Enabled | Config                                      |
 |-----------|---------|---------------------------------------------|
-| density   | true    | ldr_threshold: 0.25, entropy_threshold: 3.8 |
+| density   | true    | ldr_threshold: 0.25, entropy_threshold: 5.0 |
 | design    | true    | rules_path: .aiv/design-rules.yaml          |
 | dependency| true    | whitelist: []                               |
 | invariant | true    | (none)                                      |

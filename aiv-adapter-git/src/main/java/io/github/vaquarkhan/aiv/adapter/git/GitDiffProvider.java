@@ -132,8 +132,9 @@ public final class GitDiffProvider implements DiffProvider {
         NumStatResult num = parseNumStatStrict(workspace, baseRef, headRef);
         List<ChangedFile> files = parseChangedFiles(workspace, baseRef, headRef, warnings);
         String author = parseAuthor(workspace, headRef);
+        boolean signed = parseHeadCommitSigned(workspace, headRef);
         boolean skip = parseSkipDirectiveInLatestCommit(workspace, headRef);
-        return new Diff(baseRef, headRef, files, rawDiff, num.added(), num.deleted(), author, skip,
+        return new Diff(baseRef, headRef, files, rawDiff, num.added(), num.deleted(), author, signed, skip,
                 warnings, num.perFileNet());
     }
 
@@ -216,6 +217,26 @@ public final class GitDiffProvider implements DiffProvider {
         } catch (Exception e) {
             log.debug("Could not parse author", e);
             return null;
+        }
+    }
+
+    private boolean parseHeadCommitSigned(Path workspace, String headRef) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "log", "-1", "--format=%G?", headRef);
+            pb.directory(workspace.toFile());
+            configureGitChild(pb);
+            long timeout = gitTimeoutSeconds();
+            GitCapture cap = runGitCapture(pb, timeout);
+            if (cap.timedOut() || cap.exitCode() != 0 || cap.stdout() == null) {
+                return false;
+            }
+            String status = cap.stdout().lines().findFirst().orElse("").trim();
+            // G/U/X/Y/R are signed states; N means unsigned.
+            return "G".equals(status) || "U".equals(status) || "X".equals(status)
+                    || "Y".equals(status) || "R".equals(status);
+        } catch (Exception e) {
+            log.debug("Could not parse signature status", e);
+            return false;
         }
     }
 

@@ -176,7 +176,7 @@ class DensityGateTest {
         var gate = new DensityGate();
         var diff = new Diff("main", "HEAD",
                 List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "a".repeat(500))),
-                "", 1, 0, "committer@apache.org", false);
+                "", 1, 0, "committer@apache.org", true, false, List.of(), Map.of());
         var config = new AIVConfig(
                 List.of(new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", List.of("committer@apache.org")))),
                 Map.of());
@@ -185,11 +185,37 @@ class DensityGateTest {
     }
 
     @Test
+    void trustedAuthorWithoutSignedCommitDoesNotBypassGate() {
+        var gate = new DensityGate();
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "a".repeat(500))),
+                "", 1, 0, "committer@apache.org", false, false, List.of(), Map.of());
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", List.of("committer@apache.org")))),
+                Map.of());
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        assertFalse(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void signedButUntrustedAuthorDoesNotBypassGate() {
+        var gate = new DensityGate();
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "a".repeat(500))),
+                "", 1, 0, "outsider@apache.org", true, false, List.of(), Map.of());
+        var config = new AIVConfig(
+                List.of(new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", List.of("committer@apache.org")))),
+                Map.of());
+        var ctx = new AIVContext(Paths.get("."), diff, config);
+        assertFalse(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
     void nonListTrustedAuthorsDoesNotBypassGate() {
         var gate = new DensityGate();
         var diff = new Diff("main", "HEAD",
                 List.of(new ChangedFile("Foo.java", ChangedFile.ChangeType.ADDED, "a".repeat(500))),
-                "", 1, 0, "committer@apache.org", false);
+                "", 1, 0, "committer@apache.org", true, false, List.of(), Map.of());
         var config = new AIVConfig(
                 List.of(new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", "committer@apache.org"))),
                 Map.of());

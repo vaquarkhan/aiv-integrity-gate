@@ -201,6 +201,7 @@ class DocIntegrityGateTest {
         GateResult r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
         assertTrue(ruleIds(r).contains("doc-integrity.path-fabrication"));
+        assertTrue(r.getMessage().contains("[P1]"));
     }
 
     private static List<String> ruleIds(GateResult r) {

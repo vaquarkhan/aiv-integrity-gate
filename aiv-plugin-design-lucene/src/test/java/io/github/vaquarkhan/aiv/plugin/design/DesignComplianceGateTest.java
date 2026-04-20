@@ -50,6 +50,15 @@ class DesignComplianceGateTest {
     }
 
     @Test
+    void containsPatternCoversBlankAndFallbackBranches() throws Exception {
+        Method m = DesignComplianceGate.class.getDeclaredMethod("containsPattern", String.class, String.class);
+        m.setAccessible(true);
+        assertFalse((boolean) m.invoke(null, null, "abc"));
+        assertFalse((boolean) m.invoke(null, "abc", "   "));
+        assertTrue((boolean) m.invoke(null, "alpha beta", "pha b"));
+    }
+
+    @Test
     void passesWhenNoRules(@TempDir Path dir) throws Exception {
         var gate = new DesignComplianceGate();
         var ctx = context(dir, List.of(new ChangedFile("a.java", ChangedFile.ChangeType.ADDED, "anything")), ".aiv/nonexistent.yaml");
@@ -197,6 +206,23 @@ class DesignComplianceGateTest {
     }
 
     @Test
+    void forbiddenCallUsesTokenAwareMatching(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: forbid-remove
+                keywords: []
+                forbidden_calls: [remove]
+                required_calls: []
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = context(dir, List.of(new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED,
+                "class Main { void x(){ table.removeSnapshots(); } }")), ".aiv/design-rules.yaml");
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
+    @Test
     void passesWhenRequiredCallPresent(@TempDir Path dir) throws Exception {
         Files.createDirectories(dir.resolve(".aiv"));
         Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
@@ -210,6 +236,23 @@ class DesignComplianceGateTest {
         var ctx = context(dir, List.of(new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED, "class Main { void x(){ Foo.bar(); } }")), ".aiv/design-rules.yaml");
         var r = gate.evaluate(ctx);
         assertTrue(r.isPassed());
+    }
+
+    @Test
+    void requiredCallUsesTokenAwareMatching(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/design-rules.yaml"), """
+            constraints:
+              - id: require-expire
+                keywords: []
+                forbidden_calls: []
+                required_calls: [ExpireSnapshots]
+            """);
+        var gate = new DesignComplianceGate();
+        var ctx = context(dir, List.of(new ChangedFile("Main.java", ChangedFile.ChangeType.ADDED,
+                "class Main { void x(){ ExpireSnapshotsV2.run(); } }")), ".aiv/design-rules.yaml");
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
     }
 
     private AIVContext context(Path workspace, List<ChangedFile> files, String rulesPath) {

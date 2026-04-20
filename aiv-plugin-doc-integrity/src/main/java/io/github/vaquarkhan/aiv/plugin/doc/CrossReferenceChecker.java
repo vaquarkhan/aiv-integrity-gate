@@ -32,7 +32,7 @@ public final class CrossReferenceChecker {
     private static final Pattern[] CROSS_REF_PATTERNS = {
             Pattern.compile("(?i)read\\s+the\\s+README\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
             Pattern.compile("(?i)see\\s+the\\s+docs?\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("(?i)refer\\s+to\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("(?i)refer\\s+to\\s+([^\\s.,;:]+(?:/[\\w./-]+|\\.[A-Za-z0-9]{2,8}))", Pattern.CASE_INSENSITIVE),
             Pattern.compile("(?i)README\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE),
             Pattern.compile("(?i)documentation\\s+(?:in|at)\\s+([^\\s.,;:]+)", Pattern.CASE_INSENSITIVE)
     };
@@ -48,7 +48,7 @@ public final class CrossReferenceChecker {
         for (Pattern p : CROSS_REF_PATTERNS) {
             Matcher m = p.matcher(content);
             while (m.find()) {
-                String ref = m.group(1).trim();
+                String ref = normalizeRefToken(m.group(1));
                 if (!ref.isEmpty() && looksLikePathReference(ref) && !resolveExists(ref, docPath)) {
                     return String.format("Cross-reference '%s' in %s: referenced location does not exist", ref, docPath);
                 }
@@ -57,9 +57,22 @@ public final class CrossReferenceChecker {
         return null;
     }
 
+    private static String normalizeRefToken(String raw) {
+        if (raw == null) return "";
+        String ref = raw.trim();
+        while (!ref.isEmpty() && ("\"'()[]{}".indexOf(ref.charAt(0)) >= 0)) {
+            ref = ref.substring(1).trim();
+        }
+        while (!ref.isEmpty() && ("\"'()[]{}.,;:".indexOf(ref.charAt(ref.length() - 1)) >= 0)) {
+            ref = ref.substring(0, ref.length() - 1).trim();
+        }
+        return ref;
+    }
+
     static boolean looksLikePathReference(String ref) {
         String r = ref.trim();
         if (r.length() < 2) return false;
+        if (r.contains("://") || r.startsWith("#")) return false;
         if (r.contains("/") || r.contains("\\")) return true;
         String lower = r.toLowerCase();
         if (lower.endsWith(".md") || lower.endsWith(".yml") || lower.endsWith(".yaml")

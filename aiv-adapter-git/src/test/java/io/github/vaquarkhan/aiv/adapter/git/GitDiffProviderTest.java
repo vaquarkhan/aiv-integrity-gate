@@ -121,6 +121,7 @@ class GitDiffProviderTest {
         assertEquals(base, diff.getBaseRef());
         assertEquals("HEAD", diff.getHeadRef());
         assertEquals("test@example.com", diff.getAuthorEmail());
+        assertFalse(diff.isHeadCommitSigned());
         assertTrue(diff.getLinesAdded() >= 1);
         assertTrue(diff.getLinesDeleted() >= 1);
 
@@ -537,6 +538,7 @@ class GitDiffProviderTest {
             Diff diff = new GitDiffProvider().getDiff(repo.toAbsolutePath(), "HEAD", "HEAD");
             assertNotNull(diff);
             assertNull(diff.getAuthorEmail());
+            assertFalse(diff.isHeadCommitSigned());
             assertFalse(diff.isSkipDirectivePresent());
         } finally {
             if (prev == null) {
@@ -571,6 +573,24 @@ class GitDiffProviderTest {
     void parseSkipReturnsFalseWhenGitCannotStart(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
         Method m = GitDiffProvider.class.getDeclaredMethod("parseSkipDirectiveInLatestCommit", Path.class, String.class);
+        m.setAccessible(true);
+        String prev = System.getProperty("aiv.git.executable");
+        try {
+            System.setProperty("aiv.git.executable", repo.resolve("missing-git-" + System.nanoTime()).toString());
+            assertEquals(false, m.invoke(new GitDiffProvider(), repo.toAbsolutePath(), "HEAD"));
+        } finally {
+            if (prev == null) {
+                System.clearProperty("aiv.git.executable");
+            } else {
+                System.setProperty("aiv.git.executable", prev);
+            }
+        }
+    }
+
+    @Test
+    void parseHeadCommitSignedReturnsFalseWhenGitCannotStart(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+        initRepo(repo);
+        Method m = GitDiffProvider.class.getDeclaredMethod("parseHeadCommitSigned", Path.class, String.class);
         m.setAccessible(true);
         String prev = System.getProperty("aiv.git.executable");
         try {
@@ -635,7 +655,6 @@ class GitDiffProviderTest {
             Files.writeString(repo.resolve("only-in-git.txt"), "c\n", StandardCharsets.UTF_8);
             runGit(repo, "add", "only-in-git.txt");
             runGit(repo, "commit", "-m", "add");
-            String base = runGit(repo, "rev-parse", "HEAD~1").trim();
             Files.delete(repo.resolve("only-in-git.txt"));
             Method read = GitDiffProvider.class.getDeclaredMethod("readFileContent", Path.class, String.class, String.class, List.class);
             read.setAccessible(true);

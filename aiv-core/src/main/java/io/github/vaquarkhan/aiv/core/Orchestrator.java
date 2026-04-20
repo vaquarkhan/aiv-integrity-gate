@@ -93,7 +93,8 @@ public final class Orchestrator {
             }
         }
         Diff filteredDiff = new Diff(diff.getBaseRef(), diff.getHeadRef(), filtered, diff.getRawDiff(),
-                diff.getLinesAdded(), diff.getLinesDeleted(), diff.getAuthorEmail(), diff.isSkipDirectivePresent(),
+                diff.getLinesAdded(), diff.getLinesDeleted(), diff.getAuthorEmail(), diff.isHeadCommitSigned(),
+                diff.isSkipDirectivePresent(),
                 diff.getWarnings(), filteredLoc);
         AIVContext context = new AIVContext(workspace, filteredDiff, config);
 

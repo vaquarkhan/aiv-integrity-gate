@@ -70,41 +70,32 @@ public final class DocIntegrityGate implements QualityGate {
 
             String v = fileExistence.validate(path, content);
             if (v != null) {
-                violations.add(v);
-                findings.add(Finding.atLine("doc-integrity.file-existence", path, 1, v));
+                addViolation(violations, findings, path, "doc-integrity.file-existence", "P1", v);
             }
 
             v = crossRef.validate(path, content);
             if (v != null) {
-                violations.add(v);
-                findings.add(Finding.atLine("doc-integrity.cross-ref", path, 1, v));
+                addViolation(violations, findings, path, "doc-integrity.cross-ref", "P1", v);
             }
 
             v = mdLinks.validate(path, content);
             if (v != null) {
-                violations.add(v);
-                findings.add(Finding.atLine("doc-integrity.markdown-link", path, 1, v));
+                addViolation(violations, findings, path, "doc-integrity.markdown-link", "P1", v);
             }
-
-            v = mdLinks.validate(path, content);
-            if (v != null) violations.add(v);
 
             v = requiredMention.validate(path, content);
             if (v != null) {
-                violations.add(v);
-                findings.add(Finding.atLine("doc-integrity.required-mention", path, 1, v));
+                addViolation(violations, findings, path, "doc-integrity.required-mention", "P2", v);
             }
 
             v = commandChecker.validate(path, content);
             if (v != null) {
-                violations.add(v);
-                findings.add(Finding.atLine("doc-integrity.command", path, 1, v));
+                addViolation(violations, findings, path, "doc-integrity.command", "P2", v);
             }
 
             v = pathFabrication.validate(path, content);
             if (v != null) {
-                violations.add(v);
-                findings.add(Finding.atLine("doc-integrity.path-fabrication", path, 1, v));
+                addViolation(violations, findings, path, "doc-integrity.path-fabrication", "P1", v);
             }
         }
 
@@ -112,6 +103,13 @@ public final class DocIntegrityGate implements QualityGate {
             return GateResult.pass(getId());
         }
         return GateResult.fail(getId(), String.join("; ", violations), findings);
+    }
+
+    private static void addViolation(List<String> violations, List<Finding> findings,
+                                     String path, String ruleId, String priority, String message) {
+        String tagged = "[" + priority + "] " + message;
+        violations.add(tagged);
+        findings.add(Finding.atLine(ruleId, path, 1, tagged));
     }
 
     private List<ChangedFile> filterDocFiles(List<ChangedFile> files) {

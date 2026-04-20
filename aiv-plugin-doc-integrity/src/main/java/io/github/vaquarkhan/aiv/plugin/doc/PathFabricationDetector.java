@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,18 +40,18 @@ import java.util.regex.Pattern;
 public final class PathFabricationDetector {
 
     private static final Logger log = LoggerFactory.getLogger(PathFabricationDetector.class);
-    private static final Pattern PATH_PATTERN = Pattern.compile(
+    private static final Pattern STRUCTURED_PATH_PATTERN = Pattern.compile(
             "(?:^|[\\s\"'(])((?:~/[\\w./-]+|/[\\w./-]+|[\\w][\\w./-]*(?:/[\\w./-]+)+))(?=[\\s\"')]|$)");
+    private static final Pattern FILE_TOKEN_PATTERN = Pattern.compile(
+            "(?:^|[\\s\"'(])([\\w.-]+\\.(?:sh|bash|zsh|md|rst|txt|java|kt|kts|py|go|rs|js|ts|tsx|jsx|json|yaml|yml|xml|toml))(?=[\\s\"').,;:]|$)",
+            Pattern.CASE_INSENSITIVE);
     private static final int MAX_FILES_TO_SCAN = 500;
     private static final int MAX_CHARS_PER_FILE = 50000;
 
     private final String workspaceBlob;
     private final AIVContext context;
 
-    /**
-     * Walks the workspace once; per {@link #validate(String, String)} call, other changed files (not the doc under
-     * validation) are merged so a path cannot "match" only inside the same document.
-     */
+    /** Walks the workspace once at construction time. */
     public PathFabricationDetector(AIVContext context) {
         this.context = context;
         this.workspaceBlob = walkWorkspace(context);
@@ -86,43 +87,54 @@ public final class PathFabricationDetector {
         return sb.toString();
     }
 
-    private String searchBlobExcludingDoc(String docPath) {
-        StringBuilder sb = new StringBuilder(workspaceBlob);
-        for (ChangedFile f : context.getDiff().getChangedFiles()) {
-            if (docPath.equals(f.getPath())) {
-                continue;
-            }
-            sb.append(" ").append(f.getPath()).append(" ").append(f.getContent());
-        }
-        return sb.toString();
-    }
-
     public String validate(String docPath, String content) {
         if (content == null || content.isEmpty()) return null;
-        String blob = searchBlobExcludingDoc(docPath);
         List<String> paths = extractPaths(content);
         for (String p : paths) {
             if (!isLikelyPath(p) || isExcluded(p)) continue;
-            if (!blob.contains(p)) {
+            if (!appearsOutsideCurrentDoc(p, docPath)) {
                 return String.format("Path '%s' in %s has no matches in codebase (possible fabrication)", p, docPath);
             }
         }
         return null;
     }
 
+    private boolean appearsOutsideCurrentDoc(String candidate, String docPath) {
+        if (workspaceBlob.contains(candidate)) {
+            return true;
+        }
+        for (ChangedFile f : context.getDiff().getChangedFiles()) {
+            if (docPath.equals(f.getPath())) {
+                continue;
+            }
+            if (f.getPath().contains(candidate) || f.getContent().contains(candidate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private List<String> extractPaths(String content) {
-        List<String> result = new ArrayList<>();
-        Matcher m = PATH_PATTERN.matcher(content);
-        while (m.find()) {
-            String path = m.group(1).trim();
+        Set<String> result = new LinkedHashSet<>();
+        Matcher structured = STRUCTURED_PATH_PATTERN.matcher(content);
+        while (structured.find()) {
+            String path = structured.group(1).trim();
             if (!path.isEmpty()) result.add(path);
         }
-        return result;
+        Matcher fileTokens = FILE_TOKEN_PATTERN.matcher(content);
+        while (fileTokens.find()) {
+            String token = fileTokens.group(1).trim();
+            if (!token.isEmpty()) result.add(token);
+        }
+        return new ArrayList<>(result);
     }
 
     private boolean isLikelyPath(String s) {
         if (s.length() < 5) return false;
-        return (s.contains("/") || s.startsWith("~/") || s.startsWith("/")) && !s.contains(" ");
+        if (s.contains(" ")) return false;
+        if (s.contains("/") || s.startsWith("~/") || s.startsWith("/")) return true;
+        int dot = s.lastIndexOf('.');
+        return dot > 0 && dot + 1 < s.length();
     }
 
     private boolean isExcluded(String path) {

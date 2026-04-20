@@ -53,7 +53,15 @@ class DiffTest {
         assertEquals(5, diff.getLinesDeleted());
         assertEquals(5, diff.getNetLoc());
         assertEquals("dev@example.com", diff.getAuthorEmail());
+        assertFalse(diff.isHeadCommitSigned());
         assertTrue(diff.isSkipDirectivePresent());
+    }
+
+    @Test
+    void signedCommitFlag() {
+        var diff = new Diff("a", "b", List.of(), "", 0, 0, "dev@example.com", true, false, List.of(), Map.of());
+        assertTrue(diff.isHeadCommitSigned());
+        assertFalse(diff.isSkipDirectivePresent());
     }
 
     @Test

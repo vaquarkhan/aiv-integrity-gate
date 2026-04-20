@@ -50,7 +50,7 @@ class InitCommandTest {
         assertEquals(0, InitCommand.run(root));
         String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
         assertTrue(cfg.contains("python"));
-        assertTrue(cfg.contains("entropy_threshold: 3.8"));
+        assertTrue(cfg.contains("entropy_threshold: 5.0"));
     }
 
     @Test

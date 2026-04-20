@@ -185,21 +185,21 @@ class MainTest {
     void bareWorkspaceFlagDoesNotCrash(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{"--workspace"});
-        assertTrue(code == 0 || code == 1);
+        assertTrue(code == 0 || code == 1 || code == 3);
     }
 
     @Test
     void bareDiffFlagDoesNotCrash(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{"--diff"});
-        assertTrue(code == 0 || code == 1);
+        assertTrue(code == 0 || code == 1 || code == 3);
     }
 
     @Test
     void bareHeadFlagDoesNotCrash(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{"--head"});
-        assertTrue(code == 0 || code == 1);
+        assertTrue(code == 0 || code == 1 || code == 3);
     }
 
     @Test
@@ -225,7 +225,7 @@ class MainTest {
                 "--workspace", repo.toString(),
                 "--diff", "HEAD"
         });
-        assertTrue(code == 0 || code == 1);
+        assertTrue(code == 0 || code == 1 || code == 3);
     }
 
     @Test

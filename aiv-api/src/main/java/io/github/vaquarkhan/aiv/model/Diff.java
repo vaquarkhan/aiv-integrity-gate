@@ -35,6 +35,8 @@ public final class Diff {
     private final int linesAdded;
     private final int linesDeleted;
     private final String authorEmail;
+    /** Latest commit on {@code headRef} has a cryptographic signature marker. */
+    private final boolean headCommitSigned;
     /** Latest commit on {@code headRef} contains an anchored {@code /aiv skip} directive. */
     private final boolean skipDirectivePresent;
     private final List<String> warnings;
@@ -42,18 +44,25 @@ public final class Diff {
     private final Map<String, Integer> perFileNetLoc;
 
     public Diff(String baseRef, String headRef, List<ChangedFile> changedFiles, String rawDiff) {
-        this(baseRef, headRef, changedFiles, rawDiff, 0, 0, null, false, List.of(), Map.of());
+        this(baseRef, headRef, changedFiles, rawDiff, 0, 0, null, false, false, List.of(), Map.of());
     }
 
     public Diff(String baseRef, String headRef, List<ChangedFile> changedFiles, String rawDiff,
                 int linesAdded, int linesDeleted, String authorEmail, boolean skipDirectivePresent) {
         this(baseRef, headRef, changedFiles, rawDiff, linesAdded, linesDeleted, authorEmail,
-                skipDirectivePresent, List.of(), Map.of());
+                false, skipDirectivePresent, List.of(), Map.of());
     }
 
     public Diff(String baseRef, String headRef, List<ChangedFile> changedFiles, String rawDiff,
                 int linesAdded, int linesDeleted, String authorEmail, boolean skipDirectivePresent,
                 List<String> warnings, Map<String, Integer> perFileNetLoc) {
+        this(baseRef, headRef, changedFiles, rawDiff, linesAdded, linesDeleted, authorEmail,
+                false, skipDirectivePresent, warnings, perFileNetLoc);
+    }
+
+    public Diff(String baseRef, String headRef, List<ChangedFile> changedFiles, String rawDiff,
+                int linesAdded, int linesDeleted, String authorEmail, boolean headCommitSigned,
+                boolean skipDirectivePresent, List<String> warnings, Map<String, Integer> perFileNetLoc) {
         this.baseRef = baseRef;
         this.headRef = headRef;
         this.changedFiles = changedFiles == null ? Collections.emptyList() : List.copyOf(changedFiles);
@@ -61,6 +70,7 @@ public final class Diff {
         this.linesAdded = linesAdded;
         this.linesDeleted = linesDeleted;
         this.authorEmail = authorEmail;
+        this.headCommitSigned = headCommitSigned;
         this.skipDirectivePresent = skipDirectivePresent;
         this.warnings = warnings == null ? List.of() : List.copyOf(warnings);
         this.perFileNetLoc = perFileNetLoc == null ? Map.of() : Map.copyOf(perFileNetLoc);
@@ -96,6 +106,10 @@ public final class Diff {
 
     public String getAuthorEmail() {
         return authorEmail;
+    }
+
+    public boolean isHeadCommitSigned() {
+        return headCommitSigned;
     }
 
     public boolean isSkipDirectivePresent() {

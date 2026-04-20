@@ -62,6 +62,17 @@ class PathFabricationDetectorTest {
     }
 
     @Test
+    void returnsNullWhenPathAppearsInWorkspaceBlob(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve("notes"));
+        Files.writeString(dir.resolve("notes/context.txt"), "deploy path: tools/deploy.sh");
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Run tools/deploy.sh from repo root")
+        ));
+        var d = detector(ctx);
+        assertNull(d.validate("README.md", "Run tools/deploy.sh from repo root"));
+    }
+
+    @Test
     void failsWhenPathOnlyInCurrentDocAndNotElsewhere(@TempDir Path dir) {
         var ctx = context(dir, List.of(
                 new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Setup at ~/.virtualenvs/pyspark")
@@ -70,6 +81,17 @@ class PathFabricationDetectorTest {
         String result = d.validate("README.md", "Setup at ~/.virtualenvs/pyspark");
         assertNotNull(result);
         assert result.contains("virtualenvs");
+    }
+
+    @Test
+    void failsForProseFilenameWithExtension(@TempDir Path dir) {
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Run totally-fabricated.sh before deploy.")
+        ));
+        var d = detector(ctx);
+        String result = d.validate("README.md", "Run totally-fabricated.sh before deploy.");
+        assertNotNull(result);
+        assert result.contains("totally-fabricated.sh");
     }
 
     @Test

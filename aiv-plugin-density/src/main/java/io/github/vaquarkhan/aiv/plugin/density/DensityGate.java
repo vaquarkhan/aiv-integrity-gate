@@ -129,11 +129,11 @@ public final class DensityGate implements QualityGate {
     private boolean isTrustedAuthor(AIVContext context) {
         String author = context.getDiff().getAuthorEmail();
         if (author == null || author.isBlank()) return false;
+        if (!context.getDiff().isHeadCommitSigned()) return false;
         List<String> trusted = getTrustedAuthors(context);
         return trusted.stream().anyMatch(t -> t.equalsIgnoreCase(author.trim()));
     }
 
-    @SuppressWarnings("unchecked")
     private List<String> getTrustedAuthors(AIVContext context) {
         Object v = getGateConfig(context).get("trusted_authors");
         if (v instanceof List<?> list) {
