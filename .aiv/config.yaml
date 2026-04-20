@@ -29,6 +29,7 @@ gates:
         - com.github.javaparser.ast
         - com.github.javaparser.ast.comments
         - com.github.javaparser.ast.expr
+        - com.github.javaparser.ast.body
         - com.github.javaparser.ast.visitor
   - id: invariant
     enabled: false
