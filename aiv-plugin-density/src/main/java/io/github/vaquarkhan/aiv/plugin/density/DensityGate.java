@@ -92,7 +92,10 @@ public final class DensityGate implements QualityGate {
                 double entropy = calculateEntropy(content);
                 double effectiveEntropyThreshold = effectiveEntropyThreshold(path, byteLen, entropyThreshold);
                 if (entropy < effectiveEntropyThreshold) {
-                    String msg = String.format("Low entropy (%.2f) in %s - possible boilerplate", entropy, path);
+                    String msg = String.format(
+                            "Entropy %.2f is below effective threshold %.2f for %s (tune density gate "
+                                    + "entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md).",
+                            entropy, effectiveEntropyThreshold, path);
                     failures.add(msg);
                     findings.add(Finding.atLine("density.entropy", path, anchorLine, msg));
                 }

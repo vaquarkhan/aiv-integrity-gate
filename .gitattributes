@@ -1,0 +1,2 @@
+# Normalize text line endings for cross-platform CI and quieter git warnings in tests.
+* text=auto eol=lf

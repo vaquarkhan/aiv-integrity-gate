@@ -11,7 +11,7 @@
     <artifactId>aiv-api</artifactId>
     <packaging>jar</packaging>
     <name>AIV API</name>
-    <description>Interfaces and domain models for AIV</description>
+    <description>Interfaces and domain models for AIV (not an Apache Software Foundation project; Apache-2.0 applies to the code).</description>
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>

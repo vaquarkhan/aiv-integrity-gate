@@ -27,7 +27,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Filters file paths by glob patterns. Used for exclude_paths config.
+ * Filters file paths by glob patterns. Used for {@code exclude_paths} in {@code .aiv/config.yaml}.
+ * Each pattern is repository-relative; an optional {@code glob:} prefix is added when missing.
+ * Matching uses {@link java.nio.file.FileSystem#getPathMatcher(java.lang.String)} with {@code glob:}
+ * syntax (recursive segments use consecutive path wildcards). Invalid globs fall back to simple
+ * substring heuristics. Negation forms and brace expansion are not supported.
  *
  * @author Vaquar Khan
  */

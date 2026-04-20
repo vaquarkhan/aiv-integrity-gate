@@ -258,6 +258,37 @@ class MainTest {
     }
 
     @Test
+    void explainUnknownMentionsDesignRulesPath() {
+        ByteArrayOutputStream err = new ByteArrayOutputStream();
+        PrintStream prev = System.err;
+        try {
+            System.setErr(new PrintStream(err, true, StandardCharsets.UTF_8));
+            assertEquals(1, Main.run(new String[]{"explain", "my-custom-rule-id"}));
+        } finally {
+            System.setErr(prev);
+        }
+        String msg = err.toString(StandardCharsets.UTF_8);
+        assertTrue(msg.contains(".aiv/design-rules.yaml"), msg);
+    }
+
+    @Test
+    void quietSuppressesStdoutReportInDoctorMode(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream prev = System.out;
+        try {
+            System.setOut(new PrintStream(out, true, StandardCharsets.UTF_8));
+            assertEquals(0, Main.run(new String[]{
+                    "doctor", "--quiet", "--workspace", repo.toString(),
+                    "--diff", "HEAD", "--head", "HEAD"
+            }));
+        } finally {
+            System.setOut(prev);
+        }
+        assertFalse(out.toString(StandardCharsets.UTF_8).contains("=== AIV Report"));
+    }
+
+    @Test
     void initWritesConfig(@TempDir Path empty) {
         assertEquals(0, Main.run(new String[]{"init", "--workspace", empty.toString()}));
         assertTrue(Files.exists(empty.resolve(".aiv/config.yaml")));
@@ -306,7 +337,9 @@ class MainTest {
                 "--head", "HEAD",
                 "--output-json", json.toString()
         }));
-        assertTrue(Files.readString(json, StandardCharsets.UTF_8).contains("[DOCTOR]"));
+        String jsonText = Files.readString(json, StandardCharsets.UTF_8);
+        assertTrue(jsonText.contains("[DOCTOR]"));
+        assertTrue(jsonText.contains("\"doctor_mode\": true"), jsonText);
     }
 
     @Test
@@ -320,7 +353,9 @@ class MainTest {
                 "--output-json", json.toString()
         }));
         assertTrue(Files.exists(json));
-        assertTrue(Files.readString(json).contains("\"schema_version\": 2"));
+        String report = Files.readString(json);
+        assertTrue(report.contains("\"schema_version\": 2"));
+        assertTrue(report.contains("\"doctor_mode\": false"));
     }
 
     @Test

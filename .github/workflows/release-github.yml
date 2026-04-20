@@ -68,6 +68,9 @@ jobs:
           VERSION="${{ steps.ver.outputs.version }}"
           JAR="aiv-cli/target/aiv-cli-${VERSION}.jar"
           test -f "$JAR"
+          # Shaded uber JAR (not the thin original-* classifier): must contain CLI entrypoint and bundled deps.
+          unzip -l "$JAR" | grep -q 'io/github/vaquarkhan/aiv/cli/Main.class'
+          unzip -l "$JAR" | grep -q 'org/slf4j/'
           gh release create "$TAG" \
             --repo "${{ github.repository }}" \
             --title "$TAG" \

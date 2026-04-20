@@ -93,7 +93,7 @@ When someone opens a pull request, AIV runs a set of checks on the changed files
 
 4. **Invariant** - Baseline invariants (merge-conflict markers and placeholder markers such as TBD/FIXME/XXX). Keep deeper project-specific invariants in your test suite.
 
-5. **Doc Integrity** - Validates documentation files (.md, .txt, .rst): path existence, cross-references, required mentions, command completeness, path fabrication. Opt-in via `--include-doc-checks` or config with `auto: true` to run only when diff has doc files.
+5. **Doc Integrity** - Validates documentation files (.md, .txt, .rst): path existence, cross-references, required mentions, command completeness, path fabrication. Enable via **`--include-doc-checks`** (forces the gate on every run) or via config (`enabled: true` plus **`auto: true`** to run only when the diff touches docs). See [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md#doc-integrity-gate) for the decision table.
 
 AIV works with Java, Python, Go, Rust, Kotlin, Scala, JavaScript, TypeScript, C, C++, Ruby, and shell. The density gate runs full logic checks on Java only; other languages get entropy checks. Design and dependency checks apply to whatever languages you configure.
 
@@ -108,12 +108,12 @@ No API keys or paid services are required. Everything runs locally in your CI.
 | `aiv-api` | Interfaces, models, and extension points |
 | `aiv-core` | Orchestrator that runs gates in sequence |
 | `aiv-plugin-density` | Logic density and entropy checks |
-| `aiv-plugin-design-lucene` | Design compliance via YAML rules (module name kept for compatibility; runtime matcher is custom token/phrase matching) |
+| `aiv-plugin-design` | Design compliance via YAML rules (Java-aware surface matching; phrase boundaries for prose-like markers) |
 | `aiv-plugin-dependency` | Import validation against pom.xml and requirements.txt |
-| `aiv-plugin-invariant-template` | Invariant gate (passes by default) |
+| `aiv-plugin-invariant-template` | Invariant gate (merge markers, placeholder tokens; off unless enabled in config) |
 | `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) |
 | `aiv-adapter-git` | Git diff provider |
-| `aiv-adapter-github` | Report publishers (stdout by default, optional GitHub Checks via `--publish-github-checks`) |
+| `aiv-adapter-github` | **Default:** `StdoutReportPublisher` (human-readable report to stdout). **Optional:** `GithubChecksPublisher` when you pass **`--publish-github-checks`** (requires `GITHUB_TOKEN` and repository env). |
 | `aiv-cli` | Command-line entry point |
 
 ---
@@ -148,7 +148,7 @@ mvn -pl aiv-cli exec:java -Dexec.args="--diff origin/main"
 | `3` | Git subprocess failure (bad ref, dirty state, etc.). |
 | `4` (optional) | Set with `--warnings-exit-code 4` when the run **passed** but emitted **notices** (e.g. oversized files skipped from scanning). Default remains `0` in that case. |
 
-**Structured output:** `--output-json path/to/aiv-report.json` writes `schema_version: 2` with per-gate **`findings`** (file, line, message). **`--output-sarif`** writes SARIF 2.1.0; **`--publish-github-checks`** posts a GitHub Check with annotations (see [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md)). See [CHANGELOG.md](CHANGELOG.md).
+**Structured output:** `--output-json path/to/aiv-report.json` writes `schema_version: 2`, top-level **`doctor_mode`** (set `true` for `doctor` subcommand runs), and per-gate **`findings`**. Pipelines should treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. **`--output-sarif`** writes SARIF 2.1.0 with **`runs[].properties.doctorMode`**. **`--publish-github-checks`** posts a GitHub Check with annotations (see [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md)). **`--quiet`** suppresses the human-readable stdout report and the one-line INFO summary (pair with `--output-json` / `--output-sarif` for machine-only CI). See [CHANGELOG.md](CHANGELOG.md).
 
 ### Working on this codebase
 
@@ -179,9 +179,10 @@ scripts\validate-example.bat   # Windows
 
 ## Releasing (maintainers)
 
-1. **GitHub Release (JAR):** push a tag `vX.Y.Z` - workflow **Release (GitHub)** runs `mvn verify` and uploads `aiv-cli-X.Y.Z.jar` to the [Releases](https://github.com/vaquarkhan/aiv-integrity-gate/releases) page.  
-2. **Maven Central:** add repository secrets (`CENTRAL_TOKEN_*`, `GPG_*`), then run **Actions → Publish to Maven Central** with version `X.Y.Z` (after the GitHub release).  
-3. **Marketplace:** publish the root **`action.yml`** from the GitHub UI when you want listing updates.
+1. **Version alignment:** after bumping the reactor **`<version>`** in the root `pom.xml`, run **`scripts/sync-action-version.ps1`** (Windows) or **`scripts/sync-action-version.sh`** (Git Bash / Linux) so [action.yml](action.yml) **`inputs.aiv-version`** default matches Maven Central.  
+2. **GitHub Release (JAR):** push a tag `vX.Y.Z` - workflow **Release (GitHub)** runs `mvn verify` and uploads `aiv-cli-X.Y.Z.jar` to the [Releases](https://github.com/vaquarkhan/aiv-integrity-gate/releases) page.  
+3. **Maven Central:** add repository secrets (`CENTRAL_TOKEN_*`, `GPG_*`), then run **Actions → Publish to Maven Central** with version `X.Y.Z` (after the GitHub release).  
+4. **Marketplace:** publish the root **`action.yml`** from the GitHub UI when you want listing updates (and align the Marketplace description with the POM “not ASF” disclaimer if needed).
 
 Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cli-jar-url`).
 
@@ -258,7 +259,7 @@ constraints:
     required_calls: [ExpireSnapshots]
 ```
 
-Optional: add `.aiv/doc-rules.yaml` for documentation validation (paths, cross-refs, commands). Enable with `--include-doc-checks` or set `doc-integrity` gate to `enabled: true` in config.
+Optional: add `.aiv/doc-rules.yaml` for documentation validation (paths, cross-refs, commands). Use **`--include-doc-checks`** for “every run” doc validation, or enable **`doc-integrity`** in `config.yaml` (often with **`auto: true`** so only doc-changing PRs pay the cost). Details: [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md#doc-integrity-gate).
 
 If you omit these files, AIV uses built-in defaults and looks for `.aiv/design-rules.yaml` when the design gate is enabled.
 
@@ -310,7 +311,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap (short)
 
-Shipped foundations: **init**, **doctor** (explicitly labeled informational), **explain**, per-gate **warn** severity, **JSON report** (`--output-json`, `schema_version: 2`), **SARIF** (`--output-sarif`), **GitHub Checks** (`--publish-github-checks`). Next: **baseline** suppressions, optional **`aiv-plugin-security`** (not in the repo yet — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md)). See [CHANGELOG.md](CHANGELOG.md).
+Shipped foundations: **init**, **doctor** (explicitly labeled informational), **explain**, per-gate **warn** severity, **JSON report** (`--output-json`, `schema_version: 2`), **SARIF** (`--output-sarif`), **GitHub Checks** (`--publish-github-checks`), **`--quiet`**. **Not shipped in this repo:** **baseline** suppressions, **`aiv-plugin-security`**, labeled precision/recall benchmarks for gates — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

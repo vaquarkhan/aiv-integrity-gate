@@ -25,11 +25,21 @@ public final class JsonReportWriter {
     /** Bumped when gate report shape changes (e.g. structured findings). */
     public static final int SCHEMA_VERSION = 2;
 
+    /**
+     * True when this run was {@code doctor} mode (informational; exit 0 does not mean CI would pass a normal run).
+     * Machine consumers should check this flag or {@link AIVResult#getNotices()} — not only {@link AIVResult#isPassed()}.
+     */
+    public static boolean isDoctorRun(AIVResult result) {
+        return result.getNotices().stream()
+                .anyMatch(n -> n != null && n.startsWith("[DOCTOR]"));
+    }
+
     public static void write(AIVResult result, Path outputFile, String cliVersion) throws IOException {
         StringBuilder json = new StringBuilder(512);
         json.append("{\n");
         json.append("  \"schema_version\": ").append(SCHEMA_VERSION).append(",\n");
         json.append("  \"aiv_cli_version\": \"").append(escape(cliVersion)).append("\",\n");
+        json.append("  \"doctor_mode\": ").append(isDoctorRun(result)).append(",\n");
         json.append("  \"passed\": ").append(result.isPassed()).append(",\n");
         json.append("  \"notices\": ");
         appendStringArray(json, result.getNotices());

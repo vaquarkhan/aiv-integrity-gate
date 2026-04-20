@@ -120,6 +120,21 @@ class StdoutReportPublisherTest {
     }
 
     @Test
+    void quietSkipsStdoutAndInfoSummary() {
+        var capture = new ByteArrayOutputStream();
+        PrintStream prev = System.out;
+        try {
+            System.setOut(new PrintStream(capture, true, StandardCharsets.UTF_8));
+            var publisher = new StdoutReportPublisher(true);
+            publisher.publish(new AIVResult(true, List.of(GateResult.pass("density"))));
+        } finally {
+            System.setOut(prev);
+        }
+        assertEquals("", capture.toString(StandardCharsets.UTF_8).trim());
+        assertTrue(listAppender.list.stream().map(ILoggingEvent::getFormattedMessage).noneMatch(m -> m.contains("AIV")));
+    }
+
+    @Test
     void publishPrintsDoctorHeaderWhenDoctorNoticePresent() {
         var publisher = new StdoutReportPublisher();
         var result = new AIVResult(true, List.of(GateResult.pass("density")),

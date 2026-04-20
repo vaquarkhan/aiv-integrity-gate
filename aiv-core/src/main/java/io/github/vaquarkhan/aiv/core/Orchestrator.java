@@ -70,6 +70,7 @@ public final class Orchestrator {
     public int run(Path workspace, String baseRef, String headRef, boolean doctor) {
         Diff diff = diffProvider.getDiff(workspace, baseRef, headRef);
         AIVConfig config = configProvider.getConfig(workspace);
+        warnRelaxedIdentityHooks(config);
 
         if (shouldHonorSkip(diff, config)) {
             log.warn("Skipping gates: /aiv skip on latest commit (author allowlist satisfied)");
@@ -193,5 +194,16 @@ public final class Orchestrator {
         String base = lower.contains("/") ? lower.substring(lower.lastIndexOf("/") + 1) : lower;
         return "agents.md".equals(base) || "claude.md".equals(base)
                 || "contributing.md".equals(base) || "readme.md".equals(base);
+    }
+
+    private void warnRelaxedIdentityHooks(AIVConfig config) {
+        if (config.usesTrustedAuthorsBypass()) {
+            log.warn("density gate trusted_authors matches git commit author email from metadata only; "
+                    + "it is not a cryptographic identity check and can be spoofed with local git config.");
+        }
+        if (!config.getSkipAllowlist().isEmpty()) {
+            log.warn("skip_allowlist restricts /aiv skip by author email from git metadata only; "
+                    + "use branch protection and code review for real enforcement.");
+        }
     }
 }

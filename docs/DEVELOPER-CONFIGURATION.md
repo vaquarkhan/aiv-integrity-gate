@@ -55,9 +55,9 @@ Alongside `gates`, you may set:
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `exclude_paths` | list of strings | Glob patterns for paths to skip (generated code, vendor trees, etc.). |
+| `exclude_paths` | list of strings | Repository-relative globs (`**`, `*`, optional `glob:` prefix). See `PathFilter` in source: invalid globs fall back to simple matching. **Negation (`!pattern`) is not supported**—only positive excludes. |
 | `fail_fast` | boolean | If `true`, stop after the first failing gate. Default `false` runs all gates and aggregates failures. |
-| `skip_allowlist` | list of emails | If non-empty, only these author emails may honor `/aiv skip` on the latest commit (case-insensitive). |
+| `skip_allowlist` | list of emails | If non-empty, only these **git author emails** may honor `/aiv skip` on the latest commit (case-insensitive). This is metadata from `git log`, not cryptographic proof of identity. |
 
 Example:
 
@@ -233,7 +233,7 @@ gates:
 
 | Gate ID      | Purpose                    | Config Keys           | Defaults                    |
 |--------------|----------------------------|-----------------------|-----------------------------|
-| `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 5.0, -50 |
+| `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 4.0, -50 |
 | `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
 | `dependency` | Import vs lockfile         | `whitelist`           | -                           |
 | `invariant`  | Invariant checks           | -                     | -                           |
@@ -246,14 +246,14 @@ For every changed documentation file, **`doc-integrity`** also checks **relative
 | Key                       | Type   | Description                                      | Default |
 |---------------------------|--------|--------------------------------------------------|---------|
 | `ldr_threshold`           | float  | Min Logic Density Ratio (control flow vs structure) | 0.25 |
-| `entropy_threshold`       | float  | Min Shannon entropy (flags boilerplate)          | 5.0     |
+| `entropy_threshold`       | float  | Minimum normalized Shannon entropy for scanned files (below threshold fails the gate) | 4.0     |
 | `refactor_net_loc_threshold` | int | Skip density when net LOC <= this (e.g. -50)     | -50     |
-| `trusted_authors`         | list   | Author emails that bypass density when head commit is signed | - |
+| `trusted_authors`         | list or string | Git **author emails** that bypass density when the head commit is signed (same caveats as `skip_allowlist`) | - |
 | `file_extensions`         | list   | Extensions to validate                          | All common |
 | `languages`               | list   | Language names                                   | -       |
 
 - **LDR < threshold** → fail (too much scaffolding, too little logic). LDR runs for Java only.
-- **Entropy < threshold** → fail (repetitive/boilerplate code). Entropy runs for all configured extensions.
+- **Entropy < effective threshold** → fail (statistical low-signal heuristic; tune `entropy_threshold` / `entropy_min_bytes`). Entropy runs for all configured extensions.
 - **Net LOC <= refactor_net_loc_threshold** → skip (refactoring intent).
 - **Author in trusted_authors + signed head commit** → skip.
 
@@ -267,7 +267,16 @@ Validates Java imports against `pom.xml` and Python imports against `requirement
 
 ### Doc Integrity Gate
 
-Disabled by default. Enable with `--include-doc-checks` or add to config with `enabled: true`. Validates markdown and text files (.md, .txt, .rst, AGENTS.md, CLAUDE.md, CONTRIBUTING.md) for: path existence, cross-reference validity, required mentions (YAML-configurable), command completeness, and path fabrication.
+**Two ways to turn it on (pick one primary model to avoid surprises):**
+
+| Mechanism | Effect |
+|-----------|--------|
+| CLI **`--include-doc-checks`** | Wraps config to turn **`doc-integrity` on** for that run and forces **`auto: false`**, so doc checks run **even when the diff has no doc files** (CI “always validate docs” without editing `config.yaml`). |
+| Config **`doc-integrity` → `enabled: true`** | Gate is on whenever AIV runs; set **`auto: true`** so the orchestrator **only** runs it when the diff touches doc-like paths (typical for code-heavy repos). |
+
+With **`auto: true`** in `config.yaml` alone, the gate is skipped on code-only PRs. **`--include-doc-checks`** is the opposite default for `auto`: it sets **`auto: false`** so every run evaluates documentation rules.
+
+Validates markdown and text files (.md, .txt, .rst, AGENTS.md, CLAUDE.md, CONTRIBUTING.md) for: path existence, cross-reference validity, required mentions (YAML-configurable), command completeness, and path fabrication.
 
 | Key         | Type    | Description                                    | Default                |
 |-------------|---------|------------------------------------------------|------------------------|
@@ -381,9 +390,10 @@ constraints:
 | `--diff`      | Base ref for diff              | `origin/main`  |
 | `--head`      | Head ref for diff              | `HEAD`         |
 | `--include-doc-checks` | For this run, wrap config so the **doc-integrity** gate is enabled for documentation files (same effect as turning it on in YAML for local experiments). | (flag absent) |
-| `--doctor`    | Informational run: same checks, exit `0` (tune before enforcement). | (flag absent) |
-| `--output-json` *path* | Write a JSON report (`schema_version: 2`; per-gate `findings`) after the run. | (no file) |
-| `--output-sarif` *path* | Write SARIF 2.1.0 after the run (for Code Scanning / viewers). | (no file) |
+| `--doctor`    | Informational run: same checks, exit `0` (tune before enforcement). JSON includes **`doctor_mode: true`**; SARIF includes **`runs[].properties.doctorMode: true`**. | (flag absent) |
+| `--output-json` *path* | Write a JSON report (`schema_version: 2`, top-level **`doctor_mode`**, per-gate **`findings`**) after the run. Treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. | (no file) |
+| `--output-sarif` *path* | Write SARIF 2.1.0 after the run; run **`properties.doctorMode`** mirrors JSON `doctor_mode`. | (no file) |
+| `--quiet` | Suppress human stdout report and INFO line (use with `--output-json` / `--output-sarif` for machine-only output). | (flag absent) |
 | `--publish-github-checks` | After a successful run, POST a GitHub Check run with annotations (needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `GITHUB_SHA` or `AIV_GITHUB_HEAD_SHA`). | (flag absent) |
 | `--warnings-exit-code` *n* | If the run **passed** but there were **notices** (e.g. skipped oversized files), exit with code *n* (e.g. `4`) instead of `0`. | `0` (disabled) |
 | `--version`, `-V` | Print CLI version and exit   | -              |

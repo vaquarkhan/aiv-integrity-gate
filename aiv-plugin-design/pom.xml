@@ -8,9 +8,9 @@
         <artifactId>aiv-gate</artifactId>
         <version>1.0.4</version>
     </parent>
-    <artifactId>aiv-plugin-design-lucene</artifactId>
+    <artifactId>aiv-plugin-design</artifactId>
     <packaging>jar</packaging>
-    <name>AIV Plugin - Design Compliance (Lucene)</name>
+    <name>AIV Plugin - Design Compliance</name>
     <description>Enforces architecture and design constraints from YAML rules against changed code</description>
     <dependencies>
         <dependency>

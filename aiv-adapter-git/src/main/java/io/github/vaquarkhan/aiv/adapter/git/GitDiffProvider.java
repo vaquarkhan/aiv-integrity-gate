@@ -50,7 +50,7 @@ public final class GitDiffProvider implements DiffProvider {
      * Max bytes read from a captured {@code git} stdout temp file (default 64MB). Tests may set
      * {@code aiv.git.capture.max.bytes} lower to exercise truncation without huge output.
      */
-    private static long maxGitCaptureBytes() {
+    static long maxGitCaptureBytes() {
         String raw = System.getProperty("aiv.git.capture.max.bytes");
         if (raw == null || raw.isBlank()) {
             return 64L * 1024 * 1024;
@@ -63,7 +63,7 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private static long gitTimeoutSeconds() {
+    static long gitTimeoutSeconds() {
         String raw = System.getProperty("aiv.git.timeout.seconds");
         if (raw == null || raw.isBlank()) {
             return DEFAULT_GIT_TIMEOUT_SECONDS;
@@ -76,7 +76,7 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private static boolean gitProcessTimedOut(Process p, long timeoutSeconds) throws InterruptedException {
+    static boolean gitProcessTimedOut(Process p, long timeoutSeconds) throws InterruptedException {
         if (timeoutSeconds == 0) {
             p.waitFor();
             return false;
@@ -157,9 +157,9 @@ public final class GitDiffProvider implements DiffProvider {
         pb.environment().put("GIT_PAGER", "cat");
     }
 
-    private record NumStatResult(int added, int deleted, Map<String, Integer> perFileNet) {}
+    record NumStatResult(int added, int deleted, Map<String, Integer> perFileNet) {}
 
-    private NumStatResult parseNumStatStrict(Path workspace, String baseRef, String headRef) {
+    NumStatResult parseNumStatStrict(Path workspace, String baseRef, String headRef) {
         try {
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", "--numstat", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
@@ -193,7 +193,7 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private int parseNum(String s) {
+    int parseNum(String s) {
         if (s == null || s.equals("-")) return 0;
         try {
             return Integer.parseInt(s);
@@ -202,7 +202,7 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private String parseAuthor(Path workspace, String headRef) {
+    String parseAuthor(Path workspace, String headRef) {
         try {
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "log", "-1", "--format=%ae", headRef);
             pb.directory(workspace.toFile());
@@ -220,7 +220,7 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private boolean parseHeadCommitSigned(Path workspace, String headRef) {
+    boolean parseHeadCommitSigned(Path workspace, String headRef) {
         try {
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "log", "-1", "--format=%G?", headRef);
             pb.directory(workspace.toFile());
@@ -244,7 +244,7 @@ public final class GitDiffProvider implements DiffProvider {
      * Only the latest commit on {@code headRef} is considered. A line triggers skip when it matches the anchored
      * pattern (optional leading slash, literal {@code aiv}, whitespace, {@code skip}, end of line).
      */
-    private boolean parseSkipDirectiveInLatestCommit(Path workspace, String headRef) {
+    boolean parseSkipDirectiveInLatestCommit(Path workspace, String headRef) {
         try {
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "log", "-1", "--pretty=%B", headRef);
             pb.directory(workspace.toFile());
@@ -265,7 +265,7 @@ public final class GitDiffProvider implements DiffProvider {
         return false;
     }
 
-    private String runGitDiffStrict(Path workspace, String baseRef, String headRef) {
+    String runGitDiffStrict(Path workspace, String baseRef, String headRef) {
         try {
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
@@ -286,7 +286,7 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private List<ChangedFile> parseChangedFiles(Path workspace, String baseRef, String headRef, List<String> warnings) {
+    List<ChangedFile> parseChangedFiles(Path workspace, String baseRef, String headRef, List<String> warnings) {
         List<ChangedFile> result = new ArrayList<>();
         try {
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", "--name-status", baseRef + "..." + headRef);
@@ -338,14 +338,14 @@ public final class GitDiffProvider implements DiffProvider {
         return result;
     }
 
-    private static String sanitizePath(String path) {
+    static String sanitizePath(String path) {
         if (path == null || path.isBlank()) return null;
         String normalized = path.replace("\\", "/").replaceAll("/+", "/");
         if (normalized.contains("..") || normalized.startsWith("/")) return null;
         return normalized;
     }
 
-    private String readFileContent(Path workspace, String relativePath, String headRef, List<String> warnings) {
+    String readFileContent(Path workspace, String relativePath, String headRef, List<String> warnings) {
         if (relativePath == null || !relativePath.equals(sanitizePath(relativePath))) return "";
         Path workspaceAbs = workspace.toAbsolutePath().normalize();
         Path fullPath = workspace.resolve(relativePath).normalize().toAbsolutePath();

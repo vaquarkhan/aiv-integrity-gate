@@ -16,9 +16,26 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JsonReportWriterTest {
+
+    @Test
+    void isDoctorRunDetectsDoctorNoticePrefix() {
+        assertFalse(JsonReportWriter.isDoctorRun(new AIVResult(true, List.of(), List.of())));
+        assertTrue(JsonReportWriter.isDoctorRun(new AIVResult(true, List.of(),
+                List.of("[DOCTOR] Informational run"))));
+    }
+
+    @Test
+    void writesDoctorModeTrueWhenNoticesContainDoctor(@TempDir Path dir) throws Exception {
+        Path out = dir.resolve("doctor.json");
+        var result = new AIVResult(true, List.of(GateResult.pass("density")),
+                List.of("[DOCTOR] Informational run: tuning"));
+        JsonReportWriter.write(result, out, "1.0.0");
+        assertTrue(Files.readString(out).contains("\"doctor_mode\": true"));
+    }
 
     @Test
     void writesSchemaVersionAndGates(@TempDir Path dir) throws Exception {
@@ -29,6 +46,7 @@ class JsonReportWriterTest {
         JsonReportWriter.write(result, out, "9.9.9");
         String s = Files.readString(out);
         assertTrue(s.contains("\"schema_version\": 2"));
+        assertTrue(s.contains("\"doctor_mode\": false"));
         assertTrue(s.contains("\"aiv_cli_version\": \"9.9.9\""));
         assertTrue(s.contains("\"id\": \"density\""));
         assertTrue(s.contains("notice one"));

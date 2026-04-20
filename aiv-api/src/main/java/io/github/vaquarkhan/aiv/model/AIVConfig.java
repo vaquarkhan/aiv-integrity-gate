@@ -71,6 +71,29 @@ public final class AIVConfig {
     }
 
     /**
+     * True when the enabled density gate lists non-empty {@code trusted_authors}. This is only used to log
+     * guidance: matching uses git author email from metadata, not cryptographic identity.
+     */
+    public boolean usesTrustedAuthorsBypass() {
+        return findGate("density")
+                .filter(AIVConfig.GateConfig::isEnabled)
+                .map(GateConfig::getConfig)
+                .map(c -> c.get("trusted_authors"))
+                .filter(AIVConfig::trustedAuthorsValueNonEmpty)
+                .isPresent();
+    }
+
+    private static boolean trustedAuthorsValueNonEmpty(Object v) {
+        if (v instanceof List<?> list) {
+            return list.stream().anyMatch(o -> o != null && !o.toString().isBlank());
+        }
+        if (v instanceof String s) {
+            return !s.isBlank();
+        }
+        return false;
+    }
+
+    /**
      * When true, stop at the first failing gate. Default is false (run all gates and report every failure).
      */
     public boolean isFailFast() {

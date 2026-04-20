@@ -26,6 +26,7 @@ inputs:
     description: 'JDK version used to run the CLI JAR'
     required: false
     default: '17'
+  # Release checklist: bump this default to match the reactor <version> in pom.xml when tagging a release.
   aiv-version:
     description: 'Released CLI version (io.github.vaquarkhan.aiv:aiv-cli on Maven Central). Ignored if cli-jar-url is set.'
     required: false

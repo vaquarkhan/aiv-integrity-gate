@@ -140,4 +140,41 @@ class AIVConfigTest {
         assertEquals(1, new AIVConfig(List.of(), Map.of()).getSchemaVersion());
         assertEquals(3, new AIVConfig(List.of(), Map.of("schema_version", 3)).getSchemaVersion());
     }
+
+    @Test
+    void usesTrustedAuthorsBypassWhenDensityListsAuthors() {
+        var cfg = new AIVConfig(List.of(
+                new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", List.of("a@b.com")), "fail")
+        ), Map.of());
+        assertTrue(cfg.usesTrustedAuthorsBypass());
+    }
+
+    @Test
+    void usesTrustedAuthorsBypassFalseWhenDensityDisabledOrEmpty() {
+        assertFalse(new AIVConfig(List.of(
+                new AIVConfig.GateConfig("density", false, Map.of("trusted_authors", List.of("a@b.com")), "fail")
+        ), Map.of()).usesTrustedAuthorsBypass());
+        assertFalse(new AIVConfig(List.of(
+                new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", List.of()), "fail")
+        ), Map.of()).usesTrustedAuthorsBypass());
+        assertFalse(new AIVConfig(List.of(
+                new AIVConfig.GateConfig("design", true, Map.of("trusted_authors", List.of("a@b.com")), "fail")
+        ), Map.of()).usesTrustedAuthorsBypass());
+    }
+
+    @Test
+    void usesTrustedAuthorsBypassWithStringAuthor() {
+        var cfg = new AIVConfig(List.of(
+                new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", "solo@example.com"), "fail")
+        ), Map.of());
+        assertTrue(cfg.usesTrustedAuthorsBypass());
+    }
+
+    @Test
+    void usesTrustedAuthorsBypassFalseWhenTrustedAuthorsNotListOrString() {
+        var cfg = new AIVConfig(List.of(
+                new AIVConfig.GateConfig("density", true, Map.of("trusted_authors", Integer.valueOf(42)), "fail")
+        ), Map.of());
+        assertFalse(cfg.usesTrustedAuthorsBypass());
+    }
 }

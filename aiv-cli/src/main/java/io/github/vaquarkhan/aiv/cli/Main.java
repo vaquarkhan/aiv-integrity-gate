@@ -78,9 +78,12 @@ public final class Main {
         Path sarifOutputPath = null;
         boolean publishGithubChecks = false;
         int warningsExitCode = 0;
+        boolean quiet = false;
 
         for (int i = 0; i < gateArgs.length; i++) {
-            if ("--workspace".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            if ("--quiet".equals(gateArgs[i])) {
+                quiet = true;
+            } else if ("--workspace".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
                 workspace = Paths.get(gateArgs[++i]).toAbsolutePath();
             } else if ("--diff".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
                 baseRef = gateArgs[++i];
@@ -112,7 +115,7 @@ public final class Main {
             if (includeDocChecks) {
                 configProvider = new DocChecksConfigProvider(configProvider, true);
             }
-            var recording = new RecordingReportPublisher(new StdoutReportPublisher());
+            var recording = new RecordingReportPublisher(new StdoutReportPublisher(quiet));
             var orchestrator = new Orchestrator(diffProvider, configProvider, recording);
             int coreExit = orchestrator.run(workspace, baseRef, headRef, doctor);
             AIVResult last = recording.getLastResult();

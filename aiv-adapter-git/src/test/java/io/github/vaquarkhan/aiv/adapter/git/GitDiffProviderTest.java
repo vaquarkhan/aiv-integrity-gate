@@ -33,8 +33,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.nio.file.attribute.PosixFilePermissions;
@@ -250,68 +248,57 @@ class GitDiffProviderTest {
     }
 
     @Test
-    void privateReadFileContentRejectsUnsanitizedOrEscapingPaths(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+    void readFileContentRejectsUnsanitizedOrEscapingPaths(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
 
         var provider = new GitDiffProvider();
-        Method m = GitDiffProvider.class.getDeclaredMethod("readFileContent", Path.class, String.class, String.class, List.class);
-        m.setAccessible(true);
         var w = new ArrayList<String>();
 
         // Backslashes normalize to forward slashes in sanitizePath, so equality check should reject this input.
-        assertEquals("", (String) m.invoke(provider, repo.toAbsolutePath(), "a\\b.txt", "HEAD", w));
+        assertEquals("", provider.readFileContent(repo.toAbsolutePath(), "a\\b.txt", "HEAD", w));
 
         // Absolute paths should be rejected (would escape the workspace).
-        assertEquals("", (String) m.invoke(provider, repo.toAbsolutePath(), "C:/Windows/System32/drivers/etc/hosts", "HEAD", w));
+        assertEquals("", provider.readFileContent(repo.toAbsolutePath(), "C:/Windows/System32/drivers/etc/hosts", "HEAD", w));
     }
 
     @Test
-    void privateReadFileContentRejectsAbsolutePathOutsideWorkspace(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+    void readFileContentRejectsAbsolutePathOutsideWorkspace(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
 
         var provider = new GitDiffProvider();
-        Method m = GitDiffProvider.class.getDeclaredMethod("readFileContent", Path.class, String.class, String.class, List.class);
-        m.setAccessible(true);
         var w = new ArrayList<String>();
 
         Path outside = Files.createTempFile("aiv-outside-", ".txt").toAbsolutePath();
         try {
             // This absolute path is guaranteed to resolve outside the repo on any OS.
-            assertEquals("", (String) m.invoke(provider, repo.toAbsolutePath(), outside.toString(), "HEAD", w));
+            assertEquals("", provider.readFileContent(repo.toAbsolutePath(), outside.toString(), "HEAD", w));
         } finally {
             Files.deleteIfExists(outside);
         }
     }
 
     @Test
-    void privateGitHelpersGracefullyHandleMissingWorkspace() throws Exception {
+    void gitHelpersGracefullyHandleMissingWorkspace() throws Exception {
         var provider = new GitDiffProvider();
         Path missing = Path.of("this-directory-should-not-exist-12345").toAbsolutePath().resolve("missing");
 
-        Method author = GitDiffProvider.class.getDeclaredMethod("parseAuthor", Path.class, String.class);
-        author.setAccessible(true);
-        assertNull((String) author.invoke(provider, missing, "HEAD"));
+        assertNull(provider.parseAuthor(missing, "HEAD"));
     }
 
     @Test
-    void privateHelpersCoverRemainingBranches(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+    void helpersCoverRemainingBranches(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
 
         // sanitizePath: null/blank branches
-        Method sanitize = GitDiffProvider.class.getDeclaredMethod("sanitizePath", String.class);
-        sanitize.setAccessible(true);
-        assertNull((String) sanitize.invoke(null, (Object) null));
-        assertNull((String) sanitize.invoke(null, "   "));
+        assertNull(GitDiffProvider.sanitizePath(null));
+        assertNull(GitDiffProvider.sanitizePath("   "));
 
         // readFileContent: exception path when running `git show` from a missing workspace
         Path missing = repo.resolve("does-not-exist");
-        Method read = GitDiffProvider.class.getDeclaredMethod("readFileContent", Path.class, String.class, String.class, List.class);
-        read.setAccessible(true);
         var warn = new ArrayList<String>();
-        assertEquals("", (String) read.invoke(new GitDiffProvider(), missing, "x.txt", "HEAD", warn));
+        assertEquals("", new GitDiffProvider().readFileContent(missing, "x.txt", "HEAD", warn));
 
         // readFileContent: `git show` content length > 2MB should return empty string.
-        // Use reflection to avoid calling getDiff(), which would also materialize a potentially huge raw diff.
         Files.writeString(repo.resolve("base.txt"), "base\n", StandardCharsets.UTF_8);
         runGit(repo, "add", "base.txt");
         runGit(repo, "commit", "-m", "base");
@@ -323,27 +310,25 @@ class GitDiffProviderTest {
         Files.delete(repo.resolve("huge.txt"));
 
         warn.clear();
-        assertEquals("", (String) read.invoke(new GitDiffProvider(), repo.toAbsolutePath(), "huge.txt", "HEAD", warn));
+        assertEquals("", new GitDiffProvider().readFileContent(repo.toAbsolutePath(), "huge.txt", "HEAD", warn));
         assertTrue(warn.stream().anyMatch(s -> s.contains("huge.txt")));
     }
 
     @Test
     void gitTimeoutSecondsReadsPropertyOrDefault() throws Exception {
-        Method m = GitDiffProvider.class.getDeclaredMethod("gitTimeoutSeconds");
-        m.setAccessible(true);
         String prop = "aiv.git.timeout.seconds";
         String prev = System.getProperty(prop);
         try {
             System.clearProperty(prop);
-            assertEquals(120L, m.invoke(null));
+            assertEquals(120L, GitDiffProvider.gitTimeoutSeconds());
             System.setProperty(prop, "  ");
-            assertEquals(120L, m.invoke(null));
+            assertEquals(120L, GitDiffProvider.gitTimeoutSeconds());
             System.setProperty(prop, "  3 ");
-            assertEquals(3L, m.invoke(null));
+            assertEquals(3L, GitDiffProvider.gitTimeoutSeconds());
             System.setProperty(prop, "-9");
-            assertEquals(120L, m.invoke(null));
+            assertEquals(120L, GitDiffProvider.gitTimeoutSeconds());
             System.setProperty(prop, "not-a-number");
-            assertEquals(120L, m.invoke(null));
+            assertEquals(120L, GitDiffProvider.gitTimeoutSeconds());
         } finally {
             if (prev == null) {
                 System.clearProperty(prop);
@@ -355,21 +340,19 @@ class GitDiffProviderTest {
 
     @Test
     void maxGitCaptureBytesReadsPropertyOrDefault() throws Exception {
-        Method m = GitDiffProvider.class.getDeclaredMethod("maxGitCaptureBytes");
-        m.setAccessible(true);
         String prop = "aiv.git.capture.max.bytes";
         String prev = System.getProperty(prop);
         try {
             System.clearProperty(prop);
-            assertEquals(64L * 1024 * 1024, m.invoke(null));
+            assertEquals(64L * 1024 * 1024, GitDiffProvider.maxGitCaptureBytes());
             System.setProperty(prop, "1024");
-            assertEquals(1024L, m.invoke(null));
+            assertEquals(1024L, GitDiffProvider.maxGitCaptureBytes());
             System.setProperty(prop, "   ");
-            assertEquals(64L * 1024 * 1024, m.invoke(null));
+            assertEquals(64L * 1024 * 1024, GitDiffProvider.maxGitCaptureBytes());
             System.setProperty(prop, "0");
-            assertEquals(64L * 1024 * 1024, m.invoke(null));
+            assertEquals(64L * 1024 * 1024, GitDiffProvider.maxGitCaptureBytes());
             System.setProperty(prop, "bad");
-            assertEquals(64L * 1024 * 1024, m.invoke(null));
+            assertEquals(64L * 1024 * 1024, GitDiffProvider.maxGitCaptureBytes());
         } finally {
             if (prev == null) {
                 System.clearProperty(prop);
@@ -381,26 +364,20 @@ class GitDiffProviderTest {
 
     @Test
     void gitProcessTimedOutWithZeroTimeoutWaitsUntilExit() throws Exception {
-        Method m = GitDiffProvider.class.getDeclaredMethod("gitProcessTimedOut", Process.class, long.class);
-        m.setAccessible(true);
         ProcessBuilder pb = quickExitProcess();
         Process p = pb.start();
-        assertFalse((boolean) m.invoke(null, p, 0L));
+        assertFalse(GitDiffProvider.gitProcessTimedOut(p, 0L));
     }
 
     @Test
     void gitProcessTimedOutClampsNonPositiveTimeoutToOneSecond() throws Exception {
-        Method m = GitDiffProvider.class.getDeclaredMethod("gitProcessTimedOut", Process.class, long.class);
-        m.setAccessible(true);
         ProcessBuilder pb = quickExitProcess();
         Process p = pb.start();
-        assertFalse((boolean) m.invoke(null, p, -5L));
+        assertFalse(GitDiffProvider.gitProcessTimedOut(p, -5L));
     }
 
     @Test
     void gitProcessTimedOutDestroysHungProcess(@TempDir Path dir) throws Exception {
-        Method m = GitDiffProvider.class.getDeclaredMethod("gitProcessTimedOut", Process.class, long.class);
-        m.setAccessible(true);
         Path tmp = dir.resolve("hung" + slowGitExtension());
         try {
             writeHungProcessScript(tmp);
@@ -412,7 +389,7 @@ class GitDiffProviderTest {
                 hangPb = new ProcessBuilder("sh", tmp.toAbsolutePath().toString());
             }
             Process p = hangPb.start();
-            assertTrue((boolean) m.invoke(null, p, 1L));
+            assertTrue(GitDiffProvider.gitProcessTimedOut(p, 1L));
             assertTrue(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - t0) < 15_000);
             p.waitFor(5, TimeUnit.SECONDS);
         } finally {
@@ -452,19 +429,15 @@ class GitDiffProviderTest {
 
     @Test
     void parseNumIgnoresNonNumericTokens() throws Exception {
-        Method parseNum = GitDiffProvider.class.getDeclaredMethod("parseNum", String.class);
-        parseNum.setAccessible(true);
         var provider = new GitDiffProvider();
-        assertEquals(0, parseNum.invoke(provider, "x"));
+        assertEquals(0, provider.parseNum("x"));
     }
 
     @Test
     void parseNumHandlesNullAndDashAsZero() throws Exception {
-        Method parseNum = GitDiffProvider.class.getDeclaredMethod("parseNum", String.class);
-        parseNum.setAccessible(true);
         var provider = new GitDiffProvider();
-        assertEquals(0, parseNum.invoke(provider, (Object) null));
-        assertEquals(0, parseNum.invoke(provider, "-"));
+        assertEquals(0, provider.parseNum(null));
+        assertEquals(0, provider.parseNum("-"));
     }
 
     @Test
@@ -579,14 +552,11 @@ class GitDiffProviderTest {
     @Test
     void parseNumStatStrictWrapsIOException() throws Exception {
         var provider = new GitDiffProvider();
-        Method m = GitDiffProvider.class.getDeclaredMethod("parseNumStatStrict", Path.class, String.class, String.class);
-        m.setAccessible(true);
         String prev = System.getProperty("aiv.git.executable");
         try {
             System.setProperty("aiv.git.executable", Path.of("no-such-git-" + System.nanoTime() + ".exe").toString());
-            InvocationTargetException ite = assertThrows(InvocationTargetException.class, () ->
-                    m.invoke(provider, Path.of(".").toAbsolutePath(), "HEAD", "HEAD"));
-            assertInstanceOf(IllegalStateException.class, ite.getCause());
+            assertThrows(IllegalStateException.class, () ->
+                    provider.parseNumStatStrict(Path.of(".").toAbsolutePath(), "HEAD", "HEAD"));
         } finally {
             if (prev == null) {
                 System.clearProperty("aiv.git.executable");
@@ -599,12 +569,10 @@ class GitDiffProviderTest {
     @Test
     void parseSkipReturnsFalseWhenGitCannotStart(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
-        Method m = GitDiffProvider.class.getDeclaredMethod("parseSkipDirectiveInLatestCommit", Path.class, String.class);
-        m.setAccessible(true);
         String prev = System.getProperty("aiv.git.executable");
         try {
             System.setProperty("aiv.git.executable", repo.resolve("missing-git-" + System.nanoTime()).toString());
-            assertEquals(false, m.invoke(new GitDiffProvider(), repo.toAbsolutePath(), "HEAD"));
+            assertFalse(new GitDiffProvider().parseSkipDirectiveInLatestCommit(repo.toAbsolutePath(), "HEAD"));
         } finally {
             if (prev == null) {
                 System.clearProperty("aiv.git.executable");
@@ -617,12 +585,10 @@ class GitDiffProviderTest {
     @Test
     void parseHeadCommitSignedReturnsFalseWhenGitCannotStart(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
-        Method m = GitDiffProvider.class.getDeclaredMethod("parseHeadCommitSigned", Path.class, String.class);
-        m.setAccessible(true);
         String prev = System.getProperty("aiv.git.executable");
         try {
             System.setProperty("aiv.git.executable", repo.resolve("missing-git-" + System.nanoTime()).toString());
-            assertEquals(false, m.invoke(new GitDiffProvider(), repo.toAbsolutePath(), "HEAD"));
+            assertFalse(new GitDiffProvider().parseHeadCommitSigned(repo.toAbsolutePath(), "HEAD"));
         } finally {
             if (prev == null) {
                 System.clearProperty("aiv.git.executable");
@@ -634,14 +600,11 @@ class GitDiffProviderTest {
 
     @Test
     void runGitDiffStrictWrapsIOException() throws Exception {
-        Method m = GitDiffProvider.class.getDeclaredMethod("runGitDiffStrict", Path.class, String.class, String.class);
-        m.setAccessible(true);
         String prev = System.getProperty("aiv.git.executable");
         try {
             System.setProperty("aiv.git.executable", Path.of("missing-git-" + System.nanoTime() + ".exe").toString());
-            InvocationTargetException ite = assertThrows(InvocationTargetException.class, () ->
-                    m.invoke(new GitDiffProvider(), Path.of(".").toAbsolutePath(), "HEAD", "HEAD"));
-            assertInstanceOf(IllegalStateException.class, ite.getCause());
+            assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().runGitDiffStrict(Path.of(".").toAbsolutePath(), "HEAD", "HEAD"));
         } finally {
             if (prev == null) {
                 System.clearProperty("aiv.git.executable");
@@ -653,14 +616,11 @@ class GitDiffProviderTest {
 
     @Test
     void parseChangedFilesWrapsIOException() throws Exception {
-        Method m = GitDiffProvider.class.getDeclaredMethod("parseChangedFiles", Path.class, String.class, String.class, List.class);
-        m.setAccessible(true);
         String prev = System.getProperty("aiv.git.executable");
         try {
             System.setProperty("aiv.git.executable", Path.of("missing-git-" + System.nanoTime() + ".exe").toString());
-            InvocationTargetException ite = assertThrows(InvocationTargetException.class, () ->
-                    m.invoke(new GitDiffProvider(), Path.of(".").toAbsolutePath(), "HEAD", "HEAD", new ArrayList<String>()));
-            assertInstanceOf(IllegalStateException.class, ite.getCause());
+            assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().parseChangedFiles(Path.of(".").toAbsolutePath(), "HEAD", "HEAD", new ArrayList<>()));
         } finally {
             if (prev == null) {
                 System.clearProperty("aiv.git.executable");
@@ -683,10 +643,8 @@ class GitDiffProviderTest {
             runGit(repo, "add", "only-in-git.txt");
             runGit(repo, "commit", "-m", "add");
             Files.delete(repo.resolve("only-in-git.txt"));
-            Method read = GitDiffProvider.class.getDeclaredMethod("readFileContent", Path.class, String.class, String.class, List.class);
-            read.setAccessible(true);
             var warn = new ArrayList<String>();
-            assertEquals("", read.invoke(new GitDiffProvider(), repo.toAbsolutePath(), "only-in-git.txt", "HEAD", warn));
+            assertEquals("", new GitDiffProvider().readFileContent(repo.toAbsolutePath(), "only-in-git.txt", "HEAD", warn));
             assertTrue(warn.stream().anyMatch(s -> s.contains("timed out") && s.contains("only-in-git")));
         } finally {
             if (prevGit == null) {
@@ -706,14 +664,12 @@ class GitDiffProviderTest {
     void readFileContentReturnsEmptyWhenGitShowFails(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
         var provider = new GitDiffProvider();
-        Method read = GitDiffProvider.class.getDeclaredMethod("readFileContent", Path.class, String.class, String.class, List.class);
-        read.setAccessible(true);
         Files.writeString(repo.resolve("x.txt"), "x\n", StandardCharsets.UTF_8);
         runGit(repo, "add", "x.txt");
         runGit(repo, "commit", "-m", "x");
         Files.delete(repo.resolve("x.txt"));
         var warn = new ArrayList<String>();
-        assertEquals("", read.invoke(provider, repo.toAbsolutePath(), "x.txt", "not-a-valid-ref-zzz", warn));
+        assertEquals("", provider.readFileContent(repo.toAbsolutePath(), "x.txt", "not-a-valid-ref-zzz", warn));
     }
 
     private static String findGitExecutable() throws Exception {

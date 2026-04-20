@@ -4,10 +4,16 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 
 ## 1.0.4 - 2026-04-19
 
+### Breaking changes
+
+- **Maven artifact rename:** `io.github.vaquarkhan:aiv-plugin-design-lucene` is now **`io.github.vaquarkhan:aiv-plugin-design`** (same Java packages). Update any explicit dependency or BOM entry that referenced the old artifact id.
+- **`--output-json` consumers:** JSON reports moved from **`schema_version: 1`** (1.0.3) to **`schema_version: 2`** in 1.0.4. Tooling that assumed the v1 shape must be updated; see this changelog’s 1.0.4 structured JSON bullet for the new fields.
+
 ### User-facing
 
 - **SARIF:** `--output-sarif <path>` writes SARIF 2.1.0 for GitHub Code Scanning and compatible viewers.
-- **Structured JSON:** `--output-json` reports use **`schema_version: 2`**. Each gate includes a **`findings`** array with `rule_id`, `file`, `start_line`, optional range columns, and `message` (for SARIF, dashboards, and tooling).
+- **Structured JSON:** `--output-json` reports use **`schema_version: 2`**. Top-level **`doctor_mode`** (`true`/`false`) flags informational **`doctor`** runs so CI can ignore `passed` when tuning. Each gate includes a **`findings`** array with `rule_id`, `file`, `start_line`, optional range columns, and `message` (for SARIF, dashboards, and tooling).
+- **SARIF run properties:** Each run includes **`properties.doctorMode`** (boolean) for the same distinction.
 - **GitHub Checks:** `--publish-github-checks` creates a Check run with inline annotations from findings. Requires `GITHUB_TOKEN`, `GITHUB_REPOSITORY` (`owner/repo`), and `GITHUB_SHA` or `AIV_GITHUB_HEAD_SHA`. Optional: `AIV_GITHUB_CHECKS_URL` or JVM property `aiv.github.checks.url` to override the Checks API URL (e.g. testing).
 - **Composite action:** [action.yml](action.yml) default `aiv-version` is **1.0.4**.
 

@@ -32,8 +32,27 @@ public final class StdoutReportPublisher implements ReportPublisher {
 
     private static final Logger log = LoggerFactory.getLogger(StdoutReportPublisher.class);
 
+    private final boolean quiet;
+
+    /** Human-readable report to stdout plus one-line INFO summary (default). */
+    public StdoutReportPublisher() {
+        this(false);
+    }
+
+    /**
+     * @param quiet when true, suppresses the multi-line report and the INFO summary (use with
+     *              {@code --output-json} / {@code --output-sarif} for machine-only output).
+     */
+    public StdoutReportPublisher(boolean quiet) {
+        this.quiet = quiet;
+    }
+
     @Override
     public void publish(AIVResult result) {
+        if (quiet) {
+            log.debug("AIV {} (quiet: stdout report suppressed)", result.isPassed() ? "PASS" : "FAIL");
+            return;
+        }
         StringBuilder sb = new StringBuilder();
         boolean doctor = result.getNotices().stream().anyMatch(n -> n != null && n.startsWith("[DOCTOR]"));
         sb.append(doctor ? "=== AIV Report (DOCTOR) ===\n" : "=== AIV Report ===\n");

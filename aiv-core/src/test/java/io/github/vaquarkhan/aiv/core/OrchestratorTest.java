@@ -96,6 +96,35 @@ class OrchestratorTest {
     }
 
     @Test
+    void doctorRunWithTrustedAuthorsAndSkipAllowlistEmitsPolicyHints() {
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
+                return new Diff(baseRef, headRef, List.of(), "");
+            }
+        };
+        List<AIVConfig.GateConfig> gates = new ArrayList<>(allGatesDisabled());
+        gates.add(new AIVConfig.GateConfig("density", true,
+                Map.of("trusted_authors", List.of("team@example.com")), "fail"));
+        AIVConfig cfg = new AIVConfig(gates, Map.of("skip_allowlist", List.of("boss@example.com")));
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(java.nio.file.Path workspace) {
+                return cfg;
+            }
+        };
+        var reportPublisher = new ReportPublisher() {
+            @Override
+            public void publish(AIVResult result) {
+                // no-op
+            }
+        };
+        var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
+        assertEquals(0, orch.run(Paths.get("."), "main", "HEAD", true));
+        assertTrue(cfg.usesTrustedAuthorsBypass());
+    }
+
+    @Test
     void runReturnsZeroWhenAllPass() {
         var diffProvider = new DiffProvider() {
             @Override

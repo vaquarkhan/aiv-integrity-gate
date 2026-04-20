@@ -11,7 +11,7 @@
     <artifactId>aiv-cli</artifactId>
     <packaging>jar</packaging>
     <name>AIV CLI</name>
-    <description>Command-line runner that executes AIV gates on git diffs in CI or local workflows</description>
+    <description>Command-line runner that executes AIV gates on git diffs in CI or local workflows (not an Apache Software Foundation project).</description>
     <dependencies>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>
@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>
-            <artifactId>aiv-plugin-design-lucene</artifactId>
+            <artifactId>aiv-plugin-design</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>

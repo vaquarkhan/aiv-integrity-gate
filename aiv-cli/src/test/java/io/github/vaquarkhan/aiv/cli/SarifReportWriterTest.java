@@ -23,7 +23,17 @@ class SarifReportWriterTest {
     void writesEmptyResultsWhenAllGatesPass(@TempDir Path dir) throws Exception {
         Path out = dir.resolve("pass.sarif");
         SarifReportWriter.write(new AIVResult(true, List.of(GateResult.pass("density"))), out, "1.0");
-        assertTrue(Files.readString(out).contains("\"results\": []"));
+        String s = Files.readString(out);
+        assertTrue(s.contains("\"results\": []"));
+        assertTrue(s.contains("\"doctorMode\": false"));
+    }
+
+    @Test
+    void writesDoctorModeInRunProperties(@TempDir Path dir) throws Exception {
+        Path out = dir.resolve("doctor.sarif");
+        SarifReportWriter.write(new AIVResult(true, List.of(GateResult.pass("density")),
+                List.of("[DOCTOR] Informational")), out, "1.0");
+        assertTrue(Files.readString(out).contains("\"doctorMode\": true"));
     }
 
     @Test

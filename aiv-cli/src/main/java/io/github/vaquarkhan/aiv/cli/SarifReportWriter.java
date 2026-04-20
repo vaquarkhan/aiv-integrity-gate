@@ -30,6 +30,9 @@ public final class SarifReportWriter {
         sb.append("  \"$schema\": \"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json\",\n");
         sb.append("  \"version\": \"2.1.0\",\n");
         sb.append("  \"runs\": [\n    {\n");
+        sb.append("      \"properties\": {\n");
+        sb.append("        \"doctorMode\": ").append(JsonReportWriter.isDoctorRun(result)).append("\n");
+        sb.append("      },\n");
         sb.append("      \"tool\": {\n        \"driver\": {\n");
         sb.append("          \"name\": \"aiv-cli\",\n");
         sb.append("          \"version\": \"").append(JsonReportWriter.escape(cliVersion)).append("\",\n");

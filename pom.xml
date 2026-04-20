@@ -9,7 +9,7 @@
     <version>1.0.4</version>
     <packaging>pom</packaging>
     <name>AIV Gate - Automated Integrity Validation</name>
-    <description>Automated integrity validation for pull-request diffs (local, no network)</description>
+    <description>Automated integrity validation for pull-request diffs (local, no network). This project is not affiliated with the Apache Software Foundation; the Apache License 2.0 applies to the source code only.</description>
     <url>https://github.com/vaquarkhan/aiv-integrity-gate</url>
 
     <licenses>
@@ -50,7 +50,7 @@
         <module>aiv-api</module>
         <module>aiv-core</module>
         <module>aiv-plugin-density</module>
-        <module>aiv-plugin-design-lucene</module>
+        <module>aiv-plugin-design</module>
         <module>aiv-plugin-invariant-template</module>
         <module>aiv-plugin-dependency</module>
         <module>aiv-plugin-doc-integrity</module>
@@ -78,7 +78,7 @@
             </dependency>
             <dependency>
                 <groupId>io.github.vaquarkhan</groupId>
-                <artifactId>aiv-plugin-design-lucene</artifactId>
+                <artifactId>aiv-plugin-design</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
