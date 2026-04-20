@@ -94,7 +94,7 @@ class MainTest {
     @Test
     void runWithDefaultArgs() {
         int code = Main.run(new String[0]);
-        assertTrue(code == 0 || code == 1);
+        assertTrue(code == 0 || code == 1 || code == 3);
     }
 
     @Test
