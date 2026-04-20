@@ -1,0 +1,89 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.github.vaquarkhan.aiv.plugin.invariant;
+
+import io.github.vaquarkhan.aiv.model.*;
+import org.junit.jupiter.api.Test;
+
+import java.nio.file.Paths;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author Vaquar Khan
+ */
+class InvariantGateTest {
+
+    @Test
+    void getId() {
+        assertEquals("invariant", new InvariantGate().getId());
+    }
+
+    @Test
+    void passesWhenNoJavaFiles() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of());
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
+    @Test
+    void passesWhenJavaFilesPresent() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.ADDED, "class A {}")));
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
+    @Test
+    void ignoresBlankContentFiles() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED, "   \n")));
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
+    @Test
+    void failsOnMergeConflictMarker() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED,
+                "<<<<<<< HEAD\nclass A {}\n=======\nclass B {}\n>>>>>>> branch\n")));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("Merge conflict marker"));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.merge-conflict".equals(f.getRuleId())));
+    }
+
+    @Test
+    void failsOnPlaceholderMarker() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED,
+                "class A { // FIXME: finalize logic\n}\n")));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("Placeholder marker"));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.placeholder".equals(f.getRuleId())));
+    }
+
+    private AIVContext context(List<ChangedFile> files) {
+        var diff = new Diff("main", "HEAD", files, "");
+        var config = new AIVConfig(List.of(), java.util.Map.of());
+        return new AIVContext(Paths.get("."), diff, config);
+    }
+}

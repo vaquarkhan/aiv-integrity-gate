@@ -6,22 +6,23 @@
 
     <groupId>io.github.vaquarkhan</groupId>
     <artifactId>aiv-gate</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.4</version>
     <packaging>pom</packaging>
     <name>AIV Gate - Automated Integrity Validation</name>
-    <description>Technical gate for code integrity validation in Apache projects</description>
+    <description>Automated integrity validation for pull-request diffs (local, no network). This project is not affiliated with the Apache Software Foundation; the Apache License 2.0 applies to the source code only.</description>
     <url>https://github.com/vaquarkhan/aiv-integrity-gate</url>
 
     <licenses>
         <license>
-            <name>AIV Custom License (see LICENSE in repository)</name>
-            <url>https://github.com/vaquarkhan/aiv-integrity-gate/blob/main/LICENSE</url>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
+            <id>vaquarkhan</id>
             <name>Vaquar Khan</name>
             <url>https://github.com/vaquarkhan</url>
         </developer>
@@ -49,7 +50,7 @@
         <module>aiv-api</module>
         <module>aiv-core</module>
         <module>aiv-plugin-density</module>
-        <module>aiv-plugin-design-lucene</module>
+        <module>aiv-plugin-design</module>
         <module>aiv-plugin-invariant-template</module>
         <module>aiv-plugin-dependency</module>
         <module>aiv-plugin-doc-integrity</module>
@@ -77,7 +78,7 @@
             </dependency>
             <dependency>
                 <groupId>io.github.vaquarkhan</groupId>
-                <artifactId>aiv-plugin-design-lucene</artifactId>
+                <artifactId>aiv-plugin-design</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

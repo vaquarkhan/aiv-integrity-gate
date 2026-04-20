@@ -3,12 +3,15 @@
 #   - "**/generated/**"
 #   - "**/*.pb.java"
 
+schema_version: 1
+fail_fast: false
+
 gates:
   - id: density
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 3.8
+      entropy_threshold: 4.0
       refactor_net_loc_threshold: -50
       trusted_authors: []
   - id: design

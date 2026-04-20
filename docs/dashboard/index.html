@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIV Integrity Gate - dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <h1>AIV dashboard</h1>
+        <p>Historical pass/fail, gate trends, and run duration - all from local JSON (no server).</p>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="btn btn-icon" id="theme-toggle" aria-label="Toggle color theme">
+          Theme
+        </button>
+        <button type="button" class="btn btn-primary" id="load-sample">Load sample data</button>
+        <label class="file-label btn">
+          Load JSON
+          <input id="file-input" type="file" accept="application/json,.json" />
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div id="status" class="status-banner" hidden></div>
+
+      <section class="kpi-grid" aria-label="Summary">
+        <div class="kpi">
+          <div class="label">Runs</div>
+          <div class="value" id="kpi-runs">-</div>
+          <div class="sub">in current dataset</div>
+        </div>
+        <div class="kpi pass">
+          <div class="label">Pass rate</div>
+          <div class="value" id="kpi-pass-rate">-</div>
+          <div class="sub">overall</div>
+        </div>
+        <div class="kpi fail">
+          <div class="label">Failed runs</div>
+          <div class="value" id="kpi-fails">-</div>
+          <div class="sub">count</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Top noisy gate</div>
+          <div class="value" id="kpi-top-gate" style="font-size: 1.1rem">-</div>
+          <div class="sub">by failure count</div>
+        </div>
+      </section>
+
+      <section class="chart-grid" aria-label="Charts">
+        <div class="chart-card span-4">
+          <h2>Pass vs fail</h2>
+          <p class="hint">Share of runs that passed every gate.</p>
+          <div class="chart-wrap short">
+            <canvas id="chart-doughnut" role="img" aria-label="Pass versus fail doughnut chart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card span-8">
+          <h2>Run outcomes &amp; rolling health</h2>
+          <p class="hint">Per-run outcome (100% / 0%) and cumulative pass rate.</p>
+          <div class="chart-wrap tall">
+            <canvas id="chart-pass-rate" role="img" aria-label="Line chart of pass rate over runs"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card span-6">
+          <h2>Failures by gate</h2>
+          <p class="hint">How often each gate failed across runs.</p>
+          <p id="chart-gate-fails-empty" class="hint chart-empty" hidden>
+            No gate-level failures in this dataset.
+          </p>
+          <div class="chart-wrap">
+            <canvas id="chart-gate-fails" role="img" aria-label="Horizontal bar chart of failures per gate"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card span-6" id="duration-card">
+          <h2>Duration</h2>
+          <p class="hint">Wall time per run when <code>duration_ms</code> is present.</p>
+          <div class="chart-wrap">
+            <canvas id="chart-duration" role="img" aria-label="Bar chart of run duration"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card span-12" id="gates-matrix-card">
+          <h2>Gate failures over time</h2>
+          <p class="hint">Stacked bars: one segment per gate that failed on that run.</p>
+          <div class="chart-wrap tall">
+            <canvas id="chart-gates-matrix" role="img" aria-label="Stacked bar chart of gate failures"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="chart-card" style="margin-top: 1.25rem">
+        <h2>Recent runs</h2>
+        <p class="hint">Up to 50 rows, newest first.</p>
+        <div class="table-wrap">
+          <table class="data" id="runs-table">
+            <thead>
+              <tr>
+                <th scope="col">Time (UTC)</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Commit</th>
+                <th scope="col">Result</th>
+                <th scope="col">Failed gates</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="meta">
+        Data stays in your browser. Use <code>schema_version: 1</code> JSON with a <code>runs</code> array. Serve this
+        folder over HTTP (or GitHub Pages) for best results; opening <code>index.html</code> via <code>file://</code>
+        uses a small embedded fallback if <code>sample-data.json</code> cannot load.
+      </footer>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="dashboard.js" defer></script>
+  </body>
+</html>

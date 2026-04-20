@@ -1,21 +1,38 @@
-# AIV config - adjust thresholds per project
-# Exclude docs and example project from gates (documentation / demo layout)
+schema_version: 1
+# AIV config - tuned for this repository baseline.
+# Exclude docs and example project from code-focused gates.
 exclude_paths:
   - "docs/**"
   - "example-project/**"
+# Run all gates and aggregate failures (set true to stop at first failure)
+fail_fast: false
+# Optional: only these commit author emails may use /aiv skip on the latest commit
+# skip_allowlist:
+#   - maintainer@example.com
 gates:
   - id: density
     enabled: true
     config:
       ldr_threshold: 0.25
-      entropy_threshold: 3.8
+      entropy_threshold: 4.0
       refactor_net_loc_threshold: -50
   - id: design
     enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
-  - id: invariant
+  - id: dependency
     enabled: true
+    config:
+      # Root pom does not list every module dependency; JavaParser is declared in aiv-plugin-design only.
+      whitelist:
+        - com.github.javaparser
+        - com.github.javaparser.ast
+        - com.github.javaparser.ast.comments
+        - com.github.javaparser.ast.expr
+        - com.github.javaparser.ast.body
+        - com.github.javaparser.ast.visitor
+  - id: invariant
+    enabled: false
   - id: doc-integrity
     enabled: false
     config:

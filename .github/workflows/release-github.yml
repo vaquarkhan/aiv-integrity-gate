@@ -28,12 +28,27 @@ jobs:
           java-version: 17
           cache: maven
 
-      - name: Version from tag
+      - name: Resolve and validate tag
         id: ver
         shell: bash
         run: |
-          REF="${{ github.ref }}"
-          echo "version=${REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME:-}"
+          if [[ -z "$TAG" ]]; then
+            echo "::error::Tag name is empty (GITHUB_REF_NAME)."
+            exit 1
+          fi
+          if [[ ! "$TAG" =~ ^v[0-9]+(\.[0-9]+)*([.-][0-9A-Za-z]+)*$ ]]; then
+            echo "::error::Invalid tag '$TAG'. Use tags like v1.0.0."
+            exit 1
+          fi
+          VERSION="${TAG#v}"
+          if [[ -z "$VERSION" ]]; then
+            echo "::error::Version resolved to empty from tag '$TAG'."
+            exit 1
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Align Maven versions
         shell: bash
@@ -49,11 +64,15 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+          TAG="${{ steps.ver.outputs.tag }}"
           VERSION="${{ steps.ver.outputs.version }}"
           JAR="aiv-cli/target/aiv-cli-${VERSION}.jar"
           test -f "$JAR"
-          gh release create "v${VERSION}" \
+          # Shaded uber JAR (not the thin original-* classifier): must contain CLI entrypoint and bundled deps.
+          unzip -l "$JAR" | grep -q 'io/github/vaquarkhan/aiv/cli/Main.class'
+          unzip -l "$JAR" | grep -q 'org/slf4j/'
+          gh release create "$TAG" \
             --repo "${{ github.repository }}" \
-            --title "v${VERSION}" \
+            --title "$TAG" \
             --generate-notes \
             "$JAR"

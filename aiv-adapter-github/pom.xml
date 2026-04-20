@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.vaquarkhan</groupId>
         <artifactId>aiv-gate</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
     <artifactId>aiv-adapter-github</artifactId>
     <packaging>jar</packaging>

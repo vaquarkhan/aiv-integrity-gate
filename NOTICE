@@ -1,8 +1,5 @@
-AIV - Automated Integrity Validation (IP-X)
-Integrity validation for pull-request diffs: works for Apache Software Foundation projects, company codebases, and personal repos alike.
+AIV Integrity Gate
+Copyright 2026 Vaquar Khan
 
-Copyright 2026 Vaquar Khan. All rights reserved.
-
-Developer: Vaquar Khan
-
-This product includes software developed by Vaquar Khan.
+This product includes software developed for the AIV Integrity Gate project
+(https://github.com/vaquarkhan/aiv-integrity-gate).
