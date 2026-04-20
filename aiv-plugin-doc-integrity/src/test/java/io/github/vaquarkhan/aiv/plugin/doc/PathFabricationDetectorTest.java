@@ -84,6 +84,19 @@ class PathFabricationDetectorTest {
     }
 
     @Test
+    void failsWhenPathIsMissingFromOtherChangedFiles(@TempDir Path dir) {
+        var ctx = context(dir, List.of(
+                new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Refer to scripts/future-tool.sh"),
+                new ChangedFile("docs/guide.md", ChangedFile.ChangeType.MODIFIED, "General docs without file paths"),
+                new ChangedFile("src/App.java", ChangedFile.ChangeType.MODIFIED, "class App {}")
+        ));
+        var d = detector(ctx);
+        String result = d.validate("README.md", "Refer to scripts/future-tool.sh");
+        assertNotNull(result);
+        assert result.contains("future-tool.sh");
+    }
+
+    @Test
     void failsForProseFilenameWithExtension(@TempDir Path dir) {
         var ctx = context(dir, List.of(
                 new ChangedFile("README.md", ChangedFile.ChangeType.ADDED, "Run totally-fabricated.sh before deploy.")
