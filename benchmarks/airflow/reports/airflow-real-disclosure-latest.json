@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-19T20:53:46.540449+00:00",
+  "claims": {
+    "tag": "VERIFIED",
+    "window": "2026-06-20..2026-09-18",
+    "volume": {
+      "closed_unmerged": 597,
+      "merged": 2554,
+      "closed_any": 3151,
+      "generated_by": 1910,
+      "chatgpt": 5,
+      "copilot": 133
+    },
+    "note": "Search 'ChatGPT'/'Generated-by' counts are noisy (false hits in discussion). Disclosure-checked body sample is the scored cohort. Disclosure \u2260 worthless PR; AIV hard-fail % here is catch-rate on disclosed sample, not '% of all Airflow AI slop resolved'.",
+    "disclosed_candidates_fetched": 45,
+    "disclosed_closed_unmerged": 7,
+    "scored": 7,
+    "hard_blocked": 1,
+    "hard_block_rate": 0.14285714285714285,
+    "advisory_only": 1,
+    "objective_markers_in_patch": 0,
+    "statement": "Among 7 real Airflow PRs with AI-disclosure signals scored under AIV, 1 hard-failed (14.3%). Objective patch markers present in 0/7. Window closed-unmerged volume=597.",
+    "not_claimed": [
+      "That search ChatGPT totals equal AI-slop PRs",
+      "That disclosure means the PR should be rejected",
+      "% of all Airflow closed-unmerged that are AI slop",
+      "CI dollars saved"
+    ]
+  },
+  "cases": [
+    {
+      "pr": 73326,
+      "url": "https://github.com/apache/airflow/pull/73326",
+      "title": "Add deprecation for the moved DeadlineCallbackTrigger classpath",
+      "merged": false,
+      "state": "closed",
+      "disclosure": {
+        "signals": [
+          "generated-by_trailer",
+          "mentions_claude",
+          "checkbox_yes_ai"
+        ],
+        "has_ai_disclosure": true
+      },
+      "markers_in_patch": [],
+      "additions": 25,
+      "changed_files": 2,
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "passed": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73289,
+      "url": "https://github.com/apache/airflow/pull/73289",
+      "title": "Add missing tests for sftp provider exceptions",
+      "merged": false,
+      "state": "closed",
+      "disclosure": {
+        "signals": [
+          "generated-by_trailer",
+          "mentions_claude",
+          "checkbox_yes_ai"
+        ],
+        "has_ai_disclosure": true
+      },
+      "markers_in_patch": [],
+      "additions": 96,
+      "changed_files": 2,
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "passed": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73278,
+      "url": "https://github.com/apache/airflow/pull/73278",
+      "title": "Fix formatting issues in README.md",
+      "merged": false,
+      "state": "closed",
+      "disclosure": {
+        "signals": [
+          "generated-by_trailer"
+        ],
+        "has_ai_disclosure": true
+      },
+      "markers_in_patch": [],
+      "additions": 1,
+      "changed_files": 1,
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "passed": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73271,
+      "url": "https://github.com/apache/airflow/pull/73271",
+      "title": "Stop labelling the task log link as \"Mark Success\" in alert emails",
+      "merged": false,
+      "state": "closed",
+      "disclosure": {
+        "signals": [
+          "generated-by_trailer",
+          "mentions_claude",
+          "checkbox_yes_ai"
+        ],
+        "has_ai_disclosure": true
+      },
+      "markers_in_patch": [],
+      "additions": 50,
+      "changed_files": 7,
+      "aiv": {
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "passed": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73192,
+      "url": "https://github.com/apache/airflow/pull/73192",
+      "title": "[v3-3-test] Fix dashboard stats cards navigating to a 404 page",
+      "merged": false,
+      "state": "closed",
+      "disclosure": {
+        "signals": [
+          "generated-by_trailer",
+          "mentions_claude",
+          "checkbox_yes_ai"
+        ],
+        "has_ai_disclosure": true
+      },
+      "markers_in_patch": [],
+      "additions": 4,
+      "changed_files": 1,
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "passed": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73124,
+      "url": "https://github.com/apache/airflow/pull/73124",
+      "title": "Optimize CI hot-path setup without reducing coverage",
+      "merged": false,
+      "state": "closed",
+      "disclosure": {
+        "signals": [
+          "generated-by_trailer",
+          "mentions_chatgpt",
+          "mentions_codex",
+          "checkbox_yes_ai"
+        ],
+        "has_ai_disclosure": true
+      },
+      "markers_in_patch": [],
+      "additions": 701,
+      "changed_files": 9,
+      "aiv": {
+        "hard_fail": true,
+        "advisory": true,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "passed": false,
+        "exit_code": 1
+      }
+    },
+    {
+      "pr": 70250,
+      "url": "https://github.com/apache/airflow/pull/70250",
+      "title": "airflowctl: Fix datetime.datetime CLI parameter parsing",
+      "merged": false,
+      "state": "closed",
+      "disclosure": {
+        "signals": [
+          "generated-by_trailer",
+          "mentions_chatgpt",
+          "checkbox_yes_ai"
+        ],
+        "has_ai_disclosure": true
+      },
+      "markers_in_patch": [],
+      "additions": 32,
+      "changed_files": 2,
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "passed": true,
+        "exit_code": 0
+      }
+    }
+  ]
+}

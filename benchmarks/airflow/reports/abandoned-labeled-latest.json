@@ -1,0 +1,1449 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-19T21:19:40.674826+00:00",
+  "window": "2026-06-20..2026-09-18",
+  "claims": {
+    "tag": "VERIFIED",
+    "sampled_abandoned": 61,
+    "by_label": {
+      "ai_disclosed": 16,
+      "abandoned_clean": 42,
+      "ai_signal_advisory": 3
+    },
+    "abandoned_clean_pct": 68.9,
+    "ai_signal_pct": 31.1,
+    "hard_fail_among_sample": 1,
+    "hard_fail_pct_among_sample": 1.6,
+    "disclosed_n": 16,
+    "disclosed_hard_caught": 1,
+    "disclosed_catch_rate": 0.0625,
+    "ai_signal_n": 19,
+    "ai_signal_hard_identified": 1,
+    "bullets": [
+      "Of 61 abandoned Airflow PRs sampled, 42 (68.9%) labeled abandoned_clean.",
+      "AI-signal labels: 19 (31.1%) \u2014 mostly ai_disclosed, not marker-style objective slop.",
+      "Objective markers in sample: 0.",
+      "After AIV (head+full) on sample: hard-fail 1/61 (1.6%).",
+      "Among ai_disclosed abandoned: hard-caught 1/16 (6.2%).",
+      "Among all AI-signal labels: identified (hard) 1/19 (5.3%)."
+    ],
+    "statement": "Most abandoned PRs are not marker-style AI slop (68.9% abandoned_clean; 0 objective markers in this sample). 19 PRs carry AI-signal labels (mostly disclosure). Pushing the same diffs through AIV (head+full config) hard-blocked 1/61 of the sample and 1/16 confirmed-disclosed abandoned PRs.",
+    "not_claimed": [
+      "That abandoned_clean PRs have zero AI involvement",
+      "That AI disclosure alone means the PR should be rejected",
+      "Exact % of all 597 abandoned PRs that are AI authorship",
+      "CI dollars saved"
+    ],
+    "ai_signal_identification_rate": 0.05263157894736842,
+    "scoring_note": "AI-signal cohort re-scored with materialize=head + full benchmarks/airflow/.aiv config"
+  },
+  "cases": [
+    {
+      "pr": 73326,
+      "url": "https://github.com/apache/airflow/pull/73326",
+      "title": "Add deprecation for the moved DeadlineCallbackTrigger classpath",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 64,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/64",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73289,
+      "url": "https://github.com/apache/airflow/pull/73289",
+      "title": "Add missing tests for sftp provider exceptions",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 65,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/65",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73278,
+      "url": "https://github.com/apache/airflow/pull/73278",
+      "title": "Fix formatting issues in README.md",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 83,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/83"
+    },
+    {
+      "pr": 73271,
+      "url": "https://github.com/apache/airflow/pull/73271",
+      "title": "Stop labelling the task log link as \"Mark Success\" in alert emails",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 66,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/66",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73201,
+      "url": "https://github.com/apache/airflow/pull/73201",
+      "title": "Downgrade \"XCom not found\" log to warning in Task SDK client",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 84,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/84"
+    },
+    {
+      "pr": 73195,
+      "url": "https://github.com/apache/airflow/pull/73195",
+      "title": "[v3-3-test] Mark task-group aggregate bars on Gantt with a diagonal stripe (#72894)",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "density"
+        ],
+        "exit_code": 0
+      },
+      "label": "ai_signal_advisory",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 67,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/67",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73192,
+      "url": "https://github.com/apache/airflow/pull/73192",
+      "title": "[v3-3-test] Fix dashboard stats cards navigating to a 404 page",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 68,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/68",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73186,
+      "url": "https://github.com/apache/airflow/pull/73186",
+      "title": "Add CI setup optimization regression tests",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 85,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/85"
+    },
+    {
+      "pr": 73176,
+      "url": "https://github.com/apache/airflow/pull/73176",
+      "title": "Remove the UI block on endpoints that returned 403 Forbidden",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 69,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/69",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73155,
+      "url": "https://github.com/apache/airflow/pull/73155",
+      "title": "Fix BigQueryHook.create_table table_resource type handling (#73091)",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 86,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/86"
+    },
+    {
+      "pr": 73137,
+      "url": "https://github.com/apache/airflow/pull/73137",
+      "title": "Remove dead cloudant_fake stub module",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 87,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/87"
+    },
+    {
+      "pr": 73124,
+      "url": "https://github.com/apache/airflow/pull/73124",
+      "title": "Optimize CI hot-path setup without reducing coverage",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 70,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/70",
+      "aiv_head_full": {
+        "hard_fail": true,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 1
+      }
+    },
+    {
+      "pr": 73106,
+      "url": "https://github.com/apache/airflow/pull/73106",
+      "title": "Retry KubernetesPodOperator pod-status reads on a transient 404",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 88,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/88"
+    },
+    {
+      "pr": 73105,
+      "url": "https://github.com/apache/airflow/pull/73105",
+      "title": "Fix airflow dags list-jobs --limit to reject non-numeric values",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 71,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/71",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73096,
+      "url": "https://github.com/apache/airflow/pull/73096",
+      "title": "Fix sticky filter persistence on Airflow Logo click",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 72,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/72",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73075,
+      "url": "https://github.com/apache/airflow/pull/73075",
+      "title": "Stop triggerers stealing callback triggers from a live triggerer",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 73,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/73",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73072,
+      "url": "https://github.com/apache/airflow/pull/73072",
+      "title": "[v3-3-test] Clarify that AccessView.JOBS is the Edge worker management permission (#72627)",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 89,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/89"
+    },
+    {
+      "pr": 73069,
+      "url": "https://github.com/apache/airflow/pull/73069",
+      "title": "[v3-3-test] Fix the RAT licence check excludes and move it to Apache RAT 0.18 (#73064)",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 74,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/74",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73068,
+      "url": "https://github.com/apache/airflow/pull/73068",
+      "title": "[v3-3-test] Fix the RAT licence check excludes and move it to Apache \u2026",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 75,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/75",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73059,
+      "url": "https://github.com/apache/airflow/pull/73059",
+      "title": "Allow GHSA-8mgp-746c-j5xp (nltk) in the dependency review gates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 90,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/90"
+    },
+    {
+      "pr": 73058,
+      "url": "https://github.com/apache/airflow/pull/73058",
+      "title": "Fix AgentOperator HITL review converting str output to other types",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 73056,
+      "url": "https://github.com/apache/airflow/pull/73056",
+      "title": "Carry the lint/type config for the ruff 0.16.6 and mypy 2.3.1 bump",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 76,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/76",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 73003,
+      "url": "https://github.com/apache/airflow/pull/73003",
+      "title": "Bump the 3-3-core-ui-package-updates group across 1 directory with 29 updates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 73000,
+      "url": "https://github.com/apache/airflow/pull/73000",
+      "title": "Bump the core-ui-package-updates group across 1 directory with 8 updates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72999,
+      "url": "https://github.com/apache/airflow/pull/72999",
+      "title": "Bump the 3-3-edge-ui-package-updates group across 1 directory with 19 updates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72996,
+      "url": "https://github.com/apache/airflow/pull/72996",
+      "title": "Bump the 3-3-ui-plugin-template-package-updates group across 1 directory with 8 updates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72995,
+      "url": "https://github.com/apache/airflow/pull/72995",
+      "title": "Bump the ui-plugin-template-package-updates group across 1 directory with 8 updates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72992,
+      "url": "https://github.com/apache/airflow/pull/72992",
+      "title": "Bump the eslint group across 1 directory with 3 updates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72991,
+      "url": "https://github.com/apache/airflow/pull/72991",
+      "title": "Bump the uv-dependency-updates group in /dev/breeze with 2 updates",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72990,
+      "url": "https://github.com/apache/airflow/pull/72990",
+      "title": "Bump swagger-ui-dist from 5.32.14 to 5.32.15 in /registry in the 3-3-registry-package-updates group across 1 directory",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72988,
+      "url": "https://github.com/apache/airflow/pull/72988",
+      "title": "Bump @types/react-dom from 19.2.5 to 19.2.7 in /airflow-core/src/airflow/ui in the react group across 1 directory",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72986,
+      "url": "https://github.com/apache/airflow/pull/72986",
+      "title": "Add unit tests for the FAB app-init extensions",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 77,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/77",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 72983,
+      "url": "https://github.com/apache/airflow/pull/72983",
+      "title": "Backport 3817ee6 chart/v1 2x test",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      },
+      "label": "ai_signal_advisory",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 78,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/78",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 72977,
+      "url": "https://github.com/apache/airflow/pull/72977",
+      "title": "Depend on httpx2 instead of httpx in the Task SDK",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      },
+      "label": "ai_signal_advisory",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 79,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/79",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 72976,
+      "url": "https://github.com/apache/airflow/pull/72976",
+      "title": "Add unit tests for the Workflows links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72975,
+      "url": "https://github.com/apache/airflow/pull/72975",
+      "title": "Add unit tests for the Translate links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72974,
+      "url": "https://github.com/apache/airflow/pull/72974",
+      "title": "Add unit tests for the Stackdriver links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72973,
+      "url": "https://github.com/apache/airflow/pull/72973",
+      "title": "Add unit tests for the Spanner links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72972,
+      "url": "https://github.com/apache/airflow/pull/72972",
+      "title": "Add unit tests for the Pub/Sub links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72971,
+      "url": "https://github.com/apache/airflow/pull/72971",
+      "title": "Add unit tests for the Kubernetes Engine links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72970,
+      "url": "https://github.com/apache/airflow/pull/72970",
+      "title": "Add unit tests for the Dataproc links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72969,
+      "url": "https://github.com/apache/airflow/pull/72969",
+      "title": "Add unit tests for the Data Fusion links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72968,
+      "url": "https://github.com/apache/airflow/pull/72968",
+      "title": "Add unit tests for the Dataform links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72967,
+      "url": "https://github.com/apache/airflow/pull/72967",
+      "title": "Add unit tests for the Dataflow links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72966,
+      "url": "https://github.com/apache/airflow/pull/72966",
+      "title": "Add unit tests for the Cloud DLP links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72965,
+      "url": "https://github.com/apache/airflow/pull/72965",
+      "title": "Add unit tests for the Compute Engine links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72964,
+      "url": "https://github.com/apache/airflow/pull/72964",
+      "title": "Add unit tests for the Cloud SQL links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72963,
+      "url": "https://github.com/apache/airflow/pull/72963",
+      "title": "Add unit tests for the Cloud Memorystore links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72962,
+      "url": "https://github.com/apache/airflow/pull/72962",
+      "title": "Add unit tests for the Cloud Functions links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72961,
+      "url": "https://github.com/apache/airflow/pull/72961",
+      "title": "Add unit tests for the Cloud Build links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72960,
+      "url": "https://github.com/apache/airflow/pull/72960",
+      "title": "Add unit tests for the Bigtable links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72956,
+      "url": "https://github.com/apache/airflow/pull/72956",
+      "title": "Add unit tests for the Cloud Datastore links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72955,
+      "url": "https://github.com/apache/airflow/pull/72955",
+      "title": "Add unit tests for the Dataprep links",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72949,
+      "url": "https://github.com/apache/airflow/pull/72949",
+      "title": "Add unit tests for the BigQuery Data Transfer link",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72880,
+      "url": "https://github.com/apache/airflow/pull/72880",
+      "title": "Remove the dead cloudant_fake module",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72877,
+      "url": "https://github.com/apache/airflow/pull/72877",
+      "title": "Fix td_format to correctly handle negative durations",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72870,
+      "url": "https://github.com/apache/airflow/pull/72870",
+      "title": "Fix airflow db clean never purging the callback table (#70923)",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 80,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/80",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 72847,
+      "url": "https://github.com/apache/airflow/pull/72847",
+      "title": "Remove the dead cloudant_fake module",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 72844,
+      "url": "https://github.com/apache/airflow/pull/72844",
+      "title": "Expose a translated navigation landmark in the sidebar",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 81,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/81",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 72823,
+      "url": "https://github.com/apache/airflow/pull/72823",
+      "title": "Fix pickling in EcsTaskFailToStart and add unit tests for Amazon exceptions",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [],
+        "disclosed": false
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "abandoned_clean",
+      "window": "2026-06-20..2026-09-18"
+    },
+    {
+      "pr": 70250,
+      "url": "https://github.com/apache/airflow/pull/70250",
+      "title": "airflowctl: Fix datetime.datetime CLI parameter parsing",
+      "markers_in_patch": [],
+      "disclosure": {
+        "signals": [
+          "checkbox_yes",
+          "generated_by_filled"
+        ],
+        "disclosed": true
+      },
+      "aiv": {
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      },
+      "label": "ai_disclosed",
+      "window": "2026-06-20..2026-09-18",
+      "bench_pr": 82,
+      "bench_pr_url": "https://github.com/vaquarkhan/aiv-airflow-bench/pull/82",
+      "aiv_head_full": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "methodology": {
+    "materialize": "patch",
+    "config": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+    "label_taxonomy": [
+      "ai_slop_objective",
+      "ai_disclosed",
+      "ai_signal_hard",
+      "ai_signal_advisory",
+      "abandoned_clean"
+    ]
+  }
+}
