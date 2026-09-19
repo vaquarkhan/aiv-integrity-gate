@@ -48,6 +48,7 @@ public final class InvariantGate implements QualityGate {
             + "|\\b(rest|remainder) of (the )?(code|file|implementation|method|function|class)s?\\b[^\\n]*\\b(unchanged|the same|omitted|here)"
             + "|\\bas an ai language model\\b"
             + "|\\bhere('?s| is) the (updated|complete|fixed|full|corrected|revised) (code|implementation|file|version)\\b"
+            + "|\\bin a real[- ]world scenario\\b"
             + "|<<<<<<< SEARCH|>>>>>>> REPLACE"
             + "|\\b(YOUR_CODE_HERE|INSERT_YOUR_CODE|INSERT_CODE_HERE)\\b"
             + ")");
@@ -62,6 +63,19 @@ public final class InvariantGate implements QualityGate {
             + "|^\\s*Co-Authored-By:\\s*.*(?:noreply@anthropic\\.com|chatgpt|openai|copilot|cursor|gemini|claude)"
             + ")");
 
+    /**
+     * Empty / tautology tests that verify nothing (common agent dump). Test paths only; added-lines scoped.
+     */
+    private static final Pattern PLACEHOLDER_TEST = Pattern.compile(
+            "(?im)("
+            + "expect\\s*\\(\\s*true\\s*\\)\\s*\\.\\s*toBe\\s*\\(\\s*true\\s*\\)"
+            + "|expect\\s*\\(\\s*true\\s*\\)\\s*\\.\\s*toBeTruthy\\s*\\(\\s*\\)"
+            + "|assertTrue\\s*\\(\\s*true\\s*\\)"
+            + "|assertEquals\\s*\\(\\s*true\\s*,\\s*true\\s*\\)"
+            + "|assert\\s+True\\b"
+            + "|self\\.assertTrue\\s*\\(\\s*True\\s*\\)"
+            + ")");
+
     private static final Set<String> CODE_EXTENSIONS = Set.of(
             ".java", ".py", ".js", ".ts", ".jsx", ".tsx", ".go", ".rs", ".kt", ".kts",
             ".scala", ".c", ".cpp", ".cc", ".h", ".hpp", ".rb", ".sh", ".bash");
@@ -74,6 +88,38 @@ public final class InvariantGate implements QualityGate {
             }
         }
         return false;
+    }
+
+    static boolean isTestPath(String path) {
+        if (path == null || path.isBlank()) {
+            return false;
+        }
+        String lower = path.replace('\\', '/').toLowerCase();
+        String name = lower.substring(lower.lastIndexOf('/') + 1);
+        return lower.contains("/test/")
+                || lower.contains("/tests/")
+                || lower.contains("/__tests__/")
+                || name.startsWith("test_")
+                || name.endsWith("_test.py")
+                || name.endsWith("_test.go")
+                || name.endsWith("test.java")
+                || name.endsWith("tests.java")
+                || name.endsWith(".test.js")
+                || name.endsWith(".test.ts")
+                || name.endsWith(".test.jsx")
+                || name.endsWith(".test.tsx")
+                || name.endsWith(".spec.js")
+                || name.endsWith(".spec.ts");
+    }
+
+    /** True when pattern hits on ADDED files, or on added lines of MODIFIED files (unslop-style). */
+    private static boolean matchesOnAddedSurface(
+            AddedLineIndex added, ChangedFile f, java.util.regex.Pattern pattern) {
+        String content = f.getContent();
+        if (f.getChangeType() == ChangedFile.ChangeType.ADDED) {
+            return pattern.matcher(content).find();
+        }
+        return added.markerOnAddedLine(f.getPath(), content, pattern);
     }
 
     @Override
@@ -97,24 +143,27 @@ public final class InvariantGate implements QualityGate {
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.merge-conflict", f.getPath(), 1, msg));
             }
-            // Placeholders: only on added lines when rawDiff is available (avoids FPs on pre-existing FIXME).
-            boolean placeholderHit = f.getChangeType() == ChangedFile.ChangeType.ADDED
-                    ? PLACEHOLDER_MARKER.matcher(content).find()
-                    : added.markerOnAddedLine(f.getPath(), content, PLACEHOLDER_MARKER);
-            if (placeholderHit) {
+            // Placeholders / AI artifacts: added-lines only when rawDiff is available (unslop-style; avoids
+            // FPs on pre-existing FIXME or legacy comments in touched files).
+            if (matchesOnAddedSurface(added, f, PLACEHOLDER_MARKER)) {
                 String msg = "Placeholder marker (TBD/FIXME/XXX) found in " + f.getPath();
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.placeholder", f.getPath(), 1, msg));
             }
-            if (isCodeFile(f.getPath()) && AI_EDIT_ARTIFACT.matcher(content).find()) {
+            if (isCodeFile(f.getPath()) && matchesOnAddedSurface(added, f, AI_EDIT_ARTIFACT)) {
                 String msg = "AI edit-artifact / elision marker found in " + f.getPath();
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.ai-edit-artifact", f.getPath(), 1, msg));
             }
-            if (AI_PROVENANCE_TRAILER.matcher(content).find()) {
+            if (matchesOnAddedSurface(added, f, AI_PROVENANCE_TRAILER)) {
                 String msg = "AI provenance trailer pasted into " + f.getPath();
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.ai-provenance", f.getPath(), 1, msg));
+            }
+            if (isTestPath(f.getPath()) && matchesOnAddedSurface(added, f, PLACEHOLDER_TEST)) {
+                String msg = "Placeholder / tautology test found in " + f.getPath();
+                failures.add(msg);
+                findings.add(Finding.atLine("invariant.placeholder-test", f.getPath(), 1, msg));
             }
         }
         if (failures.isEmpty()) {

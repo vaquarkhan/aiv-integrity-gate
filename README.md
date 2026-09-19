@@ -1,24 +1,48 @@
 # AIV Integrity Gate
 
 <p align="center">
-  <img src="docs/images/aiv-value-flow.png" alt="AIV Integrity Gate: PR diff through syntax, density, design, dependency, and invariant gates to pass or fail" width="920" />
+  <img src="docs/images/aiv-hero-banner.png" alt="AIV Integrity Gate — diff-scoped integrity gate for AI-era PRs: Syntax, Density, Design, Dependency, Invariant → PASS or FAIL" width="960" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/vaquarkhan/aiv-integrity-gate/actions/workflows/aiv.yml"><img src="https://img.shields.io/github/actions/workflow/status/vaquarkhan/aiv-integrity-gate/aiv.yml?label=CI&style=flat-square" alt="CI status" /></a>
+  <a href="https://central.sonatype.com/artifact/io.github.vaquarkhan/aiv-cli"><img src="https://img.shields.io/maven-central/v/io.github.vaquarkhan/aiv-cli?label=Maven%20Central&style=flat-square" alt="Maven Central" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="Apache 2.0" /></a>
 </p>
 
 ## One sentence
 
-**The air-gapped PR filter for AI-generated code slop.**
+**Fast, local check on your diff: block won't-parse files, leftover conflict / agent paste junk, fake tautology tests, and bad imports - almost never blocks a good PR.**
 
-Everything below is supporting detail: what it checks, how it differs from generic linters, and how to run it without sending code to a third party or calling an LLM.
+Best used at **commit time** ([docs/PRE-COMMIT.md](docs/PRE-COMMIT.md)), with CI as backup.
+
+## What AIV looks like
+
+PR diff goes through hard gates in seconds (local JAR, no LLM API):
+
+<p align="center">
+  <img src="docs/images/aiv-value-flow.png" alt="Pull request diff through Syntax, Density, Design, Dependency, and Invariant gates to Pass or Fail" width="920" />
+</p>
+
+| Bad agent paste → **FAIL** | Clean diff → **PASS** |
+|:---:|:---:|
+| <img src="docs/images/aiv-demo-fail.svg" alt="Caught before CI: AI edit-artifact and placeholder-test findings block the change" width="440" /> | <img src="docs/images/aiv-demo-pass.svg" alt="Sample AIV Report with Overall PASS and all gates green" width="440" /> |
+
+Where it runs (same rules both places):
+
+<p align="center">
+  <img src="docs/images/aiv-shift-left.svg" alt="AIV at pre-commit hook, then GitHub Action CI backstop, then merge only if hard gates pass" width="920" />
+</p>
 
 ### Why this adds value
 
-| Without AIV | With AIV (hard gate) |
-|-------------|----------------------|
-| Broken / unparseable files burn full CI matrix minutes | **Syntax** fails in seconds |
-| LLM paste leaves `... existing code ...` or SEARCH/REPLACE junk | **Invariant** AI edit-artifact rule (when enabled) |
-| Hallucinated imports look fine until runtime | **Dependency** vs pom / requirements (stdlib + first-party allowed) |
-| “Looks big” PRs with little real logic | **Density** LDR / entropy on the **diff** |
-| Soft “is this valuable?” needs a human or LLM | Stays **advisory** (optional Copilot after AIV) — see [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) |
+| Without AIV | With AIV |
+|-------------|---------|
+| Broken / unparseable files burn the full CI matrix | **Syntax** fails in seconds (hard) |
+| Agent paste leaves `... existing code ...` or SEARCH/REPLACE junk | **Invariant** edit-artifact rules on **added lines** (hard) |
+| Empty `assertTrue(true)` / `expect(true).toBe(true)` tests | **Invariant** placeholder-test on test paths (hard) |
+| Hallucinated imports look fine until runtime | **Dependency** vs pom / requirements (hard when enabled) |
+| Soft structure signals | **Density / cohesion** warn/label only; optional Copilot after AIV - [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) |
 
 Architecture (hexagonal modules + ServiceLoader plugins):
 
@@ -26,7 +50,7 @@ Architecture (hexagonal modules + ServiceLoader plugins):
   <img src="docs/images/aiv-hex-architecture.png" alt="AIV hexagonal module architecture with aiv-core orchestrator" width="560" />
 </p>
 
-Details: **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · Contributor runbook: **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** · Deep walkthrough: **[docs/TUTORIAL.md](docs/TUTORIAL.md)**
+Details: **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · Contributor runbook: **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** · Deep walkthrough: **[docs/TUTORIAL.md](docs/TUTORIAL.md)** · Diagrams: **[docs/images/](docs/images/)**
 
 ### Why not PMD, Semgrep, or Checkstyle?
 
@@ -35,7 +59,7 @@ They are great **whole-repo** static analyzers. AIV is a **diff-scoped** integri
 | | **AIV** | **PMD / Semgrep / Checkstyle** |
 |--|---------|--------------------------------|
 | **Scope** | PR diff by default | Project-wide rulesets |
-| **Sweet spot** | Low-signal / boilerplate / design & import surface on **changed** files | Bugs, style, security patterns across the tree |
+| **Sweet spot** | Objectively broken AI/agent artifacts + design/import surface on **changed / added** lines | Bugs, style, security patterns across the tree |
 | **Config** | `.aiv/config.yaml` + rules in-repo | Tool-specific XML/YAML |
 | **Air gap** | Single shaded JAR + local rules | Varies; all can run offline |
 
@@ -48,11 +72,11 @@ They are great **whole-repo** static analyzers. AIV is a **diff-scoped** integri
 
 ---
 
-## See it in CI (no marketing fluff - just the check)
+## See it in CI
 
-- **Live runs:** [GitHub Actions on this repository](https://github.com/vaquarkhan/aiv-integrity-gate/actions) - open a workflow run and expand the job to see pass/fail and logs.
-- **What to look for:** a failing run when a change trips **syntax** (won't-parse), **density** (too little real logic), **design** (forbidden calls or AI attribution markers), **dependency** (imports not backed by your lockfile), or **invariant** (conflict / edit-artifact markers when enabled). That is the same signal your contributors will see.
-- **Optional media:** Architecture and value-flow diagrams live under [`docs/images/`](docs/images/). A screen recording of a red CI check can be added as `docs/images/aiv-ci-demo.gif` when available.
+- **Live runs:** [GitHub Actions on this repository](https://github.com/vaquarkhan/aiv-integrity-gate/actions) - open a workflow run and expand the job for pass/fail and logs.
+- **What to look for:** a failing run when a change trips **syntax**, **density**, **design**, **dependency**, or **invariant** (when enabled). Same signal as the demos above.
+- **Diagrams:** [`docs/images/`](docs/images/) (hero, value-flow, fail/pass demos, shift-left, architecture).
 
 ---
 
@@ -77,9 +101,20 @@ You are done when a PR runs AIV and prints a report (pass or fail).
 
 2. **Bootstrap config** - `java -jar aiv-cli.jar init --workspace .` writes `.aiv/config.yaml` and starter `.aiv/design-rules.yaml` from a quick language sniff, or copy from [`example-project/`](example-project/).
 
-3. **Wire CI** - Prefer the [composite action](action.yml) (`vaquarkhan/aiv-integrity-gate@v1`) which downloads the same JAR, or adapt [`example-project/.github/workflows/aiv.yml`](example-project/.github/workflows/aiv.yml). Update branch names if yours are not `main` / `master`.
+3. **Shift left (recommended)** - Install the [pre-commit hook](docs/PRE-COMMIT.md) so bad agent paste never becomes a PR:
 
-4. **Open a pull request** - Intentionally violate a design rule (e.g. `System.exit` with the sample rules) to see a **fail**, then fix to **pass**.
+   ```yaml
+   # .pre-commit-config.yaml
+   repos:
+     - repo: https://github.com/vaquarkhan/aiv-integrity-gate
+       rev: v1.0.4
+       hooks:
+         - id: aiv-gate
+   ```
+
+4. **Wire CI as backstop** - Prefer the [composite action](action.yml) (`vaquarkhan/aiv-integrity-gate@v1`), or adapt [`example-project/.github/workflows/aiv.yml`](example-project/.github/workflows/aiv.yml).
+
+5. **Open a pull request** - Intentionally violate a design rule (e.g. `System.exit` with the sample rules) to see a **fail**, then fix to **pass**.
 
 **Developers changing AIV itself:** see **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** (build, verify, run shaded JAR, add a gate). User guides: [docs/TUTORIAL.md](docs/TUTORIAL.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/MAVEN-VERSION.md](docs/MAVEN-VERSION.md), [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md). **Release notes:** [CHANGELOG.md](CHANGELOG.md).
 
@@ -89,18 +124,16 @@ You are done when a PR runs AIV and prints a report (pass or fail).
 
 | Pain Area | What Happens | Feature That Addresses It |
 |-----------|--------------|---------------------------|
-| Reviewer overload | Too many PRs to review; maintainers spend time on low-value contributions | Density gate filters verbose, boilerplate-heavy code before human review |
-| Low-quality contributions | Code that looks correct but is mostly scaffolding, empty classes, or copy-paste | Density gate (logic density ratio and entropy) flags it |
-| AI slop / edit artifacts | Partial LLM pastes, elision markers, assistant chatter, conflict markers left in source | **Invariant** (`ai-edit-artifact`, merge markers) + **design** rules for attribution phrases (`Generated by ChatGPT`, etc.) |
+| Broken AI/agent paste | Partial LLM pastes, elision markers, SEARCH/REPLACE junk, conflict markers | **Invariant** (`ai-edit-artifact`, merge markers) on **added lines** |
+| Fake tests | `assertTrue(true)` / `expect(true).toBe(true)` dumps | **Invariant** `placeholder-test` (test paths only) |
 | Won't-parse / guaranteed CI fail | Broken Java/Python/YAML/JSON that would fail later in the matrix | **Syntax** pre-gate (precision-first: skips when uncertain) |
-| Design drift | Code violates project architecture, RFCs, or forbidden patterns | Design gate enforces YAML rules (forbidden and required patterns) |
-| Wrong API usage | Contributors use deprecated APIs or wrong patterns (e.g. in-memory list instead of ExpireSnapshots) | Design gate catches forbidden calls and missing required calls |
-| Unknown imports | Typos in package names or imports not declared in lockfile; supply-chain risk | Dependency gate validates Java imports vs pom.xml, Python vs requirements (stdlib + first-party packages allowed) |
-| Fragile edge-case code | Code lands with unresolved merge state or placeholder markers | Invariant gate catches merge conflict markers and TBD/FIXME/XXX |
-| Urgent merges | Need to bypass checks for hotfix or emergency | `/aiv skip` on its own line in the **latest** PR commit skips all gates (optional `skip_allowlist` in config) |
-| Refactors flagged | Legitimate refactors remove more lines than they add; density gate would fail | Refactor exception: density skips when net lines <= threshold (default -50) |
-| Core maintainer friction | Trusted committers get unnecessary density failures | Trusted authors bypass density check |
-| Issue squatting | Contributors get assigned, then ghost or submit low-quality code | Assignment Gate: assign only after PR passes AIV |
+| Unknown imports | Typos or imports not in lockfile | **Dependency** vs pom / requirements (stdlib + first-party allowed) |
+| Design drift | Forbidden APIs / missing required patterns | **Design** YAML rules (+ attribution phrases if you enable them) |
+| Soft structure signals | Verbose scaffolding, multi-area sprawl | **Density / cohesion** as **warn + PR label** (not sole hard block) |
+| Urgent merges | Need to bypass for hotfix | `/aiv skip` on its own line in the **latest** PR commit (optional `skip_allowlist`) |
+| Refactors flagged | Deletion-heavy changes trip density | Refactor exception (net lines threshold) |
+| Trusted authors | Maintainers hit soft gates | `trusted_authors` bypass for density |
+| Issue squatting | Assigned then ghost | Assignment Gate: assign after AIV passes |
 
 ---
 
@@ -336,9 +369,15 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ---
 
-## Roadmap (short)
+## What's next (not shipped yet)
 
-Shipped foundations: **init**, **doctor**, **explain**, **syntax** pre-gate, Python stdlib/first-party dependency allowlist, AI edit-artifact invariants, **JSON** / **SARIF** / **GitHub Checks**, **advisory PR labeling**, optional **AIV → Copilot advisory** pipeline, starter **Airflow benchmark** corpus. **Not shipped:** **baseline** suppressions, **`aiv-plugin-security`**, CI-savings percentage claims, **added-lines-only** scoping for all hard rules — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
+| Item | Why |
+|------|-----|
+| Broader secret patterns / entropy heuristics | Optional hardening of `security` without raising FP |
+| Line-level `// aiv-disable-next-line` | Local suppress without a baseline file |
+| Live high-breakage public demo repo | Seeded PRs on GitHub (local corpus exists under `benchmarks/high-breakage/`) |
+
+**Shipped recently:** baseline suppressions (`baseline:` / `--baseline`), `aiv-plugin-security`, true-positive + high-breakage corpora, pre-commit, added-lines hard rules, placeholder-test. See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

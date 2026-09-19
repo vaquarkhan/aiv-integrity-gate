@@ -40,13 +40,13 @@ inputs:
     required: false
     default: ''
   label-pr-on-advisory:
-    description: 'When true on pull_request, apply/remove a PR label for advisory (severity=warn) AI-slop findings without failing CI. Requires pull-requests: write.'
+    description: 'When true on pull_request, apply/remove a PR label for advisory (severity=warn) findings without failing CI. Requires pull-requests: write.'
     required: false
     default: 'false'
   advisory-pr-label:
-    description: 'Label name used when label-pr-on-advisory is true (default aiv:ai-slop).'
+    description: 'Label name used when label-pr-on-advisory is true (default aiv:advisory).'
     required: false
-    default: 'aiv:ai-slop'
+    default: 'aiv:advisory'
 
 runs:
   using: 'composite'

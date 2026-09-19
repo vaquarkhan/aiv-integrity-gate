@@ -1,4 +1,6 @@
-# AIV Gate and AIP-120 — shareable evidence brief
+# AIV Gate and AIP-120 - evidence brief (INTERNAL)
+
+**Status:** maintainer notes only. Not a public product page.
 
 **Audience:** Airflow / ASF discussants evaluating AIP-120 and related “AI contribution volume” concerns  
 **Prepared:** 2026-09-19  

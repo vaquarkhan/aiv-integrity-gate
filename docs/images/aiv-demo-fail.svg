@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">AIV Integrity Gate fail demo</title>
+  <desc id="desc">Bad agent paste on the left; AIV FAIL findings on the right</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F7FAFC"/>
+      <stop offset="100%" stop-color="#EEF4F8"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0B1F3A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="1120" height="560" fill="url(#bg)"/>
+  <text x="56" y="48" fill="#0B1F3A" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700">Caught before CI</text>
+  <text x="56" y="78" fill="#475569" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15">Objectively broken agent paste fails hard gates in seconds (local JAR, no LLM).</text>
+
+  <!-- Left panel: bad paste -->
+  <g filter="url(#shadow)">
+    <rect x="56" y="108" width="480" height="390" rx="14" fill="#0B1F3A"/>
+    <circle cx="82" cy="132" r="6" fill="#F87171"/>
+    <circle cx="102" cy="132" r="6" fill="#FBBF24"/>
+    <circle cx="122" cy="132" r="6" fill="#34D399"/>
+    <text x="148" y="137" fill="#94A3B8" font-family="Consolas, Menlo, monospace" font-size="13">agent-edit.py (staged)</text>
+    <text x="78" y="178" fill="#64748B" font-family="Consolas, Menlo, monospace" font-size="13"># partial LLM paste</text>
+    <text x="78" y="208" fill="#E2E8F0" font-family="Consolas, Menlo, monospace" font-size="14">def handle(event):</text>
+    <text x="78" y="236" fill="#FCA5A5" font-family="Consolas, Menlo, monospace" font-size="14">+    # ... existing code unchanged ...</text>
+    <text x="78" y="264" fill="#FCA5A5" font-family="Consolas, Menlo, monospace" font-size="14">+    &lt;&lt;&lt;&lt;&lt;&lt;&lt; SEARCH</text>
+    <text x="78" y="292" fill="#FCA5A5" font-family="Consolas, Menlo, monospace" font-size="14">+    &gt;&gt;&gt;&gt;&gt;&gt;&gt; REPLACE</text>
+    <text x="78" y="332" fill="#64748B" font-family="Consolas, Menlo, monospace" font-size="13"># FooTest.java</text>
+    <text x="78" y="360" fill="#FCA5A5" font-family="Consolas, Menlo, monospace" font-size="14">+    assertTrue(true);</text>
+    <rect x="78" y="392" width="416" height="72" rx="10" fill="#1E293B"/>
+    <text x="96" y="424" fill="#F87171" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" font-weight="700">Pre-commit / CI: blocked</text>
+    <text x="96" y="448" fill="#94A3B8" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Fix locally, then re-run AIV</text>
+  </g>
+
+  <!-- Right panel: report -->
+  <g filter="url(#shadow)">
+    <rect x="584" y="108" width="480" height="390" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="584" y="108" width="480" height="56" rx="14" fill="#7F1D1D"/>
+    <rect x="584" y="140" width="480" height="24" fill="#7F1D1D"/>
+    <text x="608" y="144" fill="#FEE2E2" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="18" font-weight="700">AIV Report  FAIL</text>
+    <text x="608" y="196" fill="#334155" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14">3 findings on added lines</text>
+
+    <rect x="608" y="220" width="432" height="70" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+    <text x="628" y="248" fill="#991B1B" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="700">invariant.ai-edit-artifact</text>
+    <text x="628" y="272" fill="#64748B" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Elision / SEARCH-REPLACE junk in code</text>
+
+    <rect x="608" y="304" width="432" height="70" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+    <text x="628" y="332" fill="#991B1B" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="700">invariant.placeholder-test</text>
+    <text x="628" y="356" fill="#64748B" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Tautology assertTrue(true) on a test path</text>
+
+    <rect x="608" y="388" width="432" height="70" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+    <text x="628" y="416" fill="#991B1B" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" font-weight="700">Hard gate</text>
+    <text x="628" y="440" fill="#64748B" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Exit code 1  merge / commit blocked</text>
+  </g>
+</svg>

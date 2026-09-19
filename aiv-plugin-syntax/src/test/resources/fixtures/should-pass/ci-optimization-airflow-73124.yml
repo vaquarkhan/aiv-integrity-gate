@@ -1,0 +1,12 @@
+# Fixture pinned to apache/airflow#73124-shaped CI workflow YAML (valid Actions syntax).
+name: ci-optimization-airflow-73124
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Echo
+        run: echo "valid workflow fixture"

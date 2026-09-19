@@ -1,0 +1,3 @@
+def handler():
+    do_work()
+    # ... rest of the existing code unchanged ...

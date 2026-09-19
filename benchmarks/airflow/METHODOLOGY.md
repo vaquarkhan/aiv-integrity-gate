@@ -58,6 +58,7 @@ Reports: `benchmarks/airflow/reports/latest.html` and `latest.json` (plus timest
 2. Re-run discover + run with the same window/limits.
 3. Compare `metrics` in `latest.json`.
 
-## Gate roadmap (value judgment)
+## Gate status
 
-Highest ROI delivered: **added-lines-only** placeholders + **cohesion** (multi-area PR) advisory. Optional next: secrets gate (roadmap). Do **not** put Magpie/LLM on the hard path.
+**Done:** added-lines-only hard rules (placeholders + AI edit-artifacts + provenance + placeholder-tests), cohesion advisory, pre-commit packaging.  
+**Optional next:** secrets / security plugin (see root README "What's next"). Do **not** put Magpie/LLM on the hard path.

@@ -1,11 +1,12 @@
-# Copilot instructions — anti-slop generation rules
+# Copilot instructions - anti-artifact generation rules
 
-These rules reduce AI slop *at the point of generation*, before it ever becomes a
-commit or PR. They complement (they do not replace) the AIV Gate, which is the
-deterministic hard gate that runs first in CI. See `docs/pipeline-aiv-copilot.md`.
+These rules reduce **objectively broken agent output** at generation time, before it
+becomes a commit or PR. They complement (they do not replace) the AIV Gate, the
+deterministic hard gate that runs first in CI / pre-commit. See `docs/pipeline-aiv-copilot.md`
+and `docs/pipeline-aiv-copilot.md`.
 
 When generating or editing code in this repository, you MUST NOT produce any of the
-following. Each is an objective "AI artifact" that the AIV Gate blocks on, so emitting
+following. Each is an objective artifact that the AIV Gate blocks on, so emitting
 it only causes a failed check:
 
 1. Elision / truncation markers. Never replace real code with a summary such as

@@ -187,6 +187,13 @@ class AIVConfigTest {
     }
 
     @Test
+    void globalStringOptional() {
+        assertTrue(new AIVConfig(List.of(), Map.of()).getGlobalString("baseline").isEmpty());
+        assertEquals(".aiv/baseline.txt",
+                new AIVConfig(List.of(), Map.of("baseline", " .aiv/baseline.txt ")).getGlobalString("baseline").orElseThrow());
+    }
+
+    @Test
     void advisoryLabelGatesParsesList() {
         assertTrue(new AIVConfig(List.of(), Map.of()).getAdvisoryLabelGates().isEmpty());
         var cfg = new AIVConfig(List.of(), Map.of("advisory_label_gates", List.of("design", "", "density")));

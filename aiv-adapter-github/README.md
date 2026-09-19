@@ -10,14 +10,14 @@
 
 ## Advisory PR labeling
 
-When a gate is configured with `severity: warn`, failures do not block CI. With `--label-pr-on-advisory`, AIV still tags the PR (default label `aiv:ai-slop`) so reviewers see soft AI-slop signals. On a clean run, the label is removed.
+When a gate is configured with `severity: warn`, failures do not block CI. With `--label-pr-on-advisory`, AIV still tags the PR (default label `aiv:advisory`) so reviewers see soft signals. On a clean run, the label is removed.
 
 Requires `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, and `AIV_GITHUB_PR_NUMBER` or a `pull_request` `GITHUB_EVENT_PATH`. Optional: `AIV_GITHUB_API_BASE` / JVM property `aiv.github.labels.api.base` for tests.
 
 Config (`.aiv/config.yaml`):
 
 ```yaml
-advisory_pr_label: aiv:ai-slop
+advisory_pr_label: aiv:advisory
 advisory_label_gates:
   - design
   - invariant

@@ -2,13 +2,17 @@
 
 “Deploying” AIV usually means dropping a few files into your repo so GitHub Actions (or another CI runner) can execute the JAR - no fleet of VMs to manage. This guide walks through that path with beginner-friendly steps; it works for any Git-based project (Java, Python, Go, Rust, and more).
 
+<p align="center">
+  <img src="images/aiv-shift-left.svg" alt="AIV at pre-commit and GitHub Action before merge" width="880" />
+</p>
+
 **Author:** Vaquar Khan
 
 ---
 
 ## Why Enable AIV?
 
-AIV addresses common pain areas: reviewer overload (too many PRs), low-quality contributions (boilerplate, empty code), design drift (violations of project rules), wrong API usage, unknown imports, and the need to bypass checks for urgent merges or trusted authors. See [README.md](../README.md#problems-and-solutions) for the full pain-area-to-feature mapping.
+AIV checks your diff for won't-parse files, leftover conflict / agent paste markers, tautology tests, and imports missing from your lockfile. Soft signals stay advisory. Prefer [PRE-COMMIT.md](PRE-COMMIT.md), then CI. See [README.md](../README.md#problems-and-solutions).
 
 ---
 

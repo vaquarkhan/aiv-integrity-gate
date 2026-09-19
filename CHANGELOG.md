@@ -6,11 +6,14 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 
 ### User-facing
 
-- **Cohesion gate (`cohesion`):** flags PRs that sprawl across too many path areas (`max_areas` / `area_depth`) or files (`max_files`). Generic “split this PR” signal (same class of review feedback as [apache/airflow#73124](https://github.com/apache/airflow/pull/73124)). Default `severity: warn` + advisory label. Shipped in `aiv-plugin-design`.
-- **Invariant:** TBD/FIXME/XXX only on **added** diff lines when `rawDiff` is present (cuts pre-existing FIXME FPs). New `invariant.ai-provenance` for `Generated-by:` / AI `Co-Authored-By:` trailers pasted into source files.
-- **Design rules:** broader attribution markers (`Generated-by:`, Codex, etc.); `no-ai-generated-*` constraints scan comments/strings (not stripped).
-- **Airflow E2E benchmark + HTML reports:** [`benchmarks/airflow/`](benchmarks/airflow/) discovers real `apache/airflow` PRs, labels them (`objective_slop` / `merged_control` / `closed_unmerged_sample`), scores with `aiv-cli`, and writes third-party-validatable [`reports/latest.html`](benchmarks/airflow/reports/latest.html). See [METHODOLOGY.md](benchmarks/airflow/METHODOLOGY.md).
-- **Advisory PR label:** When gates use `severity: warn` (do not block CI) but still find AI-slop signals, `--label-pr-on-advisory` applies a GitHub PR label (default `aiv:ai-slop`) and removes it on clean runs. Config: `advisory_pr_label`, `advisory_label_gates`. Composite action inputs: `label-pr-on-advisory`, `advisory-pr-label`.
+- **Baseline suppressions:** `baseline: .aiv/baseline.txt` or `--baseline path` (lines `rule_id|file` or `rule_id|file|message substring`).
+- **Security gate (`aiv-plugin-security`):** optional added-line secret tripwire (AWS/GitHub/Slack/private key/assigned secrets). Off by default.
+- **Corpora:** `benchmarks/true-positive/` + `benchmarks/high-breakage/run-demo.ps1`.
+- **Pre-commit (shift-left):** `.pre-commit-hooks.yaml` + `scripts/aiv-pre-commit.sh` / `.ps1`.
+- **Invariant hard path (unslop-style):** AI edit-artifacts and provenance on **added lines**; `invariant.placeholder-test`.
+- **Positioning docs (maintainers):** [docs/internal/CLAIMS.md](docs/internal/CLAIMS.md), [docs/internal/STRATEGY.md](docs/internal/STRATEGY.md); README rewritten for what-it-does; stale Airflow evidence brief removed.
+- **Airflow E2E benchmark + HTML reports:** [`benchmarks/airflow/`](benchmarks/airflow/) research harness; claim notes under `benchmarks/airflow/internal/`.
+- **Advisory PR label:** When gates use `severity: warn`, `--label-pr-on-advisory` applies a GitHub PR label (default `aiv:advisory`) and removes it on clean runs. Config: `advisory_pr_label`, `advisory_label_gates`. Composite action inputs: `label-pr-on-advisory`, `advisory-pr-label`.
 - **Syntax gate (`aiv-plugin-syntax`):** parse-validity pre-gate for changed Java, Python, YAML, and JSON. Precision-first skips for missing Python toolchain, Helm/Jinja templates, `tsconfig*.json` (JSONC), and `.java` files that are actually Dockerfiles (`#` first line). Rule id: `syntax.parse`. `aiv explain syntax`.
 - **Dependency gate:** Python **stdlib** allowlist and **first-party** package scan (top-level dirs with `__init__.py`) so legitimate Airflow-style imports are not false-flagged.
 - **Invariant gate:** **AI edit-artifact** rule on code files only (`invariant.ai-edit-artifact`: elision markers, assistant chatter, SEARCH/REPLACE blocks), in addition to merge-conflict and TBD/FIXME/XXX checks.
@@ -59,4 +62,4 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 
 ### Not in this release
 
-- SARIF output, GitHub Checks annotations, baseline suppressions, and `aiv-plugin-security` remain on the roadmap (see README “Roadmap”).
+- SARIF output, GitHub Checks annotations, baseline suppressions, and `aiv-plugin-security` are shipped (see Unreleased). Optional next: richer secrets heuristics, line-level disable comments.

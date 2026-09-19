@@ -6,9 +6,15 @@
 
 This tutorial follows the style of AWS technical guides: it explains **what** you are doing, **why** it matters, and **how** to verify each step before moving on. By the end, you will have AIV running on a pull-request diff in your repository, understand how to tune rules, and know where to look when something fails.
 
+![AIV Integrity Gate hero](images/aiv-hero-banner.png)
+
 ![AIV value flow](images/aiv-value-flow.png)
 
-**Also read:** [ARCHITECTURE.md](ARCHITECTURE.md) (how modules fit together) · [DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md) (if you are changing AIV itself) · [pipeline-aiv-copilot.md](pipeline-aiv-copilot.md) (optional Stage-2 advisory review).
+| FAIL demo | PASS demo |
+|-----------|-----------|
+| ![Caught before CI](images/aiv-demo-fail.svg) | ![Sample PASS report](images/aiv-demo-pass.svg) |
+
+**Also read:** [ARCHITECTURE.md](ARCHITECTURE.md) (how modules fit together) · [DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md) (if you are changing AIV itself) · [pipeline-aiv-copilot.md](pipeline-aiv-copilot.md) (optional Stage-2 advisory review) · [images/](images/) (all diagrams).
 
 ---
 

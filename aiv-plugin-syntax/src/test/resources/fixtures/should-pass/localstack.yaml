@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: localstack
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: localstack-pod
+spec:
+  containers:
+    - name: localstack
+      image: localstack/localstack:latest

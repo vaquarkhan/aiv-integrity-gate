@@ -124,6 +124,15 @@ public final class AIVConfig {
         return Optional.empty();
     }
 
+    /** Optional string from global config (e.g. {@code baseline: .aiv/baseline.txt}). */
+    public Optional<String> getGlobalString(String key) {
+        Object v = globalConfig.get(key);
+        if (v instanceof String s && !s.isBlank()) {
+            return Optional.of(s.trim());
+        }
+        return Optional.empty();
+    }
+
     /**
      * Gate ids whose advisory failures trigger {@link #getAdvisoryPrLabel()}. Empty means the
      * publisher default set ({@code design}, {@code invariant}, {@code density}, {@code cohesion}).

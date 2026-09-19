@@ -24,6 +24,7 @@ import io.github.vaquarkhan.aiv.port.ReportPublisher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -730,5 +731,40 @@ class OrchestratorTest {
         assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
         assertEquals(List.of("doc-integrity"),
                 results.get(0).getGateResults().stream().map(GateResult::getGateId).toList());
+    }
+
+    @Test
+    void applyBaselineNoopWithoutConfig() {
+        var raw = GateResult.fail("invariant", "x", List.of(
+                Finding.atLine("invariant.placeholder", "a.java", 1, "FIXME")));
+        var out = Orchestrator.applyBaseline(raw, new AIVConfig(List.of(), Map.of()), Paths.get("."));
+        assertFalse(out.isPassed());
+    }
+
+    @Test
+    void applyBaselineSuppressesFromFile(@TempDir Path dir) throws Exception {
+        Path base = dir.resolve("b.txt");
+        Files.writeString(base, "invariant.placeholder|a.java\n");
+        var raw = GateResult.fail("invariant", "x", List.of(
+                Finding.atLine("invariant.placeholder", "a.java", 1, "FIXME")));
+        var cfg = new AIVConfig(List.of(), Map.of("baseline", base.toAbsolutePath().toString()));
+        assertTrue(Orchestrator.applyBaseline(raw, cfg, dir).isPassed());
+    }
+
+    @Test
+    void applyBaselineRelativePath(@TempDir Path dir) throws Exception {
+        Path base = dir.resolve("rel.txt");
+        Files.writeString(base, "invariant.placeholder|a.java\n");
+        var raw = GateResult.fail("invariant", "x", List.of(
+                Finding.atLine("invariant.placeholder", "a.java", 1, "FIXME")));
+        var cfg = new AIVConfig(List.of(), Map.of("baseline", "rel.txt"));
+        assertTrue(Orchestrator.applyBaseline(raw, cfg, dir).isPassed());
+    }
+
+    @Test
+    void applyBaselineMissingFileThrows(@TempDir Path dir) {
+        var raw = GateResult.fail("invariant", "x");
+        var cfg = new AIVConfig(List.of(), Map.of("baseline", "missing.txt"));
+        assertThrows(IllegalArgumentException.class, () -> Orchestrator.applyBaseline(raw, cfg, dir));
     }
 }

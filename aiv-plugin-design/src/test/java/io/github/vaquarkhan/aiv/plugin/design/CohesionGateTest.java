@@ -25,6 +25,7 @@ import io.github.vaquarkhan.aiv.model.GateResult;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -107,6 +108,39 @@ class CohesionGateTest {
                 file("aiv-core/src/test/java/FooTest.java")
         ), Map.of());
         assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void truncatesAreaListWhenManyAreas() {
+        var gate = new CohesionGate();
+        List<ChangedFile> files = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            files.add(file("area" + i + "/x.java"));
+        }
+        var ctx = context(files, Map.of("max_areas", 2, "area_depth", 1));
+        GateResult r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("…") || r.getMessage().contains("..."));
+    }
+
+    @Test
+    void areaOfHandlesBlankAndSlashOnly() {
+        assertEquals("", CohesionGate.areaOf(null, 2));
+        assertEquals("", CohesionGate.areaOf("  ", 2));
+        assertEquals("", CohesionGate.areaOf("///", 2));
+        assertEquals("(root)", CohesionGate.areaOf("README.md", 2));
+    }
+
+    @Test
+    void configIntsAcceptStringAndInvalidFallback() {
+        var gate = new CohesionGate();
+        var ok = context(List.of(file("a/x.java"), file("b/y.java")),
+                Map.of("max_areas", "1", "area_depth", "1", "max_files", "0"));
+        assertFalse(gate.evaluate(ok).isPassed());
+        var bad = context(List.of(file("a/x.java"), file("b/y.java")),
+                Map.of("max_areas", "nope", "area_depth", "1"));
+        // invalid max_areas falls back to default 4 → 2 areas pass
+        assertTrue(gate.evaluate(bad).isPassed());
     }
 
     private static ChangedFile file(String path) {

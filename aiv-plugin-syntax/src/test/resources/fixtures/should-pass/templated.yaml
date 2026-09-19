@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: templated
+data:
+  value: "{{ .Values.foo }}"
+  list: |
+    {%- for item in .Values.items %}
+    - {{ item }}
+    {%- endfor %}

@@ -248,4 +248,15 @@ class YamlConfigProviderTest {
         var config = provider.getConfig(dir);
         assertEquals(1, config.getSchemaVersion());
     }
+
+    @Test
+    void mergesTopLevelBaselineIntoGlobal(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            baseline: .aiv/baseline.txt
+            gates: []
+            """);
+        var config = new YamlConfigProvider().getConfig(dir);
+        assertEquals(".aiv/baseline.txt", config.getGlobalString("baseline").orElseThrow());
+    }
 }

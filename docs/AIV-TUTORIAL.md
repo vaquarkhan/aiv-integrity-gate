@@ -1,5 +1,9 @@
 # AIV Integrity Gate - Complete Tutorial
 
+![AIV Integrity Gate](images/aiv-hero-banner.png)
+
+![PR diff through hard gates](images/aiv-value-flow.png)
+
 ## Table of Contents
 
 1. [The Problem](#1-the-problem)

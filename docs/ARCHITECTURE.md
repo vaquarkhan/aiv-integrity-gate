@@ -2,6 +2,8 @@
 
 This page describes how **AIV Integrity Gate** is structured and how a PR diff becomes a pass/fail decision. It is the technical companion to the [README](../README.md) and [DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md).
 
+![Value flow: PR diff through gates to pass or fail](images/aiv-value-flow.png)
+
 ![Module architecture](images/aiv-hex-architecture.png)
 
 ## Design goals

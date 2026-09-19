@@ -23,7 +23,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
@@ -84,6 +86,7 @@ public final class Main {
         String advisoryLabelOverride = null;
         int warningsExitCode = 0;
         boolean quiet = false;
+        Path baselinePath = null;
 
         for (int i = 0; i < gateArgs.length; i++) {
             if ("--quiet".equals(gateArgs[i])) {
@@ -98,6 +101,8 @@ public final class Main {
                 includeDocChecks = true;
             } else if ("--doctor".equals(gateArgs[i])) {
                 doctor = true;
+            } else if ("--baseline".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+                baselinePath = Paths.get(gateArgs[++i]);
             } else if ("--output-json".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
                 jsonOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
             } else if ("--output-sarif".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
@@ -124,6 +129,18 @@ public final class Main {
             ConfigProvider configProvider = new YamlConfigProvider();
             if (includeDocChecks) {
                 configProvider = new DocChecksConfigProvider(configProvider, true);
+            }
+            if (baselinePath != null) {
+                final Path baselineArg = baselinePath.isAbsolute()
+                        ? baselinePath.normalize()
+                        : workspace.resolve(baselinePath).toAbsolutePath().normalize();
+                final ConfigProvider inner = configProvider;
+                configProvider = ws -> {
+                    AIVConfig base = inner.getConfig(ws);
+                    Map<String, Object> global = new HashMap<>(base.getGlobalConfig());
+                    global.put("baseline", baselineArg.toString());
+                    return new AIVConfig(base.getGates(), global);
+                };
             }
             var recording = new RecordingReportPublisher(new StdoutReportPublisher(quiet));
             var orchestrator = new Orchestrator(diffProvider, configProvider, recording);

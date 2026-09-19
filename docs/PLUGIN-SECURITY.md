@@ -1,9 +1,17 @@
-# Security plugin (`aiv-plugin-security`) — status
+# Security plugin (`aiv-plugin-security`)
 
-There is **no `aiv-plugin-security` Maven module in this repository yet**. It remains on the [product roadmap](../README.md#roadmap-short) as an optional future gate (e.g. secrets, CVE-style patterns, or rules that depend on external scanners), aligned with the discussion in project docs.
+Shipped as an **optional** gate (`id: security`, **off by default**).
 
-**What exists today:** integrity gates such as **dependency**, **density**, **design**, **doc-integrity**, and **invariant-template** — see the root [`pom.xml`](../pom.xml) `<modules>` list.
+Scans **added lines** for high-confidence credential leaks (AWS key ids, GitHub/Slack tokens, private key headers, obvious `api_key = "..."` assignments).
 
-When a security-focused plugin is added, it will appear as `aiv-plugin-security/` and be listed in the reactor like the other plugins.
+```yaml
+gates:
+  - id: security
+    enabled: true
+```
 
-**Maintainer / developer of record (Maven POM):** Vaquar Khan — see `<developers>` in the root `pom.xml`.
+```bash
+java -jar aiv-cli.jar explain security
+```
+
+Not a replacement for enterprise secret scanners; a forever-on tripwire for accidental paste into a PR.

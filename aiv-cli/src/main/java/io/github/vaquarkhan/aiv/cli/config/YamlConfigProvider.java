@@ -73,6 +73,9 @@ public final class YamlConfigProvider implements ConfigProvider {
             if (root.containsKey("advisory_label_gates") && !global.containsKey("advisory_label_gates")) {
                 global.put("advisory_label_gates", root.get("advisory_label_gates"));
             }
+            if (root.containsKey("baseline") && !global.containsKey("baseline")) {
+                global.put("baseline", root.get("baseline"));
+            }
             return new AIVConfig(gates, Collections.unmodifiableMap(global));
         } catch (Exception e) {
             throw new IllegalArgumentException("Invalid config at .aiv/config.yaml: " + e.getMessage(), e);
@@ -90,6 +93,7 @@ public final class YamlConfigProvider implements ConfigProvider {
                         new AIVConfig.GateConfig("dependency", true, Map.of()),
                         new AIVConfig.GateConfig("syntax", true, Map.of()),
                         new AIVConfig.GateConfig("invariant", false, Map.of()),
+                        new AIVConfig.GateConfig("security", false, Map.of()),
                         new AIVConfig.GateConfig("doc-integrity", false, Map.of("rules_path", ".aiv/doc-rules.yaml", "auto", true))
                 ),
                 Map.of("fail_fast", false, "schema_version", CONFIG_SCHEMA_VERSION)

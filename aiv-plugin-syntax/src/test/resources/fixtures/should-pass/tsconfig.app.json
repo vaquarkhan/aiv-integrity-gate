@@ -1,0 +1,9 @@
+{
+  // JSONC: comments + trailing commas (tsconfig*.json carve-out)
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "strict": true,
+  },
+  "include": ["src"],
+}

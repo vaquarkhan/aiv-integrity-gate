@@ -1,0 +1,34 @@
+# AIV Integrity Gate - pre-commit hook definitions
+# https://pre-commit.com/#repository-local-hooks
+#
+# Consumer .pre-commit-config.yaml:
+#   repos:
+#     - repo: https://github.com/vaquarkhan/aiv-integrity-gate
+#       rev: v1.0.4   # or a commit SHA / tag
+#       hooks:
+#         - id: aiv-gate
+#
+# Requires: JDK 17+, and either AIV_CLI_JAR pointing at aiv-cli.jar or
+# scripts that download from Maven Central (see scripts/aiv-pre-commit.sh).
+
+- id: aiv-gate
+  name: AIV Integrity Gate
+  description: >
+    Diff-scoped, zero-FP-oriented tripwire for objectively broken AI/agent
+    output (syntax, conflict/edit artifacts, bad imports). Runs against
+    staged changes vs HEAD (or AIV_DIFF_BASE).
+  entry: scripts/aiv-pre-commit.sh
+  language: script
+  pass_filenames: false
+  stages: [pre-commit]
+  require_serial: true
+
+- id: aiv-gate-windows
+  name: AIV Integrity Gate (Windows)
+  description: Same as aiv-gate for PowerShell hosts.
+  entry: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/aiv-pre-commit.ps1
+  language: system
+  pass_filenames: false
+  stages: [pre-commit]
+  require_serial: true
+  types_or: [file]

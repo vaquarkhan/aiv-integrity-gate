@@ -8,7 +8,7 @@ exclude_paths:
 # Run all gates and aggregate failures (set true to stop at first failure)
 fail_fast: false
 # When severity=warn gates find AI-slop signals, optional PR label (CLI --label-pr-on-advisory)
-advisory_pr_label: aiv:ai-slop
+advisory_pr_label: aiv:advisory
 advisory_label_gates:
   - design
   - invariant
@@ -48,6 +48,8 @@ gates:
         - com.github.javaparser.ast.body
         - com.github.javaparser.ast.visitor
   - id: invariant
+    enabled: false
+  - id: security
     enabled: false
   - id: syntax
     enabled: true

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">AIV Integrity Gate pass demo</title>
+  <desc id="desc">Sample CLI report showing all hard gates PASS</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F7FAFC"/>
+      <stop offset="100%" stop-color="#ECFDF5"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0B1F3A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="1120" height="520" fill="url(#bg)"/>
+  <text x="56" y="48" fill="#0B1F3A" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700">Clean PR diff  hard gates green</text>
+  <text x="56" y="78" fill="#475569" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15">Same report locally and in GitHub Actions. Deterministic. No LLM API.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="180" y="110" width="760" height="340" rx="16" fill="#0B1F3A"/>
+    <circle cx="208" cy="138" r="6" fill="#F87171"/>
+    <circle cx="228" cy="138" r="6" fill="#FBBF24"/>
+    <circle cx="248" cy="138" r="6" fill="#34D399"/>
+    <text x="276" y="143" fill="#94A3B8" font-family="Consolas, Menlo, monospace" font-size="13">java -jar aiv-cli.jar --diff origin/main</text>
+    <text x="220" y="196" fill="#E2E8F0" font-family="Consolas, Menlo, monospace" font-size="18">=== AIV Report ===</text>
+    <text x="220" y="236" fill="#34D399" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="700">Overall: PASS</text>
+    <text x="220" y="276" fill="#A7F3D0" font-family="Consolas, Menlo, monospace" font-size="16">  syntax: PASS - OK</text>
+    <text x="220" y="306" fill="#A7F3D0" font-family="Consolas, Menlo, monospace" font-size="16">  density: PASS - OK</text>
+    <text x="220" y="336" fill="#A7F3D0" font-family="Consolas, Menlo, monospace" font-size="16">  design: PASS - OK</text>
+    <text x="220" y="366" fill="#A7F3D0" font-family="Consolas, Menlo, monospace" font-size="16">  dependency: PASS - OK</text>
+    <text x="220" y="396" fill="#A7F3D0" font-family="Consolas, Menlo, monospace" font-size="16">  invariant: PASS - OK</text>
+    <text x="220" y="430" fill="#64748B" font-family="Consolas, Menlo, monospace" font-size="16">==================</text>
+  </g>
+</svg>

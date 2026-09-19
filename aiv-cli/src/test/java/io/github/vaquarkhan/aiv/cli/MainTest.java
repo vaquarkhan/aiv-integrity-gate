@@ -360,6 +360,33 @@ class MainTest {
     }
 
     @Test
+    void baselineRelativePathIsAccepted(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Files.createDirectories(repo.resolve(".aiv"));
+        Files.writeString(repo.resolve(".aiv/baseline.txt"), "# empty\n", StandardCharsets.UTF_8);
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--baseline", ".aiv/baseline.txt"
+        }));
+    }
+
+    @Test
+    void baselineAbsolutePathIsAccepted(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Files.createDirectories(repo.resolve(".aiv"));
+        Path baseline = repo.resolve(".aiv/baseline.txt");
+        Files.writeString(baseline, "# empty\n", StandardCharsets.UTF_8);
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--baseline", baseline.toAbsolutePath().toString()
+        }));
+    }
+
+    @Test
     void publishGithubChecksWithoutTokenReturnsTwo(@TempDir Path repo) throws Exception {
         initRepo(repo);
         assertEquals(2, Main.run(new String[]{

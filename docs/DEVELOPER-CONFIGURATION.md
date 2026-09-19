@@ -57,8 +57,9 @@ Alongside `gates`, you may set:
 |-----|------|-------------|
 | `exclude_paths` | list of strings | Repository-relative globs (`**`, `*`, optional `glob:` prefix). See `PathFilter` in source: invalid globs fall back to simple matching. **Negation (`!pattern`) is not supported**—only positive excludes. |
 | `fail_fast` | boolean | If `true`, stop after the first failing gate. Default `false` runs all gates and aggregates failures. |
-| `advisory_pr_label` | string | Optional GitHub PR label name used with `--label-pr-on-advisory` (default in CLI is `aiv:ai-slop`). |
+| `advisory_pr_label` | string | Optional GitHub PR label name used with `--label-pr-on-advisory` (default in CLI is `aiv:advisory`). |
 | `advisory_label_gates` | list of strings | Gate ids whose **advisory** (`severity: warn`) failures trigger the PR label. Empty → `design`, `invariant`, `density`, `cohesion`. |
+| `baseline` | string | Path to baseline suppressions (`rule_id\|file` lines). Or use CLI `--baseline`. |
 | `skip_allowlist` | list of emails | If non-empty, only these **git author emails** may honor `/aiv skip` on the latest commit (case-insensitive). This is metadata from `git log`, not cryptographic proof of identity. |
 
 Example:
@@ -418,8 +419,9 @@ constraints:
 | `--output-json` *path* | Write a JSON report (`schema_version: 2`, top-level **`doctor_mode`**, per-gate **`findings`**) after the run. Treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. | (no file) |
 | `--output-sarif` *path* | Write SARIF 2.1.0 after the run; run **`properties.doctorMode`** mirrors JSON `doctor_mode`. | (no file) |
 | `--quiet` | Suppress human stdout report and INFO line (use with `--output-json` / `--output-sarif` for machine-only output). | (flag absent) |
+| `--baseline` *path* | Suppress findings in a baseline file (`rule_id\|file` or `rule_id\|file\|message`). | (flag absent) |
 | `--publish-github-checks` | After a successful run, POST a GitHub Check run with annotations (needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `GITHUB_SHA` or `AIV_GITHUB_HEAD_SHA`). | (flag absent) |
-| `--label-pr-on-advisory` [*label*] | On pull requests: if advisory (`severity: warn`) findings appear on AI-slop gates (`design` / `invariant` / `density` by default), add a PR label (default `aiv:ai-slop`); remove it when clean. Needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `AIV_GITHUB_PR_NUMBER` or `GITHUB_EVENT_PATH`. Optional label name after the flag; or set `advisory_pr_label` / `AIV_PR_ADVISORY_LABEL`. | (flag absent) |
+| `--label-pr-on-advisory` [*label*] | On pull requests: if advisory (`severity: warn`) findings appear on configured gates (`design` / `invariant` / `density` by default), add a PR label (default `aiv:advisory`); remove it when clean. Needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `AIV_GITHUB_PR_NUMBER` or `GITHUB_EVENT_PATH`. Optional label name after the flag; or set `advisory_pr_label` / `AIV_PR_ADVISORY_LABEL`. | (flag absent) |
 | `--warnings-exit-code` *n* | If the run **passed** but there were **notices** (e.g. skipped oversized files), exit with code *n* (e.g. `4`) instead of `0`. | `0` (disabled) |
 | `--version`, `-V` | Print CLI version and exit   | -              |
 

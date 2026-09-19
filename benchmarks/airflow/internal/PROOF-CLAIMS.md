@@ -1,12 +1,15 @@
 # Proving product value (claim policy)
 
+**Product story (internal):** tripwire for objectively broken agent/code paste, proven on the **labeled 50**. Airflow abandoned/census = base-rate study only. See [docs/internal/CLAIMS.md](../../../docs/internal/CLAIMS.md).
+
 ## How to read this
 
 | Layer | What it proves | Artifact |
 |-------|----------------|----------|
-| **1. Labeled 50 fixtures** | Tool precision/recall on known ground truth | [`labeled-latest.html`](reports/labeled-latest.html) |
-| **2. Abandoned Airflow labeling** | Most abandoned ≠ marker AI-slop; labels + catch rate when same diffs hit AIV | [`abandoned-labeled-latest.html`](reports/abandoned-labeled-latest.html) |
-| **3. Live bench recreation** | Same PRs opened on GitHub under AIV Actions | [`vaquarkhan/aiv-airflow-bench`](https://github.com/vaquarkhan/aiv-airflow-bench) |
+| **1. Labeled 50 fixtures** | Tool precision/recall on known ground truth (**primary**) | [`labeled-latest.html`](reports/labeled-latest.html) |
+| **2. Abandoned Airflow labeling** | Most abandoned != marker-style breakage; labels + catch rate | [`abandoned-labeled-latest.html`](reports/abandoned-labeled-latest.html) |
+| **3. Live bench recreation** | Same PRs under AIV Actions | [`vaquarkhan/aiv-airflow-bench`](https://github.com/vaquarkhan/aiv-airflow-bench) |
+| **Public Pages** | Shareable report + raw JSON | [vaquarkhan.github.io/aiv-airflow-bench](https://vaquarkhan.github.io/aiv-airflow-bench/) |
 | **Master** | Combined product report | [`product-benchmark-latest.html`](reports/product-benchmark-latest.html) |
 
 ## 1) Labeled 50-case fixtures (primary)

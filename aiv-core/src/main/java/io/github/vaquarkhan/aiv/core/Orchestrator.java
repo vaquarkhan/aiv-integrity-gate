@@ -31,6 +31,7 @@ import io.github.vaquarkhan.aiv.util.PathFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
+
 
 /**
  * Runs the pipeline: diff - config - gates (in order) - publish.
@@ -109,7 +111,8 @@ public final class Orchestrator {
                 continue;
             }
             GateResult raw = gate.evaluate(context);
-            GateResult result = applySeverity(raw, gate.getId(), config);
+            GateResult severityApplied = applySeverity(raw, gate.getId(), config);
+            GateResult result = applyBaseline(severityApplied, config, workspace);
             results.add(result);
             if (!result.isPassed()) {
                 log.info("Gate {} failed: {}", gate.getId(), result.getMessage());
@@ -148,6 +151,22 @@ public final class Orchestrator {
         return GateResult.advisory(gateId, raw.getMessage(), raw.getFindings());
     }
 
+    static GateResult applyBaseline(GateResult raw, AIVConfig config, Path workspace) {
+        String baselineRel = config.getGlobalString("baseline").orElse("");
+        if (baselineRel.isBlank()) {
+            return raw;
+        }
+        Path baselinePath = Path.of(baselineRel);
+        if (!baselinePath.isAbsolute()) {
+            baselinePath = workspace.resolve(baselineRel).normalize();
+        }
+        try {
+            return BaselineFilter.load(baselinePath).apply(raw);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Cannot read baseline: " + e.getMessage(), e);
+        }
+    }
+
     private static boolean shouldHonorSkip(Diff diff, AIVConfig config) {
         if (!diff.isSkipDirectivePresent()) {
             return false;
@@ -174,7 +193,7 @@ public final class Orchestrator {
                 .filter(g -> g.getId().equals(gateId))
                 .findFirst()
                 .map(AIVConfig.GateConfig::isEnabled)
-                .orElse(!"doc-integrity".equals(gateId));
+                .orElse(!"doc-integrity".equals(gateId) && !"security".equals(gateId));
         if (!enabled) return false;
         if (!"doc-integrity".equals(gateId)) return true;
         Object auto = config.getGates().stream()
