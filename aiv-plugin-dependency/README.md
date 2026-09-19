@@ -1,6 +1,8 @@
 # Module: `aiv-plugin-dependency`
 
-**Role:** **Dependency gate** - compares **import** statements in changed source files against declared dependencies (for example **Maven `pom.xml`**, **Python requirements**). Uses curated mappings for common libraries where **Maven coordinates** do not match Java package prefixes 1:1, plus optional whitelisting.
+**Role:** **Dependency gate** - compares **import** statements in changed source files against declared dependencies (for example **Maven `pom.xml`**, **Python requirements** / **pyproject.toml**). Uses curated mappings for common libraries where **Maven coordinates** do not match Java package prefixes 1:1, plus optional whitelisting.
+
+Python **stdlib** modules and **first-party** packages (top-level `__init__.py` layouts) are allowed automatically.
 
 ## SPI
 

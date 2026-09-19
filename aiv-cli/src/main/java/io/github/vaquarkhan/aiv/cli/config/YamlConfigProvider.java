@@ -79,6 +79,7 @@ public final class YamlConfigProvider implements ConfigProvider {
                                 "refactor_net_loc_threshold", -50)),
                         new AIVConfig.GateConfig("design", true, Map.of("rules_path", ".aiv/design-rules.yaml")),
                         new AIVConfig.GateConfig("dependency", true, Map.of()),
+                        new AIVConfig.GateConfig("syntax", true, Map.of()),
                         new AIVConfig.GateConfig("invariant", false, Map.of()),
                         new AIVConfig.GateConfig("doc-integrity", false, Map.of("rules_path", ".aiv/doc-rules.yaml", "auto", true))
                 ),

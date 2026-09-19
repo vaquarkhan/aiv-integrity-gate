@@ -1,6 +1,6 @@
 # Module: `aiv-plugin-invariant-template`
 
-**Role:** **Placeholder invariant gate** - ships as a **template** for property-based or custom invariants. The default implementation **passes** so teams can fork the pattern without blocking CI.
+**Role:** **Invariant gate** - hard checks for merge-conflict markers, TBD/FIXME/XXX placeholders, and **AI edit-artifacts** (elision / assistant chatter / SEARCH-REPLACE) in code files only.
 
 ## SPI
 
@@ -8,10 +8,11 @@ Registers as `QualityGate` with id **`invariant`**.
 
 ## Production use
 
-Disable in `.aiv/config.yaml` until you replace it with real checks, or keep it enabled with the understanding it is a no-op pass-through.
+Often **disabled** in starter `.aiv/config.yaml` until you accept placeholder scanning on whole changed files. Enable when you want these hard blocks. Docs/prose are not flagged by the AI edit-artifact rule.
 
 ## See also
 
 - [`aiv-api`](../aiv-api/README.md) - `QualityGate`
+- `aiv explain invariant`
 
 **Author:** Vaquar Khan

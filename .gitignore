@@ -11,8 +11,10 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# IDE
+# IDE / editor / agent local state (never commit)
 .cursor/
+.cursorrules
+.claude/
 .idea/
 *.iml
 *.ipr
@@ -24,6 +26,7 @@ buildNumber.properties
 *.swp
 *.swo
 *~
+commit-msg.txt
 
 # OS
 .DS_Store
@@ -44,9 +47,21 @@ jacoco.exec
 *.ear
 hs_err_pid*
 
-# Docs (internal / draft)
+# Docs (internal / draft / local evidence — not product docs)
 docs/GAP-ANALYSIS.md
 docs/AIV-ARCHITECTURE-BRAINSTORM.md
+docs/AIV-AIRFLOW-EVIDENCE-BRIEF.md
+docs/evidence-airflow-marker-scan.json
+
+# Local experiment / corpus artifacts (never ship)
+airflow-sample/
+aiv-scratch*/
+aiv-*.patch
+aiv-*-experiment.ps1
+aiv-slop-features.csv
+aiv-airflow-*.md
+aiv-magpie-*.md
+maven-portable/
 
 # Local CLI init output (not project config)
 aiv-cli/.aiv/

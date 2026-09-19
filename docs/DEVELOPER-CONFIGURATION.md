@@ -224,6 +224,10 @@ gates:
     config:
       whitelist: []   # optional: allow packages not in lockfile
 
+  - id: syntax
+    enabled: true
+    config: {}
+
   - id: invariant
     enabled: true
     config: {}
@@ -236,7 +240,8 @@ gates:
 | `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 4.0, -50 |
 | `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
 | `dependency` | Import vs lockfile         | `whitelist`           | -                           |
-| `invariant`  | Invariant checks           | -                     | -                           |
+| `syntax`     | Parse validity (Java/Python/YAML/JSON) | -              | enabled when listed or by default if omitted |
+| `invariant`  | Merge markers, placeholders, AI edit-artifacts | -        | -                           |
 | `doc-integrity` | Documentation validation | `rules_path`, `auto` | `.aiv/doc-rules.yaml`       |
 
 For every changed documentation file, **`doc-integrity`** also checks **relative Markdown links** `[label](path)` (skipping `http://`, `https://`, `mailto:`): the path must resolve to a file in the workspace. If the link includes a **`#fragment`** and the target ends with `.md`, a matching **ATX heading slug** (GitHub-style) must exist in that file. Optional rules in `doc-rules.yaml` add required mentions and canonical command checks.
@@ -263,7 +268,11 @@ For every changed documentation file, **`doc-integrity`** also checks **relative
 |-------------|--------|------------------------------------------|---------|
 | `whitelist` | list   | Package names allowed without lockfile   | -       |
 
-Validates Java imports against `pom.xml` and Python imports against `requirements.txt` or `pyproject.toml`. Fails on unknown imports. Use `whitelist` to allow packages that are not in the lockfile (for example, JDK or standard library modules).
+Validates Java imports against `pom.xml` and Python imports against `requirements.txt` or `pyproject.toml`. Fails on unknown third-party imports. **Python stdlib** modules and **first-party** packages (workspace directories containing `__init__.py` whose parent is not itself a package) are allowed automatically. Use `whitelist` for intentional exceptions.
+
+### Syntax Gate
+
+No gate-specific config keys. Checks that changed `.java`, `.py`, `.yaml`/`.yml`, and `.json` files parse. Skips when uncertain (missing Python interpreter, Helm/Jinja templates, `tsconfig*.json`, Dockerfile-named-as-`.java`). Override the Python binary with JVM property `aiv.python.command`. Rule id: `syntax.parse`.
 
 ### Doc Integrity Gate
 
@@ -501,14 +510,15 @@ Glob patterns use Java PathMatcher syntax. Common patterns:
 
 ## 6. Defaults Summary
 
-When `.aiv/config.yaml` is missing, the CLI’s built-in default (see `YamlConfigProvider`) turns on density, design, dependency, and invariant, and leaves **doc-integrity** present but **disabled** unless you enable it in YAML or pass `--include-doc-checks`.
+When `.aiv/config.yaml` is missing, the CLI’s built-in default (see `YamlConfigProvider`) turns on density, design, dependency, and **syntax**, leaves **invariant** and **doc-integrity** disabled unless you enable them (or pass `--include-doc-checks` for docs). Gates present via ServiceLoader but **omitted** from the YAML list default to **enabled**, except `doc-integrity`.
 
-| Gate      | Enabled | Config                                      |
+| Gate      | Enabled (built-in default list) | Config                                      |
 |-----------|---------|---------------------------------------------|
-| density   | true    | ldr_threshold: 0.25, entropy_threshold: 5.0 |
+| density   | true    | ldr_threshold: 0.25, entropy_threshold: 4.0 |
 | design    | true    | rules_path: .aiv/design-rules.yaml          |
-| dependency| true    | whitelist: []                               |
-| invariant | true    | (none)                                      |
+| dependency| true    | (none)                                      |
+| syntax    | true    | (none)                                      |
+| invariant | false   | (none)                                      |
 | doc-integrity | false | rules_path: .aiv/doc-rules.yaml, auto: true |
 
 When `.aiv/design-rules.yaml` is missing or empty, the design gate passes (no constraints).

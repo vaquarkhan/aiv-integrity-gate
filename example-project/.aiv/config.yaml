@@ -22,6 +22,8 @@ gates:
     enabled: true
     config:
       whitelist: []
+  - id: syntax
+    enabled: true
   - id: invariant
     enabled: true
   - id: doc-integrity

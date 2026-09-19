@@ -1,14 +1,36 @@
 # AIV Integrity Gate
 
+<p align="center">
+  <img src="docs/images/aiv-value-flow.png" alt="AIV Integrity Gate: PR diff through syntax, density, design, dependency, and invariant gates to pass or fail" width="920" />
+</p>
+
 ## One sentence
 
 **The air-gapped PR filter for AI-generated code slop.**
 
 Everything below is supporting detail: what it checks, how it differs from generic linters, and how to run it without sending code to a third party or calling an LLM.
 
+### Why this adds value
+
+| Without AIV | With AIV (hard gate) |
+|-------------|----------------------|
+| Broken / unparseable files burn full CI matrix minutes | **Syntax** fails in seconds |
+| LLM paste leaves `... existing code ...` or SEARCH/REPLACE junk | **Invariant** AI edit-artifact rule (when enabled) |
+| Hallucinated imports look fine until runtime | **Dependency** vs pom / requirements (stdlib + first-party allowed) |
+| “Looks big” PRs with little real logic | **Density** LDR / entropy on the **diff** |
+| Soft “is this valuable?” needs a human or LLM | Stays **advisory** (optional Copilot after AIV) — see [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) |
+
+Architecture (hexagonal modules + ServiceLoader plugins):
+
+<p align="center">
+  <img src="docs/images/aiv-hex-architecture.png" alt="AIV hexagonal module architecture with aiv-core orchestrator" width="560" />
+</p>
+
+Details: **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · Contributor runbook: **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** · Deep walkthrough: **[docs/TUTORIAL.md](docs/TUTORIAL.md)**
+
 ### Why not PMD, Semgrep, or Checkstyle?
 
-They are great **whole-repo** static analyzers. AIV is a **diff-scoped** integrity gate (density, design YAML, imports vs manifests, optional docs). See the comparison grid below and [docs/WHY-NOT-PMD-SEMGREP.md](docs/WHY-NOT-PMD-SEMGREP.md).
+They are great **whole-repo** static analyzers. AIV is a **diff-scoped** integrity gate (density, design YAML, imports vs manifests, **syntax** parse checks, optional docs). See the comparison grid below and [docs/WHY-NOT-PMD-SEMGREP.md](docs/WHY-NOT-PMD-SEMGREP.md).
 
 | | **AIV** | **PMD / Semgrep / Checkstyle** |
 |--|---------|--------------------------------|
@@ -29,8 +51,8 @@ They are great **whole-repo** static analyzers. AIV is a **diff-scoped** integri
 ## See it in CI (no marketing fluff - just the check)
 
 - **Live runs:** [GitHub Actions on this repository](https://github.com/vaquarkhan/aiv-integrity-gate/actions) - open a workflow run and expand the job to see pass/fail and logs.
-- **What to look for:** a failing run when a change trips **density** (too little real logic), **design** (forbidden calls or slop markers), or **dependency** (imports not backed by your lockfile). That is the same signal your contributors will see.
-- **Optional media:** If you add a screen recording, store it at `docs/images/aiv-ci-demo.gif` and reference it here so newcomers see a red check on a bad PR in one glance.
+- **What to look for:** a failing run when a change trips **syntax** (won't-parse), **density** (too little real logic), **design** (forbidden calls or AI attribution markers), **dependency** (imports not backed by your lockfile), or **invariant** (conflict / edit-artifact markers when enabled). That is the same signal your contributors will see.
+- **Optional media:** Architecture and value-flow diagrams live under [`docs/images/`](docs/images/). A screen recording of a red CI check can be added as `docs/images/aiv-ci-demo.gif` when available.
 
 ---
 
@@ -59,7 +81,7 @@ You are done when a PR runs AIV and prints a report (pass or fail).
 
 4. **Open a pull request** - Intentionally violate a design rule (e.g. `System.exit` with the sample rules) to see a **fail**, then fix to **pass**.
 
-**Developers changing AIV itself:** build with `mvn clean verify -pl aiv-cli -am` and run `java -jar aiv-cli/target/aiv-cli-<version>.jar`. User guides: [docs/TUTORIAL.md](docs/TUTORIAL.md), [docs/MAVEN-VERSION.md](docs/MAVEN-VERSION.md), [DEPLOYMENT.md](docs/DEPLOYMENT.md), [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md). **Release notes:** [CHANGELOG.md](CHANGELOG.md).
+**Developers changing AIV itself:** see **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** (build, verify, run shaded JAR, add a gate). User guides: [docs/TUTORIAL.md](docs/TUTORIAL.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/MAVEN-VERSION.md](docs/MAVEN-VERSION.md), [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md). **Release notes:** [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -69,11 +91,12 @@ You are done when a PR runs AIV and prints a report (pass or fail).
 |-----------|--------------|---------------------------|
 | Reviewer overload | Too many PRs to review; maintainers spend time on low-value contributions | Density gate filters verbose, boilerplate-heavy code before human review |
 | Low-quality contributions | Code that looks correct but is mostly scaffolding, empty classes, or copy-paste | Density gate (logic density ratio and entropy) flags it |
-| AI slop | AI-generated code with emoji, attribution markers, or generic boilerplate | Design rules (`no-emoji-in-code`, `no-ai-generated-markers`) flag it |
+| AI slop / edit artifacts | Partial LLM pastes, elision markers, assistant chatter, conflict markers left in source | **Invariant** (`ai-edit-artifact`, merge markers) + **design** rules for attribution phrases (`Generated by ChatGPT`, etc.) |
+| Won't-parse / guaranteed CI fail | Broken Java/Python/YAML/JSON that would fail later in the matrix | **Syntax** pre-gate (precision-first: skips when uncertain) |
 | Design drift | Code violates project architecture, RFCs, or forbidden patterns | Design gate enforces YAML rules (forbidden and required patterns) |
 | Wrong API usage | Contributors use deprecated APIs or wrong patterns (e.g. in-memory list instead of ExpireSnapshots) | Design gate catches forbidden calls and missing required calls |
-| Unknown imports | Typos in package names or imports not declared in lockfile; supply-chain risk | Dependency gate validates Java imports vs pom.xml, Python vs requirements.txt |
-| Fragile edge-case code | Code lands with unresolved merge state or placeholder markers | Invariant gate catches merge conflict markers and TODO placeholders |
+| Unknown imports | Typos in package names or imports not declared in lockfile; supply-chain risk | Dependency gate validates Java imports vs pom.xml, Python vs requirements (stdlib + first-party packages allowed) |
+| Fragile edge-case code | Code lands with unresolved merge state or placeholder markers | Invariant gate catches merge conflict markers and TBD/FIXME/XXX |
 | Urgent merges | Need to bypass checks for hotfix or emergency | `/aiv skip` on its own line in the **latest** PR commit skips all gates (optional `skip_allowlist` in config) |
 | Refactors flagged | Legitimate refactors remove more lines than they add; density gate would fail | Refactor exception: density skips when net lines <= threshold (default -50) |
 | Core maintainer friction | Trusted committers get unnecessary density failures | Trusted authors bypass density check |
@@ -87,17 +110,19 @@ When someone opens a pull request, AIV runs a set of checks on the changed files
 
 1. **Density** - Does the code have enough real logic, or is it mostly scaffolding? Empty classes and copy-paste boilerplate get flagged.
 
-2. **Design** - Does the code follow your project's rules? You define forbidden patterns (for example, do not use `System.exit`) and required patterns (for example, use a specific API when a keyword appears). Includes rules for **AI slop detection**: emoji and attribution markers (e.g. "Generated by ChatGPT") common in low-quality AI-generated code.
+2. **Design** - Does the code follow your project's rules? You define forbidden patterns (for example, do not use `System.exit`) and required patterns. Prefer **objective AI markers** (e.g. "Generated by ChatGPT", "as an AI language model") over emoji hard-blocks — emoji appears in legitimate code and is a poor slop selector.
 
-3. **Dependency** - Are new imports in Java and Python files declared in your lockfile? This helps catch typos and supply-chain attacks where someone registers a fake package name.
+3. **Dependency** - Are new imports in Java and Python files declared in your lockfile? Python **stdlib** and **first-party** packages (directories with `__init__.py`) are allowed automatically so real projects are not false-flagged.
 
-4. **Invariant** - Baseline invariants (merge-conflict markers and placeholder markers such as TBD/FIXME/XXX). Keep deeper project-specific invariants in your test suite.
+4. **Syntax** - Do changed Java / Python / YAML / JSON files **parse**? Catches guaranteed downstream CI failures in milliseconds. Precision-first: skips when the toolchain is missing or the file is intentionally non-strict (templated YAML, `tsconfig*.json`, `Dockerfile.java`).
 
-5. **Doc Integrity** - Validates documentation files (.md, .txt, .rst): path existence, cross-references, required mentions, command completeness, path fabrication. Enable via **`--include-doc-checks`** (forces the gate on every run) or via config (`enabled: true` plus **`auto: true`** to run only when the diff touches docs). See [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md#doc-integrity-gate) for the decision table.
+5. **Invariant** - Merge-conflict markers, TBD/FIXME/XXX placeholders, and **AI edit-artifacts** in code files only (elision markers, assistant chatter, `<<<<<<< SEARCH` / `>>>>>>> REPLACE`). Off by default in this repo's dogfood config; enable when you want those hard blocks.
 
-AIV works with Java, Python, Go, Rust, Kotlin, Scala, JavaScript, TypeScript, C, C++, Ruby, and shell. The density gate runs full logic checks on Java only; other languages get entropy checks. Design and dependency checks apply to whatever languages you configure.
+6. **Doc Integrity** - Validates documentation files (.md, .txt, .rst): path existence, cross-references, required mentions, command completeness, path fabrication. Enable via **`--include-doc-checks`** (forces the gate on every run) or via config (`enabled: true` plus **`auto: true`** to run only when the diff touches docs). See [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md#doc-integrity-gate) for the decision table.
 
-No API keys or paid services are required. Everything runs locally in your CI.
+AIV works with Java, Python, Go, Rust, Kotlin, Scala, JavaScript, TypeScript, C, C++, Ruby, and shell. The density gate runs full logic checks on Java only; other languages get entropy checks. Design and dependency checks apply to whatever languages you configure. Syntax covers Java, Python, YAML, and JSON.
+
+No API keys or paid services are required for the hard gate. Everything runs locally in your CI. Optional advisory Copilot review can run **after** AIV passes — see [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md).
 
 ---
 
@@ -109,8 +134,9 @@ No API keys or paid services are required. Everything runs locally in your CI.
 | `aiv-core` | Orchestrator that runs gates in sequence |
 | `aiv-plugin-density` | Logic density and entropy checks |
 | `aiv-plugin-design` | Design compliance via YAML rules (Java-aware surface matching; phrase boundaries for prose-like markers) |
-| `aiv-plugin-dependency` | Import validation against pom.xml and requirements.txt |
-| `aiv-plugin-invariant-template` | Invariant gate (merge markers, placeholder tokens; off unless enabled in config) |
+| `aiv-plugin-dependency` | Import validation against pom.xml and requirements (Python stdlib + first-party allowlist) |
+| `aiv-plugin-syntax` | Parse-validity pre-gate (Java, Python, YAML/JSON) |
+| `aiv-plugin-invariant-template` | Invariant gate (merge markers, placeholders, AI edit-artifacts; enable in config) |
 | `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) |
 | `aiv-adapter-git` | Git diff provider |
 | `aiv-adapter-github` | **Default:** `StdoutReportPublisher` (human-readable report to stdout). **Optional:** `GithubChecksPublisher` when you pass **`--publish-github-checks`** (requires `GITHUB_TOKEN` and repository env). |
@@ -192,8 +218,11 @@ Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cl
 
 | Document | Contents |
 |----------|----------|
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Module map, Mermaid diagrams, how to add a gate. |
+| [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build, run, test, contribute (maintainers). |
 | [docs/TUTORIAL.md](docs/TUTORIAL.md) | Long-form getting started (walkthrough, CLI, CI, troubleshooting). |
 | [docs/README.md](docs/README.md) | Index of all guides. |
+| [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) | Two-stage flow: AIV hard gate → Copilot advisory. |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable AIV in your repo, CI workflows, Maven Central / Marketplace publishing. |
 | [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference for gates and rules. |
 | [docs/dashboard/README.md](docs/dashboard/README.md) | Static dashboard for JSON run history. |
@@ -224,6 +253,8 @@ gates:
       rules_path: .aiv/design-rules.yaml
   - id: dependency
     enabled: true
+  - id: syntax
+    enabled: true
   - id: invariant
     enabled: true
   - id: doc-integrity
@@ -242,15 +273,10 @@ constraints:
     forbidden_calls: [System.exit]
     required_calls: []
 
-  # AI slop detection: emoji and attribution markers (common tells of AI-generated code)
-  - id: no-emoji-in-code
-    keywords: []
-    forbidden_calls: ["\u2705", "\u274C"]
-    required_calls: []
-
+  # Prefer objective AI attribution markers. Avoid emoji hard-blocks (false positives on legitimate code).
   - id: no-ai-generated-markers
     keywords: []
-    forbidden_calls: ["Generated by AI", "AI-generated"]
+    forbidden_calls: ["Generated by AI", "AI-generated", "Generated by ChatGPT", "as an AI language model"]
     required_calls: []
 
   - id: use-specific-api
@@ -311,7 +337,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap (short)
 
-Shipped foundations: **init**, **doctor** (explicitly labeled informational), **explain**, per-gate **warn** severity, **JSON report** (`--output-json`, `schema_version: 2`), **SARIF** (`--output-sarif`), **GitHub Checks** (`--publish-github-checks`), **`--quiet`**. **Not shipped in this repo:** **baseline** suppressions, **`aiv-plugin-security`**, labeled precision/recall benchmarks for gates — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
+Shipped foundations: **init**, **doctor**, **explain**, **syntax** pre-gate, Python stdlib/first-party dependency allowlist, AI edit-artifact invariants, **JSON** / **SARIF** / **GitHub Checks**, optional **AIV → Copilot advisory** pipeline. **Not shipped:** **baseline** suppressions, **`aiv-plugin-security`**, labeled true-positive / CI-savings benchmarks, **added-lines-only** scoping for all hard rules — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

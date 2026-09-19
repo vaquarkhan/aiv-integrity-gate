@@ -32,7 +32,7 @@ public final class ExplainCommand {
         try (InputStream stream = in) {
             if (stream == null) {
                 System.err.println("No embedded help for \"" + id + "\".");
-                System.err.println("Built-in topics: density, design, dependency, doc-integrity, invariant.");
+                System.err.println("Built-in topics: density, design, dependency, syntax, doc-integrity, invariant.");
                 System.err.println("Project-specific design rule IDs live in .aiv/design-rules.yaml (constraint id); "
                         + "there is no bundled markdown for those.");
                 return 1;

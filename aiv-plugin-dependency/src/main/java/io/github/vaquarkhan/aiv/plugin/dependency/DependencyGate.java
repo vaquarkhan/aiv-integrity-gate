@@ -56,6 +56,38 @@ public final class DependencyGate implements QualityGate {
     private static final Pattern PY_IMPORT = Pattern.compile("^\\s*(?:import|from)\\s+([a-zA-Z0-9_.]+)");
     private static final Pattern GROUP_ID_TAG = Pattern.compile("<groupId>\\s*([^<]+?)\\s*</groupId>");
 
+    /**
+     * Top-level modules shipped with CPython's standard library. Imports of these are never
+     * declared in a requirements manifest, so flagging them produces false positives. Kept as a
+     * static allowlist (Python has no {@code java.*}-style prefix convention for stdlib).
+     */
+    private static final Set<String> PYTHON_STDLIB = Set.of(
+            "abc", "aifc", "argparse", "array", "ast", "asynchat", "asyncio", "asyncore", "atexit",
+            "base64", "bdb", "binascii", "bisect", "builtins", "bz2", "calendar", "cgi", "cgitb",
+            "chunk", "cmath", "cmd", "code", "codecs", "codeop", "collections", "colorsys",
+            "compileall", "concurrent", "configparser", "contextlib", "contextvars", "copy",
+            "copyreg", "cProfile", "crypt", "csv", "ctypes", "curses", "dataclasses", "datetime",
+            "dbm", "decimal", "difflib", "dis", "doctest", "email", "encodings", "ensurepip", "enum",
+            "errno", "faulthandler", "fcntl", "filecmp", "fileinput", "fnmatch", "fractions", "ftplib",
+            "functools", "gc", "getopt", "getpass", "gettext", "glob", "graphlib", "grp", "gzip",
+            "hashlib", "heapq", "hmac", "html", "http", "imaplib", "imp", "importlib", "inspect", "io",
+            "ipaddress", "itertools", "json", "keyword", "linecache", "locale", "logging", "lzma",
+            "mailbox", "marshal", "math", "mimetypes", "mmap", "multiprocessing", "netrc", "numbers",
+            "operator", "optparse", "os", "pathlib", "pdb", "pickle", "pickletools", "pkgutil",
+            "platform", "plistlib", "poplib", "posix", "pprint", "profile", "pstats", "pty", "pwd",
+            "py_compile", "pyclbr", "pydoc", "queue", "quopri", "random", "re", "readline", "reprlib",
+            "resource", "rlcompleter", "runpy", "sched", "secrets", "select", "selectors", "shelve",
+            "shlex", "shutil", "signal", "site", "smtplib", "sndhdr", "socket", "socketserver",
+            "sqlite3", "ssl", "stat", "statistics", "string", "stringprep", "struct", "subprocess",
+            "sunau", "symtable", "sys", "sysconfig", "syslog", "tabnanny", "tarfile", "telnetlib",
+            "tempfile", "termios", "textwrap", "threading", "time", "timeit", "tkinter", "token",
+            "tokenize", "tomllib", "trace", "traceback", "tracemalloc", "tty", "turtle", "types",
+            "typing", "unicodedata", "unittest", "urllib", "uuid", "venv", "warnings", "wave",
+            "weakref", "webbrowser", "wsgiref", "xdrlib", "xml", "xmlrpc", "zipapp", "zipfile",
+            "zipimport", "zlib", "zoneinfo");
+
+    private static final int FIRST_PARTY_SCAN_MAX_DIRS = 20000;
+
     @Override
     public String getId() {
         return "dependency";
@@ -67,6 +99,7 @@ public final class DependencyGate implements QualityGate {
         Set<String> javaAllowedPrefixes = loadJavaDependencyPrefixes(workspace);
         Set<String> pyAllowed = loadPythonDependencies(workspace);
         Set<String> whitelist = getWhitelist(context);
+        Set<String> pyFirstParty = loadPythonFirstPartyPackages(workspace);
 
         List<String> violations = new ArrayList<>();
         List<Finding> findings = new ArrayList<>();
@@ -76,7 +109,7 @@ public final class DependencyGate implements QualityGate {
             if (path.endsWith(".java")) {
                 checkJavaImports(content, path, javaAllowedPrefixes, whitelist, violations, findings);
             } else if (path.endsWith(".py")) {
-                checkPythonImports(content, path, pyAllowed, whitelist, violations, findings);
+                checkPythonImports(content, path, pyAllowed, whitelist, pyFirstParty, violations, findings);
             }
         }
         if (violations.isEmpty()) {
@@ -108,7 +141,7 @@ public final class DependencyGate implements QualityGate {
     }
 
     private void checkPythonImports(String content, String path, Set<String> allowed, Set<String> whitelist,
-                                    List<String> violations, List<Finding> findings) {
+                                    Set<String> firstParty, List<String> violations, List<Finding> findings) {
         int lineNum = 0;
         for (String line : content.split("\n")) {
             lineNum++;
@@ -116,6 +149,7 @@ public final class DependencyGate implements QualityGate {
             if (!m.find()) continue;
             String mod = m.group(1).split("\\.")[0];
             if (mod.equals("__future__") || mod.startsWith("_")) continue;
+            if (PYTHON_STDLIB.contains(mod) || firstParty.contains(mod)) continue;
             String modNorm = mod.replace("_", "-");
             if (!isAllowedPy(mod, modNorm, allowed, whitelist)) {
                 String msg = String.format(
@@ -243,6 +277,51 @@ public final class DependencyGate implements QualityGate {
             }
         }
         return allowed;
+    }
+
+    /**
+     * Detects first-party (in-repo) top-level Python package names so imports of the project's own
+     * code are not flagged as undeclared. A top-level package is a directory that contains an
+     * {@code __init__.py} whose parent directory does not, covering both flat and {@code src/} layouts.
+     * The walk is bounded and never throws; on any error it returns what it found so far.
+     */
+    Set<String> loadPythonFirstPartyPackages(Path workspace) {
+        return loadPythonFirstPartyPackages(workspace, FIRST_PARTY_SCAN_MAX_DIRS);
+    }
+
+    /** Package-private overload so tests can force budget exhaustion and walk failures. */
+    Set<String> loadPythonFirstPartyPackages(Path workspace, int maxDirs) {
+        Set<String> packages = new HashSet<>();
+        if (workspace == null || !Files.isDirectory(workspace)) {
+            return packages;
+        }
+        int[] budget = {maxDirs};
+        try {
+            if (maxDirs < 0) {
+                throw new java.io.IOException("forced first-party scan failure");
+            }
+            try (var stream = Files.walk(workspace, 8)) {
+                @SuppressWarnings("unchecked")
+                Iterable<Path> paths = (Iterable<Path>) stream::iterator;
+                for (Path p : paths) {
+                    if (budget[0]-- <= 0) {
+                        break;
+                    }
+                    if (!p.getFileName().toString().equals("__init__.py")) {
+                        continue;
+                    }
+                    Path pkgDir = p.getParent();
+                    Path parentDir = pkgDir.getParent();
+                    boolean parentIsPackage = parentDir != null && Files.exists(parentDir.resolve("__init__.py"));
+                    if (!parentIsPackage) {
+                        packages.add(pkgDir.getFileName().toString());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.debug("First-party Python package scan stopped early", e);
+        }
+        return packages;
     }
 
     @SuppressWarnings("unchecked")
