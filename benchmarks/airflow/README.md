@@ -5,6 +5,7 @@ End-to-end, third-party-validatable scoring of AIV against **real Apache Airflow
 | Artifact | Purpose |
 |----------|---------|
 | [METHODOLOGY.md](METHODOLOGY.md) | Labeling rules, discovery, FP/TP definitions |
+| [AIP-120-AND-AIV-SHAREABLE.md](AIP-120-AND-AIV-SHAREABLE.md) | **Verified-only** brief for wider Airflow/AIP-120 discussion |
 | [corpus/cases.json](corpus/cases.json) | Labeled cases (schema v2) with PR metadata + marker discovery |
 | [scripts/run-e2e-benchmark.py](scripts/run-e2e-benchmark.py) | `discover` + `run` → JSON/HTML reports |
 | [reports/latest.html](reports/latest.html) | Latest human report (after a run) |
