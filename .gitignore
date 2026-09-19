@@ -65,7 +65,10 @@ maven-portable/
 
 # Benchmark local scratch JSON (published reports live under reports/)
 benchmarks/**/results/*.json
-# Keep latest.html / latest.json; drop bulky per-run trees from git
+# Keep latest.html / latest.json / census-latest.*; drop bulky per-run trees from git optional
 benchmarks/**/reports/run-*/
+benchmarks/**/reports/census-score.log
+benchmarks/**/reports/census-20260919T175537Z/
+benchmarks/**/reports/census-20260919T175906Z/
 # Local CLI init output (not project config)
 aiv-cli/.aiv/

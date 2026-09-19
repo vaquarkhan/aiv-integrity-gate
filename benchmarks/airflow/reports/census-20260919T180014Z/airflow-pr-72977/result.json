@@ -1,0 +1,80 @@
+{
+  "id": "airflow-pr-72977",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72977",
+  "title": "Depend on httpx2 instead of httpx in the Task SDK",
+  "pr": 72977,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:43.144573+00:00"
+  },
+  "pr_meta": {
+    "number": 72977,
+    "title": "Depend on httpx2 instead of httpx in the Task SDK",
+    "html_url": "https://github.com/apache/airflow/pull/72977",
+    "state": "closed",
+    "merged": false,
+    "user": "zach-overflow",
+    "created_at": "2026-09-11T15:08:01Z",
+    "closed_at": "2026-09-14T08:19:30Z",
+    "merged_at": null,
+    "base_sha": "1f5d7691663016c898718768991a2dae522b4475",
+    "head_sha": "f0d95e2b3771a5eccc534bc842ecf31410432fdd",
+    "additions": 588,
+    "deletions": 486,
+    "changed_files": 19,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "area:logging",
+      "area:API",
+      "kind:documentation",
+      "area:task-sdk",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72977/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72977/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

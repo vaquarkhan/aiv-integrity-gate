@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71561",
+  "origin_url": "https://github.com/apache/airflow/pull/71561",
+  "repo": "apache/airflow",
+  "pr": 71561,
+  "title": "Emit pool slot histograms alongside the existing gauges",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:53.927087+00:00"
+  },
+  "pr_meta": {
+    "number": 71561,
+    "title": "Emit pool slot histograms alongside the existing gauges",
+    "html_url": "https://github.com/apache/airflow/pull/71561",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-13T17:54:42Z",
+    "closed_at": "2026-08-13T17:59:25Z",
+    "merged_at": null,
+    "base_sha": "e33a4f6dc78c841455fec9741c6ebed0d26fb98e",
+    "head_sha": "ea00203697148585d3b524fa287c0990173da244",
+    "additions": 95,
+    "deletions": 0,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py",
+    "shared/observability/src/airflow_shared/observability/metrics/metrics_template.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:21:47.876665+00:00"
+}

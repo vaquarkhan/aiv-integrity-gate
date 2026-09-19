@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69834",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69834",
+  "title": "Fix SSHRemoteJobOperator custom remote_base_dir cleanup validation",
+  "pr": 69834,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:20.321313+00:00"
+  },
+  "pr_meta": {
+    "number": 69834,
+    "title": "Fix SSHRemoteJobOperator custom remote_base_dir cleanup validation",
+    "html_url": "https://github.com/apache/airflow/pull/69834",
+    "state": "closed",
+    "merged": false,
+    "user": "axelray-dev",
+    "created_at": "2026-07-13T16:50:25Z",
+    "closed_at": "2026-08-09T15:55:52Z",
+    "merged_at": null,
+    "base_sha": "c49e1c917ea2729eb862daad40f340a9d7dd6c4c",
+    "head_sha": "ed8c90b2a471943c9e3b2b66a097f78a66beebee",
+    "additions": 112,
+    "deletions": 11,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:ssh"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69834/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69834/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

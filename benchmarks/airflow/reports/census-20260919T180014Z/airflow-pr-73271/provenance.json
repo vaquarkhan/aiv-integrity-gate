@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-73271",
+  "origin_url": "https://github.com/apache/airflow/pull/73271",
+  "repo": "apache/airflow",
+  "pr": 73271,
+  "title": "Stop labelling the task log link as \"Mark Success\" in alert emails",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:47.670182+00:00"
+  },
+  "pr_meta": {
+    "number": 73271,
+    "title": "Stop labelling the task log link as \"Mark Success\" in alert emails",
+    "html_url": "https://github.com/apache/airflow/pull/73271",
+    "state": "closed",
+    "merged": false,
+    "user": "rjgoyln",
+    "created_at": "2026-09-17T07:26:25Z",
+    "closed_at": "2026-09-17T13:13:59Z",
+    "merged_at": null,
+    "base_sha": "a039116f83bf7c8f92f0d50c43744a0700d1d330",
+    "head_sha": "15a6e0e3d8108ad0c14985953ff93a332b6c2576",
+    "additions": 50,
+    "deletions": 7,
+    "changed_files": 7,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:smtp",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/howto/email-config.rst",
+    "airflow-core/newsfragments/73271.bugfix.rst",
+    "airflow-core/src/airflow/models/taskinstance.py",
+    "providers/smtp/src/airflow/providers/smtp/notifications/templates/email.html",
+    "providers/smtp/tests/unit/smtp/notifications/test_smtp.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:01:04.048233+00:00"
+}

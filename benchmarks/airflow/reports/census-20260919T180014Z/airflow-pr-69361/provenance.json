@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69361",
+  "origin_url": "https://github.com/apache/airflow/pull/69361",
+  "repo": "apache/airflow",
+  "pr": 69361,
+  "title": "Fix RFC 9457 error response in task instances API",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:37.350487+00:00"
+  },
+  "pr_meta": {
+    "number": 69361,
+    "title": "Fix RFC 9457 error response in task instances API",
+    "html_url": "https://github.com/apache/airflow/pull/69361",
+    "state": "closed",
+    "merged": false,
+    "user": "KushagraB424",
+    "created_at": "2026-07-03T19:54:26Z",
+    "closed_at": "2026-07-21T18:02:48Z",
+    "merged_at": null,
+    "base_sha": "7cf8b438e5ce4c94e9a14f394b02f687bdd841bc",
+    "head_sha": "9dae2ea94cc9f716e332499971b7a45d695a8065",
+    "additions": 11,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/task_instances.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:59:40.375341+00:00"
+}

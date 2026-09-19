@@ -1,0 +1,64 @@
+{
+  "case_id": "airflow-pr-72078",
+  "origin_url": "https://github.com/apache/airflow/pull/72078",
+  "repo": "apache/airflow",
+  "pr": 72078,
+  "title": "Support Anthropic SDK 1.x in Anthropic provider",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:15.927680+00:00"
+  },
+  "pr_meta": {
+    "number": 72078,
+    "title": "Support Anthropic SDK 1.x in Anthropic provider",
+    "html_url": "https://github.com/apache/airflow/pull/72078",
+    "state": "closed",
+    "merged": false,
+    "user": "ytoprakc",
+    "created_at": "2026-08-25T21:04:44Z",
+    "closed_at": "2026-08-26T13:56:58Z",
+    "merged_at": null,
+    "base_sha": "cd464f25c807f635a2504d8ae3ae24f2b18d63bd",
+    "head_sha": "86c5d3c206836388e96b634e178fdb65e3b69605",
+    "additions": 48,
+    "deletions": 46,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools",
+      "kind:documentation",
+      "area:production-image",
+      "backport-to-v3-3-test",
+      "provider:anthropic",
+      "area:e2e-tests"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/anthropic/README.rst",
+    "providers/anthropic/docs/connections.rst",
+    "providers/anthropic/docs/index.rst",
+    "providers/anthropic/provider.yaml",
+    "providers/anthropic/pyproject.toml",
+    "providers/anthropic/src/airflow/providers/anthropic/get_provider_info.py",
+    "providers/anthropic/src/airflow/providers/anthropic/hooks/anthropic.py",
+    "providers/anthropic/tests/unit/anthropic/hooks/test_anthropic.py",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:15:57.143200+00:00"
+}

@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-69741",
+  "origin_url": "https://github.com/apache/airflow/pull/69741",
+  "repo": "apache/airflow",
+  "pr": 69741,
+  "title": "UI: Preserve raw connection extra JSON",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:44.243456+00:00"
+  },
+  "pr_meta": {
+    "number": 69741,
+    "title": "UI: Preserve raw connection extra JSON",
+    "html_url": "https://github.com/apache/airflow/pull/69741",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-07-11T04:47:41Z",
+    "closed_at": "2026-07-14T15:35:53Z",
+    "merged_at": null,
+    "base_sha": "f900d28dcbf1aa59870270767f75930758814c66",
+    "head_sha": "5247ca8b39d848b5ccd1f679b26b0ef0ded6ee5a",
+    "additions": 480,
+    "deletions": 45,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/69741.bugfix.rst",
+    "airflow-core/src/airflow/ui/src/components/FlexibleForm/FlexibleForm.tsx",
+    "airflow-core/src/airflow/ui/src/pages/Connections/ConnectionForm.test.tsx",
+    "airflow-core/src/airflow/ui/src/pages/Connections/ConnectionForm.tsx",
+    "airflow-core/src/airflow/ui/src/queries/useParamStore.test.ts",
+    "airflow-core/src/airflow/ui/src/queries/useParamStore.ts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:52:28.284047+00:00"
+}

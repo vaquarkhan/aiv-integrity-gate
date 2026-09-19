@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70125",
+  "origin_url": "https://github.com/apache/airflow/pull/70125",
+  "repo": "apache/airflow",
+  "pr": 70125,
+  "title": "Fix fallback value for CLOUD_IAM service account",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:33.344369+00:00"
+  },
+  "pr_meta": {
+    "number": 70125,
+    "title": "Fix fallback value for CLOUD_IAM service account",
+    "html_url": "https://github.com/apache/airflow/pull/70125",
+    "state": "closed",
+    "merged": false,
+    "user": "lubimow-xwf",
+    "created_at": "2026-07-20T11:19:26Z",
+    "closed_at": "2026-07-20T11:20:27Z",
+    "merged_at": null,
+    "base_sha": "25b3b881957210fdd36bd7924ab5c6931dee377b",
+    "head_sha": "19dc62b95fc9abf21ef5f5d2f586bb68519bb063",
+    "additions": 25,
+    "deletions": 6,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/tests/system/google/cloud/cloud_sql/example_cloud_sql_query_proxy_iam.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:45:12.489731+00:00"
+}

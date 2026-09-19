@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-70439",
+  "origin_url": "https://github.com/apache/airflow/pull/70439",
+  "repo": "apache/airflow",
+  "pr": 70439,
+  "title": "Move BashOperator's inline-vs-script-file classification out of __init__ (#70296)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:45.075310+00:00"
+  },
+  "pr_meta": {
+    "number": 70439,
+    "title": "Move BashOperator's inline-vs-script-file classification out of __init__ (#70296)",
+    "html_url": "https://github.com/apache/airflow/pull/70439",
+    "state": "closed",
+    "merged": false,
+    "user": "bujjibabukatta",
+    "created_at": "2026-07-25T14:41:36Z",
+    "closed_at": "2026-07-25T15:04:07Z",
+    "merged_at": null,
+    "base_sha": "cd7235aff32523f42f682a19da031814d640ca98",
+    "head_sha": "a5e7a6f0d26763b4fe181da0ed88392eccc02368",
+    "additions": 76,
+    "deletions": 5,
+    "changed_files": 7,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:dev-tools",
+      "area:API",
+      "provider:standard",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/70264.bugfix.rst",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/connections.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/v2-rest-api-generated.yaml",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_connections.py",
+    "providers/standard/src/airflow/providers/standard/operators/bash.py",
+    "providers/standard/tests/unit/standard/operators/test_bash.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:39:30.456232+00:00"
+}

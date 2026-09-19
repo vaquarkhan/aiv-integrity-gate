@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70782",
+  "origin_url": "https://github.com/apache/airflow/pull/70782",
+  "repo": "apache/airflow",
+  "pr": 70782,
+  "title": "Limit deadline alerts endpoint to the latest serialized Dag row",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:52.093522+00:00"
+  },
+  "pr_meta": {
+    "number": 70782,
+    "title": "Limit deadline alerts endpoint to the latest serialized Dag row",
+    "html_url": "https://github.com/apache/airflow/pull/70782",
+    "state": "closed",
+    "merged": false,
+    "user": "imrichardwu",
+    "created_at": "2026-07-30T15:26:36Z",
+    "closed_at": "2026-07-31T01:28:51Z",
+    "merged_at": null,
+    "base_sha": "9d07d7c47bac1f4c1e6f0061dea1f74a0249c50a",
+    "head_sha": "1652d6972cd30346183fa263ca7701f737aefef9",
+    "additions": 14,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/ui/deadlines.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/ui/test_deadlines.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:34:39.535044+00:00"
+}

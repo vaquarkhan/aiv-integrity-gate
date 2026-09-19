@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-70441",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70441",
+  "title": "Add LangChainAzureHook for Azure OpenAI support",
+  "pr": 70441,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:42.792360+00:00"
+  },
+  "pr_meta": {
+    "number": 70441,
+    "title": "Add LangChainAzureHook for Azure OpenAI support",
+    "html_url": "https://github.com/apache/airflow/pull/70441",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-07-25T14:59:48Z",
+    "closed_at": "2026-09-19T17:21:17Z",
+    "merged_at": null,
+    "base_sha": "025b0a14a4192656473d072140799cb17aaec6a1",
+    "head_sha": "e4ba32a6c5fdd6f058a42e2962c35c40667f7d1c",
+    "additions": 196,
+    "deletions": 7,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:providers",
+      "provider:common-ai"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70441/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70441/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

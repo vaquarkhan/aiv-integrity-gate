@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-71261",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71261",
+  "title": "fix(config): Mark three unused config.yml options as deprecated",
+  "pr": 71261,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:13.244444+00:00"
+  },
+  "pr_meta": {
+    "number": 71261,
+    "title": "fix(config): Mark three unused config.yml options as deprecated",
+    "html_url": "https://github.com/apache/airflow/pull/71261",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-06T21:32:47Z",
+    "closed_at": "2026-08-11T21:25:01Z",
+    "merged_at": null,
+    "base_sha": "299ca2c8580773b2d51b7988aacd582695940d58",
+    "head_sha": "99c0be8237e0a418701e0744e1fdafb5d686d103",
+    "additions": 9,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam",
+      "area:ConfigTemplates"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71261/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71261/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

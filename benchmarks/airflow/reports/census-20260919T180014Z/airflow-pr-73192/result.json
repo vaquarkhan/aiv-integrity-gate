@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73192",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73192",
+  "title": "[v3-3-test] Fix dashboard stats cards navigating to a 404 page",
+  "pr": 73192,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:52.283689+00:00"
+  },
+  "pr_meta": {
+    "number": 73192,
+    "title": "[v3-3-test] Fix dashboard stats cards navigating to a 404 page",
+    "html_url": "https://github.com/apache/airflow/pull/73192",
+    "state": "closed",
+    "merged": false,
+    "user": "pierrejeambrun",
+    "created_at": "2026-09-15T12:48:02Z",
+    "closed_at": "2026-09-15T16:11:51Z",
+    "merged_at": null,
+    "base_sha": "e4c58e48381d07769c618611e0566facc96a4836",
+    "head_sha": "071935254d64c0b3f6e501b2a9685264cd610045",
+    "additions": 4,
+    "deletions": 4,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73192/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73192/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

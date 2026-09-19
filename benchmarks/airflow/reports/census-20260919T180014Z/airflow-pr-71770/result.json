@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-71770",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71770",
+  "title": "Propagate OpenLineage context to Databricks job runs",
+  "pr": 71770,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:18.890936+00:00"
+  },
+  "pr_meta": {
+    "number": 71770,
+    "title": "Propagate OpenLineage context to Databricks job runs",
+    "html_url": "https://github.com/apache/airflow/pull/71770",
+    "state": "closed",
+    "merged": false,
+    "user": "mobuchowski",
+    "created_at": "2026-08-18T13:46:55Z",
+    "closed_at": "2026-08-25T13:15:46Z",
+    "merged_at": null,
+    "base_sha": "c91b476f6d185d583e7e61022888d572e2aaf695",
+    "head_sha": "f87318c900a074ca48f3d1846c069cd776c8c1d1",
+    "additions": 480,
+    "deletions": 9,
+    "changed_files": 7,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:databricks",
+      "provider:openlineage"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71770/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71770/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

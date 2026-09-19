@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72210",
+  "origin_url": "https://github.com/apache/airflow/pull/72210",
+  "repo": "apache/airflow",
+  "pr": 72210,
+  "title": "Pass impersonation_chain to the Dataflow trigger for Beam Java/Python operators",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:52.639908+00:00"
+  },
+  "pr_meta": {
+    "number": 72210,
+    "title": "Pass impersonation_chain to the Dataflow trigger for Beam Java/Python operators",
+    "html_url": "https://github.com/apache/airflow/pull/72210",
+    "state": "closed",
+    "merged": false,
+    "user": "afonsojanu",
+    "created_at": "2026-08-28T16:51:04Z",
+    "closed_at": "2026-09-18T18:27:10Z",
+    "merged_at": null,
+    "base_sha": "9d54ac94826d8f46c0d6d1032ee7d9988e562d70",
+    "head_sha": "8585ce267c89e2b4393bb122fe1773e2a9cec4dc",
+    "additions": 54,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:apache-beam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/apache/beam/src/airflow/providers/apache/beam/operators/beam.py",
+    "providers/apache/beam/tests/unit/apache/beam/operators/test_beam.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:14:46.064276+00:00"
+}

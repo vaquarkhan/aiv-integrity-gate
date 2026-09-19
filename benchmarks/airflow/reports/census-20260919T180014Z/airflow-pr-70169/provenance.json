@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70169",
+  "origin_url": "https://github.com/apache/airflow/pull/70169",
+  "repo": "apache/airflow",
+  "pr": 70169,
+  "title": "Introduce RUN-level OpenLineage events for dbt Cloud jobs",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:13.048944+00:00"
+  },
+  "pr_meta": {
+    "number": 70169,
+    "title": "Introduce RUN-level OpenLineage events for dbt Cloud jobs",
+    "html_url": "https://github.com/apache/airflow/pull/70169",
+    "state": "closed",
+    "merged": false,
+    "user": "br413",
+    "created_at": "2026-07-21T07:15:17Z",
+    "closed_at": "2026-07-21T11:54:43Z",
+    "merged_at": null,
+    "base_sha": "16278347df4fbbf516383a69fba4780efbefb1f2",
+    "head_sha": "08b5421add2e76215fb83fbf6bf91dab310e925a",
+    "additions": 154,
+    "deletions": 9,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:dbt-cloud"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/dbt/cloud/src/airflow/providers/dbt/cloud/utils/openlineage.py",
+    "providers/dbt/cloud/tests/unit/dbt/cloud/utils/test_openlineage.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:43:59.362187+00:00"
+}

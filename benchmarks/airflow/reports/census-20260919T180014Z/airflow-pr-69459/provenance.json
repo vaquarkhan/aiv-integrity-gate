@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-69459",
+  "origin_url": "https://github.com/apache/airflow/pull/69459",
+  "repo": "apache/airflow",
+  "pr": 69459,
+  "title": "Reduce K8s test resource usage with single-node Kind clusters",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:05.958243+00:00"
+  },
+  "pr_meta": {
+    "number": 69459,
+    "title": "Reduce K8s test resource usage with single-node Kind clusters",
+    "html_url": "https://github.com/apache/airflow/pull/69459",
+    "state": "closed",
+    "merged": false,
+    "user": "aaron-y-chen",
+    "created_at": "2026-07-06T10:55:04Z",
+    "closed_at": "2026-07-28T17:14:29Z",
+    "merged_at": null,
+    "base_sha": "4d56e6c93dd8c0ff69c603789a837abcea77f7d8",
+    "head_sha": "721f60fa811f92ac8943b5a102eadc38576ebeb7",
+    "additions": 108,
+    "deletions": 11,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/kustomize-overlays-tests.yml",
+    "README.md",
+    "contributing-docs/testing/k8s_tests.rst",
+    "dev/breeze/src/airflow_breeze/utils/kubernetes_utils.py",
+    "dev/breeze/tests/test_kubernetes_utils.py",
+    "scripts/ci/kubernetes/kind-cluster-conf.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:57:48.140494+00:00"
+}

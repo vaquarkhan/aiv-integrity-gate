@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-73274",
+  "origin_url": "https://github.com/apache/airflow/pull/73274",
+  "repo": "apache/airflow",
+  "pr": 73274,
+  "title": "Add REPARSE_ALL permission for reparsing files with no registered Dag",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:08.424323+00:00"
+  },
+  "pr_meta": {
+    "number": 73274,
+    "title": "Add REPARSE_ALL permission for reparsing files with no registered Dag",
+    "html_url": "https://github.com/apache/airflow/pull/73274",
+    "state": "closed",
+    "merged": true,
+    "user": "pierrejeambrun",
+    "created_at": "2026-09-17T08:50:00Z",
+    "closed_at": "2026-09-17T14:25:00Z",
+    "merged_at": "2026-09-17T14:25:00Z",
+    "base_sha": "a039116f83bf7c8f92f0d50c43744a0700d1d330",
+    "head_sha": "b33c1f0fc8f887ea58ff8a8bd5917862cadfda18",
+    "additions": 30,
+    "deletions": 15,
+    "changed_files": 9,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:providers",
+      "area:API",
+      "provider:fab",
+      "provider:common-compat"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/auth/managers/models/resource_details.py",
+    "airflow-core/src/airflow/api_fastapi/auth/managers/simple/simple_auth_manager.py",
+    "airflow-core/tests/unit/api_fastapi/auth/managers/simple/test_simple_auth_manager.py",
+    "providers/common/compat/src/airflow/providers/common/compat/security/access_view.py",
+    "providers/common/compat/tests/unit/common/compat/security/test_access_view.py",
+    "providers/fab/pyproject.toml",
+    "providers/fab/src/airflow/providers/fab/auth_manager/fab_auth_manager.py",
+    "providers/fab/src/airflow/providers/fab/auth_manager/security_manager/override.py",
+    "providers/fab/src/airflow/providers/fab/www/security/permissions.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:13:39.468863+00:00"
+}

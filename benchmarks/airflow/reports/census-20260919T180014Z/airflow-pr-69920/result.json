@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69920",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69920",
+  "title": "Go SDK: Prevent Edge Worker config secrets from reaching logs",
+  "pr": 69920,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:51.161309+00:00"
+  },
+  "pr_meta": {
+    "number": 69920,
+    "title": "Go SDK: Prevent Edge Worker config secrets from reaching logs",
+    "html_url": "https://github.com/apache/airflow/pull/69920",
+    "state": "closed",
+    "merged": false,
+    "user": "viiccwen",
+    "created_at": "2026-07-15T13:34:46Z",
+    "closed_at": "2026-08-20T13:23:24Z",
+    "merged_at": null,
+    "base_sha": "cb2d949af4e05256870fd2fa72e1097162078ae9",
+    "head_sha": "dc4a8bd77a573f1cd31dc75874a25e17269d5041",
+    "additions": 55,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69920/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69920/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

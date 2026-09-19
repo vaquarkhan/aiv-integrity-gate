@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69838",
+  "origin_url": "https://github.com/apache/airflow/pull/69838",
+  "repo": "apache/airflow",
+  "pr": 69838,
+  "title": "Fix Neptune Analytics deferrable path: load custom waiter + forward hook params to triggers",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:16.386922+00:00"
+  },
+  "pr_meta": {
+    "number": 69838,
+    "title": "Fix Neptune Analytics deferrable path: load custom waiter + forward hook params to triggers",
+    "html_url": "https://github.com/apache/airflow/pull/69838",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-07-13T22:49:29Z",
+    "closed_at": "2026-07-14T16:46:09Z",
+    "merged_at": null,
+    "base_sha": "2e511e6b7eea3865cd91d639ce49e795cb8082ce",
+    "head_sha": "6d2a25fda7b49423258c0cd9ebc2d0119a24b085",
+    "additions": 304,
+    "deletions": 1,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/neptune_analytics.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_neptune_analytics.py",
+    "providers/amazon/tests/unit/amazon/aws/waiters/test_neptune_analytics.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:50:40.587487+00:00"
+}

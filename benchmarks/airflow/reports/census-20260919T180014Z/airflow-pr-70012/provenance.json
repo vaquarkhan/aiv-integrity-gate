@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-70012",
+  "origin_url": "https://github.com/apache/airflow/pull/70012",
+  "repo": "apache/airflow",
+  "pr": 70012,
+  "title": "Fix ZipFile resource leak in open_maybe_zipped",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:14.651925+00:00"
+  },
+  "pr_meta": {
+    "number": 70012,
+    "title": "Fix ZipFile resource leak in open_maybe_zipped",
+    "html_url": "https://github.com/apache/airflow/pull/70012",
+    "state": "closed",
+    "merged": false,
+    "user": "magic-peach",
+    "created_at": "2026-07-17T12:09:56Z",
+    "closed_at": "2026-07-28T22:42:30Z",
+    "merged_at": null,
+    "base_sha": "771c09c5f204a3d790d7a5b25be4cff73f316f42",
+    "head_sha": "4e9194097f4e1f63fdb3433ab6ec9386d154055f",
+    "additions": 17,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/utils/file.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:47:14.015016+00:00"
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-69952",
+  "origin_url": "https://github.com/apache/airflow/pull/69952",
+  "repo": "apache/airflow",
+  "pr": 69952,
+  "title": "[v3-3-test] Add Lee-W as common.ai codeowner (#69949)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:36.395495+00:00"
+  },
+  "pr_meta": {
+    "number": 69952,
+    "title": "[v3-3-test] Add Lee-W as common.ai codeowner (#69949)",
+    "html_url": "https://github.com/apache/airflow/pull/69952",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-07-16T07:39:42Z",
+    "closed_at": "2026-07-16T07:50:40Z",
+    "merged_at": null,
+    "base_sha": "6f66c37d886f87672cd196c9eef14a8880b461c3",
+    "head_sha": "5fed753ba31cf45de34fe983840adf267c238a2d",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/CODEOWNERS",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:48:27.628918+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72354",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72354",
+  "title": "Fix map_index_template producing numeric values in Task SDK (#71586)",
+  "pr": 72354,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:22.152195+00:00"
+  },
+  "pr_meta": {
+    "number": 72354,
+    "title": "Fix map_index_template producing numeric values in Task SDK (#71586)",
+    "html_url": "https://github.com/apache/airflow/pull/72354",
+    "state": "closed",
+    "merged": false,
+    "user": "ShivanshhhG",
+    "created_at": "2026-09-01T02:47:08Z",
+    "closed_at": "2026-09-15T13:01:21Z",
+    "merged_at": null,
+    "base_sha": "9b3cc52821e0fb47e155372265b81628b312d490",
+    "head_sha": "2ddc059724a9d3b50133dca7c0955e569c8041ae",
+    "additions": 16,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72354/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72354/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

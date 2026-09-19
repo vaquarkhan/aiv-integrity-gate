@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-69617",
+  "origin_url": "https://github.com/apache/airflow/pull/69617",
+  "repo": "apache/airflow",
+  "pr": 69617,
+  "title": "fix: optimize grid view performance and avoid redundant streams (#69531)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:09.273109+00:00"
+  },
+  "pr_meta": {
+    "number": 69617,
+    "title": "fix: optimize grid view performance and avoid redundant streams (#69531)",
+    "html_url": "https://github.com/apache/airflow/pull/69617",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-08T14:58:00Z",
+    "closed_at": "2026-07-09T17:48:00Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "1a6b1529128135072b4375c959da22cba5c9befd",
+    "additions": 423,
+    "deletions": 243,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Grid/Bar.tsx",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Grid/GridTI.tsx",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Grid/TaskInstancesColumn.tsx",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Grid/TaskNames.tsx",
+    "airflow-core/src/airflow/ui/src/queries/useGridTISummaries.ts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:54:11.357335+00:00"
+}

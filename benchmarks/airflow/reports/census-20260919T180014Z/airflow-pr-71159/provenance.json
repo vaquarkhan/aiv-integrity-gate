@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71159",
+  "origin_url": "https://github.com/apache/airflow/pull/71159",
+  "repo": "apache/airflow",
+  "pr": 71159,
+  "title": "Verify version_added against the version being released",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:51.243390+00:00"
+  },
+  "pr_meta": {
+    "number": 71159,
+    "title": "Verify version_added against the version being released",
+    "html_url": "https://github.com/apache/airflow/pull/71159",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-05T08:01:48Z",
+    "closed_at": "2026-08-05T08:04:13Z",
+    "merged_at": null,
+    "base_sha": "24c00690ab1e2d045f904ab556568f509e01b66e",
+    "head_sha": "dd4961d1ec4edddc898741bae710ec9cc6e301e0",
+    "additions": 117,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/src/airflow_breeze/prepare_providers/provider_documentation.py",
+    "dev/breeze/tests/test_provider_documentation.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:28:46.923626+00:00"
+}

@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-70426",
+  "origin_url": "https://github.com/apache/airflow/pull/70426",
+  "repo": "apache/airflow",
+  "pr": 70426,
+  "title": "Validate Connection port range; regenerate OpenAPI spec Fix/#70264",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:52.444613+00:00"
+  },
+  "pr_meta": {
+    "number": 70426,
+    "title": "Validate Connection port range; regenerate OpenAPI spec Fix/#70264",
+    "html_url": "https://github.com/apache/airflow/pull/70426",
+    "state": "closed",
+    "merged": false,
+    "user": "bujjibabukatta",
+    "created_at": "2026-07-25T03:42:52Z",
+    "closed_at": "2026-07-25T11:22:05Z",
+    "merged_at": null,
+    "base_sha": "dc42801bde49aa8aec3102f87459e3c4c91324ae",
+    "head_sha": "0856253a8ca892eb98743775fd51899a5438e793",
+    "additions": 51,
+    "deletions": 1,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/70264.bugfix.rst",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/connections.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/v2-rest-api-generated.yaml",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_connections.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:39:54.942688+00:00"
+}

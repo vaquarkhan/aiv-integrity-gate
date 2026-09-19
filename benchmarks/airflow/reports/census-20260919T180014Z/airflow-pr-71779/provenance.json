@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-71779",
+  "origin_url": "https://github.com/apache/airflow/pull/71779",
+  "repo": "apache/airflow",
+  "pr": 71779,
+  "title": "Add deadline order_by option to Dag runs list API",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:16.888146+00:00"
+  },
+  "pr_meta": {
+    "number": 71779,
+    "title": "Add deadline order_by option to Dag runs list API",
+    "html_url": "https://github.com/apache/airflow/pull/71779",
+    "state": "closed",
+    "merged": false,
+    "user": "pierrejeambrun",
+    "created_at": "2026-08-18T16:23:36Z",
+    "closed_at": "2026-08-19T10:42:45Z",
+    "merged_at": null,
+    "base_sha": "2f4625a7d4d24a04ad45a6c7ac5eb1dc97e72ec5",
+    "head_sha": "2d004e4c335ca39b713df98b8c7459d9beb861aa",
+    "additions": 43,
+    "deletions": 13,
+    "changed_files": 11,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:API",
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/common/db/dag_runs.py",
+    "airflow-core/src/airflow/api_fastapi/common/parameters.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/v2-rest-api-generated.yaml",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/public/dag_run.py",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/ensureQueryData.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/prefetch.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/queries.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/suspense.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/requests/services.gen.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/requests/types.gen.ts",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_dag_run.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:19:27.397202+00:00"
+}

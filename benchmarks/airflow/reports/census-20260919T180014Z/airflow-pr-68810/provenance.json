@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-68810",
+  "origin_url": "https://github.com/apache/airflow/pull/68810",
+  "repo": "apache/airflow",
+  "pr": 68810,
+  "title": "Bump the edge-ui-package-updates group across 1 directory with 17 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:03.312895+00:00"
+  },
+  "pr_meta": {
+    "number": 68810,
+    "title": "Bump the edge-ui-package-updates group across 1 directory with 17 updates",
+    "html_url": "https://github.com/apache/airflow/pull/68810",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-06-22T04:11:00Z",
+    "closed_at": "2026-06-26T17:13:37Z",
+    "merged_at": null,
+    "base_sha": "11f62288f8ade31cd19db3223a9a5d9c3b7bc86d",
+    "head_sha": "108303ddb52f4695731a6644cb612604dc2809b9",
+    "additions": 1029,
+    "deletions": 1051,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "javascript",
+      "provider:edge",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/edge3/src/airflow/providers/edge3/plugins/www/package.json"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:09:06.754268+00:00"
+}

@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-72302",
+  "origin_url": "https://github.com/apache/airflow/pull/72302",
+  "repo": "apache/airflow",
+  "pr": 72302,
+  "title": "Fix/gcs to gcs move object idempotency",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:28.476427+00:00"
+  },
+  "pr_meta": {
+    "number": 72302,
+    "title": "Fix/gcs to gcs move object idempotency",
+    "html_url": "https://github.com/apache/airflow/pull/72302",
+    "state": "closed",
+    "merged": false,
+    "user": "aman-pathak1",
+    "created_at": "2026-08-30T23:28:58Z",
+    "closed_at": "2026-09-14T18:12:35Z",
+    "merged_at": null,
+    "base_sha": "b0721979b92e4cddc13afe294b5a034ec90d0e49",
+    "head_sha": "fd358c21ea54c3eb8f254218d57698ce78f7645f",
+    "additions": 221,
+    "deletions": 13,
+    "changed_files": 8,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "provider:databricks",
+      "area:task-sdk",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/_shared/__init__.py",
+    "providers/databricks/src/airflow/providers/databricks/hooks/databricks.py",
+    "providers/databricks/src/airflow/providers/databricks/hooks/databricks_base.py",
+    "providers/databricks/src/airflow/providers/databricks/triggers/databricks.py",
+    "providers/google/src/airflow/providers/google/cloud/transfers/gcs_to_gcs.py",
+    "providers/google/tests/unit/google/cloud/transfers/test_gcs_to_gcs.py",
+    "shared/observability/src/airflow_shared/observability/metrics/stats.py",
+    "task-sdk/src/airflow/sdk/_shared/__init__.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:13:19.070751+00:00"
+}

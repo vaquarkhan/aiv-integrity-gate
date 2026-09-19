@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70715",
+  "origin_url": "https://github.com/apache/airflow/pull/70715",
+  "repo": "apache/airflow",
+  "pr": 70715,
+  "title": "Eliminate duplicate json.dumps in SerializedDagModel",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:01.128522+00:00"
+  },
+  "pr_meta": {
+    "number": 70715,
+    "title": "Eliminate duplicate json.dumps in SerializedDagModel",
+    "html_url": "https://github.com/apache/airflow/pull/70715",
+    "state": "closed",
+    "merged": false,
+    "user": "ahujaanmol1289",
+    "created_at": "2026-07-30T06:31:02Z",
+    "closed_at": "2026-07-30T20:55:34Z",
+    "merged_at": null,
+    "base_sha": "b3014293344d7e0fdce8bc62e9b6bb97c39baca2",
+    "head_sha": "d25c03758025c120cde7c246cc3c553998807f7b",
+    "additions": 119,
+    "deletions": 14,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/models/serialized_dag.py",
+    "airflow-core/tests/unit/models/test_serialized_dag.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:35:13.513323+00:00"
+}

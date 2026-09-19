@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-71560",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71560",
+  "title": "Clarify limited Podman support in Breeze documentation",
+  "pr": 71560,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:55.659708+00:00"
+  },
+  "pr_meta": {
+    "number": 71560,
+    "title": "Clarify limited Podman support in Breeze documentation",
+    "html_url": "https://github.com/apache/airflow/pull/71560",
+    "state": "closed",
+    "merged": false,
+    "user": "hdy2001",
+    "created_at": "2026-08-13T17:43:23Z",
+    "closed_at": "2026-08-13T21:41:09Z",
+    "merged_at": null,
+    "base_sha": "e33a4f6dc78c841455fec9741c6ebed0d26fb98e",
+    "head_sha": "13ab91c1c460dafa156a7204bcaef3e3f963b042",
+    "additions": 7,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71560/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71560/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

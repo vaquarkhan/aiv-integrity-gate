@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-68954",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68954",
+  "title": "Fix branch not skipping mapped tasks with custom XCom backend",
+  "pr": 68954,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:59.758199+00:00"
+  },
+  "pr_meta": {
+    "number": 68954,
+    "title": "Fix branch not skipping mapped tasks with custom XCom backend",
+    "html_url": "https://github.com/apache/airflow/pull/68954",
+    "state": "closed",
+    "merged": false,
+    "user": "darshil929",
+    "created_at": "2026-06-24T19:49:57Z",
+    "closed_at": "2026-09-06T00:29:49Z",
+    "merged_at": null,
+    "base_sha": "926a8c62c553bf37df09cba1fd5515ee55129754",
+    "head_sha": "f282a8f315dbcb4fe4937da9bb50c52a9c22ef9f",
+    "additions": 76,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68954/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68954/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

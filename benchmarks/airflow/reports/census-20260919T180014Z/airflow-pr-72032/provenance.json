@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-72032",
+  "origin_url": "https://github.com/apache/airflow/pull/72032",
+  "repo": "apache/airflow",
+  "pr": 72032,
+  "title": "fix: guard against None dag_run in BranchDayOfWeekOperator and BranchDateTimeOperator when use_task_logical_date=True",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:23.742843+00:00"
+  },
+  "pr_meta": {
+    "number": 72032,
+    "title": "fix: guard against None dag_run in BranchDayOfWeekOperator and BranchDateTimeOperator when use_task_logical_date=True",
+    "html_url": "https://github.com/apache/airflow/pull/72032",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-24T15:40:47Z",
+    "closed_at": "2026-09-15T18:16:02Z",
+    "merged_at": null,
+    "base_sha": "c8aeb434c51c9f1601cab6f6204306b91f93eea0",
+    "head_sha": "43b8cd5dfd0c6cf229fd540f4327039768bd530b",
+    "additions": 75,
+    "deletions": 10,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/operators/datetime.py",
+    "providers/standard/src/airflow/providers/standard/operators/weekday.py",
+    "providers/standard/tests/unit/standard/operators/test_datetime.py",
+    "providers/standard/tests/unit/standard/operators/test_weekday.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:16:26.568920+00:00"
+}

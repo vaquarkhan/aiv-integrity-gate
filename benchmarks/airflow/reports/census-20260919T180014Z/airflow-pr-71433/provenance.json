@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-71433",
+  "origin_url": "https://github.com/apache/airflow/pull/71433",
+  "repo": "apache/airflow",
+  "pr": 71433,
+  "title": "feat: add --ssl-ciphers option for API server [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:27.560684+00:00"
+  },
+  "pr_meta": {
+    "number": 71433,
+    "title": "feat: add --ssl-ciphers option for API server [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+    "html_url": "https://github.com/apache/airflow/pull/71433",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-11T12:17:28Z",
+    "closed_at": "2026-08-11T21:24:35Z",
+    "merged_at": null,
+    "base_sha": "576c653078400144f1eda9c2632b8c3334451726",
+    "head_sha": "e41a5b060e2294cdad7cbb4387e8897c15dbde0f",
+    "additions": 45,
+    "deletions": 0,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "area:CLI",
+      "AI Spam",
+      "area:ConfigTemplates"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/gunicorn_app.py",
+    "airflow-core/src/airflow/cli/cli_config.py",
+    "airflow-core/src/airflow/cli/commands/api_server_command.py",
+    "airflow-core/src/airflow/config_templates/config.yml",
+    "airflow-core/tests/unit/cli/commands/test_api_server_command.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:23:53.595588+00:00"
+}

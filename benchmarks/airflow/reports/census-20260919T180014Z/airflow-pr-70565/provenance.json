@@ -1,0 +1,46 @@
+{
+  "case_id": "airflow-pr-70565",
+  "origin_url": "https://github.com/apache/airflow/pull/70565",
+  "repo": "apache/airflow",
+  "pr": 70565,
+  "title": "update readme similar projects",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:43.580977+00:00"
+  },
+  "pr_meta": {
+    "number": 70565,
+    "title": "update readme similar projects",
+    "html_url": "https://github.com/apache/airflow/pull/70565",
+    "state": "closed",
+    "merged": false,
+    "user": "raphaelauv",
+    "created_at": "2026-07-27T21:10:43Z",
+    "closed_at": "2026-07-28T07:21:46Z",
+    "merged_at": null,
+    "base_sha": "2361e174202c69be04dc0cdc88388ea8581edbd6",
+    "head_sha": "4eedd54bcf1e857ee5f6dee38f6ade28b0f20b36",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:37:41.804138+00:00"
+}

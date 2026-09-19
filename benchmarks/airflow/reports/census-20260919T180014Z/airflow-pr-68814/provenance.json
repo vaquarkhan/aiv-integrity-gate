@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-68814",
+  "origin_url": "https://github.com/apache/airflow/pull/68814",
+  "repo": "apache/airflow",
+  "pr": 68814,
+  "title": "Rebalance provider test groups to remove the serial monolith bottleneck",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:59.959077+00:00"
+  },
+  "pr_meta": {
+    "number": 68814,
+    "title": "Rebalance provider test groups to remove the serial monolith bottleneck",
+    "html_url": "https://github.com/apache/airflow/pull/68814",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-06-22T04:12:16Z",
+    "closed_at": "2026-06-25T22:20:58Z",
+    "merged_at": null,
+    "base_sha": "11f62288f8ade31cd19db3223a9a5d9c3b7bc86d",
+    "head_sha": "b760162957c3d5c2f0fa0acff43924684c30269c",
+    "additions": 108,
+    "deletions": 15,
+    "changed_files": 4,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/doc/ci/04_selective_checks.md",
+    "dev/breeze/src/airflow_breeze/global_constants.py",
+    "dev/breeze/src/airflow_breeze/utils/selective_checks.py",
+    "dev/breeze/tests/test_selective_checks.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:08:53.382122+00:00"
+}

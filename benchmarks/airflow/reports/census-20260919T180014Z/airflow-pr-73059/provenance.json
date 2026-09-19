@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73059",
+  "origin_url": "https://github.com/apache/airflow/pull/73059",
+  "repo": "apache/airflow",
+  "pr": 73059,
+  "title": "Allow GHSA-8mgp-746c-j5xp (nltk) in the dependency review gates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:16.157863+00:00"
+  },
+  "pr_meta": {
+    "number": 73059,
+    "title": "Allow GHSA-8mgp-746c-j5xp (nltk) in the dependency review gates",
+    "html_url": "https://github.com/apache/airflow/pull/73059",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-09-13T07:42:01Z",
+    "closed_at": "2026-09-13T08:19:40Z",
+    "merged_at": null,
+    "base_sha": "81b93db4a2f6da3d4e56a337f0f0b84fb2f1b029",
+    "head_sha": "0b475a469a4bbc4f33a6d58527f778e771f225ec",
+    "additions": 18,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/java-sdk-dependency-security.yml",
+    ".github/workflows/ts-sdk-dependency-review.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:02:50.130983+00:00"
+}

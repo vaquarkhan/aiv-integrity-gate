@@ -1,0 +1,68 @@
+{
+  "case_id": "airflow-pr-69082",
+  "origin_url": "https://github.com/apache/airflow/pull/69082",
+  "repo": "apache/airflow",
+  "pr": 69082,
+  "title": "[IGNORE] Expose build constraints configuration in Breeze",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:35.956605+00:00"
+  },
+  "pr_meta": {
+    "number": 69082,
+    "title": "[IGNORE] Expose build constraints configuration in Breeze",
+    "html_url": "https://github.com/apache/airflow/pull/69082",
+    "state": "closed",
+    "merged": false,
+    "user": "aaron-y-chen",
+    "created_at": "2026-06-27T11:01:42Z",
+    "closed_at": "2026-06-29T12:27:50Z",
+    "merged_at": null,
+    "base_sha": "4b25735cfcd6c326969c69d887eac8eb6e527685",
+    "head_sha": "5b6136cad097badd810f834792f39026181a460b",
+    "additions": 719,
+    "deletions": 381,
+    "changed_files": 24,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/doc/images/output_ci-image_build.svg",
+    "dev/breeze/doc/images/output_ci-image_build.txt",
+    "dev/breeze/doc/images/output_prod-image_build.txt",
+    "dev/breeze/doc/images/output_release-management_install-provider-distributions.txt",
+    "dev/breeze/doc/images/output_release-management_verify-provider-distributions.txt",
+    "dev/breeze/doc/images/output_shell.txt",
+    "dev/breeze/doc/images/output_start-airflow.txt",
+    "dev/breeze/src/airflow_breeze/commands/ci_image_commands.py",
+    "dev/breeze/src/airflow_breeze/commands/ci_image_commands_config.py",
+    "dev/breeze/src/airflow_breeze/commands/common_package_installation_options.py",
+    "dev/breeze/src/airflow_breeze/commands/developer_commands.py",
+    "dev/breeze/src/airflow_breeze/commands/developer_commands_config.py",
+    "dev/breeze/src/airflow_breeze/commands/production_image_commands.py",
+    "dev/breeze/src/airflow_breeze/commands/production_image_commands_config.py",
+    "dev/breeze/src/airflow_breeze/commands/release_management_commands.py",
+    "dev/breeze/src/airflow_breeze/commands/release_management_commands_config.py",
+    "dev/breeze/src/airflow_breeze/params/common_build_params.py",
+    "dev/breeze/src/airflow_breeze/params/shell_params.py",
+    "dev/breeze/tests/test_build_constraints_breeze_options.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:03:28.562494+00:00"
+}

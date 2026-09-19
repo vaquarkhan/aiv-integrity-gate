@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-69279",
+  "origin_url": "https://github.com/apache/airflow/pull/69279",
+  "repo": "apache/airflow",
+  "pr": 69279,
+  "title": "Refactor get_records of bigquery as async",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:47.359195+00:00"
+  },
+  "pr_meta": {
+    "number": 69279,
+    "title": "Refactor get_records of bigquery as async",
+    "html_url": "https://github.com/apache/airflow/pull/69279",
+    "state": "closed",
+    "merged": false,
+    "user": "anushkagupta200615-jpg",
+    "created_at": "2026-07-02T22:21:56Z",
+    "closed_at": "2026-07-28T17:12:37Z",
+    "merged_at": null,
+    "base_sha": "dffc5079dde9d7170ebdae9c21893a92f49a2a2f",
+    "head_sha": "350c464c42552fc8cd6f71272385aca618876784",
+    "additions": 22,
+    "deletions": 13,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/docs/changelog.rst",
+    "providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+    "providers/google/src/airflow/providers/google/cloud/triggers/bigquery.py",
+    "providers/google/tests/unit/google/cloud/hooks/test_bigquery.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:00:22.108152+00:00"
+}

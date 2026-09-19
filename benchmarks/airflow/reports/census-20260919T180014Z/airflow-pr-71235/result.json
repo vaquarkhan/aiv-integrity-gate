@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-71235",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71235",
+  "title": "Add config option for the default task instance tab in the UI",
+  "pr": 71235,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:23.049397+00:00"
+  },
+  "pr_meta": {
+    "number": 71235,
+    "title": "Add config option for the default task instance tab in the UI",
+    "html_url": "https://github.com/apache/airflow/pull/71235",
+    "state": "closed",
+    "merged": false,
+    "user": "dsuhinin",
+    "created_at": "2026-08-06T11:17:07Z",
+    "closed_at": "2026-08-17T07:33:47Z",
+    "merged_at": null,
+    "base_sha": "8c16340ca4903e3974b5342c0fe8ca1f0534395f",
+    "head_sha": "35f0e62c2c3f2997dbb2a7a20cbae4b7af13e0ef",
+    "additions": 193,
+    "deletions": 3,
+    "changed_files": 13,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:UI",
+      "area:ConfigTemplates"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71235/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71235/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

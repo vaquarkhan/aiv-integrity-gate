@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-70429",
+  "origin_url": "https://github.com/apache/airflow/pull/70429",
+  "repo": "apache/airflow",
+  "pr": 70429,
+  "title": "Move BashOperator template field logic from __init__ to execute",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:48.875613+00:00"
+  },
+  "pr_meta": {
+    "number": 70429,
+    "title": "Move BashOperator template field logic from __init__ to execute",
+    "html_url": "https://github.com/apache/airflow/pull/70429",
+    "state": "closed",
+    "merged": false,
+    "user": "Kunal8954",
+    "created_at": "2026-07-25T07:13:52Z",
+    "closed_at": "2026-07-27T02:02:51Z",
+    "merged_at": null,
+    "base_sha": "c4a5f19e67cd25143cc000d6ae0255e13c142b95",
+    "head_sha": "297cdfe44b550063f28ff423d2383110a1add377",
+    "additions": 7,
+    "deletions": 5,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:dev-tools",
+      "provider:standard",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/operators/bash.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:39:42.928229+00:00"
+}

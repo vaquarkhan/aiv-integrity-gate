@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-73275",
+  "origin_url": "https://github.com/apache/airflow/pull/73275",
+  "repo": "apache/airflow",
+  "pr": 73275,
+  "title": "Stamp Airflow run identity onto agent runs and traces",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:06.962958+00:00"
+  },
+  "pr_meta": {
+    "number": 73275,
+    "title": "Stamp Airflow run identity onto agent runs and traces",
+    "html_url": "https://github.com/apache/airflow/pull/73275",
+    "state": "closed",
+    "merged": true,
+    "user": "pankajkoti",
+    "created_at": "2026-09-17T09:40:13Z",
+    "closed_at": "2026-09-17T14:29:05Z",
+    "merged_at": "2026-09-17T14:29:05Z",
+    "base_sha": "08a20fe2d75c55e9816be6c6865961425bfffe7e",
+    "head_sha": "bcc285d7af341dd13f8c2f6929cc699c7a2cc260",
+    "additions": 401,
+    "deletions": 50,
+    "changed_files": 6,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:common-ai"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/common/ai/docs/observability.rst",
+    "providers/common/ai/src/airflow/providers/common/ai/observability.py",
+    "providers/common/ai/src/airflow/providers/common/ai/operators/agent.py",
+    "providers/common/ai/tests/unit/common/ai/decorators/test_agent.py",
+    "providers/common/ai/tests/unit/common/ai/operators/test_agent.py",
+    "providers/common/ai/tests/unit/common/ai/test_observability.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:13:31.229416+00:00"
+}

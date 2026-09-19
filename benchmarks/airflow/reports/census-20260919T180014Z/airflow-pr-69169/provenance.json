@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-69169",
+  "origin_url": "https://github.com/apache/airflow/pull/69169",
+  "repo": "apache/airflow",
+  "pr": 69169,
+  "title": "Preserves retry attempt metadata before recording TaskInstanceHistory",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:07.808692+00:00"
+  },
+  "pr_meta": {
+    "number": 69169,
+    "title": "Preserves retry attempt metadata before recording TaskInstanceHistory",
+    "html_url": "https://github.com/apache/airflow/pull/69169",
+    "state": "closed",
+    "merged": false,
+    "user": "shaealh",
+    "created_at": "2026-06-30T08:04:13Z",
+    "closed_at": "2026-08-14T11:00:23Z",
+    "merged_at": null,
+    "base_sha": "fd42d8694e130d095d79a8f458ae2fa0a3f56bfa",
+    "head_sha": "62a51fa2b83337a7f7c580c8a70cf7715e9f5524",
+    "additions": 227,
+    "deletions": 40,
+    "changed_files": 8,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "area:API",
+      "area:Triggerer",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/69169.bugfix.rst",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/src/airflow/models/dagrun.py",
+    "airflow-core/src/airflow/models/trigger.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py",
+    "airflow-core/tests/unit/models/test_dagrun.py",
+    "airflow-core/tests/unit/models/test_trigger.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:01:39.358300+00:00"
+}

@@ -1,0 +1,61 @@
+{
+  "case_id": "airflow-pr-73344",
+  "origin_url": "https://github.com/apache/airflow/pull/73344",
+  "repo": "apache/airflow",
+  "pr": 73344,
+  "title": "Bump the github-actions-updates group with 5 updates",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:30.984322+00:00"
+  },
+  "pr_meta": {
+    "number": 73344,
+    "title": "Bump the github-actions-updates group with 5 updates",
+    "html_url": "https://github.com/apache/airflow/pull/73344",
+    "state": "closed",
+    "merged": true,
+    "user": "dependabot[bot]",
+    "created_at": "2026-09-18T17:02:16Z",
+    "closed_at": "2026-09-19T06:26:03Z",
+    "merged_at": "2026-09-19T06:26:03Z",
+    "base_sha": "f1093760c344f73b58d628a06e5a0788f6134461",
+    "head_sha": "97c2fc84505f031d691097254ea630dd71526efb",
+    "additions": 13,
+    "deletions": 13,
+    "changed_files": 10,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "area:registry",
+      "github_actions"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/basic-tests.yml",
+    ".github/workflows/ci-amd.yml",
+    ".github/workflows/ci-arm.yml",
+    ".github/workflows/ci-notification.yml",
+    ".github/workflows/codeql-analysis.yml",
+    ".github/workflows/java-sdk-dependency-security.yml",
+    ".github/workflows/k8s-tests.yml",
+    ".github/workflows/notify-uv-lock-conflicts.yml",
+    ".github/workflows/registry-tests.yml",
+    ".github/workflows/scheduled-verify-release-calendar.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:10:48.052308+00:00"
+}

@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72397",
+  "origin_url": "https://github.com/apache/airflow/pull/72397",
+  "repo": "apache/airflow",
+  "pr": 72397,
+  "title": "Bound and harden the Glue task-UUID scan fallback",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:09.367137+00:00"
+  },
+  "pr_meta": {
+    "number": 72397,
+    "title": "Bound and harden the Glue task-UUID scan fallback",
+    "html_url": "https://github.com/apache/airflow/pull/72397",
+    "state": "closed",
+    "merged": false,
+    "user": "sankalpsthakur",
+    "created_at": "2026-09-01T22:11:42Z",
+    "closed_at": "2026-09-03T21:39:32Z",
+    "merged_at": null,
+    "base_sha": "24d8c66ee11e3003801b51511c4308e97a944a97",
+    "head_sha": "0e8c11c338ec58fc25c412fbce9f0362becd9975",
+    "additions": 240,
+    "deletions": 11,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/docs/operators/glue.rst",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/glue.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_glue.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:12:13.642236+00:00"
+}

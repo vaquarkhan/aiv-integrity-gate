@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70950",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70950",
+  "title": "Make Task SDK supervisor subprocess a session leaderFix supervisor session leader",
+  "pr": 70950,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:39.900279+00:00"
+  },
+  "pr_meta": {
+    "number": 70950,
+    "title": "Make Task SDK supervisor subprocess a session leaderFix supervisor session leader",
+    "html_url": "https://github.com/apache/airflow/pull/70950",
+    "state": "closed",
+    "merged": false,
+    "user": "KushagraB424",
+    "created_at": "2026-08-02T21:28:05Z",
+    "closed_at": "2026-08-03T11:18:15Z",
+    "merged_at": null,
+    "base_sha": "acb4dde004fa39b0876923e0d39883bd3c2a2a60",
+    "head_sha": "9704b18fce98742e312d552dc0586095100c6fe1",
+    "additions": 6,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70950/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70950/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

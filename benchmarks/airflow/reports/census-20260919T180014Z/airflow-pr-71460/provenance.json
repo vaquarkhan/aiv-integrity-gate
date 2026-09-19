@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-71460",
+  "origin_url": "https://github.com/apache/airflow/pull/71460",
+  "repo": "apache/airflow",
+  "pr": 71460,
+  "title": "Let a watcher trigger keep state when several assets watch it",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:23.598074+00:00"
+  },
+  "pr_meta": {
+    "number": 71460,
+    "title": "Let a watcher trigger keep state when several assets watch it",
+    "html_url": "https://github.com/apache/airflow/pull/71460",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-11T19:46:55Z",
+    "closed_at": "2026-08-24T05:05:36Z",
+    "merged_at": null,
+    "base_sha": "537feafb3697338b3988d826b9c9b45da06b1f23",
+    "head_sha": "87c7cc16f47afe9b7fc373ec23ef6df466d191a8",
+    "additions": 71,
+    "deletions": 2,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "kind:documentation",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/core-concepts/asset-state-store.rst",
+    "task-sdk/src/airflow/sdk/execution_time/context.py",
+    "task-sdk/tests/task_sdk/execution_time/test_context.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:23:40.920185+00:00"
+}

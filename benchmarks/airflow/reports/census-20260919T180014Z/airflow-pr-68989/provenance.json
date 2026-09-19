@@ -1,0 +1,63 @@
+{
+  "case_id": "airflow-pr-68989",
+  "origin_url": "https://github.com/apache/airflow/pull/68989",
+  "repo": "apache/airflow",
+  "pr": 68989,
+  "title": "[v3-3-test] Publish schema files with doc publishing workflow (#68976)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:50.562242+00:00"
+  },
+  "pr_meta": {
+    "number": 68989,
+    "title": "[v3-3-test] Publish schema files with doc publishing workflow (#68976)",
+    "html_url": "https://github.com/apache/airflow/pull/68989",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-06-25T14:53:10Z",
+    "closed_at": "2026-06-25T14:54:30Z",
+    "merged_at": null,
+    "base_sha": "cb174a6937aeff42e8bbb8d1a62089e60cfc7071",
+    "head_sha": "c87f0dcd488d7553a644c27234852ee84ae4318b",
+    "additions": 473,
+    "deletions": 32,
+    "changed_files": 15,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/publish-docs-to-s3.yml",
+    "README.md",
+    "dev/breeze/doc/09_release_management_tasks.rst",
+    "dev/breeze/doc/images/output-commands.svg",
+    "dev/breeze/doc/images/output_release-management.svg",
+    "dev/breeze/doc/images/output_release-management.txt",
+    "dev/breeze/doc/images/output_release-management_publish-schemas-to-s3.svg",
+    "dev/breeze/doc/images/output_release-management_publish-schemas-to-s3.txt",
+    "dev/breeze/doc/images/output_setup_check-all-params-in-groups.svg",
+    "dev/breeze/doc/images/output_setup_check-all-params-in-groups.txt",
+    "dev/breeze/doc/images/output_setup_regenerate-command-images.svg",
+    "dev/breeze/doc/images/output_setup_regenerate-command-images.txt",
+    "dev/breeze/src/airflow_breeze/commands/release_management_commands.py",
+    "dev/breeze/src/airflow_breeze/commands/release_management_commands_config.py",
+    "dev/breeze/src/airflow_breeze/global_constants.py",
+    "dev/breeze/src/airflow_breeze/utils/publish_docs_to_s3.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:04:34.146757+00:00"
+}

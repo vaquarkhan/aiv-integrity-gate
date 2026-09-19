@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69745",
+  "origin_url": "https://github.com/apache/airflow/pull/69745",
+  "repo": "apache/airflow",
+  "pr": 69745,
+  "title": "Fix CloudComposerDAGRunSensor returning success when no runs in window",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:42.489545+00:00"
+  },
+  "pr_meta": {
+    "number": 69745,
+    "title": "Fix CloudComposerDAGRunSensor returning success when no runs in window",
+    "html_url": "https://github.com/apache/airflow/pull/69745",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-07-11T06:45:26Z",
+    "closed_at": "2026-07-11T09:47:16Z",
+    "merged_at": null,
+    "base_sha": "549af7a070e650fdaeb27c4260c0baaccb3ac701",
+    "head_sha": "2e26717d37bf86b296e23eb6ae7507205323b4e6",
+    "additions": 36,
+    "deletions": 36,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/sensors/cloud_composer.py",
+    "providers/google/src/airflow/providers/google/cloud/triggers/cloud_composer.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:52:20.829287+00:00"
+}

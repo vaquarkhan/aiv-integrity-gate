@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71256",
+  "origin_url": "https://github.com/apache/airflow/pull/71256",
+  "repo": "apache/airflow",
+  "pr": 71256,
+  "title": "fix(sensors): only skip timeout-related exceptions on deferred sensor soft_fail",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:16.983758+00:00"
+  },
+  "pr_meta": {
+    "number": 71256,
+    "title": "fix(sensors): only skip timeout-related exceptions on deferred sensor soft_fail",
+    "html_url": "https://github.com/apache/airflow/pull/71256",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-06T19:57:25Z",
+    "closed_at": "2026-08-11T21:25:32Z",
+    "merged_at": null,
+    "base_sha": "f7e827b86e51951304b6cdeccc1de7a04d14cce2",
+    "head_sha": "d409567ff28c3268bc2493b7558757f64e0c7ad2",
+    "additions": 8,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/src/airflow/sdk/bases/sensor.py",
+    "task-sdk/tests/task_sdk/bases/test_sensor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:26:59.264232+00:00"
+}

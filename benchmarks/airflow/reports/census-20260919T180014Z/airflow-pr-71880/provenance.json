@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-71880",
+  "origin_url": "https://github.com/apache/airflow/pull/71880",
+  "repo": "apache/airflow",
+  "pr": 71880,
+  "title": "fix(db_cleanup): skip dag rows whose dag_version cascade is blocked by task_instance FK",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:03.152047+00:00"
+  },
+  "pr_meta": {
+    "number": 71880,
+    "title": "fix(db_cleanup): skip dag rows whose dag_version cascade is blocked by task_instance FK",
+    "html_url": "https://github.com/apache/airflow/pull/71880",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-20T12:49:52Z",
+    "closed_at": "2026-09-15T18:15:59Z",
+    "merged_at": null,
+    "base_sha": "61d7182a581d2120412526b75c9567a2c7956cae",
+    "head_sha": "0745e3b1e4efe30097504f1b249f7089d0cfd701",
+    "additions": 144,
+    "deletions": 7,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/utils/db_cleanup.py",
+    "airflow-core/tests/unit/utils/test_db_cleanup.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:18:40.031535+00:00"
+}

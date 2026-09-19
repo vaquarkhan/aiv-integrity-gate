@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-68915",
+  "origin_url": "https://github.com/apache/airflow/pull/68915",
+  "repo": "apache/airflow",
+  "pr": 68915,
+  "title": "feat(celery): honor json_logs config in Celery worker startup",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:10.062898+00:00"
+  },
+  "pr_meta": {
+    "number": 68915,
+    "title": "feat(celery): honor json_logs config in Celery worker startup",
+    "html_url": "https://github.com/apache/airflow/pull/68915",
+    "state": "closed",
+    "merged": false,
+    "user": "hanxdatadog",
+    "created_at": "2026-06-23T20:11:27Z",
+    "closed_at": "2026-06-23T20:13:48Z",
+    "merged_at": null,
+    "base_sha": "609656f7d353b47858bd567efe02065234f62d10",
+    "head_sha": "281fd50622f3ef67079c9cb1308100b7fd6cfcdb",
+    "additions": 103,
+    "deletions": 1,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:celery"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/celery/docs/celery_executor.rst",
+    "providers/celery/newsfragments/68912.feature.rst",
+    "providers/celery/provider.yaml",
+    "providers/celery/src/airflow/providers/celery/cli/celery_command.py",
+    "providers/celery/src/airflow/providers/celery/get_provider_info.py",
+    "providers/celery/tests/unit/celery/cli/test_celery_command.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:05:38.528077+00:00"
+}

@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-69584",
+  "origin_url": "https://github.com/apache/airflow/pull/69584",
+  "repo": "apache/airflow",
+  "pr": 69584,
+  "title": "i18n(ko): add missing translations(Jul 8)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:23.203040+00:00"
+  },
+  "pr_meta": {
+    "number": 69584,
+    "title": "i18n(ko): add missing translations(Jul 8)",
+    "html_url": "https://github.com/apache/airflow/pull/69584",
+    "state": "closed",
+    "merged": false,
+    "user": "parkhojeong",
+    "created_at": "2026-07-08T04:19:11Z",
+    "closed_at": "2026-07-08T14:10:13Z",
+    "merged_at": null,
+    "base_sha": "b15c4852bdbeab70b8f9066dafc97b04de609866",
+    "head_sha": "6481aa9d13f369290345d1b3f31937e228fe4211",
+    "additions": 23,
+    "deletions": 0,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "area:translations",
+      "translation:ko"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/public/i18n/locales/ko/admin.json",
+    "airflow-core/src/airflow/ui/public/i18n/locales/ko/common.json",
+    "airflow-core/src/airflow/ui/public/i18n/locales/ko/dags.json"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:55:08.515349+00:00"
+}

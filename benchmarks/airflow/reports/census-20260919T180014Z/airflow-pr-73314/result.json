@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-73314",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73314",
+  "title": "Add taskflow-binding capability to the Lang SDK compatibility matrix",
+  "pr": 73314,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:42.091692+00:00"
+  },
+  "pr_meta": {
+    "number": 73314,
+    "title": "Add taskflow-binding capability to the Lang SDK compatibility matrix",
+    "html_url": "https://github.com/apache/airflow/pull/73314",
+    "state": "closed",
+    "merged": true,
+    "user": "jason810496",
+    "created_at": "2026-09-18T08:57:05Z",
+    "closed_at": "2026-09-18T10:31:18Z",
+    "merged_at": "2026-09-18T10:31:18Z",
+    "base_sha": "a1c2c50f4e4264f8347426e6d9ed155ce632cb3d",
+    "head_sha": "0549fdc9469bf7f14c44453483776fc719e3474d",
+    "additions": 19,
+    "deletions": 0,
+    "changed_files": 9,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:dev-tools",
+      "area:go-sdk",
+      "area:ts-sdk",
+      "area:java-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73314/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73314/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

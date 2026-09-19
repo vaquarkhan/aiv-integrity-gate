@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-68953",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68953",
+  "title": "Fix Breeze SIGILL on Apple Silicon caused by OpenSSL 3.0.20 ARM crypto instructions",
+  "pr": 68953,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:02.126958+00:00"
+  },
+  "pr_meta": {
+    "number": 68953,
+    "title": "Fix Breeze SIGILL on Apple Silicon caused by OpenSSL 3.0.20 ARM crypto instructions",
+    "html_url": "https://github.com/apache/airflow/pull/68953",
+    "state": "closed",
+    "merged": false,
+    "user": "AlejandroMorgante",
+    "created_at": "2026-06-24T19:22:16Z",
+    "closed_at": "2026-06-24T20:23:35Z",
+    "merged_at": null,
+    "base_sha": "76f9210e5e00d3e17ca2557e475596f70b382781",
+    "head_sha": "378221a786b14c4b2be83108f33ac5214dc0d151",
+    "additions": 9,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68953/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68953/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

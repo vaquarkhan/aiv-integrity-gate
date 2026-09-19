@@ -1,0 +1,57 @@
+{
+  "case_id": "airflow-pr-71605",
+  "origin_url": "https://github.com/apache/airflow/pull/71605",
+  "repo": "apache/airflow",
+  "pr": 71605,
+  "title": "Bump the java-sdk-dependency-updates group across 2 directories with 22 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:48.597066+00:00"
+  },
+  "pr_meta": {
+    "number": 71605,
+    "title": "Bump the java-sdk-dependency-updates group across 2 directories with 22 updates",
+    "html_url": "https://github.com/apache/airflow/pull/71605",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-14T07:44:53Z",
+    "closed_at": "2026-08-14T16:55:04Z",
+    "merged_at": null,
+    "base_sha": "7c0b3e66d8cec73c6fc7629cd4f17fbff3025f5a",
+    "head_sha": "729927a0c71f26fe8b4ae5c01fd09087e8d97ffe",
+    "additions": 960,
+    "deletions": 29,
+    "changed_files": 8,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "dependencies",
+      "area:java-sdk",
+      "java"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "java-sdk/buildSrc/build.gradle.kts",
+    "java-sdk/gradle/wrapper/gradle-wrapper.properties",
+    "java-sdk/gradlew",
+    "java-sdk/gradlew.bat",
+    "java-sdk/log4j2/build.gradle.kts",
+    "java-sdk/scala_spark_example/build.gradle",
+    "java-sdk/sdk/build.gradle.kts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:21:28.906358+00:00"
+}

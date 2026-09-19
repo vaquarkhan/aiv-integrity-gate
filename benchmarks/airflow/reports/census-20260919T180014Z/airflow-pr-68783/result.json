@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-68783",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68783",
+  "title": "Show clear error for invalid sql_alchemy_conn at startup",
+  "pr": 68783,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:22.421160+00:00"
+  },
+  "pr_meta": {
+    "number": 68783,
+    "title": "Show clear error for invalid sql_alchemy_conn at startup",
+    "html_url": "https://github.com/apache/airflow/pull/68783",
+    "state": "closed",
+    "merged": false,
+    "user": "GayathriSrividya",
+    "created_at": "2026-06-20T11:04:19Z",
+    "closed_at": "2026-07-14T15:40:46Z",
+    "merged_at": null,
+    "base_sha": "10529542d482c6293f454748fa87cd46d93c0aef",
+    "head_sha": "3b53129093773cd63ed89f5d40b329a64a91b251",
+    "additions": 81,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68783/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68783/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

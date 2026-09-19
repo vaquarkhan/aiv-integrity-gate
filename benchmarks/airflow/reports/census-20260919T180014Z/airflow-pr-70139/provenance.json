@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-70139",
+  "origin_url": "https://github.com/apache/airflow/pull/70139",
+  "repo": "apache/airflow",
+  "pr": 70139,
+  "title": "Add --local-theme flag to breeze build-docs for local theme development",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:29.959393+00:00"
+  },
+  "pr_meta": {
+    "number": 70139,
+    "title": "Add --local-theme flag to breeze build-docs for local theme development",
+    "html_url": "https://github.com/apache/airflow/pull/70139",
+    "state": "closed",
+    "merged": false,
+    "user": "srchilukoori",
+    "created_at": "2026-07-20T16:44:42Z",
+    "closed_at": "2026-09-13T00:29:58Z",
+    "merged_at": null,
+    "base_sha": "ec08de79ab6367a464f9af5f33d43025ec9c8365",
+    "head_sha": "8eec78f990a6607d9fc391d43738abff91b6843c",
+    "additions": 95,
+    "deletions": 11,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/doc/images/output_build-docs.svg",
+    "dev/breeze/doc/images/output_build-docs.txt",
+    "dev/breeze/src/airflow_breeze/commands/common_options.py",
+    "dev/breeze/src/airflow_breeze/commands/developer_commands.py",
+    "dev/breeze/src/airflow_breeze/commands/developer_commands_config.py",
+    "dev/breeze/src/airflow_breeze/params/shell_params.py",
+    "dev/breeze/src/airflow_breeze/utils/path_utils.py",
+    "dev/breeze/tests/test_shell_params.py",
+    "scripts/ci/docker-compose/mount-local-theme.yml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:44:55.666173+00:00"
+}

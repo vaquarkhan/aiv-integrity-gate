@@ -1,0 +1,26 @@
+{
+  "case_id": "fixture-ai-attribution",
+  "origin_url": null,
+  "repo": null,
+  "pr": null,
+  "title": null,
+  "label": {
+    "class": "synthetic_positive",
+    "expect_hard_fail": true,
+    "expect_advisory": null,
+    "rationale": "Synthetic attribution string left in source."
+  },
+  "discovery": null,
+  "pr_meta": null,
+  "materialize_mode": "fixture",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "providers/__init__.py",
+    "providers/bench/ai-slop/chatgpt_attribution.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:00:24.241030+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69926",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69926",
+  "title": "Go SDK: Keep workload tokens out of task error logs",
+  "pr": 69926,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:45.384265+00:00"
+  },
+  "pr_meta": {
+    "number": 69926,
+    "title": "Go SDK: Keep workload tokens out of task error logs",
+    "html_url": "https://github.com/apache/airflow/pull/69926",
+    "state": "closed",
+    "merged": false,
+    "user": "viiccwen",
+    "created_at": "2026-07-15T14:25:44Z",
+    "closed_at": "2026-08-20T13:22:26Z",
+    "merged_at": null,
+    "base_sha": "58e124b88775314373ff5a5f0ed5432f1cbe2030",
+    "head_sha": "697a42512393fe6532b6e4e87ab963d1854068ac",
+    "additions": 65,
+    "deletions": 6,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69926/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69926/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

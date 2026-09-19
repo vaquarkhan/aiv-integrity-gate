@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-73319",
+  "origin_url": "https://github.com/apache/airflow/pull/73319",
+  "repo": "apache/airflow",
+  "pr": 73319,
+  "title": "Stop backporting the scheduled CI environment upgrade",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:40.716705+00:00"
+  },
+  "pr_meta": {
+    "number": 73319,
+    "title": "Stop backporting the scheduled CI environment upgrade",
+    "html_url": "https://github.com/apache/airflow/pull/73319",
+    "state": "closed",
+    "merged": true,
+    "user": "potiuk",
+    "created_at": "2026-09-18T09:53:23Z",
+    "closed_at": "2026-09-18T15:42:20Z",
+    "merged_at": "2026-09-18T15:42:20Z",
+    "base_sha": "a1c2c50f4e4264f8347426e6d9ed155ce632cb3d",
+    "head_sha": "5063adb5aae65c50e47a8b19d21ea2811f543378",
+    "additions": 154,
+    "deletions": 0,
+    "changed_files": 3,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/upgrade-check.yml",
+    "README.md",
+    "dev/breeze/src/airflow_breeze/commands/ci_commands.py",
+    "dev/breeze/tests/test_remove_backport_labels.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:11:28.227265+00:00"
+}

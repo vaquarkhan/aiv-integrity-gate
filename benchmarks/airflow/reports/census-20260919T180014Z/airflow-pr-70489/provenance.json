@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-70489",
+  "origin_url": "https://github.com/apache/airflow/pull/70489",
+  "repo": "apache/airflow",
+  "pr": 70489,
+  "title": "Validate GCSToLocalFilesystemOperator arguments after template rendering",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:03.655774+00:00"
+  },
+  "pr_meta": {
+    "number": 70489,
+    "title": "Validate GCSToLocalFilesystemOperator arguments after template rendering",
+    "html_url": "https://github.com/apache/airflow/pull/70489",
+    "state": "closed",
+    "merged": false,
+    "user": "mitre88",
+    "created_at": "2026-07-27T00:28:52Z",
+    "closed_at": "2026-07-27T08:58:33Z",
+    "merged_at": null,
+    "base_sha": "c4a5f19e67cd25143cc000d6ae0255e13c142b95",
+    "head_sha": "ab4f0bccffe38582907bde875320bbc60d8d33e8",
+    "additions": 15,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/transfers/gcs_to_local.py",
+    "providers/google/tests/unit/google/cloud/transfers/test_gcs_to_local.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:38:21.700076+00:00"
+}

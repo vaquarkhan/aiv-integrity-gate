@@ -1,0 +1,79 @@
+{
+  "id": "airflow-pr-72271",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72271",
+  "title": "fix: validate connection port is in range 0-65535",
+  "pr": 72271,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:29.961095+00:00"
+  },
+  "pr_meta": {
+    "number": 72271,
+    "title": "fix: validate connection port is in range 0-65535",
+    "html_url": "https://github.com/apache/airflow/pull/72271",
+    "state": "closed",
+    "merged": false,
+    "user": "debayanCODES-1",
+    "created_at": "2026-08-29T20:14:47Z",
+    "closed_at": "2026-08-30T00:31:08Z",
+    "merged_at": null,
+    "base_sha": "166a1ba1eecf969ed33ad17dd1232b20d7ce5aea",
+    "head_sha": "735906a415cd752439cf7a0a5a94a4c42b886681",
+    "additions": 166,
+    "deletions": 30,
+    "changed_files": 14,
+    "author_association": "NONE",
+    "labels": [
+      "area:CLI",
+      "area:API",
+      "area:task-sdk",
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72271/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72271/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

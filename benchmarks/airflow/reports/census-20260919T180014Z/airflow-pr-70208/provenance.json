@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-70208",
+  "origin_url": "https://github.com/apache/airflow/pull/70208",
+  "repo": "apache/airflow",
+  "pr": 70208,
+  "title": "Fix Connection port field range validation (#68382)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:52.912192+00:00"
+  },
+  "pr_meta": {
+    "number": 70208,
+    "title": "Fix Connection port field range validation (#68382)",
+    "html_url": "https://github.com/apache/airflow/pull/70208",
+    "state": "closed",
+    "merged": false,
+    "user": "dj-wise-ronin",
+    "created_at": "2026-07-22T02:40:24Z",
+    "closed_at": "2026-09-09T09:49:37Z",
+    "merged_at": null,
+    "base_sha": "801cef9ba7b50e593c7579ed115893fdaf03fd9b",
+    "head_sha": "4b72d39c4e7e99e45f2a676360858973065ec7f2",
+    "additions": 108,
+    "deletions": 2,
+    "changed_files": 7,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/connections.py",
+    "airflow-core/src/airflow/models/connection.py",
+    "airflow-core/tests/unit/models/test_connection.py",
+    "shared/configuration/src/airflow_shared/configuration/__init__.py",
+    "shared/configuration/src/airflow_shared/configuration/connection.py",
+    "task-sdk/src/airflow/sdk/definitions/connection.py",
+    "task-sdk/tests/task_sdk/definitions/test_connection.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:43:01.230605+00:00"
+}

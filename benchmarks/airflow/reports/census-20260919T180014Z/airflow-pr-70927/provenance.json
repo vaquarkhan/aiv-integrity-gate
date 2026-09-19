@@ -1,0 +1,64 @@
+{
+  "case_id": "airflow-pr-70927",
+  "origin_url": "https://github.com/apache/airflow/pull/70927",
+  "repo": "apache/airflow",
+  "pr": 70927,
+  "title": "Claim callbacks through the Execution API before running them",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:42.104309+00:00"
+  },
+  "pr_meta": {
+    "number": 70927,
+    "title": "Claim callbacks through the Execution API before running them",
+    "html_url": "https://github.com/apache/airflow/pull/70927",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-08-01T20:47:01Z",
+    "closed_at": "2026-08-17T18:34:08Z",
+    "merged_at": null,
+    "base_sha": "316dc6d82e7809b096028ee77bc3bdc42538aaff",
+    "head_sha": "c0be079b56a91dfd7c5ce7ebae78411fb49d3698",
+    "additions": 421,
+    "deletions": 1,
+    "changed_files": 15,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/70927.significant.rst",
+    "airflow-core/src/airflow/api_fastapi/execution_api/datamodels/callback.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/__init__.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/callbacks.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/security.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/versions/__init__.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/versions/v2026_08_01.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/conftest.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/test_security.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/test_token_scope_boundaries.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_callbacks.py",
+    "task-sdk/src/airflow/sdk/api/client.py",
+    "task-sdk/src/airflow/sdk/api/datamodels/_generated.py",
+    "task-sdk/src/airflow/sdk/execution_time/callback_supervisor.py",
+    "task-sdk/tests/task_sdk/execution_time/test_callback_supervisor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:31:55.484841+00:00"
+}

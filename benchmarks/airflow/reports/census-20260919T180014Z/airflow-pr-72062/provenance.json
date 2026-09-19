@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72062",
+  "origin_url": "https://github.com/apache/airflow/pull/72062",
+  "repo": "apache/airflow",
+  "pr": 72062,
+  "title": "Fix deferred task instances being cascade-deleted by Trigger.clean_unused on MySQL",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:18.182454+00:00"
+  },
+  "pr_meta": {
+    "number": 72062,
+    "title": "Fix deferred task instances being cascade-deleted by Trigger.clean_unused on MySQL",
+    "html_url": "https://github.com/apache/airflow/pull/72062",
+    "state": "closed",
+    "merged": false,
+    "user": "aunderwood24",
+    "created_at": "2026-08-25T14:45:26Z",
+    "closed_at": "2026-09-16T15:29:19Z",
+    "merged_at": null,
+    "base_sha": "8637df49fcb4a775422e14fc1fbee3a7ef62fc0e",
+    "head_sha": "25027ee452e12c8d15f8d2fc73155d6d5b94da74",
+    "additions": 55,
+    "deletions": 2,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:Triggerer"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/72062.bugfix.rst",
+    "airflow-core/src/airflow/models/trigger.py",
+    "airflow-core/tests/unit/models/test_trigger.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:16:05.664828+00:00"
+}

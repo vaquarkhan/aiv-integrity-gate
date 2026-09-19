@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-71751",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71751",
+  "title": "Avoid duplicate Iceberg asset runs after a triggerer restart",
+  "pr": 71751,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:20.897375+00:00"
+  },
+  "pr_meta": {
+    "number": 71751,
+    "title": "Avoid duplicate Iceberg asset runs after a triggerer restart",
+    "html_url": "https://github.com/apache/airflow/pull/71751",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-18T00:45:00Z",
+    "closed_at": "2026-08-24T05:05:49Z",
+    "merged_at": null,
+    "base_sha": "7c34d3097eba77910ec7ea4b121741704b890e50",
+    "head_sha": "c88c5dfee79aa847a7cbc03cb4e289b545af10a2",
+    "additions": 157,
+    "deletions": 46,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:apache-iceberg"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71751/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71751/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

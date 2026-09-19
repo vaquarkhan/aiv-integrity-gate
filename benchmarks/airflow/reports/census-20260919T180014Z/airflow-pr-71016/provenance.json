@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71016",
+  "origin_url": "https://github.com/apache/airflow/pull/71016",
+  "repo": "apache/airflow",
+  "pr": 71016,
+  "title": "Support nested classes in import_string",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:29.297168+00:00"
+  },
+  "pr_meta": {
+    "number": 71016,
+    "title": "Support nested classes in import_string",
+    "html_url": "https://github.com/apache/airflow/pull/71016",
+    "state": "closed",
+    "merged": false,
+    "user": "KushagraB424",
+    "created_at": "2026-08-03T20:03:06Z",
+    "closed_at": "2026-08-03T20:05:18Z",
+    "merged_at": null,
+    "base_sha": "0bda2ffece97df4b90484a70dd4c62ff35993fda",
+    "head_sha": "069ef7508c2c476398d9ada01f7cedea8b3f188e",
+    "additions": 44,
+    "deletions": 7,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "shared/module_loading/src/airflow_shared/module_loading/__init__.py",
+    "shared/module_loading/tests/module_loading/test_module_loading.py",
+    "task-sdk/src/airflow/sdk/execution_time/supervisor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:31:00.578724+00:00"
+}

@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-72536",
+  "origin_url": "https://github.com/apache/airflow/pull/72536",
+  "repo": "apache/airflow",
+  "pr": 72536,
+  "title": "Bump the core-ui-package-updates group across 1 directory with 12 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:32.068795+00:00"
+  },
+  "pr_meta": {
+    "number": 72536,
+    "title": "Bump the core-ui-package-updates group across 1 directory with 12 updates",
+    "html_url": "https://github.com/apache/airflow/pull/72536",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-09-04T17:01:02Z",
+    "closed_at": "2026-09-07T14:12:22Z",
+    "merged_at": null,
+    "base_sha": "90354f166e1d511483c7084d11d0678b34f11cc4",
+    "head_sha": "1b4279a5e13e850e320b05c312e2e4c0e3b7886f",
+    "additions": 150,
+    "deletions": 166,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "javascript",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/package.json",
+    "airflow-core/src/airflow/ui/pnpm-lock.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:10:03.860432+00:00"
+}

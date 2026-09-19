@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-73293",
+  "origin_url": "https://github.com/apache/airflow/pull/73293",
+  "repo": "apache/airflow",
+  "pr": 73293,
+  "title": "[airflow-ctl/v0-1-test] Fix airflowctl backfill pause/unpause/cancel always failing with 405 (#73282)",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:57.796634+00:00"
+  },
+  "pr_meta": {
+    "number": 73293,
+    "title": "[airflow-ctl/v0-1-test] Fix airflowctl backfill pause/unpause/cancel always failing with 405 (#73282)",
+    "html_url": "https://github.com/apache/airflow/pull/73293",
+    "state": "closed",
+    "merged": true,
+    "user": "henry3260",
+    "created_at": "2026-09-17T19:22:42Z",
+    "closed_at": "2026-09-17T19:23:01Z",
+    "merged_at": "2026-09-17T19:23:01Z",
+    "base_sha": "ed04be0b3b5fe73514ebf8768b93f360ed26f13e",
+    "head_sha": "e874adf1d2a4f55bd89a06e45084422e00854a3c",
+    "additions": 6,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:airflow-ctl"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-ctl/src/airflowctl/api/operations.py",
+    "airflow-ctl/tests/airflow_ctl/api/test_operations.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:43.557750+00:00"
+}

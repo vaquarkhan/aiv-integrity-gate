@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69973",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69973",
+  "title": "Reduce scheduler lock contention for queued executor events",
+  "pr": 69973,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:28.509865+00:00"
+  },
+  "pr_meta": {
+    "number": 69973,
+    "title": "Reduce scheduler lock contention for queued executor events",
+    "html_url": "https://github.com/apache/airflow/pull/69973",
+    "state": "closed",
+    "merged": false,
+    "user": "GayathriSrividya",
+    "created_at": "2026-07-16T14:10:05Z",
+    "closed_at": "2026-07-28T17:14:02Z",
+    "merged_at": null,
+    "base_sha": "b628e46a2a855a5c75aeb7939ec99fc843286e2a",
+    "head_sha": "361eae4150516b48c414cbeb128a42fccd97d074",
+    "additions": 62,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69973/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69973/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

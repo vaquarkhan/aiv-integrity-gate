@@ -1,0 +1,61 @@
+{
+  "case_id": "airflow-pr-69749",
+  "origin_url": "https://github.com/apache/airflow/pull/69749",
+  "repo": "apache/airflow",
+  "pr": 69749,
+  "title": "Make Vertex AI evaluation optional to avoid litellm bloat",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:40.748654+00:00"
+  },
+  "pr_meta": {
+    "number": 69749,
+    "title": "Make Vertex AI evaluation optional to avoid litellm bloat",
+    "html_url": "https://github.com/apache/airflow/pull/69749",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-07-11T06:54:04Z",
+    "closed_at": "2026-08-29T12:58:37Z",
+    "merged_at": null,
+    "base_sha": "ef1dc74209011e6aa90490547776160f125c9d31",
+    "head_sha": "5ffe047ead03c418f0e879ad6b0eb95a4bd0aeb0",
+    "additions": 219,
+    "deletions": 24,
+    "changed_files": 11,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/README.rst",
+    "providers/google/docs/changelog.rst",
+    "providers/google/docs/index.rst",
+    "providers/google/docs/operators/cloud/vertex_ai.rst",
+    "providers/google/pyproject.toml",
+    "providers/google/src/airflow/providers/google/cloud/hooks/vertex_ai/generative_model.py",
+    "providers/google/tests/system/google/cloud/gen_ai/example_gen_ai_generative_model.py",
+    "providers/google/tests/unit/google/cloud/hooks/vertex_ai/test_generative_model.py",
+    "providers/google/tests/unit/google/cloud/hooks/vertex_ai/test_generative_model_optional_evaluation.py",
+    "providers/google/tests/unit/google/cloud/operators/vertex_ai/test_generative_model.py",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:52:14.769522+00:00"
+}

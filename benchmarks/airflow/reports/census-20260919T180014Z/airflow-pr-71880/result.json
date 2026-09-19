@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-71880",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71880",
+  "title": "fix(db_cleanup): skip dag rows whose dag_version cascade is blocked by task_instance FK",
+  "pr": 71880,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:03.152047+00:00"
+  },
+  "pr_meta": {
+    "number": 71880,
+    "title": "fix(db_cleanup): skip dag rows whose dag_version cascade is blocked by task_instance FK",
+    "html_url": "https://github.com/apache/airflow/pull/71880",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-20T12:49:52Z",
+    "closed_at": "2026-09-15T18:15:59Z",
+    "merged_at": null,
+    "base_sha": "61d7182a581d2120412526b75c9567a2c7956cae",
+    "head_sha": "0745e3b1e4efe30097504f1b249f7089d0cfd701",
+    "additions": 144,
+    "deletions": 7,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71880/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71880/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

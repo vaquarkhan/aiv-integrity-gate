@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-73300",
+  "origin_url": "https://github.com/apache/airflow/pull/73300",
+  "repo": "apache/airflow",
+  "pr": 73300,
+  "title": "Remove newsfragments for changes already shipped in released versions",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:54.896531+00:00"
+  },
+  "pr_meta": {
+    "number": 73300,
+    "title": "Remove newsfragments for changes already shipped in released versions",
+    "html_url": "https://github.com/apache/airflow/pull/73300",
+    "state": "closed",
+    "merged": true,
+    "user": "kaxil",
+    "created_at": "2026-09-18T01:38:26Z",
+    "closed_at": "2026-09-18T04:21:10Z",
+    "merged_at": "2026-09-18T04:21:10Z",
+    "base_sha": "f881a99629cd0676876924202b821537a9e4d493",
+    "head_sha": "8c4cd3b800ce2d6ff61169bed38a187a8c5963f1",
+    "additions": 0,
+    "deletions": 907,
+    "changed_files": 108,
+    "author_association": "MEMBER",
+    "labels": [
+      "provider:microsoft-azure",
+      "area:providers",
+      "area:dev-tools",
+      "area:helm-chart",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".pre-commit-config.yaml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:30.238371+00:00"
+}

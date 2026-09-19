@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-68783",
+  "origin_url": "https://github.com/apache/airflow/pull/68783",
+  "repo": "apache/airflow",
+  "pr": 68783,
+  "title": "Show clear error for invalid sql_alchemy_conn at startup",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:22.421160+00:00"
+  },
+  "pr_meta": {
+    "number": 68783,
+    "title": "Show clear error for invalid sql_alchemy_conn at startup",
+    "html_url": "https://github.com/apache/airflow/pull/68783",
+    "state": "closed",
+    "merged": false,
+    "user": "GayathriSrividya",
+    "created_at": "2026-06-20T11:04:19Z",
+    "closed_at": "2026-07-14T15:40:46Z",
+    "merged_at": null,
+    "base_sha": "10529542d482c6293f454748fa87cd46d93c0aef",
+    "head_sha": "3b53129093773cd63ed89f5d40b329a64a91b251",
+    "additions": 81,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/settings.py",
+    "airflow-core/tests/unit/core/test_settings.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:10:17.741981+00:00"
+}

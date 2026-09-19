@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70019",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70019",
+  "title": "Add composite index on TaskInstance state for ConcurrencyMap performance",
+  "pr": 70019,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:11.955986+00:00"
+  },
+  "pr_meta": {
+    "number": 70019,
+    "title": "Add composite index on TaskInstance state for ConcurrencyMap performance",
+    "html_url": "https://github.com/apache/airflow/pull/70019",
+    "state": "closed",
+    "merged": false,
+    "user": "rajat315315",
+    "created_at": "2026-07-17T13:26:00Z",
+    "closed_at": "2026-09-13T12:50:18Z",
+    "merged_at": null,
+    "base_sha": "c5faeb1555b4076739665b9434f616db37559727",
+    "head_sha": "b256de52d5b739a1a48b512786256fac385283a3",
+    "additions": 57,
+    "deletions": 2,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:db-migrations"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70019/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70019/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

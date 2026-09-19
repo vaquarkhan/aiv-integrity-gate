@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-69207",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69207",
+  "title": "Add EMR Serverless interactive session support to Amazon provider",
+  "pr": 69207,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:55.519528+00:00"
+  },
+  "pr_meta": {
+    "number": 69207,
+    "title": "Add EMR Serverless interactive session support to Amazon provider",
+    "html_url": "https://github.com/apache/airflow/pull/69207",
+    "state": "closed",
+    "merged": false,
+    "user": "vgkowski",
+    "created_at": "2026-07-01T16:06:41Z",
+    "closed_at": "2026-07-30T12:43:38Z",
+    "merged_at": null,
+    "base_sha": "25b3b881957210fdd36bd7924ab5c6931dee377b",
+    "head_sha": "0353855d49c58eea76f9ff51a651f837b263c034",
+    "additions": 1168,
+    "deletions": 1,
+    "changed_files": 12,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "kind:documentation",
+      "provider:common-compat"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69207/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69207/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-69981",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69981",
+  "title": "Standardize task run state conflict error response",
+  "pr": 69981,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:25.821479+00:00"
+  },
+  "pr_meta": {
+    "number": 69981,
+    "title": "Standardize task run state conflict error response",
+    "html_url": "https://github.com/apache/airflow/pull/69981",
+    "state": "closed",
+    "merged": false,
+    "user": "fat-catTW",
+    "created_at": "2026-07-16T17:59:31Z",
+    "closed_at": "2026-07-21T18:02:55Z",
+    "merged_at": null,
+    "base_sha": "d6246920c30520e0d78319a4f74a76f35058ee93",
+    "head_sha": "0a2126d4986bcd8946f03e2e5e00829424f49ccb",
+    "additions": 188,
+    "deletions": 41,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69981/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69981/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69752",
+  "origin_url": "https://github.com/apache/airflow/pull/69752",
+  "repo": "apache/airflow",
+  "pr": 69752,
+  "title": "Fix BaseSerialization double-wrapping args for builtin exceptions",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:38.688259+00:00"
+  },
+  "pr_meta": {
+    "number": 69752,
+    "title": "Fix BaseSerialization double-wrapping args for builtin exceptions",
+    "html_url": "https://github.com/apache/airflow/pull/69752",
+    "state": "closed",
+    "merged": false,
+    "user": "bujjibabukatta",
+    "created_at": "2026-07-11T10:07:15Z",
+    "closed_at": "2026-09-15T00:27:44Z",
+    "merged_at": null,
+    "base_sha": "c860159eee8c9e86670e1418a90f530719419093",
+    "head_sha": "d238824e746641b9c88308bf5ceb416ea31cbfb4",
+    "additions": 22,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "pending-response",
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/serialization/serialized_objects.py",
+    "airflow-core/tests/unit/serialization/test_serialized_objects.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:52:05.381979+00:00"
+}

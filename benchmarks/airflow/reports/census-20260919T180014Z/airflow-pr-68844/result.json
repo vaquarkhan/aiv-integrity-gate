@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-68844",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68844",
+  "title": "[v3-3-test] Support `extra` field for Coordinator  (#68694)",
+  "pr": 68844,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:36.465773+00:00"
+  },
+  "pr_meta": {
+    "number": 68844,
+    "title": "[v3-3-test] Support `extra` field for Coordinator  (#68694)",
+    "html_url": "https://github.com/apache/airflow/pull/68844",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-06-22T14:22:56Z",
+    "closed_at": "2026-06-23T03:40:26Z",
+    "merged_at": null,
+    "base_sha": "a647d068fd66670986132b3f5170923a3b013a84",
+    "head_sha": "e411a7fff6228444a54e63a00bb199a6d6e92c8e",
+    "additions": 135,
+    "deletions": 2,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "kind:documentation",
+      "area:task-sdk",
+      "area:ConfigTemplates"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68844/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68844/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

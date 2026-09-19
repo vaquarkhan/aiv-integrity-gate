@@ -1,0 +1,89 @@
+{
+  "id": "airflow-pr-72559",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72559",
+  "title": "Add task-level deadline alerts",
+  "pr": 72559,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:23.084417+00:00"
+  },
+  "pr_meta": {
+    "number": 72559,
+    "title": "Add task-level deadline alerts",
+    "html_url": "https://github.com/apache/airflow/pull/72559",
+    "state": "closed",
+    "merged": false,
+    "user": "Lothnic",
+    "created_at": "2026-09-05T10:54:23Z",
+    "closed_at": "2026-09-07T19:52:14Z",
+    "merged_at": null,
+    "base_sha": "6d4808b4e802aacf6cf3a08dbb2272fadbb45951",
+    "head_sha": "0359bf9b4cb3b9dc611314a98d06df888ae33a85",
+    "additions": 1026,
+    "deletions": 33,
+    "changed_files": 16,
+    "author_association": "NONE",
+    "labels": [
+      "area:scheduler",
+      "kind:documentation",
+      "area:deadline-alerts",
+      "area:DAG-processing",
+      "area:db-migrations",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72559/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72559/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": true,
+    "blocking_gates": [],
+    "advisory_gates": [
+      "density"
+    ],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Entropy 3.23 is below effective threshold 3.30 for airflow-core/src/airflow/jobs/scheduler_job_runner.py (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md).",
+      "findings": [
+        {
+          "rule_id": "density.entropy",
+          "file": "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+          "start_line": 1,
+          "message": "Entropy 3.23 is below effective threshold 3.30 for airflow-core/src/airflow/jobs/scheduler_job_runner.py (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md)."
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

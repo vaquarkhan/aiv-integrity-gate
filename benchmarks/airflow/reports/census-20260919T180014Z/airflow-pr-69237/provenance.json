@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-69237",
+  "origin_url": "https://github.com/apache/airflow/pull/69237",
+  "repo": "apache/airflow",
+  "pr": 69237,
+  "title": "Fix OTel integration test for new task.execute detail span",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:53.289994+00:00"
+  },
+  "pr_meta": {
+    "number": 69237,
+    "title": "Fix OTel integration test for new task.execute detail span",
+    "html_url": "https://github.com/apache/airflow/pull/69237",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-07-02T08:58:09Z",
+    "closed_at": "2026-07-02T09:01:16Z",
+    "merged_at": null,
+    "base_sha": "81dbef9f4bdd648e5ddf12709a50d460cad69b21",
+    "head_sha": "cec9c1af537fe5f179cd5c2604594fe96adf8b3d",
+    "additions": 4,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/integration/otel/test_otel.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:00:44.332068+00:00"
+}

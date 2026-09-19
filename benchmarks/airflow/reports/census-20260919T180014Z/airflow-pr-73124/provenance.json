@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-73124",
+  "origin_url": "https://github.com/apache/airflow/pull/73124",
+  "repo": "apache/airflow",
+  "pr": 73124,
+  "title": "Optimize CI hot-path setup without reducing coverage",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:01.944351+00:00"
+  },
+  "pr_meta": {
+    "number": 73124,
+    "title": "Optimize CI hot-path setup without reducing coverage",
+    "html_url": "https://github.com/apache/airflow/pull/73124",
+    "state": "closed",
+    "merged": false,
+    "user": "zozo123",
+    "created_at": "2026-09-14T13:34:37Z",
+    "closed_at": "2026-09-15T11:39:36Z",
+    "merged_at": null,
+    "base_sha": "96df2958a7547c478ea413b36ad439af4a867be6",
+    "head_sha": "7615c053d2dfe9d56b8fb2ef27bde663412ce1fc",
+    "additions": 701,
+    "deletions": 105,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/actions/install-prek/action.yml",
+    ".github/workflows/basic-tests.yml",
+    ".github/workflows/run-unit-tests.yml",
+    ".github/workflows/ui-e2e-tests.yml",
+    "README.md",
+    "scripts/ci/make_mnt_writeable.sh",
+    "scripts/ci/move_docker_to_mnt.sh",
+    "scripts/ci/prek_cache_key.py",
+    "scripts/tests/ci/test_ci_setup_optimizations.py",
+    "scripts/tools/free_up_disk_space.sh"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:01:57.652812+00:00"
+}

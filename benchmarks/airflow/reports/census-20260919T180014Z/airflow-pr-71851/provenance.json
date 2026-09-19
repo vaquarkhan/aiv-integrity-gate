@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71851",
+  "origin_url": "https://github.com/apache/airflow/pull/71851",
+  "repo": "apache/airflow",
+  "pr": 71851,
+  "title": "Test/snyk repo content sync uv lock",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:06.287217+00:00"
+  },
+  "pr_meta": {
+    "number": 71851,
+    "title": "Test/snyk repo content sync uv lock",
+    "html_url": "https://github.com/apache/airflow/pull/71851",
+    "state": "closed",
+    "merged": false,
+    "user": "Robthreefold",
+    "created_at": "2026-08-19T19:13:29Z",
+    "closed_at": "2026-08-19T19:18:33Z",
+    "merged_at": null,
+    "base_sha": "9c8d7512a2050990c295b53965ac76d90afa21b4",
+    "head_sha": "78785429760902a6315d59f54666b33f42e7b0ba",
+    "additions": 388,
+    "deletions": 4,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow/ui/package.json",
+    "appsec.properties",
+    "snyk-sync-test-uv/pyproject.toml",
+    "snyk-sync-test-uv/uv.lock",
+    "snyk-sync-test/requirements.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:18:51.169379+00:00"
+}

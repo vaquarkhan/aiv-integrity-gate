@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69430",
+  "origin_url": "https://github.com/apache/airflow/pull/69430",
+  "repo": "apache/airflow",
+  "pr": 69430,
+  "title": "Fix CeleryKubernetesExecutor starting Kubernetes watcher client-side",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:21.297023+00:00"
+  },
+  "pr_meta": {
+    "number": 69430,
+    "title": "Fix CeleryKubernetesExecutor starting Kubernetes watcher client-side",
+    "html_url": "https://github.com/apache/airflow/pull/69430",
+    "state": "closed",
+    "merged": false,
+    "user": "yquaziii",
+    "created_at": "2026-07-06T04:55:48Z",
+    "closed_at": "2026-09-01T20:53:43Z",
+    "merged_at": null,
+    "base_sha": "0c6e6bd86fc8406014f3a7d298471769c9902271",
+    "head_sha": "e55b9311c9a22fb8c8658632622d4a03a4466ea4",
+    "additions": 18,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow/providers/cncf/kubernetes/executors/kubernetes_executor.py",
+    "tests/providers/cncf/kubernetes/executors/test_kubernetes_executor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:58:45.278647+00:00"
+}

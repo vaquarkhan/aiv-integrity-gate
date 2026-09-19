@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72235",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72235",
+  "title": "Replace CTE with subquery in asset orphanage to support MySQL backends without CTE-in-DML",
+  "pr": 72235,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:43.804392+00:00"
+  },
+  "pr_meta": {
+    "number": 72235,
+    "title": "Replace CTE with subquery in asset orphanage to support MySQL backends without CTE-in-DML",
+    "html_url": "https://github.com/apache/airflow/pull/72235",
+    "state": "closed",
+    "merged": false,
+    "user": "saitejabandaru-in",
+    "created_at": "2026-08-28T20:27:38Z",
+    "closed_at": "2026-09-06T19:18:22Z",
+    "merged_at": null,
+    "base_sha": "b908c63ae6352884b639eeecdd98acb1e9aa491a",
+    "head_sha": "78cd90d0319282f1b60eca6d33159ca9235667c2",
+    "additions": 5,
+    "deletions": 5,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:scheduler"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72235/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72235/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

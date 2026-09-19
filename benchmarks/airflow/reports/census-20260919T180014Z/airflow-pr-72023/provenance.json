@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-72023",
+  "origin_url": "https://github.com/apache/airflow/pull/72023",
+  "repo": "apache/airflow",
+  "pr": 72023,
+  "title": "fix(db_cleanup): remove invalid dag_id column for task_reschedule",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:25.345271+00:00"
+  },
+  "pr_meta": {
+    "number": 72023,
+    "title": "fix(db_cleanup): remove invalid dag_id column for task_reschedule",
+    "html_url": "https://github.com/apache/airflow/pull/72023",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-24T08:52:08Z",
+    "closed_at": "2026-09-15T18:16:01Z",
+    "merged_at": null,
+    "base_sha": "f44bb16d825edcb533b5819c152c4d6a23a0ffd9",
+    "head_sha": "93e3751eb056711ed58584835aab8fcbe66fce45",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/utils/db_cleanup.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:16:31.318586+00:00"
+}

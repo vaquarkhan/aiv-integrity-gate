@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69560",
+  "origin_url": "https://github.com/apache/airflow/pull/69560",
+  "repo": "apache/airflow",
+  "pr": 69560,
+  "title": "fix(providers/standard): support poke_interval as poll_interval in deferrable ExternalTaskSensor",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:27.847914+00:00"
+  },
+  "pr_meta": {
+    "number": 69560,
+    "title": "fix(providers/standard): support poke_interval as poll_interval in deferrable ExternalTaskSensor",
+    "html_url": "https://github.com/apache/airflow/pull/69560",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-07T15:32:33Z",
+    "closed_at": "2026-07-09T17:47:59Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "0f5a515c14cc4a8e1ea82f291badb3f5892e789d",
+    "additions": 51,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/sensors/external_task.py",
+    "providers/standard/tests/unit/standard/sensors/test_external_task_sensor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:55:28.221436+00:00"
+}

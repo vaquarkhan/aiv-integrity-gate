@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70506",
+  "origin_url": "https://github.com/apache/airflow/pull/70506",
+  "repo": "apache/airflow",
+  "pr": 70506,
+  "title": "Fire failure listeners when TriggerDagRunOperator API call fails",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:58.797811+00:00"
+  },
+  "pr_meta": {
+    "number": 70506,
+    "title": "Fire failure listeners when TriggerDagRunOperator API call fails",
+    "html_url": "https://github.com/apache/airflow/pull/70506",
+    "state": "closed",
+    "merged": false,
+    "user": "ABiscuitttt",
+    "created_at": "2026-07-27T08:49:23Z",
+    "closed_at": "2026-08-07T11:04:24Z",
+    "merged_at": null,
+    "base_sha": "40ced09754fd50556de2a950bdea3a83261b25b0",
+    "head_sha": "f5b3bcebc12452f4db2298c3314510457217763a",
+    "additions": 76,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/70506.bugfix.rst",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:38:15.349591+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-72880",
+  "origin_url": "https://github.com/apache/airflow/pull/72880",
+  "repo": "apache/airflow",
+  "pr": 72880,
+  "title": "Remove the dead cloudant_fake module",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:24.465062+00:00"
+  },
+  "pr_meta": {
+    "number": 72880,
+    "title": "Remove the dead cloudant_fake module",
+    "html_url": "https://github.com/apache/airflow/pull/72880",
+    "state": "closed",
+    "merged": false,
+    "user": "MoonPointer-Byte",
+    "created_at": "2026-09-10T11:53:39Z",
+    "closed_at": "2026-09-14T15:46:19Z",
+    "merged_at": null,
+    "base_sha": "6d9cc2ed37b0926e6e7ce85677152ff90f4e02da",
+    "head_sha": "4808c5b91e4a74ab8a40833cff1483e3cabb83e5",
+    "additions": 0,
+    "deletions": 35,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:cloudant"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/always/test_project_structure.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:06:47.224331+00:00"
+}

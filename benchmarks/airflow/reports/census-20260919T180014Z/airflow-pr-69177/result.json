@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69177",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69177",
+  "title": "Fix airflow db clean failure with DAG filtering on joined tables",
+  "pr": 69177,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:04.169111+00:00"
+  },
+  "pr_meta": {
+    "number": 69177,
+    "title": "Fix airflow db clean failure with DAG filtering on joined tables",
+    "html_url": "https://github.com/apache/airflow/pull/69177",
+    "state": "closed",
+    "merged": false,
+    "user": "onlyarnav",
+    "created_at": "2026-06-30T11:13:22Z",
+    "closed_at": "2026-08-11T13:30:16Z",
+    "merged_at": null,
+    "base_sha": "acb4dde004fa39b0876923e0d39883bd3c2a2a60",
+    "head_sha": "7f1510521738e28acf03c66e929a48698051bbb2",
+    "additions": 160,
+    "deletions": 13,
+    "changed_files": 4,
+    "author_association": "MEMBER",
+    "labels": [
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69177/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69177/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

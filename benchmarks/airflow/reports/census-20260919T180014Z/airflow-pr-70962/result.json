@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70962",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70962",
+  "title": "Generate the Go SDK API clients with upstream oapi-codegen",
+  "pr": 70962,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:35.470621+00:00"
+  },
+  "pr_meta": {
+    "number": 70962,
+    "title": "Generate the Go SDK API clients with upstream oapi-codegen",
+    "html_url": "https://github.com/apache/airflow/pull/70962",
+    "state": "closed",
+    "merged": false,
+    "user": "jason810496",
+    "created_at": "2026-08-03T05:12:25Z",
+    "closed_at": "2026-08-03T08:27:02Z",
+    "merged_at": null,
+    "base_sha": "bdc7bde97be72baa57854cea8b09a2310a18a3bc",
+    "head_sha": "534891e5331cf7af6ad935716baf366e691e1cd4",
+    "additions": 14860,
+    "deletions": 6774,
+    "changed_files": 28,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:kubernetes-tests",
+      "area:go-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70962/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70962/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

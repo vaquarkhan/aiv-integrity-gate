@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-68797",
+  "origin_url": "https://github.com/apache/airflow/pull/68797",
+  "repo": "apache/airflow",
+  "pr": 68797,
+  "title": "Allow for relative paths to be branched to in a `TaskGroup`",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:16.910949+00:00"
+  },
+  "pr_meta": {
+    "number": 68797,
+    "title": "Allow for relative paths to be branched to in a `TaskGroup`",
+    "html_url": "https://github.com/apache/airflow/pull/68797",
+    "state": "closed",
+    "merged": false,
+    "user": "jroachgolf84",
+    "created_at": "2026-06-21T18:53:36Z",
+    "closed_at": "2026-09-11T19:54:53Z",
+    "merged_at": null,
+    "base_sha": "5bc8796e3a0d2ed3bb7cf9a45bb80a5588c2607d",
+    "head_sha": "455e665ebe3c978c3ae31b3138f1cd87cb046649",
+    "additions": 139,
+    "deletions": 6,
+    "changed_files": 4,
+    "author_association": "COLLABORATOR",
+    "labels": [
+      "area:providers",
+      "provider:standard",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/operators/branch.py",
+    "providers/standard/tests/unit/standard/operators/test_branch_operator.py",
+    "task-sdk/src/airflow/sdk/bases/branch.py",
+    "task-sdk/tests/task_sdk/bases/test_branch.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:09:53.518218+00:00"
+}

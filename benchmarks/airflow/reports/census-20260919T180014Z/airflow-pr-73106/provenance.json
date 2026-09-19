@@ -1,0 +1,57 @@
+{
+  "case_id": "airflow-pr-73106",
+  "origin_url": "https://github.com/apache/airflow/pull/73106",
+  "repo": "apache/airflow",
+  "pr": 73106,
+  "title": "Retry KubernetesPodOperator pod-status reads on a transient 404",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:03.654613+00:00"
+  },
+  "pr_meta": {
+    "number": 73106,
+    "title": "Retry KubernetesPodOperator pod-status reads on a transient 404",
+    "html_url": "https://github.com/apache/airflow/pull/73106",
+    "state": "closed",
+    "merged": false,
+    "user": "hitenshKharva",
+    "created_at": "2026-09-13T21:01:42Z",
+    "closed_at": "2026-09-13T21:29:23Z",
+    "merged_at": null,
+    "base_sha": "65eb086f40c1e95f848998dcbd1fa573387c06c9",
+    "head_sha": "06b5abf97b624b77f746caf7ad3c473df4b14c7c",
+    "additions": 116,
+    "deletions": 9,
+    "changed_files": 8,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "chart/templates/_helpers.yaml",
+    "chart/tests/helm_tests/other/test_git_sync_scheduler.py",
+    "chart/values.schema.json",
+    "chart/values.yaml",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:02:06.773017+00:00"
+}

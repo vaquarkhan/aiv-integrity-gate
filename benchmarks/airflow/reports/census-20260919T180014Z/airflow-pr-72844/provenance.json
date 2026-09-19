@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72844",
+  "origin_url": "https://github.com/apache/airflow/pull/72844",
+  "repo": "apache/airflow",
+  "pr": 72844,
+  "title": "Expose a translated navigation landmark in the sidebar",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:30.730342+00:00"
+  },
+  "pr_meta": {
+    "number": 72844,
+    "title": "Expose a translated navigation landmark in the sidebar",
+    "html_url": "https://github.com/apache/airflow/pull/72844",
+    "state": "closed",
+    "merged": false,
+    "user": "johnfinnerty-nz",
+    "created_at": "2026-09-09T20:56:12Z",
+    "closed_at": "2026-09-10T22:42:40Z",
+    "merged_at": null,
+    "base_sha": "b738c5aa3fc1de58d81e09db673b40de63fe5653",
+    "head_sha": "025a265d0f824c601033cfecc45fd6a9d2c7bf91",
+    "additions": 37,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/72844.improvement.rst",
+    "airflow-core/src/airflow/ui/src/layouts/Nav/Nav.test.tsx",
+    "airflow-core/src/airflow/ui/src/layouts/Nav/Nav.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:07:13.540290+00:00"
+}

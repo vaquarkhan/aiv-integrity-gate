@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72085",
+  "origin_url": "https://github.com/apache/airflow/pull/72085",
+  "repo": "apache/airflow",
+  "pr": 72085,
+  "title": "fix: respect cursor_itersize in psycopg3 server-side cursor path",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:07.417316+00:00"
+  },
+  "pr_meta": {
+    "number": 72085,
+    "title": "fix: respect cursor_itersize in psycopg3 server-side cursor path",
+    "html_url": "https://github.com/apache/airflow/pull/72085",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-26T01:27:58Z",
+    "closed_at": "2026-09-15T18:16:02Z",
+    "merged_at": null,
+    "base_sha": "63f458416cfd4e1317f6356f2b2acfaae2aff239",
+    "head_sha": "a4d51f98f5fc3233ba4261f9f2f627af18ea668b",
+    "additions": 5,
+    "deletions": 3,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/transfers/postgres_to_gcs.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:15:40.170747+00:00"
+}

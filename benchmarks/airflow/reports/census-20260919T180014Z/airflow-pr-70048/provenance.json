@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70048",
+  "origin_url": "https://github.com/apache/airflow/pull/70048",
+  "repo": "apache/airflow",
+  "pr": 70048,
+  "title": "Fix regression: Mark Task Instance As no longer defaults to Downstream",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:59.808550+00:00"
+  },
+  "pr_meta": {
+    "number": 70048,
+    "title": "Fix regression: Mark Task Instance As no longer defaults to Downstream",
+    "html_url": "https://github.com/apache/airflow/pull/70048",
+    "state": "closed",
+    "merged": false,
+    "user": "luisglft",
+    "created_at": "2026-07-17T18:59:43Z",
+    "closed_at": "2026-07-20T19:29:57Z",
+    "merged_at": null,
+    "base_sha": "ec08de79ab6367a464f9af5f33d43025ec9c8365",
+    "head_sha": "12cde32da489217f75d3983690427c35fd2b7e76",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/70048.bugfix.rst",
+    "airflow-core/src/airflow/ui/src/components/MarkAs/TaskInstance/MarkTaskInstanceAsDialog.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:46:27.575488+00:00"
+}

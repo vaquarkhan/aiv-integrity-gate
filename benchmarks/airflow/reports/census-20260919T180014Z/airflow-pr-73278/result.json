@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-73278",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73278",
+  "title": "Fix formatting issues in README.md",
+  "pr": 73278,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:46.057757+00:00"
+  },
+  "pr_meta": {
+    "number": 73278,
+    "title": "Fix formatting issues in README.md",
+    "html_url": "https://github.com/apache/airflow/pull/73278",
+    "state": "closed",
+    "merged": false,
+    "user": "mfarahani18",
+    "created_at": "2026-09-17T10:13:11Z",
+    "closed_at": "2026-09-17T10:15:27Z",
+    "merged_at": null,
+    "base_sha": "08a20fe2d75c55e9816be6c6865961425bfffe7e",
+    "head_sha": "a6e9503bb45604057cd80aedd898623c9c25abed",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73278/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73278/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

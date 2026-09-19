@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69771",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69771",
+  "title": "[v3-1-test] Fix dag processor callback cleanup for versioned bundle files (#66484)",
+  "pr": 69771,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:31.119840+00:00"
+  },
+  "pr_meta": {
+    "number": 69771,
+    "title": "[v3-1-test] Fix dag processor callback cleanup for versioned bundle files (#66484)",
+    "html_url": "https://github.com/apache/airflow/pull/69771",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-07-11T23:45:16Z",
+    "closed_at": "2026-07-13T09:56:14Z",
+    "merged_at": null,
+    "base_sha": "f6e93b3cdaa3e58492765df33aebe806d0a63b67",
+    "head_sha": "f86de5833a50076eba7c569058bc121f5a8342bd",
+    "additions": 222,
+    "deletions": 23,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69771/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69771/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

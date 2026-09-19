@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69197",
+  "origin_url": "https://github.com/apache/airflow/pull/69197",
+  "repo": "apache/airflow",
+  "pr": 69197,
+  "title": "UI: Fix Gantt queued tooltip end date",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:00.441211+00:00"
+  },
+  "pr_meta": {
+    "number": 69197,
+    "title": "UI: Fix Gantt queued tooltip end date",
+    "html_url": "https://github.com/apache/airflow/pull/69197",
+    "state": "closed",
+    "merged": false,
+    "user": "YinkaMetrics",
+    "created_at": "2026-07-01T07:34:31Z",
+    "closed_at": "2026-07-02T15:46:18Z",
+    "merged_at": null,
+    "base_sha": "a3f51fcd9ce8b90186578d99a16c9b465bb88cb6",
+    "head_sha": "0627b411b884cb565156cf18f377eab4b6ef4d10",
+    "additions": 71,
+    "deletions": 28,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Gantt/GanttTimeline.tsx",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Gantt/utils.test.ts",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Gantt/utils.ts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:01:10.271055+00:00"
+}

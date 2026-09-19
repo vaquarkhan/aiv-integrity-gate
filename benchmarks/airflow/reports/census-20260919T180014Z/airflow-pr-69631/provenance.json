@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-69631",
+  "origin_url": "https://github.com/apache/airflow/pull/69631",
+  "repo": "apache/airflow",
+  "pr": 69631,
+  "title": "Cancel the Redshift statement when a user kills the deferred task",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:05.707277+00:00"
+  },
+  "pr_meta": {
+    "number": 69631,
+    "title": "Cancel the Redshift statement when a user kills the deferred task",
+    "html_url": "https://github.com/apache/airflow/pull/69631",
+    "state": "closed",
+    "merged": false,
+    "user": "steveahnahn",
+    "created_at": "2026-07-08T20:57:45Z",
+    "closed_at": "2026-07-09T20:38:36Z",
+    "merged_at": null,
+    "base_sha": "4d56e6c93dd8c0ff69c603789a837abcea77f7d8",
+    "head_sha": "a742e90bda8c763ebd0b984f78b299c914811c7a",
+    "additions": 122,
+    "deletions": 0,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/redshift_data.py",
+    "providers/amazon/src/airflow/providers/amazon/aws/triggers/redshift_data.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_redshift_data.py",
+    "providers/amazon/tests/unit/amazon/aws/triggers/test_redshift_data.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:53:55.617884+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72116",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72116",
+  "title": "Fix TypeScript coordinator hanging forever without a supervisor greeting",
+  "pr": 72116,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:01.425296+00:00"
+  },
+  "pr_meta": {
+    "number": 72116,
+    "title": "Fix TypeScript coordinator hanging forever without a supervisor greeting",
+    "html_url": "https://github.com/apache/airflow/pull/72116",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-08-26T19:34:38Z",
+    "closed_at": "2026-08-27T20:29:11Z",
+    "merged_at": null,
+    "base_sha": "be4a1e671e20cd278696a6deb033e6dd8d1d185c",
+    "head_sha": "9ba8ad5c5ef16ed7a388d752bcf263ca40139975",
+    "additions": 77,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:ts-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72116/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72116/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

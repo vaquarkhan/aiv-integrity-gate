@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71598",
+  "origin_url": "https://github.com/apache/airflow/pull/71598",
+  "repo": "apache/airflow",
+  "pr": 71598,
+  "title": "Bump boto3 from 1.43.66 to 1.43.67 in /dev/breeze in the 3-3-uv-dependency-updates group",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:51.865419+00:00"
+  },
+  "pr_meta": {
+    "number": 71598,
+    "title": "Bump boto3 from 1.43.66 to 1.43.67 in /dev/breeze in the 3-3-uv-dependency-updates group",
+    "html_url": "https://github.com/apache/airflow/pull/71598",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-14T07:42:02Z",
+    "closed_at": "2026-08-14T13:37:06Z",
+    "merged_at": null,
+    "base_sha": "4fa803e523286fff4363f907bd9308a2c31f36e5",
+    "head_sha": "2c0d46a21a1345607a3b9208003147012b9a2bcc",
+    "additions": 6,
+    "deletions": 6,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "python:uv"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:21:41.526179+00:00"
+}

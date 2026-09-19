@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69826",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69826",
+  "title": "Enhance/standardize documentation for `AssetOrTimeSchedule`",
+  "pr": 69826,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:22.543577+00:00"
+  },
+  "pr_meta": {
+    "number": 69826,
+    "title": "Enhance/standardize documentation for `AssetOrTimeSchedule`",
+    "html_url": "https://github.com/apache/airflow/pull/69826",
+    "state": "closed",
+    "merged": false,
+    "user": "jroachgolf84",
+    "created_at": "2026-07-13T13:02:12Z",
+    "closed_at": "2026-07-13T15:02:45Z",
+    "merged_at": null,
+    "base_sha": "5271c99bd5063918c53115401c4dd39ae2fc587e",
+    "head_sha": "02fe3e3adda60c179c9a1d26d6407743dc05d318",
+    "additions": 5,
+    "deletions": 6,
+    "changed_files": 1,
+    "author_association": "COLLABORATOR",
+    "labels": [
+      "kind:documentation"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69826/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69826/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

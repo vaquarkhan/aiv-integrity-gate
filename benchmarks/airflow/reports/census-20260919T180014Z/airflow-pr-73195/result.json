@@ -1,0 +1,84 @@
+{
+  "id": "airflow-pr-73195",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73195",
+  "title": "[v3-3-test] Mark task-group aggregate bars on Gantt with a diagonal stripe (#72894)",
+  "pr": 73195,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:50.847110+00:00"
+  },
+  "pr_meta": {
+    "number": 73195,
+    "title": "[v3-3-test] Mark task-group aggregate bars on Gantt with a diagonal stripe (#72894)",
+    "html_url": "https://github.com/apache/airflow/pull/73195",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-15T13:29:54Z",
+    "closed_at": "2026-09-15T16:17:26Z",
+    "merged_at": null,
+    "base_sha": "e4c58e48381d07769c618611e0566facc96a4836",
+    "head_sha": "80029189b4ed75bda12d057f8ed90674da21eb55",
+    "additions": 58,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73195/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73195/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": true,
+    "blocking_gates": [],
+    "advisory_gates": [
+      "density"
+    ],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Entropy 3.11 is below effective threshold 3.30 for airflow-core/src/airflow/ui/src/layouts/Details/Gantt/GanttTimeline.tsx (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md).",
+      "findings": [
+        {
+          "rule_id": "density.entropy",
+          "file": "airflow-core/src/airflow/ui/src/layouts/Details/Gantt/GanttTimeline.tsx",
+          "start_line": 1,
+          "message": "Entropy 3.11 is below effective threshold 3.30 for airflow-core/src/airflow/ui/src/layouts/Details/Gantt/GanttTimeline.tsx (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md)."
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

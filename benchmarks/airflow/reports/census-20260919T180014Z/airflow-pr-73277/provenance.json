@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-73277",
+  "origin_url": "https://github.com/apache/airflow/pull/73277",
+  "repo": "apache/airflow",
+  "pr": 73277,
+  "title": "Go SDK: introduce the `airflow` package with `airflow.Context`",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:05.466136+00:00"
+  },
+  "pr_meta": {
+    "number": 73277,
+    "title": "Go SDK: introduce the `airflow` package with `airflow.Context`",
+    "html_url": "https://github.com/apache/airflow/pull/73277",
+    "state": "closed",
+    "merged": true,
+    "user": "jason810496",
+    "created_at": "2026-09-17T10:11:48Z",
+    "closed_at": "2026-09-19T03:27:02Z",
+    "merged_at": "2026-09-19T03:27:02Z",
+    "base_sha": "08a20fe2d75c55e9816be6c6865961425bfffe7e",
+    "head_sha": "9d39b4d6d1fb9604b5a3d47611bee497bb730394",
+    "additions": 522,
+    "deletions": 18,
+    "changed_files": 8,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:go-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/airflow/context.go",
+    "go-sdk/airflow/context_test.go",
+    "go-sdk/airflow/doc.go",
+    "go-sdk/bundle/bundlev1/registry.go",
+    "go-sdk/pkg/binding/binding.go",
+    "go-sdk/pkg/binding/binding_test.go",
+    "go-sdk/pkg/execution/integration_test.go",
+    "go-sdk/sdk/context.go"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:13:21.105813+00:00"
+}

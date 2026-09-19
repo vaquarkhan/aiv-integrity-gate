@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-69533",
+  "origin_url": "https://github.com/apache/airflow/pull/69533",
+  "repo": "apache/airflow",
+  "pr": 69533,
+  "title": "Add Teko Vietnam to the list",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:35.210755+00:00"
+  },
+  "pr_meta": {
+    "number": 69533,
+    "title": "Add Teko Vietnam to the list",
+    "html_url": "https://github.com/apache/airflow/pull/69533",
+    "state": "closed",
+    "merged": false,
+    "user": "nhuantho",
+    "created_at": "2026-07-07T08:20:22Z",
+    "closed_at": "2026-09-03T00:27:48Z",
+    "merged_at": null,
+    "base_sha": "a327dd4a73373f4f8927d22ed7512c43fa2bc23c",
+    "head_sha": "527876adabddbc691f50fe26cfd673ae0c052f73",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "INTHEWILD.md",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:55:55.910380+00:00"
+}

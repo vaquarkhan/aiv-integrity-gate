@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69716",
+  "origin_url": "https://github.com/apache/airflow/pull/69716",
+  "repo": "apache/airflow",
+  "pr": 69716,
+  "title": "Bump prek from 0.4.6 to 0.4.8 in /dev/breeze in the uv-dependency-updates group",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:50.324564+00:00"
+  },
+  "pr_meta": {
+    "number": 69716,
+    "title": "Bump prek from 0.4.6 to 0.4.8 in /dev/breeze in the uv-dependency-updates group",
+    "html_url": "https://github.com/apache/airflow/pull/69716",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-07-10T16:55:20Z",
+    "closed_at": "2026-07-12T16:14:23Z",
+    "merged_at": null,
+    "base_sha": "1ce3f17906c1d2356abeb21d319ad144f016c8bd",
+    "head_sha": "e423093dce302c3ea3b9b2dd9b336f7435a125f9",
+    "additions": 22,
+    "deletions": 22,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "python:uv",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:52:58.806306+00:00"
+}

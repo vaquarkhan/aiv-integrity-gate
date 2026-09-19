@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-71044",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71044",
+  "title": "UI: Translate prevent rerun option",
+  "pr": 71044,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:04.406890+00:00"
+  },
+  "pr_meta": {
+    "number": 71044,
+    "title": "UI: Translate prevent rerun option",
+    "html_url": "https://github.com/apache/airflow/pull/71044",
+    "state": "closed",
+    "merged": false,
+    "user": "maithilijoshi20",
+    "created_at": "2026-08-04T01:42:43Z",
+    "closed_at": "2026-08-04T20:58:49Z",
+    "merged_at": null,
+    "base_sha": "bbb3c0661094ceeec1e549f5d6aa8b0de741b9cc",
+    "head_sha": "bd37080c039b79c6bb93d4dccd097e202ed60e8c",
+    "additions": 2,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI",
+      "area:translations",
+      "translation:it",
+      "translation:th"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71044/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71044/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

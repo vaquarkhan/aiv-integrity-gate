@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71513",
+  "origin_url": "https://github.com/apache/airflow/pull/71513",
+  "repo": "apache/airflow",
+  "pr": 71513,
+  "title": "Treat stopped Glue jobs as failures in verbose trigger",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:06.818819+00:00"
+  },
+  "pr_meta": {
+    "number": 71513,
+    "title": "Treat stopped Glue jobs as failures in verbose trigger",
+    "html_url": "https://github.com/apache/airflow/pull/71513",
+    "state": "closed",
+    "merged": false,
+    "user": "abhisek343",
+    "created_at": "2026-08-12T19:05:07Z",
+    "closed_at": "2026-08-14T05:59:54Z",
+    "merged_at": null,
+    "base_sha": "c74cfcbae17aa4aa89e66afca8e92035f957aba5",
+    "head_sha": "3c96b5449313ba09aba06ff40e41b2108c039147",
+    "additions": 6,
+    "deletions": 5,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/triggers/glue.py",
+    "providers/amazon/tests/unit/amazon/aws/triggers/test_glue.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:22:37.356947+00:00"
+}

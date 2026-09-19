@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Placeholder marker (TBD/FIXME/XXX) found in .github/workflows/ui-e2e-tests.yml\nPlaceholder marker (TBD/FIXME/XXX) found in ISSUE_TRIAGE_PROCESS.rst",
+      "findings": [
+        {
+          "rule_id": "invariant.placeholder",
+          "file": ".github/workflows/ui-e2e-tests.yml",
+          "start_line": 1,
+          "message": "Placeholder marker (TBD/FIXME/XXX) found in .github/workflows/ui-e2e-tests.yml"
+        },
+        {
+          "rule_id": "invariant.placeholder",
+          "file": "ISSUE_TRIAGE_PROCESS.rst",
+          "start_line": 1,
+          "message": "Placeholder marker (TBD/FIXME/XXX) found in ISSUE_TRIAGE_PROCESS.rst"
+        }
+      ]
+    }
+  ]
+}

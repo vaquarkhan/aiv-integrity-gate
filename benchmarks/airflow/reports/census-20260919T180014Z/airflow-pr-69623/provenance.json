@@ -1,0 +1,69 @@
+{
+  "case_id": "airflow-pr-69623",
+  "origin_url": "https://github.com/apache/airflow/pull/69623",
+  "repo": "apache/airflow",
+  "pr": 69623,
+  "title": "Migrate CI-time secret workflows to a deployment environment and re-enable zizmor `secrets-outside-env` (#69466)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:07.379731+00:00"
+  },
+  "pr_meta": {
+    "number": 69623,
+    "title": "Migrate CI-time secret workflows to a deployment environment and re-enable zizmor `secrets-outside-env` (#69466)",
+    "html_url": "https://github.com/apache/airflow/pull/69623",
+    "state": "closed",
+    "merged": false,
+    "user": "hanumanraj07",
+    "created_at": "2026-07-08T16:21:59Z",
+    "closed_at": "2026-07-08T23:40:01Z",
+    "merged_at": null,
+    "base_sha": "3bb4fdb41f79e014587406d1521cd905b506454e",
+    "head_sha": "4f1948d37dde3f1732e2ae9d16cd50ca30d04ab0",
+    "additions": 87,
+    "deletions": 13,
+    "changed_files": 19,
+    "author_association": "NONE",
+    "labels": [
+      "area:dev-tools",
+      "area:registry",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/ci-amd.yml",
+    ".github/workflows/ci-arm.yml",
+    ".github/workflows/ci-duration-monitor.yml",
+    ".github/workflows/ci-image-build.yml",
+    ".github/workflows/ci-image-checks.yml",
+    ".github/workflows/ci-notification.yml",
+    ".github/workflows/e2e-flaky-tests-report.yml",
+    ".github/workflows/integration-system-tests.yml",
+    ".github/workflows/prod-image-build.yml",
+    ".github/workflows/push-image-cache.yml",
+    ".github/workflows/registry-backfill.yml",
+    ".github/workflows/registry-build.yml",
+    ".github/workflows/release_single_dockerhub_image.yml",
+    ".github/workflows/run-unit-tests.yml",
+    ".github/workflows/scheduled-verify-release-calendar.yml",
+    ".github/workflows/update-constraints-on-push-stable.yml",
+    ".github/workflows/update-constraints-on-push.yml",
+    ".github/workflows/upgrade-check.yml",
+    ".github/zizmor.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:54:03.291036+00:00"
+}

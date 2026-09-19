@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-69370",
+  "origin_url": "https://github.com/apache/airflow/pull/69370",
+  "repo": "apache/airflow",
+  "pr": 69370,
+  "title": "Add timeout and exponential backoff to Tableau refresh wait",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:33.858199+00:00"
+  },
+  "pr_meta": {
+    "number": 69370,
+    "title": "Add timeout and exponential backoff to Tableau refresh wait",
+    "html_url": "https://github.com/apache/airflow/pull/69370",
+    "state": "closed",
+    "merged": false,
+    "user": "jayamanikharyono",
+    "created_at": "2026-07-04T09:54:35Z",
+    "closed_at": "2026-07-06T14:08:53Z",
+    "merged_at": null,
+    "base_sha": "1491e64428ccf94a9d56f54cb1f227d72d6e7078",
+    "head_sha": "02f6ca03da85887cb61f5978ca19cd447499aa18",
+    "additions": 213,
+    "deletions": 12,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:tableau"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/tableau/docs/operators.rst",
+    "providers/tableau/src/airflow/providers/tableau/hooks/tableau.py",
+    "providers/tableau/src/airflow/providers/tableau/operators/tableau.py",
+    "providers/tableau/tests/unit/tableau/hooks/test_tableau.py",
+    "providers/tableau/tests/unit/tableau/operators/test_tableau.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:59:27.910189+00:00"
+}

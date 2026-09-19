@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-70042",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70042",
+  "title": "Add Task SDK unit tests for EdgeModifier and Label",
+  "pr": 70042,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:03.816760+00:00"
+  },
+  "pr_meta": {
+    "number": 70042,
+    "title": "Add Task SDK unit tests for EdgeModifier and Label",
+    "html_url": "https://github.com/apache/airflow/pull/70042",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-07-17T17:24:22Z",
+    "closed_at": "2026-09-15T00:27:32Z",
+    "merged_at": null,
+    "base_sha": "8037e9ae30de7a138f24f652251ea25b6e4e4719",
+    "head_sha": "91cdb3b3c119f7db118e1a21dfc282498f542eb7",
+    "additions": 137,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70042/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70042/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

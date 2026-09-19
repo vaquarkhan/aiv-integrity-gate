@@ -1,0 +1,69 @@
+{
+  "case_id": "airflow-pr-69843",
+  "origin_url": "https://github.com/apache/airflow/pull/69843",
+  "repo": "apache/airflow",
+  "pr": 69843,
+  "title": "Persist trigger context requirements",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:07.320411+00:00"
+  },
+  "pr_meta": {
+    "number": 69843,
+    "title": "Persist trigger context requirements",
+    "html_url": "https://github.com/apache/airflow/pull/69843",
+    "state": "closed",
+    "merged": false,
+    "user": "idan192",
+    "created_at": "2026-07-14T01:15:22Z",
+    "closed_at": "2026-07-17T07:53:54Z",
+    "merged_at": null,
+    "base_sha": "2e511e6b7eea3865cd91d639ce49e795cb8082ce",
+    "head_sha": "4da7203766ddd4172a5cd8a0fc1337dbb03379b9",
+    "additions": 429,
+    "deletions": 22,
+    "changed_files": 16,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "kind:documentation",
+      "area:Triggerer",
+      "area:DAG-processing",
+      "area:db-migrations",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/migrations-ref.rst",
+    "airflow-core/newsfragments/69842.bugfix.rst",
+    "airflow-core/newsfragments/69843.improvement.rst",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/task_instances.py",
+    "airflow-core/src/airflow/dag_processing/collection.py",
+    "airflow-core/src/airflow/jobs/triggerer_job_runner.py",
+    "airflow-core/src/airflow/migrations/versions/0127_3_4_0_add_start_from_trigger_to_trigger.py",
+    "airflow-core/src/airflow/models/taskinstance.py",
+    "airflow-core/src/airflow/models/trigger.py",
+    "airflow-core/src/airflow/utils/db.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py",
+    "airflow-core/tests/unit/dag_processing/test_collection.py",
+    "airflow-core/tests/unit/jobs/test_triggerer_job.py",
+    "airflow-core/tests/unit/models/test_callback.py",
+    "airflow-core/tests/unit/models/test_taskinstance.py",
+    "airflow-core/tests/unit/models/test_trigger.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:50:13.736400+00:00"
+}

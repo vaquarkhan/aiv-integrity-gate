@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-69159",
+  "origin_url": "https://github.com/apache/airflow/pull/69159",
+  "repo": "apache/airflow",
+  "pr": 69159,
+  "title": "Improve dark mode switch contrast (#66759)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:11.907513+00:00"
+  },
+  "pr_meta": {
+    "number": 69159,
+    "title": "Improve dark mode switch contrast (#66759)",
+    "html_url": "https://github.com/apache/airflow/pull/69159",
+    "state": "closed",
+    "merged": false,
+    "user": "deepujain",
+    "created_at": "2026-06-30T04:46:23Z",
+    "closed_at": "2026-07-07T14:54:17Z",
+    "merged_at": null,
+    "base_sha": "81dbef9f4bdd648e5ddf12709a50d460cad69b21",
+    "head_sha": "96f139df1c415b2c194b6c37540e409795b4de6c",
+    "additions": 9,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/theme.ts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:01:53.450073+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-69987",
+  "origin_url": "https://github.com/apache/airflow/pull/69987",
+  "repo": "apache/airflow",
+  "pr": 69987,
+  "title": "Migrate Exasol provider to pyexasol 2.x",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:23.771403+00:00"
+  },
+  "pr_meta": {
+    "number": 69987,
+    "title": "Migrate Exasol provider to pyexasol 2.x",
+    "html_url": "https://github.com/apache/airflow/pull/69987",
+    "state": "closed",
+    "merged": false,
+    "user": "Rishabjain999",
+    "created_at": "2026-07-16T21:16:21Z",
+    "closed_at": "2026-07-16T21:21:41Z",
+    "merged_at": null,
+    "base_sha": "58b5a8064567afb54517ad523f751898ac39b18c",
+    "head_sha": "1620ac9801c527067e06556e95fc907643d6f822",
+    "additions": 66,
+    "deletions": 22,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:exasol"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/exasol/docs/changelog.rst",
+    "providers/exasol/pyproject.toml",
+    "providers/exasol/src/airflow/providers/exasol/hooks/exasol.py",
+    "providers/exasol/tests/unit/exasol/hooks/test_exasol.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:47:52.651689+00:00"
+}

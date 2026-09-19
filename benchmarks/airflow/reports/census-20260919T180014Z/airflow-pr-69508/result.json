@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-69508",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69508",
+  "title": "Run slow XCom request handlers off the supervisor event loop",
+  "pr": 69508,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:43.970228+00:00"
+  },
+  "pr_meta": {
+    "number": 69508,
+    "title": "Run slow XCom request handlers off the supervisor event loop",
+    "html_url": "https://github.com/apache/airflow/pull/69508",
+    "state": "closed",
+    "merged": false,
+    "user": "arham766",
+    "created_at": "2026-07-07T04:03:53Z",
+    "closed_at": "2026-09-03T00:27:50Z",
+    "merged_at": null,
+    "base_sha": "586e658ee30ef650c1affd29ff11149be22d94a1",
+    "head_sha": "7377fb1a71cd7df53c1a43725fc41fec05946245",
+    "additions": 247,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69508/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69508/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

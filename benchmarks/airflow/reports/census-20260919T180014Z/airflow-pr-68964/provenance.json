@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-68964",
+  "origin_url": "https://github.com/apache/airflow/pull/68964",
+  "repo": "apache/airflow",
+  "pr": 68964,
+  "title": "Add command to clean expired sessions",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:53.452242+00:00"
+  },
+  "pr_meta": {
+    "number": 68964,
+    "title": "Add command to clean expired sessions",
+    "html_url": "https://github.com/apache/airflow/pull/68964",
+    "state": "closed",
+    "merged": false,
+    "user": "Mady356",
+    "created_at": "2026-06-25T06:56:39Z",
+    "closed_at": "2026-06-25T09:18:19Z",
+    "merged_at": null,
+    "base_sha": "d42096908f6a8a4622d0238dd4da0662c217439f",
+    "head_sha": "5ba134466c61fe0ec53d4bca3fed410819e827a8",
+    "additions": 53,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:CLI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/cli/cli_config.py",
+    "airflow-core/src/airflow/cli/commands/db_command.py",
+    "airflow-core/tests/unit/cli/commands/test_db_command.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:04:43.573737+00:00"
+}

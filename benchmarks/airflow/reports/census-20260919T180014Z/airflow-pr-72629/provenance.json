@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-72629",
+  "origin_url": "https://github.com/apache/airflow/pull/72629",
+  "repo": "apache/airflow",
+  "pr": 72629,
+  "title": "Keep TaskFlow startup payloads small",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:08.867414+00:00"
+  },
+  "pr_meta": {
+    "number": 72629,
+    "title": "Keep TaskFlow startup payloads small",
+    "html_url": "https://github.com/apache/airflow/pull/72629",
+    "state": "closed",
+    "merged": false,
+    "user": "Kunal8954",
+    "created_at": "2026-09-07T13:00:47Z",
+    "closed_at": "2026-09-08T06:38:12Z",
+    "merged_at": null,
+    "base_sha": "123b1be658527d5fafad4736254a07a42da6dd3f",
+    "head_sha": "93570643711d2af2f8c81dba3cd05af8b7cec07d",
+    "additions": 137,
+    "deletions": 14,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/task_instances.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/versions/v2026_10_30.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/test_token_scope_boundaries.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/v2026_10_30/test_task_instances.py",
+    "task-sdk/src/airflow/sdk/api/client.py",
+    "task-sdk/src/airflow/sdk/serde/serializers/datetime.py",
+    "task-sdk/tests/task_sdk/api/test_client.py",
+    "task-sdk/tests/task_sdk/serde/test_serializers.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:08:58.689364+00:00"
+}

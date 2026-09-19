@@ -1,0 +1,65 @@
+{
+  "case_id": "airflow-pr-71507",
+  "origin_url": "https://github.com/apache/airflow/pull/71507",
+  "repo": "apache/airflow",
+  "pr": 71507,
+  "title": "Skip per-Dag filtering for users authorized on every Dag",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:11.536194+00:00"
+  },
+  "pr_meta": {
+    "number": 71507,
+    "title": "Skip per-Dag filtering for users authorized on every Dag",
+    "html_url": "https://github.com/apache/airflow/pull/71507",
+    "state": "closed",
+    "merged": false,
+    "user": "rjgoyln",
+    "created_at": "2026-08-12T15:45:49Z",
+    "closed_at": "2026-08-14T18:28:17Z",
+    "merged_at": null,
+    "base_sha": "b2ee721a2cd30181b2759c00f359d115e2859a8c",
+    "head_sha": "fee058cfb37e8f3c35fc311c88f3d8e15d041664",
+    "additions": 194,
+    "deletions": 8,
+    "changed_files": 14,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:API",
+      "kind:documentation",
+      "provider:fab"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/core-concepts/auth-manager/index.rst",
+    "airflow-core/src/airflow/api_fastapi/auth/managers/base_auth_manager.py",
+    "airflow-core/src/airflow/api_fastapi/auth/managers/simple/simple_auth_manager.py",
+    "airflow-core/src/airflow/api_fastapi/common/db/dags.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/public/dags.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/ui/dags.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/security.py",
+    "airflow-core/tests/unit/api_fastapi/auth/managers/simple/test_simple_auth_manager.py",
+    "airflow-core/tests/unit/api_fastapi/auth/managers/test_base_auth_manager.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_dags.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/ui/test_dags.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/test_security.py",
+    "providers/fab/src/airflow/providers/fab/auth_manager/fab_auth_manager.py",
+    "providers/fab/tests/unit/fab/auth_manager/test_fab_auth_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:22:51.398703+00:00"
+}

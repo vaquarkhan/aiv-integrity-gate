@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70588",
+  "origin_url": "https://github.com/apache/airflow/pull/70588",
+  "repo": "apache/airflow",
+  "pr": 70588,
+  "title": "Respect [fab] update_fab_perms when syncing per-DAG permissions during parsing",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:38.300587+00:00"
+  },
+  "pr_meta": {
+    "number": 70588,
+    "title": "Respect [fab] update_fab_perms when syncing per-DAG permissions during parsing",
+    "html_url": "https://github.com/apache/airflow/pull/70588",
+    "state": "closed",
+    "merged": false,
+    "user": "dor-bernstein",
+    "created_at": "2026-07-28T10:53:13Z",
+    "closed_at": "2026-07-28T10:59:51Z",
+    "merged_at": null,
+    "base_sha": "d7aa92913bfed7b37081a3962fb6072053fc8d75",
+    "head_sha": "d30137197ae91fafde8efb412245dc2f56b70831",
+    "additions": 4,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/70588.improvement.rst",
+    "airflow-core/src/airflow/dag_processing/collection.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:37:18.762175+00:00"
+}

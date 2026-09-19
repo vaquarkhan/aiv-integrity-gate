@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-72021",
+  "origin_url": "https://github.com/apache/airflow/pull/72021",
+  "repo": "apache/airflow",
+  "pr": 72021,
+  "title": "Fix linux/arm64 CI image build broken by ibm-db2 provider",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:27.470493+00:00"
+  },
+  "pr_meta": {
+    "number": 72021,
+    "title": "Fix linux/arm64 CI image build broken by ibm-db2 provider",
+    "html_url": "https://github.com/apache/airflow/pull/72021",
+    "state": "closed",
+    "merged": false,
+    "user": "FrankYang0529",
+    "created_at": "2026-08-24T08:28:44Z",
+    "closed_at": "2026-08-25T14:01:48Z",
+    "merged_at": null,
+    "base_sha": "ef1dc74209011e6aa90490547776160f125c9d31",
+    "head_sha": "6c693bd31b049ca73972a6f11e9759cc096b5f34",
+    "additions": 52,
+    "deletions": 42,
+    "changed_files": 4,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:ibm-db2"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/ibm/db2/README.rst",
+    "providers/ibm/db2/docs/index.rst",
+    "providers/ibm/db2/pyproject.toml",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:16:38.614358+00:00"
+}

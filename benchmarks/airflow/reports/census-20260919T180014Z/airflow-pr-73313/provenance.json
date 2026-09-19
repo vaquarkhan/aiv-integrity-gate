@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73313",
+  "origin_url": "https://github.com/apache/airflow/pull/73313",
+  "repo": "apache/airflow",
+  "pr": 73313,
+  "title": "UI: Show xcom before task state store in storage tabs",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:43.765890+00:00"
+  },
+  "pr_meta": {
+    "number": 73313,
+    "title": "UI: Show xcom before task state store in storage tabs",
+    "html_url": "https://github.com/apache/airflow/pull/73313",
+    "state": "closed",
+    "merged": true,
+    "user": "amoghrajesh",
+    "created_at": "2026-09-18T08:37:03Z",
+    "closed_at": "2026-09-18T17:02:28Z",
+    "merged_at": "2026-09-18T17:02:28Z",
+    "base_sha": "42741924a79f7e19dc96672a2c4f7f0bfe93beb2",
+    "head_sha": "ad9f7571519a52a7d0261615117fe82d0c858d4c",
+    "additions": 4,
+    "deletions": 4,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/layouts/StorageLayout.tsx",
+    "airflow-core/src/airflow/ui/src/pages/TaskInstance/TaskInstance.tsx",
+    "airflow-core/src/airflow/ui/src/router.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:11:40.563907+00:00"
+}

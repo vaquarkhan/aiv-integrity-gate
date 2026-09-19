@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-73302",
+  "origin_url": "https://github.com/apache/airflow/pull/73302",
+  "repo": "apache/airflow",
+  "pr": 73302,
+  "title": "Bump starlette to 1.3.1 for bounded form parsing",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:52.444713+00:00"
+  },
+  "pr_meta": {
+    "number": 73302,
+    "title": "Bump starlette to 1.3.1 for bounded form parsing",
+    "html_url": "https://github.com/apache/airflow/pull/73302",
+    "state": "closed",
+    "merged": true,
+    "user": "amoghrajesh",
+    "created_at": "2026-09-18T04:06:06Z",
+    "closed_at": "2026-09-18T04:43:42Z",
+    "merged_at": "2026-09-18T04:43:42Z",
+    "base_sha": "1a240f7a90aa91eb1adf843498d2a9a38d293226",
+    "head_sha": "b5cdb51c732b7f07112b00879946dcd86813cdd9",
+    "additions": 5,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "full tests needed"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/pyproject.toml",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:22.241974+00:00"
+}

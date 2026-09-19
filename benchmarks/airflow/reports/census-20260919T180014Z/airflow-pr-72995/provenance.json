@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72995",
+  "origin_url": "https://github.com/apache/airflow/pull/72995",
+  "repo": "apache/airflow",
+  "pr": 72995,
+  "title": "Bump the ui-plugin-template-package-updates group across 1 directory with 8 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:29.714911+00:00"
+  },
+  "pr_meta": {
+    "number": 72995,
+    "title": "Bump the ui-plugin-template-package-updates group across 1 directory with 8 updates",
+    "html_url": "https://github.com/apache/airflow/pull/72995",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-09-11T16:56:42Z",
+    "closed_at": "2026-09-18T16:57:38Z",
+    "merged_at": null,
+    "base_sha": "2309d05a24ca91baf333899afc0cfdb7f5ac67c4",
+    "head_sha": "8c3407fa1f87af722b27f4a8cc6a7b0a2bc94024",
+    "additions": 107,
+    "deletions": 107,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "javascript",
+      "dependencies",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/react-plugin-tools/react_plugin_template/package.json",
+    "dev/react-plugin-tools/react_plugin_template/pnpm-lock.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:03:35.138539+00:00"
+}

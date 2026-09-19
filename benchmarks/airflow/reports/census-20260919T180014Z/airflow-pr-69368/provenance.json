@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69368",
+  "origin_url": "https://github.com/apache/airflow/pull/69368",
+  "repo": "apache/airflow",
+  "pr": 69368,
+  "title": "fix(fab): decode session serializer bytes to string for cookie-based sessions (fixes #64921)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:35.576415+00:00"
+  },
+  "pr_meta": {
+    "number": 69368,
+    "title": "fix(fab): decode session serializer bytes to string for cookie-based sessions (fixes #64921)",
+    "html_url": "https://github.com/apache/airflow/pull/69368",
+    "state": "closed",
+    "merged": false,
+    "user": "levgiorg",
+    "created_at": "2026-07-04T08:45:29Z",
+    "closed_at": "2026-07-28T17:13:09Z",
+    "merged_at": null,
+    "base_sha": "66154e0dce0411052fdab1cec0a882ba712e353c",
+    "head_sha": "aeeb45cc065bf969f4612d182f08303882247378",
+    "additions": 19,
+    "deletions": 15,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:fab"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/assets/manager.py",
+    "airflow-core/src/airflow/models/base.py",
+    "providers/fab/src/airflow/providers/fab/www/session.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:59:34.034118+00:00"
+}

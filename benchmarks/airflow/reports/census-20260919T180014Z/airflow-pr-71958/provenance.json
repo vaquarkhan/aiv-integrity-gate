@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71958",
+  "origin_url": "https://github.com/apache/airflow/pull/71958",
+  "repo": "apache/airflow",
+  "pr": 71958,
+  "title": "Bump the 3-3-uv-dependency-updates group across 1 directory with 4 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:42.822580+00:00"
+  },
+  "pr_meta": {
+    "number": 71958,
+    "title": "Bump the 3-3-uv-dependency-updates group across 1 directory with 4 updates",
+    "html_url": "https://github.com/apache/airflow/pull/71958",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-21T16:56:18Z",
+    "closed_at": "2026-08-28T16:56:19Z",
+    "merged_at": null,
+    "base_sha": "90473999fbfcdc1d96296966b46889cba2b938bd",
+    "head_sha": "e5a8e5b59fc2aaf2c34780a7893db3117b1cccdb",
+    "additions": 32,
+    "deletions": 32,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "python:uv"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:17:33.717005+00:00"
+}

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-72822",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72822",
+  "title": "UI: Fix Grid view for bidirectional TaskGroup dependencies",
+  "pr": 72822,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:34.650684+00:00"
+  },
+  "pr_meta": {
+    "number": 72822,
+    "title": "UI: Fix Grid view for bidirectional TaskGroup dependencies",
+    "html_url": "https://github.com/apache/airflow/pull/72822",
+    "state": "closed",
+    "merged": false,
+    "user": "dheerajturaga",
+    "created_at": "2026-09-09T16:20:19Z",
+    "closed_at": "2026-09-14T20:46:55Z",
+    "merged_at": null,
+    "base_sha": "ff839573e94f0c564680b15d1ff1bc87d0200728",
+    "head_sha": "29d7f3548b107ae6c2bb2a571f8c480d2ad84d0d",
+    "additions": 236,
+    "deletions": 13,
+    "changed_files": 6,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:DAG-processing",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72822/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72822/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

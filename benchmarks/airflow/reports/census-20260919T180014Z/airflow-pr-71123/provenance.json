@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-71123",
+  "origin_url": "https://github.com/apache/airflow/pull/71123",
+  "repo": "apache/airflow",
+  "pr": 71123,
+  "title": "Refactor: Replace generic AirflowException with specific built-in exceptions",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:56.949839+00:00"
+  },
+  "pr_meta": {
+    "number": 71123,
+    "title": "Refactor: Replace generic AirflowException with specific built-in exceptions",
+    "html_url": "https://github.com/apache/airflow/pull/71123",
+    "state": "closed",
+    "merged": false,
+    "user": "KushagraB424",
+    "created_at": "2026-08-04T19:13:23Z",
+    "closed_at": "2026-09-13T12:17:54Z",
+    "merged_at": null,
+    "base_sha": "b5414588d3ef97512cbe0b3595e6fc9f042a5861",
+    "head_sha": "b96883305c08aad575d2fc57c50355ecffb73e2c",
+    "additions": 51,
+    "deletions": 14,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/models/connection.py",
+    "airflow-core/src/airflow/utils/helpers.py",
+    "shared/module_loading/src/airflow_shared/module_loading/__init__.py",
+    "shared/module_loading/tests/module_loading/test_module_loading.py",
+    "task-sdk/src/airflow/sdk/execution_time/supervisor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:29:10.192133+00:00"
+}

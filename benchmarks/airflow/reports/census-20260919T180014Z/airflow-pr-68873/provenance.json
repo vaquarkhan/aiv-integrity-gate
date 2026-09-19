@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-68873",
+  "origin_url": "https://github.com/apache/airflow/pull/68873",
+  "repo": "apache/airflow",
+  "pr": 68873,
+  "title": "[v3-3-test] Fix triggerer log server port configuration key (#67785)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:25.832657+00:00"
+  },
+  "pr_meta": {
+    "number": 68873,
+    "title": "[v3-3-test] Fix triggerer log server port configuration key (#67785)",
+    "html_url": "https://github.com/apache/airflow/pull/68873",
+    "state": "closed",
+    "merged": false,
+    "user": "jason810496",
+    "created_at": "2026-06-23T03:28:05Z",
+    "closed_at": "2026-06-23T03:40:06Z",
+    "merged_at": null,
+    "base_sha": "a647d068fd66670986132b3f5170923a3b013a84",
+    "head_sha": "ddd971a52ee35a21bebe64f43438fbda401b191d",
+    "additions": 113,
+    "deletions": 2,
+    "changed_files": 3,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:logging",
+      "kind:documentation"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/administration-and-deployment/logging-monitoring/logging-tasks.rst",
+    "airflow-core/src/airflow/utils/log/file_task_handler.py",
+    "airflow-core/tests/unit/utils/test_log_handlers.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:06:36.114785+00:00"
+}

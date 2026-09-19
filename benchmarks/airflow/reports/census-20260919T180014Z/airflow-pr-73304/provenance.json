@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73304",
+  "origin_url": "https://github.com/apache/airflow/pull/73304",
+  "repo": "apache/airflow",
+  "pr": 73304,
+  "title": "[v3-3-test] Decode deadline alert interval and callback without generic deserialization (#72651)",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:50.951756+00:00"
+  },
+  "pr_meta": {
+    "number": 73304,
+    "title": "[v3-3-test] Decode deadline alert interval and callback without generic deserialization (#72651)",
+    "html_url": "https://github.com/apache/airflow/pull/73304",
+    "state": "closed",
+    "merged": true,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-18T04:48:22Z",
+    "closed_at": "2026-09-18T05:29:02Z",
+    "merged_at": "2026-09-18T05:29:02Z",
+    "base_sha": "0e9f66a9574c5372239f938c23e4fe31f0d661cb",
+    "head_sha": "cd77ca62655bf920da419e81df37a00c9598cb95",
+    "additions": 316,
+    "deletions": 22,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/serialization/decoders.py",
+    "airflow-core/tests/unit/serialization/test_serialized_objects.py",
+    "generated/known_sdk_imports_in_core.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:16.126617+00:00"
+}

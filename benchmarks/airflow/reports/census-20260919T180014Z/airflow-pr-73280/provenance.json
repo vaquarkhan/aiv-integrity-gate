@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-73280",
+  "origin_url": "https://github.com/apache/airflow/pull/73280",
+  "repo": "apache/airflow",
+  "pr": 73280,
+  "title": "Chart: Default airflow version to 3.3.2",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:02.055363+00:00"
+  },
+  "pr_meta": {
+    "number": 73280,
+    "title": "Chart: Default airflow version to 3.3.2",
+    "html_url": "https://github.com/apache/airflow/pull/73280",
+    "state": "closed",
+    "merged": true,
+    "user": "vatsrahul1001",
+    "created_at": "2026-09-17T10:39:59Z",
+    "closed_at": "2026-09-17T17:59:22Z",
+    "merged_at": "2026-09-17T17:59:22Z",
+    "base_sha": "82b4d5750d523ae78cc5ceeb4e985ae2f55a473f",
+    "head_sha": "46bb4cd562e359f00c1cffef08039d5acf020898",
+    "additions": 17,
+    "deletions": 17,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:helm-chart",
+      "backport-to-chart/v1-2x-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "chart/Chart.yaml",
+    "chart/newsfragments/73280.significant.rst",
+    "chart/values.schema.json",
+    "chart/values.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:13:03.572705+00:00"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-70700",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70700",
+  "title": "Bump typescript from 6.0.3 to 7.0.2 in /airflow-core/src/airflow/ui in the typescript group across 1 directory",
+  "pr": 70700,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:04.588351+00:00"
+  },
+  "pr_meta": {
+    "number": 70700,
+    "title": "Bump typescript from 6.0.3 to 7.0.2 in /airflow-core/src/airflow/ui in the typescript group across 1 directory",
+    "html_url": "https://github.com/apache/airflow/pull/70700",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-07-29T18:36:16Z",
+    "closed_at": "2026-08-06T14:05:53Z",
+    "merged_at": null,
+    "base_sha": "c0f6a60cdcb97375381e13e713edb713ceab1c09",
+    "head_sha": "5324fe9e48eea42fb69840d6fe45efd36e68847b",
+    "additions": 276,
+    "deletions": 75,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "javascript",
+      "dependencies"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70700/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70700/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70052",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70052",
+  "title": "Validate connection port is a valid network port number",
+  "pr": 70052,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:57.935343+00:00"
+  },
+  "pr_meta": {
+    "number": 70052,
+    "title": "Validate connection port is a valid network port number",
+    "html_url": "https://github.com/apache/airflow/pull/70052",
+    "state": "closed",
+    "merged": false,
+    "user": "dj-wise-ronin",
+    "created_at": "2026-07-17T20:35:56Z",
+    "closed_at": "2026-07-21T17:59:48Z",
+    "merged_at": null,
+    "base_sha": "3561a17b4b69cd55836d078006aec7f078c8c79a",
+    "head_sha": "4c69615e06a45246850ce0ce2f041654ffdacb06",
+    "additions": 643,
+    "deletions": 574,
+    "changed_files": 8,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70052/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70052/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

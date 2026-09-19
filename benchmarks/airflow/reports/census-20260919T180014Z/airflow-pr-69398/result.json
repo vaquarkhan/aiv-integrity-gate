@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69398",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69398",
+  "title": "Fix passphrase quoting in decrypt_remote_file_to_string for Windows remotes",
+  "pr": 69398,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:25.622493+00:00"
+  },
+  "pr_meta": {
+    "number": 69398,
+    "title": "Fix passphrase quoting in decrypt_remote_file_to_string for Windows remotes",
+    "html_url": "https://github.com/apache/airflow/pull/69398",
+    "state": "closed",
+    "merged": false,
+    "user": "gingeekrishna",
+    "created_at": "2026-07-05T04:35:25Z",
+    "closed_at": "2026-07-28T17:13:46Z",
+    "merged_at": null,
+    "base_sha": "af6d5c2c4c8aa30e5db2fe7138599defc694b20e",
+    "head_sha": "159889ef214490d3c39f73e4ec1764694c17a2cb",
+    "additions": 77,
+    "deletions": 6,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:teradata"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69398/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69398/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

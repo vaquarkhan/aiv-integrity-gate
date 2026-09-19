@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-70558",
+  "origin_url": "https://github.com/apache/airflow/pull/70558",
+  "repo": "apache/airflow",
+  "pr": 70558,
+  "title": "Support pandas 3 for DataFrame XComs",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:45.059781+00:00"
+  },
+  "pr_meta": {
+    "number": 70558,
+    "title": "Support pandas 3 for DataFrame XComs",
+    "html_url": "https://github.com/apache/airflow/pull/70558",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-07-27T19:03:13Z",
+    "closed_at": "2026-08-05T04:09:18Z",
+    "merged_at": null,
+    "base_sha": "c04b93baaaebd7025e55b53a5bc8352a70ddbc1a",
+    "head_sha": "0779e0a2b1077e5f931ec4d7de3aa30f14b3ac3c",
+    "additions": 61,
+    "deletions": 5,
+    "changed_files": 5,
+    "author_association": "MEMBER",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "provider:salesforce",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/70558.significant.rst",
+    "providers/amazon/tests/unit/amazon/aws/transfers/test_sql_to_s3.py",
+    "providers/salesforce/tests/unit/salesforce/hooks/test_salesforce.py",
+    "task-sdk/src/airflow/sdk/serde/serializers/pandas.py",
+    "task-sdk/tests/task_sdk/serde/test_serializers.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:37:48.116231+00:00"
+}

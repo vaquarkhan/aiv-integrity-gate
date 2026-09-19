@@ -1,0 +1,26 @@
+{
+  "case_id": "fixture-ai-edit-artifact",
+  "origin_url": null,
+  "repo": null,
+  "pr": null,
+  "title": null,
+  "label": {
+    "class": "synthetic_positive",
+    "expect_hard_fail": true,
+    "expect_advisory": null,
+    "rationale": "Synthetic incomplete LLM paste with SEARCH/REPLACE and elision chatter."
+  },
+  "discovery": null,
+  "pr_meta": null,
+  "materialize_mode": "fixture",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "providers/__init__.py",
+    "providers/bench/ai-slop/edit_artifact_operator.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:00:19.001948+00:00"
+}

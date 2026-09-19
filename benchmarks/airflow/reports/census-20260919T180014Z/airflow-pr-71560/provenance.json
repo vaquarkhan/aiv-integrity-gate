@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-71560",
+  "origin_url": "https://github.com/apache/airflow/pull/71560",
+  "repo": "apache/airflow",
+  "pr": 71560,
+  "title": "Clarify limited Podman support in Breeze documentation",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:55.659708+00:00"
+  },
+  "pr_meta": {
+    "number": 71560,
+    "title": "Clarify limited Podman support in Breeze documentation",
+    "html_url": "https://github.com/apache/airflow/pull/71560",
+    "state": "closed",
+    "merged": false,
+    "user": "hdy2001",
+    "created_at": "2026-08-13T17:43:23Z",
+    "closed_at": "2026-08-13T21:41:09Z",
+    "merged_at": null,
+    "base_sha": "e33a4f6dc78c841455fec9741c6ebed0d26fb98e",
+    "head_sha": "13ab91c1c460dafa156a7204bcaef3e3f963b042",
+    "additions": 7,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "contributing-docs/03a_contributors_quick_start_beginners.rst"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:21:55.167477+00:00"
+}

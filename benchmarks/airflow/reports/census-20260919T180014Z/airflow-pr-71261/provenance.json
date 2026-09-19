@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-71261",
+  "origin_url": "https://github.com/apache/airflow/pull/71261",
+  "repo": "apache/airflow",
+  "pr": 71261,
+  "title": "fix(config): Mark three unused config.yml options as deprecated",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:13.244444+00:00"
+  },
+  "pr_meta": {
+    "number": 71261,
+    "title": "fix(config): Mark three unused config.yml options as deprecated",
+    "html_url": "https://github.com/apache/airflow/pull/71261",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-06T21:32:47Z",
+    "closed_at": "2026-08-11T21:25:01Z",
+    "merged_at": null,
+    "base_sha": "299ca2c8580773b2d51b7988aacd582695940d58",
+    "head_sha": "99c0be8237e0a418701e0744e1fdafb5d686d103",
+    "additions": 9,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam",
+      "area:ConfigTemplates"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/config_templates/config.yml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:26:47.836166+00:00"
+}

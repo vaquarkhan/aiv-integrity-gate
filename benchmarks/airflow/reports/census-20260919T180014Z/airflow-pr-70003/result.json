@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-70003",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70003",
+  "title": "Add pin_symlink_on_refresh option to LocalDagBundle for atomically-swapped (git-sync) checkouts",
+  "pr": 70003,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:18.119411+00:00"
+  },
+  "pr_meta": {
+    "number": 70003,
+    "title": "Add pin_symlink_on_refresh option to LocalDagBundle for atomically-swapped (git-sync) checkouts",
+    "html_url": "https://github.com/apache/airflow/pull/70003",
+    "state": "closed",
+    "merged": false,
+    "user": "kjh0623",
+    "created_at": "2026-07-17T08:33:27Z",
+    "closed_at": "2026-09-16T00:26:02Z",
+    "merged_at": null,
+    "base_sha": "c49e1c917ea2729eb862daad40f340a9d7dd6c4c",
+    "head_sha": "2dabb2151decb2937d9ef7bbd2201bd096dfcece",
+    "additions": 107,
+    "deletions": 3,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:providers",
+      "kind:documentation",
+      "provider:git"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70003/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70003/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73330",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73330",
+  "title": "[v3-3-test] Skip provider dependency generation for help command in breeze cli (#71689)",
+  "pr": 73330,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:37.493947+00:00"
+  },
+  "pr_meta": {
+    "number": 73330,
+    "title": "[v3-3-test] Skip provider dependency generation for help command in breeze cli (#71689)",
+    "html_url": "https://github.com/apache/airflow/pull/73330",
+    "state": "closed",
+    "merged": true,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-18T16:22:36Z",
+    "closed_at": "2026-09-18T20:21:55Z",
+    "merged_at": "2026-09-18T20:21:55Z",
+    "base_sha": "f1093760c344f73b58d628a06e5a0788f6134461",
+    "head_sha": "34c9fa0f30e0458532fb325b353be109e89979f2",
+    "additions": 2,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73330/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73330/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

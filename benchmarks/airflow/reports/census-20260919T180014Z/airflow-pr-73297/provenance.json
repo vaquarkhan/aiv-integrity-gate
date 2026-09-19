@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73297",
+  "origin_url": "https://github.com/apache/airflow/pull/73297",
+  "repo": "apache/airflow",
+  "pr": 73297,
+  "title": "Stop FileSensor deferring when deferrable is not set",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:56.302230+00:00"
+  },
+  "pr_meta": {
+    "number": 73297,
+    "title": "Stop FileSensor deferring when deferrable is not set",
+    "html_url": "https://github.com/apache/airflow/pull/73297",
+    "state": "closed",
+    "merged": true,
+    "user": "kaxil",
+    "created_at": "2026-09-17T22:54:18Z",
+    "closed_at": "2026-09-18T06:31:43Z",
+    "merged_at": "2026-09-18T06:31:43Z",
+    "base_sha": "e03cfa2f925495be3f8c5b751505aaaa29a58df4",
+    "head_sha": "2b5aecada73564e211058374965fd420bbd0d463",
+    "additions": 28,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/sensors/filesystem.py",
+    "providers/standard/tests/unit/standard/sensors/test_filesystem.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:36.813431+00:00"
+}

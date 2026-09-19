@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-69839",
+  "origin_url": "https://github.com/apache/airflow/pull/69839",
+  "repo": "apache/airflow",
+  "pr": 69839,
+  "title": "Add reattach_on_existing option to TriggerDagRunOperator",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:14.552402+00:00"
+  },
+  "pr_meta": {
+    "number": 69839,
+    "title": "Add reattach_on_existing option to TriggerDagRunOperator",
+    "html_url": "https://github.com/apache/airflow/pull/69839",
+    "state": "closed",
+    "merged": false,
+    "user": "crobertson-astro",
+    "created_at": "2026-07-13T22:51:10Z",
+    "closed_at": "2026-08-13T15:00:39Z",
+    "merged_at": null,
+    "base_sha": "548181679d7c553c5ce6b6bc569fa1b73f6cae42",
+    "head_sha": "24dc6af08fa7c276e2696593d1217961d6a5d466",
+    "additions": 396,
+    "deletions": 9,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/operators/trigger_dagrun.py",
+    "providers/standard/tests/unit/standard/operators/test_trigger_dagrun.py",
+    "task-sdk/src/airflow/sdk/exceptions.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:50:34.432624+00:00"
+}

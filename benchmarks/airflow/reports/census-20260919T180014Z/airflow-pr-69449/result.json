@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69449",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69449",
+  "title": "Add per-route request metrics to the API server",
+  "pr": 69449,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:07.673342+00:00"
+  },
+  "pr_meta": {
+    "number": 69449,
+    "title": "Add per-route request metrics to the API server",
+    "html_url": "https://github.com/apache/airflow/pull/69449",
+    "state": "closed",
+    "merged": false,
+    "user": "jayachandrakasarla",
+    "created_at": "2026-07-06T08:39:41Z",
+    "closed_at": "2026-07-06T09:12:02Z",
+    "merged_at": null,
+    "base_sha": "66798f96d15263e6c7cfd4d3a5568bb6adcee019",
+    "head_sha": "fc7634eaa911f69bcdaa415b0521a4d8d452e977",
+    "additions": 266,
+    "deletions": 0,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69449/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69449/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

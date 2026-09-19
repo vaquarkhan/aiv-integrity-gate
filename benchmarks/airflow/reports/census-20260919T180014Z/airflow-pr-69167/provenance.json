@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-69167",
+  "origin_url": "https://github.com/apache/airflow/pull/69167",
+  "repo": "apache/airflow",
+  "pr": 69167,
+  "title": "docs: update SQLAlchemy documentation links from 1.4 to 2.0",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:09.377457+00:00"
+  },
+  "pr_meta": {
+    "number": 69167,
+    "title": "docs: update SQLAlchemy documentation links from 1.4 to 2.0",
+    "html_url": "https://github.com/apache/airflow/pull/69167",
+    "state": "closed",
+    "merged": false,
+    "user": "kalyanram07",
+    "created_at": "2026-06-30T07:05:31Z",
+    "closed_at": "2026-08-10T11:36:01Z",
+    "merged_at": null,
+    "base_sha": "1b6ff208d300fd0a14dec0eabaa769f2c62a09c7",
+    "head_sha": "a09fbb397c552edf0a6131ca9c277dacd4e55e83",
+    "additions": 6,
+    "deletions": 6,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "kind:documentation",
+      "pending-response"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/howto/set-up-database.rst"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:01:46.203402+00:00"
+}

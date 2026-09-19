@@ -1,0 +1,71 @@
+{
+  "case_id": "airflow-pr-69045",
+  "origin_url": "https://github.com/apache/airflow/pull/69045",
+  "repo": "apache/airflow",
+  "pr": 69045,
+  "title": "Bump the github-actions-updates group across 1 directory with 7 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:41.008508+00:00"
+  },
+  "pr_meta": {
+    "number": 69045,
+    "title": "Bump the github-actions-updates group across 1 directory with 7 updates",
+    "html_url": "https://github.com/apache/airflow/pull/69045",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-06-26T16:59:20Z",
+    "closed_at": "2026-06-26T20:06:53Z",
+    "merged_at": null,
+    "base_sha": "cf2fe46c0593839f85a44df18a92883f867834c6",
+    "head_sha": "6a6f54f31cff4cf11dfbe31516ac5f2875a5da9b",
+    "additions": 48,
+    "deletions": 48,
+    "changed_files": 21,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "github_actions"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/additional-ci-image-checks.yml",
+    ".github/workflows/additional-prod-image-tests.yml",
+    ".github/workflows/backport-cli.yml",
+    ".github/workflows/basic-tests.yml",
+    ".github/workflows/ci-image-build.yml",
+    ".github/workflows/ci-image-checks.yml",
+    ".github/workflows/ci.yml",
+    ".github/workflows/codeql-analysis.yml",
+    ".github/workflows/finalize-tests.yml",
+    ".github/workflows/generate-constraints.yml",
+    ".github/workflows/helm-tests.yml",
+    ".github/workflows/integration-system-tests.yml",
+    ".github/workflows/k8s-tests.yml",
+    ".github/workflows/news-fragment.yml",
+    ".github/workflows/prod-image-build.yml",
+    ".github/workflows/push-image-cache.yml",
+    ".github/workflows/release_dockerhub_image.yml",
+    ".github/workflows/release_single_dockerhub_image.yml",
+    ".github/workflows/run-unit-tests.yml",
+    ".github/workflows/stale.yml",
+    ".github/workflows/test-provider-packages.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:03:46.703209+00:00"
+}

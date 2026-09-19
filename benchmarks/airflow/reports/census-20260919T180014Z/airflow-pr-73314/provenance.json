@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-73314",
+  "origin_url": "https://github.com/apache/airflow/pull/73314",
+  "repo": "apache/airflow",
+  "pr": 73314,
+  "title": "Add taskflow-binding capability to the Lang SDK compatibility matrix",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:42.091692+00:00"
+  },
+  "pr_meta": {
+    "number": 73314,
+    "title": "Add taskflow-binding capability to the Lang SDK compatibility matrix",
+    "html_url": "https://github.com/apache/airflow/pull/73314",
+    "state": "closed",
+    "merged": true,
+    "user": "jason810496",
+    "created_at": "2026-09-18T08:57:05Z",
+    "closed_at": "2026-09-18T10:31:18Z",
+    "merged_at": "2026-09-18T10:31:18Z",
+    "base_sha": "a1c2c50f4e4264f8347426e6d9ed155ce632cb3d",
+    "head_sha": "0549fdc9469bf7f14c44453483776fc719e3474d",
+    "additions": 19,
+    "deletions": 0,
+    "changed_files": 9,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:dev-tools",
+      "area:go-sdk",
+      "area:ts-sdk",
+      "area:java-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "contributing-docs/30_new_language_sdk.rst",
+    "go-sdk/README.md",
+    "go-sdk/capabilities.yaml",
+    "java-sdk/README.md",
+    "java-sdk/capabilities.yaml",
+    "java-sdk/sdk/module.md",
+    "scripts/ci/prek/lang_sdk_compat_matrix.py",
+    "ts-sdk/README.md",
+    "ts-sdk/capabilities.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:11:34.680593+00:00"
+}

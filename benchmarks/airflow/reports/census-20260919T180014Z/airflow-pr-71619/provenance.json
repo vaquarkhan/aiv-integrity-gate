@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-71619",
+  "origin_url": "https://github.com/apache/airflow/pull/71619",
+  "repo": "apache/airflow",
+  "pr": 71619,
+  "title": "Add missing docs and example dag for ExasolToS3Operator",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:45.301994+00:00"
+  },
+  "pr_meta": {
+    "number": 71619,
+    "title": "Add missing docs and example dag for ExasolToS3Operator",
+    "html_url": "https://github.com/apache/airflow/pull/71619",
+    "state": "closed",
+    "merged": false,
+    "user": "kaliazhou93-collab",
+    "created_at": "2026-08-14T13:47:10Z",
+    "closed_at": "2026-09-10T23:22:07Z",
+    "merged_at": null,
+    "base_sha": "d249f1231067b120fbc83f9f25f36d1a6eea247e",
+    "head_sha": "a81a10be31d4fa0738c105276ca98c9fb471c8ab",
+    "additions": 180,
+    "deletions": 2,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/always/test_project_structure.py",
+    "providers/amazon/docs/transfer/exasol_to_s3.rst",
+    "providers/amazon/provider.yaml",
+    "providers/amazon/src/airflow/providers/amazon/get_provider_info.py",
+    "providers/amazon/tests/system/amazon/aws/example_exasol_to_s3.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:21:16.714232+00:00"
+}

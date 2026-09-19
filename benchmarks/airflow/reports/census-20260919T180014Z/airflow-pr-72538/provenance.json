@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-72538",
+  "origin_url": "https://github.com/apache/airflow/pull/72538",
+  "repo": "apache/airflow",
+  "pr": 72538,
+  "title": "Bump the github-actions-updates group with 7 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:28.297921+00:00"
+  },
+  "pr_meta": {
+    "number": 72538,
+    "title": "Bump the github-actions-updates group with 7 updates",
+    "html_url": "https://github.com/apache/airflow/pull/72538",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-09-04T17:03:49Z",
+    "closed_at": "2026-09-11T17:02:33Z",
+    "merged_at": null,
+    "base_sha": "c4a75f0ae8d48ab327da7eb533868790e3fb9e73",
+    "head_sha": "6702d4baae6a48942d74746256a303681421fe7b",
+    "additions": 21,
+    "deletions": 21,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "area:registry",
+      "github_actions"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/asf-allowlist-check.yml",
+    ".github/workflows/basic-tests.yml",
+    ".github/workflows/ci-image-build.yml",
+    ".github/workflows/ci-image-checks.yml",
+    ".github/workflows/codeql-analysis.yml",
+    ".github/workflows/prod-image-build.yml",
+    ".github/workflows/publish-docs-to-s3.yml",
+    ".github/workflows/registry-backfill.yml",
+    ".github/workflows/registry-build.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:09:52.246802+00:00"
+}

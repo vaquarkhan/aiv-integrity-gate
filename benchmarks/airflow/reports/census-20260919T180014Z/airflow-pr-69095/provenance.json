@@ -1,0 +1,57 @@
+{
+  "case_id": "airflow-pr-69095",
+  "origin_url": "https://github.com/apache/airflow/pull/69095",
+  "repo": "apache/airflow",
+  "pr": 69095,
+  "title": "Expose owner_display_name in event log API and Audit Log UI",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:29.042883+00:00"
+  },
+  "pr_meta": {
+    "number": 69095,
+    "title": "Expose owner_display_name in event log API and Audit Log UI",
+    "html_url": "https://github.com/apache/airflow/pull/69095",
+    "state": "closed",
+    "merged": false,
+    "user": "gingeekrishna",
+    "created_at": "2026-06-27T20:26:57Z",
+    "closed_at": "2026-06-29T16:22:14Z",
+    "merged_at": null,
+    "base_sha": "a1daaf1b60ea30764e2f02a07fd27aa5146595f6",
+    "head_sha": "edb25fa46d1ee34b7501b9bce0be3f4023e13df5",
+    "additions": 127,
+    "deletions": 4,
+    "changed_files": 8,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/68334.improvement.rst",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/event_logs.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/v2-rest-api-generated.yaml",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/public/event_logs.py",
+    "airflow-core/src/airflow/ui/openapi-gen/requests/services.gen.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/requests/types.gen.ts",
+    "airflow-core/src/airflow/ui/src/pages/Events/Events.tsx",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_event_logs.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:02:55.291112+00:00"
+}

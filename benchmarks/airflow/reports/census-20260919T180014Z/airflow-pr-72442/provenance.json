@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-72442",
+  "origin_url": "https://github.com/apache/airflow/pull/72442",
+  "repo": "apache/airflow",
+  "pr": 72442,
+  "title": "Add configuration support for custom DAG importers",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:59.829867+00:00"
+  },
+  "pr_meta": {
+    "number": 72442,
+    "title": "Add configuration support for custom DAG importers",
+    "html_url": "https://github.com/apache/airflow/pull/72442",
+    "state": "closed",
+    "merged": false,
+    "user": "dilnazanlid",
+    "created_at": "2026-09-02T16:02:55Z",
+    "closed_at": "2026-09-14T14:53:25Z",
+    "merged_at": null,
+    "base_sha": "bbe3991d21638388bdad2ca06b0ed3c22d32016b",
+    "head_sha": "db3a2a078760a913d4cab1a2d3f0267fbda3fc44",
+    "additions": 671,
+    "deletions": 157,
+    "changed_files": 11,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/dag_processing/bundles/manager.py",
+    "airflow-core/src/airflow/dag_processing/dagbag.py",
+    "airflow-core/src/airflow/dag_processing/importers/__init__.py",
+    "airflow-core/src/airflow/dag_processing/importers/base.py",
+    "airflow-core/src/airflow/dag_processing/importers/python_importer.py",
+    "airflow-core/src/airflow/dag_processing/manager.py",
+    "airflow-core/tests/unit/dag_processing/bundles/test_dag_bundle_manager.py",
+    "airflow-core/tests/unit/dag_processing/importers/test_registry.py",
+    "airflow-core/tests/unit/dag_processing/test_manager.py",
+    "devel-common/src/tests_common/pytest_plugin.py",
+    "devel-common/src/tests_common/test_utils/config.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:11:40.530732+00:00"
+}

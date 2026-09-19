@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-70019",
+  "origin_url": "https://github.com/apache/airflow/pull/70019",
+  "repo": "apache/airflow",
+  "pr": 70019,
+  "title": "Add composite index on TaskInstance state for ConcurrencyMap performance",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:11.955986+00:00"
+  },
+  "pr_meta": {
+    "number": 70019,
+    "title": "Add composite index on TaskInstance state for ConcurrencyMap performance",
+    "html_url": "https://github.com/apache/airflow/pull/70019",
+    "state": "closed",
+    "merged": false,
+    "user": "rajat315315",
+    "created_at": "2026-07-17T13:26:00Z",
+    "closed_at": "2026-09-13T12:50:18Z",
+    "merged_at": null,
+    "base_sha": "c5faeb1555b4076739665b9434f616db37559727",
+    "head_sha": "b256de52d5b739a1a48b512786256fac385283a3",
+    "additions": 57,
+    "deletions": 2,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:db-migrations"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/migrations-ref.rst",
+    "airflow-core/src/airflow/migrations/versions/0127_3_4_0_add_ti_state_active_composite_index.py",
+    "airflow-core/src/airflow/models/taskinstance.py",
+    "airflow-core/src/airflow/utils/db.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:47:06.406208+00:00"
+}

@@ -1,0 +1,61 @@
+{
+  "case_id": "airflow-pr-69130",
+  "origin_url": "https://github.com/apache/airflow/pull/69130",
+  "repo": "apache/airflow",
+  "pr": 69130,
+  "title": "Fix connection port field validation (#68382)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:21.857624+00:00"
+  },
+  "pr_meta": {
+    "number": 69130,
+    "title": "Fix connection port field validation (#68382)",
+    "html_url": "https://github.com/apache/airflow/pull/69130",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-06-29T15:03:17Z",
+    "closed_at": "2026-07-06T13:50:05Z",
+    "merged_at": null,
+    "base_sha": "1491e64428ccf94a9d56f54cb1f227d72d6e7078",
+    "head_sha": "cfa768b8a2decece8c556f3580b99f4fdf1f7383",
+    "additions": 202,
+    "deletions": 7,
+    "changed_files": 11,
+    "author_association": "NONE",
+    "labels": [
+      "area:CLI",
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/69130.bugfix.rst",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/connections.py",
+    "airflow-core/src/airflow/cli/cli_config.py",
+    "airflow-core/src/airflow/models/connection.py",
+    "airflow-core/src/airflow/models/connection_test.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_connections.py",
+    "airflow-core/tests/unit/models/test_connection.py",
+    "task-sdk/src/airflow/sdk/definitions/connection.py",
+    "task-sdk/src/airflow/sdk/execution_time/context.py",
+    "task-sdk/tests/task_sdk/definitions/test_connection.py",
+    "task-sdk/tests/task_sdk/definitions/test_variables.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:02:28.865954+00:00"
+}

@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-72124",
+  "origin_url": "https://github.com/apache/airflow/pull/72124",
+  "repo": "apache/airflow",
+  "pr": 72124,
+  "title": "fix(amazon): chain deferral in EmrServerlessDeleteApplicationOperator so DeleteApplication is actually called",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:57.950416+00:00"
+  },
+  "pr_meta": {
+    "number": 72124,
+    "title": "fix(amazon): chain deferral in EmrServerlessDeleteApplicationOperator so DeleteApplication is actually called",
+    "html_url": "https://github.com/apache/airflow/pull/72124",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-27T00:08:23Z",
+    "closed_at": "2026-09-15T18:16:04Z",
+    "merged_at": null,
+    "base_sha": "bf976c8805ad1a9e9664723aefcd0a62b659d627",
+    "head_sha": "214be80892a05160f7294ac27469d56dda616ea5",
+    "additions": 67,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/emr.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_emr_serverless.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:15:07.897533+00:00"
+}

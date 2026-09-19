@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-71372",
+  "origin_url": "https://github.com/apache/airflow/pull/71372",
+  "repo": "apache/airflow",
+  "pr": 71372,
+  "title": "fix(kubernetes): do not fail task when xcom sidecar kill fails after successful XCom read",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:46.934213+00:00"
+  },
+  "pr_meta": {
+    "number": 71372,
+    "title": "fix(kubernetes): do not fail task when xcom sidecar kill fails after successful XCom read",
+    "html_url": "https://github.com/apache/airflow/pull/71372",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-10T11:49:14Z",
+    "closed_at": "2026-08-11T21:24:46Z",
+    "merged_at": null,
+    "base_sha": "7cdb9ad47aff1168a6de06363066184dd029d8b9",
+    "head_sha": "717eed99788db69d8e06e52147477828a45f4895",
+    "additions": 30,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:25:17.439028+00:00"
+}

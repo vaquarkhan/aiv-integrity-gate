@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-70437",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70437",
+  "title": "Fix template-field logic timing in BashOperator",
+  "pr": 70437,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:46.916855+00:00"
+  },
+  "pr_meta": {
+    "number": 70437,
+    "title": "Fix template-field logic timing in BashOperator",
+    "html_url": "https://github.com/apache/airflow/pull/70437",
+    "state": "closed",
+    "merged": false,
+    "user": "bramhanandlingala",
+    "created_at": "2026-07-25T14:13:54Z",
+    "closed_at": "2026-07-30T10:41:21Z",
+    "merged_at": null,
+    "base_sha": "d8b8620662d7587dd146f22eaf66d4d3f77cbbb9",
+    "head_sha": "e70583bb598e5ca254dab2b06612426e2d3c688f",
+    "additions": 17,
+    "deletions": 7,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:dev-tools",
+      "provider:standard"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70437/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70437/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

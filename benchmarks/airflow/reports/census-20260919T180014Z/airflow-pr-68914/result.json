@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-68914",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68914",
+  "title": "Keep Grid visible on the DAG run page by moving Graph to a tab",
+  "pr": 68914,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:12.231450+00:00"
+  },
+  "pr_meta": {
+    "number": 68914,
+    "title": "Keep Grid visible on the DAG run page by moving Graph to a tab",
+    "html_url": "https://github.com/apache/airflow/pull/68914",
+    "state": "closed",
+    "merged": false,
+    "user": "anushkagupta200615-jpg",
+    "created_at": "2026-06-23T19:03:13Z",
+    "closed_at": "2026-07-11T15:47:07Z",
+    "merged_at": null,
+    "base_sha": "94b365fcd57a5b81bd9bc2f893e16649c575ba40",
+    "head_sha": "013b6a3048933e84aee30357af4d5e6edbba7a07",
+    "additions": 13274,
+    "deletions": 157,
+    "changed_files": 8,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68914/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68914/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

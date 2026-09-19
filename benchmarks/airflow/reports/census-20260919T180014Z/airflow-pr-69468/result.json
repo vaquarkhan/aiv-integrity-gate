@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69468",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69468",
+  "title": "Handle IMAP attachment filename collisions",
+  "pr": 69468,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:02.271797+00:00"
+  },
+  "pr_meta": {
+    "number": 69468,
+    "title": "Handle IMAP attachment filename collisions",
+    "html_url": "https://github.com/apache/airflow/pull/69468",
+    "state": "closed",
+    "merged": false,
+    "user": "09Catho",
+    "created_at": "2026-07-06T12:49:15Z",
+    "closed_at": "2026-07-06T16:04:11Z",
+    "merged_at": null,
+    "base_sha": "23b6a1bdf11b658db81fa9d38c4e58dbd85f08cb",
+    "head_sha": "9dac64b11947deea0749c87d70c075b941f55f5c",
+    "additions": 67,
+    "deletions": 7,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:imap"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69468/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69468/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

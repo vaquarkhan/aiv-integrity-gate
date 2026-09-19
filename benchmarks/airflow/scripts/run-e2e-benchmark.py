@@ -398,15 +398,37 @@ def git(cwd: Path, *args: str) -> str:
 
 
 def materialize_pr_workspace(repo: str, number: int, work: Path) -> str:
-    """Build a tiny git repo with full file contents at PR head (falls back to patch text)."""
-    meta = fetch_pr_meta(repo, number)
-    head = meta["head_sha"]
+    """Build a tiny git repo with PR file contents.
+
+    Modes (env AIV_CENSUS_MATERIALIZE):
+      head (default) — Contents API at PR head_sha, patch fallback
+      patch           — patch text only (fast census; incomplete files)
+    Optional AIV_CENSUS_AIV_CONFIG=path overrides copied .aiv/config.yaml.
+    """
+    mode = (os.environ.get("AIV_CENSUS_MATERIALIZE") or "head").strip().lower()
+    patch_only = mode in ("patch", "patch_only", "1", "true", "yes")
     files = fetch_pr_files(repo, number)
+    head = None
+    if not patch_only:
+        meta = fetch_pr_meta(repo, number)
+        head = meta["head_sha"]
+
     shutil.copytree(AIV_CONFIG_SRC, work / ".aiv")
+    cfg_override = os.environ.get("AIV_CENSUS_AIV_CONFIG", "").strip()
+    if cfg_override:
+        src_cfg = Path(cfg_override)
+        if not src_cfg.is_file():
+            src_cfg = BENCH / cfg_override
+        if src_cfg.is_file():
+            shutil.copyfile(src_cfg, work / ".aiv" / "config.yaml")
+
     git(work, "init", "-q")
     git(work, "config", "user.email", "bench@aiv.local")
     git(work, "config", "user.name", "AIV Bench")
-    (work / "README.md").write_text(f"AIV bench workspace for {repo}#{number}\n", encoding="utf-8")
+    (work / "README.md").write_text(
+        f"AIV bench workspace for {repo}#{number} materialize={mode}\n",
+        encoding="utf-8",
+    )
     git(work, "add", "-A")
     git(work, "commit", "-q", "-m", "base")
     base = git(work, "rev-parse", "HEAD")
@@ -417,7 +439,10 @@ def materialize_pr_workspace(repo: str, number: int, work: Path) -> str:
         path = f.get("filename")
         if not path or status == "removed":
             continue
-        text = fetch_file_at_ref(repo, path, head)
+        text = None
+        if head:
+            text = fetch_file_at_ref(repo, path, head)
+            time.sleep(0.05)
         if text is None:
             text = content_from_patch(f.get("patch"))
         if text is None:
@@ -426,7 +451,6 @@ def materialize_pr_workspace(repo: str, number: int, work: Path) -> str:
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(text, encoding="utf-8", errors="replace")
         written += 1
-        time.sleep(0.08)
 
     if written == 0:
         (work / "NO_FILES_MATERIALIZED.txt").write_text("no patchable files\n", encoding="utf-8")

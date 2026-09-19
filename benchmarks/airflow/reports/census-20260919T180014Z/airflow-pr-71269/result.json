@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-71269",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71269",
+  "title": "Fix google provider install failure on Python 3.14",
+  "pr": 71269,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:10.781588+00:00"
+  },
+  "pr_meta": {
+    "number": 71269,
+    "title": "Fix google provider install failure on Python 3.14",
+    "html_url": "https://github.com/apache/airflow/pull/71269",
+    "state": "closed",
+    "merged": false,
+    "user": "vatsrahul1001",
+    "created_at": "2026-08-07T06:33:20Z",
+    "closed_at": "2026-08-07T09:29:08Z",
+    "merged_at": null,
+    "base_sha": "858df9991d0e88d881418bb304bbf7a243bdd985",
+    "head_sha": "d59f24735bc3a45e775320a35d4652f50a060f3a",
+    "additions": 11,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71269/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71269/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

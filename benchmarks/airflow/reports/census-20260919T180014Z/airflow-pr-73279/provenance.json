@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-73279",
+  "origin_url": "https://github.com/apache/airflow/pull/73279",
+  "repo": "apache/airflow",
+  "pr": 73279,
+  "title": "Airflow 3.3.2 has been released",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:03.738389+00:00"
+  },
+  "pr_meta": {
+    "number": 73279,
+    "title": "Airflow 3.3.2 has been released",
+    "html_url": "https://github.com/apache/airflow/pull/73279",
+    "state": "closed",
+    "merged": true,
+    "user": "vatsrahul1001",
+    "created_at": "2026-09-17T10:37:48Z",
+    "closed_at": "2026-09-17T13:10:40Z",
+    "merged_at": "2026-09-17T13:10:40Z",
+    "base_sha": "82b4d5750d523ae78cc5ceeb4e985ae2f55a473f",
+    "head_sha": "4cd3dbbee664697112361e2cffc3cce0d38f9d80",
+    "additions": 218,
+    "deletions": 7,
+    "changed_files": 8,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "kind:documentation",
+      "area:production-image",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "Dockerfile",
+    "README.md",
+    "RELEASE_NOTES.rst",
+    "airflow-core/docs/installation/supported-versions.rst",
+    "dev/breeze/src/airflow_breeze/global_constants.py",
+    "docs/spelling_wordlist.txt",
+    "reproducible_build.yaml",
+    "scripts/ci/prek/supported_versions.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:13:10.394686+00:00"
+}

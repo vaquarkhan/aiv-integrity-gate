@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Entropy 2.79 is below effective threshold 2.90 for airflow-core/src/airflow/ui/openapi-gen/requests/schemas.gen.ts (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md).",
+      "findings": [
+        {
+          "rule_id": "density.entropy",
+          "file": "airflow-core/src/airflow/ui/openapi-gen/requests/schemas.gen.ts",
+          "start_line": 1,
+          "message": "Entropy 2.79 is below effective threshold 2.90 for airflow-core/src/airflow/ui/openapi-gen/requests/schemas.gen.ts (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md)."
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

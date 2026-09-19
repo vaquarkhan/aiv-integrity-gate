@@ -1,0 +1,43 @@
+schema_version: 1
+# Census patch-only materialization: reconstructed files are incomplete, so syntax
+# on full-file parse is disabled (would inflate FPs). Hard gates that still apply
+# to added hunk text: design + invariant. Density remains advisory (warn).
+fail_fast: false
+advisory_pr_label: aiv:ai-slop
+advisory_label_gates:
+  - design
+  - invariant
+  - density
+exclude_paths:
+  - "docs/**"
+  - "*.md"
+  - "chart/**"
+  - "dev/**"
+  - "docker-tests/**"
+  - "kubernetes-tests/**"
+  - "helm-tests/**"
+  - "scripts/**"
+  - "generated/**"
+gates:
+  - id: syntax
+    enabled: false
+    severity: fail
+  - id: design
+    enabled: true
+    severity: fail
+    config:
+      rules_path: .aiv/design-rules.yaml
+  - id: invariant
+    enabled: true
+    severity: fail
+  - id: density
+    enabled: true
+    severity: warn
+    config:
+      ldr_threshold: 0.20
+      entropy_threshold: 3.5
+      refactor_net_loc_threshold: -80
+  - id: dependency
+    enabled: false
+  - id: doc-integrity
+    enabled: false

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73137",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73137",
+  "title": "Remove dead cloudant_fake stub module",
+  "pr": 73137,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:58.693616+00:00"
+  },
+  "pr_meta": {
+    "number": 73137,
+    "title": "Remove dead cloudant_fake stub module",
+    "html_url": "https://github.com/apache/airflow/pull/73137",
+    "state": "closed",
+    "merged": false,
+    "user": "bhargavikvmpl-2001",
+    "created_at": "2026-09-14T15:32:55Z",
+    "closed_at": "2026-09-14T15:44:53Z",
+    "merged_at": null,
+    "base_sha": "50b6ebea5f14c98aa5aa22b87843376a9e8233ae",
+    "head_sha": "53033bb8773b67f2d9ac15323bed1dd1fc9a170d",
+    "additions": 0,
+    "deletions": 35,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:cloudant"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73137/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73137/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-72083",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72083",
+  "title": "Move DataprocSubmitJobOperator start-trigger kwargs out of __init__",
+  "pr": 72083,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:09.306082+00:00"
+  },
+  "pr_meta": {
+    "number": 72083,
+    "title": "Move DataprocSubmitJobOperator start-trigger kwargs out of __init__",
+    "html_url": "https://github.com/apache/airflow/pull/72083",
+    "state": "closed",
+    "merged": false,
+    "user": "codewithsruthi",
+    "created_at": "2026-08-25T23:42:28Z",
+    "closed_at": "2026-09-12T19:14:59Z",
+    "merged_at": null,
+    "base_sha": "dcb63a488b93f3f3d1378dc7e4b7e66bcd83ad1e",
+    "head_sha": "72f1f3c712c4d0a6bd2686704faf627820f47b55",
+    "additions": 21,
+    "deletions": 17,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72083/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72083/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

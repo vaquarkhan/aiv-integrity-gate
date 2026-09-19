@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-68937",
+  "origin_url": "https://github.com/apache/airflow/pull/68937",
+  "repo": "apache/airflow",
+  "pr": 68937,
+  "title": "[IGNORE] Generate and publish build constraints",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:04.251984+00:00"
+  },
+  "pr_meta": {
+    "number": 68937,
+    "title": "[IGNORE] Generate and publish build constraints",
+    "html_url": "https://github.com/apache/airflow/pull/68937",
+    "state": "closed",
+    "merged": false,
+    "user": "aaron-y-chen",
+    "created_at": "2026-06-24T09:20:15Z",
+    "closed_at": "2026-06-29T12:28:42Z",
+    "merged_at": null,
+    "base_sha": "771aa902df0f00fea430de45051181aad011458d",
+    "head_sha": "00f99229d0d2deb5c135a7878b3770e7c5716fef",
+    "additions": 1392,
+    "deletions": 9,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/generate-constraints.yml",
+    "README.md",
+    "dev/MANUALLY_GENERATING_IMAGE_CACHE_AND_CONSTRAINTS.md",
+    "dev/breeze/doc/09_release_management_tasks.rst",
+    "scripts/ci/constraints/ci_commit_constraints.sh",
+    "scripts/ci/constraints/ci_diff_constraints.sh",
+    "scripts/in_container/run_generate_constraints.py",
+    "scripts/tests/in_container/__init__.py",
+    "scripts/tests/in_container/conftest.py",
+    "scripts/tests/in_container/test_generate_build_constraints.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:05:18.473775+00:00"
+}

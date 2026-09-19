@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73307",
+  "origin_url": "https://github.com/apache/airflow/pull/73307",
+  "repo": "apache/airflow",
+  "pr": 73307,
+  "title": "Fix airflowctl tracebacks on redirects and non-JSON error bodies",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:48.087226+00:00"
+  },
+  "pr_meta": {
+    "number": 73307,
+    "title": "Fix airflowctl tracebacks on redirects and non-JSON error bodies",
+    "html_url": "https://github.com/apache/airflow/pull/73307",
+    "state": "closed",
+    "merged": true,
+    "user": "Eason09053360",
+    "created_at": "2026-09-18T06:26:38Z",
+    "closed_at": "2026-09-18T16:37:25Z",
+    "merged_at": "2026-09-18T16:37:24Z",
+    "base_sha": "c614c57062a95aade62cd5df774ae3c33bd57003",
+    "head_sha": "3948373d2fa40b40a191c0ab1f2b1f98c1b08161",
+    "additions": 48,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-ctl/src/airflowctl/ctl/cli_config.py",
+    "airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:01.112535+00:00"
+}

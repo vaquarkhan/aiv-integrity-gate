@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73072",
+  "origin_url": "https://github.com/apache/airflow/pull/73072",
+  "repo": "apache/airflow",
+  "pr": 73072,
+  "title": "[v3-3-test] Clarify that AccessView.JOBS is the Edge worker management permission (#72627)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:11.293305+00:00"
+  },
+  "pr_meta": {
+    "number": 73072,
+    "title": "[v3-3-test] Clarify that AccessView.JOBS is the Edge worker management permission (#72627)",
+    "html_url": "https://github.com/apache/airflow/pull/73072",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-13T10:14:48Z",
+    "closed_at": "2026-09-13T10:16:50Z",
+    "merged_at": null,
+    "base_sha": "74a733fdc81c32d1740d81ed260b722cf3af7174",
+    "head_sha": "91733f3ff74aff02c4e4d4e5c4e2a83998265aad",
+    "additions": 20,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:edge"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/edge3/docs/ui_plugin.rst"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:02:32.076720+00:00"
+}

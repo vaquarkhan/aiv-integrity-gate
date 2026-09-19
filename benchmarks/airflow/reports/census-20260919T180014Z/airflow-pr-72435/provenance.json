@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-72435",
+  "origin_url": "https://github.com/apache/airflow/pull/72435",
+  "repo": "apache/airflow",
+  "pr": 72435,
+  "title": "Add task Group stripes on the Gantt chart",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:02.021745+00:00"
+  },
+  "pr_meta": {
+    "number": 72435,
+    "title": "Add task Group stripes on the Gantt chart",
+    "html_url": "https://github.com/apache/airflow/pull/72435",
+    "state": "closed",
+    "merged": false,
+    "user": "Kunal8954",
+    "created_at": "2026-09-02T14:00:15Z",
+    "closed_at": "2026-09-15T14:47:30Z",
+    "merged_at": null,
+    "base_sha": "fb1d49d5d70fe2374b73d80dd5839b21a106195e",
+    "head_sha": "437e545e0a93bb199ccc7ba21108540b3343ed6f",
+    "additions": 54,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "area:translations",
+      "translation:default",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/components/FilterBar/FilterBar.test.tsx",
+    "airflow-core/src/airflow/ui/src/components/FilterBar/filters/TextSearchFilter.tsx",
+    "airflow-core/src/airflow/ui/src/layouts/Details/Gantt/GanttTimeline.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:11:46.665136+00:00"
+}

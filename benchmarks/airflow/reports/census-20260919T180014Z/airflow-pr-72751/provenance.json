@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-72751",
+  "origin_url": "https://github.com/apache/airflow/pull/72751",
+  "repo": "apache/airflow",
+  "pr": 72751,
+  "title": "[v3-3-test] Fix ExternalTaskSensor example Dag never finding its parent task (#72480)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:42.206005+00:00"
+  },
+  "pr_meta": {
+    "number": 72751,
+    "title": "[v3-3-test] Fix ExternalTaskSensor example Dag never finding its parent task (#72480)",
+    "html_url": "https://github.com/apache/airflow/pull/72751",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-08T22:33:45Z",
+    "closed_at": "2026-09-10T12:50:00Z",
+    "merged_at": null,
+    "base_sha": "87d6f4110b7065b77992a6f569dbfe585bb68946",
+    "head_sha": "823b5407f455bd1f481a116375fca0c806851f77",
+    "additions": 9,
+    "deletions": 2,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/example_dags/example_external_task_marker_dag.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:07:52.668181+00:00"
+}

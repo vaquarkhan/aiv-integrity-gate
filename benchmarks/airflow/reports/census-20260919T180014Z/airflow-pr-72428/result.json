@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72428",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72428",
+  "title": "Add dag tags to otel spans",
+  "pr": 72428,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:05.281530+00:00"
+  },
+  "pr_meta": {
+    "number": 72428,
+    "title": "Add dag tags to otel spans",
+    "html_url": "https://github.com/apache/airflow/pull/72428",
+    "state": "closed",
+    "merged": false,
+    "user": "realtimetodie",
+    "created_at": "2026-09-02T08:57:36Z",
+    "closed_at": "2026-09-02T08:57:52Z",
+    "merged_at": null,
+    "base_sha": "bf976c8805ad1a9e9664723aefcd0a62b659d627",
+    "head_sha": "b807ca6ab83059502ee3695e8373561b66f93651",
+    "additions": 45,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72428/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72428/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

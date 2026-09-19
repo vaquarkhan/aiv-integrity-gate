@@ -1,0 +1,80 @@
+{
+  "id": "airflow-pr-68920",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68920",
+  "title": "Revert Cassandra docs to upstream WhiteListRoundRobinPolicy class name",
+  "pr": 68920,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:08.127765+00:00"
+  },
+  "pr_meta": {
+    "number": 68920,
+    "title": "Revert Cassandra docs to upstream WhiteListRoundRobinPolicy class name",
+    "html_url": "https://github.com/apache/airflow/pull/68920",
+    "state": "closed",
+    "merged": false,
+    "user": "XD-DENG",
+    "created_at": "2026-06-23T22:53:36Z",
+    "closed_at": "2026-08-18T00:11:16Z",
+    "merged_at": null,
+    "base_sha": "5a36ec1e72ec010c2248e83281b7d64749a88168",
+    "head_sha": "8cb9189c30798f6db84d45f5725c2c45c3cd37b1",
+    "additions": 4,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "MEMBER",
+    "labels": [
+      "stale",
+      "area:providers",
+      "area:dev-tools",
+      "kind:documentation",
+      "provider:apache-cassandra",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68920/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68920/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69533",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69533",
+  "title": "Add Teko Vietnam to the list",
+  "pr": 69533,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:35.210755+00:00"
+  },
+  "pr_meta": {
+    "number": 69533,
+    "title": "Add Teko Vietnam to the list",
+    "html_url": "https://github.com/apache/airflow/pull/69533",
+    "state": "closed",
+    "merged": false,
+    "user": "nhuantho",
+    "created_at": "2026-07-07T08:20:22Z",
+    "closed_at": "2026-09-03T00:27:48Z",
+    "merged_at": null,
+    "base_sha": "a327dd4a73373f4f8927d22ed7512c43fa2bc23c",
+    "head_sha": "527876adabddbc691f50fe26cfd673ae0c052f73",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69533/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69533/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

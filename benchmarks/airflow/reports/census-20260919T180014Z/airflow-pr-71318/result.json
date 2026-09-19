@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-71318",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71318",
+  "title": "Build Dataproc submit job trigger arguments after template rendering",
+  "pr": 71318,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:02.103077+00:00"
+  },
+  "pr_meta": {
+    "number": 71318,
+    "title": "Build Dataproc submit job trigger arguments after template rendering",
+    "html_url": "https://github.com/apache/airflow/pull/71318",
+    "state": "closed",
+    "merged": false,
+    "user": "jzhou-otterai",
+    "created_at": "2026-08-07T22:57:41Z",
+    "closed_at": "2026-08-08T17:53:27Z",
+    "merged_at": null,
+    "base_sha": "1f529f3837ab5e38ddd27ea355a7fbfddd392573",
+    "head_sha": "fe9c09620b922e5251747fb343f90577582e4323",
+    "additions": 50,
+    "deletions": 7,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71318/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71318/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

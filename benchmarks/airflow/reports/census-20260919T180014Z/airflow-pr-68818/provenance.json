@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-68818",
+  "origin_url": "https://github.com/apache/airflow/pull/68818",
+  "repo": "apache/airflow",
+  "pr": 68818,
+  "title": "Bump the pip-dependency-updates group across 3 directories with 13 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:52.016696+00:00"
+  },
+  "pr_meta": {
+    "number": 68818,
+    "title": "Bump the pip-dependency-updates group across 3 directories with 13 updates",
+    "html_url": "https://github.com/apache/airflow/pull/68818",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-06-22T04:22:00Z",
+    "closed_at": "2026-06-26T17:15:12Z",
+    "merged_at": null,
+    "base_sha": "cf2fe46c0593839f85a44df18a92883f867834c6",
+    "head_sha": "196aab2f40075881cbff7cec138d9b0c99629dfa",
+    "additions": 15,
+    "deletions": 15,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "python",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/pyproject.toml",
+    "dev/requirements.txt",
+    "docker_tests/requirements.txt",
+    "pyproject.toml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:08:24.114037+00:00"
+}

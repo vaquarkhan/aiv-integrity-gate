@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72062",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72062",
+  "title": "Fix deferred task instances being cascade-deleted by Trigger.clean_unused on MySQL",
+  "pr": 72062,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:18.182454+00:00"
+  },
+  "pr_meta": {
+    "number": 72062,
+    "title": "Fix deferred task instances being cascade-deleted by Trigger.clean_unused on MySQL",
+    "html_url": "https://github.com/apache/airflow/pull/72062",
+    "state": "closed",
+    "merged": false,
+    "user": "aunderwood24",
+    "created_at": "2026-08-25T14:45:26Z",
+    "closed_at": "2026-09-16T15:29:19Z",
+    "merged_at": null,
+    "base_sha": "8637df49fcb4a775422e14fc1fbee3a7ef62fc0e",
+    "head_sha": "25027ee452e12c8d15f8d2fc73155d6d5b94da74",
+    "additions": 55,
+    "deletions": 2,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:Triggerer"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72062/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72062/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

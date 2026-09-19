@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70141",
+  "origin_url": "https://github.com/apache/airflow/pull/70141",
+  "repo": "apache/airflow",
+  "pr": 70141,
+  "title": "Go SDK: fix operator-precedence bug that could crash the worker process",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:28.384432+00:00"
+  },
+  "pr_meta": {
+    "number": 70141,
+    "title": "Go SDK: fix operator-precedence bug that could crash the worker process",
+    "html_url": "https://github.com/apache/airflow/pull/70141",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-07-20T17:36:55Z",
+    "closed_at": "2026-08-20T13:22:45Z",
+    "merged_at": null,
+    "base_sha": "5227a911412d925e6d892be68a5f6f0a4cd33e0a",
+    "head_sha": "3e428e6b594bc9ffd9a1b5e598f1e30e8d0e611f",
+    "additions": 34,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/pkg/worker/runner.go",
+    "go-sdk/pkg/worker/runner_test.go"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:44:49.841348+00:00"
+}

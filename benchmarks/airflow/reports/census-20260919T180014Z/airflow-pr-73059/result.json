@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73059",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73059",
+  "title": "Allow GHSA-8mgp-746c-j5xp (nltk) in the dependency review gates",
+  "pr": 73059,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:16.157863+00:00"
+  },
+  "pr_meta": {
+    "number": 73059,
+    "title": "Allow GHSA-8mgp-746c-j5xp (nltk) in the dependency review gates",
+    "html_url": "https://github.com/apache/airflow/pull/73059",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-09-13T07:42:01Z",
+    "closed_at": "2026-09-13T08:19:40Z",
+    "merged_at": null,
+    "base_sha": "81b93db4a2f6da3d4e56a337f0f0b84fb2f1b029",
+    "head_sha": "0b475a469a4bbc4f33a6d58527f778e771f225ec",
+    "additions": 18,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73059/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73059/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

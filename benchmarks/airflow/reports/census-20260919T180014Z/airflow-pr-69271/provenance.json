@@ -1,0 +1,57 @@
+{
+  "case_id": "airflow-pr-69271",
+  "origin_url": "https://github.com/apache/airflow/pull/69271",
+  "repo": "apache/airflow",
+  "pr": 69271,
+  "title": "Fix SMTP connection from_email being ignored by email_on_failure and \u2026",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:48.892527+00:00"
+  },
+  "pr_meta": {
+    "number": 69271,
+    "title": "Fix SMTP connection from_email being ignored by email_on_failure and \u2026",
+    "html_url": "https://github.com/apache/airflow/pull/69271",
+    "state": "closed",
+    "merged": false,
+    "user": "bramhanandlingala",
+    "created_at": "2026-07-02T18:27:48Z",
+    "closed_at": "2026-09-05T00:25:42Z",
+    "merged_at": null,
+    "base_sha": "4e65210959198a97ce955019776fb3abb7bca526",
+    "head_sha": "bc1071fcfb559f1374a8b734612f900c1267b3a3",
+    "additions": 75,
+    "deletions": 5,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:providers",
+      "pending-response",
+      "provider:smtp",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/smtp/src/airflow/providers/smtp/notifications/smtp.py",
+    "providers/smtp/tests/unit/smtp/notifications/test_smtp.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:00:28.530156+00:00"
+}

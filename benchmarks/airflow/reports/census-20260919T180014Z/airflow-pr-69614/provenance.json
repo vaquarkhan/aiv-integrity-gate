@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-69614",
+  "origin_url": "https://github.com/apache/airflow/pull/69614",
+  "repo": "apache/airflow",
+  "pr": 69614,
+  "title": "fix(providers/google): fallback to fetch Dataflow job ID by name prefix when Beam regex matches none",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:13.898838+00:00"
+  },
+  "pr_meta": {
+    "number": 69614,
+    "title": "fix(providers/google): fallback to fetch Dataflow job ID by name prefix when Beam regex matches none",
+    "html_url": "https://github.com/apache/airflow/pull/69614",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-08T14:32:11Z",
+    "closed_at": "2026-07-09T17:47:59Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "8a963a6d396df5bec8775f5e2f251af36f101120",
+    "additions": 93,
+    "deletions": 0,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "provider:apache-beam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/apache/beam/src/airflow/providers/apache/beam/operators/beam.py",
+    "providers/google/src/airflow/providers/google/cloud/hooks/dataflow.py",
+    "providers/google/tests/unit/google/cloud/hooks/test_dataflow.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:54:33.396083+00:00"
+}

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70169",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70169",
+  "title": "Introduce RUN-level OpenLineage events for dbt Cloud jobs",
+  "pr": 70169,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:13.048944+00:00"
+  },
+  "pr_meta": {
+    "number": 70169,
+    "title": "Introduce RUN-level OpenLineage events for dbt Cloud jobs",
+    "html_url": "https://github.com/apache/airflow/pull/70169",
+    "state": "closed",
+    "merged": false,
+    "user": "br413",
+    "created_at": "2026-07-21T07:15:17Z",
+    "closed_at": "2026-07-21T11:54:43Z",
+    "merged_at": null,
+    "base_sha": "16278347df4fbbf516383a69fba4780efbefb1f2",
+    "head_sha": "08b5421add2e76215fb83fbf6bf91dab310e925a",
+    "additions": 154,
+    "deletions": 9,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:dbt-cloud"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70169/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70169/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

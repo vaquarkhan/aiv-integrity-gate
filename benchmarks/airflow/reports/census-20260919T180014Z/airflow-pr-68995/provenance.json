@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-68995",
+  "origin_url": "https://github.com/apache/airflow/pull/68995",
+  "repo": "apache/airflow",
+  "pr": 68995,
+  "title": "Re-queue worker pods on transient 502/503/504 from the Kubernetes API",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:49.017230+00:00"
+  },
+  "pr_meta": {
+    "number": 68995,
+    "title": "Re-queue worker pods on transient 502/503/504 from the Kubernetes API",
+    "html_url": "https://github.com/apache/airflow/pull/68995",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-06-25T18:06:15Z",
+    "closed_at": "2026-06-25T18:54:24Z",
+    "merged_at": null,
+    "base_sha": "30a70719c03a0d0b5d605756605b4b226823a2cd",
+    "head_sha": "52ea14370501e9935676d704b5eed1b8c0baccbc",
+    "additions": 882,
+    "deletions": 132,
+    "changed_files": 10,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/cncf/kubernetes/provider.yaml",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/executors/kubernetes_executor.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/executors/kubernetes_executor_utils.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/get_provider_info.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/hooks/kubernetes.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kube_client.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kube_config.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/executors/test_kubernetes_executor.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kube_client.py",
+    "shared/observability/src/airflow_shared/observability/metrics/metrics_template.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:04:27.306406+00:00"
+}

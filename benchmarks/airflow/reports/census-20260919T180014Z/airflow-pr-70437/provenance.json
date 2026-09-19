@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-70437",
+  "origin_url": "https://github.com/apache/airflow/pull/70437",
+  "repo": "apache/airflow",
+  "pr": 70437,
+  "title": "Fix template-field logic timing in BashOperator",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:46.916855+00:00"
+  },
+  "pr_meta": {
+    "number": 70437,
+    "title": "Fix template-field logic timing in BashOperator",
+    "html_url": "https://github.com/apache/airflow/pull/70437",
+    "state": "closed",
+    "merged": false,
+    "user": "bramhanandlingala",
+    "created_at": "2026-07-25T14:13:54Z",
+    "closed_at": "2026-07-30T10:41:21Z",
+    "merged_at": null,
+    "base_sha": "d8b8620662d7587dd146f22eaf66d4d3f77cbbb9",
+    "head_sha": "e70583bb598e5ca254dab2b06612426e2d3c688f",
+    "additions": 17,
+    "deletions": 7,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:dev-tools",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/decorators/bash.py",
+    "providers/standard/src/airflow/providers/standard/operators/bash.py",
+    "providers/standard/tests/unit/standard/operators/test_bash.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:39:37.376061+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71515",
+  "origin_url": "https://github.com/apache/airflow/pull/71515",
+  "repo": "apache/airflow",
+  "pr": 71515,
+  "title": "Fix DAG parsing crash for DateTimeSensorAsync with templated target_time",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:05.348450+00:00"
+  },
+  "pr_meta": {
+    "number": 71515,
+    "title": "Fix DAG parsing crash for DateTimeSensorAsync with templated target_time",
+    "html_url": "https://github.com/apache/airflow/pull/71515",
+    "state": "closed",
+    "merged": false,
+    "user": "HelmiDev03",
+    "created_at": "2026-08-12T19:41:02Z",
+    "closed_at": "2026-08-13T23:56:56Z",
+    "merged_at": null,
+    "base_sha": "c74cfcbae17aa4aa89e66afca8e92035f957aba5",
+    "head_sha": "5917d9bd705f0c8eb535c5b12ebd94ed047191b4",
+    "additions": 33,
+    "deletions": 11,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/sensors/date_time.py",
+    "providers/standard/tests/unit/standard/sensors/test_date_time.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:22:31.305278+00:00"
+}

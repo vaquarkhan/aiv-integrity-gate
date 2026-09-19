@@ -1,0 +1,96 @@
+{
+  "id": "airflow-pr-70187",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70187",
+  "title": "[DO NOT REVIEW] Add per-area review criteria and ADRs for PR triage",
+  "pr": 70187,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:02.757277+00:00"
+  },
+  "pr_meta": {
+    "number": 70187,
+    "title": "[DO NOT REVIEW] Add per-area review criteria and ADRs for PR triage",
+    "html_url": "https://github.com/apache/airflow/pull/70187",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-07-21T12:21:50Z",
+    "closed_at": "2026-09-13T00:29:56Z",
+    "merged_at": null,
+    "base_sha": "c49e1c917ea2729eb862daad40f340a9d7dd6c4c",
+    "head_sha": "cf9aa52d1e33f7ce232b1bfbc8f2e9b53bac3ffc",
+    "additions": 28753,
+    "deletions": 10,
+    "changed_files": 219,
+    "author_association": "MEMBER",
+    "labels": [
+      "stale",
+      "provider:google",
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools",
+      "area:secrets",
+      "area:API",
+      "area:helm-chart",
+      "kind:documentation",
+      "provider:cncf-kubernetes",
+      "area:UI",
+      "provider:common-sql",
+      "area:DAG-processing",
+      "area:Executors-core",
+      "provider:fab",
+      "provider:common-compat",
+      "provider:standard",
+      "area:task-sdk",
+      "area:airflow-ctl",
+      "skip common compat check",
+      "backport-to-airflow-ctl/v0-1-test",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70187/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70187/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

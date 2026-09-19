@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-68819",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68819",
+  "title": "Fix KubernetesExecutor scheduler crash when pod_override is queued in-cluster",
+  "pr": 68819,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:50.415886+00:00"
+  },
+  "pr_meta": {
+    "number": 68819,
+    "title": "Fix KubernetesExecutor scheduler crash when pod_override is queued in-cluster",
+    "html_url": "https://github.com/apache/airflow/pull/68819",
+    "state": "closed",
+    "merged": false,
+    "user": "vatsrahul1001",
+    "created_at": "2026-06-22T04:26:18Z",
+    "closed_at": "2026-06-22T11:05:26Z",
+    "merged_at": null,
+    "base_sha": "3ae8c6a07e2397dfc431c189bf28f47cf4bd235f",
+    "head_sha": "7cf53dc6bf531405544d3baf5f2e3daf6a0bb523",
+    "additions": 148,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68819/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68819/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

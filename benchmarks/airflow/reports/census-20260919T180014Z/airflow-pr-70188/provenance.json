@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70188",
+  "origin_url": "https://github.com/apache/airflow/pull/70188",
+  "repo": "apache/airflow",
+  "pr": 70188,
+  "title": "Go SDK: fix data race on Edge Worker's activeWorkloads map",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:56.525324+00:00"
+  },
+  "pr_meta": {
+    "number": 70188,
+    "title": "Go SDK: fix data race on Edge Worker's activeWorkloads map",
+    "html_url": "https://github.com/apache/airflow/pull/70188",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-07-21T12:24:27Z",
+    "closed_at": "2026-08-20T13:21:54Z",
+    "merged_at": null,
+    "base_sha": "c49e1c917ea2729eb862daad40f340a9d7dd6c4c",
+    "head_sha": "af0c263a9e1b855b40dc87cc34e25f9dc2ef6309",
+    "additions": 74,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/edge/worker.go",
+    "go-sdk/edge/worker_test.go"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:43:17.378278+00:00"
+}

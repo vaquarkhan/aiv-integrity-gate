@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70452",
+  "origin_url": "https://github.com/apache/airflow/pull/70452",
+  "repo": "apache/airflow",
+  "pr": 70452,
+  "title": "Reuse existing ORM session when resolving OpenLineage dag_team_name",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:37.909138+00:00"
+  },
+  "pr_meta": {
+    "number": 70452,
+    "title": "Reuse existing ORM session when resolving OpenLineage dag_team_name",
+    "html_url": "https://github.com/apache/airflow/pull/70452",
+    "state": "closed",
+    "merged": false,
+    "user": "SameerMesiah97",
+    "created_at": "2026-07-25T20:20:53Z",
+    "closed_at": "2026-07-30T13:56:31Z",
+    "merged_at": null,
+    "base_sha": "658bd8a28856fdd3e879ec2eb80fa635e51396a0",
+    "head_sha": "37a890c58444fed308499f12514ba0e17ae5068c",
+    "additions": 19,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/openlineage/src/airflow/providers/openlineage/utils/utils.py",
+    "providers/openlineage/tests/unit/openlineage/utils/test_utils.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:39:06.892043+00:00"
+}

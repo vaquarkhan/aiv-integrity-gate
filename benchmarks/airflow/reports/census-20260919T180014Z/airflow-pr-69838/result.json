@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69838",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69838",
+  "title": "Fix Neptune Analytics deferrable path: load custom waiter + forward hook params to triggers",
+  "pr": 69838,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:16.386922+00:00"
+  },
+  "pr_meta": {
+    "number": 69838,
+    "title": "Fix Neptune Analytics deferrable path: load custom waiter + forward hook params to triggers",
+    "html_url": "https://github.com/apache/airflow/pull/69838",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-07-13T22:49:29Z",
+    "closed_at": "2026-07-14T16:46:09Z",
+    "merged_at": null,
+    "base_sha": "2e511e6b7eea3865cd91d639ce49e795cb8082ce",
+    "head_sha": "6d2a25fda7b49423258c0cd9ebc2d0119a24b085",
+    "additions": 304,
+    "deletions": 1,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69838/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69838/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

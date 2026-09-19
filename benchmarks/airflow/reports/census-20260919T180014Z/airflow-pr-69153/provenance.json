@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69153",
+  "origin_url": "https://github.com/apache/airflow/pull/69153",
+  "repo": "apache/airflow",
+  "pr": 69153,
+  "title": "Document LocalFilesystemBackend config secrets (#41512)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:16.728313+00:00"
+  },
+  "pr_meta": {
+    "number": 69153,
+    "title": "Document LocalFilesystemBackend config secrets (#41512)",
+    "html_url": "https://github.com/apache/airflow/pull/69153",
+    "state": "closed",
+    "merged": false,
+    "user": "deepujain",
+    "created_at": "2026-06-30T03:38:45Z",
+    "closed_at": "2026-08-05T12:01:29Z",
+    "merged_at": null,
+    "base_sha": "926a8c62c553bf37df09cba1fd5515ee55129754",
+    "head_sha": "eb5ea2d66da5b845e451e883ca28023364f450c7",
+    "additions": 29,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:secrets",
+      "kind:documentation",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/howto/set-config.rst",
+    "airflow-core/docs/security/secrets/secrets-backend/local-filesystem-secrets-backend.rst"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:02:06.167633+00:00"
+}

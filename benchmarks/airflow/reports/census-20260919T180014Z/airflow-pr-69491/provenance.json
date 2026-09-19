@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69491",
+  "origin_url": "https://github.com/apache/airflow/pull/69491",
+  "repo": "apache/airflow",
+  "pr": 69491,
+  "title": "pgvector: Guard the psycopg2-specific `register_vector` import",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:52.380970+00:00"
+  },
+  "pr_meta": {
+    "number": 69491,
+    "title": "pgvector: Guard the psycopg2-specific `register_vector` import",
+    "html_url": "https://github.com/apache/airflow/pull/69491",
+    "state": "closed",
+    "merged": false,
+    "user": "Dev-iL",
+    "created_at": "2026-07-06T19:25:06Z",
+    "closed_at": "2026-07-06T20:12:11Z",
+    "merged_at": null,
+    "base_sha": "1597221692aee3180d579412b213d6b9f789be52",
+    "head_sha": "4b8a175ba40ef5d445a7eff4b7399584709438e0",
+    "additions": 40,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "COLLABORATOR",
+    "labels": [
+      "area:providers",
+      "provider:pgvector"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/pgvector/src/airflow/providers/pgvector/operators/pgvector.py",
+    "providers/pgvector/tests/unit/pgvector/operators/test_pgvector.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:56:58.354334+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-72241",
+  "origin_url": "https://github.com/apache/airflow/pull/72241",
+  "repo": "apache/airflow",
+  "pr": 72241,
+  "title": "Google: Fix CloudComposer external-task empty-window success",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:41.294755+00:00"
+  },
+  "pr_meta": {
+    "number": 72241,
+    "title": "Google: Fix CloudComposer external-task empty-window success",
+    "html_url": "https://github.com/apache/airflow/pull/72241",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-08-29T02:26:47Z",
+    "closed_at": "2026-08-29T12:52:35Z",
+    "merged_at": null,
+    "base_sha": "82215cf97c7c96fd3cdc413be17f9692513b8374",
+    "head_sha": "aeb825ef500eccd173808b63f23f78eb4cadbe52",
+    "additions": 270,
+    "deletions": 24,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/sensors/cloud_composer.py",
+    "providers/google/src/airflow/providers/google/cloud/triggers/cloud_composer.py",
+    "providers/google/tests/system/google/cloud/composer/example_cloud_composer.py",
+    "providers/google/tests/unit/google/cloud/sensors/test_cloud_composer.py",
+    "providers/google/tests/unit/google/cloud/triggers/test_cloud_composer.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:14:06.237893+00:00"
+}

@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-69483",
+  "origin_url": "https://github.com/apache/airflow/pull/69483",
+  "repo": "apache/airflow",
+  "pr": 69483,
+  "title": "Amazon: Make psycopg (v3) the default synchronous Postgres driver",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:56.744524+00:00"
+  },
+  "pr_meta": {
+    "number": 69483,
+    "title": "Amazon: Make psycopg (v3) the default synchronous Postgres driver",
+    "html_url": "https://github.com/apache/airflow/pull/69483",
+    "state": "closed",
+    "merged": false,
+    "user": "Dev-iL",
+    "created_at": "2026-07-06T16:04:08Z",
+    "closed_at": "2026-07-06T20:12:14Z",
+    "merged_at": null,
+    "base_sha": "5fb8637648badb662d4dd812b1427dea2a996a1a",
+    "head_sha": "6c4d85a0c8d7292c0ac92c18a730cb3b2843f171",
+    "additions": 3,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "COLLABORATOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/docs/executors/batch-executor.rst",
+    "providers/amazon/docs/executors/ecs-executor.rst",
+    "providers/amazon/docs/executors/lambda-executor.rst"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:57:11.775699+00:00"
+}

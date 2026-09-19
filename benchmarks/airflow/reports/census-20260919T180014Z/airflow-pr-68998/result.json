@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-68998",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68998",
+  "title": "Re-queue worker pods on transient 502/503/504 from the Kubernetes API",
+  "pr": 68998,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:47.482313+00:00"
+  },
+  "pr_meta": {
+    "number": 68998,
+    "title": "Re-queue worker pods on transient 502/503/504 from the Kubernetes API",
+    "html_url": "https://github.com/apache/airflow/pull/68998",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-06-25T18:53:44Z",
+    "closed_at": "2026-06-25T21:55:49Z",
+    "merged_at": null,
+    "base_sha": "779efc6983b2b2497cd8f9c2d7bb376bae196825",
+    "head_sha": "d7db2b8f6187b2591905f47266409c93b4c4bf4b",
+    "additions": 56,
+    "deletions": 5,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68998/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68998/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

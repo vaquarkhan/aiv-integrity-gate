@@ -1,0 +1,82 @@
+{
+  "id": "airflow-pr-72983",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72983",
+  "title": "Backport 3817ee6 chart/v1 2x test",
+  "pr": 72983,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:41.188620+00:00"
+  },
+  "pr_meta": {
+    "number": 72983,
+    "title": "Backport 3817ee6 chart/v1 2x test",
+    "html_url": "https://github.com/apache/airflow/pull/72983",
+    "state": "closed",
+    "merged": false,
+    "user": "Nataneljpwd",
+    "created_at": "2026-09-11T16:19:43Z",
+    "closed_at": "2026-09-11T16:20:08Z",
+    "merged_at": null,
+    "base_sha": "2309d05a24ca91baf333899afc0cfdb7f5ac67c4",
+    "head_sha": "e61369da881d51cf4f6c2c1f9532feff0ffdc647",
+    "additions": 21639,
+    "deletions": 3254,
+    "changed_files": 217,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "area:helm-chart",
+      "kind:documentation",
+      "area:production-image",
+      "area:airflow-ctl",
+      "area:registry",
+      "backport-to-airflow-ctl/v0-1-test",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72983/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72983/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

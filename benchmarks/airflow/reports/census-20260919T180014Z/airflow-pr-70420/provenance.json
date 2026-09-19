@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70420",
+  "origin_url": "https://github.com/apache/airflow/pull/70420",
+  "repo": "apache/airflow",
+  "pr": 70420,
+  "title": "Fix wrong API paths for queued asset events in airflowctl",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:56.217413+00:00"
+  },
+  "pr_meta": {
+    "number": 70420,
+    "title": "Fix wrong API paths for queued asset events in airflowctl",
+    "html_url": "https://github.com/apache/airflow/pull/70420",
+    "state": "closed",
+    "merged": false,
+    "user": "justinpakzad",
+    "created_at": "2026-07-24T21:57:27Z",
+    "closed_at": "2026-07-26T14:47:01Z",
+    "merged_at": null,
+    "base_sha": "82a2c91d08a5d7e686cf453552575db774f6b999",
+    "head_sha": "644565e132157359ce01ad5f83a72f457d9b80b5",
+    "additions": 20,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-ctl/src/airflowctl/api/operations.py",
+    "airflow-ctl/tests/airflow_ctl/api/test_operations.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:40:06.913376+00:00"
+}

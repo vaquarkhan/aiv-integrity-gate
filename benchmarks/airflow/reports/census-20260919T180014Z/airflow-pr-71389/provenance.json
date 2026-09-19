@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71389",
+  "origin_url": "https://github.com/apache/airflow/pull/71389",
+  "repo": "apache/airflow",
+  "pr": 71389,
+  "title": "fix(git): fetch working copy from bare mirror before checkout to support promoting to a new tracking_ref SHA [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:41.971115+00:00"
+  },
+  "pr_meta": {
+    "number": 71389,
+    "title": "fix(git): fetch working copy from bare mirror before checkout to support promoting to a new tracking_ref SHA [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+    "html_url": "https://github.com/apache/airflow/pull/71389",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-10T21:46:23Z",
+    "closed_at": "2026-08-11T21:24:40Z",
+    "merged_at": null,
+    "base_sha": "198944a3ce3753c7169296c3c1b7f37d175de141",
+    "head_sha": "d706e644601563e723dcb0bb267b91c162c1ebba",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "AI Spam",
+      "provider:git"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/git/src/airflow/providers/git/bundles/git.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:24:55.517979+00:00"
+}

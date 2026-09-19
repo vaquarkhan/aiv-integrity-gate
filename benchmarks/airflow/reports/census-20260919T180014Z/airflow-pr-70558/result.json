@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-70558",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70558",
+  "title": "Support pandas 3 for DataFrame XComs",
+  "pr": 70558,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:45.059781+00:00"
+  },
+  "pr_meta": {
+    "number": 70558,
+    "title": "Support pandas 3 for DataFrame XComs",
+    "html_url": "https://github.com/apache/airflow/pull/70558",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-07-27T19:03:13Z",
+    "closed_at": "2026-08-05T04:09:18Z",
+    "merged_at": null,
+    "base_sha": "c04b93baaaebd7025e55b53a5bc8352a70ddbc1a",
+    "head_sha": "0779e0a2b1077e5f931ec4d7de3aa30f14b3ac3c",
+    "additions": 61,
+    "deletions": 5,
+    "changed_files": 5,
+    "author_association": "MEMBER",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "provider:salesforce",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70558/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70558/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

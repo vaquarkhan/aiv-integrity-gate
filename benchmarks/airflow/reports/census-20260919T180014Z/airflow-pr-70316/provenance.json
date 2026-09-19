@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70316",
+  "origin_url": "https://github.com/apache/airflow/pull/70316",
+  "repo": "apache/airflow",
+  "pr": 70316,
+  "title": "[v3-3-test] Detect template-field logic in operator __init__ in prek check (#70297)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:36.838563+00:00"
+  },
+  "pr_meta": {
+    "number": 70316,
+    "title": "[v3-3-test] Detect template-field logic in operator __init__ in prek check (#70297)",
+    "html_url": "https://github.com/apache/airflow/pull/70316",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-07-23T18:33:43Z",
+    "closed_at": "2026-07-24T06:48:06Z",
+    "merged_at": null,
+    "base_sha": "f812def87762e5bb2481195b8d88f34534e7c7c7",
+    "head_sha": "fa91ec6ff91b650a15f1f7b9b8b4545fb33b7772",
+    "additions": 601,
+    "deletions": 23,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "scripts/ci/prek/validate_operators_init.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt",
+    "scripts/tests/ci/prek/test_validate_operators_init.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:42:08.455963+00:00"
+}

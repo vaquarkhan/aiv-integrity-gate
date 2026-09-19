@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-72792",
+  "origin_url": "https://github.com/apache/airflow/pull/72792",
+  "repo": "apache/airflow",
+  "pr": 72792,
+  "title": "Chart: Don't set deprecated git-sync branch/rev by default",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:38.722265+00:00"
+  },
+  "pr_meta": {
+    "number": 72792,
+    "title": "Chart: Don't set deprecated git-sync branch/rev by default",
+    "html_url": "https://github.com/apache/airflow/pull/72792",
+    "state": "closed",
+    "merged": false,
+    "user": "dheerenmohta",
+    "created_at": "2026-09-09T10:50:11Z",
+    "closed_at": "2026-09-09T21:10:08Z",
+    "merged_at": null,
+    "base_sha": "9d762c4de94c139a212be8b6a6c3459d03f54682",
+    "head_sha": "a17223417634516fc4c75099ae023d09f30476c6",
+    "additions": 42,
+    "deletions": 8,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:helm-chart"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "chart/templates/_helpers.yaml",
+    "chart/tests/helm_tests/other/test_git_sync_scheduler.py",
+    "chart/values.schema.json",
+    "chart/values.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:07:39.868135+00:00"
+}

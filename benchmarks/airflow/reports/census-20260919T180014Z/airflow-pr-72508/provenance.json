@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72508",
+  "origin_url": "https://github.com/apache/airflow/pull/72508",
+  "repo": "apache/airflow",
+  "pr": 72508,
+  "title": "Fix Keycloak auth manager rejecting bearer tokens on Airflow 3.3+",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:44.415577+00:00"
+  },
+  "pr_meta": {
+    "number": 72508,
+    "title": "Fix Keycloak auth manager rejecting bearer tokens on Airflow 3.3+",
+    "html_url": "https://github.com/apache/airflow/pull/72508",
+    "state": "closed",
+    "merged": false,
+    "user": "greekera1000",
+    "created_at": "2026-09-04T09:15:00Z",
+    "closed_at": "2026-09-04T12:39:22Z",
+    "merged_at": null,
+    "base_sha": "b3b62fa8cf3c32cb45bb2815385a2af498300754",
+    "head_sha": "36a5d155ed787a96b479669204d1eddeab3a8297",
+    "additions": 75,
+    "deletions": 24,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:keycloak"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/keycloak/src/airflow/providers/keycloak/auth_manager/keycloak_auth_manager.py",
+    "providers/keycloak/src/airflow/providers/keycloak/auth_manager/routes/login.py",
+    "providers/keycloak/tests/unit/keycloak/auth_manager/routes/test_login.py",
+    "providers/keycloak/tests/unit/keycloak/auth_manager/test_keycloak_auth_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:10:49.464420+00:00"
+}

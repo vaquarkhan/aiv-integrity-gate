@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-72359",
+  "origin_url": "https://github.com/apache/airflow/pull/72359",
+  "repo": "apache/airflow",
+  "pr": 72359,
+  "title": "fix query for task instance retrival (#72358) ",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:18.273453+00:00"
+  },
+  "pr_meta": {
+    "number": 72359,
+    "title": "fix query for task instance retrival (#72358) ",
+    "html_url": "https://github.com/apache/airflow/pull/72359",
+    "state": "closed",
+    "merged": false,
+    "user": "PolitePp",
+    "created_at": "2026-09-01T05:20:31Z",
+    "closed_at": "2026-09-17T01:42:18Z",
+    "merged_at": null,
+    "base_sha": "ebd339fa6202a8d100c18f0fc7b21876c992e515",
+    "head_sha": "3471115289d510f8342ebb442cb8c0413d8e7318",
+    "additions": 0,
+    "deletions": 0,
+    "changed_files": 0,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "NO_FILES_MATERIALIZED.txt",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:12:38.516781+00:00"
+}

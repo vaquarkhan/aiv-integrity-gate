@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-72496",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72496",
+  "title": "Add missing tests for sftp exceptions (#72268)",
+  "pr": 72496,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:45.813256+00:00"
+  },
+  "pr_meta": {
+    "number": 72496,
+    "title": "Add missing tests for sftp exceptions (#72268)",
+    "html_url": "https://github.com/apache/airflow/pull/72496",
+    "state": "closed",
+    "merged": false,
+    "user": "KaiOnCode",
+    "created_at": "2026-09-04T01:05:04Z",
+    "closed_at": "2026-09-15T07:38:10Z",
+    "merged_at": null,
+    "base_sha": "b3b62fa8cf3c32cb45bb2815385a2af498300754",
+    "head_sha": "1c469a8952b0458d5770a488ed0b51572dbf5ff6",
+    "additions": 98,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:sftp"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72496/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72496/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-68899",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68899",
+  "title": "docs: Add momox SE to INTHEWILD.md",
+  "pr": 68899,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:20.182660+00:00"
+  },
+  "pr_meta": {
+    "number": 68899,
+    "title": "docs: Add momox SE to INTHEWILD.md",
+    "html_url": "https://github.com/apache/airflow/pull/68899",
+    "state": "closed",
+    "merged": false,
+    "user": "jose-padron-momox",
+    "created_at": "2026-06-23T12:35:11Z",
+    "closed_at": "2026-06-26T19:57:47Z",
+    "merged_at": null,
+    "base_sha": "e76193169953de0d4b7c24ebb617e4392d470a5f",
+    "head_sha": "e925c79e437f334efc1be74a6e764f79258373c8",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68899/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68899/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

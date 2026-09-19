@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72243",
+  "origin_url": "https://github.com/apache/airflow/pull/72243",
+  "repo": "apache/airflow",
+  "pr": 72243,
+  "title": "Do not fail scheduled tasks when serialized Dag is briefly missing",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:38.488104+00:00"
+  },
+  "pr_meta": {
+    "number": 72243,
+    "title": "Do not fail scheduled tasks when serialized Dag is briefly missing",
+    "html_url": "https://github.com/apache/airflow/pull/72243",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-08-29T03:30:07Z",
+    "closed_at": "2026-08-29T13:07:31Z",
+    "merged_at": null,
+    "base_sha": "82215cf97c7c96fd3cdc413be17f9692513b8374",
+    "head_sha": "b63f9f09f7ceb6423b7a80784e70b6941bc0ef88",
+    "additions": 117,
+    "deletions": 13,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/72243.bugfix.rst",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py",
+    "scripts/in_container/run_generate_constraints.py",
+    "scripts/tests/in_container/test_run_generate_constraints.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:13:59.870781+00:00"
+}

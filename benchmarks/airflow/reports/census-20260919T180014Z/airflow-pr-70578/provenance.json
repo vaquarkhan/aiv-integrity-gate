@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-70578",
+  "origin_url": "https://github.com/apache/airflow/pull/70578",
+  "repo": "apache/airflow",
+  "pr": 70578,
+  "title": "Add deadline and callback exports to `airflow.sdk` type stub",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:41.740001+00:00"
+  },
+  "pr_meta": {
+    "number": 70578,
+    "title": "Add deadline and callback exports to `airflow.sdk` type stub",
+    "html_url": "https://github.com/apache/airflow/pull/70578",
+    "state": "closed",
+    "merged": false,
+    "user": "rapsealk",
+    "created_at": "2026-07-28T08:39:46Z",
+    "closed_at": "2026-09-08T21:54:54Z",
+    "merged_at": null,
+    "base_sha": "c58a05d6e90328b32f1ff71cbf3b30839bdc9c40",
+    "head_sha": "da7a25f589a345a19b86771d7abd28e7527cccd8",
+    "additions": 6,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/src/airflow/sdk/__init__.pyi"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:37:33.640637+00:00"
+}

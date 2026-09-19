@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-68922",
+  "origin_url": "https://github.com/apache/airflow/pull/68922",
+  "repo": "apache/airflow",
+  "pr": 68922,
+  "title": "Resume a paused Redshift cluster before deleting it",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:06.145531+00:00"
+  },
+  "pr_meta": {
+    "number": 68922,
+    "title": "Resume a paused Redshift cluster before deleting it",
+    "html_url": "https://github.com/apache/airflow/pull/68922",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-06-23T23:23:59Z",
+    "closed_at": "2026-07-02T22:11:21Z",
+    "merged_at": null,
+    "base_sha": "37d8acbd5a738977de904ccafeff8c38081e6a5f",
+    "head_sha": "bb0930cc09157b4c2adc264f12cb98af69c34adf",
+    "additions": 157,
+    "deletions": 0,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/redshift_cluster.py",
+    "providers/amazon/tests/system/amazon/aws/example_redshift.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_redshift_cluster.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:05:24.452932+00:00"
+}

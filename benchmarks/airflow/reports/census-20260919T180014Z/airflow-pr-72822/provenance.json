@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-72822",
+  "origin_url": "https://github.com/apache/airflow/pull/72822",
+  "repo": "apache/airflow",
+  "pr": 72822,
+  "title": "UI: Fix Grid view for bidirectional TaskGroup dependencies",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:34.650684+00:00"
+  },
+  "pr_meta": {
+    "number": 72822,
+    "title": "UI: Fix Grid view for bidirectional TaskGroup dependencies",
+    "html_url": "https://github.com/apache/airflow/pull/72822",
+    "state": "closed",
+    "merged": false,
+    "user": "dheerajturaga",
+    "created_at": "2026-09-09T16:20:19Z",
+    "closed_at": "2026-09-14T20:46:55Z",
+    "merged_at": null,
+    "base_sha": "ff839573e94f0c564680b15d1ff1bc87d0200728",
+    "head_sha": "29d7f3548b107ae6c2bb2a571f8c480d2ad84d0d",
+    "additions": 236,
+    "deletions": 13,
+    "changed_files": 6,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:DAG-processing",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/serialization/definitions/taskgroup.py",
+    "airflow-core/tests/unit/serialization/definitions/test_taskgroup.py",
+    "shared/dagnode/src/airflow_shared/dagnode/node.py",
+    "shared/dagnode/tests/dagnode/test_node.py",
+    "task-sdk/src/airflow/sdk/definitions/taskgroup.py",
+    "task-sdk/tests/task_sdk/definitions/test_taskgroup.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:07:27.054894+00:00"
+}

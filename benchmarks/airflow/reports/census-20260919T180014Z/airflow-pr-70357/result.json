@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-70357",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70357",
+  "title": "Move template field validation out of __init__ for Papermill operator (#70296)",
+  "pr": 70357,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:22.751395+00:00"
+  },
+  "pr_meta": {
+    "number": 70357,
+    "title": "Move template field validation out of __init__ for Papermill operator (#70296)",
+    "html_url": "https://github.com/apache/airflow/pull/70357",
+    "state": "closed",
+    "merged": false,
+    "user": "AmoghAtreya",
+    "created_at": "2026-07-24T05:16:27Z",
+    "closed_at": "2026-07-26T09:08:10Z",
+    "merged_at": null,
+    "base_sha": "9b72aed307d250a138ad08c6c13a3562edba7a40",
+    "head_sha": "3db70c4ffe7b956e324cf9ba226151fe6f61e995",
+    "additions": 7,
+    "deletions": 11,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:dev-tools",
+      "provider:papermill",
+      "provider:cohere"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70357/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70357/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

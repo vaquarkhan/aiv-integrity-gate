@@ -1,0 +1,48 @@
+{
+  "case_id": "airflow-pr-69147",
+  "origin_url": "https://github.com/apache/airflow/pull/69147",
+  "repo": "apache/airflow",
+  "pr": 69147,
+  "title": "Add input validation to ExecutorConfigType bind and result processors",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:18.617876+00:00"
+  },
+  "pr_meta": {
+    "number": 69147,
+    "title": "Add input validation to ExecutorConfigType bind and result processors",
+    "html_url": "https://github.com/apache/airflow/pull/69147",
+    "state": "closed",
+    "merged": false,
+    "user": "Atharva2012",
+    "created_at": "2026-06-30T01:30:51Z",
+    "closed_at": "2026-07-01T22:23:05Z",
+    "merged_at": null,
+    "base_sha": "bfd7689273d61dc9ed9b7fc3086e29e7abbd528c",
+    "head_sha": "991a9ca2664fb021b016a76e3461e37bc1509e2e",
+    "additions": 50,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/utils/sqlalchemy.py",
+    "airflow-core/tests/unit/utils/test_sqlalchemy.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:02:13.493159+00:00"
+}

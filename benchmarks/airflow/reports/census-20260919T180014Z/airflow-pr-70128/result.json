@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-70128",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70128",
+  "title": "Fix deadlock when concurrent tasks queue the same asset's downstream dags",
+  "pr": 70128,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:31.448932+00:00"
+  },
+  "pr_meta": {
+    "number": 70128,
+    "title": "Fix deadlock when concurrent tasks queue the same asset's downstream dags",
+    "html_url": "https://github.com/apache/airflow/pull/70128",
+    "state": "closed",
+    "merged": false,
+    "user": "Andrushika",
+    "created_at": "2026-07-20T13:06:40Z",
+    "closed_at": "2026-08-07T04:47:14Z",
+    "merged_at": null,
+    "base_sha": "424c4a73cabb8d495bf85a41b83b7eeffc52b1b6",
+    "head_sha": "e0a33e6ba4530a48fe206a9f4aa56a0ebc346471",
+    "additions": 53,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70128/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70128/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

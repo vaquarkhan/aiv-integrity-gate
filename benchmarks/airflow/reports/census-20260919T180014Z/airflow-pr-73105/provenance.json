@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-73105",
+  "origin_url": "https://github.com/apache/airflow/pull/73105",
+  "repo": "apache/airflow",
+  "pr": 73105,
+  "title": "Fix airflow dags list-jobs --limit to reject non-numeric values",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:05.059684+00:00"
+  },
+  "pr_meta": {
+    "number": 73105,
+    "title": "Fix airflow dags list-jobs --limit to reject non-numeric values",
+    "html_url": "https://github.com/apache/airflow/pull/73105",
+    "state": "closed",
+    "merged": false,
+    "user": "roykoand",
+    "created_at": "2026-09-13T20:23:09Z",
+    "closed_at": "2026-09-15T18:16:23Z",
+    "merged_at": null,
+    "base_sha": "65eb086f40c1e95f848998dcbd1fa573387c06c9",
+    "head_sha": "7c0c026897910e010faecb6d1c50ed933c7b2ce6",
+    "additions": 7,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:CLI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/cli/cli_config.py",
+    "airflow-core/tests/unit/cli/commands/test_dag_command.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:02:14.635157+00:00"
+}

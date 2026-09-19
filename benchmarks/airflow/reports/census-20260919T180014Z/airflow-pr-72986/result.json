@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-72986",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72986",
+  "title": "Add unit tests for the FAB app-init extensions",
+  "pr": 72986,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:37.967829+00:00"
+  },
+  "pr_meta": {
+    "number": 72986,
+    "title": "Add unit tests for the FAB app-init extensions",
+    "html_url": "https://github.com/apache/airflow/pull/72986",
+    "state": "closed",
+    "merged": false,
+    "user": "ShousenZHANG",
+    "created_at": "2026-09-11T16:47:47Z",
+    "closed_at": "2026-09-11T17:48:45Z",
+    "merged_at": null,
+    "base_sha": "2309d05a24ca91baf333899afc0cfdb7f5ac67c4",
+    "head_sha": "358731b0d372cf715245ec395f307923ac3da044",
+    "additions": 535,
+    "deletions": 5,
+    "changed_files": 7,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:fab"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72986/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72986/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

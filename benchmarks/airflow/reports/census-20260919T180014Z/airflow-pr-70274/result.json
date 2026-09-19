@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-70274",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70274",
+  "title": "Retry KubernetesPodOperator pod launch when preempted before it starts",
+  "pr": 70274,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:42.878772+00:00"
+  },
+  "pr_meta": {
+    "number": 70274,
+    "title": "Retry KubernetesPodOperator pod launch when preempted before it starts",
+    "html_url": "https://github.com/apache/airflow/pull/70274",
+    "state": "closed",
+    "merged": false,
+    "user": "imrichardwu",
+    "created_at": "2026-07-23T05:56:12Z",
+    "closed_at": "2026-09-11T03:29:08Z",
+    "merged_at": null,
+    "base_sha": "987f9c08a89b45204d7ea8444c576f1074c33e45",
+    "head_sha": "987f9c08a89b45204d7ea8444c576f1074c33e45",
+    "additions": 0,
+    "deletions": 0,
+    "changed_files": 0,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70274/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70274/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

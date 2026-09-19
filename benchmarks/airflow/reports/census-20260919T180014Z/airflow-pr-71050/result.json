@@ -1,0 +1,83 @@
+{
+  "id": "airflow-pr-71050",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71050",
+  "title": "AIP-115 Add on-demand task sections using skipped tasks",
+  "pr": 71050,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:02.351207+00:00"
+  },
+  "pr_meta": {
+    "number": 71050,
+    "title": "AIP-115 Add on-demand task sections using skipped tasks",
+    "html_url": "https://github.com/apache/airflow/pull/71050",
+    "state": "closed",
+    "merged": false,
+    "user": "dheerajturaga",
+    "created_at": "2026-08-04T02:49:49Z",
+    "closed_at": "2026-09-12T22:17:11Z",
+    "merged_at": null,
+    "base_sha": "381339d5e7f5f92bc751c934fdfce0e4411b5f26",
+    "head_sha": "2406b2e72780d365c7de16aed140450f8747f473",
+    "additions": 1632,
+    "deletions": 19,
+    "changed_files": 30,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:providers",
+      "area:API",
+      "kind:documentation",
+      "area:UI",
+      "provider:standard",
+      "area:airflow-ctl",
+      "area:translations",
+      "translation:default",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71050/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71050/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

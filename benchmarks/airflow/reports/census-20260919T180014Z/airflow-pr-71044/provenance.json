@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-71044",
+  "origin_url": "https://github.com/apache/airflow/pull/71044",
+  "repo": "apache/airflow",
+  "pr": 71044,
+  "title": "UI: Translate prevent rerun option",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:04.406890+00:00"
+  },
+  "pr_meta": {
+    "number": 71044,
+    "title": "UI: Translate prevent rerun option",
+    "html_url": "https://github.com/apache/airflow/pull/71044",
+    "state": "closed",
+    "merged": false,
+    "user": "maithilijoshi20",
+    "created_at": "2026-08-04T01:42:43Z",
+    "closed_at": "2026-08-04T20:58:49Z",
+    "merged_at": null,
+    "base_sha": "bbb3c0661094ceeec1e549f5d6aa8b0de741b9cc",
+    "head_sha": "bd37080c039b79c6bb93d4dccd097e202ed60e8c",
+    "additions": 2,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI",
+      "area:translations",
+      "translation:it",
+      "translation:th"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/public/i18n/locales/it/dags.json",
+    "airflow-core/src/airflow/ui/public/i18n/locales/th/dags.json"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:29:38.327856+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73058",
+  "origin_url": "https://github.com/apache/airflow/pull/73058",
+  "repo": "apache/airflow",
+  "pr": 73058,
+  "title": "Fix AgentOperator HITL review converting str output to other types",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:19.133849+00:00"
+  },
+  "pr_meta": {
+    "number": 73058,
+    "title": "Fix AgentOperator HITL review converting str output to other types",
+    "html_url": "https://github.com/apache/airflow/pull/73058",
+    "state": "closed",
+    "merged": false,
+    "user": "justinpakzad",
+    "created_at": "2026-09-13T03:33:24Z",
+    "closed_at": "2026-09-14T01:39:15Z",
+    "merged_at": null,
+    "base_sha": "81b93db4a2f6da3d4e56a337f0f0b84fb2f1b029",
+    "head_sha": "386eea14809e286cc421b5e1113b74040bf71936",
+    "additions": 7,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:common-ai"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/common/ai/src/airflow/providers/common/ai/operators/agent.py",
+    "providers/common/ai/tests/unit/common/ai/operators/test_agent.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:02:56.438494+00:00"
+}

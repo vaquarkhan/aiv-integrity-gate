@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70629",
+  "origin_url": "https://github.com/apache/airflow/pull/70629",
+  "repo": "apache/airflow",
+  "pr": 70629,
+  "title": "fix(api): scope NULL branch in NullableDatetimeRangeFilter for start_date lower bounds [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:29.645725+00:00"
+  },
+  "pr_meta": {
+    "number": 70629,
+    "title": "fix(api): scope NULL branch in NullableDatetimeRangeFilter for start_date lower bounds [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+    "html_url": "https://github.com/apache/airflow/pull/70629",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-07-28T15:20:39Z",
+    "closed_at": "2026-08-11T21:13:32Z",
+    "merged_at": null,
+    "base_sha": "87ac18b0b9457d53795585882572a09994438a69",
+    "head_sha": "e78571b9c5be1fcd1ecc78ff678f79c2db710e69",
+    "additions": 38,
+    "deletions": 7,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/common/parameters.py",
+    "airflow-core/tests/unit/api_fastapi/common/test_parameters.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:36:44.634495+00:00"
+}

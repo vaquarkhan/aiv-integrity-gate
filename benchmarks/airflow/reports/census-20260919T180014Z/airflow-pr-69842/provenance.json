@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69842",
+  "origin_url": "https://github.com/apache/airflow/pull/69842",
+  "repo": "apache/airflow",
+  "pr": 69842,
+  "title": "Keep triggerer alive when deferred tasks disappear",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:10.305456+00:00"
+  },
+  "pr_meta": {
+    "number": 69842,
+    "title": "Keep triggerer alive when deferred tasks disappear",
+    "html_url": "https://github.com/apache/airflow/pull/69842",
+    "state": "closed",
+    "merged": false,
+    "user": "idan192",
+    "created_at": "2026-07-14T00:58:06Z",
+    "closed_at": "2026-07-17T07:53:45Z",
+    "merged_at": null,
+    "base_sha": "2e511e6b7eea3865cd91d639ce49e795cb8082ce",
+    "head_sha": "f1e5967c3a358f98f32ca7e6cfc6af83ca176b4c",
+    "additions": 162,
+    "deletions": 2,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:Triggerer"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/69842.bugfix.rst",
+    "airflow-core/src/airflow/jobs/triggerer_job_runner.py",
+    "airflow-core/tests/unit/jobs/test_triggerer_job.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:50:21.210097+00:00"
+}

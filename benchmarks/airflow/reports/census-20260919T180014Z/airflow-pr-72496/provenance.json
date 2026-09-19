@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72496",
+  "origin_url": "https://github.com/apache/airflow/pull/72496",
+  "repo": "apache/airflow",
+  "pr": 72496,
+  "title": "Add missing tests for sftp exceptions (#72268)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:45.813256+00:00"
+  },
+  "pr_meta": {
+    "number": 72496,
+    "title": "Add missing tests for sftp exceptions (#72268)",
+    "html_url": "https://github.com/apache/airflow/pull/72496",
+    "state": "closed",
+    "merged": false,
+    "user": "KaiOnCode",
+    "created_at": "2026-09-04T01:05:04Z",
+    "closed_at": "2026-09-15T07:38:10Z",
+    "merged_at": null,
+    "base_sha": "b3b62fa8cf3c32cb45bb2815385a2af498300754",
+    "head_sha": "1c469a8952b0458d5770a488ed0b51572dbf5ff6",
+    "additions": 98,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:sftp"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/always/test_project_structure.py",
+    "providers/sftp/tests/unit/sftp/test_exceptions.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:10:55.297363+00:00"
+}

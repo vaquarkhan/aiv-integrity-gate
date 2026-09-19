@@ -1,0 +1,82 @@
+{
+  "id": "airflow-pr-72078",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72078",
+  "title": "Support Anthropic SDK 1.x in Anthropic provider",
+  "pr": 72078,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:15.927680+00:00"
+  },
+  "pr_meta": {
+    "number": 72078,
+    "title": "Support Anthropic SDK 1.x in Anthropic provider",
+    "html_url": "https://github.com/apache/airflow/pull/72078",
+    "state": "closed",
+    "merged": false,
+    "user": "ytoprakc",
+    "created_at": "2026-08-25T21:04:44Z",
+    "closed_at": "2026-08-26T13:56:58Z",
+    "merged_at": null,
+    "base_sha": "cd464f25c807f635a2504d8ae3ae24f2b18d63bd",
+    "head_sha": "86c5d3c206836388e96b634e178fdb65e3b69605",
+    "additions": 48,
+    "deletions": 46,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools",
+      "kind:documentation",
+      "area:production-image",
+      "backport-to-v3-3-test",
+      "provider:anthropic",
+      "area:e2e-tests"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72078/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72078/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

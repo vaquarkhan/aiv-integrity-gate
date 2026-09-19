@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-70641",
+  "origin_url": "https://github.com/apache/airflow/pull/70641",
+  "repo": "apache/airflow",
+  "pr": 70641,
+  "title": "Drop connection headers on cross-host redirect in HttpAsyncHook (#70164)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:23.846539+00:00"
+  },
+  "pr_meta": {
+    "number": 70641,
+    "title": "Drop connection headers on cross-host redirect in HttpAsyncHook (#70164)",
+    "html_url": "https://github.com/apache/airflow/pull/70641",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-07-28T19:32:59Z",
+    "closed_at": "2026-08-11T21:25:06Z",
+    "merged_at": null,
+    "base_sha": "c6449eb429fd045037644dbc42986875fccec1f6",
+    "head_sha": "a7b46797a186fbae16070c191e4577e50660c431",
+    "additions": 109,
+    "deletions": 10,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:http",
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "devel-common/src/tests_common/test_utils/aiohttp.py",
+    "providers/http/src/airflow/providers/http/hooks/http.py",
+    "providers/http/tests/unit/http/hooks/test_http.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:36:28.866457+00:00"
+}

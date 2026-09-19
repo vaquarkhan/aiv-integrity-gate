@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-71742",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71742",
+  "title": "Ignore the magpie snapshot symlink in git worktrees",
+  "pr": 71742,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:22.978019+00:00"
+  },
+  "pr_meta": {
+    "number": 71742,
+    "title": "Ignore the magpie snapshot symlink in git worktrees",
+    "html_url": "https://github.com/apache/airflow/pull/71742",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-08-17T22:45:29Z",
+    "closed_at": "2026-09-08T14:42:17Z",
+    "merged_at": null,
+    "base_sha": "eaf5fc19ce7f799993f9e18fe5090a5718487e73",
+    "head_sha": "70bb34a957d962be64e3cb7a2719c423274f7011",
+    "additions": 6,
+    "deletions": 2,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71742/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71742/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

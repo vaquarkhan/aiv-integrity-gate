@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-71372",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71372",
+  "title": "fix(kubernetes): do not fail task when xcom sidecar kill fails after successful XCom read",
+  "pr": 71372,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:46.934213+00:00"
+  },
+  "pr_meta": {
+    "number": 71372,
+    "title": "fix(kubernetes): do not fail task when xcom sidecar kill fails after successful XCom read",
+    "html_url": "https://github.com/apache/airflow/pull/71372",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-10T11:49:14Z",
+    "closed_at": "2026-08-11T21:24:46Z",
+    "merged_at": null,
+    "base_sha": "7cdb9ad47aff1168a6de06363066184dd029d8b9",
+    "head_sha": "717eed99788db69d8e06e52147477828a45f4895",
+    "additions": 30,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes",
+      "AI Spam"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71372/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71372/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

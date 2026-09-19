@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-72703",
+  "origin_url": "https://github.com/apache/airflow/pull/72703",
+  "repo": "apache/airflow",
+  "pr": 72703,
+  "title": "Fix td_format rendering negative durations as large positive ones",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:57.852022+00:00"
+  },
+  "pr_meta": {
+    "number": 72703,
+    "title": "Fix td_format rendering negative durations as large positive ones",
+    "html_url": "https://github.com/apache/airflow/pull/72703",
+    "state": "closed",
+    "merged": false,
+    "user": "CaptainAni187",
+    "created_at": "2026-09-08T12:04:23Z",
+    "closed_at": "2026-09-09T15:58:21Z",
+    "merged_at": null,
+    "base_sha": "c9a62d2f835792473ed538bb59fdfaf60b3fa97d",
+    "head_sha": "52db5de90568b07290495499afae3f4c03ddcdb1",
+    "additions": 32,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/72703.bugfix.rst",
+    "shared/timezones/src/airflow_shared/timezones/timezone.py",
+    "shared/timezones/tests/timezones/test_timezone.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:08:35.093899+00:00"
+}

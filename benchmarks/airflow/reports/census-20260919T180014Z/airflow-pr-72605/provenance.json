@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72605",
+  "origin_url": "https://github.com/apache/airflow/pull/72605",
+  "repo": "apache/airflow",
+  "pr": 72605,
+  "title": "Add tests for sftp ConnectionNotOpenedException",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:12.251888+00:00"
+  },
+  "pr_meta": {
+    "number": 72605,
+    "title": "Add tests for sftp ConnectionNotOpenedException",
+    "html_url": "https://github.com/apache/airflow/pull/72605",
+    "state": "closed",
+    "merged": false,
+    "user": "itz-puneet",
+    "created_at": "2026-09-06T22:32:50Z",
+    "closed_at": "2026-09-18T16:02:06Z",
+    "merged_at": null,
+    "base_sha": "a29f0dadcf35ab2122e6ed18012d8abba5f9463f",
+    "head_sha": "cfd5a59f016566d5fbd0b5603df11c61fb7aba99",
+    "additions": 111,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:sftp"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/always/test_project_structure.py",
+    "providers/sftp/tests/unit/sftp/test_exceptions.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:09:06.414274+00:00"
+}

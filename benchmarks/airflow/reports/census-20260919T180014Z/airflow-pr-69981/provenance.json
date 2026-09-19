@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-69981",
+  "origin_url": "https://github.com/apache/airflow/pull/69981",
+  "repo": "apache/airflow",
+  "pr": 69981,
+  "title": "Standardize task run state conflict error response",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:25.821479+00:00"
+  },
+  "pr_meta": {
+    "number": 69981,
+    "title": "Standardize task run state conflict error response",
+    "html_url": "https://github.com/apache/airflow/pull/69981",
+    "state": "closed",
+    "merged": false,
+    "user": "fat-catTW",
+    "created_at": "2026-07-16T17:59:31Z",
+    "closed_at": "2026-07-21T18:02:55Z",
+    "merged_at": null,
+    "base_sha": "d6246920c30520e0d78319a4f74a76f35058ee93",
+    "head_sha": "0a2126d4986bcd8946f03e2e5e00829424f49ccb",
+    "additions": 188,
+    "deletions": 41,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/task_instances.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/versions/__init__.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/versions/v2026_08_10.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/v2026_08_10/test_task_instances.py",
+    "task-sdk/src/airflow/sdk/api/client.py",
+    "task-sdk/src/airflow/sdk/api/datamodels/_generated.py",
+    "task-sdk/tests/task_sdk/api/test_client.py",
+    "task-sdk/tests/task_sdk/execution_time/test_supervisor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:47:58.615895+00:00"
+}

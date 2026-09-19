@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-68826",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68826",
+  "title": "Restore FastAPI 0.137 support in the Task Execution API",
+  "pr": 68826,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:48.857859+00:00"
+  },
+  "pr_meta": {
+    "number": 68826,
+    "title": "Restore FastAPI 0.137 support in the Task Execution API",
+    "html_url": "https://github.com/apache/airflow/pull/68826",
+    "state": "closed",
+    "merged": false,
+    "user": "Revanth14",
+    "created_at": "2026-06-22T07:28:22Z",
+    "closed_at": "2026-07-11T15:47:04Z",
+    "merged_at": null,
+    "base_sha": "a527de7aba64c0b8f99c6ed988d3d7d2f82e43c7",
+    "head_sha": "f434abd5e3371aac0997119bd70d87829256c680",
+    "additions": 74,
+    "deletions": 79,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68826/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68826/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

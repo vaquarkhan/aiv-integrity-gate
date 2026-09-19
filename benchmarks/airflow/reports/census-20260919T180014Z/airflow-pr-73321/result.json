@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-73321",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73321",
+  "title": "Added Insignis to the list of companies using Apache Airflow",
+  "pr": 73321,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:39.384675+00:00"
+  },
+  "pr_meta": {
+    "number": 73321,
+    "title": "Added Insignis to the list of companies using Apache Airflow",
+    "html_url": "https://github.com/apache/airflow/pull/73321",
+    "state": "closed",
+    "merged": true,
+    "user": "anisengupta",
+    "created_at": "2026-09-18T11:02:52Z",
+    "closed_at": "2026-09-18T15:41:28Z",
+    "merged_at": "2026-09-18T15:41:28Z",
+    "base_sha": "9556dcf25b329a17a7a696648fabd3f716ef4501",
+    "head_sha": "bcd5461785981f79c4235bf43b9d9c559cb1ab64",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73321/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73321/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

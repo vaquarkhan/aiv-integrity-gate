@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72955",
+  "origin_url": "https://github.com/apache/airflow/pull/72955",
+  "repo": "apache/airflow",
+  "pr": 72955,
+  "title": "Add unit tests for the Dataprep links",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:20.850244+00:00"
+  },
+  "pr_meta": {
+    "number": 72955,
+    "title": "Add unit tests for the Dataprep links",
+    "html_url": "https://github.com/apache/airflow/pull/72955",
+    "state": "closed",
+    "merged": false,
+    "user": "ShousenZHANG",
+    "created_at": "2026-09-11T13:57:23Z",
+    "closed_at": "2026-09-11T15:12:19Z",
+    "merged_at": null,
+    "base_sha": "d076a57dcb24303c69d8505ea4816417003ffb34",
+    "head_sha": "eaa60369a601eb7b10719cd980081fbefe6e8032",
+    "additions": 95,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "AI Spam",
+      "closed because of multiple quality violations"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/always/test_project_structure.py",
+    "providers/google/tests/unit/google/cloud/links/test_dataprep.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:06:31.832082+00:00"
+}

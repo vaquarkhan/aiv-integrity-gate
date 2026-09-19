@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-69923",
+  "origin_url": "https://github.com/apache/airflow/pull/69923",
+  "repo": "apache/airflow",
+  "pr": 69923,
+  "title": "Go SDK: Shut down Edge Workers gracefully on SIGTERM",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:46.991366+00:00"
+  },
+  "pr_meta": {
+    "number": 69923,
+    "title": "Go SDK: Shut down Edge Workers gracefully on SIGTERM",
+    "html_url": "https://github.com/apache/airflow/pull/69923",
+    "state": "closed",
+    "merged": false,
+    "user": "viiccwen",
+    "created_at": "2026-07-15T14:05:01Z",
+    "closed_at": "2026-08-20T13:23:41Z",
+    "merged_at": null,
+    "base_sha": "97fc3f8d81456a4b1ac2376d0bbb2c2507de777b",
+    "head_sha": "0bff3ec3a419eb9ca77ed1e6c574a4f36836bcf4",
+    "additions": 78,
+    "deletions": 6,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/edge/worker.go",
+    "go-sdk/edge/worker_test.go"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:49:01.600148+00:00"
+}

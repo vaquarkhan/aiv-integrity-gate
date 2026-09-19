@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-72751",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72751",
+  "title": "[v3-3-test] Fix ExternalTaskSensor example Dag never finding its parent task (#72480)",
+  "pr": 72751,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:42.206005+00:00"
+  },
+  "pr_meta": {
+    "number": 72751,
+    "title": "[v3-3-test] Fix ExternalTaskSensor example Dag never finding its parent task (#72480)",
+    "html_url": "https://github.com/apache/airflow/pull/72751",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-08T22:33:45Z",
+    "closed_at": "2026-09-10T12:50:00Z",
+    "merged_at": null,
+    "base_sha": "87d6f4110b7065b77992a6f569dbfe585bb68946",
+    "head_sha": "823b5407f455bd1f481a116375fca0c806851f77",
+    "additions": 9,
+    "deletions": 2,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72751/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72751/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

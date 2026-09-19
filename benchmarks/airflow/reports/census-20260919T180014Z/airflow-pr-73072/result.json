@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-73072",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73072",
+  "title": "[v3-3-test] Clarify that AccessView.JOBS is the Edge worker management permission (#72627)",
+  "pr": 73072,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:11.293305+00:00"
+  },
+  "pr_meta": {
+    "number": 73072,
+    "title": "[v3-3-test] Clarify that AccessView.JOBS is the Edge worker management permission (#72627)",
+    "html_url": "https://github.com/apache/airflow/pull/73072",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-13T10:14:48Z",
+    "closed_at": "2026-09-13T10:16:50Z",
+    "merged_at": null,
+    "base_sha": "74a733fdc81c32d1740d81ed260b722cf3af7174",
+    "head_sha": "91733f3ff74aff02c4e4d4e5c4e2a83998265aad",
+    "additions": 20,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:edge"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73072/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73072/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

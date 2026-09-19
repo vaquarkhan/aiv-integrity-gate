@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70769",
+  "origin_url": "https://github.com/apache/airflow/pull/70769",
+  "repo": "apache/airflow",
+  "pr": 70769,
+  "title": "Update/Fix: fix-70296-triggerdagrun",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:55.198472+00:00"
+  },
+  "pr_meta": {
+    "number": 70769,
+    "title": "Update/Fix: fix-70296-triggerdagrun",
+    "html_url": "https://github.com/apache/airflow/pull/70769",
+    "state": "closed",
+    "merged": false,
+    "user": "saitejabandaru-in",
+    "created_at": "2026-07-30T13:11:42Z",
+    "closed_at": "2026-07-30T13:54:26Z",
+    "merged_at": null,
+    "base_sha": "f0d50bdb17868b52c733e16b40a7af2f4276fc0d",
+    "head_sha": "d157b1ccb48c907543e5494a5b5f40c08f56f452",
+    "additions": 13,
+    "deletions": 34,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/operators/trigger_dagrun.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:34:51.119809+00:00"
+}

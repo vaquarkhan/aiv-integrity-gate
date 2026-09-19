@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69175",
+  "origin_url": "https://github.com/apache/airflow/pull/69175",
+  "repo": "apache/airflow",
+  "pr": 69175,
+  "title": "Check producer/consumer Dag run permissions in create_asset_event",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:06.100457+00:00"
+  },
+  "pr_meta": {
+    "number": 69175,
+    "title": "Check producer/consumer Dag run permissions in create_asset_event",
+    "html_url": "https://github.com/apache/airflow/pull/69175",
+    "state": "closed",
+    "merged": false,
+    "user": "darshil929",
+    "created_at": "2026-06-30T10:49:43Z",
+    "closed_at": "2026-06-30T19:15:31Z",
+    "merged_at": null,
+    "base_sha": "08ccc89ecd6576635e3177cee00eab9f8626cb35",
+    "head_sha": "80011254856c396bbda7c5b88ef6182d34436536",
+    "additions": 215,
+    "deletions": 21,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:API"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/69175.bugfix.rst",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/public/assets.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_assets.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:01:31.905548+00:00"
+}

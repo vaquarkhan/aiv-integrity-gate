@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-69706",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69706",
+  "title": "Bump flask-appbuilder to 5.2.2",
+  "pr": 69706,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:54.157950+00:00"
+  },
+  "pr_meta": {
+    "number": 69706,
+    "title": "Bump flask-appbuilder to 5.2.2",
+    "html_url": "https://github.com/apache/airflow/pull/69706",
+    "state": "closed",
+    "merged": false,
+    "user": "shahar1",
+    "created_at": "2026-07-10T13:42:16Z",
+    "closed_at": "2026-07-11T05:02:37Z",
+    "merged_at": null,
+    "base_sha": "211d93db1b485c247f01d0127d2e26e8dcc156a3",
+    "head_sha": "e6dd4ddd63ed0c953ab6cc792893a9e42804bf10",
+    "additions": 8,
+    "deletions": 8,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:fab"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69706/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69706/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

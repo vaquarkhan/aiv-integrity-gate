@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70632",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70632",
+  "title": "fix: update template fields",
+  "pr": 70632,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:27.466666+00:00"
+  },
+  "pr_meta": {
+    "number": 70632,
+    "title": "fix: update template fields",
+    "html_url": "https://github.com/apache/airflow/pull/70632",
+    "state": "closed",
+    "merged": false,
+    "user": "osintalex",
+    "created_at": "2026-07-28T16:21:22Z",
+    "closed_at": "2026-07-28T18:23:42Z",
+    "merged_at": null,
+    "base_sha": "6575b3fdc4e60432e60f56cc6c46091f33f8a8eb",
+    "head_sha": "39a503d401ae2618715a4b4c706beb327320bb8e",
+    "additions": 12,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70632/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70632/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

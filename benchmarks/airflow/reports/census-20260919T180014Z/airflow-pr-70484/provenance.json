@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-70484",
+  "origin_url": "https://github.com/apache/airflow/pull/70484",
+  "repo": "apache/airflow",
+  "pr": 70484,
+  "title": "Check GCSToS3Operator match_glob support after template rendering",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:16.007681+00:00"
+  },
+  "pr_meta": {
+    "number": 70484,
+    "title": "Check GCSToS3Operator match_glob support after template rendering",
+    "html_url": "https://github.com/apache/airflow/pull/70484",
+    "state": "closed",
+    "merged": false,
+    "user": "mitre88",
+    "created_at": "2026-07-27T00:15:20Z",
+    "closed_at": "2026-07-27T01:59:30Z",
+    "merged_at": null,
+    "base_sha": "c4a5f19e67cd25143cc000d6ae0255e13c142b95",
+    "head_sha": "458657d6696781214c824760618ad18be7548b5a",
+    "additions": 18,
+    "deletions": 5,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/transfers/gcs_to_s3.py",
+    "providers/amazon/tests/unit/amazon/aws/transfers/test_gcs_to_s3.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:38:37.312063+00:00"
+}

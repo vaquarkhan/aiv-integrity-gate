@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-70901",
+  "origin_url": "https://github.com/apache/airflow/pull/70901",
+  "repo": "apache/airflow",
+  "pr": 70901,
+  "title": "Flag `execute_tasks_new_python_interpreter` as Edge-only in docs and lint",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:53.811591+00:00"
+  },
+  "pr_meta": {
+    "number": 70901,
+    "title": "Flag `execute_tasks_new_python_interpreter` as Edge-only in docs and lint",
+    "html_url": "https://github.com/apache/airflow/pull/70901",
+    "state": "closed",
+    "merged": false,
+    "user": "ignacioparicio",
+    "created_at": "2026-08-01T12:37:13Z",
+    "closed_at": "2026-09-19T10:34:21Z",
+    "merged_at": null,
+    "base_sha": "415cb70f87784cc074d6db7844a07579587b5f0f",
+    "head_sha": "02e11dcb5fa319373939f8cfa32d1baca0a57f39",
+    "additions": 42,
+    "deletions": 3,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:CLI",
+      "area:plugins",
+      "kind:documentation",
+      "area:ConfigTemplates"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/administration-and-deployment/plugins.rst",
+    "airflow-core/src/airflow/cli/commands/config_command.py",
+    "airflow-core/src/airflow/config_templates/config.yml",
+    "airflow-core/tests/unit/cli/commands/test_config_command.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:32:41.133263+00:00"
+}

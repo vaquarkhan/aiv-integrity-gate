@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-69114",
+  "origin_url": "https://github.com/apache/airflow/pull/69114",
+  "repo": "apache/airflow",
+  "pr": 69114,
+  "title": "Fix UI overlap in XCom/TaskStateStore tables and Details panel",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:23.720699+00:00"
+  },
+  "pr_meta": {
+    "number": 69114,
+    "title": "Fix UI overlap in XCom/TaskStateStore tables and Details panel",
+    "html_url": "https://github.com/apache/airflow/pull/69114",
+    "state": "closed",
+    "merged": false,
+    "user": "Dotify71",
+    "created_at": "2026-06-29T06:59:41Z",
+    "closed_at": "2026-07-02T11:38:43Z",
+    "merged_at": null,
+    "base_sha": "55cdf67cdb2a5a908aac076de092e031aa12b500",
+    "head_sha": "320aa83edcaab458213b8950f16f1098c9c16756",
+    "additions": 1,
+    "deletions": 3,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/layouts/Details/DetailsLayout.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:02:34.696347+00:00"
+}

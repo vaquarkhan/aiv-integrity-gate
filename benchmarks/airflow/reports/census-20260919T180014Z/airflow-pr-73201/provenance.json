@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-73201",
+  "origin_url": "https://github.com/apache/airflow/pull/73201",
+  "repo": "apache/airflow",
+  "pr": 73201,
+  "title": "Downgrade \"XCom not found\" log to warning in Task SDK client",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:49.264796+00:00"
+  },
+  "pr_meta": {
+    "number": 73201,
+    "title": "Downgrade \"XCom not found\" log to warning in Task SDK client",
+    "html_url": "https://github.com/apache/airflow/pull/73201",
+    "state": "closed",
+    "merged": false,
+    "user": "robertorobles",
+    "created_at": "2026-09-15T16:12:04Z",
+    "closed_at": "2026-09-15T16:39:41Z",
+    "merged_at": null,
+    "base_sha": "8e283dcb3ac323745ac0d700a1e23b8cf4f64689",
+    "head_sha": "16a909548f020a70904dd96673a599f7ea37ee23",
+    "additions": 2,
+    "deletions": 2,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/src/airflow/sdk/api/client.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:01:12.079923+00:00"
+}

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73106",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73106",
+  "title": "Retry KubernetesPodOperator pod-status reads on a transient 404",
+  "pr": 73106,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:03.654613+00:00"
+  },
+  "pr_meta": {
+    "number": 73106,
+    "title": "Retry KubernetesPodOperator pod-status reads on a transient 404",
+    "html_url": "https://github.com/apache/airflow/pull/73106",
+    "state": "closed",
+    "merged": false,
+    "user": "hitenshKharva",
+    "created_at": "2026-09-13T21:01:42Z",
+    "closed_at": "2026-09-13T21:29:23Z",
+    "merged_at": null,
+    "base_sha": "65eb086f40c1e95f848998dcbd1fa573387c06c9",
+    "head_sha": "06b5abf97b624b77f746caf7ad3c473df4b14c7c",
+    "additions": 116,
+    "deletions": 9,
+    "changed_files": 8,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73106/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73106/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}
