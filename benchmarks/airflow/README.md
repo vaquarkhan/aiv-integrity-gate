@@ -1,63 +1,56 @@
 # Airflow AIV benchmark
 
-Labeled corpus and runner for measuring AIV precision/recall against **Apache Airflow** PRs, using the fork [`vaquarkhan/airflow`](https://github.com/vaquarkhan/airflow).
+End-to-end, third-party-validatable scoring of AIV against **real Apache Airflow PRs** plus synthetic fixtures.
 
-## What this is
+| Artifact | Purpose |
+|----------|---------|
+| [METHODOLOGY.md](METHODOLOGY.md) | Labeling rules, discovery, FP/TP definitions |
+| [corpus/cases.json](corpus/cases.json) | Labeled cases (schema v2) with PR metadata + marker discovery |
+| [scripts/run-e2e-benchmark.py](scripts/run-e2e-benchmark.py) | `discover` + `run` → JSON/HTML reports |
+| [reports/latest.html](reports/latest.html) | Latest human report (after a run) |
+| [fixtures/](fixtures/) | Synthetic positives/negatives for regression |
+| [.aiv/](.aiv/) | Airflow-oriented gate config (density = warn → PR label) |
+| [workflows/aiv.yml](workflows/aiv.yml) | Fork CI for [vaquarkhan/airflow](https://github.com/vaquarkhan/airflow) |
 
-| Piece | Purpose |
-|-------|---------|
-| `corpus/cases.json` | Indexed sample of **closed AI-slop-style** fixtures, **closed unmerged** real Airflow PRs, and **merged** real PRs |
-| `fixtures/` | Tiny local git-friendly patches AIV can score without cloning all of Airflow |
-| `.aiv/` | Airflow-oriented gate config (hard = syntax/invariant/design markers; soft density = **warn** → PR label) |
-| `workflows/aiv.yml` | Drop-in GitHub Actions workflow for the Airflow fork |
-| `scripts/run-benchmark.*` | Score fixtures locally and write a JSON summary under `results/` |
+## Labels (ground truth)
 
-This is a **starting corpus**, not a catch-rate claim. Expand `cases.json` as you label more PRs.
+| `label.class` | Meaning |
+|---------------|---------|
+| `objective_slop` / `synthetic_positive` | Verified objective markers → expect **hard fail** |
+| `merged_control` / `synthetic_negative` | Expect **hard pass** (fail = **FP**) |
+| `closed_unmerged_sample` | Closed unmerged **without** markers — population flag-rate only, **not** AI-slop proof |
 
-## Labels (expected)
+## Latest published snapshot (2026-09-19)
 
-| `expected` | Meaning |
-|------------|---------|
-| `ai_slop_positive` | Fixture or PR that should trip hard or advisory AI-slop signals |
-| `closed_unmerged_real` | Real closed-unmerged Airflow PR (often low value / abandoned — not proven AI) |
-| `merged_real` | Real merged PR — should **not** hard-fail on objective markers |
+| Metric | Value |
+|--------|-------|
+| Cases | 51 (4 synthetic + 35 closed-unmerged + 12 merged) |
+| Objective markers in closed scan | **0** (markers are rare; not a volume filter alone) |
+| Hard precision (synthetics + controls) | **100%** |
+| Recall on labeled positives | **100%** (3/3 synthetics) |
+| FP rate on merged controls | **0%** (0/12) |
+| Closed-unmerged hard flag rate | **2.9%** (1/35) — [PR #73124](https://github.com/apache/airflow/pull/73124) hit `invariant.placeholder` (FIXME in a workflow file) |
 
-## Soft AI-slop → PR tag (no block)
+Open [reports/latest.html](reports/latest.html).
 
-When a gate uses `severity: warn` and still finds AI-slop signals, AIV can **label** the PR (`aiv:ai-slop` by default) instead of failing CI:
 
-```bash
-java -jar aiv-cli.jar --diff origin/main --label-pr-on-advisory
-```
+Gates with `severity: warn` can label the PR (`aiv:ai-slop`) via `--label-pr-on-advisory` without failing CI.
 
-Or in Actions (composite):
-
-```yaml
-- uses: vaquarkhan/aiv-integrity-gate@v1
-  with:
-    base-ref: origin/${{ github.base_ref }}
-    label-pr-on-advisory: true
-    advisory-pr-label: aiv:ai-slop
-```
-
-Requires `permissions: pull-requests: write` and a PR event (`AIV_GITHUB_PR_NUMBER` / `GITHUB_EVENT_PATH`).
-
-## Run locally
-
-From the **aiv-integrity-gate** repo root (after `mvn -pl aiv-cli -am package -DskipTests`):
+## Run end-to-end
 
 ```powershell
-.\benchmarks\airflow\scripts\run-benchmark.ps1
+# 1) Discover / refresh corpus from apache/airflow
+python benchmarks/airflow/scripts/run-e2e-benchmark.py discover --closed-limit 35 --merged-limit 12
+
+# 2) Score with local aiv-cli and write HTML
+mvn -pl aiv-cli -am package -DskipTests
+python benchmarks/airflow/scripts/run-e2e-benchmark.py run
 ```
 
-```bash
-./benchmarks/airflow/scripts/run-benchmark.sh
-```
+Open `benchmarks/airflow/reports/latest.html`.
 
-## Install AIV on the Airflow fork
+Legacy fixture-only runners: `scripts/run-benchmark.ps1` / `run-benchmark.sh`.
 
-1. Copy `benchmarks/airflow/.aiv/` → `vaquarkhan/airflow/.aiv/`
-2. Copy `benchmarks/airflow/workflows/aiv.yml` → `vaquarkhan/airflow/.github/workflows/aiv.yml`
-3. Push a branch on the fork and open a PR against `main` to exercise hard gates + advisory labeling
+## Should we add more gates?
 
-See also [docs/pipeline-aiv-copilot.md](../../docs/pipeline-aiv-copilot.md).
+See the gate table in the HTML report and [METHODOLOGY.md](METHODOLOGY.md). Short answer: ship **added-lines-only** scoping next; keep LLM judges advisory; secrets as optional roadmap — not a substitute for precision hard gates.

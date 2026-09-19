@@ -11,7 +11,8 @@ All guides for **AIV Integrity Gate** live under this directory unless noted oth
 | **[DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md)** | Contributors | Clone, `mvn verify`, run shaded CLI, dogfood config, troubleshooting. |
 | **[WHY-NOT-PMD-SEMGREP.md](WHY-NOT-PMD-SEMGREP.md)** | Evaluators & leads | How AIV differs from PMD, Semgrep, and Checkstyle (scope and when to combine). |
 | **[pipeline-aiv-copilot.md](pipeline-aiv-copilot.md)** | CI / maintainers | Two-stage flow: AIV hard gate → Copilot advisory (never blocks). |
-| **[../benchmarks/airflow/README.md](../benchmarks/airflow/README.md)** | Researchers | Airflow labeled corpus, fixtures, fork workflow, local benchmark runner. |
+| **[../benchmarks/airflow/README.md](../benchmarks/airflow/README.md)** | Researchers | Airflow E2E benchmark, labeling methodology, HTML reports. |
+| **[../benchmarks/airflow/METHODOLOGY.md](../benchmarks/airflow/METHODOLOGY.md)** | Researchers | TP/FP definitions; why closed-unmerged ≠ AI slop. |
 | **[DEPLOYMENT.md](DEPLOYMENT.md)** | Admins & maintainers | Enabling AIV in a repo, publishing the CLI (GitHub Releases, Maven Central), composite action inputs. |
 | **[DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md)** | Power users | Complete reference for `.aiv/config.yaml`, design/doc rules, CLI flags, CI snippets. |
 | **[MAVEN-VERSION.md](MAVEN-VERSION.md)** | Integrators & release | Reactor `${project.version}`, Maven Central URL pattern, `mvn help:evaluate`, aligning action defaults with the POM. |
