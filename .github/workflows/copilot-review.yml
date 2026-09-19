@@ -1,0 +1,61 @@
+# Stage 2 of the AI-slop pipeline: advisory Copilot code review.
+#
+# Ordering (see docs/pipeline-aiv-copilot.md):
+#   Stage 1  AIV Gate (.github/workflows/aiv.yml) — deterministic HARD gate (~seconds).
+#            Blocks objective slop: won't-parse, elision markers, hallucinated imports,
+#            real conflict markers. precision ~1.0, so it is safe to fail the build.
+#   Stage 2  THIS workflow — LLM review, ADVISORY only. Never fails the build.
+#
+# It is gated on AIV success via `workflow_run`: Copilot is only asked to review a PR
+# that already passed the cheap deterministic gate, so no LLM cost is spent on PRs that
+# do not even parse. Copilot is deliberately NOT in the block path (same reason Magpie
+# is excluded): its verdict is non-deterministic and must stay a human-facing suggestion.
+#
+# Requires: "Copilot code review" enabled for the repository/org. If it is not enabled,
+# the request step is a no-op warning — it never blocks a PR.
+name: Copilot Review (advisory)
+
+on:
+  workflow_run:
+    workflows: ["AIV Gate"]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  request-copilot-review:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request Copilot review on the PR that passed AIV
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const headSha = context.payload.workflow_run.head_sha;
+            const { owner, repo } = context.repo;
+
+            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner, repo, commit_sha: headSha,
+            });
+            const pr = prs.data.find(p => p.state === 'open');
+            if (!pr) {
+              core.info(`No open PR found for ${headSha}; nothing to review.`);
+              return;
+            }
+
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner, repo, pull_number: pr.number,
+                reviewers: ['Copilot'],
+              });
+              core.info(`Requested Copilot review on PR #${pr.number} (passed AIV Gate).`);
+            } catch (error) {
+              core.warning(
+                `Copilot review not requested (advisory step, PR not blocked): ${error.message}. ` +
+                `Ensure "Copilot code review" is enabled for this repository.`
+              );
+            }

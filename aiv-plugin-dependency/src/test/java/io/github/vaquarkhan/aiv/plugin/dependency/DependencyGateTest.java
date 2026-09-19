@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -146,6 +147,47 @@ class DependencyGateTest {
         var r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
         assertTrue(r.getMessage().contains("requirements.txt"));
+    }
+
+    @Test
+    void passesWhenPythonStdlibImportNotInRequirements(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("requirements.txt"), "flask\n");
+        var gate = new DependencyGate();
+        var ctx = context(dir, List.of(new ChangedFile("app.py", ChangedFile.ChangeType.ADDED,
+                "import os\nfrom pathlib import Path\nimport json\n")));
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void passesWhenPythonFirstPartyImportNotInRequirements(@TempDir Path dir) throws Exception {
+        Files.writeString(dir.resolve("requirements.txt"), "flask\n");
+        Path pkg = dir.resolve("mypkg");
+        Files.createDirectories(pkg);
+        Files.writeString(pkg.resolve("__init__.py"), "");
+        var gate = new DependencyGate();
+        var ctx = context(dir, List.of(new ChangedFile("app.py", ChangedFile.ChangeType.ADDED,
+                "import mypkg\n")));
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void loadPythonFirstPartyPackagesSkipsNestedAndNull(@TempDir Path dir) throws Exception {
+        var gate = new DependencyGate();
+        assertTrue(gate.loadPythonFirstPartyPackages(null).isEmpty());
+        assertTrue(gate.loadPythonFirstPartyPackages(Path.of("definitely-missing-aiv-ws-zzz")).isEmpty());
+
+        Path top = dir.resolve("toppkg");
+        Path nested = top.resolve("nested");
+        Files.createDirectories(nested);
+        Files.writeString(top.resolve("__init__.py"), "");
+        Files.writeString(nested.resolve("__init__.py"), "");
+        Set<String> pkgs = gate.loadPythonFirstPartyPackages(dir);
+        assertTrue(pkgs.contains("toppkg"));
+        assertFalse(pkgs.contains("nested"));
+
+        assertTrue(gate.loadPythonFirstPartyPackages(dir, 1).isEmpty()
+                || gate.loadPythonFirstPartyPackages(dir, 1).size() <= 1);
+        assertTrue(gate.loadPythonFirstPartyPackages(dir, -1).isEmpty());
     }
 
     @Test

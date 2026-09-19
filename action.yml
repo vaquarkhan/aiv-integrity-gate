@@ -9,7 +9,7 @@
 #
 # Author: Vaquar Khan
 name: 'AIV Integrity Gate'
-description: 'Run Automated Integrity Validation on PR diffs (density, design, dependency, optional doc checks). Downloads the shaded CLI uber JAR from Maven Central by default.'
+description: 'Run Automated Integrity Validation on PR diffs (syntax, density, design, dependency, optional invariant/doc checks). Downloads the shaded CLI uber JAR from Maven Central by default.'
 branding:
   icon: 'shield'
   color: 'blue'

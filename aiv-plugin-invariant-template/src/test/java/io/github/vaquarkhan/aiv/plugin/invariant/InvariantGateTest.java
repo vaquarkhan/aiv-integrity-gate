@@ -81,6 +81,38 @@ class InvariantGateTest {
         assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.placeholder".equals(f.getRuleId())));
     }
 
+    @Test
+    void failsOnAiEditArtifactInCode() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("mod.py", ChangedFile.ChangeType.MODIFIED,
+                "def handler():\n    do_work()\n    # ... rest of the existing code unchanged ...\n")));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getMessage().contains("AI edit-artifact"));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.ai-edit-artifact".equals(f.getRuleId())));
+    }
+
+    @Test
+    void catchesAssistantChatterAndSearchReplaceInCode() {
+        var gate = new InvariantGate();
+        var ctx1 = context(List.of(new ChangedFile("A.java", ChangedFile.ChangeType.ADDED,
+                "// Here's the updated implementation\nclass A {}\n")));
+        assertFalse(gate.evaluate(ctx1).isPassed());
+        var ctx2 = context(List.of(new ChangedFile("b.js", ChangedFile.ChangeType.MODIFIED,
+                "const x = 1;\n<<<<<<< SEARCH\nold\n>>>>>>> REPLACE\n")));
+        assertFalse(gate.evaluate(ctx2).isPassed());
+    }
+
+    @Test
+    void doesNotFlagElisionProseInDocs() {
+        // Same phrase in a Markdown doc must NOT be flagged (prose, not code).
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("README.md", ChangedFile.ChangeType.MODIFIED,
+                "The rest of the code remains unchanged in this example.\n")));
+        var r = gate.evaluate(ctx);
+        assertTrue(r.isPassed());
+    }
+
     private AIVContext context(List<ChangedFile> files) {
         var diff = new Diff("main", "HEAD", files, "");
         var config = new AIVConfig(List.of(), java.util.Map.of());

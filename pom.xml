@@ -54,6 +54,7 @@
         <module>aiv-plugin-invariant-template</module>
         <module>aiv-plugin-dependency</module>
         <module>aiv-plugin-doc-integrity</module>
+        <module>aiv-plugin-syntax</module>
         <module>aiv-adapter-git</module>
         <module>aiv-adapter-github</module>
         <module>aiv-cli</module>
@@ -94,6 +95,11 @@
             <dependency>
                 <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-plugin-doc-integrity</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.vaquarkhan</groupId>
+                <artifactId>aiv-plugin-syntax</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

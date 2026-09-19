@@ -25,6 +25,7 @@ import io.github.vaquarkhan.aiv.port.QualityGate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -35,6 +36,35 @@ import java.util.regex.Pattern;
 public final class InvariantGate implements QualityGate {
     private static final Pattern MERGE_CONFLICT_MARKER = Pattern.compile("(?m)^(<<<<<<<|=======|>>>>>>>)\\s");
     private static final Pattern PLACEHOLDER_MARKER = Pattern.compile("(?i)\\b(TBD|FIXME|XXX)\\b");
+
+    /**
+     * High-precision "AI edit-artifact" tells: elision placeholders and assistant chatter that a human
+     * essentially never commits into source (e.g. a partial LLM paste). Applied to code files only, so
+     * prose in Markdown/RST is not flagged. Deterministic, near-zero false positives on real code.
+     */
+    private static final Pattern AI_EDIT_ARTIFACT = Pattern.compile(
+            "(?im)("
+            + "\\.\\.\\.\\s*(existing|rest of|remaining)\\b[^\\n]*\\b(code|implementation|unchanged|methods?|functions?|here)"
+            + "|\\b(rest|remainder) of (the )?(code|file|implementation|method|function|class)s?\\b[^\\n]*\\b(unchanged|the same|omitted|here)"
+            + "|\\bas an ai language model\\b"
+            + "|\\bhere('?s| is) the (updated|complete|fixed|full|corrected|revised) (code|implementation|file|version)\\b"
+            + "|<<<<<<< SEARCH|>>>>>>> REPLACE"
+            + "|\\b(YOUR_CODE_HERE|INSERT_YOUR_CODE|INSERT_CODE_HERE)\\b"
+            + ")");
+
+    private static final Set<String> CODE_EXTENSIONS = Set.of(
+            ".java", ".py", ".js", ".ts", ".jsx", ".tsx", ".go", ".rs", ".kt", ".kts",
+            ".scala", ".c", ".cpp", ".cc", ".h", ".hpp", ".rb", ".sh", ".bash");
+
+    private static boolean isCodeFile(String path) {
+        String lower = path.toLowerCase();
+        for (String ext : CODE_EXTENSIONS) {
+            if (lower.endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String getId() {
@@ -59,6 +89,11 @@ public final class InvariantGate implements QualityGate {
                 String msg = "Placeholder marker (TBD/FIXME/XXX) found in " + f.getPath();
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.placeholder", f.getPath(), 1, msg));
+            }
+            if (isCodeFile(f.getPath()) && AI_EDIT_ARTIFACT.matcher(content).find()) {
+                String msg = "AI edit-artifact / elision marker found in " + f.getPath();
+                failures.add(msg);
+                findings.add(Finding.atLine("invariant.ai-edit-artifact", f.getPath(), 1, msg));
             }
         }
         if (failures.isEmpty()) {

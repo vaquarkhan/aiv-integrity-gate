@@ -33,6 +33,8 @@ gates:
         - com.github.javaparser.ast.visitor
   - id: invariant
     enabled: false
+  - id: syntax
+    enabled: true
   - id: doc-integrity
     enabled: false
     config:
