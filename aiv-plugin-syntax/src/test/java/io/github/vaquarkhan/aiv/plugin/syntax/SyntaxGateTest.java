@@ -92,10 +92,21 @@ class SyntaxGateTest {
 
     @Test
     void pythonFailureWithNullLineDefaultsToLineOne() {
-        SyntaxGate gate = new SyntaxGate(src -> ValidationResult.fail(null, "boom"));
+        SyntaxGate gate = new SyntaxGate(src -> new ValidationResult(false, null, "boom"));
         GateResult r = gate.evaluate(ctx(file("mod.py", "def f(:")));
         assertFalse(r.isPassed());
         assertEquals(1, r.getFindings().get(0).getStartLine());
+    }
+
+    @Test
+    void failFactoryNormalizesBlankDetailAndLine() {
+        ValidationResult blank = ValidationResult.fail(null, "  ");
+        assertFalse(blank.valid());
+        assertEquals(1, blank.line());
+        assertEquals("unparseable", blank.detail());
+        ValidationResult okLine = ValidationResult.fail(0, "bad");
+        assertEquals(1, okLine.line());
+        assertEquals("bad", okLine.detail());
     }
 
     @Test

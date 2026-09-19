@@ -16,6 +16,14 @@ public record ValidationResult(boolean valid, Integer line, String detail) {
     }
 
     public static ValidationResult fail(Integer line, String detail) {
-        return new ValidationResult(false, line, detail);
+        String message = detail;
+        if (message == null || message.isBlank()) {
+            message = "unparseable";
+        }
+        Integer safeLine = line;
+        if (safeLine == null || safeLine < 1) {
+            safeLine = 1;
+        }
+        return new ValidationResult(false, safeLine, message);
     }
 }
