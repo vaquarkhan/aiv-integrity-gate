@@ -7,6 +7,7 @@ advisory_label_gates:
   - design
   - invariant
   - density
+  - cohesion
 exclude_paths:
   - "docs/**"
   - "*.md"
@@ -15,7 +16,7 @@ exclude_paths:
   - "docker-tests/**"
   - "kubernetes-tests/**"
   - "helm-tests/**"
-  - "scripts/**"
+  # Keep scripts/ in scope so cohesion can see CI sprawl (e.g. airflow#73124-shaped PRs).
   - "generated/**"
 gates:
   - id: syntax
@@ -26,6 +27,13 @@ gates:
     severity: fail
     config:
       rules_path: .aiv/design-rules.yaml
+  - id: cohesion
+    enabled: true
+    # Same signal that closed apache/airflow#73124 (split unrelated CI concerns).
+    severity: warn
+    config:
+      max_areas: 3
+      area_depth: 2
   - id: invariant
     enabled: true
     severity: fail

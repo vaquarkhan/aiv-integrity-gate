@@ -72,3 +72,8 @@ benchmarks/**/reports/census-20260919T175537Z/
 benchmarks/**/reports/census-20260919T175906Z/
 # Local CLI init output (not project config)
 aiv-cli/.aiv/
+
+benchmarks/**/scripts/__pycache__/
+benchmarks/**/reports/labeled-score.log
+benchmarks/**/reports/seed-labeled.log
+

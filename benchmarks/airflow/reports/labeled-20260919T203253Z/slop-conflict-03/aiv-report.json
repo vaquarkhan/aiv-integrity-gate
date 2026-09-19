@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-03.py",
+      "findings": [
+        {
+          "rule_id": "invariant.merge-conflict",
+          "file": "providers/bench/labeled/ai-slop/conflict-03.py",
+          "start_line": 1,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-03.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-03.py (SyntaxError line 3: invalid syntax)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/bench/labeled/ai-slop/conflict-03.py",
+          "start_line": 3,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-03.py (SyntaxError line 3: invalid syntax)"
+        }
+      ]
+    }
+  ]
+}

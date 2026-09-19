@@ -82,6 +82,55 @@ class InvariantGateTest {
     }
 
     @Test
+    void ignoresPreExistingPlaceholderWhenNotOnAddedLine() {
+        var gate = new InvariantGate();
+        String content = "// FIXME: legacy note\nclass A {\n  int x;\n}\n";
+        String raw = """
+                diff --git a/a.java b/a.java
+                --- a/a.java
+                +++ b/a.java
+                @@ -1,2 +1,3 @@
+                 // FIXME: legacy note
+                 class A {
+                +  int x;
+                 }
+                """;
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED, content)), raw);
+        var ctx = new AIVContext(Paths.get("."), diff, new AIVConfig(List.of(), java.util.Map.of()));
+        assertTrue(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void failsOnPlaceholderOnlyWhenAddedInDiff() {
+        var gate = new InvariantGate();
+        String content = "class A {\n  // FIXME: new debt\n}\n";
+        String raw = """
+                diff --git a/a.java b/a.java
+                --- a/a.java
+                +++ b/a.java
+                @@ -1,2 +1,3 @@
+                 class A {
+                +  // FIXME: new debt
+                 }
+                """;
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED, content)), raw);
+        var ctx = new AIVContext(Paths.get("."), diff, new AIVConfig(List.of(), java.util.Map.of()));
+        assertFalse(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void failsOnAiProvenanceTrailerInSource() {
+        var gate = new InvariantGate();
+        var ctx = context(List.of(new ChangedFile("mod.py", ChangedFile.ChangeType.ADDED,
+                "x = 1\nGenerated-by: ChatGPT\n")));
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.ai-provenance".equals(f.getRuleId())));
+    }
+
+    @Test
     void failsOnAiEditArtifactInCode() {
         var gate = new InvariantGate();
         var ctx = context(List.of(new ChangedFile("mod.py", ChangedFile.ChangeType.MODIFIED,

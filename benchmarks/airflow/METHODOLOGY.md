@@ -60,4 +60,4 @@ Reports: `benchmarks/airflow/reports/latest.html` and `latest.json` (plus timest
 
 ## Gate roadmap (value judgment)
 
-Highest ROI next: **added-lines-only** scoping for placeholder/invariant rules (cuts FPs on pre-existing `FIXME`/`TBD`). Optional: secrets gate (roadmap), missing-tests **advisory**. Do **not** put Magpie/LLM on the hard path.
+Highest ROI delivered: **added-lines-only** placeholders + **cohesion** (multi-area PR) advisory. Optional next: secrets gate (roadmap). Do **not** put Magpie/LLM on the hard path.

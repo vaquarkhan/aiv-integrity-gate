@@ -49,7 +49,7 @@ class GithubPrLabelPublisherTest {
 
         var otherAdvisory = new AIVResult(true, List.of(GateResult.advisory("dependency", "x")));
         assertFalse(GithubPrLabelPublisher.hasAdvisoryAiSlop(
-                otherAdvisory, GithubPrLabelPublisher.normalizeGates(List.of("design", "invariant", "density"))));
+                otherAdvisory, GithubPrLabelPublisher.normalizeGates(List.of("design", "invariant", "density", "cohesion"))));
     }
 
     @Test

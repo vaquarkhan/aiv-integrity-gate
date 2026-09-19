@@ -1,0 +1,77 @@
+{
+  "id": "slop-ph-03",
+  "title": "ai-slop: placeholder (expect FAIL)",
+  "label": {
+    "class": "synthetic_positive",
+    "subtype": "placeholder",
+    "expect_hard_fail": true,
+    "expect_advisory": false,
+    "notes": "Labeled objective AI-slop; hard-pass = FN"
+  },
+  "outcome": {
+    "verdict": "TP",
+    "hard_fail": true,
+    "advisory": false,
+    "blocking_gates": [
+      "design",
+      "invariant"
+    ],
+    "advisory_gates": [],
+    "exit_code": 1,
+    "label_class": "synthetic_positive",
+    "expect_hard_fail": true
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Forbidden call 'YOUR_CODE_HERE' in providers/bench/labeled/ai-slop/placeholder-03.py (constraint: no-ai-generated-markers)",
+      "findings": [
+        {
+          "rule_id": "design.forbidden.no-ai-generated-markers",
+          "file": "providers/bench/labeled/ai-slop/placeholder-03.py",
+          "start_line": 4,
+          "message": "Forbidden call 'YOUR_CODE_HERE' in providers/bench/labeled/ai-slop/placeholder-03.py (constraint: no-ai-generated-markers)"
+        }
+      ]
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-03.py",
+      "findings": [
+        {
+          "rule_id": "invariant.ai-edit-artifact",
+          "file": "providers/bench/labeled/ai-slop/placeholder-03.py",
+          "start_line": 1,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-03.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-03/aiv-report.json"
+}
