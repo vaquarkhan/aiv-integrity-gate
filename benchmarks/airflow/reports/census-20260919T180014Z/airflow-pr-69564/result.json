@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-69564",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69564",
+  "title": "Add certificate-based authentication support to Microsoft Graph files\u2026",
+  "pr": 69564,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:26.122305+00:00"
+  },
+  "pr_meta": {
+    "number": 69564,
+    "title": "Add certificate-based authentication support to Microsoft Graph files\u2026",
+    "html_url": "https://github.com/apache/airflow/pull/69564",
+    "state": "closed",
+    "merged": false,
+    "user": "bujjibabukatta",
+    "created_at": "2026-07-07T16:03:12Z",
+    "closed_at": "2026-08-10T16:57:53Z",
+    "merged_at": null,
+    "base_sha": "4e4c69aab798c3bbfea0671a3f8ffdc0b39e1870",
+    "head_sha": "07b11d2c33310d07a846085255414f90e18dde23",
+    "additions": 169,
+    "deletions": 4,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:microsoft-azure",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69564/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69564/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

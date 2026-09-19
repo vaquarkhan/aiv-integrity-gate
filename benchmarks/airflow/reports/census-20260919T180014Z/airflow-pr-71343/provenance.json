@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-71343",
+  "origin_url": "https://github.com/apache/airflow/pull/71343",
+  "repo": "apache/airflow",
+  "pr": 71343,
+  "title": "Move template-field validation out of GoogleCampaignManagerDeleteRepo\u2026",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:52.136891+00:00"
+  },
+  "pr_meta": {
+    "number": 71343,
+    "title": "Move template-field validation out of GoogleCampaignManagerDeleteRepo\u2026",
+    "html_url": "https://github.com/apache/airflow/pull/71343",
+    "state": "closed",
+    "merged": false,
+    "user": "bujjibabukatta",
+    "created_at": "2026-08-09T07:22:43Z",
+    "closed_at": "2026-09-08T22:35:58Z",
+    "merged_at": null,
+    "base_sha": "f2db94d08d13607ec58edf82ad0e54c0f2e44bd1",
+    "head_sha": "f249779a3989f501215efa34b8d4dd546242280d",
+    "additions": 34,
+    "deletions": 6,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "area:dev-tools",
+      "ready for maintainer review",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/marketing_platform/operators/campaign_manager.py",
+    "providers/google/tests/unit/google/marketing_platform/operators/test_campaign_manager.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:25:37.880069+00:00"
+}

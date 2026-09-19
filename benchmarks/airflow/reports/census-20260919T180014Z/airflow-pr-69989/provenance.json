@@ -1,0 +1,64 @@
+{
+  "case_id": "airflow-pr-69989",
+  "origin_url": "https://github.com/apache/airflow/pull/69989",
+  "repo": "apache/airflow",
+  "pr": 69989,
+  "title": "Scope plugin listeners to teams in multi-team airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:21.531203+00:00"
+  },
+  "pr_meta": {
+    "number": 69989,
+    "title": "Scope plugin listeners to teams in multi-team airflow",
+    "html_url": "https://github.com/apache/airflow/pull/69989",
+    "state": "closed",
+    "merged": false,
+    "user": "o-nikolas",
+    "created_at": "2026-07-17T01:08:17Z",
+    "closed_at": "2026-09-14T22:26:46Z",
+    "merged_at": null,
+    "base_sha": "e1f17e71db4ec3fac5d95fb70771eb083cbc40be",
+    "head_sha": "01f723087497e00a5d146eba8ccaaba3765c83c5",
+    "additions": 329,
+    "deletions": 50,
+    "changed_files": 14,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:plugins",
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/core_api/services/public/dag_run.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/services/public/task_instances.py",
+    "airflow-core/src/airflow/listeners/listener.py",
+    "airflow-core/src/airflow/models/dagrun.py",
+    "airflow-core/src/airflow/models/taskinstance.py",
+    "airflow-core/src/airflow/plugins_manager.py",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py",
+    "airflow-core/tests/unit/listeners/test_listeners.py",
+    "devel-common/src/tests_common/pytest_plugin.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/src/airflow/sdk/listener.py",
+    "task-sdk/src/airflow/sdk/plugins_manager.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+    "task-sdk/tests/task_sdk/test_plugins_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:47:43.730099+00:00"
+}

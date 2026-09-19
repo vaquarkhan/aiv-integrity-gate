@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69430",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69430",
+  "title": "Fix CeleryKubernetesExecutor starting Kubernetes watcher client-side",
+  "pr": 69430,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:21.297023+00:00"
+  },
+  "pr_meta": {
+    "number": 69430,
+    "title": "Fix CeleryKubernetesExecutor starting Kubernetes watcher client-side",
+    "html_url": "https://github.com/apache/airflow/pull/69430",
+    "state": "closed",
+    "merged": false,
+    "user": "yquaziii",
+    "created_at": "2026-07-06T04:55:48Z",
+    "closed_at": "2026-09-01T20:53:43Z",
+    "merged_at": null,
+    "base_sha": "0c6e6bd86fc8406014f3a7d298471769c9902271",
+    "head_sha": "e55b9311c9a22fb8c8658632622d4a03a4466ea4",
+    "additions": 18,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69430/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69430/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

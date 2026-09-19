@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69491",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69491",
+  "title": "pgvector: Guard the psycopg2-specific `register_vector` import",
+  "pr": 69491,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:52.380970+00:00"
+  },
+  "pr_meta": {
+    "number": 69491,
+    "title": "pgvector: Guard the psycopg2-specific `register_vector` import",
+    "html_url": "https://github.com/apache/airflow/pull/69491",
+    "state": "closed",
+    "merged": false,
+    "user": "Dev-iL",
+    "created_at": "2026-07-06T19:25:06Z",
+    "closed_at": "2026-07-06T20:12:11Z",
+    "merged_at": null,
+    "base_sha": "1597221692aee3180d579412b213d6b9f789be52",
+    "head_sha": "4b8a175ba40ef5d445a7eff4b7399584709438e0",
+    "additions": 40,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "COLLABORATOR",
+    "labels": [
+      "area:providers",
+      "provider:pgvector"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69491/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69491/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

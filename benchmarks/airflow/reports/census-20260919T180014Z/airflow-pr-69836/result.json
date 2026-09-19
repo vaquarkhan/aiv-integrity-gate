@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69836",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69836",
+  "title": "Add support to instance selection disk config and confidential compute to Dataproc",
+  "pr": 69836,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:18.490942+00:00"
+  },
+  "pr_meta": {
+    "number": 69836,
+    "title": "Add support to instance selection disk config and confidential compute to Dataproc",
+    "html_url": "https://github.com/apache/airflow/pull/69836",
+    "state": "closed",
+    "merged": false,
+    "user": "sravani-bobbala",
+    "created_at": "2026-07-13T18:35:56Z",
+    "closed_at": "2026-08-05T10:02:37Z",
+    "merged_at": null,
+    "base_sha": "87ac18b0b9457d53795585882572a09994438a69",
+    "head_sha": "c4d58052aae5e8fd68a3abbab7be60a52696cddf",
+    "additions": 43,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69836/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69836/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

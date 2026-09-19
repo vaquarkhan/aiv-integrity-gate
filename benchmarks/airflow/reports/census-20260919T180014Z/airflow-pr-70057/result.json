@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-70057",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70057",
+  "title": "Don't fail the request with a bare 500 on transient JWT refresh errors",
+  "pr": 70057,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:44.551955+00:00"
+  },
+  "pr_meta": {
+    "number": 70057,
+    "title": "Don't fail the request with a bare 500 on transient JWT refresh errors",
+    "html_url": "https://github.com/apache/airflow/pull/70057",
+    "state": "closed",
+    "merged": false,
+    "user": "kjh0623",
+    "created_at": "2026-07-17T22:51:16Z",
+    "closed_at": "2026-09-15T00:27:29Z",
+    "merged_at": null,
+    "base_sha": "c49e1c917ea2729eb862daad40f340a9d7dd6c4c",
+    "head_sha": "85b7867c05ec76cb1945486137b376a839940ab2",
+    "additions": 51,
+    "deletions": 0,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:API",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70057/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70057/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

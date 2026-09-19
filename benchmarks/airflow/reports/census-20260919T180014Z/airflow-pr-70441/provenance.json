@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-70441",
+  "origin_url": "https://github.com/apache/airflow/pull/70441",
+  "repo": "apache/airflow",
+  "pr": 70441,
+  "title": "Add LangChainAzureHook for Azure OpenAI support",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:42.792360+00:00"
+  },
+  "pr_meta": {
+    "number": 70441,
+    "title": "Add LangChainAzureHook for Azure OpenAI support",
+    "html_url": "https://github.com/apache/airflow/pull/70441",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-07-25T14:59:48Z",
+    "closed_at": "2026-09-19T17:21:17Z",
+    "merged_at": null,
+    "base_sha": "025b0a14a4192656473d072140799cb17aaec6a1",
+    "head_sha": "e4ba32a6c5fdd6f058a42e2962c35c40667f7d1c",
+    "additions": 196,
+    "deletions": 7,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:providers",
+      "provider:common-ai"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/common/ai/provider.yaml",
+    "providers/common/ai/src/airflow/providers/common/ai/get_provider_info.py",
+    "providers/common/ai/src/airflow/providers/common/ai/hooks/langchain.py",
+    "providers/common/ai/tests/unit/common/ai/hooks/test_langchain.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:39:24.537004+00:00"
+}

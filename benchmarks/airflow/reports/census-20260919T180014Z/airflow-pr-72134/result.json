@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-72134",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72134",
+  "title": "Stop overlapping deferred TI writers on MySQL",
+  "pr": 72134,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:56.116508+00:00"
+  },
+  "pr_meta": {
+    "number": 72134,
+    "title": "Stop overlapping deferred TI writers on MySQL",
+    "html_url": "https://github.com/apache/airflow/pull/72134",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-08-27T07:17:35Z",
+    "closed_at": "2026-08-29T13:12:07Z",
+    "merged_at": null,
+    "base_sha": "f727ea8544d1b0b7759e78e5dfcb257dd8292957",
+    "head_sha": "d206baa9ea76d92a6e0b4628a3f77c4ffb30e4ed",
+    "additions": 374,
+    "deletions": 34,
+    "changed_files": 12,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "area:Triggerer"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72134/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72134/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

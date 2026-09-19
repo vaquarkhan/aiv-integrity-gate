@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-69695",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69695",
+  "title": "Migrate Exasol provider to pyexasol 2.x",
+  "pr": 69695,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:57.992042+00:00"
+  },
+  "pr_meta": {
+    "number": 69695,
+    "title": "Migrate Exasol provider to pyexasol 2.x",
+    "html_url": "https://github.com/apache/airflow/pull/69695",
+    "state": "closed",
+    "merged": false,
+    "user": "joshuabvarghese",
+    "created_at": "2026-07-10T07:22:18Z",
+    "closed_at": "2026-08-29T14:09:03Z",
+    "merged_at": null,
+    "base_sha": "c8d313a5d250018f87d4c43695298a27713dac20",
+    "head_sha": "612378a15727bcf6051092e01a2ef452e171f2ef",
+    "additions": 239,
+    "deletions": 162,
+    "changed_files": 7,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:exasol",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69695/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69695/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

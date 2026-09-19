@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-69936",
+  "origin_url": "https://github.com/apache/airflow/pull/69936",
+  "repo": "apache/airflow",
+  "pr": 69936,
+  "title": "Remove duplicated dag_id and run_id fields from Execution API DagRun \u2026",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:43.656622+00:00"
+  },
+  "pr_meta": {
+    "number": 69936,
+    "title": "Remove duplicated dag_id and run_id fields from Execution API DagRun \u2026",
+    "html_url": "https://github.com/apache/airflow/pull/69936",
+    "state": "closed",
+    "merged": false,
+    "user": "KushagraB424",
+    "created_at": "2026-07-15T18:28:51Z",
+    "closed_at": "2026-07-28T17:14:08Z",
+    "merged_at": null,
+    "base_sha": "af6d5c2c4c8aa30e5db2fe7138599defc694b20e",
+    "head_sha": "8a4295d2013a60ec6c1c53bda637cf59e358d689",
+    "additions": 14,
+    "deletions": 38,
+    "changed_files": 10,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/datamodels/taskinstance.py",
+    "airflow-core/src/airflow/dag_processing/collection.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/v2025_04_28/test_task_instances.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/v2025_09_23/test_task_instances.py",
+    "task-sdk/src/airflow/sdk/api/datamodels/_generated.py",
+    "task-sdk/src/airflow/sdk/execution_time/comms.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/api/test_client.py",
+    "task-sdk/tests/task_sdk/execution_time/test_context.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:48:47.028324+00:00"
+}

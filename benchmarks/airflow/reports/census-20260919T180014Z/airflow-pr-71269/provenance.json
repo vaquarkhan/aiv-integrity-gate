@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-71269",
+  "origin_url": "https://github.com/apache/airflow/pull/71269",
+  "repo": "apache/airflow",
+  "pr": 71269,
+  "title": "Fix google provider install failure on Python 3.14",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:10.781588+00:00"
+  },
+  "pr_meta": {
+    "number": 71269,
+    "title": "Fix google provider install failure on Python 3.14",
+    "html_url": "https://github.com/apache/airflow/pull/71269",
+    "state": "closed",
+    "merged": false,
+    "user": "vatsrahul1001",
+    "created_at": "2026-08-07T06:33:20Z",
+    "closed_at": "2026-08-07T09:29:08Z",
+    "merged_at": null,
+    "base_sha": "858df9991d0e88d881418bb304bbf7a243bdd985",
+    "head_sha": "d59f24735bc3a45e775320a35d4652f50a060f3a",
+    "additions": 11,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "kind:documentation"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/README.rst",
+    "providers/google/docs/index.rst",
+    "providers/google/pyproject.toml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:26:42.338496+00:00"
+}

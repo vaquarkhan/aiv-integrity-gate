@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-72112",
+  "origin_url": "https://github.com/apache/airflow/pull/72112",
+  "repo": "apache/airflow",
+  "pr": 72112,
+  "title": "fix(metrics): report DogStatsD timer durations in milliseconds",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:03.031840+00:00"
+  },
+  "pr_meta": {
+    "number": 72112,
+    "title": "fix(metrics): report DogStatsD timer durations in milliseconds",
+    "html_url": "https://github.com/apache/airflow/pull/72112",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-26T17:40:29Z",
+    "closed_at": "2026-09-15T18:16:03Z",
+    "merged_at": null,
+    "base_sha": "be4a1e671e20cd278696a6deb033e6dd8d1d185c",
+    "head_sha": "0e507718441d98c05135520a57de0cb2423580bb",
+    "additions": 6,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "shared/observability/src/airflow_shared/observability/metrics/datadog_logger.py",
+    "shared/observability/tests/observability/metrics/test_stats.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:15:29.312112+00:00"
+}

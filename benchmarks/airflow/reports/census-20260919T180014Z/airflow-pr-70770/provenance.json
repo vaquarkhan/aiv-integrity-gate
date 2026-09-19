@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-70770",
+  "origin_url": "https://github.com/apache/airflow/pull/70770",
+  "repo": "apache/airflow",
+  "pr": 70770,
+  "title": "Update/Fix: fix-70296-cloudbatch",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:53.709176+00:00"
+  },
+  "pr_meta": {
+    "number": 70770,
+    "title": "Update/Fix: fix-70296-cloudbatch",
+    "html_url": "https://github.com/apache/airflow/pull/70770",
+    "state": "closed",
+    "merged": false,
+    "user": "saitejabandaru-in",
+    "created_at": "2026-07-30T13:11:46Z",
+    "closed_at": "2026-07-30T14:02:37Z",
+    "merged_at": null,
+    "base_sha": "f0d50bdb17868b52c733e16b40a7af2f4276fc0d",
+    "head_sha": "c261895995b193d17fd285e1b071b4b7f1a39b5f",
+    "additions": 20,
+    "deletions": 38,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/operators/cloud_batch.py",
+    "providers/standard/src/airflow/providers/standard/operators/trigger_dagrun.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:34:45.729632+00:00"
+}

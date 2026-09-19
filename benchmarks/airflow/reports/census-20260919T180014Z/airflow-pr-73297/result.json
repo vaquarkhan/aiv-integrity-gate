@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73297",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73297",
+  "title": "Stop FileSensor deferring when deferrable is not set",
+  "pr": 73297,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:56.302230+00:00"
+  },
+  "pr_meta": {
+    "number": 73297,
+    "title": "Stop FileSensor deferring when deferrable is not set",
+    "html_url": "https://github.com/apache/airflow/pull/73297",
+    "state": "closed",
+    "merged": true,
+    "user": "kaxil",
+    "created_at": "2026-09-17T22:54:18Z",
+    "closed_at": "2026-09-18T06:31:43Z",
+    "merged_at": "2026-09-18T06:31:43Z",
+    "base_sha": "e03cfa2f925495be3f8c5b751505aaaa29a58df4",
+    "head_sha": "2b5aecada73564e211058374965fd420bbd0d463",
+    "additions": 28,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73297/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73297/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69099",
+  "origin_url": "https://github.com/apache/airflow/pull/69099",
+  "repo": "apache/airflow",
+  "pr": 69099,
+  "title": "Handle all Dag deserialization failures gracefully on the API",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:27.186726+00:00"
+  },
+  "pr_meta": {
+    "number": 69099,
+    "title": "Handle all Dag deserialization failures gracefully on the API",
+    "html_url": "https://github.com/apache/airflow/pull/69099",
+    "state": "closed",
+    "merged": false,
+    "user": "itej13",
+    "created_at": "2026-06-28T04:54:33Z",
+    "closed_at": "2026-08-31T00:29:50Z",
+    "merged_at": null,
+    "base_sha": "f57229b4607c1e1182aae7343f85421e52f52643",
+    "head_sha": "2db450e371cc2e11486bdf3b6e37741f074ddf6b",
+    "additions": 83,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/models/dagbag.py",
+    "airflow-core/tests/unit/models/test_dagbag.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:02:47.051276+00:00"
+}

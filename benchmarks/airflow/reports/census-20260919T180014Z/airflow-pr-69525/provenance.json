@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-69525",
+  "origin_url": "https://github.com/apache/airflow/pull/69525",
+  "repo": "apache/airflow",
+  "pr": 69525,
+  "title": "Fix flaky test timeout test_end_drains_result_queue_to_avoid_join_deadlock on Python 3.14",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:36.996546+00:00"
+  },
+  "pr_meta": {
+    "number": 69525,
+    "title": "Fix flaky test timeout test_end_drains_result_queue_to_avoid_join_deadlock on Python 3.14",
+    "html_url": "https://github.com/apache/airflow/pull/69525",
+    "state": "closed",
+    "merged": false,
+    "user": "FrankYang0529",
+    "created_at": "2026-07-07T06:31:15Z",
+    "closed_at": "2026-07-08T11:46:24Z",
+    "merged_at": null,
+    "base_sha": "87089a53a2e2358e96defae35979b8d271375914",
+    "head_sha": "b51a25b2ac7c3530a113a806f260ef313787025b",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:Executors-core"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/executors/test_local_executor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:56:03.188647+00:00"
+}

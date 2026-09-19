@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-73056",
+  "origin_url": "https://github.com/apache/airflow/pull/73056",
+  "repo": "apache/airflow",
+  "pr": 73056,
+  "title": "Carry the lint/type config for the ruff 0.16.6 and mypy 2.3.1 bump",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:20.517538+00:00"
+  },
+  "pr_meta": {
+    "number": 73056,
+    "title": "Carry the lint/type config for the ruff 0.16.6 and mypy 2.3.1 bump",
+    "html_url": "https://github.com/apache/airflow/pull/73056",
+    "state": "closed",
+    "merged": false,
+    "user": "vatsrahul1001",
+    "created_at": "2026-09-13T01:47:38Z",
+    "closed_at": "2026-09-13T01:49:51Z",
+    "merged_at": null,
+    "base_sha": "f5fee914d2015f3840ab858e5ed331e3f6ab4a84",
+    "head_sha": "595fe17af0201fd29dc6d4633af0f53b4e11e22b",
+    "additions": 35,
+    "deletions": 5,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/publish-docs-to-s3.yml",
+    ".github/workflows/run-unit-tests.yml",
+    ".github/zizmor.yml",
+    "README.md",
+    "pyproject.toml",
+    "shared/plugins_manager/src/airflow_shared/plugins_manager/plugins_manager.py",
+    "task-sdk/src/airflow/sdk/execution_time/schema/AGENTS.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:03:01.201967+00:00"
+}

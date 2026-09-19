@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-69969",
+  "origin_url": "https://github.com/apache/airflow/pull/69969",
+  "repo": "apache/airflow",
+  "pr": 69969,
+  "title": "Fix `PydanticAIHook.get_hook` losing the caller's `conn_id` with secrets-backend aliases",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:31.607381+00:00"
+  },
+  "pr_meta": {
+    "number": 69969,
+    "title": "Fix `PydanticAIHook.get_hook` losing the caller's `conn_id` with secrets-backend aliases",
+    "html_url": "https://github.com/apache/airflow/pull/69969",
+    "state": "closed",
+    "merged": false,
+    "user": "dabla",
+    "created_at": "2026-07-16T13:24:19Z",
+    "closed_at": "2026-07-17T15:24:41Z",
+    "merged_at": null,
+    "base_sha": "58b5a8064567afb54517ad523f751898ac39b18c",
+    "head_sha": "a6d694ca46a55218683281ef2e18e3435ef8dca1",
+    "additions": 158,
+    "deletions": 2,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:common-ai"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "docs/spelling_wordlist.txt",
+    "providers/common/ai/src/airflow/providers/common/ai/hooks/pydantic_ai.py",
+    "providers/common/ai/tests/unit/common/ai/hooks/test_pydantic_ai.py",
+    "task-sdk/src/airflow/sdk/bases/hook.py",
+    "task-sdk/tests/task_sdk/bases/test_hook.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:48:14.998517+00:00"
+}

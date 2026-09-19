@@ -1,0 +1,59 @@
+{
+  "id": "fixture-clean-operator",
+  "source": "fixture",
+  "url": null,
+  "title": null,
+  "pr": null,
+  "repo": null,
+  "label": {
+    "class": "synthetic_negative",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Small clean Python change resembling a real provider fix; should not hard-fail."
+  },
+  "discovery": null,
+  "pr_meta": null,
+  "provenance_path": "reports/census-20260919T180014Z/fixture-clean-operator/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/fixture-clean-operator/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "synthetic_negative",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

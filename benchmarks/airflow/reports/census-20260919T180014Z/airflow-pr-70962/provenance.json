@@ -1,0 +1,64 @@
+{
+  "case_id": "airflow-pr-70962",
+  "origin_url": "https://github.com/apache/airflow/pull/70962",
+  "repo": "apache/airflow",
+  "pr": 70962,
+  "title": "Generate the Go SDK API clients with upstream oapi-codegen",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:35.470621+00:00"
+  },
+  "pr_meta": {
+    "number": 70962,
+    "title": "Generate the Go SDK API clients with upstream oapi-codegen",
+    "html_url": "https://github.com/apache/airflow/pull/70962",
+    "state": "closed",
+    "merged": false,
+    "user": "jason810496",
+    "created_at": "2026-08-03T05:12:25Z",
+    "closed_at": "2026-08-03T08:27:02Z",
+    "merged_at": null,
+    "base_sha": "bdc7bde97be72baa57854cea8b09a2310a18a3bc",
+    "head_sha": "534891e5331cf7af6ad935716baf366e691e1cd4",
+    "additions": 14860,
+    "deletions": 6774,
+    "changed_files": 28,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:kubernetes-tests",
+      "area:go-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/edge/worker.go",
+    "go-sdk/edge/worker_test.go",
+    "go-sdk/go.mod",
+    "go-sdk/go.sum",
+    "go-sdk/pkg/api/client.go",
+    "go-sdk/pkg/api/mocks/HttpRequestDoer.go",
+    "go-sdk/pkg/api/mocks/apiResponse.go",
+    "go-sdk/pkg/edgeapi/client.go",
+    "go-sdk/pkg/edgeapi/oapi-codegen.yml",
+    "go-sdk/pkg/worker/runner.go",
+    "go-sdk/pkg/worker/runner_test.go",
+    "go-sdk/sdk/client.go",
+    "go-sdk/sdk/client_test.go",
+    "kubernetes-tests/lang_sdk/go_example/go.mod",
+    "kubernetes-tests/lang_sdk/go_example/go.sum"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:31:30.285986+00:00"
+}

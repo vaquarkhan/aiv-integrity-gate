@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72818",
+  "origin_url": "https://github.com/apache/airflow/pull/72818",
+  "repo": "apache/airflow",
+  "pr": 72818,
+  "title": "Rename task instance terminal state SDK method",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:36.832952+00:00"
+  },
+  "pr_meta": {
+    "number": 72818,
+    "title": "Rename task instance terminal state SDK method",
+    "html_url": "https://github.com/apache/airflow/pull/72818",
+    "state": "closed",
+    "merged": false,
+    "user": "fat-catTW",
+    "created_at": "2026-09-09T15:42:31Z",
+    "closed_at": "2026-09-09T19:32:54Z",
+    "merged_at": null,
+    "base_sha": "a763ae3ea2b8c91f795759914ebfb711f9b4734f",
+    "head_sha": "2958b64f87c592d693f87c5e1220657e8190a48a",
+    "additions": 26,
+    "deletions": 25,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk-integration-tests/tests/task_sdk_tests/test_task_instance_operations.py",
+    "task-sdk/src/airflow/sdk/api/client.py",
+    "task-sdk/src/airflow/sdk/execution_time/supervisor.py",
+    "task-sdk/tests/task_sdk/api/test_client.py",
+    "task-sdk/tests/task_sdk/execution_time/test_supervisor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:07:33.309499+00:00"
+}

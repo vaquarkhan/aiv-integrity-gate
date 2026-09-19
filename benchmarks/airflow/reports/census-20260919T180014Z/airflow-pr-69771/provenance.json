@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-69771",
+  "origin_url": "https://github.com/apache/airflow/pull/69771",
+  "repo": "apache/airflow",
+  "pr": 69771,
+  "title": "[v3-1-test] Fix dag processor callback cleanup for versioned bundle files (#66484)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:31.119840+00:00"
+  },
+  "pr_meta": {
+    "number": 69771,
+    "title": "[v3-1-test] Fix dag processor callback cleanup for versioned bundle files (#66484)",
+    "html_url": "https://github.com/apache/airflow/pull/69771",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-07-11T23:45:16Z",
+    "closed_at": "2026-07-13T09:56:14Z",
+    "merged_at": null,
+    "base_sha": "f6e93b3cdaa3e58492765df33aebe806d0a63b67",
+    "head_sha": "f86de5833a50076eba7c569058bc121f5a8342bd",
+    "additions": 222,
+    "deletions": 23,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/dag_processing/manager.py",
+    "airflow-core/tests/unit/dag_processing/test_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:51:39.395077+00:00"
+}

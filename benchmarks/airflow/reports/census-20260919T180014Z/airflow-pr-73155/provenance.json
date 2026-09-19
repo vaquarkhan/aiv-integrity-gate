@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-73155",
+  "origin_url": "https://github.com/apache/airflow/pull/73155",
+  "repo": "apache/airflow",
+  "pr": 73155,
+  "title": "Fix BigQueryHook.create_table table_resource type handling (#73091)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:57.060030+00:00"
+  },
+  "pr_meta": {
+    "number": 73155,
+    "title": "Fix BigQueryHook.create_table table_resource type handling (#73091)",
+    "html_url": "https://github.com/apache/airflow/pull/73155",
+    "state": "closed",
+    "merged": false,
+    "user": "ShivanshhhG",
+    "created_at": "2026-09-15T02:40:51Z",
+    "closed_at": "2026-09-15T13:01:39Z",
+    "merged_at": null,
+    "base_sha": "b1df6865091f49c415133f41a66d36cf6efa953e",
+    "head_sha": "0c1cdd28e7d7175aa174a2a03aa98a256c0a3714",
+    "additions": 105,
+    "deletions": 9,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/72355.feature.rst",
+    "providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+    "providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+    "shared/configuration/src/airflow_shared/configuration/parser.py",
+    "shared/configuration/tests/configuration/test_parser.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:01:46.323662+00:00"
+}

@@ -1,0 +1,84 @@
+{
+  "id": "airflow-pr-69520",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69520",
+  "title": "Drop the LogTemplate DB model",
+  "pr": 69520,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:38.609668+00:00"
+  },
+  "pr_meta": {
+    "number": 69520,
+    "title": "Drop the LogTemplate DB model",
+    "html_url": "https://github.com/apache/airflow/pull/69520",
+    "state": "closed",
+    "merged": false,
+    "user": "jason810496",
+    "created_at": "2026-07-07T05:26:08Z",
+    "closed_at": "2026-07-13T03:33:22Z",
+    "merged_at": null,
+    "base_sha": "354ee3c705e2b0181723cacc02f7bd88a94d39a7",
+    "head_sha": "351b9ad40c6c2954e1956c1f7bbdd603b76fb8f4",
+    "additions": 219,
+    "deletions": 233,
+    "changed_files": 24,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:CLI",
+      "area:providers",
+      "area:logging",
+      "area:API",
+      "kind:documentation",
+      "full tests needed",
+      "provider:elasticsearch",
+      "area:DAG-processing",
+      "provider:opensearch",
+      "area:db-migrations"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69520/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69520/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69317",
+  "origin_url": "https://github.com/apache/airflow/pull/69317",
+  "repo": "apache/airflow",
+  "pr": 69317,
+  "title": "Fix airflowctl connection create command validation error ",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:45.876575+00:00"
+  },
+  "pr_meta": {
+    "number": 69317,
+    "title": "Fix airflowctl connection create command validation error ",
+    "html_url": "https://github.com/apache/airflow/pull/69317",
+    "state": "closed",
+    "merged": false,
+    "user": "Prab-27",
+    "created_at": "2026-07-03T09:22:55Z",
+    "closed_at": "2026-09-03T00:27:57Z",
+    "merged_at": null,
+    "base_sha": "b56771c8c73d0e5f7bdb7bb091c4a3409cc1f4ce",
+    "head_sha": "88e6d957a45fd21dcaaba877e0664e582d15feb8",
+    "additions": 7,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-ctl/src/airflowctl/api/operations.py",
+    "airflow-ctl/tests/airflow_ctl/api/test_operations.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:00:15.482979+00:00"
+}

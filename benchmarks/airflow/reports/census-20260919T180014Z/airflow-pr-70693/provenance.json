@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-70693",
+  "origin_url": "https://github.com/apache/airflow/pull/70693",
+  "repo": "apache/airflow",
+  "pr": 70693,
+  "title": "Fix TriggerDagRunOperator API errors bypassing retries",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:06.736612+00:00"
+  },
+  "pr_meta": {
+    "number": 70693,
+    "title": "Fix TriggerDagRunOperator API errors bypassing retries",
+    "html_url": "https://github.com/apache/airflow/pull/70693",
+    "state": "closed",
+    "merged": false,
+    "user": "tomatotomata",
+    "created_at": "2026-07-29T15:30:38Z",
+    "closed_at": "2026-07-29T20:28:42Z",
+    "merged_at": null,
+    "base_sha": "d8074062e6e32f20ca2ceebbfab8de7e52784163",
+    "head_sha": "31f79c51aa02110b3108422e44b8ffefe57d4e1b",
+    "additions": 41,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:35:32.334930+00:00"
+}

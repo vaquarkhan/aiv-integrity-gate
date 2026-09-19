@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69439",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69439",
+  "title": "fix(execution-api): support connection IDs with slashes in get_connection route",
+  "pr": 69439,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:09.378260+00:00"
+  },
+  "pr_meta": {
+    "number": 69439,
+    "title": "fix(execution-api): support connection IDs with slashes in get_connection route",
+    "html_url": "https://github.com/apache/airflow/pull/69439",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-06T06:50:25Z",
+    "closed_at": "2026-07-09T17:47:57Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "20a4b15455cc907ee594feda30c3048e1366177a",
+    "additions": 23,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69439/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69439/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

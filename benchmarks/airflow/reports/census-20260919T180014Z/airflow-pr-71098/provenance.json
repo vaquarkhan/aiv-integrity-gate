@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-71098",
+  "origin_url": "https://github.com/apache/airflow/pull/71098",
+  "repo": "apache/airflow",
+  "pr": 71098,
+  "title": "Fix unnecessary DAG file stats warning",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:58.766576+00:00"
+  },
+  "pr_meta": {
+    "number": 71098,
+    "title": "Fix unnecessary DAG file stats warning",
+    "html_url": "https://github.com/apache/airflow/pull/71098",
+    "state": "closed",
+    "merged": false,
+    "user": "09Catho",
+    "created_at": "2026-08-04T13:01:49Z",
+    "closed_at": "2026-08-18T10:50:05Z",
+    "merged_at": null,
+    "base_sha": "f81459835adb111e57b2a87f586d856395660f8a",
+    "head_sha": "03a9525c1ed8b11831c7f6bfe4c6e9df7e1f4f63",
+    "additions": 8,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/dag_processing/manager.py",
+    "airflow-core/tests/unit/dag_processing/test_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:29:18.648558+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71500",
+  "origin_url": "https://github.com/apache/airflow/pull/71500",
+  "repo": "apache/airflow",
+  "pr": 71500,
+  "title": "Walk each Dag once in DBDagBag.iter_all_latest_version_dags",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:13.789766+00:00"
+  },
+  "pr_meta": {
+    "number": 71500,
+    "title": "Walk each Dag once in DBDagBag.iter_all_latest_version_dags",
+    "html_url": "https://github.com/apache/airflow/pull/71500",
+    "state": "closed",
+    "merged": false,
+    "user": "Eason09053360",
+    "created_at": "2026-08-12T13:50:05Z",
+    "closed_at": "2026-08-12T13:58:03Z",
+    "merged_at": null,
+    "base_sha": "84d873a36f6089be9fc1358b1a718ebe8fa42331",
+    "head_sha": "ecee7a37d4fa73079093a5d320fe295ddf4934b7",
+    "additions": 30,
+    "deletions": 4,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/models/dagbag.py",
+    "airflow-core/src/airflow/models/serialized_dag.py",
+    "airflow-core/tests/unit/models/test_dagbag.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:22:57.267258+00:00"
+}

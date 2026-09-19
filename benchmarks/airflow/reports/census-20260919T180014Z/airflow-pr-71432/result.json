@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-71432",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71432",
+  "title": "fix: add ssl_ciphers CLI option for API server",
+  "pr": 71432,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:29.333378+00:00"
+  },
+  "pr_meta": {
+    "number": 71432,
+    "title": "fix: add ssl_ciphers CLI option for API server",
+    "html_url": "https://github.com/apache/airflow/pull/71432",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-11T12:15:02Z",
+    "closed_at": "2026-08-11T21:24:37Z",
+    "merged_at": null,
+    "base_sha": "576c653078400144f1eda9c2632b8c3334451726",
+    "head_sha": "aaa2cbcedd906b1f4b426a1d82fc296fa5afb7c1",
+    "additions": 22,
+    "deletions": 0,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "area:CLI",
+      "AI Spam",
+      "area:ConfigTemplates"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71432/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71432/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

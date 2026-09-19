@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-72711",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72711",
+  "title": "Add OAuth2 client credentials auth for OpenLineage HTTP transport",
+  "pr": 72711,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:53.168718+00:00"
+  },
+  "pr_meta": {
+    "number": 72711,
+    "title": "Add OAuth2 client credentials auth for OpenLineage HTTP transport",
+    "html_url": "https://github.com/apache/airflow/pull/72711",
+    "state": "closed",
+    "merged": false,
+    "user": "rahul-madaan",
+    "created_at": "2026-09-08T13:58:39Z",
+    "closed_at": "2026-09-09T19:24:46Z",
+    "merged_at": null,
+    "base_sha": "8850c326bdc66ef08506e51b98d2fc80e478df41",
+    "head_sha": "a301813b8d0c854a49d3eb04f3f20f0759ffa6c4",
+    "additions": 680,
+    "deletions": 2,
+    "changed_files": 7,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:openlineage"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72711/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72711/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

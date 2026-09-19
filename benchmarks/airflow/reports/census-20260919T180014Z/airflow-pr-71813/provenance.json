@@ -1,0 +1,65 @@
+{
+  "case_id": "airflow-pr-71813",
+  "origin_url": "https://github.com/apache/airflow/pull/71813",
+  "repo": "apache/airflow",
+  "pr": 71813,
+  "title": "Make the Dag cache configurable and per-component in metrics",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:10.953792+00:00"
+  },
+  "pr_meta": {
+    "number": 71813,
+    "title": "Make the Dag cache configurable and per-component in metrics",
+    "html_url": "https://github.com/apache/airflow/pull/71813",
+    "state": "closed",
+    "merged": false,
+    "user": "jason810496",
+    "created_at": "2026-08-19T05:16:23Z",
+    "closed_at": "2026-08-19T05:55:10Z",
+    "merged_at": null,
+    "base_sha": "ae54b2be5ee4572a8336da6f0f419194ce294966",
+    "head_sha": "451e63415082037dfd60e7b4c77610a424543b4d",
+    "additions": 497,
+    "deletions": 165,
+    "changed_files": 12,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:scheduler",
+      "area:dev-tools",
+      "area:API",
+      "kind:documentation",
+      "area:ConfigTemplates",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/administration-and-deployment/web-stack.rst",
+    "airflow-core/docs/faq.rst",
+    "airflow-core/newsfragments/71813.significant.rst",
+    "airflow-core/src/airflow/api_fastapi/common/dagbag.py",
+    "airflow-core/src/airflow/config_templates/config.yml",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/src/airflow/models/dagbag.py",
+    "airflow-core/tests/unit/api_fastapi/common/test_dagbag.py",
+    "airflow-core/tests/unit/models/test_dagbag.py",
+    "scripts/ci/prek/check_metrics_synced_with_the_registry.py",
+    "scripts/tests/ci/prek/test_check_metrics_synced_with_the_registry.py",
+    "shared/observability/src/airflow_shared/observability/metrics/metrics_template.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:19:06.178786+00:00"
+}

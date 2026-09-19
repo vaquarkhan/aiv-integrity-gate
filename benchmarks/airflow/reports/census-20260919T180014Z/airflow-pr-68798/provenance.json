@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-68798",
+  "origin_url": "https://github.com/apache/airflow/pull/68798",
+  "repo": "apache/airflow",
+  "pr": 68798,
+  "title": "UI: Fix Storage tab content overlap",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:15.211001+00:00"
+  },
+  "pr_meta": {
+    "number": 68798,
+    "title": "UI: Fix Storage tab content overlap",
+    "html_url": "https://github.com/apache/airflow/pull/68798",
+    "state": "closed",
+    "merged": false,
+    "user": "Revanth14",
+    "created_at": "2026-06-21T20:38:58Z",
+    "closed_at": "2026-07-02T11:39:46Z",
+    "merged_at": null,
+    "base_sha": "5bc8796e3a0d2ed3bb7cf9a45bb80a5588c2607d",
+    "head_sha": "e2b77ab8c76f81ef0312a3a021d170bec4e32cdd",
+    "additions": 4,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "type:bug-fix",
+      "area:UI",
+      "ready for maintainer review",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/layouts/StorageLayout.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:09:47.382842+00:00"
+}

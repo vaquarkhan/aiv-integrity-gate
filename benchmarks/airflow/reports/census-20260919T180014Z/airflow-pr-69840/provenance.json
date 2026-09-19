@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69840",
+  "origin_url": "https://github.com/apache/airflow/pull/69840",
+  "repo": "apache/airflow",
+  "pr": 69840,
+  "title": "Add single-use callback token for deadline callback context fetch",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:12.615288+00:00"
+  },
+  "pr_meta": {
+    "number": 69840,
+    "title": "Add single-use callback token for deadline callback context fetch",
+    "html_url": "https://github.com/apache/airflow/pull/69840",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-07-13T23:12:03Z",
+    "closed_at": "2026-08-05T05:53:24Z",
+    "merged_at": null,
+    "base_sha": "9a85faa9c55b907bd105ee41567bb7d55dab9f31",
+    "head_sha": "9a85faa9c55b907bd105ee41567bb7d55dab9f31",
+    "additions": 0,
+    "deletions": 0,
+    "changed_files": 0,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:Executors-core",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "NO_FILES_MATERIALIZED.txt",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:50:28.929168+00:00"
+}

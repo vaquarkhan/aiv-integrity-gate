@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71162",
+  "origin_url": "https://github.com/apache/airflow/pull/71162",
+  "repo": "apache/airflow",
+  "pr": 71162,
+  "title": "Build not-ready providers from source when generating PyPI constraints",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:49.588348+00:00"
+  },
+  "pr_meta": {
+    "number": 71162,
+    "title": "Build not-ready providers from source when generating PyPI constraints",
+    "html_url": "https://github.com/apache/airflow/pull/71162",
+    "state": "closed",
+    "merged": false,
+    "user": "vatsrahul1001",
+    "created_at": "2026-08-05T08:51:06Z",
+    "closed_at": "2026-08-05T09:01:19Z",
+    "merged_at": null,
+    "base_sha": "dd1f84ab2034a14164e4d09310fba8fe1fa0395e",
+    "head_sha": "544945269566244979d17bc060939bf7db3c08c0",
+    "additions": 61,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "scripts/in_container/run_generate_constraints.py",
+    "scripts/tests/in_container/test_run_generate_constraints.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:28:41.363327+00:00"
+}

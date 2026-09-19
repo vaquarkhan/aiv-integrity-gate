@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-69807",
+  "origin_url": "https://github.com/apache/airflow/pull/69807",
+  "repo": "apache/airflow",
+  "pr": 69807,
+  "title": "Detect Celery workers not consuming queues",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:26.036154+00:00"
+  },
+  "pr_meta": {
+    "number": 69807,
+    "title": "Detect Celery workers not consuming queues",
+    "html_url": "https://github.com/apache/airflow/pull/69807",
+    "state": "closed",
+    "merged": false,
+    "user": "shaealh",
+    "created_at": "2026-07-13T09:15:52Z",
+    "closed_at": "2026-08-14T11:12:07Z",
+    "merged_at": null,
+    "base_sha": "c382278eacae9349f44d4134b6525ad8724a62ca",
+    "head_sha": "57bbbfe7c3f9842a6a79d2d82877a94c8537925f",
+    "additions": 66,
+    "deletions": 9,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:helm-chart",
+      "kind:documentation",
+      "provider:celery"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/administration-and-deployment/logging-monitoring/check-health.rst",
+    "airflow-core/docs/howto/docker-compose/docker-compose.yaml",
+    "chart/newsfragments/69807.bugfix.rst",
+    "chart/templates/workers/worker-deployment.yaml",
+    "chart/tests/helm_tests/airflow_core/test_worker.py",
+    "providers/celery/src/airflow/providers/celery/cli/celery_command.py",
+    "providers/celery/src/airflow/providers/celery/cli/definition.py",
+    "providers/celery/tests/unit/celery/cli/test_celery_command.py",
+    "providers/celery/tests/unit/celery/cli/test_definition.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:51:19.038165+00:00"
+}

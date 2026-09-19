@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-69244",
+  "origin_url": "https://github.com/apache/airflow/pull/69244",
+  "repo": "apache/airflow",
+  "pr": 69244,
+  "title": "fix: correct enable_tcp_keepalive mock patch target in hook tests",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:50.654857+00:00"
+  },
+  "pr_meta": {
+    "number": 69244,
+    "title": "fix: correct enable_tcp_keepalive mock patch target in hook tests",
+    "html_url": "https://github.com/apache/airflow/pull/69244",
+    "state": "closed",
+    "merged": false,
+    "user": "anmolxlight",
+    "created_at": "2026-07-02T10:39:07Z",
+    "closed_at": "2026-07-02T10:39:23Z",
+    "merged_at": null,
+    "base_sha": "3bfa5ff9a373aae6669f7cc7a6782da71e714186",
+    "head_sha": "4e7c02e9f9a27c5d83373cdb0b30cee10101a5c1",
+    "additions": 97,
+    "deletions": 48,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/hooks/kubernetes.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kube_client.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/hooks/test_kubernetes.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_client.py",
+    "providers/google/src/airflow/providers/google/cloud/hooks/kubernetes_engine.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:00:35.789202+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72818",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72818",
+  "title": "Rename task instance terminal state SDK method",
+  "pr": 72818,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:36.832952+00:00"
+  },
+  "pr_meta": {
+    "number": 72818,
+    "title": "Rename task instance terminal state SDK method",
+    "html_url": "https://github.com/apache/airflow/pull/72818",
+    "state": "closed",
+    "merged": false,
+    "user": "fat-catTW",
+    "created_at": "2026-09-09T15:42:31Z",
+    "closed_at": "2026-09-09T19:32:54Z",
+    "merged_at": null,
+    "base_sha": "a763ae3ea2b8c91f795759914ebfb711f9b4734f",
+    "head_sha": "2958b64f87c592d693f87c5e1220657e8190a48a",
+    "additions": 26,
+    "deletions": 25,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72818/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72818/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

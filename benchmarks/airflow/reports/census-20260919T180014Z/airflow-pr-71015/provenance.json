@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71015",
+  "origin_url": "https://github.com/apache/airflow/pull/71015",
+  "repo": "apache/airflow",
+  "pr": 71015,
+  "title": "Store non-string Variable API values as JSON instead of a Python repr",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:30.738028+00:00"
+  },
+  "pr_meta": {
+    "number": 71015,
+    "title": "Store non-string Variable API values as JSON instead of a Python repr",
+    "html_url": "https://github.com/apache/airflow/pull/71015",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-08-03T20:02:21Z",
+    "closed_at": "2026-08-11T21:54:32Z",
+    "merged_at": null,
+    "base_sha": "0bda2ffece97df4b90484a70dd4c62ff35993fda",
+    "head_sha": "c95c47bfcdb6348525778027fbf22c9c4ff51ee2",
+    "additions": 79,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/variables.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/services/public/variables.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_variables.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:31:06.149959+00:00"
+}

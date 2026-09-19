@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70769",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70769",
+  "title": "Update/Fix: fix-70296-triggerdagrun",
+  "pr": 70769,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:55.198472+00:00"
+  },
+  "pr_meta": {
+    "number": 70769,
+    "title": "Update/Fix: fix-70296-triggerdagrun",
+    "html_url": "https://github.com/apache/airflow/pull/70769",
+    "state": "closed",
+    "merged": false,
+    "user": "saitejabandaru-in",
+    "created_at": "2026-07-30T13:11:42Z",
+    "closed_at": "2026-07-30T13:54:26Z",
+    "merged_at": null,
+    "base_sha": "f0d50bdb17868b52c733e16b40a7af2f4276fc0d",
+    "head_sha": "d157b1ccb48c907543e5494a5b5f40c08f56f452",
+    "additions": 13,
+    "deletions": 34,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70769/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70769/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

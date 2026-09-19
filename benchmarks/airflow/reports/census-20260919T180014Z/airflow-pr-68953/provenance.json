@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-68953",
+  "origin_url": "https://github.com/apache/airflow/pull/68953",
+  "repo": "apache/airflow",
+  "pr": 68953,
+  "title": "Fix Breeze SIGILL on Apple Silicon caused by OpenSSL 3.0.20 ARM crypto instructions",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:02.126958+00:00"
+  },
+  "pr_meta": {
+    "number": 68953,
+    "title": "Fix Breeze SIGILL on Apple Silicon caused by OpenSSL 3.0.20 ARM crypto instructions",
+    "html_url": "https://github.com/apache/airflow/pull/68953",
+    "state": "closed",
+    "merged": false,
+    "user": "AlejandroMorgante",
+    "created_at": "2026-06-24T19:22:16Z",
+    "closed_at": "2026-06-24T20:23:35Z",
+    "merged_at": null,
+    "base_sha": "76f9210e5e00d3e17ca2557e475596f70b382781",
+    "head_sha": "378221a786b14c4b2be83108f33ac5214dc0d151",
+    "additions": 9,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/src/airflow_breeze/params/shell_params.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:05:08.668441+00:00"
+}

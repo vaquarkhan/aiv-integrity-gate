@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69082",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69082",
+  "title": "[IGNORE] Expose build constraints configuration in Breeze",
+  "pr": 69082,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:35.956605+00:00"
+  },
+  "pr_meta": {
+    "number": 69082,
+    "title": "[IGNORE] Expose build constraints configuration in Breeze",
+    "html_url": "https://github.com/apache/airflow/pull/69082",
+    "state": "closed",
+    "merged": false,
+    "user": "aaron-y-chen",
+    "created_at": "2026-06-27T11:01:42Z",
+    "closed_at": "2026-06-29T12:27:50Z",
+    "merged_at": null,
+    "base_sha": "4b25735cfcd6c326969c69d887eac8eb6e527685",
+    "head_sha": "5b6136cad097badd810f834792f39026181a460b",
+    "additions": 719,
+    "deletions": 381,
+    "changed_files": 24,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69082/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69082/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

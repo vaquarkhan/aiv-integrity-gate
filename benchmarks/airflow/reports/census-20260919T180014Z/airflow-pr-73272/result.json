@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73272",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73272",
+  "title": "Stop provider tests leaking AF2 global TI session",
+  "pr": 73272,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:12.463503+00:00"
+  },
+  "pr_meta": {
+    "number": 73272,
+    "title": "Stop provider tests leaking AF2 global TI session",
+    "html_url": "https://github.com/apache/airflow/pull/73272",
+    "state": "closed",
+    "merged": true,
+    "user": "amoghrajesh",
+    "created_at": "2026-09-17T07:32:55Z",
+    "closed_at": "2026-09-17T12:34:04Z",
+    "merged_at": "2026-09-17T12:34:04Z",
+    "base_sha": "a039116f83bf7c8f92f0d50c43744a0700d1d330",
+    "head_sha": "03e65834ce4e9171fe3631538177a46f14227e9c",
+    "additions": 20,
+    "deletions": 9,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73272/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73272/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-68852",
+  "origin_url": "https://github.com/apache/airflow/pull/68852",
+  "repo": "apache/airflow",
+  "pr": 68852,
+  "title": "Bump @babel/preset-env from 8.0.1 to 8.0.2 in /providers/fab/src/airflow/providers/fab/www in the fab-ui-package-updates group across 1 directory",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:34.973751+00:00"
+  },
+  "pr_meta": {
+    "number": 68852,
+    "title": "Bump @babel/preset-env from 8.0.1 to 8.0.2 in /providers/fab/src/airflow/providers/fab/www in the fab-ui-package-updates group across 1 directory",
+    "html_url": "https://github.com/apache/airflow/pull/68852",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-06-22T16:54:25Z",
+    "closed_at": "2026-06-23T15:09:41Z",
+    "merged_at": null,
+    "base_sha": "c76162a8c465b9b630ce17c3fadf103d782758a1",
+    "head_sha": "e7a04e6e8eadf09d16a9b5ee7bf2b05e36ca1f63",
+    "additions": 69,
+    "deletions": 46,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "javascript",
+      "provider:fab",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/fab/src/airflow/providers/fab/www/package.json",
+    "providers/fab/src/airflow/providers/fab/www/pnpm-lock.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:07:09.529830+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-71318",
+  "origin_url": "https://github.com/apache/airflow/pull/71318",
+  "repo": "apache/airflow",
+  "pr": 71318,
+  "title": "Build Dataproc submit job trigger arguments after template rendering",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:02.103077+00:00"
+  },
+  "pr_meta": {
+    "number": 71318,
+    "title": "Build Dataproc submit job trigger arguments after template rendering",
+    "html_url": "https://github.com/apache/airflow/pull/71318",
+    "state": "closed",
+    "merged": false,
+    "user": "jzhou-otterai",
+    "created_at": "2026-08-07T22:57:41Z",
+    "closed_at": "2026-08-08T17:53:27Z",
+    "merged_at": null,
+    "base_sha": "1f529f3837ab5e38ddd27ea355a7fbfddd392573",
+    "head_sha": "fe9c09620b922e5251747fb343f90577582e4323",
+    "additions": 50,
+    "deletions": 7,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/operators/dataproc.py",
+    "providers/google/tests/unit/google/cloud/operators/test_dataproc.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:26:07.850309+00:00"
+}

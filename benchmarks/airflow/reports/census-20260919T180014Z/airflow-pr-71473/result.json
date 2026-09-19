@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-71473",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71473",
+  "title": "Add is_scheduled filter to DAG list API",
+  "pr": 71473,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:20.072237+00:00"
+  },
+  "pr_meta": {
+    "number": 71473,
+    "title": "Add is_scheduled filter to DAG list API",
+    "html_url": "https://github.com/apache/airflow/pull/71473",
+    "state": "closed",
+    "merged": false,
+    "user": "Khan3K",
+    "created_at": "2026-08-12T01:20:24Z",
+    "closed_at": "2026-08-12T14:04:47Z",
+    "merged_at": null,
+    "base_sha": "5e706033ca696bf04ad7930e4662cf9d34864b37",
+    "head_sha": "508f7dfd7a3e627db1f77ad2c933be0534ba4b9a",
+    "additions": 145,
+    "deletions": 20,
+    "changed_files": 15,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71473/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71473/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

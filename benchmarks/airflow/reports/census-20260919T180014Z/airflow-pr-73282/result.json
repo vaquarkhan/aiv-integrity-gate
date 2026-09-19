@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73282",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73282",
+  "title": "Fix airflowctl backfill pause/unpause/cancel always failing with 405",
+  "pr": 73282,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:00.643181+00:00"
+  },
+  "pr_meta": {
+    "number": 73282,
+    "title": "Fix airflowctl backfill pause/unpause/cancel always failing with 405",
+    "html_url": "https://github.com/apache/airflow/pull/73282",
+    "state": "closed",
+    "merged": true,
+    "user": "Eason09053360",
+    "created_at": "2026-09-17T11:25:16Z",
+    "closed_at": "2026-09-17T19:06:08Z",
+    "merged_at": "2026-09-17T19:06:08Z",
+    "base_sha": "11a3892daa9dfd5e84fb037d49373b174a372fb8",
+    "head_sha": "ddda5fc05eff4109d4db07fd6dd78106de33b2bc",
+    "additions": 6,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73282/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73282/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

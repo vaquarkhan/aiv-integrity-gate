@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-68911",
+  "origin_url": "https://github.com/apache/airflow/pull/68911",
+  "repo": "apache/airflow",
+  "pr": 68911,
+  "title": "Add deferrable support for Cloud Functions invocation",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:14.451208+00:00"
+  },
+  "pr_meta": {
+    "number": 68911,
+    "title": "Add deferrable support for Cloud Functions invocation",
+    "html_url": "https://github.com/apache/airflow/pull/68911",
+    "state": "closed",
+    "merged": false,
+    "user": "anushkagupta200615-jpg",
+    "created_at": "2026-06-23T18:13:00Z",
+    "closed_at": "2026-07-28T17:13:25Z",
+    "merged_at": null,
+    "base_sha": "38b28694f84bb9346b3c067415fd342f9e197d66",
+    "head_sha": "1beb12a932ee5be86653318a6084ebde2609a708",
+    "additions": 510,
+    "deletions": 0,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/docs/operators/cloud/functions.rst",
+    "providers/google/src/airflow/providers/google/cloud/operators/functions.py",
+    "providers/google/src/airflow/providers/google/cloud/triggers/functions.py",
+    "providers/google/tests/unit/google/cloud/operators/test_functions.py",
+    "providers/google/tests/unit/google/cloud/triggers/test_functions.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:05:51.833903+00:00"
+}

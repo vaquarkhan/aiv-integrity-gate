@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73058",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73058",
+  "title": "Fix AgentOperator HITL review converting str output to other types",
+  "pr": 73058,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:19.133849+00:00"
+  },
+  "pr_meta": {
+    "number": 73058,
+    "title": "Fix AgentOperator HITL review converting str output to other types",
+    "html_url": "https://github.com/apache/airflow/pull/73058",
+    "state": "closed",
+    "merged": false,
+    "user": "justinpakzad",
+    "created_at": "2026-09-13T03:33:24Z",
+    "closed_at": "2026-09-14T01:39:15Z",
+    "merged_at": null,
+    "base_sha": "81b93db4a2f6da3d4e56a337f0f0b84fb2f1b029",
+    "head_sha": "386eea14809e286cc421b5e1113b74040bf71936",
+    "additions": 7,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:common-ai"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73058/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73058/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

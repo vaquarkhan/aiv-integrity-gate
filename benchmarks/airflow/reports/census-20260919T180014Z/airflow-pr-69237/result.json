@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69237",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69237",
+  "title": "Fix OTel integration test for new task.execute detail span",
+  "pr": 69237,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:53.289994+00:00"
+  },
+  "pr_meta": {
+    "number": 69237,
+    "title": "Fix OTel integration test for new task.execute detail span",
+    "html_url": "https://github.com/apache/airflow/pull/69237",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-07-02T08:58:09Z",
+    "closed_at": "2026-07-02T09:01:16Z",
+    "merged_at": null,
+    "base_sha": "81dbef9f4bdd648e5ddf12709a50d460cad69b21",
+    "head_sha": "cec9c1af537fe5f179cd5c2604594fe96adf8b3d",
+    "additions": 4,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69237/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69237/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

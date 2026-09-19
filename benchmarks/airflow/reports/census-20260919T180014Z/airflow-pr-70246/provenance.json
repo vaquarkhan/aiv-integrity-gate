@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70246",
+  "origin_url": "https://github.com/apache/airflow/pull/70246",
+  "repo": "apache/airflow",
+  "pr": 70246,
+  "title": "Exclude uv/pip installer versions from generated constraints files",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:48.273887+00:00"
+  },
+  "pr_meta": {
+    "number": 70246,
+    "title": "Exclude uv/pip installer versions from generated constraints files",
+    "html_url": "https://github.com/apache/airflow/pull/70246",
+    "state": "closed",
+    "merged": false,
+    "user": "bramhanandlingala",
+    "created_at": "2026-07-22T15:44:26Z",
+    "closed_at": "2026-07-28T20:53:19Z",
+    "merged_at": null,
+    "base_sha": "086361bf3f0798baea3d5c88b282651b38ce4519",
+    "head_sha": "38fba30fdf64383d9eacf1d3e34c0aa2cd3f6f37",
+    "additions": 2,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "ready for maintainer review",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "scripts/in_container/run_generate_constraints.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:42:49.318259+00:00"
+}

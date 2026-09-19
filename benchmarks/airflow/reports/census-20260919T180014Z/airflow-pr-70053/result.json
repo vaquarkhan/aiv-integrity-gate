@@ -1,0 +1,90 @@
+{
+  "id": "airflow-pr-70053",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70053",
+  "title": "feat: per-component enableBuiltInSecretEnvVars for workers and scheduler",
+  "pr": 70053,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:55.547037+00:00"
+  },
+  "pr_meta": {
+    "number": 70053,
+    "title": "feat: per-component enableBuiltInSecretEnvVars for workers and scheduler",
+    "html_url": "https://github.com/apache/airflow/pull/70053",
+    "state": "closed",
+    "merged": false,
+    "user": "anmolxlight",
+    "created_at": "2026-07-17T20:37:36Z",
+    "closed_at": "2026-07-18T21:08:47Z",
+    "merged_at": null,
+    "base_sha": "5820c02124d4c47e5386268385893180c395a9ac",
+    "head_sha": "d8109caa0ccf93470c910e8affa1d59c31718c01",
+    "additions": 2410630,
+    "deletions": 0,
+    "changed_files": 13534,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:helm-chart"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70053/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70053/aiv-report.json",
+  "outcome": {
+    "verdict": "FP",
+    "hard_fail": true,
+    "advisory": false,
+    "blocking_gates": [
+      "invariant"
+    ],
+    "advisory_gates": [],
+    "exit_code": 1,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Placeholder marker (TBD/FIXME/XXX) found in .github/workflows/ui-e2e-tests.yml\nPlaceholder marker (TBD/FIXME/XXX) found in ISSUE_TRIAGE_PROCESS.rst",
+      "findings": [
+        {
+          "rule_id": "invariant.placeholder",
+          "file": ".github/workflows/ui-e2e-tests.yml",
+          "start_line": 1,
+          "message": "Placeholder marker (TBD/FIXME/XXX) found in .github/workflows/ui-e2e-tests.yml"
+        },
+        {
+          "rule_id": "invariant.placeholder",
+          "file": "ISSUE_TRIAGE_PROCESS.rst",
+          "start_line": 1,
+          "message": "Placeholder marker (TBD/FIXME/XXX) found in ISSUE_TRIAGE_PROCESS.rst"
+        }
+      ]
+    }
+  ]
+}

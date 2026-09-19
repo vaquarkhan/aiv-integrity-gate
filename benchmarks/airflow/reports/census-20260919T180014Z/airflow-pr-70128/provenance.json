@@ -1,0 +1,48 @@
+{
+  "case_id": "airflow-pr-70128",
+  "origin_url": "https://github.com/apache/airflow/pull/70128",
+  "repo": "apache/airflow",
+  "pr": 70128,
+  "title": "Fix deadlock when concurrent tasks queue the same asset's downstream dags",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:31.448932+00:00"
+  },
+  "pr_meta": {
+    "number": 70128,
+    "title": "Fix deadlock when concurrent tasks queue the same asset's downstream dags",
+    "html_url": "https://github.com/apache/airflow/pull/70128",
+    "state": "closed",
+    "merged": false,
+    "user": "Andrushika",
+    "created_at": "2026-07-20T13:06:40Z",
+    "closed_at": "2026-08-07T04:47:14Z",
+    "merged_at": null,
+    "base_sha": "424c4a73cabb8d495bf85a41b83b7eeffc52b1b6",
+    "head_sha": "e0a33e6ba4530a48fe206a9f4aa56a0ebc346471",
+    "additions": 53,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/assets/manager.py",
+    "airflow-core/tests/unit/assets/test_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:45:04.267437+00:00"
+}

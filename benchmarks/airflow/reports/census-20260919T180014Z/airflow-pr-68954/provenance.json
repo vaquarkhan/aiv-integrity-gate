@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-68954",
+  "origin_url": "https://github.com/apache/airflow/pull/68954",
+  "repo": "apache/airflow",
+  "pr": 68954,
+  "title": "Fix branch not skipping mapped tasks with custom XCom backend",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:59.758199+00:00"
+  },
+  "pr_meta": {
+    "number": 68954,
+    "title": "Fix branch not skipping mapped tasks with custom XCom backend",
+    "html_url": "https://github.com/apache/airflow/pull/68954",
+    "state": "closed",
+    "merged": false,
+    "user": "darshil929",
+    "created_at": "2026-06-24T19:49:57Z",
+    "closed_at": "2026-09-06T00:29:49Z",
+    "merged_at": null,
+    "base_sha": "926a8c62c553bf37df09cba1fd5515ee55129754",
+    "head_sha": "f282a8f315dbcb4fe4937da9bb50c52a9c22ef9f",
+    "additions": 76,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/68954.bugfix.rst",
+    "airflow-core/tests/unit/ti_deps/deps/test_not_previously_skipped_dep.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:05:02.763853+00:00"
+}

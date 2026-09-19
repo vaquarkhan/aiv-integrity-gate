@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70042",
+  "origin_url": "https://github.com/apache/airflow/pull/70042",
+  "repo": "apache/airflow",
+  "pr": 70042,
+  "title": "Add Task SDK unit tests for EdgeModifier and Label",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:03.816760+00:00"
+  },
+  "pr_meta": {
+    "number": 70042,
+    "title": "Add Task SDK unit tests for EdgeModifier and Label",
+    "html_url": "https://github.com/apache/airflow/pull/70042",
+    "state": "closed",
+    "merged": false,
+    "user": "ColtenOuO",
+    "created_at": "2026-07-17T17:24:22Z",
+    "closed_at": "2026-09-15T00:27:32Z",
+    "merged_at": null,
+    "base_sha": "8037e9ae30de7a138f24f652251ea25b6e4e4719",
+    "head_sha": "91cdb3b3c119f7db118e1a21dfc282498f542eb7",
+    "additions": 137,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:task-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/tests/task_sdk/definitions/test_edges.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:46:41.469467+00:00"
+}

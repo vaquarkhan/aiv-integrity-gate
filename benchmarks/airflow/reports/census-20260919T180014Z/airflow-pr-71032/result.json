@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-71032",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71032",
+  "title": "Bump react-resizable-panels from 3.0.6 to 4.12.2 in /airflow-core/src/airflow/ui",
+  "pr": 71032,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:15.783960+00:00"
+  },
+  "pr_meta": {
+    "number": 71032,
+    "title": "Bump react-resizable-panels from 3.0.6 to 4.12.2 in /airflow-core/src/airflow/ui",
+    "html_url": "https://github.com/apache/airflow/pull/71032",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-03T22:24:20Z",
+    "closed_at": "2026-08-06T14:06:05Z",
+    "merged_at": null,
+    "base_sha": "c0f6a60cdcb97375381e13e713edb713ceab1c09",
+    "head_sha": "c6bc0a882b724e860007c071fadda5e8f432b474",
+    "additions": 8,
+    "deletions": 8,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "javascript",
+      "dependencies"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71032/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71032/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

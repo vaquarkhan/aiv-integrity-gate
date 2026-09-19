@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-72430",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72430",
+  "title": "Prefer reachable Docker contexts including Colima in Breeze",
+  "pr": 72430,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:03.449389+00:00"
+  },
+  "pr_meta": {
+    "number": 72430,
+    "title": "Prefer reachable Docker contexts including Colima in Breeze",
+    "html_url": "https://github.com/apache/airflow/pull/72430",
+    "state": "closed",
+    "merged": false,
+    "user": "sreecharan-desu",
+    "created_at": "2026-09-02T10:08:37Z",
+    "closed_at": "2026-09-07T18:47:31Z",
+    "merged_at": null,
+    "base_sha": "bf976c8805ad1a9e9664723aefcd0a62b659d627",
+    "head_sha": "e0f7e93ab8fd881aff004b010ef70875443448dc",
+    "additions": 82,
+    "deletions": 5,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72430/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72430/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

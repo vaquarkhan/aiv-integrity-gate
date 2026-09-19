@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-71498",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71498",
+  "title": "Fix stopped Glue job trigger state",
+  "pr": 71498,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:15.259693+00:00"
+  },
+  "pr_meta": {
+    "number": 71498,
+    "title": "Fix stopped Glue job trigger state",
+    "html_url": "https://github.com/apache/airflow/pull/71498",
+    "state": "closed",
+    "merged": false,
+    "user": "09Catho",
+    "created_at": "2026-08-12T12:39:30Z",
+    "closed_at": "2026-08-14T05:59:53Z",
+    "merged_at": null,
+    "base_sha": "5e706033ca696bf04ad7930e4662cf9d34864b37",
+    "head_sha": "a585035076271474e230d7674c0c5ce1c56d5e30",
+    "additions": 6,
+    "deletions": 5,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71498/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71498/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

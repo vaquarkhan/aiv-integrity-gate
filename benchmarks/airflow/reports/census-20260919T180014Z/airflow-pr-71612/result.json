@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-71612",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71612",
+  "title": "Split Logs.test.tsx to fix max-lines lint failure",
+  "pr": 71612,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:47.022732+00:00"
+  },
+  "pr_meta": {
+    "number": 71612,
+    "title": "Split Logs.test.tsx to fix max-lines lint failure",
+    "html_url": "https://github.com/apache/airflow/pull/71612",
+    "state": "closed",
+    "merged": false,
+    "user": "hkc-8010",
+    "created_at": "2026-08-14T12:31:42Z",
+    "closed_at": "2026-08-14T13:30:40Z",
+    "merged_at": null,
+    "base_sha": "f72e6c9befa7494467fbc8ceb883148dd9cb61ec",
+    "head_sha": "cd6e4749c53f974900ca4bebfca03399b0dc43ce",
+    "additions": 439,
+    "deletions": 388,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71612/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71612/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

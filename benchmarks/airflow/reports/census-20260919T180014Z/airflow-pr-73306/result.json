@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73306",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73306",
+  "title": "Document that Core API session authorisation is resolved at token issue",
+  "pr": 73306,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:49.550492+00:00"
+  },
+  "pr_meta": {
+    "number": 73306,
+    "title": "Document that Core API session authorisation is resolved at token issue",
+    "html_url": "https://github.com/apache/airflow/pull/73306",
+    "state": "closed",
+    "merged": true,
+    "user": "potiuk",
+    "created_at": "2026-09-18T05:30:06Z",
+    "closed_at": "2026-09-18T15:43:07Z",
+    "merged_at": "2026-09-18T15:43:06Z",
+    "base_sha": "c614c57062a95aade62cd5df774ae3c33bd57003",
+    "head_sha": "4eb5d40f75eb9300a4d5aa233eb12dcd548c343e",
+    "additions": 20,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "kind:documentation",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73306/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73306/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

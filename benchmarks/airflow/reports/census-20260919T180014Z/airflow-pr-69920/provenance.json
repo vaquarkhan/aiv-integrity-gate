@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69920",
+  "origin_url": "https://github.com/apache/airflow/pull/69920",
+  "repo": "apache/airflow",
+  "pr": 69920,
+  "title": "Go SDK: Prevent Edge Worker config secrets from reaching logs",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:51.161309+00:00"
+  },
+  "pr_meta": {
+    "number": 69920,
+    "title": "Go SDK: Prevent Edge Worker config secrets from reaching logs",
+    "html_url": "https://github.com/apache/airflow/pull/69920",
+    "state": "closed",
+    "merged": false,
+    "user": "viiccwen",
+    "created_at": "2026-07-15T13:34:46Z",
+    "closed_at": "2026-08-20T13:23:24Z",
+    "merged_at": null,
+    "base_sha": "cb2d949af4e05256870fd2fa72e1097162078ae9",
+    "head_sha": "dc4a8bd77a573f1cd31dc75874a25e17269d5041",
+    "additions": 55,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/edge/worker.go",
+    "go-sdk/edge/worker_test.go",
+    "go-sdk/pkg/config/config.go"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:49:19.941690+00:00"
+}

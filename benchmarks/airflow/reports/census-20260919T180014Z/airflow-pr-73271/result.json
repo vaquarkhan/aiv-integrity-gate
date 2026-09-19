@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-73271",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73271",
+  "title": "Stop labelling the task log link as \"Mark Success\" in alert emails",
+  "pr": 73271,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:47.670182+00:00"
+  },
+  "pr_meta": {
+    "number": 73271,
+    "title": "Stop labelling the task log link as \"Mark Success\" in alert emails",
+    "html_url": "https://github.com/apache/airflow/pull/73271",
+    "state": "closed",
+    "merged": false,
+    "user": "rjgoyln",
+    "created_at": "2026-09-17T07:26:25Z",
+    "closed_at": "2026-09-17T13:13:59Z",
+    "merged_at": null,
+    "base_sha": "a039116f83bf7c8f92f0d50c43744a0700d1d330",
+    "head_sha": "15a6e0e3d8108ad0c14985953ff93a332b6c2576",
+    "additions": 50,
+    "deletions": 7,
+    "changed_files": 7,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:smtp",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73271/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73271/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

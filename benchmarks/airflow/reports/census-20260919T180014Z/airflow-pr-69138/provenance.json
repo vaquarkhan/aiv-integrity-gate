@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-69138",
+  "origin_url": "https://github.com/apache/airflow/pull/69138",
+  "repo": "apache/airflow",
+  "pr": 69138,
+  "title": "Fix DAG documentation rendering and description_md inline code in trigger modal",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:20.047843+00:00"
+  },
+  "pr_meta": {
+    "number": 69138,
+    "title": "Fix DAG documentation rendering and description_md inline code in trigger modal",
+    "html_url": "https://github.com/apache/airflow/pull/69138",
+    "state": "closed",
+    "merged": false,
+    "user": "bramhanandlingala",
+    "created_at": "2026-06-29T18:12:35Z",
+    "closed_at": "2026-08-20T11:42:36Z",
+    "merged_at": null,
+    "base_sha": "81dbef9f4bdd648e5ddf12709a50d460cad69b21",
+    "head_sha": "40986addf98d2198cab5fb778f78e3b908ec028a",
+    "additions": 57,
+    "deletions": 16,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "pending-response",
+      "area:UI",
+      "area:translations",
+      "translation:default"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/public/i18n/locales/en/components.json",
+    "airflow-core/src/airflow/ui/src/components/ReactMarkdown.tsx",
+    "airflow-core/src/airflow/ui/src/components/TriggerDag/TriggerDAGModal.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:02:22.497776+00:00"
+}

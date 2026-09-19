@@ -1,0 +1,64 @@
+{
+  "case_id": "airflow-pr-71473",
+  "origin_url": "https://github.com/apache/airflow/pull/71473",
+  "repo": "apache/airflow",
+  "pr": 71473,
+  "title": "Add is_scheduled filter to DAG list API",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:20.072237+00:00"
+  },
+  "pr_meta": {
+    "number": 71473,
+    "title": "Add is_scheduled filter to DAG list API",
+    "html_url": "https://github.com/apache/airflow/pull/71473",
+    "state": "closed",
+    "merged": false,
+    "user": "Khan3K",
+    "created_at": "2026-08-12T01:20:24Z",
+    "closed_at": "2026-08-12T14:04:47Z",
+    "merged_at": null,
+    "base_sha": "5e706033ca696bf04ad7930e4662cf9d34864b37",
+    "head_sha": "508f7dfd7a3e627db1f77ad2c933be0534ba4b9a",
+    "additions": 145,
+    "deletions": 20,
+    "changed_files": 15,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/71473.feature.rst",
+    "airflow-core/src/airflow/api_fastapi/common/parameters.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/_private_ui.yaml",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/v2-rest-api-generated.yaml",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/public/dags.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/ui/dags.py",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/common.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/ensureQueryData.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/prefetch.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/queries.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/queries/suspense.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/requests/services.gen.ts",
+    "airflow-core/src/airflow/ui/openapi-gen/requests/types.gen.ts",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_dags.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/ui/test_dags.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:23:28.307061+00:00"
+}

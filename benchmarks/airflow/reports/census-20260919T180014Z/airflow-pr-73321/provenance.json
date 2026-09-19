@@ -1,0 +1,47 @@
+{
+  "case_id": "airflow-pr-73321",
+  "origin_url": "https://github.com/apache/airflow/pull/73321",
+  "repo": "apache/airflow",
+  "pr": 73321,
+  "title": "Added Insignis to the list of companies using Apache Airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:39.384675+00:00"
+  },
+  "pr_meta": {
+    "number": 73321,
+    "title": "Added Insignis to the list of companies using Apache Airflow",
+    "html_url": "https://github.com/apache/airflow/pull/73321",
+    "state": "closed",
+    "merged": true,
+    "user": "anisengupta",
+    "created_at": "2026-09-18T11:02:52Z",
+    "closed_at": "2026-09-18T15:41:28Z",
+    "merged_at": "2026-09-18T15:41:28Z",
+    "base_sha": "9556dcf25b329a17a7a696648fabd3f716ef4501",
+    "head_sha": "bcd5461785981f79c4235bf43b9d9c559cb1ab64",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "INTHEWILD.md",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:11:23.105565+00:00"
+}

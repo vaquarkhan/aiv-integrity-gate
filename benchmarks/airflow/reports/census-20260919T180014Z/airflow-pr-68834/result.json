@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-68834",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/68834",
+  "title": "Fix incompat of request.form with anyio 4.14.0 in aws auth manager",
+  "pr": 68834,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:41.177904+00:00"
+  },
+  "pr_meta": {
+    "number": 68834,
+    "title": "Fix incompat of request.form with anyio 4.14.0 in aws auth manager",
+    "html_url": "https://github.com/apache/airflow/pull/68834",
+    "state": "closed",
+    "merged": false,
+    "user": "amoghrajesh",
+    "created_at": "2026-06-22T10:53:54Z",
+    "closed_at": "2026-06-27T06:16:58Z",
+    "merged_at": null,
+    "base_sha": "5e99f33a41673a26dc514997654c763565985cd7",
+    "head_sha": "ab4aa5edb8033400fd6f95b86e4c6ef281c0dfed",
+    "additions": 10,
+    "deletions": 3,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-68834/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-68834/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

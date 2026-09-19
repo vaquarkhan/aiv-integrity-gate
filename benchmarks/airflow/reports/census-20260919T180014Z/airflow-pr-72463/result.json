@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-72463",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72463",
+  "title": "Feature 72238 dag viewers audit logs",
+  "pr": 72463,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:57.759669+00:00"
+  },
+  "pr_meta": {
+    "number": 72463,
+    "title": "Feature 72238 dag viewers audit logs",
+    "html_url": "https://github.com/apache/airflow/pull/72463",
+    "state": "closed",
+    "merged": false,
+    "user": "ShivanshhhG",
+    "created_at": "2026-09-03T02:49:44Z",
+    "closed_at": "2026-09-15T13:01:45Z",
+    "merged_at": null,
+    "base_sha": "f1f7b8c2ccea97bc7d68c9300d0546c29fa75722",
+    "head_sha": "0dddd53486fa53e6af424985cd7b2d410c161cbe",
+    "additions": 96,
+    "deletions": 15,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72463/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72463/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70638",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70638",
+  "title": "Add aws_conn_id to template_fields in Amazon S3 operators (#35259)",
+  "pr": 70638,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:25.655481+00:00"
+  },
+  "pr_meta": {
+    "number": 70638,
+    "title": "Add aws_conn_id to template_fields in Amazon S3 operators (#35259)",
+    "html_url": "https://github.com/apache/airflow/pull/70638",
+    "state": "closed",
+    "merged": false,
+    "user": "divijaksolves",
+    "created_at": "2026-07-28T19:15:57Z",
+    "closed_at": "2026-08-01T01:37:34Z",
+    "merged_at": null,
+    "base_sha": "d8074062e6e32f20ca2ceebbfab8de7e52784163",
+    "head_sha": "c96a8a88502620e9fce101a899500b3a87ae3d2c",
+    "additions": 2,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70638/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70638/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

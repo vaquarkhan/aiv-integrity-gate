@@ -1,0 +1,57 @@
+{
+  "case_id": "airflow-pr-70322",
+  "origin_url": "https://github.com/apache/airflow/pull/70322",
+  "repo": "apache/airflow",
+  "pr": 70322,
+  "title": "Fix templated validation in Azure operators",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:34.869571+00:00"
+  },
+  "pr_meta": {
+    "number": 70322,
+    "title": "Fix templated validation in Azure operators",
+    "html_url": "https://github.com/apache/airflow/pull/70322",
+    "state": "closed",
+    "merged": false,
+    "user": "Revanth14",
+    "created_at": "2026-07-23T19:12:27Z",
+    "closed_at": "2026-09-17T00:26:01Z",
+    "merged_at": null,
+    "base_sha": "8e63d9bbc77ed0b1fa1e68ca4ab8d5c9cee6a8cf",
+    "head_sha": "65ce65ece1128bc9ea87dcb5a21495c0d0af286e",
+    "additions": 29,
+    "deletions": 27,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "provider:microsoft-azure",
+      "area:providers",
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/microsoft/azure/src/airflow/providers/microsoft/azure/sensors/compute.py",
+    "providers/microsoft/azure/src/airflow/providers/microsoft/azure/transfers/gcs_to_wasb.py",
+    "providers/microsoft/azure/src/airflow/providers/microsoft/azure/transfers/oracle_to_azure_data_lake.py",
+    "providers/microsoft/azure/tests/unit/microsoft/azure/sensors/test_compute.py",
+    "providers/microsoft/azure/tests/unit/microsoft/azure/transfers/test_gcs_to_wasb.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:42:01.122318+00:00"
+}

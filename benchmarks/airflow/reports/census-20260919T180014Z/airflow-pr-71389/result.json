@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-71389",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71389",
+  "title": "fix(git): fetch working copy from bare mirror before checkout to support promoting to a new tracking_ref SHA [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+  "pr": 71389,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:41.971115+00:00"
+  },
+  "pr_meta": {
+    "number": 71389,
+    "title": "fix(git): fetch working copy from bare mirror before checkout to support promoting to a new tracking_ref SHA [fj4WqyCCw3C5ShR1RfB7MoBPTpkRrBFYP1uT35g3MvT]",
+    "html_url": "https://github.com/apache/airflow/pull/71389",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-10T21:46:23Z",
+    "closed_at": "2026-08-11T21:24:40Z",
+    "merged_at": null,
+    "base_sha": "198944a3ce3753c7169296c3c1b7f37d175de141",
+    "head_sha": "d706e644601563e723dcb0bb267b91c162c1ebba",
+    "additions": 1,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "AI Spam",
+      "provider:git"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71389/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71389/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

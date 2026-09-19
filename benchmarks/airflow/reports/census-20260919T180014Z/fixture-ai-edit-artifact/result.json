@@ -1,0 +1,68 @@
+{
+  "id": "fixture-ai-edit-artifact",
+  "source": "fixture",
+  "url": null,
+  "title": null,
+  "pr": null,
+  "repo": null,
+  "label": {
+    "class": "synthetic_positive",
+    "expect_hard_fail": true,
+    "expect_advisory": null,
+    "rationale": "Synthetic incomplete LLM paste with SEARCH/REPLACE and elision chatter."
+  },
+  "discovery": null,
+  "pr_meta": null,
+  "provenance_path": "reports/census-20260919T180014Z/fixture-ai-edit-artifact/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/fixture-ai-edit-artifact/aiv-report.json",
+  "outcome": {
+    "verdict": "TP",
+    "hard_fail": true,
+    "advisory": false,
+    "blocking_gates": [
+      "invariant"
+    ],
+    "advisory_gates": [],
+    "exit_code": 1,
+    "label_class": "synthetic_positive",
+    "expect_hard_fail": true
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "AI edit-artifact / elision marker found in providers/bench/ai-slop/edit_artifact_operator.py",
+      "findings": [
+        {
+          "rule_id": "invariant.ai-edit-artifact",
+          "file": "providers/bench/ai-slop/edit_artifact_operator.py",
+          "start_line": 1,
+          "message": "AI edit-artifact / elision marker found in providers/bench/ai-slop/edit_artifact_operator.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

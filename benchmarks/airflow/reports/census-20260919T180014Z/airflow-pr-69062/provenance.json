@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-69062",
+  "origin_url": "https://github.com/apache/airflow/pull/69062",
+  "repo": "apache/airflow",
+  "pr": 69062,
+  "title": "Fix KubernetesPodOperator 404 on pod preemption",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:37.831434+00:00"
+  },
+  "pr_meta": {
+    "number": 69062,
+    "title": "Fix KubernetesPodOperator 404 on pod preemption",
+    "html_url": "https://github.com/apache/airflow/pull/69062",
+    "state": "closed",
+    "merged": false,
+    "user": "ambika-garg",
+    "created_at": "2026-06-26T20:39:26Z",
+    "closed_at": "2026-07-28T17:12:25Z",
+    "merged_at": null,
+    "base_sha": "59a54336481636dde9eeb3059b1cc76c7f73fccf",
+    "head_sha": "6a950b3105101a5dba25d5db34695340ed7e05df",
+    "additions": 171,
+    "deletions": 17,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/hooks/kubernetes.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/triggers/pod.py",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/hooks/test_kubernetes.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:03:35.190348+00:00"
+}

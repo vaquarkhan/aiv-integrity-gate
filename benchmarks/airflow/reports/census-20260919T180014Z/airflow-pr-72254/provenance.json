@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72254",
+  "origin_url": "https://github.com/apache/airflow/pull/72254",
+  "repo": "apache/airflow",
+  "pr": 72254,
+  "title": "[v3-3-test] Fix grammar, casing, and typo across testing docs and prek scripts (#72252)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:33.182934+00:00"
+  },
+  "pr_meta": {
+    "number": 72254,
+    "title": "[v3-3-test] Fix grammar, casing, and typo across testing docs and prek scripts (#72252)",
+    "html_url": "https://github.com/apache/airflow/pull/72254",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-08-29T13:46:09Z",
+    "closed_at": "2026-08-29T17:30:58Z",
+    "merged_at": null,
+    "base_sha": "4d23d2968a8c7fa4b6e6389b9fd986c8b02e69a6",
+    "head_sha": "a86923dcf7850b54e04d16e7d7d033b75a87c1d0",
+    "additions": 8,
+    "deletions": 8,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "contributing-docs/testing/airflow_e2e_tests.rst",
+    "contributing-docs/testing/dag_testing.rst",
+    "scripts/ci/prek/check_supervisor_schemas_versions.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:13:36.466794+00:00"
+}

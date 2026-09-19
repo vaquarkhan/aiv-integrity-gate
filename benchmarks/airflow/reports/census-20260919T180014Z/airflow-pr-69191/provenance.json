@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-69191",
+  "origin_url": "https://github.com/apache/airflow/pull/69191",
+  "repo": "apache/airflow",
+  "pr": 69191,
+  "title": "Remove DSSKey references from SSH provider, bump paramiko to 4.0+",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:02.282116+00:00"
+  },
+  "pr_meta": {
+    "number": 69191,
+    "title": "Remove DSSKey references from SSH provider, bump paramiko to 4.0+",
+    "html_url": "https://github.com/apache/airflow/pull/69191",
+    "state": "closed",
+    "merged": false,
+    "user": "joshuabvarghese",
+    "created_at": "2026-07-01T03:44:34Z",
+    "closed_at": "2026-07-10T05:18:21Z",
+    "merged_at": null,
+    "base_sha": "1491e64428ccf94a9d56f54cb1f227d72d6e7078",
+    "head_sha": "b170691cc9b000e523431860d5a4f147a53f68a9",
+    "additions": 34,
+    "deletions": 17,
+    "changed_files": 7,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:ssh",
+      "provider:sftp"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/54079.significant.rst",
+    "devel-common/pyproject.toml",
+    "providers/sftp/pyproject.toml",
+    "providers/ssh/docs/connections/ssh.rst",
+    "providers/ssh/pyproject.toml",
+    "providers/ssh/src/airflow/providers/ssh/hooks/ssh.py",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:01:18.633571+00:00"
+}

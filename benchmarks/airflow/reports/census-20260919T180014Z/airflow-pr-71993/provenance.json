@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-71993",
+  "origin_url": "https://github.com/apache/airflow/pull/71993",
+  "repo": "apache/airflow",
+  "pr": 71993,
+  "title": "Add partition_key to Metadata so yield matches outlet_events",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:33.867109+00:00"
+  },
+  "pr_meta": {
+    "number": 71993,
+    "title": "Add partition_key to Metadata so yield matches outlet_events",
+    "html_url": "https://github.com/apache/airflow/pull/71993",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-08-23T06:22:58Z",
+    "closed_at": "2026-08-23T06:57:54Z",
+    "merged_at": null,
+    "base_sha": "0a5c8e60130deb94595009b87013d14f3aa9290e",
+    "head_sha": "3b66bd6bd5bbabbbdde3a9f3dad96ca0e7892caf",
+    "additions": 650,
+    "deletions": 10,
+    "changed_files": 8,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "kind:documentation",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/authoring-and-scheduling/assets.rst",
+    "airflow-core/newsfragments/71993.bugfix.rst",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py",
+    "airflow-core/tests/unit/models/test_taskinstance.py",
+    "task-sdk/src/airflow/sdk/definitions/asset/metadata.py",
+    "task-sdk/src/airflow/sdk/execution_time/callback_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_callback_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:16:56.886484+00:00"
+}

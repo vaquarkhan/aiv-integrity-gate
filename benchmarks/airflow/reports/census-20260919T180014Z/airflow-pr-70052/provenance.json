@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-70052",
+  "origin_url": "https://github.com/apache/airflow/pull/70052",
+  "repo": "apache/airflow",
+  "pr": 70052,
+  "title": "Validate connection port is a valid network port number",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:57.935343+00:00"
+  },
+  "pr_meta": {
+    "number": 70052,
+    "title": "Validate connection port is a valid network port number",
+    "html_url": "https://github.com/apache/airflow/pull/70052",
+    "state": "closed",
+    "merged": false,
+    "user": "dj-wise-ronin",
+    "created_at": "2026-07-17T20:35:56Z",
+    "closed_at": "2026-07-21T17:59:48Z",
+    "merged_at": null,
+    "base_sha": "3561a17b4b69cd55836d078006aec7f078c8c79a",
+    "head_sha": "4c69615e06a45246850ce0ce2f041654ffdacb06",
+    "additions": 643,
+    "deletions": 574,
+    "changed_files": 8,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/connections.py",
+    "airflow-core/src/airflow/models/connection.py",
+    "airflow-core/tests/unit/models/test_connection.py",
+    "shared/configuration/src/airflow_shared/configuration/__init__.py",
+    "shared/configuration/src/airflow_shared/configuration/connection.py",
+    "task-sdk/src/airflow/sdk/definitions/connection.py",
+    "task-sdk/tests/task_sdk/definitions/test_connection.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:46:21.856031+00:00"
+}

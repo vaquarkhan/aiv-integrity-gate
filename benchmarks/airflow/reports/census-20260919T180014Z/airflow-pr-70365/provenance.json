@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70365",
+  "origin_url": "https://github.com/apache/airflow/pull/70365",
+  "repo": "apache/airflow",
+  "pr": 70365,
+  "title": "[v3-3-test] Add support for operators that achieve durable execution manually in registry (#70291)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:16.007669+00:00"
+  },
+  "pr_meta": {
+    "number": 70365,
+    "title": "[v3-3-test] Add support for operators that achieve durable execution manually in registry (#70291)",
+    "html_url": "https://github.com/apache/airflow/pull/70365",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-07-24T08:05:43Z",
+    "closed_at": "2026-07-24T08:07:17Z",
+    "merged_at": null,
+    "base_sha": "3d05e08c8aa71740a389f8bbd75eb3532dc7c510",
+    "head_sha": "b18090c07443d2bc5db1005f80a683a7be9aaa63",
+    "additions": 46,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "area:registry"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/registry/extract_parameters.py",
+    "dev/registry/tests/test_extract_parameters.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:41:00.919888+00:00"
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-73096",
+  "origin_url": "https://github.com/apache/airflow/pull/73096",
+  "repo": "apache/airflow",
+  "pr": 73096,
+  "title": "Fix sticky filter persistence on Airflow Logo click",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:06.543013+00:00"
+  },
+  "pr_meta": {
+    "number": 73096,
+    "title": "Fix sticky filter persistence on Airflow Logo click",
+    "html_url": "https://github.com/apache/airflow/pull/73096",
+    "state": "closed",
+    "merged": false,
+    "user": "yquaziii",
+    "created_at": "2026-09-13T15:47:26Z",
+    "closed_at": "2026-09-14T19:07:43Z",
+    "merged_at": null,
+    "base_sha": "0c6e6bd86fc8406014f3a7d298471769c9902271",
+    "head_sha": "d081c10cb7052cb96f5958cd307dd6c4380c82ec",
+    "additions": 28,
+    "deletions": 1,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow/www/templates/appbuilder/navbar.html",
+    "airflow/www/views.py",
+    "tests/www/views/test_views_home.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:02:21.135418+00:00"
+}

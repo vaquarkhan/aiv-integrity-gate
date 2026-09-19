@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70054",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70054",
+  "title": "Allow configuring Dag tag filter width",
+  "pr": 70054,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:46.208694+00:00"
+  },
+  "pr_meta": {
+    "number": 70054,
+    "title": "Allow configuring Dag tag filter width",
+    "html_url": "https://github.com/apache/airflow/pull/70054",
+    "state": "closed",
+    "merged": false,
+    "user": "Fury0508",
+    "created_at": "2026-07-17T20:42:59Z",
+    "closed_at": "2026-09-15T00:27:31Z",
+    "merged_at": null,
+    "base_sha": "b628e46a2a855a5c75aeb7939ec99fc843286e2a",
+    "head_sha": "1ca32a7fdda23ac7d12393563954e87cbd306b91",
+    "additions": 114,
+    "deletions": 2,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70054/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70054/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

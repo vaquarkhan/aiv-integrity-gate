@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-68828",
+  "origin_url": "https://github.com/apache/airflow/pull/68828",
+  "repo": "apache/airflow",
+  "pr": 68828,
+  "title": "fix(task_runner): treat DAGRUN_ALREADY_EXISTS as idempotent success on transport-error retry",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:47.290334+00:00"
+  },
+  "pr_meta": {
+    "number": 68828,
+    "title": "fix(task_runner): treat DAGRUN_ALREADY_EXISTS as idempotent success on transport-error retry",
+    "html_url": "https://github.com/apache/airflow/pull/68828",
+    "state": "closed",
+    "merged": false,
+    "user": "kalluripradeep",
+    "created_at": "2026-06-22T08:12:23Z",
+    "closed_at": "2026-06-22T08:25:00Z",
+    "merged_at": null,
+    "base_sha": "a527de7aba64c0b8f99c6ed988d3d7d2f82e43c7",
+    "head_sha": "b602c3a96653ab81386b095bf551baaa8e9115eb",
+    "additions": 3659,
+    "deletions": 369,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:07:58.954179+00:00"
+}

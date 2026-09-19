@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-70034",
+  "origin_url": "https://github.com/apache/airflow/pull/70034",
+  "repo": "apache/airflow",
+  "pr": 70034,
+  "title": "Bump the typescript group across 1 directory with 5 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:07.448080+00:00"
+  },
+  "pr_meta": {
+    "number": 70034,
+    "title": "Bump the typescript group across 1 directory with 5 updates",
+    "html_url": "https://github.com/apache/airflow/pull/70034",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-07-17T16:55:41Z",
+    "closed_at": "2026-07-29T18:36:12Z",
+    "merged_at": null,
+    "base_sha": "68c06c9ff7aa3dde4d2655b59c9ed3a4cd98566b",
+    "head_sha": "4e91c2cead423a1a40771ff5ebab237b331714ba",
+    "additions": 333,
+    "deletions": 132,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "javascript",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/package.json",
+    "airflow-core/src/airflow/ui/pnpm-lock.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:46:54.962693+00:00"
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-72235",
+  "origin_url": "https://github.com/apache/airflow/pull/72235",
+  "repo": "apache/airflow",
+  "pr": 72235,
+  "title": "Replace CTE with subquery in asset orphanage to support MySQL backends without CTE-in-DML",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:43.804392+00:00"
+  },
+  "pr_meta": {
+    "number": 72235,
+    "title": "Replace CTE with subquery in asset orphanage to support MySQL backends without CTE-in-DML",
+    "html_url": "https://github.com/apache/airflow/pull/72235",
+    "state": "closed",
+    "merged": false,
+    "user": "saitejabandaru-in",
+    "created_at": "2026-08-28T20:27:38Z",
+    "closed_at": "2026-09-06T19:18:22Z",
+    "merged_at": null,
+    "base_sha": "b908c63ae6352884b639eeecdd98acb1e9aa491a",
+    "head_sha": "78cd90d0319282f1b60eca6d33159ca9235667c2",
+    "additions": 5,
+    "deletions": 5,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:scheduler"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:14:14.280528+00:00"
+}

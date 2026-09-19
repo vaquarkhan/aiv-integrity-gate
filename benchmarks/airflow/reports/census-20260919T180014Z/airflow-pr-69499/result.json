@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69499",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69499",
+  "title": "Make RedshiftDeleteClusterOperator busy-retry window configurable",
+  "pr": 69499,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:48.066742+00:00"
+  },
+  "pr_meta": {
+    "number": 69499,
+    "title": "Make RedshiftDeleteClusterOperator busy-retry window configurable",
+    "html_url": "https://github.com/apache/airflow/pull/69499",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-07-06T22:27:33Z",
+    "closed_at": "2026-07-07T21:28:11Z",
+    "merged_at": null,
+    "base_sha": "ff684847b12f4cdce1718c2a6e75d378bae4ddef",
+    "head_sha": "737bb8796d1771cc5aba9c21118cf41ad8fcc0a0",
+    "additions": 512,
+    "deletions": 44,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69499/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69499/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

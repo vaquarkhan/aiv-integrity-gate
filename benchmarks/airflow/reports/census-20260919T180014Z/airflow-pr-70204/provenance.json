@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-70204",
+  "origin_url": "https://github.com/apache/airflow/pull/70204",
+  "repo": "apache/airflow",
+  "pr": 70204,
+  "title": "Authenticate public Git repositories proactively",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:54.522359+00:00"
+  },
+  "pr_meta": {
+    "number": 70204,
+    "title": "Authenticate public Git repositories proactively",
+    "html_url": "https://github.com/apache/airflow/pull/70204",
+    "state": "closed",
+    "merged": false,
+    "user": "antonio-mello-ai",
+    "created_at": "2026-07-21T20:39:49Z",
+    "closed_at": "2026-09-13T00:29:55Z",
+    "merged_at": null,
+    "base_sha": "063d5f108dad0ff0167814e65899aa7b95bd8f12",
+    "head_sha": "c60e77d3cde6e37538cfdb03b6b17e86fcfb5332",
+    "additions": 133,
+    "deletions": 6,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:providers",
+      "kind:documentation",
+      "provider:git"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/git/docs/connections/git.rst",
+    "providers/git/src/airflow/providers/git/bundles/git.py",
+    "providers/git/src/airflow/providers/git/hooks/git.py",
+    "providers/git/tests/unit/git/bundles/test_git.py",
+    "providers/git/tests/unit/git/hooks/test_git.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:43:07.383139+00:00"
+}

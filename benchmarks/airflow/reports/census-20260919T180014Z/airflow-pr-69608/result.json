@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-69608",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69608",
+  "title": "Delay pgbouncer preStop shutdown to avoid dropped connections during \u2026",
+  "pr": 69608,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:15.845133+00:00"
+  },
+  "pr_meta": {
+    "number": 69608,
+    "title": "Delay pgbouncer preStop shutdown to avoid dropped connections during \u2026",
+    "html_url": "https://github.com/apache/airflow/pull/69608",
+    "state": "closed",
+    "merged": false,
+    "user": "bramhanandlingala",
+    "created_at": "2026-07-08T10:57:14Z",
+    "closed_at": "2026-09-15T00:27:46Z",
+    "merged_at": null,
+    "base_sha": "5c967e7bcabceaea5b0348ac0a57fab74c19e51e",
+    "head_sha": "fac735f791ab90a8ae7a34716d0a02ac90af5376",
+    "additions": 5,
+    "deletions": 4,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "stale",
+      "area:helm-chart",
+      "pending-response",
+      "backport-to-chart/v1-2x-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69608/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69608/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

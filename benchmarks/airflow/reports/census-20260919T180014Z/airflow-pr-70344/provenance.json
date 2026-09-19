@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-70344",
+  "origin_url": "https://github.com/apache/airflow/pull/70344",
+  "repo": "apache/airflow",
+  "pr": 70344,
+  "title": "Move DataSync validation after template rendering",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:32.718360+00:00"
+  },
+  "pr_meta": {
+    "number": 70344,
+    "title": "Move DataSync validation after template rendering",
+    "html_url": "https://github.com/apache/airflow/pull/70344",
+    "state": "closed",
+    "merged": false,
+    "user": "fat-catTW",
+    "created_at": "2026-07-23T23:10:43Z",
+    "closed_at": "2026-07-24T05:13:12Z",
+    "merged_at": null,
+    "base_sha": "8004f48312d5521d65ec2ae733a2b9dd6ece20c2",
+    "head_sha": "8631f5073e8266bb6eb18563624bf709d0d22933",
+    "additions": 55,
+    "deletions": 43,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/datasync.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_datasync.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:41:55.405592+00:00"
+}

@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70469",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70469",
+  "title": "Fix DateTimeSensorAsync crash on templated target_time with start_from_trigger",
+  "pr": 70469,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:31.246613+00:00"
+  },
+  "pr_meta": {
+    "number": 70469,
+    "title": "Fix DateTimeSensorAsync crash on templated target_time with start_from_trigger",
+    "html_url": "https://github.com/apache/airflow/pull/70469",
+    "state": "closed",
+    "merged": false,
+    "user": "burakcoleman",
+    "created_at": "2026-07-26T11:56:37Z",
+    "closed_at": "2026-07-28T11:37:09Z",
+    "merged_at": null,
+    "base_sha": "55816176d4078582ea486523850936bd5cc1346c",
+    "head_sha": "54f763fae14405e102a2fcfe896bb9327918a7f1",
+    "additions": 46,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70469/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70469/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

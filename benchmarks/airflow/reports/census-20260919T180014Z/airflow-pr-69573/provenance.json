@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69573",
+  "origin_url": "https://github.com/apache/airflow/pull/69573",
+  "repo": "apache/airflow",
+  "pr": 69573,
+  "title": "Convert exception dict back to pretty stack trace in triggerer",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:24.648264+00:00"
+  },
+  "pr_meta": {
+    "number": 69573,
+    "title": "Convert exception dict back to pretty stack trace in triggerer",
+    "html_url": "https://github.com/apache/airflow/pull/69573",
+    "state": "closed",
+    "merged": false,
+    "user": "KushagraB424",
+    "created_at": "2026-07-07T19:52:48Z",
+    "closed_at": "2026-07-28T17:12:59Z",
+    "merged_at": null,
+    "base_sha": "a050861fc59193347a60d6ab306a5e0a03c719a7",
+    "head_sha": "ca73f6bc86d7afd0d51ff6a71eb18b26c3914981",
+    "additions": 63,
+    "deletions": 12,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:Triggerer"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/jobs/triggerer_job_runner.py",
+    "providers/apache/kafka/docs/index.rst",
+    "ts-sdk/src/generated/supervisor.ts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:55:16.171420+00:00"
+}

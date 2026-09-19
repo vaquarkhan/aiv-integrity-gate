@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-69623",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69623",
+  "title": "Migrate CI-time secret workflows to a deployment environment and re-enable zizmor `secrets-outside-env` (#69466)",
+  "pr": 69623,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:07.379731+00:00"
+  },
+  "pr_meta": {
+    "number": 69623,
+    "title": "Migrate CI-time secret workflows to a deployment environment and re-enable zizmor `secrets-outside-env` (#69466)",
+    "html_url": "https://github.com/apache/airflow/pull/69623",
+    "state": "closed",
+    "merged": false,
+    "user": "hanumanraj07",
+    "created_at": "2026-07-08T16:21:59Z",
+    "closed_at": "2026-07-08T23:40:01Z",
+    "merged_at": null,
+    "base_sha": "3bb4fdb41f79e014587406d1521cd905b506454e",
+    "head_sha": "4f1948d37dde3f1732e2ae9d16cd50ca30d04ab0",
+    "additions": 87,
+    "deletions": 13,
+    "changed_files": 19,
+    "author_association": "NONE",
+    "labels": [
+      "area:dev-tools",
+      "area:registry",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69623/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69623/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

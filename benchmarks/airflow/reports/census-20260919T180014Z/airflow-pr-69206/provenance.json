@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69206",
+  "origin_url": "https://github.com/apache/airflow/pull/69206",
+  "repo": "apache/airflow",
+  "pr": 69206,
+  "title": "Bump Amazon provider boto3/botocore to 1.43.0, aiobotocore to 3.6.0",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:57.273520+00:00"
+  },
+  "pr_meta": {
+    "number": 69206,
+    "title": "Bump Amazon provider boto3/botocore to 1.43.0, aiobotocore to 3.6.0",
+    "html_url": "https://github.com/apache/airflow/pull/69206",
+    "state": "closed",
+    "merged": false,
+    "user": "vgkowski",
+    "created_at": "2026-07-01T15:51:39Z",
+    "closed_at": "2026-07-28T17:14:19Z",
+    "merged_at": null,
+    "base_sha": "a8770ba566845076a3d5d6adc723776cb0798747",
+    "head_sha": "fd82c598344c2d61aa87cf97987dc1b1561893ce",
+    "additions": 6,
+    "deletions": 6,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/pyproject.toml",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:00:56.048241+00:00"
+}

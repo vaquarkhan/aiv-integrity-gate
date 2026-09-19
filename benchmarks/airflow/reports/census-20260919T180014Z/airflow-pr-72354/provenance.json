@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-72354",
+  "origin_url": "https://github.com/apache/airflow/pull/72354",
+  "repo": "apache/airflow",
+  "pr": 72354,
+  "title": "Fix map_index_template producing numeric values in Task SDK (#71586)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:22.152195+00:00"
+  },
+  "pr_meta": {
+    "number": 72354,
+    "title": "Fix map_index_template producing numeric values in Task SDK (#71586)",
+    "html_url": "https://github.com/apache/airflow/pull/72354",
+    "state": "closed",
+    "merged": false,
+    "user": "ShivanshhhG",
+    "created_at": "2026-09-01T02:47:08Z",
+    "closed_at": "2026-09-15T13:01:21Z",
+    "merged_at": null,
+    "base_sha": "9b3cc52821e0fb47e155372265b81628b312d490",
+    "head_sha": "2ddc059724a9d3b50133dca7c0955e569c8041ae",
+    "additions": 16,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:12:50.971170+00:00"
+}

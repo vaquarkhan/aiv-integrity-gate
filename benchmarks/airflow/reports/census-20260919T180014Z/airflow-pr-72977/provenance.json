@@ -1,0 +1,71 @@
+{
+  "case_id": "airflow-pr-72977",
+  "origin_url": "https://github.com/apache/airflow/pull/72977",
+  "repo": "apache/airflow",
+  "pr": 72977,
+  "title": "Depend on httpx2 instead of httpx in the Task SDK",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:43.144573+00:00"
+  },
+  "pr_meta": {
+    "number": 72977,
+    "title": "Depend on httpx2 instead of httpx in the Task SDK",
+    "html_url": "https://github.com/apache/airflow/pull/72977",
+    "state": "closed",
+    "merged": false,
+    "user": "zach-overflow",
+    "created_at": "2026-09-11T15:08:01Z",
+    "closed_at": "2026-09-14T08:19:30Z",
+    "merged_at": null,
+    "base_sha": "1f5d7691663016c898718768991a2dae522b4475",
+    "head_sha": "f0d95e2b3771a5eccc534bc842ecf31410432fdd",
+    "additions": 588,
+    "deletions": 486,
+    "changed_files": 19,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "area:logging",
+      "area:API",
+      "kind:documentation",
+      "area:task-sdk",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/security/jwt_token_authentication.rst",
+    "airflow-core/newsfragments/72977.significant.rst",
+    "airflow-core/pyproject.toml",
+    "airflow-core/src/airflow/api_fastapi/execution_api/app.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/test_app.py",
+    "devel-common/src/tests_common/test_utils/in_process_taskrun.py",
+    "scripts/ci/prek/generate_execution_api_schema.py",
+    "shared/logging/src/airflow_shared/logging/structlog.py",
+    "task-sdk/.ast-grep/rules/no-httpx-import.yml",
+    "task-sdk/.ast-grep/sgconfig.yml",
+    "task-sdk/.pre-commit-config.yaml",
+    "task-sdk/dev/generate_task_sdk_models.py",
+    "task-sdk/pyproject.toml",
+    "task-sdk/src/airflow/sdk/api/client.py",
+    "task-sdk/src/airflow/sdk/execution_time/supervisor.py",
+    "task-sdk/tests/task_sdk/__init__.py",
+    "task-sdk/tests/task_sdk/execution_time/test_supervisor.py",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:04:30.371490+00:00"
+}

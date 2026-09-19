@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-72121",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72121",
+  "title": "Allow Variable.get_variable_from_secrets to reuse session",
+  "pr": 72121,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:59.604759+00:00"
+  },
+  "pr_meta": {
+    "number": 72121,
+    "title": "Allow Variable.get_variable_from_secrets to reuse session",
+    "html_url": "https://github.com/apache/airflow/pull/72121",
+    "state": "closed",
+    "merged": false,
+    "user": "saitejabandaru-in",
+    "created_at": "2026-08-26T21:53:08Z",
+    "closed_at": "2026-08-27T14:01:11Z",
+    "merged_at": null,
+    "base_sha": "00344cc117fe9bcb35ac09892df5b6ac9e122bac",
+    "head_sha": "ea95108c94572a523ee606489e1aea43f7bdf62c",
+    "additions": 6,
+    "deletions": 2,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72121/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72121/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

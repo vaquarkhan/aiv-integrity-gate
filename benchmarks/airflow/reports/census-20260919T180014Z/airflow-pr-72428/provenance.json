@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-72428",
+  "origin_url": "https://github.com/apache/airflow/pull/72428",
+  "repo": "apache/airflow",
+  "pr": 72428,
+  "title": "Add dag tags to otel spans",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:05.281530+00:00"
+  },
+  "pr_meta": {
+    "number": 72428,
+    "title": "Add dag tags to otel spans",
+    "html_url": "https://github.com/apache/airflow/pull/72428",
+    "state": "closed",
+    "merged": false,
+    "user": "realtimetodie",
+    "created_at": "2026-09-02T08:57:36Z",
+    "closed_at": "2026-09-02T08:57:52Z",
+    "merged_at": null,
+    "base_sha": "bf976c8805ad1a9e9664723aefcd0a62b659d627",
+    "head_sha": "b807ca6ab83059502ee3695e8373561b66f93651",
+    "additions": 45,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+    "task-sdk/tests/task_sdk/execution_time/test_task_runner_dag_tags.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:12:00.673483+00:00"
+}

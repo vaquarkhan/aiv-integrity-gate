@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-71341",
+  "origin_url": "https://github.com/apache/airflow/pull/71341",
+  "repo": "apache/airflow",
+  "pr": 71341,
+  "title": "Let an auth manager filter dags in SQL instead of materializing every id",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:53.865787+00:00"
+  },
+  "pr_meta": {
+    "number": 71341,
+    "title": "Let an auth manager filter dags in SQL instead of materializing every id",
+    "html_url": "https://github.com/apache/airflow/pull/71341",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-09T06:19:05Z",
+    "closed_at": "2026-08-10T19:06:45Z",
+    "merged_at": null,
+    "base_sha": "9ec73bab050c524627f12abcf6bbc1d0b30f70a9",
+    "head_sha": "fe5c60f272c6ea84ddee47603594546d5bf453c3",
+    "additions": 238,
+    "deletions": 28,
+    "changed_files": 8,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:API",
+      "provider:fab"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/auth/managers/base_auth_manager.py",
+    "airflow-core/src/airflow/api_fastapi/common/db/dags.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/public/dags.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/ui/dags.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/security.py",
+    "airflow-core/tests/unit/api_fastapi/auth/managers/test_base_auth_manager.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/test_security.py",
+    "providers/fab/src/airflow/providers/fab/auth_manager/fab_auth_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:25:43.824977+00:00"
+}

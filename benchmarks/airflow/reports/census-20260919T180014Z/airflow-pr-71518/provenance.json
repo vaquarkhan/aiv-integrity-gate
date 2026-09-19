@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-71518",
+  "origin_url": "https://github.com/apache/airflow/pull/71518",
+  "repo": "apache/airflow",
+  "pr": 71518,
+  "title": "Operator extra links per attempt (draft A): a row per attempt in XCom",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:03.698642+00:00"
+  },
+  "pr_meta": {
+    "number": 71518,
+    "title": "Operator extra links per attempt (draft A): a row per attempt in XCom",
+    "html_url": "https://github.com/apache/airflow/pull/71518",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-12T20:49:11Z",
+    "closed_at": "2026-08-13T00:18:01Z",
+    "merged_at": null,
+    "base_sha": "e8c00811fa71ec9bee8bbaae19a64f3505b05633",
+    "head_sha": "dc319919456bf3ac56aa97f5387ac2d6a2ed6647",
+    "additions": 162,
+    "deletions": 9,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:DAG-processing",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/task_instances.py",
+    "airflow-core/src/airflow/serialization/definitions/operatorlink.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py",
+    "airflow-core/tests/unit/serialization/definitions/test_operatorlink.py",
+    "task-sdk/src/airflow/sdk/bases/operatorlink.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:22:24.866937+00:00"
+}

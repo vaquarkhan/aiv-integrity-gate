@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73069",
+  "origin_url": "https://github.com/apache/airflow/pull/73069",
+  "repo": "apache/airflow",
+  "pr": 73069,
+  "title": "[v3-3-test] Fix the RAT licence check excludes and move it to Apache RAT 0.18 (#73064)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:34:13.086205+00:00"
+  },
+  "pr_meta": {
+    "number": 73069,
+    "title": "[v3-3-test] Fix the RAT licence check excludes and move it to Apache RAT 0.18 (#73064)",
+    "html_url": "https://github.com/apache/airflow/pull/73069",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-13T09:26:40Z",
+    "closed_at": "2026-09-13T09:34:20Z",
+    "merged_at": null,
+    "base_sha": "c320f9689d136da5f475930a2ffe528b228f104c",
+    "head_sha": "f54337f80fc142d2ffdd3ce26822e5d7ff0e22a8",
+    "additions": 3,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".rat-excludes",
+    "README.md",
+    "scripts/ci/dockerfiles/apache-rat/build_and_push.sh",
+    "scripts/ci/prek/check_license.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:02:39.113618+00:00"
+}

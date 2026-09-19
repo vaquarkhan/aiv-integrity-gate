@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-73192",
+  "origin_url": "https://github.com/apache/airflow/pull/73192",
+  "repo": "apache/airflow",
+  "pr": 73192,
+  "title": "[v3-3-test] Fix dashboard stats cards navigating to a 404 page",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:52.283689+00:00"
+  },
+  "pr_meta": {
+    "number": 73192,
+    "title": "[v3-3-test] Fix dashboard stats cards navigating to a 404 page",
+    "html_url": "https://github.com/apache/airflow/pull/73192",
+    "state": "closed",
+    "merged": false,
+    "user": "pierrejeambrun",
+    "created_at": "2026-09-15T12:48:02Z",
+    "closed_at": "2026-09-15T16:11:51Z",
+    "merged_at": null,
+    "base_sha": "e4c58e48381d07769c618611e0566facc96a4836",
+    "head_sha": "071935254d64c0b3f6e501b2a9685264cd610045",
+    "additions": 4,
+    "deletions": 4,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/pages/Dashboard/Stats/Stats.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:01:26.661729+00:00"
+}

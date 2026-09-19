@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73201",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73201",
+  "title": "Downgrade \"XCom not found\" log to warning in Task SDK client",
+  "pr": 73201,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:49.264796+00:00"
+  },
+  "pr_meta": {
+    "number": 73201,
+    "title": "Downgrade \"XCom not found\" log to warning in Task SDK client",
+    "html_url": "https://github.com/apache/airflow/pull/73201",
+    "state": "closed",
+    "merged": false,
+    "user": "robertorobles",
+    "created_at": "2026-09-15T16:12:04Z",
+    "closed_at": "2026-09-15T16:39:41Z",
+    "merged_at": null,
+    "base_sha": "8e283dcb3ac323745ac0d700a1e23b8cf4f64689",
+    "head_sha": "16a909548f020a70904dd96673a599f7ea37ee23",
+    "additions": 2,
+    "deletions": 2,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73201/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73201/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-70482",
+  "origin_url": "https://github.com/apache/airflow/pull/70482",
+  "repo": "apache/airflow",
+  "pr": 70482,
+  "title": "Validate AppflowBaseOperator source after template rendering",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:27.042558+00:00"
+  },
+  "pr_meta": {
+    "number": 70482,
+    "title": "Validate AppflowBaseOperator source after template rendering",
+    "html_url": "https://github.com/apache/airflow/pull/70482",
+    "state": "closed",
+    "merged": false,
+    "user": "mitre88",
+    "created_at": "2026-07-27T00:12:41Z",
+    "closed_at": "2026-07-27T13:31:30Z",
+    "merged_at": null,
+    "base_sha": "c4a5f19e67cd25143cc000d6ae0255e13c142b95",
+    "head_sha": "f3f67496b08f202c2339c00865ab38787e354e11",
+    "additions": 26,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/appflow.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_appflow.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:38:49.056704+00:00"
+}

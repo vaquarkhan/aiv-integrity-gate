@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-69596",
+  "origin_url": "https://github.com/apache/airflow/pull/69596",
+  "repo": "apache/airflow",
+  "pr": 69596,
+  "title": "Fix remaining SQLAlchemy 1.4 doc link to 2.0 in config.yml",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:19.874611+00:00"
+  },
+  "pr_meta": {
+    "number": 69596,
+    "title": "Fix remaining SQLAlchemy 1.4 doc link to 2.0 in config.yml",
+    "html_url": "https://github.com/apache/airflow/pull/69596",
+    "state": "closed",
+    "merged": false,
+    "user": "yoshibase",
+    "created_at": "2026-07-08T07:42:43Z",
+    "closed_at": "2026-07-08T15:23:40Z",
+    "merged_at": null,
+    "base_sha": "7dc3c2bfe0b57c60fb0bc2385bdad6c01431679f",
+    "head_sha": "a5621efd4f0244482bca1dc5481888cfc7d0f44b",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:ConfigTemplates"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/config_templates/config.yml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:54:54.003952+00:00"
+}

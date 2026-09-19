@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-70692",
+  "origin_url": "https://github.com/apache/airflow/pull/70692",
+  "repo": "apache/airflow",
+  "pr": 70692,
+  "title": "[v3-3-test] Show backfill Dag runs in the UI (#70159)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:09.800760+00:00"
+  },
+  "pr_meta": {
+    "number": 70692,
+    "title": "[v3-3-test] Show backfill Dag runs in the UI (#70159)",
+    "html_url": "https://github.com/apache/airflow/pull/70692",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-07-29T15:28:46Z",
+    "closed_at": "2026-07-30T10:25:43Z",
+    "merged_at": null,
+    "base_sha": "ece81dd2b8ee271ac9db7bf4e5ca796316340c83",
+    "head_sha": "d60df6ed40a5902e6732d527270f6a35413584e0",
+    "additions": 779,
+    "deletions": 18,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "area:translations",
+      "translation:default"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/public/i18n/locales/en/common.json",
+    "airflow-core/src/airflow/ui/public/i18n/locales/en/components.json",
+    "airflow-core/src/airflow/ui/src/components/Banner/BackfillBanner.test.tsx",
+    "airflow-core/src/airflow/ui/src/components/Banner/BackfillBanner.tsx",
+    "airflow-core/src/airflow/ui/src/pages/Dag/Backfills/BackfillDagRunsModal.tsx",
+    "airflow-core/src/airflow/ui/src/pages/Dag/Backfills/Backfills.test.tsx",
+    "airflow-core/src/airflow/ui/src/pages/Dag/Backfills/Backfills.tsx",
+    "airflow-core/src/airflow/ui/src/router.tsx",
+    "airflow-core/src/airflow/ui/tests/e2e/pages/BackfillPage.ts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:35:39.463954+00:00"
+}

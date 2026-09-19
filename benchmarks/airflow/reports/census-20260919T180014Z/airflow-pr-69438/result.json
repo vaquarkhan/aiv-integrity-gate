@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69438",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69438",
+  "title": " fix(standard-provider): convert all pendulum objects on virtualenv version mismatch",
+  "pr": 69438,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:11.661627+00:00"
+  },
+  "pr_meta": {
+    "number": 69438,
+    "title": " fix(standard-provider): convert all pendulum objects on virtualenv version mismatch",
+    "html_url": "https://github.com/apache/airflow/pull/69438",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-06T06:49:34Z",
+    "closed_at": "2026-07-09T17:47:56Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "1f3771f6c487a95419d5c786030b22b07e5411d3",
+    "additions": 74,
+    "deletions": 14,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69438/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69438/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

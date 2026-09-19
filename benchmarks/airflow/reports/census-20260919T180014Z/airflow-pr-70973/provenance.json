@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-70973",
+  "origin_url": "https://github.com/apache/airflow/pull/70973",
+  "repo": "apache/airflow",
+  "pr": 70973,
+  "title": "Bump the go-sdk-dependency-updates group across 1 directory with 10 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:33.852517+00:00"
+  },
+  "pr_meta": {
+    "number": 70973,
+    "title": "Bump the go-sdk-dependency-updates group across 1 directory with 10 updates",
+    "html_url": "https://github.com/apache/airflow/pull/70973",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-03T08:51:36Z",
+    "closed_at": "2026-08-03T22:17:37Z",
+    "merged_at": null,
+    "base_sha": "3cfbbe6b0556e6c5f5b07102fbb519b4da54e89e",
+    "head_sha": "24b657d8b62432c836d5f680f3daf81c76cc4e71",
+    "additions": 66,
+    "deletions": 64,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "dependencies",
+      "area:go-sdk",
+      "go"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/go.mod",
+    "go-sdk/go.sum"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:31:22.496363+00:00"
+}

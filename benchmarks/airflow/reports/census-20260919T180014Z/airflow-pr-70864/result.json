@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-70864",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70864",
+  "title": "refactor(helm): extract JWT secret env to dedicated helper",
+  "pr": 70864,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:14.867083+00:00"
+  },
+  "pr_meta": {
+    "number": 70864,
+    "title": "refactor(helm): extract JWT secret env to dedicated helper",
+    "html_url": "https://github.com/apache/airflow/pull/70864",
+    "state": "closed",
+    "merged": false,
+    "user": "AaryanCdry",
+    "created_at": "2026-07-31T18:06:29Z",
+    "closed_at": "2026-08-01T16:25:17Z",
+    "merged_at": null,
+    "base_sha": "a1b8f16d89a7987327c0660f609f17d11b091543",
+    "head_sha": "ed6bae938b81b64013a8c06b91b1bd5386895bf0",
+    "additions": 91628,
+    "deletions": 26339,
+    "changed_files": 1954,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70864/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70864/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

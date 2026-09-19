@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-71972",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71972",
+  "title": "typo fix in weaviate.py",
+  "pr": 71972,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:39.214833+00:00"
+  },
+  "pr_meta": {
+    "number": 71972,
+    "title": "typo fix in weaviate.py",
+    "html_url": "https://github.com/apache/airflow/pull/71972",
+    "state": "closed",
+    "merged": false,
+    "user": "singhAbhishek16",
+    "created_at": "2026-08-22T07:43:24Z",
+    "closed_at": "2026-08-22T07:48:27Z",
+    "merged_at": null,
+    "base_sha": "047dc2d3b389edbadca22d09f4296ae73533a59c",
+    "head_sha": "49d8f696166dd8cf0253cb26af1d4d43a3c7253d",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:weaviate"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71972/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71972/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

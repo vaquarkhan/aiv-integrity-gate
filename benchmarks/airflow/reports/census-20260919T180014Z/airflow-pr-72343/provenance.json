@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72343",
+  "origin_url": "https://github.com/apache/airflow/pull/72343",
+  "repo": "apache/airflow",
+  "pr": 72343,
+  "title": "Bump the 3-3-fab-ui-package-updates group across 1 directory with 2 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:25.121856+00:00"
+  },
+  "pr_meta": {
+    "number": 72343,
+    "title": "Bump the 3-3-fab-ui-package-updates group across 1 directory with 2 updates",
+    "html_url": "https://github.com/apache/airflow/pull/72343",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-31T16:57:57Z",
+    "closed_at": "2026-09-01T17:01:26Z",
+    "merged_at": null,
+    "base_sha": "f543ffdd479637c30bdce985583e1657d5c5fc18",
+    "head_sha": "bbe13bbb64603f789f1997cfc983df23c9ed9193",
+    "additions": 136,
+    "deletions": 104,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "javascript",
+      "provider:fab",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/fab/src/airflow/providers/fab/www/package.json",
+    "providers/fab/src/airflow/providers/fab/www/pnpm-lock.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:13:04.984238+00:00"
+}

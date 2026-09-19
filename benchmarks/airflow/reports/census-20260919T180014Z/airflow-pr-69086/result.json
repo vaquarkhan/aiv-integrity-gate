@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69086",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69086",
+  "title": "Add scheduler.dagruns.not_started gauge metric for late-starting scheduled DagRuns",
+  "pr": 69086,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:34.109798+00:00"
+  },
+  "pr_meta": {
+    "number": 69086,
+    "title": "Add scheduler.dagruns.not_started gauge metric for late-starting scheduled DagRuns",
+    "html_url": "https://github.com/apache/airflow/pull/69086",
+    "state": "closed",
+    "merged": false,
+    "user": "takayoshi-makabe",
+    "created_at": "2026-06-27T13:49:35Z",
+    "closed_at": "2026-07-01T13:07:25Z",
+    "merged_at": null,
+    "base_sha": "e1c6feb72cf221805c3cc27a4ce4c86a020c5756",
+    "head_sha": "c083a3676f5d3b2bafd02e3b7aa79ecdeda9cf63",
+    "additions": 132,
+    "deletions": 1,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "area:ConfigTemplates"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69086/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69086/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

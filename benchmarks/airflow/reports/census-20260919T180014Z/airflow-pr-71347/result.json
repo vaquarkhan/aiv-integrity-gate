@@ -1,0 +1,79 @@
+{
+  "id": "airflow-pr-71347",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71347",
+  "title": "Rename dagrun update state",
+  "pr": 71347,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:50.263819+00:00"
+  },
+  "pr_meta": {
+    "number": 71347,
+    "title": "Rename dagrun update state",
+    "html_url": "https://github.com/apache/airflow/pull/71347",
+    "state": "closed",
+    "merged": false,
+    "user": "fat-catTW",
+    "created_at": "2026-08-09T17:31:52Z",
+    "closed_at": "2026-08-10T21:51:27Z",
+    "merged_at": null,
+    "base_sha": "9c7fd6eb3abeeb48d5cc44ccc13d2aaeaf02e84c",
+    "head_sha": "c30e6744d99d366ead686bcc61ff3b304e17ac6f",
+    "additions": 105,
+    "deletions": 87,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "kind:documentation",
+      "area:deadline-alerts",
+      "area:db-migrations",
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71347/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71347/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

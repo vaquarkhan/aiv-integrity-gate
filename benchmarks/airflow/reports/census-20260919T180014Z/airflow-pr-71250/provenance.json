@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-71250",
+  "origin_url": "https://github.com/apache/airflow/pull/71250",
+  "repo": "apache/airflow",
+  "pr": 71250,
+  "title": "Do not send SKIP LOCKED to servers that do not implement it",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:19.053271+00:00"
+  },
+  "pr_meta": {
+    "number": 71250,
+    "title": "Do not send SKIP LOCKED to servers that do not implement it",
+    "html_url": "https://github.com/apache/airflow/pull/71250",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-06T17:37:22Z",
+    "closed_at": "2026-08-07T07:48:11Z",
+    "merged_at": null,
+    "base_sha": "30f782cd67d5b6fd3c7ad21a37731626daa3a96b",
+    "head_sha": "d12c1fe90116c60edcefc0511c0e350136f6e065",
+    "additions": 127,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/71250.bugfix.rst",
+    "airflow-core/src/airflow/utils/sqlalchemy.py",
+    "airflow-core/tests/unit/utils/test_sqlalchemy.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:27:06.209018+00:00"
+}

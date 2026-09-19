@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-72247",
+  "origin_url": "https://github.com/apache/airflow/pull/72247",
+  "repo": "apache/airflow",
+  "pr": 72247,
+  "title": "Let Dag viewers read the audit log of the Dags they can see",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:36.423756+00:00"
+  },
+  "pr_meta": {
+    "number": 72247,
+    "title": "Let Dag viewers read the audit log of the Dags they can see",
+    "html_url": "https://github.com/apache/airflow/pull/72247",
+    "state": "closed",
+    "merged": false,
+    "user": "rjgoyln",
+    "created_at": "2026-08-29T08:10:50Z",
+    "closed_at": "2026-08-30T00:38:00Z",
+    "merged_at": null,
+    "base_sha": "82215cf97c7c96fd3cdc413be17f9692513b8374",
+    "head_sha": "72e56e58ba692c3017bfc0ebbdfec70833830a19",
+    "additions": 64,
+    "deletions": 6,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:fab"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/fab/docs/auth-manager/access-control.rst",
+    "providers/fab/docs/changelog.rst",
+    "providers/fab/src/airflow/providers/fab/auth_manager/security_manager/override.py",
+    "providers/fab/tests/unit/fab/auth_manager/test_security.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:13:52.166095+00:00"
+}

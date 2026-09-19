@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-71690",
+  "origin_url": "https://github.com/apache/airflow/pull/71690",
+  "repo": "apache/airflow",
+  "pr": 71690,
+  "title": "Prek: Honor source encodings during provider dependency generation",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:30.326675+00:00"
+  },
+  "pr_meta": {
+    "number": 71690,
+    "title": "Prek: Honor source encodings during provider dependency generation",
+    "html_url": "https://github.com/apache/airflow/pull/71690",
+    "state": "closed",
+    "merged": false,
+    "user": "feberbo",
+    "created_at": "2026-08-16T19:25:33Z",
+    "closed_at": "2026-08-17T12:44:22Z",
+    "merged_at": null,
+    "base_sha": "b2b97706651310bdeeeafd52e64a01147ffefa3d",
+    "head_sha": "ef08309711cca12ee0607e18dd8430e19254b36f",
+    "additions": 9,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "scripts/ci/prek/common_prek_utils.py",
+    "scripts/tests/ci/prek/test_common_prek_utils.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:20:13.985909+00:00"
+}

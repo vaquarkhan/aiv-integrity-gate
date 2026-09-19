@@ -1,0 +1,26 @@
+{
+  "case_id": "fixture-merge-conflict",
+  "origin_url": null,
+  "repo": null,
+  "pr": null,
+  "title": null,
+  "label": {
+    "class": "synthetic_positive",
+    "expect_hard_fail": true,
+    "expect_advisory": null,
+    "rationale": "Conflict markers left in a Python module."
+  },
+  "discovery": null,
+  "pr_meta": null,
+  "materialize_mode": "fixture",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "providers/__init__.py",
+    "providers/bench/ai-slop/conflict_markers.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:00:31.576272+00:00"
+}

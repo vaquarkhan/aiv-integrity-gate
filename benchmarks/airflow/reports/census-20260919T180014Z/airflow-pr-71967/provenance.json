@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-71967",
+  "origin_url": "https://github.com/apache/airflow/pull/71967",
+  "repo": "apache/airflow",
+  "pr": 71967,
+  "title": "Reduce mapped task creation overhead and scheduling bursts",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:40.901139+00:00"
+  },
+  "pr_meta": {
+    "number": 71967,
+    "title": "Reduce mapped task creation overhead and scheduling bursts",
+    "html_url": "https://github.com/apache/airflow/pull/71967",
+    "state": "closed",
+    "merged": false,
+    "user": "hussein-awala",
+    "created_at": "2026-08-21T21:38:35Z",
+    "closed_at": "2026-09-09T22:17:58Z",
+    "merged_at": null,
+    "base_sha": "a3bf92fe855e1d97acf9ee8712582df222e98add",
+    "head_sha": "efad1997e25e3110cba8751b203976c43b913ef8",
+    "additions": 512,
+    "deletions": 40,
+    "changed_files": 8,
+    "author_association": "MEMBER",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/authoring-and-scheduling/dynamic-task-mapping.rst",
+    "airflow-core/src/airflow/config_templates/config.yml",
+    "airflow-core/src/airflow/models/dagrun.py",
+    "airflow-core/src/airflow/models/taskinstance.py",
+    "airflow-core/src/airflow/models/taskmap.py",
+    "airflow-core/tests/unit/models/test_dagrun.py",
+    "airflow-core/tests/unit/models/test_mappedoperator.py",
+    "airflow-core/tests/unit/models/test_taskinstance.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:17:28.299141+00:00"
+}

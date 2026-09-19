@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-71035",
+  "origin_url": "https://github.com/apache/airflow/pull/71035",
+  "repo": "apache/airflow",
+  "pr": 71035,
+  "title": "Bump the github-actions-updates group with 3 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:08.515917+00:00"
+  },
+  "pr_meta": {
+    "number": 71035,
+    "title": "Bump the github-actions-updates group with 3 updates",
+    "html_url": "https://github.com/apache/airflow/pull/71035",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-03T22:27:03Z",
+    "closed_at": "2026-08-06T10:42:10Z",
+    "merged_at": null,
+    "base_sha": "fb99b1dc0e0f0acbe3475139d8b78bd573571b60",
+    "head_sha": "7dd161fbbff4d57aaccc1e522d59d51a764f282b",
+    "additions": 3,
+    "deletions": 3,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "github_actions",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/codeql-analysis.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:29:52.918519+00:00"
+}

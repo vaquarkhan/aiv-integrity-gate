@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-69086",
+  "origin_url": "https://github.com/apache/airflow/pull/69086",
+  "repo": "apache/airflow",
+  "pr": 69086,
+  "title": "Add scheduler.dagruns.not_started gauge metric for late-starting scheduled DagRuns",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:34.109798+00:00"
+  },
+  "pr_meta": {
+    "number": 69086,
+    "title": "Add scheduler.dagruns.not_started gauge metric for late-starting scheduled DagRuns",
+    "html_url": "https://github.com/apache/airflow/pull/69086",
+    "state": "closed",
+    "merged": false,
+    "user": "takayoshi-makabe",
+    "created_at": "2026-06-27T13:49:35Z",
+    "closed_at": "2026-07-01T13:07:25Z",
+    "merged_at": null,
+    "base_sha": "e1c6feb72cf221805c3cc27a4ce4c86a020c5756",
+    "head_sha": "c083a3676f5d3b2bafd02e3b7aa79ecdeda9cf63",
+    "additions": 132,
+    "deletions": 1,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "area:ConfigTemplates"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/config_templates/config.yml",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py",
+    "shared/observability/src/airflow_shared/observability/metrics/metrics_template.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:03:19.801979+00:00"
+}

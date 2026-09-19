@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-71907",
+  "origin_url": "https://github.com/apache/airflow/pull/71907",
+  "repo": "apache/airflow",
+  "pr": 71907,
+  "title": "Bump the github-actions-updates group across 1 directory with 7 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:52.820961+00:00"
+  },
+  "pr_meta": {
+    "number": 71907,
+    "title": "Bump the github-actions-updates group across 1 directory with 7 updates",
+    "html_url": "https://github.com/apache/airflow/pull/71907",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-20T15:13:05Z",
+    "closed_at": "2026-08-28T17:02:41Z",
+    "merged_at": null,
+    "base_sha": "90473999fbfcdc1d96296966b46889cba2b938bd",
+    "head_sha": "bb2e08fcf661a8680f035ee9778b314432b13e51",
+    "additions": 17,
+    "deletions": 17,
+    "changed_files": 8,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "area:registry",
+      "github_actions"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/asf-allowlist-check.yml",
+    ".github/workflows/basic-tests.yml",
+    ".github/workflows/ci-image-build.yml",
+    ".github/workflows/ci-image-checks.yml",
+    ".github/workflows/codeql-analysis.yml",
+    ".github/workflows/prod-image-build.yml",
+    ".github/workflows/publish-docs-to-s3.yml",
+    ".github/workflows/registry-tests.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:17:57.122314+00:00"
+}

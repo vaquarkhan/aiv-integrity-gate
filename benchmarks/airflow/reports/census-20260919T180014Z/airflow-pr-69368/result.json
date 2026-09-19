@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69368",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69368",
+  "title": "fix(fab): decode session serializer bytes to string for cookie-based sessions (fixes #64921)",
+  "pr": 69368,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:35.576415+00:00"
+  },
+  "pr_meta": {
+    "number": 69368,
+    "title": "fix(fab): decode session serializer bytes to string for cookie-based sessions (fixes #64921)",
+    "html_url": "https://github.com/apache/airflow/pull/69368",
+    "state": "closed",
+    "merged": false,
+    "user": "levgiorg",
+    "created_at": "2026-07-04T08:45:29Z",
+    "closed_at": "2026-07-28T17:13:09Z",
+    "merged_at": null,
+    "base_sha": "66154e0dce0411052fdab1cec0a882ba712e353c",
+    "head_sha": "aeeb45cc065bf969f4612d182f08303882247378",
+    "additions": 19,
+    "deletions": 15,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:fab"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69368/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69368/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

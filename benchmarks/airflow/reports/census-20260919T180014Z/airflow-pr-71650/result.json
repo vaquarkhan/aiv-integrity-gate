@@ -1,0 +1,88 @@
+{
+  "id": "airflow-pr-71650",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71650",
+  "title": "Switch official Docker images to Debian Trixie",
+  "pr": 71650,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:39.378805+00:00"
+  },
+  "pr_meta": {
+    "number": 71650,
+    "title": "Switch official Docker images to Debian Trixie",
+    "html_url": "https://github.com/apache/airflow/pull/71650",
+    "state": "closed",
+    "merged": false,
+    "user": "ytoprakc",
+    "created_at": "2026-08-15T09:04:57Z",
+    "closed_at": "2026-09-16T12:11:39Z",
+    "merged_at": null,
+    "base_sha": "b42de709745ecc8105f4781915a875fb037aa4ae",
+    "head_sha": "b61871f035061d96b25a4a73289d8c4e4565cfe5",
+    "additions": 419,
+    "deletions": 171,
+    "changed_files": 49,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "kind:documentation",
+      "area:production-image",
+      "full tests needed",
+      "all versions"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71650/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71650/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": true,
+    "blocking_gates": [],
+    "advisory_gates": [
+      "density"
+    ],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Low logic density (0.00) in airflow-e2e-tests/docker/Dockerfile.java - threshold 0.20",
+      "findings": [
+        {
+          "rule_id": "density.ldr",
+          "file": "airflow-e2e-tests/docker/Dockerfile.java",
+          "start_line": 1,
+          "message": "Low logic density (0.00) in airflow-e2e-tests/docker/Dockerfile.java - threshold 0.20"
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

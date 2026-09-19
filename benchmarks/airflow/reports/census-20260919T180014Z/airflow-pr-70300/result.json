@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70300",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70300",
+  "title": "Fix E2E flaky test failure rates",
+  "pr": 70300,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:41.149030+00:00"
+  },
+  "pr_meta": {
+    "number": 70300,
+    "title": "Fix E2E flaky test failure rates",
+    "html_url": "https://github.com/apache/airflow/pull/70300",
+    "state": "closed",
+    "merged": false,
+    "user": "zozo123",
+    "created_at": "2026-07-23T13:10:07Z",
+    "closed_at": "2026-07-23T15:34:28Z",
+    "merged_at": null,
+    "base_sha": "b6cc81c2944ce87a56596e464868ed50e14ccb08",
+    "head_sha": "f7874af0d9a69c7d78d018483a50a92ef8581424",
+    "additions": 11,
+    "deletions": 13,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70300/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70300/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

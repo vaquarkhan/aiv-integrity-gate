@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-69553",
+  "origin_url": "https://github.com/apache/airflow/pull/69553",
+  "repo": "apache/airflow",
+  "pr": 69553,
+  "title": "fix(execution-api): return empty list for XCom slice with crossed bounds",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:31.631641+00:00"
+  },
+  "pr_meta": {
+    "number": 69553,
+    "title": "fix(execution-api): return empty list for XCom slice with crossed bounds",
+    "html_url": "https://github.com/apache/airflow/pull/69553",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-07T15:09:26Z",
+    "closed_at": "2026-07-09T17:47:58Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "dc5394c73d563b8941a03d6524696ab81283fca1",
+    "additions": 20,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/xcoms.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_xcoms.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:55:41.735850+00:00"
+}

@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-70423",
+  "origin_url": "https://github.com/apache/airflow/pull/70423",
+  "repo": "apache/airflow",
+  "pr": 70423,
+  "title": "Add UI endpoint for deadline callback log visibility",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:54.739677+00:00"
+  },
+  "pr_meta": {
+    "number": 70423,
+    "title": "Add UI endpoint for deadline callback log visibility",
+    "html_url": "https://github.com/apache/airflow/pull/70423",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-07-25T00:41:40Z",
+    "closed_at": "2026-07-25T00:49:12Z",
+    "merged_at": null,
+    "base_sha": "dfabf3b7193c07291bd9217582d2bbc23b005797",
+    "head_sha": "8fd2b1aa7f102fe7e833e14eceb190473e8e40bc",
+    "additions": 625,
+    "deletions": 3,
+    "changed_files": 8,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:logging",
+      "area:API",
+      "area:Triggerer"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/ui/deadline.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/_private_ui.yaml",
+    "airflow-core/src/airflow/api_fastapi/core_api/routes/ui/deadlines.py",
+    "airflow-core/src/airflow/jobs/triggerer_job_runner.py",
+    "airflow-core/src/airflow/utils/log/callback_log_reader.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/ui/test_deadlines.py",
+    "airflow-core/tests/unit/jobs/test_triggerer_job.py",
+    "airflow-core/tests/unit/utils/log/test_callback_log_reader.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:40:00.840477+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-70661",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70661",
+  "title": "Respect Dag-specific read access in structure endpoint",
+  "pr": 70661,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:17.797996+00:00"
+  },
+  "pr_meta": {
+    "number": 70661,
+    "title": "Respect Dag-specific read access in structure endpoint",
+    "html_url": "https://github.com/apache/airflow/pull/70661",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-07-29T06:27:14Z",
+    "closed_at": "2026-08-12T16:23:47Z",
+    "merged_at": null,
+    "base_sha": "b20f1a47d018410eab4faba874eea7a623d7a8df",
+    "head_sha": "5384994473834b4e788a9ca5a766253e26964a65",
+    "additions": 36,
+    "deletions": 2,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70661/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70661/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

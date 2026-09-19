@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-70012",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70012",
+  "title": "Fix ZipFile resource leak in open_maybe_zipped",
+  "pr": 70012,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:14.651925+00:00"
+  },
+  "pr_meta": {
+    "number": 70012,
+    "title": "Fix ZipFile resource leak in open_maybe_zipped",
+    "html_url": "https://github.com/apache/airflow/pull/70012",
+    "state": "closed",
+    "merged": false,
+    "user": "magic-peach",
+    "created_at": "2026-07-17T12:09:56Z",
+    "closed_at": "2026-07-28T22:42:30Z",
+    "merged_at": null,
+    "base_sha": "771c09c5f204a3d790d7a5b25be4cff73f316f42",
+    "head_sha": "4e9194097f4e1f63fdb3433ab6ec9386d154055f",
+    "additions": 17,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70012/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70012/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

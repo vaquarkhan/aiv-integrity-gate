@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73313",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73313",
+  "title": "UI: Show xcom before task state store in storage tabs",
+  "pr": 73313,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:43.765890+00:00"
+  },
+  "pr_meta": {
+    "number": 73313,
+    "title": "UI: Show xcom before task state store in storage tabs",
+    "html_url": "https://github.com/apache/airflow/pull/73313",
+    "state": "closed",
+    "merged": true,
+    "user": "amoghrajesh",
+    "created_at": "2026-09-18T08:37:03Z",
+    "closed_at": "2026-09-18T17:02:28Z",
+    "merged_at": "2026-09-18T17:02:28Z",
+    "base_sha": "42741924a79f7e19dc96672a2c4f7f0bfe93beb2",
+    "head_sha": "ad9f7571519a52a7d0261615117fe82d0c858d4c",
+    "additions": 4,
+    "deletions": 4,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73313/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73313/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

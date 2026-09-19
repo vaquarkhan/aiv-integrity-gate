@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-68855",
+  "origin_url": "https://github.com/apache/airflow/pull/68855",
+  "repo": "apache/airflow",
+  "pr": 68855,
+  "title": "Fix in-process Execution API loop stopped while its transport is in use",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:33.204216+00:00"
+  },
+  "pr_meta": {
+    "number": 68855,
+    "title": "Fix in-process Execution API loop stopped while its transport is in use",
+    "html_url": "https://github.com/apache/airflow/pull/68855",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-06-22T19:12:37Z",
+    "closed_at": "2026-06-23T02:33:46Z",
+    "merged_at": null,
+    "base_sha": "51a4d81b7d8c446d1da1e1d6105629dabc277975",
+    "head_sha": "e33945f54e0cb8bdc0c03edbf33dd7c861906536",
+    "additions": 25,
+    "deletions": 12,
+    "changed_files": 2,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/app.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/test_app.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:07:00.901234+00:00"
+}

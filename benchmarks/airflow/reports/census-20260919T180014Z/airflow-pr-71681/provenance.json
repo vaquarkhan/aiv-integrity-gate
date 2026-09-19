@@ -1,0 +1,47 @@
+{
+  "case_id": "airflow-pr-71681",
+  "origin_url": "https://github.com/apache/airflow/pull/71681",
+  "repo": "apache/airflow",
+  "pr": 71681,
+  "title": "Update index.rst",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:34.112913+00:00"
+  },
+  "pr_meta": {
+    "number": 71681,
+    "title": "Update index.rst",
+    "html_url": "https://github.com/apache/airflow/pull/71681",
+    "state": "closed",
+    "merged": false,
+    "user": "sajin-oops",
+    "created_at": "2026-08-16T15:13:13Z",
+    "closed_at": "2026-08-16T15:20:11Z",
+    "merged_at": null,
+    "base_sha": "b2b97706651310bdeeeafd52e64a01147ffefa3d",
+    "head_sha": "1e57247ef382a9580d986a4ea90734557bef98bc",
+    "additions": 0,
+    "deletions": 0,
+    "changed_files": 0,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "NO_FILES_MATERIALIZED.txt",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:20:25.433295+00:00"
+}

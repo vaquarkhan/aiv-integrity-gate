@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69944",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69944",
+  "title": "Fix MySQL deadlock when queueing asset-triggered Dags",
+  "pr": 69944,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:41.538430+00:00"
+  },
+  "pr_meta": {
+    "number": 69944,
+    "title": "Fix MySQL deadlock when queueing asset-triggered Dags",
+    "html_url": "https://github.com/apache/airflow/pull/69944",
+    "state": "closed",
+    "merged": false,
+    "user": "FrankYang0529",
+    "created_at": "2026-07-16T02:03:51Z",
+    "closed_at": "2026-07-17T01:55:24Z",
+    "merged_at": null,
+    "base_sha": "5930c02ad0fc058a6a40ad37b2436105fd7fb51f",
+    "head_sha": "30a170f0a648ca41ef2038c5373a1eda8fbfa099",
+    "additions": 148,
+    "deletions": 14,
+    "changed_files": 4,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:Triggerer"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69944/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69944/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

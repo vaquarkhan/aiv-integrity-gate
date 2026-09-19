@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-73186",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73186",
+  "title": "Add CI setup optimization regression tests",
+  "pr": 73186,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:53.899089+00:00"
+  },
+  "pr_meta": {
+    "number": 73186,
+    "title": "Add CI setup optimization regression tests",
+    "html_url": "https://github.com/apache/airflow/pull/73186",
+    "state": "closed",
+    "merged": false,
+    "user": "zozo123",
+    "created_at": "2026-09-15T11:39:22Z",
+    "closed_at": "2026-09-15T11:43:13Z",
+    "merged_at": null,
+    "base_sha": "9ecc914fbd00d72617e0b8d107f04d6563d7bbda",
+    "head_sha": "c5ba5072f7f34c4fb61858a92877ba6e49c0c643",
+    "additions": 463,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73186/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73186/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

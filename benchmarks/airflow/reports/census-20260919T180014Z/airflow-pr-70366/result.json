@@ -1,0 +1,79 @@
+{
+  "id": "airflow-pr-70366",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70366",
+  "title": "Updating Russian translation",
+  "pr": 70366,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:12.347726+00:00"
+  },
+  "pr_meta": {
+    "number": 70366,
+    "title": "Updating Russian translation",
+    "html_url": "https://github.com/apache/airflow/pull/70366",
+    "state": "closed",
+    "merged": false,
+    "user": "puzzle-rpa-team",
+    "created_at": "2026-07-24T08:28:06Z",
+    "closed_at": "2026-07-26T19:03:03Z",
+    "merged_at": null,
+    "base_sha": "378541bd1fe319f61e22bbb68f7f523513310056",
+    "head_sha": "c8c01a102c2d0ad76d18286a28ee4d0e6e76624b",
+    "additions": 472,
+    "deletions": 894,
+    "changed_files": 105,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "area:UI",
+      "area:translations",
+      "translation:ru",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70366/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70366/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

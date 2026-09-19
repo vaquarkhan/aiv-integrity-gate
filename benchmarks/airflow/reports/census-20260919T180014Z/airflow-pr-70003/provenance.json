@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-70003",
+  "origin_url": "https://github.com/apache/airflow/pull/70003",
+  "repo": "apache/airflow",
+  "pr": 70003,
+  "title": "Add pin_symlink_on_refresh option to LocalDagBundle for atomically-swapped (git-sync) checkouts",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:18.119411+00:00"
+  },
+  "pr_meta": {
+    "number": 70003,
+    "title": "Add pin_symlink_on_refresh option to LocalDagBundle for atomically-swapped (git-sync) checkouts",
+    "html_url": "https://github.com/apache/airflow/pull/70003",
+    "state": "closed",
+    "merged": false,
+    "user": "kjh0623",
+    "created_at": "2026-07-17T08:33:27Z",
+    "closed_at": "2026-09-16T00:26:02Z",
+    "merged_at": null,
+    "base_sha": "c49e1c917ea2729eb862daad40f340a9d7dd6c4c",
+    "head_sha": "2dabb2151decb2937d9ef7bbd2201bd096dfcece",
+    "additions": 107,
+    "deletions": 3,
+    "changed_files": 4,
+    "author_association": "NONE",
+    "labels": [
+      "stale",
+      "area:providers",
+      "kind:documentation",
+      "provider:git"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/administration-and-deployment/dag-bundles.rst",
+    "airflow-core/newsfragments/70003.feature.rst",
+    "airflow-core/src/airflow/dag_processing/bundles/local.py",
+    "airflow-core/tests/unit/dag_processing/bundles/test_local.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:47:28.881390+00:00"
+}

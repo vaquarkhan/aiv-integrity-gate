@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-71994",
+  "origin_url": "https://github.com/apache/airflow/pull/71994",
+  "repo": "apache/airflow",
+  "pr": 71994,
+  "title": "Consume every queued asset event from concurrent mapped outlets",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:32.110602+00:00"
+  },
+  "pr_meta": {
+    "number": 71994,
+    "title": "Consume every queued asset event from concurrent mapped outlets",
+    "html_url": "https://github.com/apache/airflow/pull/71994",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-08-23T06:32:51Z",
+    "closed_at": "2026-08-23T06:57:55Z",
+    "merged_at": null,
+    "base_sha": "0a5c8e60130deb94595009b87013d14f3aa9290e",
+    "head_sha": "27937116a6a2da84900959a350018fba5db02134",
+    "additions": 340,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:16:50.756881+00:00"
+}

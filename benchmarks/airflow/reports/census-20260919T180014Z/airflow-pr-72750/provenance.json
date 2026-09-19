@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72750",
+  "origin_url": "https://github.com/apache/airflow/pull/72750",
+  "repo": "apache/airflow",
+  "pr": 72750,
+  "title": "Bump org.jetbrains.kotlin:kotlin-gradle-plugin from 2.4.10 to 2.4.20 in /java-sdk in the java-sdk-security-updates group across 1 directory",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:43.748371+00:00"
+  },
+  "pr_meta": {
+    "number": 72750,
+    "title": "Bump org.jetbrains.kotlin:kotlin-gradle-plugin from 2.4.10 to 2.4.20 in /java-sdk in the java-sdk-security-updates group across 1 directory",
+    "html_url": "https://github.com/apache/airflow/pull/72750",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-09-08T22:17:31Z",
+    "closed_at": "2026-09-12T04:37:37Z",
+    "merged_at": null,
+    "base_sha": "2309d05a24ca91baf333899afc0cfdb7f5ac67c4",
+    "head_sha": "6cce3721dc4973a23f98a647bd77187e87eb5588",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "dependencies",
+      "area:java-sdk",
+      "java"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "java-sdk/buildSrc/build.gradle.kts"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:07:58.878759+00:00"
+}

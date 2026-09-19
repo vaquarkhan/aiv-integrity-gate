@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-71786",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71786",
+  "title": "Fix Logs tab scroll view",
+  "pr": 71786,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:15.180099+00:00"
+  },
+  "pr_meta": {
+    "number": 71786,
+    "title": "Fix Logs tab scroll view",
+    "html_url": "https://github.com/apache/airflow/pull/71786",
+    "state": "closed",
+    "merged": false,
+    "user": "bbovenzi",
+    "created_at": "2026-08-18T18:05:27Z",
+    "closed_at": "2026-08-19T13:49:59Z",
+    "merged_at": null,
+    "base_sha": "c780893f642bd5e79f3676f0d5fe5b05f4c0b0bb",
+    "head_sha": "ca4e66906594e9fbba315bbab9c03567324e1b87",
+    "additions": 225,
+    "deletions": 186,
+    "changed_files": 18,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71786/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71786/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

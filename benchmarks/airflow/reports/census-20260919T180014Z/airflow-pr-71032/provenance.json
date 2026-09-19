@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-71032",
+  "origin_url": "https://github.com/apache/airflow/pull/71032",
+  "repo": "apache/airflow",
+  "pr": 71032,
+  "title": "Bump react-resizable-panels from 3.0.6 to 4.12.2 in /airflow-core/src/airflow/ui",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:15.783960+00:00"
+  },
+  "pr_meta": {
+    "number": 71032,
+    "title": "Bump react-resizable-panels from 3.0.6 to 4.12.2 in /airflow-core/src/airflow/ui",
+    "html_url": "https://github.com/apache/airflow/pull/71032",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-03T22:24:20Z",
+    "closed_at": "2026-08-06T14:06:05Z",
+    "merged_at": null,
+    "base_sha": "c0f6a60cdcb97375381e13e713edb713ceab1c09",
+    "head_sha": "c6bc0a882b724e860007c071fadda5e8f432b474",
+    "additions": 8,
+    "deletions": 8,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "javascript",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/package.json",
+    "airflow-core/src/airflow/ui/pnpm-lock.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:30:11.450750+00:00"
+}

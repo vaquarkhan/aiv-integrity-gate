@@ -1,0 +1,60 @@
+{
+  "case_id": "airflow-pr-70144",
+  "origin_url": "https://github.com/apache/airflow/pull/70144",
+  "repo": "apache/airflow",
+  "pr": 70144,
+  "title": "Add Google API toolset for agents to access 1000+ APIs",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:26.648091+00:00"
+  },
+  "pr_meta": {
+    "number": 70144,
+    "title": "Add Google API toolset for agents to access 1000+ APIs",
+    "html_url": "https://github.com/apache/airflow/pull/70144",
+    "state": "closed",
+    "merged": false,
+    "user": "gopidesupavan",
+    "created_at": "2026-07-20T20:12:20Z",
+    "closed_at": "2026-08-07T16:21:45Z",
+    "merged_at": null,
+    "base_sha": "b6cc81c2944ce87a56596e464868ed50e14ccb08",
+    "head_sha": "119b9a2dfe157bc6acbd55b990ee860d1fcb6034",
+    "additions": 1779,
+    "deletions": 33,
+    "changed_files": 10,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:common-ai"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/common/ai/docs/index.rst",
+    "providers/common/ai/docs/toolsets.rst",
+    "providers/common/ai/provider.yaml",
+    "providers/common/ai/pyproject.toml",
+    "providers/common/ai/src/airflow/providers/common/ai/example_dags/example_gcp_toolset.py",
+    "providers/common/ai/src/airflow/providers/common/ai/example_dags/example_gcp_troubleshooting_agent.py",
+    "providers/common/ai/src/airflow/providers/common/ai/toolsets/__init__.py",
+    "providers/common/ai/src/airflow/providers/common/ai/toolsets/google.py",
+    "providers/common/ai/tests/unit/common/ai/toolsets/test_google.py",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:44:43.604445+00:00"
+}

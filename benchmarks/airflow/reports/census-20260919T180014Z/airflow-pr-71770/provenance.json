@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-71770",
+  "origin_url": "https://github.com/apache/airflow/pull/71770",
+  "repo": "apache/airflow",
+  "pr": 71770,
+  "title": "Propagate OpenLineage context to Databricks job runs",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:18.890936+00:00"
+  },
+  "pr_meta": {
+    "number": 71770,
+    "title": "Propagate OpenLineage context to Databricks job runs",
+    "html_url": "https://github.com/apache/airflow/pull/71770",
+    "state": "closed",
+    "merged": false,
+    "user": "mobuchowski",
+    "created_at": "2026-08-18T13:46:55Z",
+    "closed_at": "2026-08-25T13:15:46Z",
+    "merged_at": null,
+    "base_sha": "c91b476f6d185d583e7e61022888d572e2aaf695",
+    "head_sha": "f87318c900a074ca48f3d1846c069cd776c8c1d1",
+    "additions": 480,
+    "deletions": 9,
+    "changed_files": 7,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:databricks",
+      "provider:openlineage"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/databricks/docs/operators/run_now.rst",
+    "providers/databricks/docs/operators/submit_run.rst",
+    "providers/databricks/src/airflow/providers/databricks/operators/databricks.py",
+    "providers/databricks/src/airflow/providers/databricks/utils/openlineage.py",
+    "providers/databricks/tests/unit/databricks/operators/test_databricks.py",
+    "providers/databricks/tests/unit/databricks/utils/test_openlineage.py",
+    "providers/openlineage/docs/spark.rst"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:19:34.238625+00:00"
+}

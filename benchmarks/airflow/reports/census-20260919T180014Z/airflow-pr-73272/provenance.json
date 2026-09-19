@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-73272",
+  "origin_url": "https://github.com/apache/airflow/pull/73272",
+  "repo": "apache/airflow",
+  "pr": 73272,
+  "title": "Stop provider tests leaking AF2 global TI session",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:55:12.463503+00:00"
+  },
+  "pr_meta": {
+    "number": 73272,
+    "title": "Stop provider tests leaking AF2 global TI session",
+    "html_url": "https://github.com/apache/airflow/pull/73272",
+    "state": "closed",
+    "merged": true,
+    "user": "amoghrajesh",
+    "created_at": "2026-09-17T07:32:55Z",
+    "closed_at": "2026-09-17T12:34:04Z",
+    "merged_at": "2026-09-17T12:34:04Z",
+    "base_sha": "a039116f83bf7c8f92f0d50c43744a0700d1d330",
+    "head_sha": "03e65834ce4e9171fe3631538177a46f14227e9c",
+    "additions": 20,
+    "deletions": 9,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "devel-common/src/tests_common/pytest_plugin.py",
+    "providers/standard/tests/unit/standard/decorators/test_python.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:13:52.689160+00:00"
+}

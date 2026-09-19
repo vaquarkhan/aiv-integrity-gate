@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-68864",
+  "origin_url": "https://github.com/apache/airflow/pull/68864",
+  "repo": "apache/airflow",
+  "pr": 68864,
+  "title": "Revert \"Do not leak threads from InProcessExecutionAPI (#68840)\" to unblock main",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:27.510092+00:00"
+  },
+  "pr_meta": {
+    "number": 68864,
+    "title": "Revert \"Do not leak threads from InProcessExecutionAPI (#68840)\" to unblock main",
+    "html_url": "https://github.com/apache/airflow/pull/68864",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-06-22T23:47:45Z",
+    "closed_at": "2026-06-22T23:48:21Z",
+    "merged_at": null,
+    "base_sha": "b788d83d215ec9fe6b289c3021a726997ca3d8a3",
+    "head_sha": "e56f20cb952e542d208d5c45d1bc7e54b6f8d165",
+    "additions": 6,
+    "deletions": 62,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/app.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/test_app.py",
+    "task-sdk/dev/generate_task_sdk_models.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:06:42.949845+00:00"
+}

@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-71201",
+  "origin_url": "https://github.com/apache/airflow/pull/71201",
+  "repo": "apache/airflow",
+  "pr": 71201,
+  "title": "Move CloudBatchSubmitJobOperator job normalization out of __init__",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:39.561563+00:00"
+  },
+  "pr_meta": {
+    "number": 71201,
+    "title": "Move CloudBatchSubmitJobOperator job normalization out of __init__",
+    "html_url": "https://github.com/apache/airflow/pull/71201",
+    "state": "closed",
+    "merged": false,
+    "user": "yunusakca",
+    "created_at": "2026-08-05T19:35:30Z",
+    "closed_at": "2026-08-18T19:42:30Z",
+    "merged_at": null,
+    "base_sha": "448c1511ad21657ee364e6276d52d249b70c54af",
+    "head_sha": "11677be3c6cc6a0b0563f18d57a29bdf4a811cbb",
+    "additions": 20,
+    "deletions": 5,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "area:dev-tools",
+      "ready for maintainer review",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/operators/cloud_batch.py",
+    "providers/google/tests/unit/google/cloud/operators/test_cloud_batch.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:28:07.751719+00:00"
+}

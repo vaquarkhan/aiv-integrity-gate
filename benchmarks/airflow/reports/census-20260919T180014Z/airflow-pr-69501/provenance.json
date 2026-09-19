@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-69501",
+  "origin_url": "https://github.com/apache/airflow/pull/69501",
+  "repo": "apache/airflow",
+  "pr": 69501,
+  "title": "[AIP-94] Mark dags list-jobs as migrated to airflowctl",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:46.037119+00:00"
+  },
+  "pr_meta": {
+    "number": 69501,
+    "title": "[AIP-94] Mark dags list-jobs as migrated to airflowctl",
+    "html_url": "https://github.com/apache/airflow/pull/69501",
+    "state": "closed",
+    "merged": false,
+    "user": "steveahnahn",
+    "created_at": "2026-07-06T22:46:58Z",
+    "closed_at": "2026-07-06T22:57:20Z",
+    "merged_at": null,
+    "base_sha": "4f4befcc73cac7786424867eb7fa97a6f75352c4",
+    "head_sha": "d0c4d80d4aa55bdacf92c88744b6afa1bc35bda0",
+    "additions": 2,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:CLI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/cli/commands/dag_command.py",
+    "airflow-core/tests/unit/cli/commands/test_command_deprecations.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:56:37.532927+00:00"
+}

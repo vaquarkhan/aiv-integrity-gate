@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-72949",
+  "origin_url": "https://github.com/apache/airflow/pull/72949",
+  "repo": "apache/airflow",
+  "pr": 72949,
+  "title": "Add unit tests for the BigQuery Data Transfer link",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:22.680215+00:00"
+  },
+  "pr_meta": {
+    "number": 72949,
+    "title": "Add unit tests for the BigQuery Data Transfer link",
+    "html_url": "https://github.com/apache/airflow/pull/72949",
+    "state": "closed",
+    "merged": false,
+    "user": "ShousenZHANG",
+    "created_at": "2026-09-11T13:52:32Z",
+    "closed_at": "2026-09-11T15:12:13Z",
+    "merged_at": null,
+    "base_sha": "1cf0d2c884c96e5f54e02630b93cd86e07ccb8af",
+    "head_sha": "8fefebf74249e01ecf7ac6f3258b0acdb0ee32cd",
+    "additions": 68,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "AI Spam",
+      "closed because of multiple quality violations"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/tests/unit/always/test_project_structure.py",
+    "providers/google/tests/unit/google/cloud/links/test_bigquery_dts.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:06:38.131409+00:00"
+}

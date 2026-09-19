@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-71196",
+  "origin_url": "https://github.com/apache/airflow/pull/71196",
+  "repo": "apache/airflow",
+  "pr": 71196,
+  "title": "Keep API error details when a response declares a JSON charset",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:41:43.459244+00:00"
+  },
+  "pr_meta": {
+    "number": 71196,
+    "title": "Keep API error details when a response declares a JSON charset",
+    "html_url": "https://github.com/apache/airflow/pull/71196",
+    "state": "closed",
+    "merged": false,
+    "user": "rjgoyln",
+    "created_at": "2026-08-05T18:03:56Z",
+    "closed_at": "2026-08-05T20:58:05Z",
+    "merged_at": null,
+    "base_sha": "2e0b22a2f9ecfe31e55a7ce902845ee07fdcb5d8",
+    "head_sha": "51753c8f04ffe29e648ac700e8a5ece5c4ff0d93",
+    "additions": 41,
+    "deletions": 2,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:task-sdk",
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-ctl/src/airflowctl/api/operations.py",
+    "airflow-ctl/tests/airflow_ctl/api/test_client.py",
+    "task-sdk/src/airflow/sdk/api/client.py",
+    "task-sdk/tests/task_sdk/api/test_client.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:28:21.695390+00:00"
+}

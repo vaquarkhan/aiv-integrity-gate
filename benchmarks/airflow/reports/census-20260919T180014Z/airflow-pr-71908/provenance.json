@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-71908",
+  "origin_url": "https://github.com/apache/airflow/pull/71908",
+  "repo": "apache/airflow",
+  "pr": 71908,
+  "title": "Bump the github-actions-updates group across 1 directory with 4 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:50.974392+00:00"
+  },
+  "pr_meta": {
+    "number": 71908,
+    "title": "Bump the github-actions-updates group across 1 directory with 4 updates",
+    "html_url": "https://github.com/apache/airflow/pull/71908",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-08-20T15:16:11Z",
+    "closed_at": "2026-08-28T17:11:31Z",
+    "merged_at": null,
+    "base_sha": "c1fcbefd71256cc47cafc2cb989a0ac58838035a",
+    "head_sha": "93e906551d3fe35a6d100e31c3172ce449deed74",
+    "additions": 4,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "area:registry",
+      "github_actions",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/codeql-analysis.yml",
+    ".github/workflows/registry-tests.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:17:51.864756+00:00"
+}

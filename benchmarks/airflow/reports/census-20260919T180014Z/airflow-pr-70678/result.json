@@ -1,0 +1,78 @@
+{
+  "id": "airflow-pr-70678",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70678",
+  "title": "Fix template-field validation timing in BigQueryToMsSqlOperator",
+  "pr": 70678,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:14.155078+00:00"
+  },
+  "pr_meta": {
+    "number": 70678,
+    "title": "Fix template-field validation timing in BigQueryToMsSqlOperator",
+    "html_url": "https://github.com/apache/airflow/pull/70678",
+    "state": "closed",
+    "merged": false,
+    "user": "bramhanandlingala",
+    "created_at": "2026-07-29T11:16:08Z",
+    "closed_at": "2026-07-30T10:41:19Z",
+    "merged_at": null,
+    "base_sha": "f346e6449c608d62aabdb61686338020bc4b897e",
+    "head_sha": "3c2b7ce05f3480fc02f4148cdc2b4e925c1851c5",
+    "additions": 37,
+    "deletions": 10,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70678/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70678/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

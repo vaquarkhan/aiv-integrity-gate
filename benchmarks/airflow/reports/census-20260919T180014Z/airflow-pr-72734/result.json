@@ -1,0 +1,88 @@
+{
+  "id": "airflow-pr-72734",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72734",
+  "title": "[v3-3-test] API: Return asset events for Dag Runs without a start date (#71379)",
+  "pr": 72734,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:48.608977+00:00"
+  },
+  "pr_meta": {
+    "number": 72734,
+    "title": "[v3-3-test] API: Return asset events for Dag Runs without a start date (#71379)",
+    "html_url": "https://github.com/apache/airflow/pull/72734",
+    "state": "closed",
+    "merged": false,
+    "user": "vatsrahul1001",
+    "created_at": "2026-09-08T18:16:56Z",
+    "closed_at": "2026-09-09T13:40:57Z",
+    "merged_at": null,
+    "base_sha": "7749f2f58faf204bef2e1166bb3f809db441cd32",
+    "head_sha": "c92309b62f3cf00f1b5d2b990499cf63c647854d",
+    "additions": 144,
+    "deletions": 20,
+    "changed_files": 13,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "type:bug-fix",
+      "area:UI",
+      "area:task-sdk",
+      "area:airflow-ctl"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72734/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72734/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": true,
+    "blocking_gates": [],
+    "advisory_gates": [
+      "density"
+    ],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Entropy 2.79 is below effective threshold 2.90 for airflow-core/src/airflow/ui/openapi-gen/requests/schemas.gen.ts (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md).",
+      "findings": [
+        {
+          "rule_id": "density.entropy",
+          "file": "airflow-core/src/airflow/ui/openapi-gen/requests/schemas.gen.ts",
+          "start_line": 1,
+          "message": "Entropy 2.79 is below effective threshold 2.90 for airflow-core/src/airflow/ui/openapi-gen/requests/schemas.gen.ts (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md)."
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

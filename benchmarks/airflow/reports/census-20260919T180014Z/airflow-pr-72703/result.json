@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-72703",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72703",
+  "title": "Fix td_format rendering negative durations as large positive ones",
+  "pr": 72703,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:35:57.852022+00:00"
+  },
+  "pr_meta": {
+    "number": 72703,
+    "title": "Fix td_format rendering negative durations as large positive ones",
+    "html_url": "https://github.com/apache/airflow/pull/72703",
+    "state": "closed",
+    "merged": false,
+    "user": "CaptainAni187",
+    "created_at": "2026-09-08T12:04:23Z",
+    "closed_at": "2026-09-09T15:58:21Z",
+    "merged_at": null,
+    "base_sha": "c9a62d2f835792473ed538bb59fdfaf60b3fa97d",
+    "head_sha": "52db5de90568b07290495499afae3f4c03ddcdb1",
+    "additions": 32,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72703/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72703/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

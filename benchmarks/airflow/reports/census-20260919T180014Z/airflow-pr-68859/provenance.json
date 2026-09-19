@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-68859",
+  "origin_url": "https://github.com/apache/airflow/pull/68859",
+  "repo": "apache/airflow",
+  "pr": 68859,
+  "title": "Fix MyPy providers checks for AWS auth manager after anyio 4.14 bump",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:31.017535+00:00"
+  },
+  "pr_meta": {
+    "number": 68859,
+    "title": "Fix MyPy providers checks for AWS auth manager after anyio 4.14 bump",
+    "html_url": "https://github.com/apache/airflow/pull/68859",
+    "state": "closed",
+    "merged": false,
+    "user": "seanghaeli",
+    "created_at": "2026-06-22T19:47:27Z",
+    "closed_at": "2026-06-22T20:01:05Z",
+    "merged_at": null,
+    "base_sha": "51a4d81b7d8c446d1da1e1d6105629dabc277975",
+    "head_sha": "ec263874664e21ad5dbdc787dbfefce6ff0413c3",
+    "additions": 3,
+    "deletions": 2,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/auth_manager/routes/login.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:06:54.618201+00:00"
+}

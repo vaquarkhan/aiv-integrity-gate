@@ -1,0 +1,59 @@
+{
+  "case_id": "airflow-pr-73283",
+  "origin_url": "https://github.com/apache/airflow/pull/73283",
+  "repo": "apache/airflow",
+  "pr": 73283,
+  "title": "Document usage_limits on all common.ai LLM operators",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:59.175796+00:00"
+  },
+  "pr_meta": {
+    "number": 73283,
+    "title": "Document usage_limits on all common.ai LLM operators",
+    "html_url": "https://github.com/apache/airflow/pull/73283",
+    "state": "closed",
+    "merged": true,
+    "user": "ColtenOuO",
+    "created_at": "2026-09-17T11:57:37Z",
+    "closed_at": "2026-09-17T13:57:33Z",
+    "merged_at": "2026-09-17T13:57:33Z",
+    "base_sha": "11a3892daa9dfd5e84fb037d49373b174a372fb8",
+    "head_sha": "123357e10268050251a052a025c4edfca939cdb5",
+    "additions": 30,
+    "deletions": 0,
+    "changed_files": 9,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:common-ai"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/common/ai/docs/operators/llm.rst",
+    "providers/common/ai/docs/operators/llm_branch.rst",
+    "providers/common/ai/docs/operators/llm_file_analysis.rst",
+    "providers/common/ai/docs/operators/llm_schema_compare.rst",
+    "providers/common/ai/docs/operators/llm_sql.rst",
+    "providers/common/ai/src/airflow/providers/common/ai/operators/llm_branch.py",
+    "providers/common/ai/src/airflow/providers/common/ai/operators/llm_file_analysis.py",
+    "providers/common/ai/src/airflow/providers/common/ai/operators/llm_schema_compare.py",
+    "providers/common/ai/src/airflow/providers/common/ai/operators/llm_sql.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:49.942648+00:00"
+}

@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-69025",
+  "origin_url": "https://github.com/apache/airflow/pull/69025",
+  "repo": "apache/airflow",
+  "pr": 69025,
+  "title": "Cap kubernetes client to <36 to fix cluster auth 401 regression",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:44.457393+00:00"
+  },
+  "pr_meta": {
+    "number": 69025,
+    "title": "Cap kubernetes client to <36 to fix cluster auth 401 regression",
+    "html_url": "https://github.com/apache/airflow/pull/69025",
+    "state": "closed",
+    "merged": false,
+    "user": "shahar1",
+    "created_at": "2026-06-26T09:51:06Z",
+    "closed_at": "2026-06-26T10:55:40Z",
+    "merged_at": null,
+    "base_sha": "0619574dd215787b18ef0e760f54d891eb9b42ae",
+    "head_sha": "b9e69e5b48272660186aa035f461f4f998e71e49",
+    "additions": 14,
+    "deletions": 10,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/cncf/kubernetes/README.rst",
+    "providers/cncf/kubernetes/docs/index.rst",
+    "providers/cncf/kubernetes/pyproject.toml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:04:04.551042+00:00"
+}

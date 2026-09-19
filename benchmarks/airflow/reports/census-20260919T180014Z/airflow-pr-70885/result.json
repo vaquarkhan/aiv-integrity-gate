@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70885",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70885",
+  "title": "Reject team names that differ only in case",
+  "pr": 70885,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:02.976238+00:00"
+  },
+  "pr_meta": {
+    "number": 70885,
+    "title": "Reject team names that differ only in case",
+    "html_url": "https://github.com/apache/airflow/pull/70885",
+    "state": "closed",
+    "merged": false,
+    "user": "potiuk",
+    "created_at": "2026-08-01T01:31:25Z",
+    "closed_at": "2026-08-12T10:51:15Z",
+    "merged_at": null,
+    "base_sha": "e6341f3e7483cc4451d8443434a9980f1f1f9341",
+    "head_sha": "e8d5fb347f53447fe55f844364b4b43049fe8ee0",
+    "additions": 138,
+    "deletions": 20,
+    "changed_files": 4,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:CLI",
+      "area:secrets"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70885/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70885/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70813",
+  "origin_url": "https://github.com/apache/airflow/pull/70813",
+  "repo": "apache/airflow",
+  "pr": 70813,
+  "title": "Document when a retry policy is not consulted",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:48.293058+00:00"
+  },
+  "pr_meta": {
+    "number": 70813,
+    "title": "Document when a retry policy is not consulted",
+    "html_url": "https://github.com/apache/airflow/pull/70813",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-07-31T07:22:12Z",
+    "closed_at": "2026-07-31T07:33:11Z",
+    "merged_at": null,
+    "base_sha": "fbac2f5ce19f9273974af76031d3e04854b3694f",
+    "head_sha": "22dc3718dfa14f0e9e7062a8a3cab83c901ac26e",
+    "additions": 15,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "kind:documentation",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/core-concepts/tasks.rst",
+    "task-sdk/src/airflow/sdk/definitions/retry_policy.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:34:28.694105+00:00"
+}

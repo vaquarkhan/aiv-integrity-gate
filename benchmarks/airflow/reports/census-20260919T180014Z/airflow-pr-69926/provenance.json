@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-69926",
+  "origin_url": "https://github.com/apache/airflow/pull/69926",
+  "repo": "apache/airflow",
+  "pr": 69926,
+  "title": "Go SDK: Keep workload tokens out of task error logs",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:45.384265+00:00"
+  },
+  "pr_meta": {
+    "number": 69926,
+    "title": "Go SDK: Keep workload tokens out of task error logs",
+    "html_url": "https://github.com/apache/airflow/pull/69926",
+    "state": "closed",
+    "merged": false,
+    "user": "viiccwen",
+    "created_at": "2026-07-15T14:25:44Z",
+    "closed_at": "2026-08-20T13:22:26Z",
+    "merged_at": null,
+    "base_sha": "58e124b88775314373ff5a5f0ed5432f1cbe2030",
+    "head_sha": "697a42512393fe6532b6e4e87ab963d1854068ac",
+    "additions": 65,
+    "deletions": 6,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/pkg/worker/runner.go",
+    "go-sdk/pkg/worker/runner_test.go"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:48:55.356980+00:00"
+}

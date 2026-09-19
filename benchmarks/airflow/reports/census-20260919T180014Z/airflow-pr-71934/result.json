@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-71934",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/71934",
+  "title": "fix(scheduler): re-cleanup task_reschedule before flush in save_to_db",
+  "pr": 71934,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:44.406279+00:00"
+  },
+  "pr_meta": {
+    "number": 71934,
+    "title": "fix(scheduler): re-cleanup task_reschedule before flush in save_to_db",
+    "html_url": "https://github.com/apache/airflow/pull/71934",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-21T09:49:40Z",
+    "closed_at": "2026-09-15T18:16:00Z",
+    "merged_at": null,
+    "base_sha": "29c3ac211f237da0eeba82413478c6340c065aa5",
+    "head_sha": "f89c3ff064f4fb51ec1091126b71602ca213bb29",
+    "additions": 71,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-71934/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-71934/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

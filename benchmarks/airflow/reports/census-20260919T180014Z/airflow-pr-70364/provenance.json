@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-70364",
+  "origin_url": "https://github.com/apache/airflow/pull/70364",
+  "repo": "apache/airflow",
+  "pr": 70364,
+  "title": "Align Step Functions input template field assignment",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:18.661064+00:00"
+  },
+  "pr_meta": {
+    "number": 70364,
+    "title": "Align Step Functions input template field assignment",
+    "html_url": "https://github.com/apache/airflow/pull/70364",
+    "state": "closed",
+    "merged": false,
+    "user": "daesung9511",
+    "created_at": "2026-07-24T07:37:36Z",
+    "closed_at": "2026-07-30T23:28:54Z",
+    "merged_at": null,
+    "base_sha": "ffe077e8cd32d120c859e9460170911ca9567722",
+    "head_sha": "e6c582a6a1d29ff47246bfda37c25cd1e606c2ac",
+    "additions": 54,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/operators/step_function.py",
+    "providers/amazon/tests/unit/amazon/aws/operators/test_step_function.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:41:07.296707+00:00"
+}

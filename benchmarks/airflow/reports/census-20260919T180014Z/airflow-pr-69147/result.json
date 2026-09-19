@@ -1,0 +1,73 @@
+{
+  "id": "airflow-pr-69147",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69147",
+  "title": "Add input validation to ExecutorConfigType bind and result processors",
+  "pr": 69147,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:18.617876+00:00"
+  },
+  "pr_meta": {
+    "number": 69147,
+    "title": "Add input validation to ExecutorConfigType bind and result processors",
+    "html_url": "https://github.com/apache/airflow/pull/69147",
+    "state": "closed",
+    "merged": false,
+    "user": "Atharva2012",
+    "created_at": "2026-06-30T01:30:51Z",
+    "closed_at": "2026-07-01T22:23:05Z",
+    "merged_at": null,
+    "base_sha": "bfd7689273d61dc9ed9b7fc3086e29e7abbd528c",
+    "head_sha": "991a9ca2664fb021b016a76e3461e37bc1509e2e",
+    "additions": 50,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": []
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69147/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69147/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

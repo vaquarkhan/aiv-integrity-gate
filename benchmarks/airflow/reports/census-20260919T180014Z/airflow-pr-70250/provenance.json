@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70250",
+  "origin_url": "https://github.com/apache/airflow/pull/70250",
+  "repo": "apache/airflow",
+  "pr": 70250,
+  "title": "airflowctl: Fix datetime.datetime CLI parameter parsing",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:46.226088+00:00"
+  },
+  "pr_meta": {
+    "number": 70250,
+    "title": "airflowctl: Fix datetime.datetime CLI parameter parsing",
+    "html_url": "https://github.com/apache/airflow/pull/70250",
+    "state": "closed",
+    "merged": false,
+    "user": "guptakushal03",
+    "created_at": "2026-07-22T17:06:50Z",
+    "closed_at": "2026-08-17T13:17:15Z",
+    "merged_at": null,
+    "base_sha": "74c76cbf02f3eaa5cf448d23946969f35531183b",
+    "head_sha": "33e4718d145595a4c1f4f22a4364eb215fb2f24c",
+    "additions": 32,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-ctl/src/airflowctl/ctl/cli_config.py",
+    "airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:42:42.992439+00:00"
+}

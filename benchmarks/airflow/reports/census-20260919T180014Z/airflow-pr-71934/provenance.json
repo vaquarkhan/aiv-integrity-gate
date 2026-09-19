@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-71934",
+  "origin_url": "https://github.com/apache/airflow/pull/71934",
+  "repo": "apache/airflow",
+  "pr": 71934,
+  "title": "fix(scheduler): re-cleanup task_reschedule before flush in save_to_db",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:38:44.406279+00:00"
+  },
+  "pr_meta": {
+    "number": 71934,
+    "title": "fix(scheduler): re-cleanup task_reschedule before flush in save_to_db",
+    "html_url": "https://github.com/apache/airflow/pull/71934",
+    "state": "closed",
+    "merged": false,
+    "user": "waterWang",
+    "created_at": "2026-08-21T09:49:40Z",
+    "closed_at": "2026-09-15T18:16:00Z",
+    "merged_at": null,
+    "base_sha": "29c3ac211f237da0eeba82413478c6340c065aa5",
+    "head_sha": "f89c3ff064f4fb51ec1091126b71602ca213bb29",
+    "additions": 71,
+    "deletions": 0,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "AI Spam"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/models/taskinstance.py",
+    "airflow-core/tests/unit/models/test_taskinstance.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:17:39.945674+00:00"
+}

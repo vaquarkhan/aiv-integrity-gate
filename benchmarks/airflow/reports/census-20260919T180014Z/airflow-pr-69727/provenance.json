@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-69727",
+  "origin_url": "https://github.com/apache/airflow/pull/69727",
+  "repo": "apache/airflow",
+  "pr": 69727,
+  "title": "Bump the github-actions-updates group with 5 updates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:47.383468+00:00"
+  },
+  "pr_meta": {
+    "number": 69727,
+    "title": "Bump the github-actions-updates group with 5 updates",
+    "html_url": "https://github.com/apache/airflow/pull/69727",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-07-10T17:03:37Z",
+    "closed_at": "2026-07-11T02:10:34Z",
+    "merged_at": null,
+    "base_sha": "1ce3f17906c1d2356abeb21d319ad144f016c8bd",
+    "head_sha": "8b22b46a3bbcd5f3d85e43e0e3aab8fedf593fc8",
+    "additions": 5,
+    "deletions": 5,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "dependencies",
+      "area:registry",
+      "github_actions",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    ".github/workflows/codeql-analysis.yml",
+    ".github/workflows/providers-e2e-tests.yml",
+    ".github/workflows/registry-tests.yml",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:52:41.316692+00:00"
+}

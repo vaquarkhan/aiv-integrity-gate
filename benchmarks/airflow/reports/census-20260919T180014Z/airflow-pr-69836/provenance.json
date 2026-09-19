@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69836",
+  "origin_url": "https://github.com/apache/airflow/pull/69836",
+  "repo": "apache/airflow",
+  "pr": 69836,
+  "title": "Add support to instance selection disk config and confidential compute to Dataproc",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:18.490942+00:00"
+  },
+  "pr_meta": {
+    "number": 69836,
+    "title": "Add support to instance selection disk config and confidential compute to Dataproc",
+    "html_url": "https://github.com/apache/airflow/pull/69836",
+    "state": "closed",
+    "merged": false,
+    "user": "sravani-bobbala",
+    "created_at": "2026-07-13T18:35:56Z",
+    "closed_at": "2026-08-05T10:02:37Z",
+    "merged_at": null,
+    "base_sha": "87ac18b0b9457d53795585882572a09994438a69",
+    "head_sha": "c4d58052aae5e8fd68a3abbab7be60a52696cddf",
+    "additions": 43,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/operators/dataproc.py",
+    "providers/google/tests/unit/google/cloud/operators/test_dataproc.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:50:47.293781+00:00"
+}

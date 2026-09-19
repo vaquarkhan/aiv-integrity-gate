@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69788",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69788",
+  "title": "Add unit tests for BigQuery to SQL transfer base operator",
+  "pr": 69788,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:27.719233+00:00"
+  },
+  "pr_meta": {
+    "number": 69788,
+    "title": "Add unit tests for BigQuery to SQL transfer base operator",
+    "html_url": "https://github.com/apache/airflow/pull/69788",
+    "state": "closed",
+    "merged": false,
+    "user": "desusaiteja",
+    "created_at": "2026-07-12T22:11:42Z",
+    "closed_at": "2026-07-28T17:12:43Z",
+    "merged_at": null,
+    "base_sha": "fd7d535c3ff5d3618c2a4a83a634fdec09c911e9",
+    "head_sha": "47b60a3c32b36312cee8acafd9cf1088b83606dd",
+    "additions": 193,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69788/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69788/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

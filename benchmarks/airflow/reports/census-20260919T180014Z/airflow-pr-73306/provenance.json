@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-73306",
+  "origin_url": "https://github.com/apache/airflow/pull/73306",
+  "repo": "apache/airflow",
+  "pr": 73306,
+  "title": "Document that Core API session authorisation is resolved at token issue",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:49.550492+00:00"
+  },
+  "pr_meta": {
+    "number": 73306,
+    "title": "Document that Core API session authorisation is resolved at token issue",
+    "html_url": "https://github.com/apache/airflow/pull/73306",
+    "state": "closed",
+    "merged": true,
+    "user": "potiuk",
+    "created_at": "2026-09-18T05:30:06Z",
+    "closed_at": "2026-09-18T15:43:07Z",
+    "merged_at": "2026-09-18T15:43:06Z",
+    "base_sha": "c614c57062a95aade62cd5df774ae3c33bd57003",
+    "head_sha": "4eb5d40f75eb9300a4d5aa233eb12dcd548c343e",
+    "additions": 20,
+    "deletions": 0,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "kind:documentation",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/docs/security/security_model.rst"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:12:06.869104+00:00"
+}

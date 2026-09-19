@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73293",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73293",
+  "title": "[airflow-ctl/v0-1-test] Fix airflowctl backfill pause/unpause/cancel always failing with 405 (#73282)",
+  "pr": 73293,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:57.796634+00:00"
+  },
+  "pr_meta": {
+    "number": 73293,
+    "title": "[airflow-ctl/v0-1-test] Fix airflowctl backfill pause/unpause/cancel always failing with 405 (#73282)",
+    "html_url": "https://github.com/apache/airflow/pull/73293",
+    "state": "closed",
+    "merged": true,
+    "user": "henry3260",
+    "created_at": "2026-09-17T19:22:42Z",
+    "closed_at": "2026-09-17T19:23:01Z",
+    "merged_at": "2026-09-17T19:23:01Z",
+    "base_sha": "ed04be0b3b5fe73514ebf8768b93f360ed26f13e",
+    "head_sha": "e874adf1d2a4f55bd89a06e45084422e00854a3c",
+    "additions": 6,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:airflow-ctl"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73293/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73293/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

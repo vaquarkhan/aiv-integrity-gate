@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72243",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72243",
+  "title": "Do not fail scheduled tasks when serialized Dag is briefly missing",
+  "pr": 72243,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:38.488104+00:00"
+  },
+  "pr_meta": {
+    "number": 72243,
+    "title": "Do not fail scheduled tasks when serialized Dag is briefly missing",
+    "html_url": "https://github.com/apache/airflow/pull/72243",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-08-29T03:30:07Z",
+    "closed_at": "2026-08-29T13:07:31Z",
+    "merged_at": null,
+    "base_sha": "82215cf97c7c96fd3cdc413be17f9692513b8374",
+    "head_sha": "b63f9f09f7ceb6423b7a80784e70b6941bc0ef88",
+    "additions": 117,
+    "deletions": 13,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72243/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72243/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

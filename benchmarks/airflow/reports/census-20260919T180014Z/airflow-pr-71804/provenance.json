@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-71804",
+  "origin_url": "https://github.com/apache/airflow/pull/71804",
+  "repo": "apache/airflow",
+  "pr": 71804,
+  "title": "Fix duplicate OTel metric streams after re-init and fork",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:39:12.921402+00:00"
+  },
+  "pr_meta": {
+    "number": 71804,
+    "title": "Fix duplicate OTel metric streams after re-init and fork",
+    "html_url": "https://github.com/apache/airflow/pull/71804",
+    "state": "closed",
+    "merged": false,
+    "user": "dstandish",
+    "created_at": "2026-08-18T22:24:43Z",
+    "closed_at": "2026-08-19T20:54:36Z",
+    "merged_at": null,
+    "base_sha": "9c8d7512a2050990c295b53965ac76d90afa21b4",
+    "head_sha": "9a666dfadf16283be64a48d1807bfe3d563b98fc",
+    "additions": 312,
+    "deletions": 24,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/71804.bugfix.rst",
+    "shared/observability/src/airflow_shared/observability/metrics/otel_logger.py",
+    "shared/observability/tests/observability/metrics/test_otel_logger.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:19:13.889075+00:00"
+}

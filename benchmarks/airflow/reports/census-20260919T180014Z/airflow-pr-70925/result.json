@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-70925",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70925",
+  "title": "UI: add toggle to restore DagRun total count",
+  "pr": 70925,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:42:44.028392+00:00"
+  },
+  "pr_meta": {
+    "number": 70925,
+    "title": "UI: add toggle to restore DagRun total count",
+    "html_url": "https://github.com/apache/airflow/pull/70925",
+    "state": "closed",
+    "merged": false,
+    "user": "vedjaw",
+    "created_at": "2026-08-01T19:44:41Z",
+    "closed_at": "2026-08-06T18:17:05Z",
+    "merged_at": null,
+    "base_sha": "d9b7eb0f8a48c2059ef630786628ed01ba73741f",
+    "head_sha": "e3bada90fe82b8d768857ebd5ec7cb6c1fee6b75",
+    "additions": 31,
+    "deletions": 11,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70925/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70925/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

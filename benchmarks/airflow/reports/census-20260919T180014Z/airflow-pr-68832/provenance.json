@@ -1,0 +1,56 @@
+{
+  "case_id": "airflow-pr-68832",
+  "origin_url": "https://github.com/apache/airflow/pull/68832",
+  "repo": "apache/airflow",
+  "pr": 68832,
+  "title": "[v3-3-test] Remove obsolete AIP-76 partition-date storage TODOs (#68703)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:42.862658+00:00"
+  },
+  "pr_meta": {
+    "number": 68832,
+    "title": "[v3-3-test] Remove obsolete AIP-76 partition-date storage TODOs (#68703)",
+    "html_url": "https://github.com/apache/airflow/pull/68832",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-06-22T09:53:01Z",
+    "closed_at": "2026-06-22T20:34:01Z",
+    "merged_at": null,
+    "base_sha": "272115cea219d8bbc2d7076204bd6c7c644c9d71",
+    "head_sha": "df415544f22c17ccaa0fd17163a82be0ee97a11c",
+    "additions": 44,
+    "deletions": 24,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api/common/mark_tasks.py",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/src/airflow/models/dag.py",
+    "airflow-core/src/airflow/timetables/trigger.py",
+    "airflow-core/tests/unit/timetables/test_trigger_timetable.py",
+    "task-sdk/src/airflow/sdk/definitions/timetables/trigger.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:07:43.730428+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-68793",
+  "origin_url": "https://github.com/apache/airflow/pull/68793",
+  "repo": "apache/airflow",
+  "pr": 68793,
+  "title": "fix: MetastoreBackend.cleanup() ignores default_retention_days for null expires_at rows",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:18.885159+00:00"
+  },
+  "pr_meta": {
+    "number": 68793,
+    "title": "fix: MetastoreBackend.cleanup() ignores default_retention_days for null expires_at rows",
+    "html_url": "https://github.com/apache/airflow/pull/68793",
+    "state": "closed",
+    "merged": false,
+    "user": "kalluripradeep",
+    "created_at": "2026-06-21T09:36:36Z",
+    "closed_at": "2026-06-22T05:37:55Z",
+    "merged_at": null,
+    "base_sha": "fe3ad5f1191ad03f1714882a0350baafb7dd4762",
+    "head_sha": "e9bda45501259a431de311b639e2f654d4f937c9",
+    "additions": 153,
+    "deletions": 10,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:CLI"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/cli/commands/state_store_command.py",
+    "airflow-core/src/airflow/state/metastore.py",
+    "airflow-core/tests/unit/state/test_metastore.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:10:00.319582+00:00"
+}

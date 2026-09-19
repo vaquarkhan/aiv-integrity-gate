@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-72345",
+  "origin_url": "https://github.com/apache/airflow/pull/72345",
+  "repo": "apache/airflow",
+  "pr": 72345,
+  "title": "Add sqlalchemy_bigquery extra to apache-airflow-providers-google",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:23.573064+00:00"
+  },
+  "pr_meta": {
+    "number": 72345,
+    "title": "Add sqlalchemy_bigquery extra to apache-airflow-providers-google",
+    "html_url": "https://github.com/apache/airflow/pull/72345",
+    "state": "closed",
+    "merged": false,
+    "user": "sanyamk23",
+    "created_at": "2026-08-31T18:02:54Z",
+    "closed_at": "2026-09-14T20:09:53Z",
+    "merged_at": null,
+    "base_sha": "f7087bc2febc6785013e211bd619fa77d5629d13",
+    "head_sha": "f7087bc2febc6785013e211bd619fa77d5629d13",
+    "additions": 0,
+    "deletions": 0,
+    "changed_files": 0,
+    "author_association": "NONE",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "NO_FILES_MATERIALIZED.txt",
+    "README.md"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:12:57.192389+00:00"
+}

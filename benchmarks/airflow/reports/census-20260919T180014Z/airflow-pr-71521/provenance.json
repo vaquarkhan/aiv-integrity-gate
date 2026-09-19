@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-71521",
+  "origin_url": "https://github.com/apache/airflow/pull/71521",
+  "repo": "apache/airflow",
+  "pr": 71521,
+  "title": "Operator extra links per attempt (draft B): the link opts in",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:01.900771+00:00"
+  },
+  "pr_meta": {
+    "number": 71521,
+    "title": "Operator extra links per attempt (draft B): the link opts in",
+    "html_url": "https://github.com/apache/airflow/pull/71521",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-08-12T23:41:32Z",
+    "closed_at": "2026-08-13T00:18:03Z",
+    "merged_at": null,
+    "base_sha": "e8c00811fa71ec9bee8bbaae19a64f3505b05633",
+    "head_sha": "55e9c56188fb419a4932869efe8b19ecc679909a",
+    "additions": 57,
+    "deletions": 5,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/task_instances.py",
+    "airflow-core/src/airflow/serialization/definitions/operatorlink.py",
+    "airflow-core/src/airflow/serialization/serialized_objects.py",
+    "task-sdk/src/airflow/sdk/bases/operatorlink.py",
+    "task-sdk/src/airflow/sdk/execution_time/task_runner.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:22:17.868175+00:00"
+}

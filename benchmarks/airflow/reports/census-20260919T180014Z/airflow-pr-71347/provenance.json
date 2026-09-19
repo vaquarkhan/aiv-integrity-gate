@@ -1,0 +1,58 @@
+{
+  "case_id": "airflow-pr-71347",
+  "origin_url": "https://github.com/apache/airflow/pull/71347",
+  "repo": "apache/airflow",
+  "pr": 71347,
+  "title": "Rename dagrun update state",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:40:50.263819+00:00"
+  },
+  "pr_meta": {
+    "number": 71347,
+    "title": "Rename dagrun update state",
+    "html_url": "https://github.com/apache/airflow/pull/71347",
+    "state": "closed",
+    "merged": false,
+    "user": "fat-catTW",
+    "created_at": "2026-08-09T17:31:52Z",
+    "closed_at": "2026-08-10T21:51:27Z",
+    "merged_at": null,
+    "base_sha": "9c7fd6eb3abeeb48d5cc44ccc13d2aaeaf02e84c",
+    "head_sha": "c30e6744d99d366ead686bcc61ff3b304e17ac6f",
+    "additions": 105,
+    "deletions": 87,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "kind:documentation",
+      "area:deadline-alerts",
+      "area:db-migrations",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/src/airflow/models/dagrun.py",
+    "airflow-core/tests/unit/models/test_dag.py",
+    "airflow-core/tests/unit/models/test_dagrun.py",
+    "airflow-core/tests/unit/ti_deps/deps/test_trigger_rule_dep.py",
+    "task-sdk/src/airflow/sdk/definitions/dag.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:25:31.389849+00:00"
+}

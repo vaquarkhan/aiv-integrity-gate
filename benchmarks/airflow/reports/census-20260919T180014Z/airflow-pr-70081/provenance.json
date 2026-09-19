@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-70081",
+  "origin_url": "https://github.com/apache/airflow/pull/70081",
+  "repo": "apache/airflow",
+  "pr": 70081,
+  "title": "Refactor xcom jwt url",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:36.907633+00:00"
+  },
+  "pr_meta": {
+    "number": 70081,
+    "title": "Refactor xcom jwt url",
+    "html_url": "https://github.com/apache/airflow/pull/70081",
+    "state": "closed",
+    "merged": false,
+    "user": "KushagraB424",
+    "created_at": "2026-07-18T21:05:16Z",
+    "closed_at": "2026-07-21T17:59:18Z",
+    "merged_at": null,
+    "base_sha": "5820c02124d4c47e5386268385893180c395a9ac",
+    "head_sha": "814be7e54bee1d49f74cf59a3dbe8d15310a1fe4",
+    "additions": 73,
+    "deletions": 37,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/xcoms.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_xcoms.py",
+    "task-sdk/src/airflow/sdk/api/client.py",
+    "task-sdk/src/airflow/sdk/execution_time/request_handlers.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:45:25.574415+00:00"
+}

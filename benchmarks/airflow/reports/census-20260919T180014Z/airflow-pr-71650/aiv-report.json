@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Low logic density (0.00) in airflow-e2e-tests/docker/Dockerfile.java - threshold 0.20",
+      "findings": [
+        {
+          "rule_id": "density.ldr",
+          "file": "airflow-e2e-tests/docker/Dockerfile.java",
+          "start_line": 1,
+          "message": "Low logic density (0.00) in airflow-e2e-tests/docker/Dockerfile.java - threshold 0.20"
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69037",
+  "origin_url": "https://github.com/apache/airflow/pull/69037",
+  "repo": "apache/airflow",
+  "pr": 69037,
+  "title": "Fix DatabricksSqlHook sqlalchemy_url to include http_path from connection extra",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:42.575923+00:00"
+  },
+  "pr_meta": {
+    "number": 69037,
+    "title": "Fix DatabricksSqlHook sqlalchemy_url to include http_path from connection extra",
+    "html_url": "https://github.com/apache/airflow/pull/69037",
+    "state": "closed",
+    "merged": false,
+    "user": "Subham-KRLX",
+    "created_at": "2026-06-26T13:00:46Z",
+    "closed_at": "2026-07-13T09:42:53Z",
+    "merged_at": null,
+    "base_sha": "85aa9b621f361c461cb858a39f14ff10966d8fe6",
+    "head_sha": "1348138c3a91d91c452cae52d825de9dc62a09da",
+    "additions": 62,
+    "deletions": 13,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:databricks"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/databricks/src/airflow/providers/databricks/hooks/databricks_sql.py",
+    "providers/databricks/tests/unit/databricks/hooks/test_databricks_sql.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:03:56.058461+00:00"
+}

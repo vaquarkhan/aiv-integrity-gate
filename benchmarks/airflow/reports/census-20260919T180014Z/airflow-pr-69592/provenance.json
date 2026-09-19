@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-69592",
+  "origin_url": "https://github.com/apache/airflow/pull/69592",
+  "repo": "apache/airflow",
+  "pr": 69592,
+  "title": "docs: update SQLAlchemy pooling documentation link",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:21.633318+00:00"
+  },
+  "pr_meta": {
+    "number": 69592,
+    "title": "docs: update SQLAlchemy pooling documentation link",
+    "html_url": "https://github.com/apache/airflow/pull/69592",
+    "state": "closed",
+    "merged": false,
+    "user": "PriyanshBastawale11",
+    "created_at": "2026-07-08T06:59:43Z",
+    "closed_at": "2026-07-08T15:23:54Z",
+    "merged_at": null,
+    "base_sha": "e5465795a887129c738c7c5d1e5f0a7b4bc421a8",
+    "head_sha": "2df0db15ce67de0fef4da445bde91fcec0694c1d",
+    "additions": 1,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:ConfigTemplates"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/config_templates/config.yml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:55:00.087076+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73302",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73302",
+  "title": "Bump starlette to 1.3.1 for bounded form parsing",
+  "pr": 73302,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:52.444713+00:00"
+  },
+  "pr_meta": {
+    "number": 73302,
+    "title": "Bump starlette to 1.3.1 for bounded form parsing",
+    "html_url": "https://github.com/apache/airflow/pull/73302",
+    "state": "closed",
+    "merged": true,
+    "user": "amoghrajesh",
+    "created_at": "2026-09-18T04:06:06Z",
+    "closed_at": "2026-09-18T04:43:42Z",
+    "merged_at": "2026-09-18T04:43:42Z",
+    "base_sha": "1a240f7a90aa91eb1adf843498d2a9a38d293226",
+    "head_sha": "b5cdb51c732b7f07112b00879946dcd86813cdd9",
+    "additions": 5,
+    "deletions": 2,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "full tests needed"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73302/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73302/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

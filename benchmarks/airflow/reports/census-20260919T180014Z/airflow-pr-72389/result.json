@@ -1,0 +1,79 @@
+{
+  "id": "airflow-pr-72389",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72389",
+  "title": "Enhance max active runs log",
+  "pr": 72389,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:16.407351+00:00"
+  },
+  "pr_meta": {
+    "number": 72389,
+    "title": "Enhance max active runs log",
+    "html_url": "https://github.com/apache/airflow/pull/72389",
+    "state": "closed",
+    "merged": false,
+    "user": "yquaziii",
+    "created_at": "2026-09-01T19:48:50Z",
+    "closed_at": "2026-09-01T19:51:58Z",
+    "merged_at": null,
+    "base_sha": "24d8c66ee11e3003801b51511c4308e97a944a97",
+    "head_sha": "09042c8a66894aa0a1e7f3afc68ee08fab325352",
+    "additions": 26427,
+    "deletions": 15182,
+    "changed_files": 895,
+    "author_association": "NONE",
+    "labels": [
+      "area:dev-tools",
+      "area:API",
+      "area:helm-chart",
+      "area:production-image",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72389/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72389/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

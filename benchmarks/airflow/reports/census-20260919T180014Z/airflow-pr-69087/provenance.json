@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69087",
+  "origin_url": "https://github.com/apache/airflow/pull/69087",
+  "repo": "apache/airflow",
+  "pr": 69087,
+  "title": "Initialize versioned Dag bundle for callbacks when bundle_version is None",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:32.130365+00:00"
+  },
+  "pr_meta": {
+    "number": 69087,
+    "title": "Initialize versioned Dag bundle for callbacks when bundle_version is None",
+    "html_url": "https://github.com/apache/airflow/pull/69087",
+    "state": "closed",
+    "merged": false,
+    "user": "nikolauspschuetz",
+    "created_at": "2026-06-27T16:12:32Z",
+    "closed_at": "2026-07-12T03:42:28Z",
+    "merged_at": null,
+    "base_sha": "938f09c60215ce7407c6cf78861805ebef124ed0",
+    "head_sha": "ea90b2d1730e4aa012611f2b25888414c60cfc12",
+    "additions": 39,
+    "deletions": 6,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/69087.bugfix.rst",
+    "airflow-core/src/airflow/dag_processing/manager.py",
+    "airflow-core/tests/unit/dag_processing/test_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:03:13.528884+00:00"
+}

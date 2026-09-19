@@ -1,0 +1,61 @@
+{
+  "case_id": "airflow-pr-72134",
+  "origin_url": "https://github.com/apache/airflow/pull/72134",
+  "repo": "apache/airflow",
+  "pr": 72134,
+  "title": "Stop overlapping deferred TI writers on MySQL",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:56.116508+00:00"
+  },
+  "pr_meta": {
+    "number": 72134,
+    "title": "Stop overlapping deferred TI writers on MySQL",
+    "html_url": "https://github.com/apache/airflow/pull/72134",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-08-27T07:17:35Z",
+    "closed_at": "2026-08-29T13:12:07Z",
+    "merged_at": null,
+    "base_sha": "f727ea8544d1b0b7759e78e5dfcb257dd8292957",
+    "head_sha": "d206baa9ea76d92a6e0b4628a3f77c4ffb30e4ed",
+    "additions": 374,
+    "deletions": 34,
+    "changed_files": 12,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:scheduler",
+      "area:Triggerer"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/newsfragments/72134.bugfix.rst",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/task_instances.py",
+    "airflow-core/src/airflow/jobs/scheduler_job_runner.py",
+    "airflow-core/src/airflow/models/dagrun.py",
+    "airflow-core/src/airflow/models/taskinstance.py",
+    "airflow-core/src/airflow/models/taskmap.py",
+    "airflow-core/src/airflow/models/trigger.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_task_instances.py",
+    "airflow-core/tests/unit/jobs/test_scheduler_job.py",
+    "airflow-core/tests/unit/models/test_cleartasks.py",
+    "airflow-core/tests/unit/models/test_mappedoperator.py",
+    "airflow-core/tests/unit/models/test_trigger.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:15:00.767931+00:00"
+}

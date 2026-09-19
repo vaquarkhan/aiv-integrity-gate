@@ -1,0 +1,47 @@
+{
+  "case_id": "airflow-pr-68830",
+  "origin_url": "https://github.com/apache/airflow/pull/68830",
+  "repo": "apache/airflow",
+  "pr": 68830,
+  "title": "[v3-3-test] Fix potentially misleading comment on task state store model (#68824)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:44.823295+00:00"
+  },
+  "pr_meta": {
+    "number": 68830,
+    "title": "[v3-3-test] Fix potentially misleading comment on task state store model (#68824)",
+    "html_url": "https://github.com/apache/airflow/pull/68830",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-06-22T08:59:17Z",
+    "closed_at": "2026-06-22T20:34:00Z",
+    "merged_at": null,
+    "base_sha": "272115cea219d8bbc2d7076204bd6c7c644c9d71",
+    "head_sha": "c4f22ec4caf7669819bc83ea8bb2923d0cccc6ef",
+    "additions": 4,
+    "deletions": 5,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": []
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/models/task_state_store.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:07:52.956468+00:00"
+}

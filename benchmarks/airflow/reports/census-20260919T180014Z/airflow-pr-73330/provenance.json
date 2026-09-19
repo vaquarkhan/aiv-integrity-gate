@@ -1,0 +1,49 @@
+{
+  "case_id": "airflow-pr-73330",
+  "origin_url": "https://github.com/apache/airflow/pull/73330",
+  "repo": "apache/airflow",
+  "pr": 73330,
+  "title": "[v3-3-test] Skip provider dependency generation for help command in breeze cli (#71689)",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:37.493947+00:00"
+  },
+  "pr_meta": {
+    "number": 73330,
+    "title": "[v3-3-test] Skip provider dependency generation for help command in breeze cli (#71689)",
+    "html_url": "https://github.com/apache/airflow/pull/73330",
+    "state": "closed",
+    "merged": true,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-18T16:22:36Z",
+    "closed_at": "2026-09-18T20:21:55Z",
+    "merged_at": "2026-09-18T20:21:55Z",
+    "base_sha": "f1093760c344f73b58d628a06e5a0788f6134461",
+    "head_sha": "34c9fa0f30e0458532fb325b353be109e89979f2",
+    "additions": 2,
+    "deletions": 1,
+    "changed_files": 1,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "dev/breeze/src/airflow_breeze/commands/main_command.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:11:15.972441+00:00"
+}

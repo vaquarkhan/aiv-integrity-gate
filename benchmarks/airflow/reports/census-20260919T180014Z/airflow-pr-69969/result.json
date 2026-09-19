@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69969",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69969",
+  "title": "Fix `PydanticAIHook.get_hook` losing the caller's `conn_id` with secrets-backend aliases",
+  "pr": 69969,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:31.607381+00:00"
+  },
+  "pr_meta": {
+    "number": 69969,
+    "title": "Fix `PydanticAIHook.get_hook` losing the caller's `conn_id` with secrets-backend aliases",
+    "html_url": "https://github.com/apache/airflow/pull/69969",
+    "state": "closed",
+    "merged": false,
+    "user": "dabla",
+    "created_at": "2026-07-16T13:24:19Z",
+    "closed_at": "2026-07-17T15:24:41Z",
+    "merged_at": null,
+    "base_sha": "58b5a8064567afb54517ad523f751898ac39b18c",
+    "head_sha": "a6d694ca46a55218683281ef2e18e3435ef8dca1",
+    "additions": 158,
+    "deletions": 2,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:common-ai"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69969/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69969/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

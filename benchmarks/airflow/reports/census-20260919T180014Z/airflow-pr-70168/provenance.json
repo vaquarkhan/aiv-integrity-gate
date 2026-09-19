@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70168",
+  "origin_url": "https://github.com/apache/airflow/pull/70168",
+  "repo": "apache/airflow",
+  "pr": 70168,
+  "title": "Go SDK: Refresh Go SDK execution API tokens",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:47:15.369810+00:00"
+  },
+  "pr_meta": {
+    "number": 70168,
+    "title": "Go SDK: Refresh Go SDK execution API tokens",
+    "html_url": "https://github.com/apache/airflow/pull/70168",
+    "state": "closed",
+    "merged": false,
+    "user": "viiccwen",
+    "created_at": "2026-07-21T07:12:28Z",
+    "closed_at": "2026-08-20T13:21:36Z",
+    "merged_at": null,
+    "base_sha": "a8e4b9d537d3adce381f56d9a5f5e151bf48d5c6",
+    "head_sha": "ecc52ba0a2b6dacde0b6d6068c775cdf6aec478f",
+    "additions": 101,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:go-sdk",
+      "ready for maintainer review"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/pkg/api/client.go",
+    "go-sdk/pkg/api/client_test.go"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:44:04.491516+00:00"
+}

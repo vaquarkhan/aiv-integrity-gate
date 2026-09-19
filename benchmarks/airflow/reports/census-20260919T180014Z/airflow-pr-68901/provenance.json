@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-68901",
+  "origin_url": "https://github.com/apache/airflow/pull/68901",
+  "repo": "apache/airflow",
+  "pr": 68901,
+  "title": "[Serialization] Fix: Serialize DagParam like a normal Param.",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:53:18.423852+00:00"
+  },
+  "pr_meta": {
+    "number": 68901,
+    "title": "[Serialization] Fix: Serialize DagParam like a normal Param.",
+    "html_url": "https://github.com/apache/airflow/pull/68901",
+    "state": "closed",
+    "merged": false,
+    "user": "Desdroid",
+    "created_at": "2026-06-23T13:07:04Z",
+    "closed_at": "2026-06-24T10:33:50Z",
+    "merged_at": null,
+    "base_sha": "e76193169953de0d4b7c24ebb617e4392d470a5f",
+    "head_sha": "081e71b4c94ac9d01c36720541694eb519db9769",
+    "additions": 46,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/serialization/serialized_objects.py",
+    "airflow-core/tests/unit/serialization/test_dag_serialization.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:06:03.437766+00:00"
+}

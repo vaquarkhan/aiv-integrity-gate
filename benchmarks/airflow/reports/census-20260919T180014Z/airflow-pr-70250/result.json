@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-70250",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70250",
+  "title": "airflowctl: Fix datetime.datetime CLI parameter parsing",
+  "pr": 70250,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:46.226088+00:00"
+  },
+  "pr_meta": {
+    "number": 70250,
+    "title": "airflowctl: Fix datetime.datetime CLI parameter parsing",
+    "html_url": "https://github.com/apache/airflow/pull/70250",
+    "state": "closed",
+    "merged": false,
+    "user": "guptakushal03",
+    "created_at": "2026-07-22T17:06:50Z",
+    "closed_at": "2026-08-17T13:17:15Z",
+    "merged_at": null,
+    "base_sha": "74c76cbf02f3eaa5cf448d23946969f35531183b",
+    "head_sha": "33e4718d145595a4c1f4f22a4364eb215fb2f24c",
+    "additions": 32,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70250/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70250/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

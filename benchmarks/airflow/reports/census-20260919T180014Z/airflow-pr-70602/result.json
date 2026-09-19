@@ -1,0 +1,77 @@
+{
+  "id": "airflow-pr-70602",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70602",
+  "title": "Bump resty.dev/v3 from 3.0.0-beta.2 to 3.0.0-rc.3 in /go-sdk",
+  "pr": 70602,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:33.456372+00:00"
+  },
+  "pr_meta": {
+    "number": 70602,
+    "title": "Bump resty.dev/v3 from 3.0.0-beta.2 to 3.0.0-rc.3 in /go-sdk",
+    "html_url": "https://github.com/apache/airflow/pull/70602",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-07-28T12:04:13Z",
+    "closed_at": "2026-07-28T20:00:13Z",
+    "merged_at": null,
+    "base_sha": "aa16c245496722c783f025617de16568d4a73c2e",
+    "head_sha": "53cf879522dba0fe3bb1c40d3a327079f3c47c87",
+    "additions": 3,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "dependencies",
+      "area:go-sdk",
+      "go"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70602/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70602/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

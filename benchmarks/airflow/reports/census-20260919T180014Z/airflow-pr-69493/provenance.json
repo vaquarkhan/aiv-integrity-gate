@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-69493",
+  "origin_url": "https://github.com/apache/airflow/pull/69493",
+  "repo": "apache/airflow",
+  "pr": 69493,
+  "title": "Google: Guard bigquery_to_postgres's psycopg2-specific adapter registration",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:50.349244+00:00"
+  },
+  "pr_meta": {
+    "number": 69493,
+    "title": "Google: Guard bigquery_to_postgres's psycopg2-specific adapter registration",
+    "html_url": "https://github.com/apache/airflow/pull/69493",
+    "state": "closed",
+    "merged": false,
+    "user": "Dev-iL",
+    "created_at": "2026-07-06T19:44:46Z",
+    "closed_at": "2026-07-06T20:12:08Z",
+    "merged_at": null,
+    "base_sha": "1597221692aee3180d579412b213d6b9f789be52",
+    "head_sha": "9a9bd3d80f7e34d8b3a102f6a41c242080b297c1",
+    "additions": 59,
+    "deletions": 8,
+    "changed_files": 2,
+    "author_association": "COLLABORATOR",
+    "labels": [
+      "provider:google",
+      "area:providers"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/google/src/airflow/providers/google/cloud/transfers/bigquery_to_postgres.py",
+    "providers/google/tests/unit/google/cloud/transfers/test_bigquery_to_postgres.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:56:52.626594+00:00"
+}

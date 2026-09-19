@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-70863",
+  "origin_url": "https://github.com/apache/airflow/pull/70863",
+  "repo": "apache/airflow",
+  "pr": 70863,
+  "title": "Fix SSHRemoteJobOperator cleanup rejecting a custom remote_base_dir",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:16.620861+00:00"
+  },
+  "pr_meta": {
+    "number": 70863,
+    "title": "Fix SSHRemoteJobOperator cleanup rejecting a custom remote_base_dir",
+    "html_url": "https://github.com/apache/airflow/pull/70863",
+    "state": "closed",
+    "merged": false,
+    "user": "MannXo",
+    "created_at": "2026-07-31T17:56:37Z",
+    "closed_at": "2026-07-31T18:01:14Z",
+    "merged_at": null,
+    "base_sha": "a1b8f16d89a7987327c0660f609f17d11b091543",
+    "head_sha": "0a362fb34964d5c3487eec666ca5f363a00d150c",
+    "additions": 99,
+    "deletions": 11,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:ssh"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/ssh/src/airflow/providers/ssh/operators/ssh_remote_job.py",
+    "providers/ssh/src/airflow/providers/ssh/utils/remote_job.py",
+    "providers/ssh/tests/unit/ssh/operators/test_ssh_remote_job.py",
+    "providers/ssh/tests/unit/ssh/utils/test_remote_job.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:33:38.481796+00:00"
+}

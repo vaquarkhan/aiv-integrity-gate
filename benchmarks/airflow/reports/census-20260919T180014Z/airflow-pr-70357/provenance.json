@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-70357",
+  "origin_url": "https://github.com/apache/airflow/pull/70357",
+  "repo": "apache/airflow",
+  "pr": 70357,
+  "title": "Move template field validation out of __init__ for Papermill operator (#70296)",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:22.751395+00:00"
+  },
+  "pr_meta": {
+    "number": 70357,
+    "title": "Move template field validation out of __init__ for Papermill operator (#70296)",
+    "html_url": "https://github.com/apache/airflow/pull/70357",
+    "state": "closed",
+    "merged": false,
+    "user": "AmoghAtreya",
+    "created_at": "2026-07-24T05:16:27Z",
+    "closed_at": "2026-07-26T09:08:10Z",
+    "merged_at": null,
+    "base_sha": "9b72aed307d250a138ad08c6c13a3562edba7a40",
+    "head_sha": "3db70c4ffe7b956e324cf9ba226151fe6f61e995",
+    "additions": 7,
+    "deletions": 11,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:dev-tools",
+      "provider:papermill",
+      "provider:cohere"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/papermill/src/airflow/providers/papermill/operators/papermill.py",
+    "providers/papermill/tests/unit/papermill/operators/test_papermill.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:41:22.470061+00:00"
+}

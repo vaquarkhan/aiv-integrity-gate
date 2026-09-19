@@ -1,0 +1,53 @@
+{
+  "case_id": "airflow-pr-70350",
+  "origin_url": "https://github.com/apache/airflow/pull/70350",
+  "repo": "apache/airflow",
+  "pr": 70350,
+  "title": "Fix OracleToOracleOperator source_sql_params default before rendering",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:28.353241+00:00"
+  },
+  "pr_meta": {
+    "number": 70350,
+    "title": "Fix OracleToOracleOperator source_sql_params default before rendering",
+    "html_url": "https://github.com/apache/airflow/pull/70350",
+    "state": "closed",
+    "merged": false,
+    "user": "baha-bouali",
+    "created_at": "2026-07-24T00:39:06Z",
+    "closed_at": "2026-07-27T08:58:58Z",
+    "merged_at": null,
+    "base_sha": "55816176d4078582ea486523850936bd5cc1346c",
+    "head_sha": "fa5c51802f7617a7ecda52b323f6447a0f197841",
+    "additions": 31,
+    "deletions": 3,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "area:dev-tools",
+      "provider:oracle"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/oracle/src/airflow/providers/oracle/transfers/oracle_to_oracle.py",
+    "providers/oracle/tests/unit/oracle/transfers/test_oracle_to_oracle.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:41:41.553705+00:00"
+}

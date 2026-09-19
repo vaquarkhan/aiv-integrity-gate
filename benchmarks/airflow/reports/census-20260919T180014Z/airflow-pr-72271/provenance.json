@@ -1,0 +1,66 @@
+{
+  "case_id": "airflow-pr-72271",
+  "origin_url": "https://github.com/apache/airflow/pull/72271",
+  "repo": "apache/airflow",
+  "pr": 72271,
+  "title": "fix: validate connection port is in range 0-65535",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:29.961095+00:00"
+  },
+  "pr_meta": {
+    "number": 72271,
+    "title": "fix: validate connection port is in range 0-65535",
+    "html_url": "https://github.com/apache/airflow/pull/72271",
+    "state": "closed",
+    "merged": false,
+    "user": "debayanCODES-1",
+    "created_at": "2026-08-29T20:14:47Z",
+    "closed_at": "2026-08-30T00:31:08Z",
+    "merged_at": null,
+    "base_sha": "166a1ba1eecf969ed33ad17dd1232b20d7ce5aea",
+    "head_sha": "735906a415cd752439cf7a0a5a94a4c42b886681",
+    "additions": 166,
+    "deletions": 30,
+    "changed_files": 14,
+    "author_association": "NONE",
+    "labels": [
+      "area:CLI",
+      "area:API",
+      "area:task-sdk",
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/core_api/datamodels/connections.py",
+    "airflow-core/src/airflow/api_fastapi/core_api/openapi/v2-rest-api-generated.yaml",
+    "airflow-core/src/airflow/api_fastapi/execution_api/datamodels/connection.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/datamodels/connection_test.py",
+    "airflow-core/src/airflow/cli/commands/connection_command.py",
+    "airflow-core/src/airflow/models/connection.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/datamodels/test_connections.py",
+    "airflow-core/tests/unit/api_fastapi/core_api/routes/public/test_connections.py",
+    "airflow-core/tests/unit/cli/commands/test_connection_command.py",
+    "airflow-core/tests/unit/models/test_connection.py",
+    "airflow-ctl/src/airflowctl/api/datamodels/generated.py",
+    "task-sdk/src/airflow/sdk/definitions/connection.py",
+    "task-sdk/src/airflow/sdk/execution_time/schema/schema.json",
+    "task-sdk/tests/task_sdk/definitions/test_connection.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:13:25.877781+00:00"
+}

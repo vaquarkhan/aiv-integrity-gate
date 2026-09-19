@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-70693",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70693",
+  "title": "Fix TriggerDagRunOperator API errors bypassing retries",
+  "pr": 70693,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:06.736612+00:00"
+  },
+  "pr_meta": {
+    "number": 70693,
+    "title": "Fix TriggerDagRunOperator API errors bypassing retries",
+    "html_url": "https://github.com/apache/airflow/pull/70693",
+    "state": "closed",
+    "merged": false,
+    "user": "tomatotomata",
+    "created_at": "2026-07-29T15:30:38Z",
+    "closed_at": "2026-07-29T20:28:42Z",
+    "merged_at": null,
+    "base_sha": "d8074062e6e32f20ca2ceebbfab8de7e52784163",
+    "head_sha": "31f79c51aa02110b3108422e44b8ffefe57d4e1b",
+    "additions": 41,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:task-sdk"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70693/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70693/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-72516",
+  "origin_url": "https://github.com/apache/airflow/pull/72516",
+  "repo": "apache/airflow",
+  "pr": 72516,
+  "title": "Fix Keycloak auth manager returning no user for bearer-token requests",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:36:41.425744+00:00"
+  },
+  "pr_meta": {
+    "number": 72516,
+    "title": "Fix Keycloak auth manager returning no user for bearer-token requests",
+    "html_url": "https://github.com/apache/airflow/pull/72516",
+    "state": "closed",
+    "merged": false,
+    "user": "DipakMandlik",
+    "created_at": "2026-09-04T11:40:15Z",
+    "closed_at": "2026-09-04T12:36:16Z",
+    "merged_at": null,
+    "base_sha": "b3b62fa8cf3c32cb45bb2815385a2af498300754",
+    "head_sha": "944b5aea0252fa34595e248a10b6c40a4c9685b4",
+    "additions": 11,
+    "deletions": 4,
+    "changed_files": 2,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:keycloak"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/keycloak/src/airflow/providers/keycloak/auth_manager/keycloak_auth_manager.py",
+    "providers/keycloak/tests/unit/keycloak/auth_manager/test_keycloak_auth_manager.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:10:36.011757+00:00"
+}

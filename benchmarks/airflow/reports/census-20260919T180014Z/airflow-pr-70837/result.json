@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-70837",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/70837",
+  "title": "Clarify which signal each duplicated otel_* config option applies to",
+  "pr": 70837,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:43:41.242431+00:00"
+  },
+  "pr_meta": {
+    "number": 70837,
+    "title": "Clarify which signal each duplicated otel_* config option applies to",
+    "html_url": "https://github.com/apache/airflow/pull/70837",
+    "state": "closed",
+    "merged": false,
+    "user": "leepokai",
+    "created_at": "2026-07-31T15:09:52Z",
+    "closed_at": "2026-08-03T06:59:30Z",
+    "merged_at": null,
+    "base_sha": "b765336c5389c92f24aa1c55199ec473fefc0101",
+    "head_sha": "e9ad69b633deec51a08b6cdbdc5908f34a243ba2",
+    "additions": 15,
+    "deletions": 13,
+    "changed_files": 1,
+    "author_association": "NONE",
+    "labels": [
+      "area:ConfigTemplates"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-70837/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-70837/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

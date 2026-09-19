@@ -1,0 +1,76 @@
+{
+  "id": "airflow-pr-69741",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69741",
+  "title": "UI: Preserve raw connection extra JSON",
+  "pr": 69741,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:44.243456+00:00"
+  },
+  "pr_meta": {
+    "number": 69741,
+    "title": "UI: Preserve raw connection extra JSON",
+    "html_url": "https://github.com/apache/airflow/pull/69741",
+    "state": "closed",
+    "merged": false,
+    "user": "Vamsi-klu",
+    "created_at": "2026-07-11T04:47:41Z",
+    "closed_at": "2026-07-14T15:35:53Z",
+    "merged_at": null,
+    "base_sha": "f900d28dcbf1aa59870270767f75930758814c66",
+    "head_sha": "5247ca8b39d848b5ccd1f679b26b0ef0ded6ee5a",
+    "additions": 480,
+    "deletions": 45,
+    "changed_files": 6,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "ready for maintainer review"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69741/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69741/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

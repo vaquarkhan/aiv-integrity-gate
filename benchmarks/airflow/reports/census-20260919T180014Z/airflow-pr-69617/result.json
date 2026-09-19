@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69617",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69617",
+  "title": "fix: optimize grid view performance and avoid redundant streams (#69531)",
+  "pr": 69617,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:50:09.273109+00:00"
+  },
+  "pr_meta": {
+    "number": 69617,
+    "title": "fix: optimize grid view performance and avoid redundant streams (#69531)",
+    "html_url": "https://github.com/apache/airflow/pull/69617",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-08T14:58:00Z",
+    "closed_at": "2026-07-09T17:48:00Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "1a6b1529128135072b4375c959da22cba5c9befd",
+    "additions": 423,
+    "deletions": 243,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "area:UI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69617/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69617/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

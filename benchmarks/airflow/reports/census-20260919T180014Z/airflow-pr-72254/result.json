@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-72254",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/72254",
+  "title": "[v3-3-test] Fix grammar, casing, and typo across testing docs and prek scripts (#72252)",
+  "pr": 72254,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:37:33.182934+00:00"
+  },
+  "pr_meta": {
+    "number": 72254,
+    "title": "[v3-3-test] Fix grammar, casing, and typo across testing docs and prek scripts (#72252)",
+    "html_url": "https://github.com/apache/airflow/pull/72254",
+    "state": "closed",
+    "merged": false,
+    "user": "github-actions[bot]",
+    "created_at": "2026-08-29T13:46:09Z",
+    "closed_at": "2026-08-29T17:30:58Z",
+    "merged_at": null,
+    "base_sha": "4d23d2968a8c7fa4b6e6389b9fd986c8b02e69a6",
+    "head_sha": "a86923dcf7850b54e04d16e7d7d033b75a87c1d0",
+    "additions": 8,
+    "deletions": 8,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-72254/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-72254/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-70300",
+  "origin_url": "https://github.com/apache/airflow/pull/70300",
+  "repo": "apache/airflow",
+  "pr": 70300,
+  "title": "Fix E2E flaky test failure rates",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:46:41.149030+00:00"
+  },
+  "pr_meta": {
+    "number": 70300,
+    "title": "Fix E2E flaky test failure rates",
+    "html_url": "https://github.com/apache/airflow/pull/70300",
+    "state": "closed",
+    "merged": false,
+    "user": "zozo123",
+    "created_at": "2026-07-23T13:10:07Z",
+    "closed_at": "2026-07-23T15:34:28Z",
+    "merged_at": null,
+    "base_sha": "b6cc81c2944ce87a56596e464868ed50e14ccb08",
+    "head_sha": "f7874af0d9a69c7d78d018483a50a92ef8581424",
+    "additions": 11,
+    "deletions": 13,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "scripts/ci/analyze_e2e_flaky_tests.py",
+    "scripts/tests/ci/test_analyze_e2e_flaky_tests.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:42:21.309752+00:00"
+}

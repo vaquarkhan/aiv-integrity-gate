@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73310",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73310",
+  "title": "Sync v3-3-stable: python client version/changelog for 3.3.2",
+  "pr": 73310,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:45.232090+00:00"
+  },
+  "pr_meta": {
+    "number": 73310,
+    "title": "Sync v3-3-stable: python client version/changelog for 3.3.2",
+    "html_url": "https://github.com/apache/airflow/pull/73310",
+    "state": "closed",
+    "merged": true,
+    "user": "vatsrahul1001",
+    "created_at": "2026-09-18T06:55:12Z",
+    "closed_at": "2026-09-18T07:46:22Z",
+    "merged_at": "2026-09-18T07:46:22Z",
+    "base_sha": "aa19d2dbb9ed187ec01957a92848d9b005e9ba9d",
+    "head_sha": "74fce887eb0bd6706a74b3f17f9c8b085aed8275",
+    "additions": 14,
+    "deletions": 1,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:API"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73310/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73310/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

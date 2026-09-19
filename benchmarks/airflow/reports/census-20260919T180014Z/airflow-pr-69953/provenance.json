@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-69953",
+  "origin_url": "https://github.com/apache/airflow/pull/69953",
+  "repo": "apache/airflow",
+  "pr": 69953,
+  "title": "[AIP-94] airflowctl tasks: add logs command",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:34.230527+00:00"
+  },
+  "pr_meta": {
+    "number": 69953,
+    "title": "[AIP-94] airflowctl tasks: add logs command",
+    "html_url": "https://github.com/apache/airflow/pull/69953",
+    "state": "closed",
+    "merged": false,
+    "user": "anmolxlight",
+    "created_at": "2026-07-16T07:42:54Z",
+    "closed_at": "2026-07-23T10:03:07Z",
+    "merged_at": null,
+    "base_sha": "40311ffe4d7fb19da91115959233dc218b3dbb15",
+    "head_sha": "2aa48fa2f5cafa4c8442fddba31a592d106eb958",
+    "additions": 50,
+    "deletions": 14,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing",
+      "area:airflow-ctl",
+      "backport-to-airflow-ctl/v0-1-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/components/FilterBar/filters/DateInput.tsx",
+    "airflow-core/src/airflow/ui/src/components/FilterBar/filters/DateRangeFilter.test.tsx",
+    "airflow-core/src/airflow/ui/src/components/FilterBar/filters/DateRangeFilter.tsx",
+    "airflow-core/src/airflow/ui/src/hooks/useDateRangeFilter.ts",
+    "scripts/ci/prek/check_airflowctl_command_coverage.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:48:22.103371+00:00"
+}

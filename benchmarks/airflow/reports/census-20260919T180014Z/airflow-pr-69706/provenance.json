@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-69706",
+  "origin_url": "https://github.com/apache/airflow/pull/69706",
+  "repo": "apache/airflow",
+  "pr": 69706,
+  "title": "Bump flask-appbuilder to 5.2.2",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:49:54.157950+00:00"
+  },
+  "pr_meta": {
+    "number": 69706,
+    "title": "Bump flask-appbuilder to 5.2.2",
+    "html_url": "https://github.com/apache/airflow/pull/69706",
+    "state": "closed",
+    "merged": false,
+    "user": "shahar1",
+    "created_at": "2026-07-10T13:42:16Z",
+    "closed_at": "2026-07-11T05:02:37Z",
+    "merged_at": null,
+    "base_sha": "211d93db1b485c247f01d0127d2e26e8dcc156a3",
+    "head_sha": "e6dd4ddd63ed0c953ab6cc792893a9e42804bf10",
+    "additions": 8,
+    "deletions": 8,
+    "changed_files": 5,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "kind:documentation",
+      "provider:fab"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/fab/README.rst",
+    "providers/fab/docs/index.rst",
+    "providers/fab/pyproject.toml",
+    "providers/fab/tests/unit/fab/auth_manager/security_manager/test_fab_alignment.py",
+    "uv.lock"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:53:11.693430+00:00"
+}

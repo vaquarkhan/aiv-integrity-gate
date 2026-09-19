@@ -1,0 +1,55 @@
+{
+  "case_id": "airflow-pr-70487",
+  "origin_url": "https://github.com/apache/airflow/pull/70487",
+  "repo": "apache/airflow",
+  "pr": 70487,
+  "title": "Resolve AwsToAwsBaseOperator destination connection after template rendering",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:45:10.180112+00:00"
+  },
+  "pr_meta": {
+    "number": 70487,
+    "title": "Resolve AwsToAwsBaseOperator destination connection after template rendering",
+    "html_url": "https://github.com/apache/airflow/pull/70487",
+    "state": "closed",
+    "merged": false,
+    "user": "mitre88",
+    "created_at": "2026-07-27T00:21:16Z",
+    "closed_at": "2026-07-27T15:16:14Z",
+    "merged_at": null,
+    "base_sha": "c4a5f19e67cd25143cc000d6ae0255e13c142b95",
+    "head_sha": "0e993c9b0b3403e57306e937153c4f3d80d720ba",
+    "additions": 30,
+    "deletions": 8,
+    "changed_files": 4,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "provider:amazon",
+      "area:providers",
+      "area:dev-tools",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/amazon/src/airflow/providers/amazon/aws/transfers/base.py",
+    "providers/amazon/src/airflow/providers/amazon/aws/transfers/dynamodb_to_s3.py",
+    "providers/amazon/tests/unit/amazon/aws/transfers/test_base.py",
+    "scripts/ci/prek/validate_operators_init_exemptions.txt"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:38:30.118979+00:00"
+}

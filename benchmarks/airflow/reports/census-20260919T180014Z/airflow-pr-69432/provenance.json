@@ -1,0 +1,54 @@
+{
+  "case_id": "airflow-pr-69432",
+  "origin_url": "https://github.com/apache/airflow/pull/69432",
+  "repo": "apache/airflow",
+  "pr": 69432,
+  "title": "feat(task-sdk): Move XCom serialization and deserialization to Task SDK",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:17.539884+00:00"
+  },
+  "pr_meta": {
+    "number": 69432,
+    "title": "feat(task-sdk): Move XCom serialization and deserialization to Task SDK",
+    "html_url": "https://github.com/apache/airflow/pull/69432",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-06T05:50:07Z",
+    "closed_at": "2026-07-09T10:22:52Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "1ac59e6de18dc718f473e5c9910b793aebef32a8",
+    "additions": 46,
+    "deletions": 21,
+    "changed_files": 5,
+    "author_association": "NONE",
+    "labels": [
+      "area:API",
+      "area:task-sdk"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/api_fastapi/execution_api/datamodels/xcom.py",
+    "airflow-core/src/airflow/api_fastapi/execution_api/routes/xcoms.py",
+    "airflow-core/tests/unit/api_fastapi/execution_api/versions/head/test_xcoms.py",
+    "task-sdk/src/airflow/sdk/api/datamodels/_generated.py",
+    "task-sdk/src/airflow/sdk/bases/xcom.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:58:32.582076+00:00"
+}

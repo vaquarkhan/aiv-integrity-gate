@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-69438",
+  "origin_url": "https://github.com/apache/airflow/pull/69438",
+  "repo": "apache/airflow",
+  "pr": 69438,
+  "title": " fix(standard-provider): convert all pendulum objects on virtualenv version mismatch",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:51:11.661627+00:00"
+  },
+  "pr_meta": {
+    "number": 69438,
+    "title": " fix(standard-provider): convert all pendulum objects on virtualenv version mismatch",
+    "html_url": "https://github.com/apache/airflow/pull/69438",
+    "state": "closed",
+    "merged": false,
+    "user": "Alwaysgaurav1",
+    "created_at": "2026-07-06T06:49:34Z",
+    "closed_at": "2026-07-09T17:47:56Z",
+    "merged_at": null,
+    "base_sha": "067e33ab59e1e4f668db911cabc4380be4260272",
+    "head_sha": "1f3771f6c487a95419d5c786030b22b07e5411d3",
+    "additions": 74,
+    "deletions": 14,
+    "changed_files": 3,
+    "author_association": "NONE",
+    "labels": [
+      "area:providers",
+      "provider:standard"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/standard/src/airflow/providers/standard/operators/python.py",
+    "providers/standard/src/airflow/providers/standard/utils/python_virtualenv_script.jinja2",
+    "providers/standard/tests/unit/standard/operators/test_python.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:58:11.339736+00:00"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-73304",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/73304",
+  "title": "[v3-3-test] Decode deadline alert interval and callback without generic deserialization (#72651)",
+  "pr": 73304,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "merged_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "rationale": "Merged control: hard fail = false positive."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:54:50.951756+00:00"
+  },
+  "pr_meta": {
+    "number": 73304,
+    "title": "[v3-3-test] Decode deadline alert interval and callback without generic deserialization (#72651)",
+    "html_url": "https://github.com/apache/airflow/pull/73304",
+    "state": "closed",
+    "merged": true,
+    "user": "github-actions[bot]",
+    "created_at": "2026-09-18T04:48:22Z",
+    "closed_at": "2026-09-18T05:29:02Z",
+    "merged_at": "2026-09-18T05:29:02Z",
+    "base_sha": "0e9f66a9574c5372239f938c23e4fe31f0d661cb",
+    "head_sha": "cd77ca62655bf920da419e81df37a00c9598cb95",
+    "additions": 316,
+    "deletions": 22,
+    "changed_files": 3,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:DAG-processing"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-73304/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-73304/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "merged_control",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

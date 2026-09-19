@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-70602",
+  "origin_url": "https://github.com/apache/airflow/pull/70602",
+  "repo": "apache/airflow",
+  "pr": 70602,
+  "title": "Bump resty.dev/v3 from 3.0.0-beta.2 to 3.0.0-rc.3 in /go-sdk",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:33.456372+00:00"
+  },
+  "pr_meta": {
+    "number": 70602,
+    "title": "Bump resty.dev/v3 from 3.0.0-beta.2 to 3.0.0-rc.3 in /go-sdk",
+    "html_url": "https://github.com/apache/airflow/pull/70602",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-07-28T12:04:13Z",
+    "closed_at": "2026-07-28T20:00:13Z",
+    "merged_at": null,
+    "base_sha": "aa16c245496722c783f025617de16568d4a73c2e",
+    "head_sha": "53cf879522dba0fe3bb1c40d3a327079f3c47c87",
+    "additions": 3,
+    "deletions": 3,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "dependencies",
+      "area:go-sdk",
+      "go"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "go-sdk/go.mod",
+    "go-sdk/go.sum"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:36:58.214143+00:00"
+}

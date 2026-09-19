@@ -1,0 +1,75 @@
+{
+  "id": "airflow-pr-69888",
+  "source": "github",
+  "url": "https://github.com/apache/airflow/pull/69888",
+  "title": "Make cheat sheet command test ignore Rich padding changes",
+  "pr": 69888,
+  "repo": "apache/airflow",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:48:58.859115+00:00"
+  },
+  "pr_meta": {
+    "number": 69888,
+    "title": "Make cheat sheet command test ignore Rich padding changes",
+    "html_url": "https://github.com/apache/airflow/pull/69888",
+    "state": "closed",
+    "merged": false,
+    "user": "gopidesupavan",
+    "created_at": "2026-07-14T22:56:53Z",
+    "closed_at": "2026-07-15T05:07:28Z",
+    "merged_at": null,
+    "base_sha": "26c2c123a3cb3ec191a8e1b7267fc56670c1c65c",
+    "head_sha": "b5af690a2d97121604afd57c9fa272699e927eaf",
+    "additions": 15,
+    "deletions": 8,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:CLI"
+    ]
+  },
+  "provenance_path": "reports/census-20260919T180014Z/airflow-pr-69888/provenance.json",
+  "aiv_report_path": "reports/census-20260919T180014Z/airflow-pr-69888/aiv-report.json",
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": false,
+    "blocking_gates": [],
+    "advisory_gates": [],
+    "exit_code": 0,
+    "label_class": "closed_unmerged_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

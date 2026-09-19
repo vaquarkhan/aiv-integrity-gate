@@ -1,0 +1,50 @@
+{
+  "case_id": "airflow-pr-73176",
+  "origin_url": "https://github.com/apache/airflow/pull/73176",
+  "repo": "apache/airflow",
+  "pr": 73176,
+  "title": "Remove the UI block on endpoints that returned 403 Forbidden",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:33:55.499362+00:00"
+  },
+  "pr_meta": {
+    "number": 73176,
+    "title": "Remove the UI block on endpoints that returned 403 Forbidden",
+    "html_url": "https://github.com/apache/airflow/pull/73176",
+    "state": "closed",
+    "merged": false,
+    "user": "pierrejeambrun",
+    "created_at": "2026-09-15T10:11:19Z",
+    "closed_at": "2026-09-15T16:05:10Z",
+    "merged_at": null,
+    "base_sha": "0038a0d9d45ad560039f0ff978f9ca4e34113d91",
+    "head_sha": "3c95fdcd2d49c6e056e8397d7641acdc07d9d75b",
+    "additions": 0,
+    "deletions": 27,
+    "changed_files": 1,
+    "author_association": "MEMBER",
+    "labels": [
+      "area:UI",
+      "backport-to-v3-3-test"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/src/main.tsx"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:01:38.002960+00:00"
+}

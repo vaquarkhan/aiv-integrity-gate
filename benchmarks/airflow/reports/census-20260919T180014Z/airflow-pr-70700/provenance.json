@@ -1,0 +1,52 @@
+{
+  "case_id": "airflow-pr-70700",
+  "origin_url": "https://github.com/apache/airflow/pull/70700",
+  "repo": "apache/airflow",
+  "pr": 70700,
+  "title": "Bump typescript from 6.0.3 to 7.0.2 in /airflow-core/src/airflow/ui in the typescript group across 1 directory",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:44:04.588351+00:00"
+  },
+  "pr_meta": {
+    "number": 70700,
+    "title": "Bump typescript from 6.0.3 to 7.0.2 in /airflow-core/src/airflow/ui in the typescript group across 1 directory",
+    "html_url": "https://github.com/apache/airflow/pull/70700",
+    "state": "closed",
+    "merged": false,
+    "user": "dependabot[bot]",
+    "created_at": "2026-07-29T18:36:16Z",
+    "closed_at": "2026-08-06T14:05:53Z",
+    "merged_at": null,
+    "base_sha": "c0f6a60cdcb97375381e13e713edb713ceab1c09",
+    "head_sha": "5324fe9e48eea42fb69840d6fe45efd36e68847b",
+    "additions": 276,
+    "deletions": 75,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:UI",
+      "javascript",
+      "dependencies"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "airflow-core/src/airflow/ui/package.json",
+    "airflow-core/src/airflow/ui/pnpm-lock.yaml"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T18:35:26.182294+00:00"
+}

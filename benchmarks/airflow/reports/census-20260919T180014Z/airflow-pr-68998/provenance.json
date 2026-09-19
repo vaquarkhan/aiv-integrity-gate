@@ -1,0 +1,51 @@
+{
+  "case_id": "airflow-pr-68998",
+  "origin_url": "https://github.com/apache/airflow/pull/68998",
+  "repo": "apache/airflow",
+  "pr": 68998,
+  "title": "Re-queue worker pods on transient 502/503/504 from the Kubernetes API",
+  "label": {
+    "class": "closed_unmerged_sample",
+    "expect_hard_fail": false,
+    "expect_advisory": null,
+    "rationale": "Closed unmerged; no objective AIV hard markers in patches. Not labeled as AI authorship."
+  },
+  "discovery": {
+    "markers_in_patch": [],
+    "marker_files": [],
+    "scanned_at": "2026-09-19T17:52:47.482313+00:00"
+  },
+  "pr_meta": {
+    "number": 68998,
+    "title": "Re-queue worker pods on transient 502/503/504 from the Kubernetes API",
+    "html_url": "https://github.com/apache/airflow/pull/68998",
+    "state": "closed",
+    "merged": false,
+    "user": "1fanwang",
+    "created_at": "2026-06-25T18:53:44Z",
+    "closed_at": "2026-06-25T21:55:49Z",
+    "merged_at": null,
+    "base_sha": "779efc6983b2b2497cd8f9c2d7bb376bae196825",
+    "head_sha": "d7db2b8f6187b2591905f47266409c93b4c4bf4b",
+    "additions": 56,
+    "deletions": 5,
+    "changed_files": 2,
+    "author_association": "CONTRIBUTOR",
+    "labels": [
+      "area:providers",
+      "provider:cncf-kubernetes"
+    ]
+  },
+  "materialize_mode": "patch",
+  "aiv_config_override": "benchmarks/airflow/.aiv/config-census-patch.yaml",
+  "workspace_files": [
+    ".aiv/config-census-patch.yaml",
+    ".aiv/config.yaml",
+    ".aiv/design-rules.yaml",
+    "README.md",
+    "providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/executors/kubernetes_executor.py",
+    "providers/cncf/kubernetes/tests/unit/cncf/kubernetes/executors/test_kubernetes_executor.py"
+  ],
+  "aiv_config_copied_from": "benchmarks/airflow/.aiv/",
+  "materialized_at": "2026-09-19T19:04:21.298789+00:00"
+}
