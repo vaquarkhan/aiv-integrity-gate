@@ -26,12 +26,12 @@ PR diff goes through hard gates in seconds (local JAR, no LLM API):
 
 | Bad agent paste → **FAIL** | Clean diff → **PASS** |
 |:---:|:---:|
-| <img src="docs/images/aiv-demo-fail.svg" alt="Caught before CI: AI edit-artifact and placeholder-test findings block the change" width="440" /> | <img src="docs/images/aiv-demo-pass.svg" alt="Sample AIV Report with Overall PASS and all gates green" width="440" /> |
+| <img src="docs/images/aiv-demo-fail.png" alt="Caught before CI: AI edit-artifact and placeholder-test findings block the change" width="440" /> | <img src="docs/images/aiv-demo-pass.png" alt="Sample AIV Report with Overall PASS and all gates green" width="440" /> |
 
 Where it runs (same rules both places):
 
 <p align="center">
-  <img src="docs/images/aiv-shift-left.svg" alt="AIV at pre-commit hook, then GitHub Action CI backstop, then merge only if hard gates pass" width="920" />
+  <img src="docs/images/aiv-shift-left.png" alt="AIV at pre-commit hook, then GitHub Action CI backstop, then merge only if hard gates pass" width="920" />
 </p>
 
 ### Why this adds value
