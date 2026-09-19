@@ -1,56 +1,68 @@
 # Proving product value (claim policy)
 
-## Primary proof: labeled 50-case bench
+## How to read this
 
-Do **not** lead with the Airflow closed-unmerged census **0.17%** figure for product value.
-That census is unlabeled volume context (closed ≠ AI slop).
+| Layer | What it proves | Artifact |
+|-------|----------------|----------|
+| **1. Labeled 50 fixtures** | Tool precision/recall on known ground truth | [`labeled-latest.html`](reports/labeled-latest.html) |
+| **2. Abandoned Airflow labeling** | Most abandoned ≠ marker AI-slop; labels + catch rate when same diffs hit AIV | [`abandoned-labeled-latest.html`](reports/abandoned-labeled-latest.html) |
+| **3. Live bench recreation** | Same PRs opened on GitHub under AIV Actions | [`vaquarkhan/aiv-airflow-bench`](https://github.com/vaquarkhan/aiv-airflow-bench) |
+| **Master** | Combined product report | [`product-benchmark-latest.html`](reports/product-benchmark-latest.html) |
+
+## 1) Labeled 50-case fixtures (primary)
 
 | Cohort | n | Expect |
 |--------|---|--------|
-| Proper (clean controls) | 5 | hard PASS |
-| AI-slop (objective markers) | 30 | hard FAIL |
-| Mixed | 15 | 5 cohesion advisory, 5 soft PASS, 5 clean+artifact FAIL |
+| Proper | 5 | PASS |
+| AI-slop (objective markers) | 30 | FAIL |
+| Mixed | 15 | mix of PASS / FAIL / cohesion advisory |
 
-**Live GitHub:** [`vaquarkhan/aiv-airflow-bench`](https://github.com/vaquarkhan/aiv-airflow-bench) — one PR per labeled case.  
-**Local report:** [`reports/labeled-latest.html`](reports/labeled-latest.html)
+**VERIFIED** (`labeled-latest.json`): recall **100%** (35/35) · FP **0%** · precision **100%** · cohesion advisory **5/5**.
 
-### How to reproduce
+## 2) Abandoned Airflow PRs → label → recreate under AIV
 
-```powershell
-python benchmarks/airflow/scripts/generate-labeled-corpus.py
-mvn -pl aiv-cli -am package -DskipTests
-python benchmarks/airflow/scripts/run-labeled-benchmark.py
-python benchmarks/airflow/scripts/seed-labeled-bench.py --close-old
-```
+Sample: **61** closed-unmerged PRs (AIP-120 window), same code pushed through AIV.
 
-### Published labeled result (local, VERIFIED)
+### Labels applied
 
-From `reports/labeled-latest.json`:
+| Label | Meaning | Count (sample) |
+|-------|---------|----------------|
+| `abandoned_clean` | No markers, no AI disclosure, no AIV hard-fail | **42 (68.9%)** |
+| `ai_disclosed` | Confirmed AI Yes / Generated-by in PR body | **16** |
+| `ai_signal_advisory` | AIV cohesion/density warn only | **3** |
+| `ai_slop_objective` | Conflict / SEARCH-REPLACE / elision / YOUR_CODE in patch | **0** |
+| `ai_signal_hard` | AIV hard-fail without objective markers | **0** in label counts; **1** hard-fail after head+full rescore (#73124 stays `ai_disclosed`) |
+
+### Catch rate when same PR runs through AIV (head + full config) — VERIFIED
 
 | Metric | Value |
 |--------|-------|
-| Hard-gate recall (block labeled slop) | **100%** (35/35) |
-| False-positive rate (on expect-pass) | **0%** (0/15) |
-| Precision | **100%** |
-| Cohesion advisory hit rate | **100%** (5/5 expected) |
+| Hard-fail on full sample | **1 / 61 (1.6%)** — [#73124](https://github.com/apache/airflow/pull/73124) |
+| Hard-caught among `ai_disclosed` | **1 / 16 (6.2%)** |
+| Hard ID among any AI-signal label | **1 / 19 (5.3%)** |
+| Objective marker-style slop in sample | **0 / 61** |
 
-Airflow census **0.17%** remains secondary volume context only — not the product-value headline.
+**Conclusion for sharing:** Most abandoned PRs are **not** marker-style AI slop (**68.9%** `abandoned_clean`). Many disclose AI use without leaving objective artifacts — AIV correctly does **not** hard-block those. The gate identifies the rare artifact/sprawl cases (e.g. #73124).
 
-| Tag | Meaning |
-|-----|---------|
-| **VERIFIED** | From labeled-50 (precision / recall / FP) or checked-in report JSON |
-| **ESTIMATED** | Extrapolation using AIP-120 constants — assumptions required |
-| **NOT CLAIMED** | Closed-unmerged = AI authorship; census % as “AI slop catch rate” |
+Recreated on bench with labels in titles: PRs under `abandoned/<label>/airflow-pr-*` (see abandoned report for bench links).
 
-## Secondary: Airflow real-data census
+## 3) Confirmed ChatGPT gold set (n=5 closed in window)
 
-Index/score real closed-unmerged PRs for volume context only (`reports/census-latest.html`).
-Use after the labeled bench shows the tool works on known ground truth.
+Closed-unmerged catch **1/2**; merged FP **0/3**. See `airflow-chatgpt-true-latest.json`.
 
-## Repos
+## NOT CLAIMED
 
-| Repo | Role |
-|------|------|
-| [`vaquarkhan/aiv-integrity-gate`](https://github.com/vaquarkhan/aiv-integrity-gate) | Product + fixtures + reports |
-| [`vaquarkhan/aiv-airflow-bench`](https://github.com/vaquarkhan/aiv-airflow-bench) | Live Actions on labeled PRs |
-| [`vaquarkhan/airflow`](https://github.com/vaquarkhan/airflow) | Optional fork smoke |
+- Abandoned = AI authorship  
+- Search `Generated-by` totals = AI-slop counts (template noise)  
+- “We blocked X% of AIP-120’s 508 / saved Y% CI” as a measured bill  
+- That AI disclosure alone should fail CI  
+
+## Reproduce
+
+```powershell
+python benchmarks/airflow/scripts/generate-labeled-corpus.py
+python benchmarks/airflow/scripts/run-labeled-benchmark.py
+python benchmarks/airflow/scripts/benchmark-abandoned-labeled.py --limit 60 --inject --inject-clean 8
+python benchmarks/airflow/scripts/rescore-ai-signal-head.py
+# open benchmarks/airflow/reports/product-benchmark-latest.html
+```

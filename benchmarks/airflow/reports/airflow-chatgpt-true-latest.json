@@ -1,0 +1,95 @@
+{
+  "claims": {
+    "tag": "VERIFIED",
+    "cohort": "confirmed_chatgpt_disclosure_bodies",
+    "n": 5,
+    "closed_unmerged_scored": 2,
+    "closed_unmerged_hard_blocked": 1,
+    "closed_unmerged_catch_rate": 0.5,
+    "merged_scored": 3,
+    "merged_hard_blocked": 0,
+    "merged_fp_if_treat_merged_as_good": 0.0,
+    "statement": "On 2 closed-unmerged Airflow PRs with confirmed ChatGPT disclosure, AIV hard-blocked 1 (50%). On 3 merged ChatGPT-disclosed PRs, hard-blocked 0 (FP rate if merged=good: 0%).",
+    "not_claimed": [
+      "That all AI-assisted Airflow PRs should be blocked",
+      "That ChatGPT search totals equal AI-slop volume",
+      "% of 597 closed-unmerged that are AI slop"
+    ]
+  },
+  "cases": [
+    {
+      "pr": 73124,
+      "url": "https://github.com/apache/airflow/pull/73124",
+      "title": "Optimize CI hot-path setup without reducing coverage",
+      "merged": false,
+      "markers_in_patch": [],
+      "aiv": {
+        "hard_fail": true,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 1
+      }
+    },
+    {
+      "pr": 70250,
+      "url": "https://github.com/apache/airflow/pull/70250",
+      "title": "airflowctl: Fix datetime.datetime CLI parameter parsing",
+      "merged": false,
+      "markers_in_patch": [],
+      "aiv": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 70842,
+      "url": "https://github.com/apache/airflow/pull/70842",
+      "title": "Describe default Airflow loggers",
+      "merged": true,
+      "markers_in_patch": [],
+      "aiv": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 72453,
+      "url": "https://github.com/apache/airflow/pull/72453",
+      "title": "Fix SageMaker Unified Studio trigger hook config",
+      "merged": true,
+      "markers_in_patch": [],
+      "aiv": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "pr": 72372,
+      "url": "https://github.com/apache/airflow/pull/72372",
+      "title": "i18n(ko): add missing translations(Sep 1)",
+      "merged": true,
+      "markers_in_patch": [],
+      "aiv": {
+        "hard_fail": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "volume_context": {
+    "closed_unmerged_window": 597,
+    "search_chatgpt_closed": 5,
+    "search_generated_by_noisy_template": 1910
+  }
+}
