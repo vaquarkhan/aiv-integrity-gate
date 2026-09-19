@@ -1,0 +1,69 @@
+{
+  "id": "mixed-cohesion-05",
+  "title": "mixed: multi-area sprawl #5 (expect PASS hard, advisory cohesion)",
+  "label": {
+    "class": "mixed_sample",
+    "subtype": "cohesion_warn",
+    "expect_hard_fail": false,
+    "expect_advisory": true,
+    "notes": "Should trigger cohesion warn+label, not hard-fail"
+  },
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": true,
+    "blocking_gates": [],
+    "advisory_gates": [
+      "cohesion"
+    ],
+    "exit_code": 0,
+    "label_class": "mixed_sample",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
+      "findings": [
+        {
+          "rule_id": "cohesion.areas",
+          "file": "(diff)",
+          "start_line": 1,
+          "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns"
+        }
+      ]
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-05/aiv-report.json"
+}

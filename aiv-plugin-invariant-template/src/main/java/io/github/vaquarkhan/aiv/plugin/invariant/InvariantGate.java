@@ -52,6 +52,16 @@ public final class InvariantGate implements QualityGate {
             + "|\\b(YOUR_CODE_HERE|INSERT_YOUR_CODE|INSERT_CODE_HERE)\\b"
             + ")");
 
+    /**
+     * Provenance trailers accidentally pasted into source (Apache {@code Generated-by:} / AI co-author lines).
+     * Disclosure in commit messages or PR templates is fine; trailers inside product files are not.
+     */
+    private static final Pattern AI_PROVENANCE_TRAILER = Pattern.compile(
+            "(?im)("
+            + "^\\s*Generated-by:\\s*\\S+"
+            + "|^\\s*Co-Authored-By:\\s*.*(?:noreply@anthropic\\.com|chatgpt|openai|copilot|cursor|gemini|claude)"
+            + ")");
+
     private static final Set<String> CODE_EXTENSIONS = Set.of(
             ".java", ".py", ".js", ".ts", ".jsx", ".tsx", ".go", ".rs", ".kt", ".kts",
             ".scala", ".c", ".cpp", ".cc", ".h", ".hpp", ".rb", ".sh", ".bash");
@@ -75,6 +85,8 @@ public final class InvariantGate implements QualityGate {
     public GateResult evaluate(AIVContext context) {
         List<String> failures = new ArrayList<>();
         List<Finding> findings = new ArrayList<>();
+        AddedLineIndex added = AddedLineIndex.fromRawDiff(context.getDiff().getRawDiff());
+
         for (ChangedFile f : context.getDiff().getChangedFiles()) {
             String content = f.getContent();
             if (content == null || content.isBlank()) {
@@ -85,7 +97,11 @@ public final class InvariantGate implements QualityGate {
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.merge-conflict", f.getPath(), 1, msg));
             }
-            if (PLACEHOLDER_MARKER.matcher(content).find()) {
+            // Placeholders: only on added lines when rawDiff is available (avoids FPs on pre-existing FIXME).
+            boolean placeholderHit = f.getChangeType() == ChangedFile.ChangeType.ADDED
+                    ? PLACEHOLDER_MARKER.matcher(content).find()
+                    : added.markerOnAddedLine(f.getPath(), content, PLACEHOLDER_MARKER);
+            if (placeholderHit) {
                 String msg = "Placeholder marker (TBD/FIXME/XXX) found in " + f.getPath();
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.placeholder", f.getPath(), 1, msg));
@@ -94,6 +110,11 @@ public final class InvariantGate implements QualityGate {
                 String msg = "AI edit-artifact / elision marker found in " + f.getPath();
                 failures.add(msg);
                 findings.add(Finding.atLine("invariant.ai-edit-artifact", f.getPath(), 1, msg));
+            }
+            if (AI_PROVENANCE_TRAILER.matcher(content).find()) {
+                String msg = "AI provenance trailer pasted into " + f.getPath();
+                failures.add(msg);
+                findings.add(Finding.atLine("invariant.ai-provenance", f.getPath(), 1, msg));
             }
         }
         if (failures.isEmpty()) {

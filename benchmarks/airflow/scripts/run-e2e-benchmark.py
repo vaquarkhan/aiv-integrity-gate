@@ -516,11 +516,26 @@ def materialize_fixture(case: dict[str, Any], work: Path) -> str:
     git(work, "add", "-A")
     git(work, "commit", "-q", "-m", "base")
     base = git(work, "rev-parse", "HEAD")
-    src = BENCH / case["path"]
-    dest_rel = case["path"].replace("fixtures/", "providers/bench/", 1)
-    dest = work / dest_rel
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(src, dest)
+
+    inject_tree = case.get("inject_tree")
+    if inject_tree:
+        src_tree = BENCH / inject_tree
+        for src in src_tree.rglob("*"):
+            if not src.is_file():
+                continue
+            rel = src.relative_to(src_tree)
+            dest = work / rel
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest)
+    else:
+        paths = case.get("paths") or [case["path"]]
+        for p in paths:
+            src = BENCH / p
+            dest_rel = p.replace("fixtures/", "providers/bench/", 1)
+            dest = work / dest_rel
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest)
+
     git(work, "add", "-A")
     git(work, "commit", "-q", "-m", f"case {case['id']}")
     return base
@@ -578,7 +593,11 @@ def classify_outcome(case: dict[str, Any], report: dict[str, Any]) -> dict[str, 
     elif expect_hard and not hard_fail:
         verdict = "FN"
     elif not expect_hard and hard_fail:
-        verdict = "FP" if cls in ("merged_control", "synthetic_negative", "closed_unmerged_sample") else "UNEXPECTED_FAIL"
+        verdict = (
+            "FP"
+            if cls in ("merged_control", "synthetic_negative", "closed_unmerged_sample", "mixed_sample")
+            else "UNEXPECTED_FAIL"
+        )
     else:
         verdict = "TN"
 

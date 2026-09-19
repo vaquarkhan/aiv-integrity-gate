@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools — split unrelated concerns",
+      "findings": [
+        {
+          "rule_id": "cohesion.areas",
+          "file": "(diff)",
+          "start_line": 1,
+          "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools — split unrelated concerns"
+        }
+      ]
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

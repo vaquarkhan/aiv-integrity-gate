@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public final class GithubPrLabelPublisher {
 
     public static final String DEFAULT_LABEL = "aiv:ai-slop";
-    public static final List<String> DEFAULT_AI_SLOP_GATES = List.of("design", "invariant", "density");
+    public static final List<String> DEFAULT_AI_SLOP_GATES = List.of("design", "invariant", "density", "cohesion");
 
     /** When set (e.g. in tests), base API URL for labels; otherwise {@code https://api.github.com}. */
     public static final String LABELS_API_BASE_PROPERTY = "aiv.github.labels.api.base";

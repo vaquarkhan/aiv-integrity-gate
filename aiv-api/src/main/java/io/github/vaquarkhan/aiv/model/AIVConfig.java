@@ -126,7 +126,7 @@ public final class AIVConfig {
 
     /**
      * Gate ids whose advisory failures trigger {@link #getAdvisoryPrLabel()}. Empty means the
-     * publisher default set ({@code design}, {@code invariant}, {@code density}).
+     * publisher default set ({@code design}, {@code invariant}, {@code density}, {@code cohesion}).
      */
     @SuppressWarnings("unchecked")
     public List<String> getAdvisoryLabelGates() {

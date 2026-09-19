@@ -58,7 +58,7 @@ Alongside `gates`, you may set:
 | `exclude_paths` | list of strings | Repository-relative globs (`**`, `*`, optional `glob:` prefix). See `PathFilter` in source: invalid globs fall back to simple matching. **Negation (`!pattern`) is not supported**—only positive excludes. |
 | `fail_fast` | boolean | If `true`, stop after the first failing gate. Default `false` runs all gates and aggregates failures. |
 | `advisory_pr_label` | string | Optional GitHub PR label name used with `--label-pr-on-advisory` (default in CLI is `aiv:ai-slop`). |
-| `advisory_label_gates` | list of strings | Gate ids whose **advisory** (`severity: warn`) failures trigger the PR label. Empty → `design`, `invariant`, `density`. |
+| `advisory_label_gates` | list of strings | Gate ids whose **advisory** (`severity: warn`) failures trigger the PR label. Empty → `design`, `invariant`, `density`, `cohesion`. |
 | `skip_allowlist` | list of emails | If non-empty, only these **git author emails** may honor `/aiv skip` on the latest commit (case-insensitive). This is metadata from `git log`, not cryptographic proof of identity. |
 
 Example:
@@ -241,9 +241,10 @@ gates:
 |--------------|----------------------------|-----------------------|-----------------------------|
 | `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 4.0, -50 |
 | `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
+| `cohesion`   | Multi-area / oversized PR  | `max_areas`, `area_depth`, `max_files` | 3, 2, 0 (files off) |
 | `dependency` | Import vs lockfile         | `whitelist`           | -                           |
 | `syntax`     | Parse validity (Java/Python/YAML/JSON) | -              | enabled when listed or by default if omitted |
-| `invariant`  | Merge markers, placeholders, AI edit-artifacts | -        | -                           |
+| `invariant`  | Merge markers, placeholders (added lines), AI edit-artifacts / provenance trailers | - | - |
 | `doc-integrity` | Documentation validation | `rules_path`, `auto` | `.aiv/doc-rules.yaml`       |
 
 For every changed documentation file, **`doc-integrity`** also checks **relative Markdown links** `[label](path)` (skipping `http://`, `https://`, `mailto:`): the path must resolve to a file in the workspace. If the link includes a **`#fragment`** and the target ends with `.md`, a matching **ATX heading slug** (GitHub-style) must exist in that file. Optional rules in `doc-rules.yaml` add required mentions and canonical command checks.
@@ -301,6 +302,18 @@ Validates markdown and text files (.md, .txt, .rst, AGENTS.md, CLAUDE.md, CONTRI
 | `rules_path`      | string | Path to design rules YAML      | `.aiv/design-rules.yaml` |
 | `file_extensions` | list   | Extensions to validate         | All common source extensions |
 | `languages`       | list   | Language names                 | -                        |
+
+### Cohesion Gate
+
+Flags PRs that touch too many independent path areas (generic “please split this PR” signal). Prefer `severity: warn` + advisory label.
+
+| Key          | Type | Description | Default |
+|--------------|------|-------------|---------|
+| `max_areas`  | int  | Max distinct directory areas before finding | 3 |
+| `area_depth` | int  | Directory segments per area (file name excluded) | 2 |
+| `max_files`  | int  | Optional cap on changed files (`0` = disabled) | 0 |
+
+Example: changing `.github/workflows/*`, `scripts/ci/*`, and `scripts/tests/*` is three areas at `area_depth: 2`.
 
 ### Multi-Language Support
 

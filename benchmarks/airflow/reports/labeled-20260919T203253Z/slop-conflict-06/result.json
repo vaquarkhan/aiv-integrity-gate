@@ -1,0 +1,77 @@
+{
+  "id": "slop-conflict-06",
+  "title": "ai-slop: merge_conflict (expect FAIL)",
+  "label": {
+    "class": "synthetic_positive",
+    "subtype": "merge_conflict",
+    "expect_hard_fail": true,
+    "expect_advisory": false,
+    "notes": "Labeled objective AI-slop; hard-pass = FN"
+  },
+  "outcome": {
+    "verdict": "TP",
+    "hard_fail": true,
+    "advisory": false,
+    "blocking_gates": [
+      "invariant",
+      "syntax"
+    ],
+    "advisory_gates": [],
+    "exit_code": 1,
+    "label_class": "synthetic_positive",
+    "expect_hard_fail": true
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-06.py",
+      "findings": [
+        {
+          "rule_id": "invariant.merge-conflict",
+          "file": "providers/bench/labeled/ai-slop/conflict-06.py",
+          "start_line": 1,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-06.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-06.py (SyntaxError line 3: invalid syntax)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/bench/labeled/ai-slop/conflict-06.py",
+          "start_line": 3,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-06.py (SyntaxError line 3: invalid syntax)"
+        }
+      ]
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-06/aiv-report.json"
+}

@@ -13,6 +13,7 @@ advisory_label_gates:
   - design
   - invariant
   - density
+  - cohesion
 # Optional: only these commit author emails may use /aiv skip on the latest commit
 # skip_allowlist:
 #   - maintainer@example.com
@@ -27,6 +28,14 @@ gates:
     enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
+  - id: cohesion
+    enabled: true
+    # Advisory by default: "split this PR" is review guidance, not always a hard defect.
+    severity: warn
+    config:
+      max_areas: 4
+      area_depth: 2
+      max_files: 0
   - id: dependency
     enabled: true
     config:

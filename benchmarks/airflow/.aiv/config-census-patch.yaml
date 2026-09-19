@@ -1,13 +1,14 @@
 schema_version: 1
 # Census patch-only materialization: reconstructed files are incomplete, so syntax
 # on full-file parse is disabled (would inflate FPs). Hard gates that still apply
-# to added hunk text: design + invariant. Density remains advisory (warn).
+# to added hunk text: design + invariant. Density/cohesion remain advisory (warn).
 fail_fast: false
 advisory_pr_label: aiv:ai-slop
 advisory_label_gates:
   - design
   - invariant
   - density
+  - cohesion
 exclude_paths:
   - "docs/**"
   - "*.md"
@@ -16,7 +17,6 @@ exclude_paths:
   - "docker-tests/**"
   - "kubernetes-tests/**"
   - "helm-tests/**"
-  - "scripts/**"
   - "generated/**"
 gates:
   - id: syntax
@@ -27,6 +27,12 @@ gates:
     severity: fail
     config:
       rules_path: .aiv/design-rules.yaml
+  - id: cohesion
+    enabled: true
+    severity: warn
+    config:
+      max_areas: 3
+      area_depth: 2
   - id: invariant
     enabled: true
     severity: fail

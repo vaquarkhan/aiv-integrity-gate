@@ -1,0 +1,841 @@
+{
+  "schema_version": 3,
+  "purpose": "Labeled product-value bench (not Airflow volume census)",
+  "counts": {
+    "total": 50,
+    "proper_synthetic_negative": 5,
+    "ai_slop_synthetic_positive": 30,
+    "mixed_sample": 15,
+    "by_label_class": {
+      "synthetic_negative": 5,
+      "synthetic_positive": 30,
+      "mixed_sample": 15
+    }
+  },
+  "claim_policy": {
+    "primary": "Use this corpus for VERIFIED precision/recall/FP on labeled ground truth",
+    "secondary": "Airflow closed-unmerged census is volume context only \u2014 not AI-slop catch rate"
+  },
+  "cases": [
+    {
+      "id": "proper-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/proper/proper-01_sftp.py",
+      "paths": [
+        "fixtures/labeled/proper/proper-01_sftp.py"
+      ],
+      "title": "proper: clean Sftp helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      }
+    },
+    {
+      "id": "proper-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/proper/proper-02_http.py",
+      "paths": [
+        "fixtures/labeled/proper/proper-02_http.py"
+      ],
+      "title": "proper: clean Http helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      }
+    },
+    {
+      "id": "proper-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/proper/proper-03_jdbc.py",
+      "paths": [
+        "fixtures/labeled/proper/proper-03_jdbc.py"
+      ],
+      "title": "proper: clean Jdbc helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      }
+    },
+    {
+      "id": "proper-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/proper/proper-04_kafka.py",
+      "paths": [
+        "fixtures/labeled/proper/proper-04_kafka.py"
+      ],
+      "title": "proper: clean Kafka helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      }
+    },
+    {
+      "id": "proper-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/proper/proper-05_redis.py",
+      "paths": [
+        "fixtures/labeled/proper/proper-05_redis.py"
+      ],
+      "title": "proper: clean Redis helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      }
+    },
+    {
+      "id": "slop-edit-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-01.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-01.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-edit-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-02.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-02.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-edit-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-03.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-03.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-edit-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-04.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-04.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-edit-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-05.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-05.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-edit-06",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-06.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-06.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-edit-07",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-07.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-07.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-edit-08",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/edit-08.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/edit-08.py"
+      ],
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-conflict-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/conflict-01.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/conflict-01.py"
+      ],
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-conflict-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/conflict-02.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/conflict-02.py"
+      ],
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-conflict-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/conflict-03.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/conflict-03.py"
+      ],
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-conflict-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/conflict-04.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/conflict-04.py"
+      ],
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-conflict-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/conflict-05.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/conflict-05.py"
+      ],
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-conflict-06",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/conflict-06.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/conflict-06.py"
+      ],
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-attr-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/attr-01.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/attr-01.py"
+      ],
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-attr-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/attr-02.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/attr-02.py"
+      ],
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-attr-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/attr-03.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/attr-03.py"
+      ],
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-attr-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/attr-04.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/attr-04.py"
+      ],
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-attr-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/attr-05.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/attr-05.py"
+      ],
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-attr-06",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/attr-06.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/attr-06.py"
+      ],
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-ph-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/placeholder-01.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/placeholder-01.py"
+      ],
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-ph-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/placeholder-02.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/placeholder-02.py"
+      ],
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-ph-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/placeholder-03.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/placeholder-03.py"
+      ],
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-ph-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/placeholder-04.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/placeholder-04.py"
+      ],
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-ph-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/placeholder-05.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/placeholder-05.py"
+      ],
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-search-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/search-01.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/search-01.py"
+      ],
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-search-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/search-02.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/search-02.py"
+      ],
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-search-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/search-03.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/search-03.py"
+      ],
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-search-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/search-04.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/search-04.py"
+      ],
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "slop-search-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/ai-slop/search-05.py",
+      "paths": [
+        "fixtures/labeled/ai-slop/search-05.py"
+      ],
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      }
+    },
+    {
+      "id": "mixed-cohesion-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/cohesion-01/tree/.github/workflows/wf-1.yml",
+      "paths": [
+        "fixtures/labeled/mixed/cohesion-01/tree/.github/workflows/wf-1.yml",
+        "fixtures/labeled/mixed/cohesion-01/tree/scripts/ci/setup_1.py",
+        "fixtures/labeled/mixed/cohesion-01/tree/scripts/tests/test_1.py",
+        "fixtures/labeled/mixed/cohesion-01/tree/scripts/tools/tool_1.sh"
+      ],
+      "inject_tree": "fixtures/labeled/mixed/cohesion-01/tree",
+      "title": "mixed: multi-area sprawl #1 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      }
+    },
+    {
+      "id": "mixed-cohesion-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/cohesion-02/tree/.github/workflows/wf-2.yml",
+      "paths": [
+        "fixtures/labeled/mixed/cohesion-02/tree/.github/workflows/wf-2.yml",
+        "fixtures/labeled/mixed/cohesion-02/tree/scripts/ci/setup_2.py",
+        "fixtures/labeled/mixed/cohesion-02/tree/scripts/tests/test_2.py",
+        "fixtures/labeled/mixed/cohesion-02/tree/scripts/tools/tool_2.sh"
+      ],
+      "inject_tree": "fixtures/labeled/mixed/cohesion-02/tree",
+      "title": "mixed: multi-area sprawl #2 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      }
+    },
+    {
+      "id": "mixed-cohesion-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/cohesion-03/tree/.github/workflows/wf-3.yml",
+      "paths": [
+        "fixtures/labeled/mixed/cohesion-03/tree/.github/workflows/wf-3.yml",
+        "fixtures/labeled/mixed/cohesion-03/tree/scripts/ci/setup_3.py",
+        "fixtures/labeled/mixed/cohesion-03/tree/scripts/tests/test_3.py",
+        "fixtures/labeled/mixed/cohesion-03/tree/scripts/tools/tool_3.sh"
+      ],
+      "inject_tree": "fixtures/labeled/mixed/cohesion-03/tree",
+      "title": "mixed: multi-area sprawl #3 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      }
+    },
+    {
+      "id": "mixed-cohesion-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/cohesion-04/tree/.github/workflows/wf-4.yml",
+      "paths": [
+        "fixtures/labeled/mixed/cohesion-04/tree/.github/workflows/wf-4.yml",
+        "fixtures/labeled/mixed/cohesion-04/tree/scripts/ci/setup_4.py",
+        "fixtures/labeled/mixed/cohesion-04/tree/scripts/tests/test_4.py",
+        "fixtures/labeled/mixed/cohesion-04/tree/scripts/tools/tool_4.sh"
+      ],
+      "inject_tree": "fixtures/labeled/mixed/cohesion-04/tree",
+      "title": "mixed: multi-area sprawl #4 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      }
+    },
+    {
+      "id": "mixed-cohesion-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/cohesion-05/tree/.github/workflows/wf-5.yml",
+      "paths": [
+        "fixtures/labeled/mixed/cohesion-05/tree/.github/workflows/wf-5.yml",
+        "fixtures/labeled/mixed/cohesion-05/tree/scripts/ci/setup_5.py",
+        "fixtures/labeled/mixed/cohesion-05/tree/scripts/tests/test_5.py",
+        "fixtures/labeled/mixed/cohesion-05/tree/scripts/tools/tool_5.sh"
+      ],
+      "inject_tree": "fixtures/labeled/mixed/cohesion-05/tree",
+      "title": "mixed: multi-area sprawl #5 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      }
+    },
+    {
+      "id": "mixed-soft-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/soft/soft-01.py",
+      "paths": [
+        "fixtures/labeled/mixed/soft/soft-01.py"
+      ],
+      "title": "mixed: verbose clean code #1 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      }
+    },
+    {
+      "id": "mixed-soft-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/soft/soft-02.py",
+      "paths": [
+        "fixtures/labeled/mixed/soft/soft-02.py"
+      ],
+      "title": "mixed: verbose clean code #2 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      }
+    },
+    {
+      "id": "mixed-soft-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/soft/soft-03.py",
+      "paths": [
+        "fixtures/labeled/mixed/soft/soft-03.py"
+      ],
+      "title": "mixed: verbose clean code #3 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      }
+    },
+    {
+      "id": "mixed-soft-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/soft/soft-04.py",
+      "paths": [
+        "fixtures/labeled/mixed/soft/soft-04.py"
+      ],
+      "title": "mixed: verbose clean code #4 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      }
+    },
+    {
+      "id": "mixed-soft-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/soft/soft-05.py",
+      "paths": [
+        "fixtures/labeled/mixed/soft/soft-05.py"
+      ],
+      "title": "mixed: verbose clean code #5 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      }
+    },
+    {
+      "id": "mixed-hard-01",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/hard/mixed-hard-01.py",
+      "paths": [
+        "fixtures/labeled/mixed/hard/mixed-hard-01.py"
+      ],
+      "title": "mixed: otherwise-ok + edit-artifact #1 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      }
+    },
+    {
+      "id": "mixed-hard-02",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/hard/mixed-hard-02.py",
+      "paths": [
+        "fixtures/labeled/mixed/hard/mixed-hard-02.py"
+      ],
+      "title": "mixed: otherwise-ok + edit-artifact #2 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      }
+    },
+    {
+      "id": "mixed-hard-03",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/hard/mixed-hard-03.py",
+      "paths": [
+        "fixtures/labeled/mixed/hard/mixed-hard-03.py"
+      ],
+      "title": "mixed: otherwise-ok + edit-artifact #3 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      }
+    },
+    {
+      "id": "mixed-hard-04",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/hard/mixed-hard-04.py",
+      "paths": [
+        "fixtures/labeled/mixed/hard/mixed-hard-04.py"
+      ],
+      "title": "mixed: otherwise-ok + edit-artifact #4 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      }
+    },
+    {
+      "id": "mixed-hard-05",
+      "source": "fixture",
+      "path": "fixtures/labeled/mixed/hard/mixed-hard-05.py",
+      "paths": [
+        "fixtures/labeled/mixed/hard/mixed-hard-05.py"
+      ],
+      "title": "mixed: otherwise-ok + edit-artifact #5 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      }
+    }
+  ]
+}
