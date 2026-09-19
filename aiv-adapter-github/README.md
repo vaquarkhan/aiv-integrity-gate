@@ -27,7 +27,7 @@ advisory_label_gates:
 ## See also
 
 - [`aiv-api`](../aiv-api/README.md) - `ReportPublisher`, `AIVConfig`
-- [`.github/README.md`](../.github/README.md) - workflows
+- [`.github/WORKFLOWS.md`](../.github/WORKFLOWS.md) - workflows
 - [`benchmarks/airflow/README.md`](../benchmarks/airflow/README.md) - Airflow corpus + fork workflow
 
 **Author:** Vaquar Khan
