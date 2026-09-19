@@ -76,6 +76,7 @@ class MainTest {
     void restoreGithubEnv() {
         Main.GITHUB_ENV = System::getenv;
         System.clearProperty(GithubChecksPublisher.CHECKS_URL_PROPERTY);
+        System.clearProperty(io.github.vaquarkhan.aiv.adapter.github.GithubPrLabelPublisher.LABELS_API_BASE_PROPERTY);
     }
 
     @Test
@@ -439,6 +440,114 @@ class MainTest {
         } finally {
             server.stop(0);
         }
+    }
+
+    @Test
+    void labelPrOnAdvisoryWithoutTokenReturnsTwo(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        assertEquals(2, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--label-pr-on-advisory"
+        }));
+    }
+
+    @Test
+    void labelPrOnAdvisoryPostsWhenClean(@TempDir Path repo) throws Exception {
+        AtomicInteger deletes = new AtomicInteger();
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/", exchange -> {
+            String path = exchange.getRequestURI().getPath();
+            String method = exchange.getRequestMethod();
+            if (path.contains("/labels/") && "GET".equals(method)) {
+                exchange.sendResponseHeaders(200, 0);
+                exchange.close();
+                return;
+            }
+            if ("DELETE".equals(method)) {
+                deletes.incrementAndGet();
+                exchange.sendResponseHeaders(204, 0);
+                exchange.close();
+                return;
+            }
+            exchange.sendResponseHeaders(500, 0);
+            exchange.close();
+        });
+        server.start();
+        try {
+            int port = server.getAddress().getPort();
+            System.setProperty(
+                    io.github.vaquarkhan.aiv.adapter.github.GithubPrLabelPublisher.LABELS_API_BASE_PROPERTY,
+                    "http://127.0.0.1:" + port);
+            Main.GITHUB_ENV = Map.of(
+                    "GITHUB_TOKEN", "tok",
+                    "GITHUB_REPOSITORY", "o/n",
+                    "AIV_GITHUB_PR_NUMBER", "12"
+            )::get;
+            initRepo(repo);
+            assertEquals(0, Main.run(new String[]{
+                    "--workspace", repo.toString(),
+                    "--diff", "HEAD",
+                    "--head", "HEAD",
+                    "--label-pr-on-advisory", "custom:slop"
+            }));
+            assertEquals(1, deletes.get());
+        } finally {
+            server.stop(0);
+        }
+    }
+
+    @Test
+    void labelPrOnAdvisoryViaEnvFlag(@TempDir Path repo) throws Exception {
+        AtomicInteger deletes = new AtomicInteger();
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/", exchange -> {
+            if ("GET".equals(exchange.getRequestMethod())) {
+                exchange.sendResponseHeaders(200, 0);
+                exchange.close();
+                return;
+            }
+            if ("DELETE".equals(exchange.getRequestMethod())) {
+                deletes.incrementAndGet();
+                exchange.sendResponseHeaders(204, 0);
+                exchange.close();
+                return;
+            }
+            exchange.sendResponseHeaders(500, 0);
+            exchange.close();
+        });
+        server.start();
+        try {
+            int port = server.getAddress().getPort();
+            System.setProperty(
+                    io.github.vaquarkhan.aiv.adapter.github.GithubPrLabelPublisher.LABELS_API_BASE_PROPERTY,
+                    "http://127.0.0.1:" + port);
+            Main.GITHUB_ENV = name -> switch (name) {
+                case "GITHUB_TOKEN" -> "tok";
+                case "GITHUB_REPOSITORY" -> "o/n";
+                case "AIV_GITHUB_PR_NUMBER" -> "12";
+                case "AIV_LABEL_PR_ON_ADVISORY" -> "true";
+                case "AIV_PR_ADVISORY_LABEL" -> "env:slop";
+                default -> null;
+            };
+            initRepo(repo);
+            assertEquals(0, Main.run(new String[]{
+                    "--workspace", repo.toString(),
+                    "--diff", "HEAD",
+                    "--head", "HEAD"
+            }));
+            assertEquals(1, deletes.get());
+        } finally {
+            server.stop(0);
+        }
+    }
+
+    @Test
+    void firstNonBlankHelper() {
+        assertEquals("a", Main.firstNonBlank(null, "  ", "a", "b"));
+        assertNull(Main.firstNonBlank(null, " ", ""));
+        assertNull(Main.firstNonBlank((String[]) null));
     }
 
     @Test

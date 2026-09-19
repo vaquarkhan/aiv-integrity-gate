@@ -23,6 +23,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -155,6 +156,33 @@ class YamlConfigProviderTest {
         var provider = new YamlConfigProvider();
         var config = provider.getConfig(dir);
         assertTrue(config.isFailFast());
+    }
+
+    @Test
+    void topLevelAdvisoryLabelConfigIsLoaded(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            advisory_pr_label: aiv:ai-slop
+            advisory_label_gates:
+              - design
+              - density
+            gates: []
+            """);
+        var config = new YamlConfigProvider().getConfig(dir);
+        assertEquals("aiv:ai-slop", config.getAdvisoryPrLabel().orElseThrow());
+        assertEquals(List.of("design", "density"), config.getAdvisoryLabelGates());
+    }
+
+    @Test
+    void topLevelSkipAllowlistIsLoaded(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            skip_allowlist:
+              - maintainer@example.com
+            gates: []
+            """);
+        var config = new YamlConfigProvider().getConfig(dir);
+        assertEquals(List.of("maintainer@example.com"), config.getSkipAllowlist());
     }
 
     @Test

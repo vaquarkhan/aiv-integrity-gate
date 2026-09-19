@@ -1,0 +1,62 @@
+name: AIV Gate (Airflow fork)
+# For https://github.com/vaquarkhan/airflow — builds aiv-cli from source until
+# Maven Central ships a release with --label-pr-on-advisory.
+on:
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  aiv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Airflow fork
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+
+      - name: Checkout AIV Integrity Gate
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          repository: vaquarkhan/aiv-integrity-gate
+          path: .aiv-build
+          # Pin to main; switch to a release tag after publishing advisory labeling.
+          ref: main
+
+      - uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+          cache-dependency-path: .aiv-build/pom.xml
+
+      - name: Ensure AIV config present
+        shell: bash
+        run: |
+          if [ ! -f .aiv/config.yaml ]; then
+            echo "::error::Missing .aiv/config.yaml"
+            exit 1
+          fi
+
+      - name: Build aiv-cli
+        shell: bash
+        run: |
+          mvn -B -ntp -f .aiv-build/pom.xml -pl aiv-cli -am package -DskipTests
+          VERSION="$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version -f .aiv-build/pom.xml)"
+          VERSION="${VERSION//$'\r'/}"
+          echo "JAR=.aiv-build/aiv-cli/target/aiv-cli-${VERSION}.jar" >> "$GITHUB_ENV"
+
+      - name: Run AIV Gate
+        shell: bash
+        env:
+          AIV_GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          java -Daiv.git.timeout.seconds=600 -jar "$JAR" \
+            --workspace "${{ github.workspace }}" \
+            --diff "origin/${{ github.base_ref }}" \
+            --head "${{ github.sha }}" \
+            --label-pr-on-advisory aiv:ai-slop

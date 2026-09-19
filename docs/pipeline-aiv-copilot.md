@@ -27,6 +27,7 @@ PR opened / updated
 - **Cheap and certain before expensive and fuzzy.** AIV catches objective defects (won't-parse, conflict / edit-artifact markers, unresolved imports) without an LLM.
 - **No LLM cost on broken PRs.** Copilot is requested only after AIV succeeds (`workflow_run` on `AIV Gate` success).
 - **Invariant:** AIV is the only hard gate. Copilot (and Magpie / any LLM judge) stays advisory.
+- Soft AI-slop signals (`severity: warn`) can **label** the PR (`--label-pr-on-advisory`) without failing CI. See [benchmarks/airflow/README.md](../benchmarks/airflow/README.md).
 
 ## Prevention layer
 

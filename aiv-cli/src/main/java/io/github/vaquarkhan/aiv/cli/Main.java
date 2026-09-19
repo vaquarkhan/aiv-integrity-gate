@@ -7,10 +7,12 @@ package io.github.vaquarkhan.aiv.cli;
 
 import io.github.vaquarkhan.aiv.adapter.git.GitDiffProvider;
 import io.github.vaquarkhan.aiv.adapter.github.GithubChecksPublisher;
+import io.github.vaquarkhan.aiv.adapter.github.GithubPrLabelPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.StdoutReportPublisher;
 import io.github.vaquarkhan.aiv.cli.config.DocChecksConfigProvider;
 import io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider;
 import io.github.vaquarkhan.aiv.core.Orchestrator;
+import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVResult;
 import io.github.vaquarkhan.aiv.port.ConfigProvider;
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Properties;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
@@ -77,6 +80,8 @@ public final class Main {
         Path jsonOutputPath = null;
         Path sarifOutputPath = null;
         boolean publishGithubChecks = false;
+        boolean labelPrOnAdvisory = false;
+        String advisoryLabelOverride = null;
         int warningsExitCode = 0;
         boolean quiet = false;
 
@@ -99,6 +104,11 @@ public final class Main {
                 sarifOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
             } else if ("--publish-github-checks".equals(gateArgs[i])) {
                 publishGithubChecks = true;
+            } else if ("--label-pr-on-advisory".equals(gateArgs[i])) {
+                labelPrOnAdvisory = true;
+                if (i + 1 < gateArgs.length && !gateArgs[i + 1].startsWith("-")) {
+                    advisoryLabelOverride = gateArgs[++i];
+                }
             } else if ("--warnings-exit-code".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
                 try {
                     warningsExitCode = Integer.parseInt(gateArgs[++i].trim());
@@ -138,15 +148,18 @@ public final class Main {
                     if (publishGithubChecks) {
                         GithubChecksPublisher.publish(last, cliVersion(), GITHUB_ENV);
                     }
+                    if (labelPrOnAdvisory || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_LABEL_PR_ON_ADVISORY")))) {
+                        publishAdvisoryPrLabel(workspace, last, advisoryLabelOverride);
+                    }
                 } catch (IOException e) {
                     log.error("Could not write report: {}", e.getMessage());
                     return 2;
                 } catch (IllegalStateException e) {
-                    log.error("GitHub Checks: {}", e.getMessage());
+                    log.error("GitHub integration: {}", e.getMessage());
                     return 2;
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    log.error("GitHub Checks interrupted");
+                    log.error("GitHub integration interrupted");
                     return 2;
                 }
             }
@@ -172,6 +185,34 @@ public final class Main {
             return warningsExitCode;
         }
         return coreExit;
+    }
+
+    static void publishAdvisoryPrLabel(Path workspace, AIVResult last, String labelOverride)
+            throws IOException, InterruptedException {
+        AIVConfig cfg = new YamlConfigProvider().getConfig(workspace);
+        String label = firstNonBlank(
+                labelOverride,
+                GITHUB_ENV.apply("AIV_PR_ADVISORY_LABEL"),
+                cfg.getAdvisoryPrLabel().orElse(null),
+                GithubPrLabelPublisher.DEFAULT_LABEL);
+        List<String> gates = cfg.getAdvisoryLabelGates();
+        GithubPrLabelPublisher.apply(last, label, gates, GITHUB_ENV);
+    }
+
+    static String firstNonBlank(String... values) {
+        if (values == null) {
+            return null;
+        }
+        for (String v : values) {
+            if (v != null && !v.isBlank()) {
+                return v.trim();
+            }
+        }
+        return null;
+    }
+
+    private static String blankToEmpty(String s) {
+        return s == null ? "" : s;
     }
 
     private static String[] tail(String[] args) {

@@ -63,5 +63,8 @@ aiv-airflow-*.md
 aiv-magpie-*.md
 maven-portable/
 
+# Benchmark generated summaries (keep fixtures + cases.json)
+benchmarks/**/results/*.json
+
 # Local CLI init output (not project config)
 aiv-cli/.aiv/

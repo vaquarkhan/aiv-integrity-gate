@@ -53,4 +53,11 @@ class AIVResultTest {
     void noticesNullBecomesEmpty() {
         assertTrue(new AIVResult(true, List.of(), null).getNotices().isEmpty());
     }
+
+    @Test
+    void hasAdvisoryFailuresDetectsWarnOnly() {
+        assertFalse(new AIVResult(true, List.of(GateResult.pass("g"))).hasAdvisoryFailures());
+        assertFalse(new AIVResult(false, List.of(GateResult.fail("g", "x"))).hasAdvisoryFailures());
+        assertTrue(new AIVResult(true, List.of(GateResult.advisory("design", "soft"))).hasAdvisoryFailures());
+    }
 }

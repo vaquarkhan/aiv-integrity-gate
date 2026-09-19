@@ -112,6 +112,35 @@ public final class AIVConfig {
         return 1;
     }
 
+    /**
+     * Optional GitHub PR label applied when advisory (non-blocking) AI-slop findings are present.
+     * Empty when unset. Used with CLI {@code --label-pr-on-advisory}.
+     */
+    public Optional<String> getAdvisoryPrLabel() {
+        Object v = globalConfig.get("advisory_pr_label");
+        if (v instanceof String s && !s.isBlank()) {
+            return Optional.of(s.trim());
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Gate ids whose advisory failures trigger {@link #getAdvisoryPrLabel()}. Empty means the
+     * publisher default set ({@code design}, {@code invariant}, {@code density}).
+     */
+    @SuppressWarnings("unchecked")
+    public List<String> getAdvisoryLabelGates() {
+        Object val = globalConfig.get("advisory_label_gates");
+        if (val instanceof List) {
+            return ((List<?>) val).stream()
+                    .filter(o -> o != null)
+                    .map(Object::toString)
+                    .filter(s -> !s.isBlank())
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
     public static final class GateConfig {
         private final String id;
         private final boolean enabled;
