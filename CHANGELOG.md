@@ -6,8 +6,8 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 
 ### User-facing
 
+- **Airflow E2E benchmark + HTML reports:** [`benchmarks/airflow/`](benchmarks/airflow/) discovers real `apache/airflow` PRs, labels them (`objective_slop` / `merged_control` / `closed_unmerged_sample`), scores with `aiv-cli`, and writes third-party-validatable [`reports/latest.html`](benchmarks/airflow/reports/latest.html). See [METHODOLOGY.md](benchmarks/airflow/METHODOLOGY.md).
 - **Advisory PR label:** When gates use `severity: warn` (do not block CI) but still find AI-slop signals, `--label-pr-on-advisory` applies a GitHub PR label (default `aiv:ai-slop`) and removes it on clean runs. Config: `advisory_pr_label`, `advisory_label_gates`. Composite action inputs: `label-pr-on-advisory`, `advisory-pr-label`.
-- **Airflow benchmark:** [`benchmarks/airflow/`](benchmarks/airflow/) — labeled corpus (`corpus/cases.json`), synthetic AI-slop + clean fixtures, fork workflow for [`vaquarkhan/airflow`](https://github.com/vaquarkhan/airflow), and `scripts/run-benchmark.*`.
 - **Syntax gate (`aiv-plugin-syntax`):** parse-validity pre-gate for changed Java, Python, YAML, and JSON. Precision-first skips for missing Python toolchain, Helm/Jinja templates, `tsconfig*.json` (JSONC), and `.java` files that are actually Dockerfiles (`#` first line). Rule id: `syntax.parse`. `aiv explain syntax`.
 - **Dependency gate:** Python **stdlib** allowlist and **first-party** package scan (top-level dirs with `__init__.py`) so legitimate Airflow-style imports are not false-flagged.
 - **Invariant gate:** **AI edit-artifact** rule on code files only (`invariant.ai-edit-artifact`: elision markers, assistant chatter, SEARCH/REPLACE blocks), in addition to merge-conflict and TBD/FIXME/XXX checks.

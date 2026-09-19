@@ -63,8 +63,9 @@ aiv-airflow-*.md
 aiv-magpie-*.md
 maven-portable/
 
-# Benchmark generated summaries (keep fixtures + cases.json)
+# Benchmark local scratch JSON (published reports live under reports/)
 benchmarks/**/results/*.json
-
+# Keep latest.html / latest.json; drop bulky per-run trees from git
+benchmarks/**/reports/run-*/
 # Local CLI init output (not project config)
 aiv-cli/.aiv/

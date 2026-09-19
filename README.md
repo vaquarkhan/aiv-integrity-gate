@@ -223,7 +223,7 @@ Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cl
 | [docs/TUTORIAL.md](docs/TUTORIAL.md) | Long-form getting started (walkthrough, CLI, CI, troubleshooting). |
 | [docs/README.md](docs/README.md) | Index of all guides. |
 | [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) | Two-stage flow: AIV hard gate → Copilot advisory. |
-| [benchmarks/airflow/README.md](benchmarks/airflow/README.md) | Airflow labeled corpus, fixtures, fork workflow, local benchmark runner. |
+| [benchmarks/airflow/README.md](benchmarks/airflow/README.md) | Airflow E2E benchmark, labeled corpus, HTML reports (`reports/latest.html`). |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable AIV in your repo, CI workflows, Maven Central / Marketplace publishing. |
 | [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference for gates and rules. |
 | [docs/dashboard/README.md](docs/dashboard/README.md) | Static dashboard for JSON run history. |
