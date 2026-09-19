@@ -4,8 +4,15 @@ schema_version: 1
 exclude_paths:
   - "docs/**"
   - "example-project/**"
+  - "benchmarks/**"
 # Run all gates and aggregate failures (set true to stop at first failure)
 fail_fast: false
+# When severity=warn gates find AI-slop signals, optional PR label (CLI --label-pr-on-advisory)
+advisory_pr_label: aiv:ai-slop
+advisory_label_gates:
+  - design
+  - invariant
+  - density
 # Optional: only these commit author emails may use /aiv skip on the latest commit
 # skip_allowlist:
 #   - maintainer@example.com

@@ -1,0 +1,33 @@
+name: AIV Gate (Airflow fork)
+# Drop-in for https://github.com/vaquarkhan/airflow
+# Copy to .github/workflows/aiv.yml on the fork.
+on:
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  aiv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+
+      - name: Ensure AIV config present
+        shell: bash
+        run: |
+          if [ ! -f .aiv/config.yaml ]; then
+            echo "::error::Missing .aiv/config.yaml — copy from aiv-integrity-gate/benchmarks/airflow/.aiv/"
+            exit 1
+          fi
+
+      - uses: vaquarkhan/aiv-integrity-gate@v1
+        with:
+          base-ref: origin/${{ github.base_ref }}
+          # Until Central ships advisory labeling, build from source on the gate repo or pass cli-jar-url.
+          label-pr-on-advisory: 'true'
+          advisory-pr-label: aiv:ai-slop

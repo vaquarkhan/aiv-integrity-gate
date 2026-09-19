@@ -174,7 +174,7 @@ mvn -pl aiv-cli exec:java -Dexec.args="--diff origin/main"
 | `3` | Git subprocess failure (bad ref, dirty state, etc.). |
 | `4` (optional) | Set with `--warnings-exit-code 4` when the run **passed** but emitted **notices** (e.g. oversized files skipped from scanning). Default remains `0` in that case. |
 
-**Structured output:** `--output-json path/to/aiv-report.json` writes `schema_version: 2`, top-level **`doctor_mode`** (set `true` for `doctor` subcommand runs), and per-gate **`findings`**. Pipelines should treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. **`--output-sarif`** writes SARIF 2.1.0 with **`runs[].properties.doctorMode`**. **`--publish-github-checks`** posts a GitHub Check with annotations (see [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md)). **`--quiet`** suppresses the human-readable stdout report and the one-line INFO summary (pair with `--output-json` / `--output-sarif` for machine-only CI). See [CHANGELOG.md](CHANGELOG.md).
+**Structured output:** `--output-json path/to/aiv-report.json` writes `schema_version: 2`, top-level **`doctor_mode`** (set `true` for `doctor` subcommand runs), and per-gate **`findings`**. Pipelines should treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. **`--output-sarif`** writes SARIF 2.1.0 with **`runs[].properties.doctorMode`**. **`--publish-github-checks`** posts a GitHub Check with annotations. **`--label-pr-on-advisory`** tags the PR when soft (`severity: warn`) AI-slop signals appear without failing CI (see [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md)). **`--quiet`** suppresses the human-readable stdout report and the one-line INFO summary (pair with `--output-json` / `--output-sarif` for machine-only CI). See [CHANGELOG.md](CHANGELOG.md).
 
 ### Working on this codebase
 
@@ -223,6 +223,7 @@ Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cl
 | [docs/TUTORIAL.md](docs/TUTORIAL.md) | Long-form getting started (walkthrough, CLI, CI, troubleshooting). |
 | [docs/README.md](docs/README.md) | Index of all guides. |
 | [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) | Two-stage flow: AIV hard gate → Copilot advisory. |
+| [benchmarks/airflow/README.md](benchmarks/airflow/README.md) | Airflow labeled corpus, fixtures, fork workflow, local benchmark runner. |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable AIV in your repo, CI workflows, Maven Central / Marketplace publishing. |
 | [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference for gates and rules. |
 | [docs/dashboard/README.md](docs/dashboard/README.md) | Static dashboard for JSON run history. |
@@ -337,7 +338,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap (short)
 
-Shipped foundations: **init**, **doctor**, **explain**, **syntax** pre-gate, Python stdlib/first-party dependency allowlist, AI edit-artifact invariants, **JSON** / **SARIF** / **GitHub Checks**, optional **AIV → Copilot advisory** pipeline. **Not shipped:** **baseline** suppressions, **`aiv-plugin-security`**, labeled true-positive / CI-savings benchmarks, **added-lines-only** scoping for all hard rules — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
+Shipped foundations: **init**, **doctor**, **explain**, **syntax** pre-gate, Python stdlib/first-party dependency allowlist, AI edit-artifact invariants, **JSON** / **SARIF** / **GitHub Checks**, **advisory PR labeling**, optional **AIV → Copilot advisory** pipeline, starter **Airflow benchmark** corpus. **Not shipped:** **baseline** suppressions, **`aiv-plugin-security`**, CI-savings percentage claims, **added-lines-only** scoping for all hard rules — see [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

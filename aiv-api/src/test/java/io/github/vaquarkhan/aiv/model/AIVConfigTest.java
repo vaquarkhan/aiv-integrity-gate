@@ -177,4 +177,20 @@ class AIVConfigTest {
         ), Map.of());
         assertFalse(cfg.usesTrustedAuthorsBypass());
     }
+
+    @Test
+    void advisoryPrLabelOptional() {
+        assertTrue(new AIVConfig(List.of(), Map.of()).getAdvisoryPrLabel().isEmpty());
+        assertEquals("aiv:ai-slop",
+                new AIVConfig(List.of(), Map.of("advisory_pr_label", " aiv:ai-slop ")).getAdvisoryPrLabel().orElseThrow());
+        assertTrue(new AIVConfig(List.of(), Map.of("advisory_pr_label", "  ")).getAdvisoryPrLabel().isEmpty());
+    }
+
+    @Test
+    void advisoryLabelGatesParsesList() {
+        assertTrue(new AIVConfig(List.of(), Map.of()).getAdvisoryLabelGates().isEmpty());
+        var cfg = new AIVConfig(List.of(), Map.of("advisory_label_gates", List.of("design", "", "density")));
+        assertEquals(List.of("design", "density"), cfg.getAdvisoryLabelGates());
+        assertTrue(new AIVConfig(List.of(), Map.of("advisory_label_gates", "x")).getAdvisoryLabelGates().isEmpty());
+    }
 }

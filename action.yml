@@ -39,6 +39,14 @@ inputs:
     description: 'Optional full URL to the shaded aiv-cli JAR. When set, skips Maven Central and downloads this file instead (for example a GitHub Release asset before Central publish).'
     required: false
     default: ''
+  label-pr-on-advisory:
+    description: 'When true on pull_request, apply/remove a PR label for advisory (severity=warn) AI-slop findings without failing CI. Requires pull-requests: write.'
+    required: false
+    default: 'false'
+  advisory-pr-label:
+    description: 'Label name used when label-pr-on-advisory is true (default aiv:ai-slop).'
+    required: false
+    default: 'aiv:ai-slop'
 
 runs:
   using: 'composite'
@@ -69,4 +77,15 @@ runs:
 
     - name: Run AIV Gate
       shell: bash
-      run: java -jar "$GITHUB_WORKSPACE/aiv-cli.jar" --workspace "${{ inputs.workspace }}" --diff "${{ inputs.base-ref }}"
+      env:
+        AIV_GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: |
+        set -euo pipefail
+        EXTRA=()
+        if [ "${{ inputs.label-pr-on-advisory }}" = "true" ] && [ "${{ github.event_name }}" = "pull_request" ]; then
+          EXTRA+=(--label-pr-on-advisory "${{ inputs.advisory-pr-label }}")
+        fi
+        java -jar "$GITHUB_WORKSPACE/aiv-cli.jar" \
+          --workspace "${{ inputs.workspace }}" \
+          --diff "${{ inputs.base-ref }}" \
+          "${EXTRA[@]}"

@@ -64,6 +64,15 @@ public final class YamlConfigProvider implements ConfigProvider {
             if (root.containsKey("fail_fast") && !global.containsKey("fail_fast")) {
                 global.put("fail_fast", root.get("fail_fast"));
             }
+            if (root.containsKey("skip_allowlist") && !global.containsKey("skip_allowlist")) {
+                global.put("skip_allowlist", root.get("skip_allowlist"));
+            }
+            if (root.containsKey("advisory_pr_label") && !global.containsKey("advisory_pr_label")) {
+                global.put("advisory_pr_label", root.get("advisory_pr_label"));
+            }
+            if (root.containsKey("advisory_label_gates") && !global.containsKey("advisory_label_gates")) {
+                global.put("advisory_label_gates", root.get("advisory_label_gates"));
+            }
             return new AIVConfig(gates, Collections.unmodifiableMap(global));
         } catch (Exception e) {
             throw new IllegalArgumentException("Invalid config at .aiv/config.yaml: " + e.getMessage(), e);

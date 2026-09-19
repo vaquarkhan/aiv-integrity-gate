@@ -52,4 +52,16 @@ public final class AIVResult {
     public List<String> getNotices() {
         return notices;
     }
+
+    /**
+     * True when any gate reported a non-blocking failure ({@code severity: warn} / advisory).
+     */
+    public boolean hasAdvisoryFailures() {
+        for (GateResult g : gateResults) {
+            if (!g.isPassed() && !g.blocksCi()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -1,0 +1,44 @@
+schema_version: 1
+# Airflow-oriented AIV config for fork CI + local benchmark fixtures.
+# Hard gates: objective defects. Soft density: warn → optional PR label (no CI fail).
+fail_fast: false
+advisory_pr_label: aiv:ai-slop
+advisory_label_gates:
+  - design
+  - invariant
+  - density
+exclude_paths:
+  - "docs/**"
+  - "*.md"
+  - "chart/**"
+  - "dev/**"
+  - "docker-tests/**"
+  - "kubernetes-tests/**"
+  - "helm-tests/**"
+  - "scripts/**"
+  - "generated/**"
+gates:
+  - id: syntax
+    enabled: true
+    severity: fail
+  - id: design
+    enabled: true
+    severity: fail
+    config:
+      rules_path: .aiv/design-rules.yaml
+  - id: invariant
+    enabled: true
+    severity: fail
+  - id: density
+    enabled: true
+    # Soft signal: report + PR label via --label-pr-on-advisory; do not block merge.
+    severity: warn
+    config:
+      ldr_threshold: 0.20
+      entropy_threshold: 3.5
+      refactor_net_loc_threshold: -80
+  - id: dependency
+    # Prefer syntax + invariant for Airflow-scale Python trees until allowlists are tuned per provider package.
+    enabled: false
+  - id: doc-integrity
+    enabled: false

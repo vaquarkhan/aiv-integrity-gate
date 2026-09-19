@@ -41,6 +41,9 @@ jobs:
       - name: Run AIV
         id: aiv
         shell: bash
+        env:
+          AIV_GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -o pipefail
           VERSION="${{ steps.build.outputs.version }}"
@@ -58,6 +61,7 @@ jobs:
               --workspace "${{ github.workspace }}" \
               --diff "origin/${{ github.base_ref }}" \
               --head "${{ github.sha }}" \
+              --label-pr-on-advisory \
               2>&1 | tee aiv-report.txt
             EXITCODE=${PIPESTATUS[0]}
           else
