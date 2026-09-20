@@ -1,7 +1,11 @@
 # AIV Integrity Gate
 
 <p align="center">
-  <img src="docs/images/aiv-hero-banner.png" alt="AIV Integrity Gate — diff-scoped integrity gate for AI-era PRs: Syntax, Density, Design, Dependency, Invariant → PASS or FAIL" width="960" />
+  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-hero-banner.png" alt="AIV Integrity Gate - Diff-scoped integrity gate for AI-era PRs" width="920" />
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-value-flow.png" alt="PR diff through Syntax Density Design Dependency Invariant to Pass or Fail" width="920" />
 </p>
 
 <p align="center">
@@ -18,20 +22,12 @@ Best used at **commit time** ([docs/PRE-COMMIT.md](docs/PRE-COMMIT.md)), with CI
 
 ## What AIV looks like
 
-PR diff goes through hard gates in seconds (local JAR, no LLM API):
-
-<p align="center">
-  <img src="docs/images/aiv-value-flow.png" alt="Pull request diff through Syntax, Density, Design, Dependency, and Invariant gates to Pass or Fail" width="920" />
-</p>
-
 | Bad agent paste → **FAIL** | Clean diff → **PASS** |
 |:---:|:---:|
-| <img src="docs/images/aiv-demo-fail.png" alt="Caught before CI: AI edit-artifact and placeholder-test findings block the change" width="440" /> | <img src="docs/images/aiv-demo-pass.png" alt="Sample AIV Report with Overall PASS and all gates green" width="440" /> |
-
-Where it runs (same rules both places):
+| <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-demo-fail.png" alt="Caught before CI FAIL findings" width="440" /> | <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-demo-pass.png" alt="Sample AIV Report PASS" width="440" /> |
 
 <p align="center">
-  <img src="docs/images/aiv-shift-left.png" alt="AIV at pre-commit hook, then GitHub Action CI backstop, then merge only if hard gates pass" width="920" />
+  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-shift-left.png" alt="pre-commit then GitHub Action then merge" width="920" />
 </p>
 
 ### Why this adds value
@@ -47,7 +43,7 @@ Where it runs (same rules both places):
 Architecture (hexagonal modules + ServiceLoader plugins):
 
 <p align="center">
-  <img src="docs/images/aiv-hex-architecture.png" alt="AIV hexagonal module architecture with aiv-core orchestrator" width="560" />
+  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-hex-architecture.png" alt="AIV hexagonal module architecture with aiv-core orchestrator" width="560" />
 </p>
 
 Details: **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · Contributor runbook: **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** · Deep walkthrough: **[docs/TUTORIAL.md](docs/TUTORIAL.md)** · Diagrams: **[docs/images/](docs/images/)**

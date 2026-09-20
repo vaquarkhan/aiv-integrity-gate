@@ -115,7 +115,9 @@ public final class GitDiffProvider implements DiffProvider {
             if (!Files.isRegularFile(tmp) || Files.size(tmp) > maxGitCaptureBytes()) {
                 return new GitCapture(exit, "", false);
             }
-            return new GitCapture(exit, Files.readString(tmp, StandardCharsets.UTF_8), false);
+            // Lenient UTF-8: binary patches (e.g. PNG) must not abort the whole gate.
+            byte[] bytes = Files.readAllBytes(tmp);
+            return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), false);
         } finally {
             Files.deleteIfExists(tmp);
         }
@@ -357,7 +359,12 @@ public final class GitDiffProvider implements DiffProvider {
                     warnings.add("File skipped (exceeds " + MAX_FILE_SIZE_BYTES + " bytes): " + relativePath);
                     return "";
                 }
-                return Files.readString(fullPath);
+                byte[] bytes = Files.readAllBytes(fullPath);
+                if (looksBinary(bytes)) {
+                    warnings.add("File skipped (binary): " + relativePath);
+                    return "";
+                }
+                return new String(bytes, StandardCharsets.UTF_8);
             }
             String gitPath = relativePath.replace("\\", "/");
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "show", headRef + ":" + gitPath);
@@ -383,5 +390,19 @@ public final class GitDiffProvider implements DiffProvider {
             log.debug("Could not read file content: {}", relativePath, e);
             return "";
         }
+    }
+
+    /** Null byte in the first 8KiB ⇒ treat as binary (git-style heuristic). */
+    static boolean looksBinary(byte[] bytes) {
+        if (bytes == null || bytes.length == 0) {
+            return false;
+        }
+        int n = Math.min(bytes.length, 8192);
+        for (int i = 0; i < n; i++) {
+            if (bytes[i] == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }
