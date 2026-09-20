@@ -409,7 +409,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap
 
-Planned work only. Shipped features: README body + [CHANGELOG.md](CHANGELOG.md).
+Planned work only (no Done / Rejected lists). Shipped features live in this README and [CHANGELOG.md](CHANGELOG.md).
 
 | Horizon | Feature | Notes |
 |---------|---------|--------|
