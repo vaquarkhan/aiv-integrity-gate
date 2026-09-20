@@ -6,6 +6,7 @@
 package io.github.vaquarkhan.aiv.cli;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,12 +28,23 @@ public final class InitCommand {
     }
 
     public static int run(Path workspace) throws IOException {
+        return run(workspace, null);
+    }
+
+    /**
+     * @param preset optional preset id ({@code agent-paste-strict}, {@code java-ci}, {@code minimal})
+     */
+    public static int run(Path workspace, String preset) throws IOException {
         Path dotAiv = workspace.resolve(".aiv");
         Files.createDirectories(dotAiv);
         Path config = dotAiv.resolve("config.yaml");
         if (Files.exists(config)) {
             System.out.println(".aiv/config.yaml already exists - leaving it unchanged.");
             return 0;
+        }
+
+        if (preset != null && !preset.isBlank()) {
+            return writePreset(workspace, preset.trim(), config, dotAiv);
         }
 
         Set<String> langs = detectLanguages(workspace);
@@ -48,6 +60,24 @@ public final class InitCommand {
         }
 
         System.out.println("Wrote " + config.toAbsolutePath());
+        return 0;
+    }
+
+    private static int writePreset(Path workspace, String preset, Path config, Path dotAiv) throws IOException {
+        String resource = "/presets/" + preset + "/config.yaml";
+        try (InputStream in = InitCommand.class.getResourceAsStream(resource)) {
+            if (in == null) {
+                throw new IOException("Unknown preset '" + preset
+                        + "'. Known: agent-paste-strict, java-ci, minimal");
+            }
+            Files.copy(in, config);
+        }
+        Path design = dotAiv.resolve("design-rules.yaml");
+        if (!Files.exists(design)) {
+            Files.writeString(design, defaultDesignRules());
+            System.out.println("Wrote " + design.toAbsolutePath());
+        }
+        System.out.println("Wrote " + config.toAbsolutePath() + " (preset: " + preset + ")");
         return 0;
     }
 

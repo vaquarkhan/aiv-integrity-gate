@@ -62,6 +62,18 @@ Alongside `gates`, you may set:
 | `baseline` | string | Path to baseline suppressions (`rule_id\|file` lines). Or use CLI `--baseline`. |
 | `skip_allowlist` | list of emails | If non-empty, only these **git author emails** may honor `/aiv skip` on the latest commit (case-insensitive). This is metadata from `git log`, not cryptographic proof of identity. |
 
+### Inline suppressions (source comments)
+
+Without a baseline file, suppress findings with comments in the source (any common comment style: `//`, `#`, `--`, `/* */`):
+
+| Directive | Effect |
+|-----------|--------|
+| `aiv-disable-next-line` | Suppress matching findings on the **next** non-empty line |
+| `aiv-disable-line` | Suppress on the **same** line (trailing comment) |
+| `aiv-disable` | File-level: suppress matching findings for that path |
+
+Optional rule id or prefix after the directive (for example `// aiv-disable-next-line invariant.placeholder` or `// aiv-disable security.*`). Bare directive suppresses all rules for that scope.
+
 Example:
 
 ```yaml
@@ -414,6 +426,8 @@ constraints:
 | `--workspace` | Path to repo root              | `.`            |
 | `--diff`      | Base ref for diff              | `origin/main`  |
 | `--head`      | Head ref for diff              | `HEAD`         |
+| `--diff-json` *path* | In-memory / agent diff JSON (skips git). See [MCP.md](MCP.md). | (flag absent) |
+| `--fix` | Opt-in mechanical cleanup of conflict markers and known elision lines in changed files, then re-evaluate. | (flag absent) |
 | `--include-doc-checks` | For this run, wrap config so the **doc-integrity** gate is enabled for documentation files (same effect as turning it on in YAML for local experiments). | (flag absent) |
 | `--doctor`    | Informational run: same checks, exit `0` (tune before enforcement). JSON includes **`doctor_mode: true`**; SARIF includes **`runs[].properties.doctorMode: true`**. | (flag absent) |
 | `--output-json` *path* | Write a JSON report (`schema_version: 2`, top-level **`doctor_mode`**, per-gate **`findings`**) after the run. Treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. | (no file) |
@@ -421,6 +435,7 @@ constraints:
 | `--quiet` | Suppress human stdout report and INFO line (use with `--output-json` / `--output-sarif` for machine-only output). | (flag absent) |
 | `--baseline` *path* | Suppress findings in a baseline file (`rule_id\|file` or `rule_id\|file\|message`). | (flag absent) |
 | `--publish-github-checks` | After a successful run, POST a GitHub Check run with annotations (needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `GITHUB_SHA` or `AIV_GITHUB_HEAD_SHA`). | (flag absent) |
+| `--publish-pr-comments` | Post PR review comments with deterministic fix hints (needs token, repo, SHA, PR number). | (flag absent) |
 | `--label-pr-on-advisory` [*label*] | On pull requests: if advisory (`severity: warn`) findings appear on configured gates (`design` / `invariant` / `density` by default), add a PR label (default `aiv:advisory`); remove it when clean. Needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `AIV_GITHUB_PR_NUMBER` or `GITHUB_EVENT_PATH`. Optional label name after the flag; or set `advisory_pr_label` / `AIV_PR_ADVISORY_LABEL`. | (flag absent) |
 | `--warnings-exit-code` *n* | If the run **passed** but there were **notices** (e.g. skipped oversized files), exit with code *n* (e.g. `4`) instead of `0`. | `0` (disabled) |
 | `--version`, `-V` | Print CLI version and exit   | -              |

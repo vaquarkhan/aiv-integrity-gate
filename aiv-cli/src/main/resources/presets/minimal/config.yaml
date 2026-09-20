@@ -1,0 +1,21 @@
+# Preset: minimal
+# Smallest hard set: parse + invariant only.
+schema_version: 1
+fail_fast: false
+gates:
+  - id: syntax
+    enabled: true
+  - id: invariant
+    enabled: true
+  - id: design
+    enabled: false
+  - id: dependency
+    enabled: false
+  - id: density
+    enabled: false
+  - id: cohesion
+    enabled: false
+  - id: security
+    enabled: false
+  - id: doc-integrity
+    enabled: false

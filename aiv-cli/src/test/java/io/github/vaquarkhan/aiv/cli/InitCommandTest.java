@@ -89,6 +89,22 @@ class InitCommandTest {
     }
 
     @Test
+    void appliesKnownPreset(@TempDir Path root) throws Exception {
+        assertEquals(0, InitCommand.run(root, "minimal"));
+        String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
+        assertTrue(cfg.contains("Preset: minimal") || cfg.contains("id: syntax"));
+        assertTrue(cfg.contains("id: invariant"));
+        assertTrue(Files.exists(root.resolve(".aiv/design-rules.yaml")));
+    }
+
+    @Test
+    void unknownPresetFails(@TempDir Path root) {
+        var ex = org.junit.jupiter.api.Assertions.assertThrows(
+                java.io.IOException.class, () -> InitCommand.run(root, "no-such-preset"));
+        assertTrue(ex.getMessage().contains("Unknown preset"));
+    }
+
+    @Test
     void leavesExistingConfigUnchanged(@TempDir Path root) throws Exception {
         Path dotAiv = Files.createDirectories(root.resolve(".aiv"));
         Path cfg = dotAiv.resolve("config.yaml");

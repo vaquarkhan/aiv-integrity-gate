@@ -6,6 +6,16 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 
 ### User-facing
 
+- **Inline suppressions:** `// aiv-disable-next-line`, `aiv-disable-line`, and file-level `aiv-disable` (optional rule id / prefix). See [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md).
+- **Config presets:** `java -jar aiv-cli.jar init --preset agent-paste-strict|java-ci|minimal` ([`presets/`](presets/)).
+- **Docker + wrappers:** [`Dockerfile`](Dockerfile) (Central JAR), [`scripts/aiv.sh`](scripts/aiv.sh) / [`scripts/aiv.ps1`](scripts/aiv.ps1).
+- **CI snippets:** GitLab CI, Azure Pipelines, and pre-push examples in [`docs/CI-SNIPPETS.md`](docs/CI-SNIPPETS.md).
+- **Demo seed:** [`demos/public-seed/`](demos/public-seed/) minimal PASS/FAIL fixtures for local smoke (public live demo remains [aiv-airflow-bench](https://github.com/vaquarkhan/aiv-airflow-bench)).
+- **Syntax depth:** JS/MJS/CJS via `node --check`; TS via `node --experimental-strip-types --check` when available; Go via `gofmt` stdin. Missing toolchains skip (precision-first). JSX/TSX skipped.
+- **PR review comments:** `--publish-pr-comments` posts line comments with deterministic fix hints (no LLM).
+- **In-memory / agent diff:** `--diff-json <path>` + [`MemoryDiffProvider`](aiv-adapter-git) (see [docs/MCP.md](docs/MCP.md)).
+- **Mechanical `--fix`:** opt-in removal of conflict markers and known elision lines only; then re-evaluates with cleaned contents.
+- **Security gate:** additional high-precision shapes — Stripe `sk_live_`, npm `npm_`, Google `AIza` (still off by default).
 - **Baseline suppressions:** `baseline: .aiv/baseline.txt` or `--baseline path` (lines `rule_id|file` or `rule_id|file|message substring`).
 - **Security gate (`aiv-plugin-security`):** optional added-line secret tripwire (AWS/GitHub/Slack/private key/assigned secrets). Off by default.
 - **Corpora:** `benchmarks/true-positive/` + `benchmarks/high-breakage/run-demo.ps1`.

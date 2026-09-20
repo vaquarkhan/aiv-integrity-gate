@@ -11,6 +11,8 @@
 | **[WHY-NOT-PMD-SEMGREP.md](WHY-NOT-PMD-SEMGREP.md)** | Diff-scoped gate vs whole-repo SAST |
 | **[pipeline-aiv-copilot.md](pipeline-aiv-copilot.md)** | AIV hard gate, then advisory Copilot |
 | **[MAVEN-VERSION.md](MAVEN-VERSION.md)** | Version and Central URL |
+| **[MCP.md](MCP.md)** | In-memory `--diff-json` for agents |
+| **[CI-SNIPPETS.md](CI-SNIPPETS.md)** | GitLab / Azure / pre-push |
 | **[PLUGIN-SECURITY.md](PLUGIN-SECURITY.md)** | Optional secrets gate |
 | **[../benchmarks/true-positive/README.md](../benchmarks/true-positive/README.md)** | True-positive fixtures |
 | **[../benchmarks/high-breakage/README.md](../benchmarks/high-breakage/README.md)** | High-breakage demo corpus |

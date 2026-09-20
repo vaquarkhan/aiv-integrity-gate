@@ -112,7 +112,8 @@ public final class Orchestrator {
             }
             GateResult raw = gate.evaluate(context);
             GateResult severityApplied = applySeverity(raw, gate.getId(), config);
-            GateResult result = applyBaseline(severityApplied, config, workspace);
+            GateResult baselined = applyBaseline(severityApplied, config, workspace);
+            GateResult result = InlineDisableFilter.apply(baselined, context);
             results.add(result);
             if (!result.isPassed()) {
                 log.info("Gate {} failed: {}", gate.getId(), result.getMessage());

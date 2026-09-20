@@ -29,6 +29,9 @@ public final class SecurityGate implements QualityGate {
     private static final Pattern GITHUB_PAT = Pattern.compile("(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9_]{20,}");
     private static final Pattern SLACK_TOKEN = Pattern.compile("xox[baprs]-[0-9A-Za-z-]{10,}");
     private static final Pattern PRIVATE_KEY = Pattern.compile("-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----");
+    private static final Pattern STRIPE_LIVE = Pattern.compile("\\bsk_live_[0-9a-zA-Z]{16,}\\b");
+    private static final Pattern NPM_TOKEN = Pattern.compile("\\bnpm_[A-Za-z0-9]{20,}\\b");
+    private static final Pattern GOOGLE_API_KEY = Pattern.compile("\\bAIza[0-9A-Za-z_\\-]{20,}\\b");
     private static final Pattern GENERIC_ASSIGNED_SECRET = Pattern.compile(
             "(?i)\\b(api[_-]?key|secret[_-]?key|access[_-]?token|auth[_-]?token)\\s*[=:]\\s*['\"][^'\"]{12,}['\"]");
 
@@ -82,6 +85,18 @@ public final class SecurityGate implements QualityGate {
             }
             if (PRIVATE_KEY.matcher(line).find()) {
                 hit(path, i + 1, "security.private-key", "Private key block on added line in " + path,
+                        failures, findings);
+            }
+            if (STRIPE_LIVE.matcher(line).find()) {
+                hit(path, i + 1, "security.stripe-live", "Stripe live secret key on added line in " + path,
+                        failures, findings);
+            }
+            if (NPM_TOKEN.matcher(line).find()) {
+                hit(path, i + 1, "security.npm-token", "npm token on added line in " + path,
+                        failures, findings);
+            }
+            if (GOOGLE_API_KEY.matcher(line).find()) {
+                hit(path, i + 1, "security.google-api-key", "Google API key on added line in " + path,
                         failures, findings);
             }
             if (GENERIC_ASSIGNED_SECRET.matcher(line).find()) {

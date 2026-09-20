@@ -409,47 +409,11 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap
 
-Plain feature list. History: [CHANGELOG.md](CHANGELOG.md).
+Planned work only (no Done / Rejected lists). Shipped features live in this README and [CHANGELOG.md](CHANGELOG.md).
 
-### Done
-
-| Feature | Notes |
-|---------|--------|
-| Syntax gate | Parse check for Java / Python / YAML / JSON on the diff |
-| Design gate | YAML forbidden / required patterns |
-| Dependency gate | Imports vs pom / requirements (stdlib + first-party) |
-| Density / cohesion | Soft signals (`severity: warn` + optional PR label) |
-| Invariant gate | Conflict markers, TBD/FIXME, AI edit-artifacts, provenance, placeholder tests (added lines when diff available) |
-| Doc-integrity gate | Optional; `--include-doc-checks` or config |
-| Security gate | Optional secrets on added lines (`aiv-plugin-security`, off by default) |
-| Baseline | `baseline:` / `--baseline` (format: `rule_id` + file path) |
-| Pre-commit hook | `.pre-commit-hooks.yaml` + scripts |
-| CLI outputs | `--output-json`, `--output-sarif`, GitHub Checks, advisory labels |
-| Composite action | Marketplace / `action.yml` |
-| Local corpora | `benchmarks/true-positive/`, `benchmarks/high-breakage/` |
-| Airflow bench harness | `benchmarks/airflow/` (research; not a product claim) |
-
-### Planned (near term)
-
-Build order: demo repo → inline suppress → Docker → presets / CI snippets → secrets heuristics (FP discipline).
-
-| Feature | Notes |
-|---------|--------|
-| Public demo repo | Seeded PASS and FAIL PRs so anyone can see the gate without building from source |
-| `// aiv-disable-next-line` | Per-line suppress without a baseline file |
-| Docker image (and thin brew / npx wrappers) | Run without a local Maven build; JAR remains the core artifact |
-| Config presets | Starter packs (for example agent-paste-strict) so `.aiv/` is not blank |
-| CI snippets beyond GitHub | Copy-paste GitLab / Azure / generic pre-push examples (CLI already portable) |
-| Broader secret / entropy heuristics | Extend `security` only if false positives stay near zero |
-
-### Planned (later)
-
-| Feature | Notes |
-|---------|--------|
-| More language parse depth | JS/TS (then Go) syntax coverage; spike before committing to a parser stack |
-| PR comments with fix hints | Point at the bad line and what to remove (still no LLM) |
-| MCP / in-memory check | Agent can call the same gates on a proposed diff before commit (`DiffProvider` adapter) |
-| Opt-in mechanical `--fix` | Only for deterministic junk (conflict markers, known elision lines); off by default |
+| Horizon | Feature | Notes |
+|---------|---------|--------|
+| Near term | Broader secret / entropy heuristics | Extend `security` only if false positives stay near zero |
 
 ## License
 

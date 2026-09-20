@@ -1,0 +1,25 @@
+# Preset: java-ci
+# Typical Java repo: syntax + design + dependency hard; invariant on; security off by default.
+schema_version: 1
+fail_fast: false
+gates:
+  - id: syntax
+    enabled: true
+  - id: design
+    enabled: true
+    config:
+      rules_path: .aiv/design-rules.yaml
+  - id: dependency
+    enabled: true
+  - id: invariant
+    enabled: true
+  - id: density
+    enabled: true
+    severity: warn
+  - id: cohesion
+    enabled: true
+    severity: warn
+  - id: security
+    enabled: false
+  - id: doc-integrity
+    enabled: false

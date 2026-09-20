@@ -24,12 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Parse-validity pre-gate. Flags changed files that do not parse - a guaranteed downstream CI
- * failure caught in milliseconds. Runs in-process for Java (JavaParser) and YAML/JSON (SnakeYAML),
- * and delegates Python to an interpreter via {@link PythonSyntaxValidator} (skipped when absent).
- * Designed as a cheap, near-zero-false-positive check to run before an expensive test matrix.
- *
- * @author Vaquar Khan
+ * Parse-validity pre-gate. Java / YAML / JSON in-process; Python / JS / TS / Go via external
+ * toolchains when present (skipped when absent — precision-first).
  */
 public final class SyntaxGate implements QualityGate {
 
@@ -37,13 +33,28 @@ public final class SyntaxGate implements QualityGate {
             new ParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17));
 
     private final SourceValidator pythonValidator;
+    private final SourceValidator jsValidator;
+    private final SourceValidator tsValidator;
+    private final SourceValidator goValidator;
 
     public SyntaxGate() {
-        this(new PythonSyntaxValidator(new ProcessCommandExecutor()));
+        this(new PythonSyntaxValidator(new ProcessCommandExecutor()),
+                new NodeSyntaxValidator(new ProcessCommandExecutor(), false, false),
+                new NodeSyntaxValidator(new ProcessCommandExecutor(), true, false),
+                new GoSyntaxValidator(new ProcessCommandExecutor()));
     }
 
+    /** Test hook: python only; other languages treated as OK skip. */
     SyntaxGate(SourceValidator pythonValidator) {
+        this(pythonValidator, src -> ValidationResult.ok(), src -> ValidationResult.ok(), src -> ValidationResult.ok());
+    }
+
+    SyntaxGate(SourceValidator pythonValidator, SourceValidator jsValidator,
+               SourceValidator tsValidator, SourceValidator goValidator) {
         this.pythonValidator = pythonValidator;
+        this.jsValidator = jsValidator;
+        this.tsValidator = tsValidator;
+        this.goValidator = goValidator;
     }
 
     @Override
@@ -77,8 +88,6 @@ public final class SyntaxGate implements QualityGate {
 
     private ValidationResult validateByType(String lowerPath, String content) {
         if (lowerPath.endsWith(".java")) {
-            // A ".java" file whose first non-blank line starts with '#' is not Java (e.g. a Dockerfile
-            // named Dockerfile.java). Java has no '#' line syntax, so skip rather than false-flag it.
             if (startsWithHash(content)) {
                 return ValidationResult.ok();
             }
@@ -87,12 +96,23 @@ public final class SyntaxGate implements QualityGate {
         if (lowerPath.endsWith(".py")) {
             return pythonValidator.validate(content);
         }
+        if (lowerPath.endsWith(".jsx") || lowerPath.endsWith(".tsx")) {
+            // JSX needs a transform; Node --check alone is high-FP — skip (precision-first).
+            return ValidationResult.ok();
+        }
+        if (lowerPath.endsWith(".ts") || lowerPath.endsWith(".mts")) {
+            return tsValidator.validate(content);
+        }
+        if (lowerPath.endsWith(".js") || lowerPath.endsWith(".mjs") || lowerPath.endsWith(".cjs")) {
+            return jsValidator.validate(content);
+        }
+        if (lowerPath.endsWith(".go")) {
+            return goValidator.validate(content);
+        }
         if (lowerPath.endsWith(".yaml") || lowerPath.endsWith(".yml")) {
             return validateYamlLike(content);
         }
         if (lowerPath.endsWith(".json")) {
-            // TypeScript project config (tsconfig*.json) is JSONC by spec (comments, trailing commas)
-            // and is intentionally not strict JSON/YAML: skip, do not flag.
             if (isTsConfig(lowerPath)) {
                 return ValidationResult.ok();
             }
@@ -131,16 +151,13 @@ public final class SyntaxGate implements QualityGate {
     }
 
     static ValidationResult validateYamlLike(String content) {
-        // Templated YAML/JSON (Helm {{ }}, Jinja {% %}) is intentionally not valid YAML: skip, do not flag.
         if (content.contains("{{") || content.contains("{%")) {
             return ValidationResult.ok();
         }
         try {
-            // loadAll (not load) so multi-document streams (k8s / kustomize manifests with '---'
-            // separators) are accepted; iterate to force lazy parsing of every document.
             Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
             for (Object ignored : yaml.loadAll(content)) {
-                // no-op: iteration drives the parse of each document
+                // drive parse
             }
             return ValidationResult.ok();
         } catch (YAMLException parseError) {
