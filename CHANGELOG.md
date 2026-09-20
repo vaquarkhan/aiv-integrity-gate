@@ -62,4 +62,4 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 
 ### Not in this release
 
-See [README Roadmap → Planned](README.md#roadmap). Shipped items (SARIF, Checks, baseline, security gate, pre-commit, corpora) are listed under **Done** there and under **Unreleased** above until the next version tag.
+See [README Roadmap](README.md#roadmap) (near term / later). Do not advertise estimated CI-cost savings.

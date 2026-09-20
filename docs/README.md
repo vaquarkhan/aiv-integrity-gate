@@ -38,6 +38,6 @@ PNG alternates of the demos (`aiv-demo-fail.png`, `aiv-demo-pass.png`, `aiv-shif
 | [../example-project/](../example-project/) | Minimal sample layout |
 | [../benchmarks/airflow/README.md](../benchmarks/airflow/README.md) | Benchmark harness (optional) |
 
-Maintainers: [internal/](internal/) (strategy and claims - not for public pitch).
+Maintainers: [internal/](internal/) (strategy, claims, due diligence - not for public pitch).
 
 **Author:** Vaquar Khan

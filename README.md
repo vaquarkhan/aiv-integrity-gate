@@ -18,7 +18,7 @@
 
 **Fast, local check on your diff: block won't-parse files, leftover conflict / agent paste junk, fake tautology tests, and bad imports - almost never blocks a good PR.**
 
-Best used at **commit time** ([docs/PRE-COMMIT.md](docs/PRE-COMMIT.md)), with CI as backup.
+Use it so doomed changes fail in seconds (commit hook or CI) instead of after a long matrix. Best at **commit time** ([docs/PRE-COMMIT.md](docs/PRE-COMMIT.md)), with CI as backup.
 
 ## What AIV looks like
 
@@ -367,7 +367,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap
 
-Plain feature list. Details and history: [CHANGELOG.md](CHANGELOG.md).
+Plain feature list. History: [CHANGELOG.md](CHANGELOG.md).
 
 ### Done
 
@@ -387,14 +387,27 @@ Plain feature list. Details and history: [CHANGELOG.md](CHANGELOG.md).
 | Local corpora | `benchmarks/true-positive/`, `benchmarks/high-breakage/` |
 | Airflow bench harness | `benchmarks/airflow/` (research; not a product claim) |
 
-### Planned
+### Planned (near term)
 
 | Feature | Notes |
 |---------|--------|
-| Broader secret / entropy heuristics | Extend `security` only if FP stays near zero |
+| Public demo repo | Seeded PASS and FAIL PRs so anyone can see the gate without building from source |
 | `// aiv-disable-next-line` | Per-line suppress without a baseline file |
-| Public high-breakage demo repo | Seeded GitHub repo that is expected to FAIL (local corpus already exists) |
-| IDE / agent stop hook | Same CLI rules after agent edit (optional; pre-commit remains primary) |
+| Docker image (and thin brew / npx wrappers) | Run without a local Maven build; JAR remains the core artifact |
+| Config presets | Starter packs (for example agent-paste-strict) so `.aiv/` is not blank |
+| CI snippets beyond GitHub | Copy-paste GitLab / Azure / generic pre-push examples (CLI already portable) |
+| Broader secret / entropy heuristics | Extend `security` only if false positives stay near zero |
+
+### Planned (later)
+
+| Feature | Notes |
+|---------|--------|
+| More language parse depth | JS/TS (then Go) syntax coverage; spike before committing to a parser stack |
+| PR comments with fix hints | Point at the bad line and what to remove (still no LLM) |
+| MCP / in-memory check | Agent can call the same gates on a proposed diff before commit (`DiffProvider` adapter) |
+| Opt-in mechanical `--fix` | Only for deterministic junk (conflict markers, known elision lines); off by default |
+
+Not planned near term: estimated "CI minutes saved" badges, org rollup SaaS, or Magpie packaging.
 
 ## License
 

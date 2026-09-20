@@ -14,7 +14,7 @@ What AIV may say in docs, README, sales, and benchmarks.
 ## Never say
 
 - "AIV catches AI slop" (unqualified).
-- Any **measured** CI-cost % or dollar savings for Airflow / AIP-120.
+- Any **measured** or **estimated** CI-cost % / dollar / "minutes saved" for Airflow, AIP-120, or a public badge.
 - "Closed-unmerged PRs are AI slop."
 - "AIV solves AIP-120" or replaces issue-gating / fork-CI.
 - "Zero FP on all Airflow PRs" (materialize/config variants differ).
@@ -24,6 +24,7 @@ What AIV may say in docs, README, sales, and benchmarks.
 
 - "Block broken AI paste, never a good PR."
 - "Catch the paste, not the person."
+- "Catch the PR that can't possibly pass - before CI proves it the slow way."
 - "The commit-time tripwire for objectively broken AI code."
 - "Zero-false-positive floor for the age of AI pull requests."
 
