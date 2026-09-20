@@ -11,14 +11,13 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 - **Corpora:** `benchmarks/true-positive/` + `benchmarks/high-breakage/run-demo.ps1`.
 - **Pre-commit (shift-left):** `.pre-commit-hooks.yaml` + `scripts/aiv-pre-commit.sh` / `.ps1`.
 - **Invariant hard path (unslop-style):** AI edit-artifacts and provenance on **added lines**; `invariant.placeholder-test`.
-- **Positioning docs (maintainers):** README rewritten for what-it-does; stale Airflow evidence brief removed; Airflow claim tags under `benchmarks/airflow/internal/PROOF-CLAIMS.md`.
-- **Airflow E2E benchmark + HTML reports:** [`benchmarks/airflow/`](benchmarks/airflow/) research harness; claim notes under `benchmarks/airflow/internal/`.
+- **Airflow E2E benchmark + HTML reports:** [`benchmarks/airflow/`](benchmarks/airflow/) research harness; public results at [aiv-airflow-bench](https://github.com/vaquarkhan/aiv-airflow-bench) / [Pages](https://vaquarkhan.github.io/aiv-airflow-bench/).
 - **Advisory PR label:** When gates use `severity: warn`, `--label-pr-on-advisory` applies a GitHub PR label (default `aiv:advisory`) and removes it on clean runs. Config: `advisory_pr_label`, `advisory_label_gates`. Composite action inputs: `label-pr-on-advisory`, `advisory-pr-label`.
 - **Syntax gate (`aiv-plugin-syntax`):** parse-validity pre-gate for changed Java, Python, YAML, and JSON. Precision-first skips for missing Python toolchain, Helm/Jinja templates, `tsconfig*.json` (JSONC), and `.java` files that are actually Dockerfiles (`#` first line). Rule id: `syntax.parse`. `aiv explain syntax`.
 - **Dependency gate:** Python **stdlib** allowlist and **first-party** package scan (top-level dirs with `__init__.py`) so legitimate Airflow-style imports are not false-flagged.
 - **Invariant gate:** **AI edit-artifact** rule on code files only (`invariant.ai-edit-artifact`: elision markers, assistant chatter, SEARCH/REPLACE blocks), in addition to merge-conflict and TBD/FIXME/XXX checks.
 - **Two-stage CI:** [`.github/workflows/copilot-review.yml`](.github/workflows/copilot-review.yml) requests advisory Copilot review only after **AIV Gate** succeeds; [`.github/copilot-instructions.md`](.github/copilot-instructions.md) steers generation. See [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md).
-- **Docs:** [ARCHITECTURE.md](docs/ARCHITECTURE.md), [DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md), deepened [TUTORIAL.md](docs/TUTORIAL.md), value-flow and hex-architecture diagrams under `docs/images/`.
+- **Docs:** [ARCHITECTURE.md](docs/ARCHITECTURE.md), [DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md), deepened [TUTORIAL.md](docs/TUTORIAL.md), diagrams under `docs/images/`.
 
 ### Maintainers
 

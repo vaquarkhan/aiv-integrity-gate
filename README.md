@@ -32,8 +32,7 @@ Public bench and live results (separate repo from this source tree):
 | Bench repository | [vaquarkhan/aiv-airflow-bench](https://github.com/vaquarkhan/aiv-airflow-bench) |
 | Published report (GitHub Pages) | [vaquarkhan.github.io/aiv-airflow-bench](https://vaquarkhan.github.io/aiv-airflow-bench/) |
 | Raw JSON on Pages | under `/docs/data` on that site (for example `labeled-latest.json`) |
-| Harness / scripts (this repo) | [`benchmarks/airflow/`](benchmarks/airflow/) |
-| Bench claim tags | [benchmarks/airflow/internal/PROOF-CLAIMS.md](benchmarks/airflow/internal/PROOF-CLAIMS.md) |
+| Harness / scripts (this repo) | [`benchmarks/airflow/`](benchmarks/airflow/) · [METHODOLOGY.md](benchmarks/airflow/METHODOLOGY.md) |
 
 The Pages report is for **independent validation** of labeled fixtures and abandoned-PR recreations. It is research evidence, not a marketing claim about CI cost savings. Reproduce locally with the scripts under `benchmarks/airflow/scripts/` and compare to the published JSON.
 
