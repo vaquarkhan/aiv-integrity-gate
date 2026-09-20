@@ -2,10 +2,13 @@
 
 Scripts and reports to score real/synthetic diffs with `aiv-cli`. This is a **research harness**, not the product homepage story.
 
-| Doc | Audience |
-|-----|----------|
-| [METHODOLOGY.md](METHODOLOGY.md) | How labels / TP / FP are defined |
-| [reports/](reports/) | Generated HTML/JSON |
-| [internal/](internal/) | Maintainer notes (AIP-120, claim drafts) - not public marketing |
+| Resource | URL |
+|----------|-----|
+| Public bench repo | [vaquarkhan/aiv-airflow-bench](https://github.com/vaquarkhan/aiv-airflow-bench) |
+| Published report | [vaquarkhan.github.io/aiv-airflow-bench](https://vaquarkhan.github.io/aiv-airflow-bench/) |
+| Methodology | [METHODOLOGY.md](METHODOLOGY.md) |
+| Local reports | [reports/](reports/) |
+| Maintainer notes | [internal/](internal/) (not marketing) |
+| Claims policy | [docs/internal/CLAIMS.md](../../docs/internal/CLAIMS.md) |
 
-Quick run: see scripts under `scripts/` and [docs/CLAIMS](../../docs/internal/CLAIMS.md) for what numbers mean.
+Quick run: scripts under `scripts/`. Compare outputs to JSON on the Pages site under `/docs/data`.

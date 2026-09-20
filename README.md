@@ -1,28 +1,75 @@
 # AIV Integrity Gate
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-hero-banner.png" alt="AIV Integrity Gate - Diff-scoped integrity gate for AI-era PRs" width="920" />
+  <a href="https://github.com/vaquarkhan/aiv-integrity-gate/actions/workflows/aiv.yml"><img src="https://img.shields.io/github/actions/workflow/status/vaquarkhan/aiv-integrity-gate/aiv.yml?label=CI&style=flat-square" alt="CI status" /></a>
+  <a href="https://central.sonatype.com/artifact/io.github.vaquarkhan/aiv-cli"><img src="https://img.shields.io/maven-central/v/io.github.vaquarkhan/aiv-cli?label=Maven%20Central&style=flat-square" alt="Maven Central" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="Apache 2.0" /></a>
+  <a href="https://vaquarkhan.github.io/aiv-airflow-bench/"><img src="https://img.shields.io/badge/Bench-GitHub%20Pages-0F766E?style=flat-square" alt="Bench report on GitHub Pages" /></a>
 </p>
+
+## Overview
+
+**AIV Integrity Gate** is a **diff-scoped**, **deterministic**, **local-first** integrity gate for Git changes and pull requests. It runs as a shaded Java CLI (no LLM, no API keys required for the hard path). It evaluates **changed files / added lines** and returns a clear pass or fail.
+
+**Primary job:** fail fast on changes that are objectively broken before a long CI matrix runs - for example unparseable files, leftover merge-conflict or agent edit-paste junk, tautology tests, and imports that are not backed by the project lockfile. Soft signals (density, cohesion) stay advisory (`warn` + optional PR label) and are not the sole merge block.
+
+**Design promise:** precision-first - when uncertain, pass. Almost never block a good PR.
+
+| | |
+|--|--|
+| **Current version** | `1.0.4` (reactor / Maven Central / action default) |
+| **Runtime** | JDK 17+, Git |
+| **Install** | Shaded JAR from Maven Central, [composite action](action.yml), [pre-commit](docs/PRE-COMMIT.md) |
+| **License** | [Apache License 2.0](LICENSE) (source license only - **not** an ASF project) |
+| **Author** | Vaquar Khan |
+
+## Evidence and bench
+
+Public bench and live results (separate repo from this source tree):
+
+| Resource | URL |
+|----------|-----|
+| Bench repository | [vaquarkhan/aiv-airflow-bench](https://github.com/vaquarkhan/aiv-airflow-bench) |
+| Published report (GitHub Pages) | [vaquarkhan.github.io/aiv-airflow-bench](https://vaquarkhan.github.io/aiv-airflow-bench/) |
+| Raw JSON on Pages | under `/docs/data` on that site (for example `labeled-latest.json`) |
+| Harness / scripts (this repo) | [`benchmarks/airflow/`](benchmarks/airflow/) |
+| Claim discipline | [docs/internal/CLAIMS.md](docs/internal/CLAIMS.md) |
+
+The Pages report is for **independent validation** of labeled fixtures and abandoned-PR recreations. It is research evidence, not a marketing claim about CI cost savings. Reproduce locally with the scripts under `benchmarks/airflow/scripts/` and compare to the published JSON.
+
+## Documentation map
+
+| Document | Audience |
+|----------|----------|
+| [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) | Commit-time install (recommended) |
+| [docs/TUTORIAL.md](docs/TUTORIAL.md) | First end-to-end setup |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable in a consumer repo / CI |
+| [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | `.aiv/config.yaml` and CLI flags |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Modules, ports, plugins |
+| [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build and contribute to AIV |
+| [docs/WHY-NOT-PMD-SEMGREP.md](docs/WHY-NOT-PMD-SEMGREP.md) | Diff gate vs whole-repo SAST |
+| [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) | Hard gate, then advisory Copilot |
+| [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) | Optional secrets gate |
+| [CHANGELOG.md](CHANGELOG.md) | Release history |
+| [docs/README.md](docs/README.md) | Full doc index |
+
+## How it works
+
+1. Resolve a Git diff between two refs (or staged tree for pre-commit).
+2. Load `.aiv/config.yaml` and discover `QualityGate` plugins via ServiceLoader.
+3. Run enabled gates (syntax, design, dependency, density, cohesion, invariant, optional security / docs).
+4. Print a report; optional `--output-json` / `--output-sarif` / GitHub Checks / advisory PR labels.
+5. Exit `0` pass, `1` gate fail, `2` bad args/config, `3` git failure (see below).
+
+Typical path: **pre-commit** (shift-left) → **CI Action** (backstop) → merge only if hard gates pass. Soft gates may label the PR without failing CI.
+
+### Diagrams (optional)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-value-flow.png" alt="PR diff through Syntax Density Design Dependency Invariant to Pass or Fail" width="920" />
 </p>
 
-<p align="center">
-  <a href="https://github.com/vaquarkhan/aiv-integrity-gate/actions/workflows/aiv.yml"><img src="https://img.shields.io/github/actions/workflow/status/vaquarkhan/aiv-integrity-gate/aiv.yml?label=CI&style=flat-square" alt="CI status" /></a>
-  <a href="https://central.sonatype.com/artifact/io.github.vaquarkhan/aiv-cli"><img src="https://img.shields.io/maven-central/v/io.github.vaquarkhan/aiv-cli?label=Maven%20Central&style=flat-square" alt="Maven Central" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="Apache 2.0" /></a>
-</p>
-
-## One sentence
-
-**Fast, local check on your diff: block won't-parse files, leftover conflict / agent paste junk, fake tautology tests, and bad imports - almost never blocks a good PR.**
-
-Use it so doomed changes fail in seconds (commit hook or CI) instead of after a long matrix. Best at **commit time** ([docs/PRE-COMMIT.md](docs/PRE-COMMIT.md)), with CI as backup.
-
-## What AIV looks like
-
-| Bad agent paste → **FAIL** | Clean diff → **PASS** |
+| Example FAIL | Example PASS |
 |:---:|:---:|
 | <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-demo-fail.png" alt="Caught before CI FAIL findings" width="440" /> | <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-demo-pass.png" alt="Sample AIV Report PASS" width="440" /> |
 
@@ -30,7 +77,13 @@ Use it so doomed changes fail in seconds (commit hook or CI) instead of after a 
   <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-shift-left.png" alt="pre-commit then GitHub Action then merge" width="920" />
 </p>
 
-### Why this adds value
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-hex-architecture.png" alt="AIV hexagonal module architecture" width="560" />
+</p>
+
+More assets: [`docs/images/`](docs/images/).
+
+## What it catches (hard vs soft)
 
 | Without AIV | With AIV |
 |-------------|---------|
@@ -40,39 +93,29 @@ Use it so doomed changes fail in seconds (commit hook or CI) instead of after a 
 | Hallucinated imports look fine until runtime | **Dependency** vs pom / requirements (hard when enabled) |
 | Soft structure signals | **Density / cohesion** warn/label only; optional Copilot after AIV - [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) |
 
-Architecture (hexagonal modules + ServiceLoader plugins):
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-hex-architecture.png" alt="AIV hexagonal module architecture with aiv-core orchestrator" width="560" />
-</p>
-
-Details: **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · Contributor runbook: **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** · Deep walkthrough: **[docs/TUTORIAL.md](docs/TUTORIAL.md)** · Diagrams: **[docs/images/](docs/images/)**
-
 ### Why not PMD, Semgrep, or Checkstyle?
 
-They are great **whole-repo** static analyzers. AIV is a **diff-scoped** integrity gate (density, design YAML, imports vs manifests, **syntax** parse checks, optional docs). See the comparison grid below and [docs/WHY-NOT-PMD-SEMGREP.md](docs/WHY-NOT-PMD-SEMGREP.md).
+They are strong **whole-repo** analyzers. AIV is a **diff-scoped** integrity pre-filter. Use both: AIV first, then depth tools. Details: [docs/WHY-NOT-PMD-SEMGREP.md](docs/WHY-NOT-PMD-SEMGREP.md).
 
 | | **AIV** | **PMD / Semgrep / Checkstyle** |
 |--|---------|--------------------------------|
 | **Scope** | PR diff by default | Project-wide rulesets |
-| **Sweet spot** | Objectively broken AI/agent artifacts + design/import surface on **changed / added** lines | Bugs, style, security patterns across the tree |
+| **Sweet spot** | Objectively broken artifacts on **changed / added** lines | Bugs, style, security patterns across the tree |
 | **Config** | `.aiv/config.yaml` + rules in-repo | Tool-specific XML/YAML |
 | **Air gap** | Single shaded JAR + local rules | Varies; all can run offline |
 
-### Identity (licensing vs project)
+### Identity
 
-- **Maven coordinates:** `io.github.vaquarkhan` - this is **not** an Apache Software Foundation (ASF) project.
-- **License:** [Apache License 2.0](LICENSE) applies to **this software’s source** (standard OSS license text). It does **not** mean ASF incubation or `org.apache.*` packages.
-
-**Author:** Vaquar Khan
+- **Maven group:** `io.github.vaquarkhan` - this is **not** an Apache Software Foundation project.
+- **License:** [Apache License 2.0](LICENSE) on this source - not ASF incubation or `org.apache.*` packages.
 
 ---
 
-## See it in CI
+## See it run
 
-- **Live runs:** [GitHub Actions on this repository](https://github.com/vaquarkhan/aiv-integrity-gate/actions) - open a workflow run and expand the job for pass/fail and logs.
-- **What to look for:** a failing run when a change trips **syntax**, **density**, **design**, **dependency**, or **invariant** (when enabled). Same signal as the demos above.
-- **Diagrams:** [`docs/images/`](docs/images/) (hero, value-flow, fail/pass demos, shift-left, architecture).
+- **This repo CI:** [Actions](https://github.com/vaquarkhan/aiv-integrity-gate/actions)
+- **Bench CI + open PRs:** [aiv-airflow-bench Actions](https://github.com/vaquarkhan/aiv-airflow-bench/actions)
+- **Published metrics / JSON:** [GitHub Pages report](https://vaquarkhan.github.io/aiv-airflow-bench/)
 
 ---
 
