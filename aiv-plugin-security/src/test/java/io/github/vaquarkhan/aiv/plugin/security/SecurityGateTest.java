@@ -139,6 +139,70 @@ class SecurityGateTest {
     }
 
     @Test
+    void failsOnExtendedVendorKeysAndHighEntropy() {
+        var gate = new SecurityGate();
+        String fine = "github_pat_" + "0".repeat(22);
+        String openai = "sk-proj-" + "A".repeat(24);
+        String anthropic = "sk-ant-" + "B".repeat(24);
+        String sendgrid = "SG." + "C".repeat(16) + "." + "D".repeat(16);
+        // high entropy password (mixed charset)
+        String pwdLine = "password = \"a7Kx9!mQ2pL4vN8wR1tY3zU5bC6dE0f\"";
+        String content = fine + "\n" + openai + "\n" + anthropic + "\n" + sendgrid + "\n" + pwdLine + "\n";
+        String raw = "diff --git a/more.env b/more.env\n--- /dev/null\n+++ b/more.env\n@@ -0,0 +1,5 @@\n"
+                + "+" + fine + "\n+" + openai + "\n+" + anthropic + "\n+" + sendgrid + "\n+" + pwdLine + "\n";
+        var ctx = ctx(List.of(new ChangedFile("more.env", ChangedFile.ChangeType.ADDED, content)), raw);
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.github-token".equals(f.getRuleId())));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.openai-key".equals(f.getRuleId())));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.anthropic-key".equals(f.getRuleId())));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.sendgrid-key".equals(f.getRuleId())));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.high-entropy-secret".equals(f.getRuleId())));
+    }
+
+    @Test
+    void entropyIgnoresUuidWithoutSecretKeyword() {
+        var gate = new SecurityGate();
+        String content = "id = \"a7Kx9!mQ2pL4vN8wR1tY3zU5bC6dE0f\"\n";
+        String raw = """
+                diff --git a/u.env b/u.env
+                --- /dev/null
+                +++ b/u.env
+                @@ -0,0 +1 @@
+                +id = "a7Kx9!mQ2pL4vN8wR1tY3zU5bC6dE0f"
+                """;
+        assertTrue(gate.evaluate(ctx(List.of(new ChangedFile("u.env", ChangedFile.ChangeType.ADDED, content)), raw))
+                .isPassed());
+    }
+
+    @Test
+    void entropyIgnoresPlaceholdersAndLowEntropy() {
+        var gate = new SecurityGate();
+        String content = "password = \"xxxxxxxxxxxxxxxxxxxx\"\nsecret = \"changeme_placeholder_xx\"\n";
+        String raw = """
+                diff --git a/p.env b/p.env
+                --- /dev/null
+                +++ b/p.env
+                @@ -0,0 +1,2 @@
+                +password = "xxxxxxxxxxxxxxxxxxxx"
+                +secret = "changeme_placeholder_xx"
+                """;
+        assertTrue(gate.evaluate(ctx(List.of(new ChangedFile("p.env", ChangedFile.ChangeType.ADDED, content)), raw))
+                .isPassed());
+    }
+
+    @Test
+    void entropyHelpers() {
+        assertEquals(0.0, SecurityGate.shannonEntropy(""), 0.001);
+        assertEquals(0.0, SecurityGate.shannonEntropy(null), 0.001);
+        assertEquals(0.0, SecurityGate.shannonEntropy("\u0100\u0101\u0100"), 0.001);
+        assertTrue(SecurityGate.shannonEntropy("a7Kx9!mQ2pL4vN8wR1tY3zU5bC6dE0f")
+                >= SecurityGate.ENTROPY_THRESHOLD);
+        assertTrue(SecurityGate.looksLikePlaceholder("your_password_here_xx"));
+        assertFalse(SecurityGate.looksLikePlaceholder("a7Kx9!mQ2pL4vN8wR1tY3zU5bC6dE0f"));
+    }
+
+    @Test
     void parseAddedLinesSkipsDevNull() {
         String raw = """
                 diff --git a/gone.env b/gone.env

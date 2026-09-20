@@ -409,11 +409,7 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ## Roadmap
 
-Planned work only (no Done / Rejected lists). Shipped features live in this README and [CHANGELOG.md](CHANGELOG.md).
-
-| Horizon | Feature | Notes |
-|---------|---------|--------|
-| Near term | Broader secret / entropy heuristics | Extend `security` only if false positives stay near zero |
+No open near-term items. Shipped features: this README and [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
