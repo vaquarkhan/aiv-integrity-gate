@@ -15,6 +15,7 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 - **PR review comments:** `--publish-pr-comments` posts line comments with deterministic fix hints (no LLM).
 - **In-memory / agent diff:** `--diff-json <path>` + [`MemoryDiffProvider`](aiv-adapter-git) (see [docs/MCP.md](docs/MCP.md)).
 - **Mechanical `--fix`:** opt-in removal of conflict markers and known elision lines only; then re-evaluates with cleaned contents.
+- **Security heuristics (FP-disciplined):** GitHub fine-grained `github_pat_`, OpenAI `sk-proj-`, Anthropic `sk-ant-`, SendGrid `SG.…`, plus keyword-bound high-entropy password/secret assignments (Shannon ≥ 4.5; placeholders skipped). Still off by default.
 - **Security gate:** additional high-precision shapes — Stripe `sk_live_`, npm `npm_`, Google `AIza` (still off by default).
 - **Baseline suppressions:** `baseline: .aiv/baseline.txt` or `--baseline path` (lines `rule_id|file` or `rule_id|file|message substring`).
 - **Security gate (`aiv-plugin-security`):** optional added-line secret tripwire (AWS/GitHub/Slack/private key/assigned secrets). Off by default.

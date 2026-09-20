@@ -47,6 +47,11 @@ public final class GithubPrReviewCommentsPublisher {
             Map.entry("security.stripe-live", "Remove the Stripe live secret; use a secret store."),
             Map.entry("security.npm-token", "Remove the npm token; use a secret store."),
             Map.entry("security.google-api-key", "Remove the Google API key; use a secret store."),
+            Map.entry("security.openai-key", "Remove the OpenAI API key; use a secret store."),
+            Map.entry("security.anthropic-key", "Remove the Anthropic API key; use a secret store."),
+            Map.entry("security.sendgrid-key", "Remove the SendGrid API key; use a secret store."),
+            Map.entry("security.high-entropy-secret",
+                    "Remove the high-entropy password/secret literal; inject from the environment or a vault."),
             Map.entry("security.assigned-secret", "Remove the hard-coded secret assignment; inject at runtime.")
     );
 

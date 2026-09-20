@@ -2,7 +2,12 @@
 
 Shipped as an **optional** gate (`id: security`, **off by default**).
 
-Scans **added lines** for high-confidence credential leaks (AWS key ids, GitHub/Slack tokens, private key headers, obvious `api_key = "..."` assignments).
+Scans **added lines** for high-confidence credential leaks:
+
+- Vendor prefixes (AWS, GitHub, Slack, Stripe, npm, Google, OpenAI, Anthropic, SendGrid)
+- Private key PEM headers
+- Obvious `api_key = "…"` assignments
+- Keyword-bound high-entropy password/secret values (not every random string)
 
 ```yaml
 gates:
