@@ -451,18 +451,6 @@ Build order: demo repo → inline suppress → Docker → presets / CI snippets 
 | MCP / in-memory check | Agent can call the same gates on a proposed diff before commit (`DiffProvider` adapter) |
 | Opt-in mechanical `--fix` | Only for deterministic junk (conflict markers, known elision lines); off by default |
 
-### Rejected
-
-| Item | Why |
-|------|-----|
-| "AI slop catcher" as the product headline | Objective marker-style hits are rare in the wild; lead with won't-parse / conflict / fake-test / bad imports instead |
-| Estimated "CI minutes saved" badges or dollar claims | Not defensible; no measured savings on public surfaces |
-| Org rollup SaaS | Pre-traction |
-| SLSA / provenance attestation product | Premature |
-| Magpie skill packaging | Out of scope |
-| Tree-sitter (or similar) as a hard near-term commit | High effort; spike JS/TS only if needed, under Planned later |
-| Auto-fix as default / headline feature | Trust risk for a precision-first gate; stays opt-in later only |
-
 ## License
 
 Licensed under the **Apache License 2.0** (see [LICENSE](LICENSE)). This is a license on the **source code**, not affiliation with the Apache Software Foundation.
