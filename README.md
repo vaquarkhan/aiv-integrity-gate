@@ -389,6 +389,8 @@ Plain feature list. History: [CHANGELOG.md](CHANGELOG.md).
 
 ### Planned (near term)
 
+Build order: demo repo → inline suppress → Docker → presets / CI snippets → secrets heuristics (FP discipline).
+
 | Feature | Notes |
 |---------|--------|
 | Public demo repo | Seeded PASS and FAIL PRs so anyone can see the gate without building from source |
@@ -407,7 +409,17 @@ Plain feature list. History: [CHANGELOG.md](CHANGELOG.md).
 | MCP / in-memory check | Agent can call the same gates on a proposed diff before commit (`DiffProvider` adapter) |
 | Opt-in mechanical `--fix` | Only for deterministic junk (conflict markers, known elision lines); off by default |
 
-Not planned near term: estimated "CI minutes saved" badges, org rollup SaaS, or Magpie packaging.
+### Rejected
+
+| Item | Why |
+|------|-----|
+| "AI slop catcher" as the product headline | Objective marker-style hits are rare in the wild; lead with won't-parse / conflict / fake-test / bad imports instead |
+| Estimated "CI minutes saved" badges or dollar claims | Not defensible; no measured savings on public surfaces |
+| Org rollup SaaS | Pre-traction |
+| SLSA / provenance attestation product | Premature |
+| Magpie skill packaging | Out of scope |
+| Tree-sitter (or similar) as a hard near-term commit | High effort; spike JS/TS only if needed, under Planned later |
+| Auto-fix as default / headline feature | Trust risk for a precision-first gate; stays opt-in later only |
 
 ## License
 
