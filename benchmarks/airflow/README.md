@@ -9,6 +9,6 @@ Scripts and reports to score real/synthetic diffs with `aiv-cli`. This is a **re
 | Methodology | [METHODOLOGY.md](METHODOLOGY.md) |
 | Local reports | [reports/](reports/) |
 | Maintainer notes | [internal/](internal/) (not marketing) |
-| Claims policy | [docs/internal/CLAIMS.md](../../docs/internal/CLAIMS.md) |
+| Claim tags | [internal/PROOF-CLAIMS.md](internal/PROOF-CLAIMS.md) |
 
 Quick run: scripts under `scripts/`. Compare outputs to JSON on the Pages site under `/docs/data`.

@@ -42,6 +42,6 @@ PNG alternates of the demos (`aiv-demo-fail.png`, `aiv-demo-pass.png`, `aiv-shif
 | [https://github.com/vaquarkhan/aiv-airflow-bench](https://github.com/vaquarkhan/aiv-airflow-bench) | Live bench PRs / Actions |
 | [https://vaquarkhan.github.io/aiv-airflow-bench/](https://vaquarkhan.github.io/aiv-airflow-bench/) | Pages report |
 
-Maintainers: [internal/CLAIMS.md](internal/CLAIMS.md). Roadmap: root [README](../README.md#roadmap).
+Maintainers: [benchmarks/airflow/internal/](../benchmarks/airflow/internal/). Roadmap: root [README](../README.md#roadmap).
 
 **Author:** Vaquar Khan

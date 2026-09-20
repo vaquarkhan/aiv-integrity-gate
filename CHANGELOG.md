@@ -11,7 +11,7 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 - **Corpora:** `benchmarks/true-positive/` + `benchmarks/high-breakage/run-demo.ps1`.
 - **Pre-commit (shift-left):** `.pre-commit-hooks.yaml` + `scripts/aiv-pre-commit.sh` / `.ps1`.
 - **Invariant hard path (unslop-style):** AI edit-artifacts and provenance on **added lines**; `invariant.placeholder-test`.
-- **Positioning docs (maintainers):** [docs/internal/CLAIMS.md](docs/internal/CLAIMS.md); README rewritten for what-it-does; stale Airflow evidence brief removed.
+- **Positioning docs (maintainers):** README rewritten for what-it-does; stale Airflow evidence brief removed; Airflow claim tags under `benchmarks/airflow/internal/PROOF-CLAIMS.md`.
 - **Airflow E2E benchmark + HTML reports:** [`benchmarks/airflow/`](benchmarks/airflow/) research harness; claim notes under `benchmarks/airflow/internal/`.
 - **Advisory PR label:** When gates use `severity: warn`, `--label-pr-on-advisory` applies a GitHub PR label (default `aiv:advisory`) and removes it on clean runs. Config: `advisory_pr_label`, `advisory_label_gates`. Composite action inputs: `label-pr-on-advisory`, `advisory-pr-label`.
 - **Syntax gate (`aiv-plugin-syntax`):** parse-validity pre-gate for changed Java, Python, YAML, and JSON. Precision-first skips for missing Python toolchain, Helm/Jinja templates, `tsconfig*.json` (JSONC), and `.java` files that are actually Dockerfiles (`#` first line). Rule id: `syntax.parse`. `aiv explain syntax`.

@@ -1,6 +1,6 @@
 # Proving product value (claim policy)
 
-**Product story (internal):** tripwire for objectively broken agent/code paste, proven on the **labeled 50**. Airflow abandoned/census = base-rate study only. See [docs/internal/CLAIMS.md](../../../docs/internal/CLAIMS.md).
+**Product story (internal):** tripwire for objectively broken agent/code paste, proven on the **labeled 50**. Airflow abandoned/census = base-rate study only. Public roadmap Rejected list: [README Roadmap](../../../README.md#roadmap).
 
 ## How to read this
 
