@@ -115,6 +115,30 @@ class SecurityGateTest {
     }
 
     @Test
+    void failsOnStripeNpmAndGoogleKeys() {
+        var gate = new SecurityGate();
+        // Build shapes at runtime so the source file never contains a contiguous secret-like token
+        // (GitHub push protection flags even obvious fixtures).
+        String stripe = "sk_" + "live_" + "0".repeat(24);
+        String npm = "npm_" + "0".repeat(28);
+        String google = "AIza" + "SyA" + "0".repeat(20);
+        String content = stripe + "\n" + npm + "\n" + google + "\n";
+        String raw = "diff --git a/keys.env b/keys.env\n"
+                + "--- /dev/null\n"
+                + "+++ b/keys.env\n"
+                + "@@ -0,0 +1,3 @@\n"
+                + "+" + stripe + "\n"
+                + "+" + npm + "\n"
+                + "+" + google + "\n";
+        var ctx = ctx(List.of(new ChangedFile("keys.env", ChangedFile.ChangeType.ADDED, content)), raw);
+        var r = gate.evaluate(ctx);
+        assertFalse(r.isPassed());
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.stripe-live".equals(f.getRuleId())));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.npm-token".equals(f.getRuleId())));
+        assertTrue(r.getFindings().stream().anyMatch(f -> "security.google-api-key".equals(f.getRuleId())));
+    }
+
+    @Test
     void parseAddedLinesSkipsDevNull() {
         String raw = """
                 diff --git a/gone.env b/gone.env

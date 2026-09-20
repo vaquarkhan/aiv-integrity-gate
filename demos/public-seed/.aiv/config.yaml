@@ -1,0 +1,19 @@
+# Demo seed config — syntax + invariant hard; security on for leaked.env
+schema_version: 1
+fail_fast: false
+gates:
+  - id: syntax
+    enabled: true
+  - id: invariant
+    enabled: true
+  - id: security
+    enabled: true
+  - id: density
+    enabled: true
+    severity: warn
+  - id: dependency
+    enabled: false
+  - id: design
+    enabled: false
+  - id: doc-integrity
+    enabled: false

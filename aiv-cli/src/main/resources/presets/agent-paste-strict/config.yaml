@@ -1,0 +1,25 @@
+# Preset: agent-paste-strict
+# Hard gates for objectively broken agent paste; density/cohesion advisory.
+schema_version: 1
+fail_fast: false
+gates:
+  - id: syntax
+    enabled: true
+  - id: invariant
+    enabled: true
+  - id: dependency
+    enabled: true
+  - id: design
+    enabled: true
+    config:
+      rules_path: .aiv/design-rules.yaml
+  - id: security
+    enabled: true
+  - id: density
+    enabled: true
+    severity: warn
+  - id: cohesion
+    enabled: true
+    severity: warn
+  - id: doc-integrity
+    enabled: false

@@ -99,6 +99,20 @@ class SyntaxGateTest {
     }
 
     @Test
+    void routesJsAndGoThroughValidators() {
+        SyntaxGate gate = new SyntaxGate(
+                src -> ValidationResult.ok(),
+                src -> ValidationResult.fail(1, "js-bad"),
+                src -> ValidationResult.fail(2, "ts-bad"),
+                src -> ValidationResult.fail(3, "go-bad"));
+        assertFalse(gate.evaluate(ctx(file("a.js", "const x = ;"))).isPassed());
+        assertFalse(gate.evaluate(ctx(file("a.ts", "const x: number = ;"))).isPassed());
+        assertFalse(gate.evaluate(ctx(file("a.go", "package main"))).isPassed());
+        // JSX skipped (precision-first)
+        assertTrue(gate.evaluate(ctx(file("a.jsx", "<div/>"))).isPassed());
+    }
+
+    @Test
     void failFactoryNormalizesBlankDetailAndLine() {
         ValidationResult blank = ValidationResult.fail(null, "  ");
         assertFalse(blank.valid());

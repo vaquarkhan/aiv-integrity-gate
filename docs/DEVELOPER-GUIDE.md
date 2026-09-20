@@ -71,7 +71,7 @@ java -jar aiv-cli/target/aiv-cli-1.0.4.jar --workspace . --diff HEAD --head HEAD
 | `--quiet` | Suppress human stdout report |
 | `doctor` subcommand | Advisory run; exit 0; JSON sets `doctor_mode: true` |
 | `explain <gate-id>` | Offline help (`syntax`, `density`, …) |
-| `init --workspace .` | Write starter `.aiv/` config |
+| `init --workspace .` | Write starter `.aiv/` config (optional `--preset agent-paste-strict\|java-ci\|minimal`) |
 
 Exit codes: `0` pass, `1` gate fail, `2` bad args/config, `3` git failure.
 

@@ -6,23 +6,30 @@
 package io.github.vaquarkhan.aiv.cli;
 
 import io.github.vaquarkhan.aiv.adapter.git.GitDiffProvider;
+import io.github.vaquarkhan.aiv.adapter.git.MemoryDiffProvider;
 import io.github.vaquarkhan.aiv.adapter.github.GithubChecksPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.GithubPrLabelPublisher;
+import io.github.vaquarkhan.aiv.adapter.github.GithubPrReviewCommentsPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.StdoutReportPublisher;
 import io.github.vaquarkhan.aiv.cli.config.DocChecksConfigProvider;
 import io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider;
 import io.github.vaquarkhan.aiv.core.Orchestrator;
 import io.github.vaquarkhan.aiv.model.AIVConfig;
 import io.github.vaquarkhan.aiv.model.AIVResult;
+import io.github.vaquarkhan.aiv.model.ChangedFile;
+import io.github.vaquarkhan.aiv.model.Diff;
 import io.github.vaquarkhan.aiv.port.ConfigProvider;
+import io.github.vaquarkhan.aiv.port.DiffProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +65,14 @@ public final class Main {
 
         if (args.length > 0 && "init".equals(args[0])) {
             try {
-                return InitCommand.run(parseWorkspace(tail(args)));
+                String[] initArgs = tail(args);
+                String preset = null;
+                for (int i = 0; i < initArgs.length; i++) {
+                    if ("--preset".equals(initArgs[i]) && i + 1 < initArgs.length) {
+                        preset = initArgs[++i];
+                    }
+                }
+                return InitCommand.run(parseWorkspace(initArgs), preset);
             } catch (IOException e) {
                 log.error("init failed: {}", e.getMessage());
                 return 1;
@@ -87,6 +101,9 @@ public final class Main {
         int warningsExitCode = 0;
         boolean quiet = false;
         Path baselinePath = null;
+        Path diffJsonPath = null;
+        boolean publishPrComments = false;
+        boolean mechanicalFix = false;
 
         for (int i = 0; i < gateArgs.length; i++) {
             if ("--quiet".equals(gateArgs[i])) {
@@ -97,6 +114,10 @@ public final class Main {
                 baseRef = gateArgs[++i];
             } else if ("--head".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
                 headRef = gateArgs[++i];
+            } else if ("--diff-json".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+                diffJsonPath = Paths.get(gateArgs[++i]);
+            } else if ("--fix".equals(gateArgs[i])) {
+                mechanicalFix = true;
             } else if ("--include-doc-checks".equals(gateArgs[i])) {
                 includeDocChecks = true;
             } else if ("--doctor".equals(gateArgs[i])) {
@@ -109,6 +130,8 @@ public final class Main {
                 sarifOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
             } else if ("--publish-github-checks".equals(gateArgs[i])) {
                 publishGithubChecks = true;
+            } else if ("--publish-pr-comments".equals(gateArgs[i])) {
+                publishPrComments = true;
             } else if ("--label-pr-on-advisory".equals(gateArgs[i])) {
                 labelPrOnAdvisory = true;
                 if (i + 1 < gateArgs.length && !gateArgs[i + 1].startsWith("-")) {
@@ -125,7 +148,18 @@ public final class Main {
         }
 
         try {
-            var diffProvider = new GitDiffProvider();
+            DiffProvider diffProvider;
+            if (diffJsonPath != null) {
+                Path abs = diffJsonPath.isAbsolute()
+                        ? diffJsonPath.normalize()
+                        : workspace.resolve(diffJsonPath).toAbsolutePath().normalize();
+                diffProvider = MemoryDiffProvider.fromJsonFile(abs);
+            } else {
+                diffProvider = new GitDiffProvider();
+            }
+            if (mechanicalFix) {
+                diffProvider = applyMechanicalFix(workspace, baseRef, headRef, diffProvider);
+            }
             ConfigProvider configProvider = new YamlConfigProvider();
             if (includeDocChecks) {
                 configProvider = new DocChecksConfigProvider(configProvider, true);
@@ -165,6 +199,9 @@ public final class Main {
                     if (publishGithubChecks) {
                         GithubChecksPublisher.publish(last, cliVersion(), GITHUB_ENV);
                     }
+                    if (publishPrComments) {
+                        GithubPrReviewCommentsPublisher.publish(last, GITHUB_ENV);
+                    }
                     if (labelPrOnAdvisory || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_LABEL_PR_ON_ADVISORY")))) {
                         publishAdvisoryPrLabel(workspace, last, advisoryLabelOverride);
                     }
@@ -190,7 +227,41 @@ public final class Main {
         } catch (IllegalStateException e) {
             log.error("AIV git error: {}", e.getMessage());
             return 3;
+        } catch (Exception e) {
+            log.error("AIV error: {}", e.getMessage());
+            return 2;
         }
+    }
+
+    /**
+     * Rewrites workspace files (conflict markers / elision lines), then overlays fixed contents
+     * into an in-memory diff so the subsequent gate run sees the cleaned sources.
+     */
+    static DiffProvider applyMechanicalFix(Path workspace, String baseRef, String headRef, DiffProvider inner)
+            throws IOException {
+        Diff original = inner.getDiff(workspace, baseRef, headRef);
+        List<String> paths = new ArrayList<>();
+        for (ChangedFile f : original.getChangedFiles()) {
+            paths.add(f.getPath());
+        }
+        int n = MechanicalFixer.apply(workspace, paths);
+        if (n > 0) {
+            log.info("Mechanical --fix rewrote {} file(s)", n);
+        }
+        List<ChangedFile> updated = new ArrayList<>();
+        for (ChangedFile f : original.getChangedFiles()) {
+            Path p = workspace.resolve(f.getPath());
+            String content = f.getContent();
+            if (Files.isRegularFile(p)) {
+                content = Files.readString(p, StandardCharsets.UTF_8);
+            }
+            updated.add(new ChangedFile(f.getPath(), f.getChangeType(), content));
+        }
+        return new MemoryDiffProvider(new Diff(
+                original.getBaseRef(), original.getHeadRef(), updated, original.getRawDiff(),
+                original.getLinesAdded(), original.getLinesDeleted(), original.getAuthorEmail(),
+                original.isHeadCommitSigned(), original.isSkipDirectivePresent(),
+                original.getWarnings(), original.getPerFileNetLoc()));
     }
 
     /**

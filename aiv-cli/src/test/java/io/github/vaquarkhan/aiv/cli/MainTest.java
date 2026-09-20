@@ -18,8 +18,11 @@
 package io.github.vaquarkhan.aiv.cli;
 
 import com.sun.net.httpserver.HttpServer;
+import io.github.vaquarkhan.aiv.adapter.git.MemoryDiffProvider;
 import io.github.vaquarkhan.aiv.adapter.github.GithubChecksPublisher;
 import io.github.vaquarkhan.aiv.model.AIVResult;
+import io.github.vaquarkhan.aiv.model.ChangedFile;
+import io.github.vaquarkhan.aiv.model.Diff;
 import io.github.vaquarkhan.aiv.model.GateResult;
 
 import org.junit.jupiter.api.AfterAll;
@@ -293,6 +296,136 @@ class MainTest {
     void initWritesConfig(@TempDir Path empty) {
         assertEquals(0, Main.run(new String[]{"init", "--workspace", empty.toString()}));
         assertTrue(Files.exists(empty.resolve(".aiv/config.yaml")));
+    }
+
+    @Test
+    void initWithPresetWritesConfig(@TempDir Path empty) throws Exception {
+        assertEquals(0, Main.run(new String[]{
+                "init", "--workspace", empty.toString(), "--preset", "java-ci"
+        }));
+        String cfg = Files.readString(empty.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
+        assertTrue(cfg.contains("java-ci") || cfg.contains("id: syntax"));
+    }
+
+    @Test
+    void diffJsonRunsWithoutGit(@TempDir Path empty) throws Exception {
+        Path json = empty.resolve("proposed.json");
+        Files.writeString(json, """
+                {"baseRef":"memory","headRef":"proposed","files":[
+                  {"path":"Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}
+                ]}
+                """, StandardCharsets.UTF_8);
+        Files.createDirectories(empty.resolve(".aiv"));
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                gates:
+                  - id: syntax
+                    enabled: true
+                  - id: density
+                    enabled: false
+                  - id: design
+                    enabled: false
+                  - id: dependency
+                    enabled: false
+                  - id: cohesion
+                    enabled: false
+                  - id: invariant
+                    enabled: false
+                """, StandardCharsets.UTF_8);
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", empty.toString(),
+                "--diff-json", json.toString(),
+                "--quiet"
+        }));
+    }
+
+    @Test
+    void mechanicalFixAndMissingDiffJson(@TempDir Path empty) throws Exception {
+        Files.createDirectories(empty.resolve(".aiv"));
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                gates:
+                  - id: syntax
+                    enabled: true
+                  - id: density
+                    enabled: false
+                  - id: design
+                    enabled: false
+                  - id: dependency
+                    enabled: false
+                  - id: cohesion
+                    enabled: false
+                  - id: invariant
+                    enabled: false
+                """, StandardCharsets.UTF_8);
+        Path java = empty.resolve("Broken.java");
+        Files.writeString(java, "<<<<<<< HEAD\nclass A {}\n=======\nclass B {}\n>>>>>>> x\n", StandardCharsets.UTF_8);
+        Path json = empty.resolve("proposed.json");
+        Files.writeString(json, """
+                {"files":[{"path":"Broken.java","changeType":"MODIFIED","content":"class A {}\\n"}]}
+                """, StandardCharsets.UTF_8);
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", empty.toString(),
+                "--diff-json", json.toString(),
+                "--fix",
+                "--quiet"
+        }));
+        assertFalse(Files.readString(java, StandardCharsets.UTF_8).contains("<<<<<<<"));
+        assertEquals(2, Main.run(new String[]{
+                "--workspace", empty.toString(),
+                "--diff-json", empty.resolve("missing.json").toString(),
+                "--quiet"
+        }));
+    }
+
+    @Test
+    void publishPrCommentsFlagInvokesPublisher(@TempDir Path empty) throws Exception {
+        Path json = empty.resolve("proposed.json");
+        Files.writeString(json, """
+                {"files":[{"path":"Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}]}
+                """, StandardCharsets.UTF_8);
+        Files.createDirectories(empty.resolve(".aiv"));
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                gates:
+                  - id: syntax
+                    enabled: true
+                  - id: density
+                    enabled: false
+                  - id: design
+                    enabled: false
+                  - id: dependency
+                    enabled: false
+                  - id: cohesion
+                    enabled: false
+                  - id: invariant
+                    enabled: false
+                """, StandardCharsets.UTF_8);
+        var prev = Main.GITHUB_ENV;
+        Main.GITHUB_ENV = k -> null;
+        try {
+            // pass run → publisher no-ops without token
+            assertEquals(0, Main.run(new String[]{
+                    "--workspace", empty.toString(),
+                    "--diff-json", json.toString(),
+                    "--publish-pr-comments",
+                    "--quiet"
+            }));
+        } finally {
+            Main.GITHUB_ENV = prev;
+        }
+    }
+
+    @Test
+    void applyMechanicalFixUnit(@TempDir Path dir) throws Exception {
+        Path f = dir.resolve("X.java");
+        Files.writeString(f, "<<<<<<< HEAD\nx\n=======\ny\n>>>>>>> z\n", StandardCharsets.UTF_8);
+        var inner = new MemoryDiffProvider(new Diff("a", "b", List.of(
+                new ChangedFile("X.java", ChangedFile.ChangeType.MODIFIED, "x")), ""));
+        var out = Main.applyMechanicalFix(dir, "a", "b", inner);
+        Diff d = out.getDiff(dir, "a", "b");
+        assertEquals(1, d.getChangedFiles().size());
+        assertFalse(d.getChangedFiles().get(0).getContent().contains("<<<<<<<"));
     }
 
     @Test

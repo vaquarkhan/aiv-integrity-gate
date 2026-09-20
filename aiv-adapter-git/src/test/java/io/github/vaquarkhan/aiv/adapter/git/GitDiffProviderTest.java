@@ -247,6 +247,8 @@ class GitDiffProviderTest {
         assertTrue(diff.getLinesDeleted() >= 0);
         assertTrue(GitDiffProvider.looksBinary(new byte[] {0, 1, 2}));
         assertFalse(GitDiffProvider.looksBinary("hello\n".getBytes(StandardCharsets.UTF_8)));
+        assertFalse(GitDiffProvider.looksBinary(null));
+        assertFalse(GitDiffProvider.looksBinary(new byte[0]));
     }
 
     @Test
