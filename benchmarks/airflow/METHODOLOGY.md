@@ -61,4 +61,4 @@ Reports: `benchmarks/airflow/reports/latest.html` and `latest.json` (plus timest
 ## Gate status
 
 **Done:** added-lines-only hard rules (placeholders + AI edit-artifacts + provenance + placeholder-tests), cohesion advisory, pre-commit packaging.  
-**Optional next:** secrets / security plugin (see root README "What's next"). Do **not** put Magpie/LLM on the hard path.
+**Optional next:** see root README Roadmap (Planned). Do **not** put Magpie/LLM on the hard path.

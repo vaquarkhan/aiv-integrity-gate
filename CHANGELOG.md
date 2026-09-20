@@ -62,4 +62,4 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 
 ### Not in this release
 
-- SARIF output, GitHub Checks annotations, baseline suppressions, and `aiv-plugin-security` are shipped (see Unreleased). Optional next: richer secrets heuristics, line-level disable comments.
+See [README Roadmap → Planned](README.md#roadmap). Shipped items (SARIF, Checks, baseline, security gate, pre-commit, corpora) are listed under **Done** there and under **Unreleased** above until the next version tag.

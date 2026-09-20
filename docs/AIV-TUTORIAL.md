@@ -220,13 +220,9 @@ Documentation:
 - **`aiv explain <gate>`** - built-in docs for each gate (density, design, dependency, syntax, doc-integrity, invariant).
 - **Informative errors.** Every gate failure includes rule id, file path, line number, and a pointer to config docs.
 
-Roadmap items NOT in this version (openly disclosed in README):
+Feature status (done vs planned): see root [README.md](../README.md#roadmap).
 
-- **`aiv-plugin-security`** - secrets, CVE, Semgrep integration.
-- **`--baseline`** - suppress pre-existing violations for gradual adoption.
-- **Labeled precision/recall benchmark.**
-
-Everything up to the Roadmap heading is shipping today in 1.0.4.
+Everything in sections 3–4 below that is not marked planned is available in the current tree (Maven version in root `pom.xml`).
 
 ## 4. Installation
 
@@ -1607,14 +1603,9 @@ java -jar /path/to/aiv-cli.jar explain density
 | Fork-PR handling | 12.2, 14.5 |
 | GitHub Security tab integration | 9.3, 12.2 |
 
-### 15.5 Roadmap - openly disclosed, not yet shipped
+### 15.5 Roadmap
 
-- `aiv-plugin-security` - secrets, CVE, Semgrep integration under the same SPI.
-- `--baseline` - suppress pre-existing violations for gradual adoption on legacy repos.
-- Labeled precision/recall benchmark for each gate.
-- Line-level suppression (`// aiv-disable-next-line`).
-
-Watch https://github.com/vaquarkhan/aiv-integrity-gate for updates.
+See the root [README Roadmap](../README.md#roadmap) (Done / Planned tables). Do not treat older “not yet shipped” lists in this file as current.
 
 ---
 

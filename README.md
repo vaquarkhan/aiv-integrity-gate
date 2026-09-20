@@ -365,15 +365,36 @@ Append `--include-doc-checks` to that command when you want the doc-integrity ga
 
 ---
 
-## What's next (not shipped yet)
+## Roadmap
 
-| Item | Why |
-|------|-----|
-| Broader secret patterns / entropy heuristics | Optional hardening of `security` without raising FP |
-| Line-level `// aiv-disable-next-line` | Local suppress without a baseline file |
-| Live high-breakage public demo repo | Seeded PRs on GitHub (local corpus exists under `benchmarks/high-breakage/`) |
+Plain feature list. Details and history: [CHANGELOG.md](CHANGELOG.md).
 
-**Shipped recently:** baseline suppressions (`baseline:` / `--baseline`), `aiv-plugin-security`, true-positive + high-breakage corpora, pre-commit, added-lines hard rules, placeholder-test. See [CHANGELOG.md](CHANGELOG.md).
+### Done
+
+| Feature | Notes |
+|---------|--------|
+| Syntax gate | Parse check for Java / Python / YAML / JSON on the diff |
+| Design gate | YAML forbidden / required patterns |
+| Dependency gate | Imports vs pom / requirements (stdlib + first-party) |
+| Density / cohesion | Soft signals (`severity: warn` + optional PR label) |
+| Invariant gate | Conflict markers, TBD/FIXME, AI edit-artifacts, provenance, placeholder tests (added lines when diff available) |
+| Doc-integrity gate | Optional; `--include-doc-checks` or config |
+| Security gate | Optional secrets on added lines (`aiv-plugin-security`, off by default) |
+| Baseline | `baseline:` / `--baseline` (format: `rule_id` + file path) |
+| Pre-commit hook | `.pre-commit-hooks.yaml` + scripts |
+| CLI outputs | `--output-json`, `--output-sarif`, GitHub Checks, advisory labels |
+| Composite action | Marketplace / `action.yml` |
+| Local corpora | `benchmarks/true-positive/`, `benchmarks/high-breakage/` |
+| Airflow bench harness | `benchmarks/airflow/` (research; not a product claim) |
+
+### Planned
+
+| Feature | Notes |
+|---------|--------|
+| Broader secret / entropy heuristics | Extend `security` only if FP stays near zero |
+| `// aiv-disable-next-line` | Per-line suppress without a baseline file |
+| Public high-breakage demo repo | Seeded GitHub repo that is expected to FAIL (local corpus already exists) |
+| IDE / agent stop hook | Same CLI rules after agent edit (optional; pre-commit remains primary) |
 
 ## License
 
