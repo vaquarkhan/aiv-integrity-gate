@@ -71,8 +71,12 @@ jobs:
           # Shaded uber JAR (not the thin original-* classifier): must contain CLI entrypoint and bundled deps.
           unzip -l "$JAR" | grep -q 'io/github/vaquarkhan/aiv/cli/Main.class'
           unzip -l "$JAR" | grep -q 'org/slf4j/'
-          gh release create "$TAG" \
-            --repo "${{ github.repository }}" \
-            --title "$TAG" \
-            --generate-notes \
-            "$JAR"
+          if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release upload "$TAG" --repo "${{ github.repository }}" --clobber "$JAR"
+          else
+            gh release create "$TAG" \
+              --repo "${{ github.repository }}" \
+              --title "$TAG" \
+              --generate-notes \
+              "$JAR"
+          fi

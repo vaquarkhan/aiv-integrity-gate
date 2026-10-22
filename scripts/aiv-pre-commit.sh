@@ -19,7 +19,7 @@ if [[ -z "$JAR" ]]; then
     mkdir -p "$CACHE_DIR"
     JAR="$CACHE_DIR/aiv-cli-${VERSION}.jar"
     if [[ ! -f "$JAR" ]]; then
-      URL="https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/${VERSION}/aiv-cli-${VERSION}.jar"
+      URL="https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/${VERSION}/aiv-cli-${VERSION}.jar"
       echo "AIV: downloading CLI $VERSION from Maven Central..."
       curl -fsSL -o "$JAR" "$URL"
     fi

@@ -10,7 +10,7 @@
 <p align="center"><b>A deterministic integrity gate for AI-generated code.</b><br/>
 Ask whether a change is backed by objective evidence and get a structured verdict that binds the exact request and resolved policy.</p>
 
-> **Release 2.0.** Use tag `v2.0`. The Action input `aiv-version` defaults to `2.0`. Coordinates: `io.github.vaquarkhan.aiv:aiv-cli:2.0`.
+> **Release 2.0.** Use tag `v2.0`. The Action input `aiv-version` defaults to `2.0`. Coordinates: `io.github.vaquarkhan:aiv-cli:2.0`.
 
 <p align="center"><img src="docs/images/aiv-architecture.png" alt="AIV architecture: one deterministic engine called from pre-commit, CI, MCP, AI-DLC, and policy engines" width="900" /></p>
 
@@ -89,7 +89,7 @@ You are done when a pull request runs AIV and prints a verdict.
 1. **Get the CLI** for release 2.0:
 
    ```bash
-   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/2.0/aiv-cli-2.0.jar"
+   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/2.0/aiv-cli-2.0.jar"
    ```
 
    Or build tag `v2.0` from source:

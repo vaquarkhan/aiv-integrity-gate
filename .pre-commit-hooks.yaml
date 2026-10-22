@@ -4,7 +4,7 @@
 # Consumer .pre-commit-config.yaml:
 #   repos:
 #     - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-#       rev: v1.0.4   # or a commit SHA / tag
+#       rev: v2.0   # or a commit SHA / tag
 #       hooks:
 #         - id: aiv-gate
 #

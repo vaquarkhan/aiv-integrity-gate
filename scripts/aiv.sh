@@ -7,6 +7,6 @@ JAR="${AIV_CLI_JAR:-$CACHE_DIR/aiv-cli-${AIV_VERSION}.jar}"
 mkdir -p "$(dirname "$JAR")"
 if [[ ! -f "$JAR" ]]; then
   curl -fsSL -o "$JAR" \
-    "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/${AIV_VERSION}/aiv-cli-${AIV_VERSION}.jar"
+    "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/${AIV_VERSION}/aiv-cli-${AIV_VERSION}.jar"
 fi
 exec java -jar "$JAR" "$@"

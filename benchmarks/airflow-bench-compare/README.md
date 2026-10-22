@@ -19,7 +19,7 @@ Apache Airflow PRs, `snapshot/*`).
 ```powershell
 git clone https://github.com/vaquarkhan/aiv-airflow-bench ..\aiv-airflow-bench
 git -C ..\aiv-airflow-bench fetch origin "+refs/heads/*:refs/remotes/origin/*"
-python benchmarks\airflow-bench-compare\run_compare.py --bench ..\aiv-airflow-bench --old <old-jar> --new aiv-cli\target\aiv-cli-1.0.4.jar --out benchmarks\airflow-bench-compare\results
+python benchmarks\airflow-bench-compare\run_compare.py --bench ..\aiv-airflow-bench --old <old-jar> --new aiv-cli\target\aiv-cli-2.0.jar --out benchmarks\airflow-bench-compare\results
 python benchmarks\airflow-bench-compare\aggregate.py benchmarks\airflow-bench-compare\results ..\aiv-airflow-bench
 python benchmarks\airflow-bench-compare\show_findings.py            # hard findings for manual FP review
 ```
@@ -65,7 +65,7 @@ into the working tree and read with `--config-from-workspace`, so this is a meas
 
 ```powershell
 python benchmarks/airflow-bench-compare/run_v2_config.py --bench ../aiv-airflow-bench `
-    --jar aiv-cli/target/aiv-cli-1.0.4.jar --preset aiv-cli/src/main/resources/presets/airflow/config.yaml `
+    --jar aiv-cli/target/aiv-cli-2.0.jar --preset aiv-cli/src/main/resources/presets/airflow/config.yaml `
     --out benchmarks/airflow-bench-compare/results-v2config
 ```
 

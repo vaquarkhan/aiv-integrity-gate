@@ -6,7 +6,7 @@
 set -euo pipefail
 VERSION="${1:-${AIV_VERSION:-2.0}}"
 BASE="${MAVEN_CENTRAL_BASE:-https://repo1.maven.org/maven2}"
-URL="$BASE/io/github/vaquarkhan/aiv/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"
+URL="$BASE/io/github/vaquarkhan/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"
 OUT="${AIV_INSTALL_DIR:-.}/aiv-cli.jar"
 echo "Downloading AIV CLI $VERSION from Maven Central..."
 echo "  $URL"
