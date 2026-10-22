@@ -2,8 +2,6 @@
 
 **By Viquar Khan**
 
-> Editorial format: an original long-form technical article written in an InfoQ-style structure. It is not an InfoQ publication or endorsement.
-
 ## Key takeaways
 
 - AI-assisted delivery has a verification bottleneck: generation scales faster than a maintainer's ability to establish basic facts about a change.
@@ -145,7 +143,7 @@ The bytes hashed into evidence are the bytes consumed by the gates.
 
 ## Strict machine input matters
 
-Agent integration creates another trust boundary. A parser that accepts “almost JSON” can make two clients disagree about the same request.
+Agent integration creates another trust boundary. A parser that accepts "almost JSON" can make two clients disagree about the same request.
 
 AIV's shared `JsonLite` parser enforces RFC 8259 lexical rules:
 
@@ -205,7 +203,7 @@ exact request bytes
 
 ## Visible uncertainty is part of correctness
 
-A tool can be unavailable without the code being valid. A registry can time out without the package being real. A model can fail without the answer being “no.”
+A tool can be unavailable without the code being valid. A registry can time out without the package being real. A model can fail without the answer being "no."
 
 AIV represents those cases rather than collapsing them into a false pass:
 
@@ -272,17 +270,17 @@ Use full-request `aiv verify` for agent or AI-DLC phase decisions. Add audit/anc
 
 The difficult part was not writing one more pattern. It was preserving meaning across boundaries.
 
-“Base-ref config” was not enough because policy had sidecars.
+"Base-ref config" was not enough because policy had sidecars.
 
-“Check policy before use” was not enough because a concurrent writer could change it after the check.
+"Check policy before use" was not enough because a concurrent writer could change it after the check.
 
-“Git status is clean” was not enough because ignored files can still be consumed by globs.
+"Git status is clean" was not enough because ignored files can still be consumed by globs.
 
-“JSON parser” was not enough when it accepted YAML or Java number forms.
+"JSON parser" was not enough when it accepted YAML or Java number forms.
 
-“Hash chain” was not enough without concurrent append locking and an external head.
+"Hash chain" was not enough without concurrent append locking and an external head.
 
-“Same ref” was not enough until the ref was pinned once and the audit record used the same commit.
+"Same ref" was not enough until the ref was pinned once and the audit record used the same commit.
 
 The general lesson is reusable: every product claim must be traced to exact bytes, exact execution, explicit uncertainty, and a consumer-visible result.
 
@@ -292,7 +290,7 @@ Agentic development does not remove the need for engineering evidence. It increa
 
 AIV does not attempt to identify AI authorship or replace human judgement. It turns objective change facts into a policy-bound receipt before detailed review. That gives compilers, scanners, LLM reviewers, orchestrators, and humans a cleaner place to do their own jobs.
 
-The practical value is not “AI code is bad.” The value is that no change, human or generated, should ask a maintainer to rediscover facts a machine can establish reproducibly.
+The practical value is not "AI code is bad." The value is that no change, human or generated, should ask a maintainer to rediscover facts a machine can establish reproducibly.
 
 ## Learn more
 

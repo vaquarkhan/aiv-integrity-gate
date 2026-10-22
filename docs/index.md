@@ -15,6 +15,7 @@ description: Deterministic evidence for agent-generated change.
 
 - [Quick start](TUTORIAL.md)
 - [Complete Hello World: all gates one by one](HELLO-WORLD.md)
+- [One page per gate](GATES.md)
 - [Which modules/gates should I use?](MODULE-ADOPTION-GUIDE.md)
 - [Detailed architecture](ARCHITECTURE.md)
 - [Long-form technical article](blog/AIV-VERIFIABLE-CHANGE.md)

@@ -4,7 +4,7 @@ param(
     [string[]]$AivArgs
 )
 $ErrorActionPreference = "Stop"
-$Version = if ($env:AIV_VERSION) { $env:AIV_VERSION } else { "1.0.4" }
+$Version = if ($env:AIV_VERSION) { $env:AIV_VERSION } else { "2.0" }
 $Cache = if ($env:AIV_HOME) { $env:AIV_HOME } else { Join-Path $HOME ".aiv" }
 $Jar = if ($env:AIV_CLI_JAR) { $env:AIV_CLI_JAR } else { Join-Path $Cache "aiv-cli-$Version.jar" }
 New-Item -ItemType Directory -Force -Path (Split-Path $Jar) | Out-Null

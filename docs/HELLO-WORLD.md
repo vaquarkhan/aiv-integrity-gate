@@ -14,7 +14,7 @@ This tutorial builds the current source version of AIV, creates a small multi-la
 - Python 3 for Python syntax and the AI-DLC wrapper.
 - Node and Go only if you want to exercise those external syntax validators.
 
-This tutorial uses the source-built jar because `aiv verify`, immutable policy snapshots, the AI-DLC plugin, strict RFC JSON, and the hardened Action are next-release capabilities.
+This tutorial builds release 2.0 from source so the lab uses `aiv verify`, the policy snapshot, and the hardened Action.
 
 ## 2. Build the current AIV jar
 
@@ -23,7 +23,7 @@ git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-source
 cd aiv-source
 mvn clean verify
 export AIV_SOURCE="$(pwd)"
-export AIV_JAR="$AIV_SOURCE/aiv-cli/target/aiv-cli-1.0.4.jar"
+export AIV_JAR="$AIV_SOURCE/aiv-cli/target/aiv-cli-2.0.jar"
 java -jar "$AIV_JAR" --version
 cd ..
 ```
@@ -34,11 +34,11 @@ On Windows PowerShell:
 git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-source
 & "C:\tools\apache-maven-3.9.11\bin\mvn.cmd" -f aiv-source\pom.xml clean verify
 $env:AIV_SOURCE = (Resolve-Path aiv-source).Path
-$env:AIV_JAR = Join-Path $env:AIV_SOURCE "aiv-cli\target\aiv-cli-1.0.4.jar"
+$env:AIV_JAR = Join-Path $env:AIV_SOURCE "aiv-cli\target\aiv-cli-2.0.jar"
 java -jar $env:AIV_JAR --version
 ```
 
-Expected: `aiv-cli 1.0.4`. The version remains 1.0.4 until a release preparation changes Maven metadata; source behavior is newer than the published artifact.
+Expected: `aiv-cli 2.0`.
 
 ## 3. Create the lab repository
 
@@ -515,7 +515,7 @@ jobs:
       - uses: vaquarkhan/aiv-integrity-gate@main
         with:
           base-ref: origin/${{ github.base_ref }}
-          cli-jar-path: aiv-cli/target/aiv-cli-1.0.4.jar
+          cli-jar-path: aiv-cli/target/aiv-cli-2.0.jar
           publish-github-checks: "true"
 ```
 

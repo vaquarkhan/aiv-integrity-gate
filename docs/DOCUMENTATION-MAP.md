@@ -7,8 +7,9 @@ This map separates authored product guidance from examples, benchmark evidence, 
 1. [README](../README.md): product overview and entry points.
 2. [Quick start](TUTORIAL.md): build, choose a profile, run locally/strictly.
 3. [Hello World](HELLO-WORLD.md): exercise all 16 gates one by one.
-4. [Module adoption guide](MODULE-ADOPTION-GUIDE.md): mandatory/optional modules and profiles.
-5. [Architecture](ARCHITECTURE.md): eight PNG figures with detailed explanations.
+4. [Gate map](GATES.md): open one gate.
+5. [Module adoption guide](MODULE-ADOPTION-GUIDE.md): mandatory/optional modules and profiles.
+6. [Architecture](ARCHITECTURE.md): eight PNG figures with detailed explanations.
 
 ## Public product guides
 
@@ -16,6 +17,7 @@ This map separates authored product guidance from examples, benchmark evidence, 
 |----------|---------|
 | [TUTORIAL.md](TUTORIAL.md) | first successful run |
 | [HELLO-WORLD.md](HELLO-WORLD.md) | complete hands-on lab |
+| [GATES.md](GATES.md) | one gate at a time |
 | [MODULE-ADOPTION-GUIDE.md](MODULE-ADOPTION-GUIDE.md) | gate/module/profile decisions |
 | [DEVELOPER-CONFIGURATION.md](DEVELOPER-CONFIGURATION.md) | all config keys/defaults |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | local/CI deployment |
@@ -41,7 +43,7 @@ This map separates authored product guidance from examples, benchmark evidence, 
 
 | Artifact | Purpose |
 |----------|---------|
-| [InfoQ-style article](blog/AIV-VERIFIABLE-CHANGE.md) | long-form technical narrative |
+| [Technical article](blog/AIV-VERIFIABLE-CHANGE.md) | long-form technical narrative |
 | [images/](images/) | architecture and gate diagrams used by the docs |
 
 ## Evidence and review records

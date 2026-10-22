@@ -19,7 +19,7 @@ Fixtures live under `fixtures/`. Config: `fixtures/.aiv/config.yaml` (invariant 
 
 ```powershell
 mvn -pl aiv-cli -am package -DskipTests
-java -jar aiv-cli/target/aiv-cli-1.0.4.jar --workspace benchmarks/true-positive/fixtures --diff HEAD
+java -jar aiv-cli/target/aiv-cli-2.0.jar --workspace benchmarks/true-positive/fixtures --diff HEAD
 ```
 
 For a clean git diff, init the fixtures folder as a tiny repo or copy files into a branch. The labeled-50 bench remains the primary precision proof; this corpus documents the defect classes we hard-block.

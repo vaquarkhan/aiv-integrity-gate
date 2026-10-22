@@ -10,7 +10,7 @@
 <p align="center"><b>A deterministic integrity gate for AI-generated code.</b><br/>
 Ask whether a change is backed by objective evidence and get a structured verdict that binds the exact request and resolved policy.</p>
 
-> **Release channels:** Maven Central `1.0.4` and the `@v1` Action provide the stable core gate. The source branch contains the next-release trust boundary, evidence, `aiv verify`, AI-DLC integration, and hardened Action. Build from source and pass the jar through `cli-jar-path` until that release is published.
+> **Release 2.0.** Use tag `v2.0`. The Action input `aiv-version` defaults to `2.0`. Coordinates: `io.github.vaquarkhan.aiv:aiv-cli:2.0`.
 
 <p align="center"><img src="docs/images/aiv-architecture.png" alt="AIV architecture: one deterministic engine called from pre-commit, CI, MCP, AI-DLC, and policy engines" width="900" /></p>
 
@@ -86,13 +86,13 @@ Install routes and the sensor manifest: [integrations/aidlc/](integrations/aidlc
 
 You are done when a pull request runs AIV and prints a verdict.
 
-1. **Get the CLI** - the stable release is on Maven Central:
+1. **Get the CLI** for release 2.0:
 
    ```bash
-   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
+   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/2.0/aiv-cli-2.0.jar"
    ```
 
-   For the newest gates and `aiv verify`, build the jar from source:
+   Or build tag `v2.0` from source:
 
    ```bash
    git clone https://github.com/vaquarkhan/aiv-integrity-gate.git && cd aiv-integrity-gate
@@ -111,12 +111,12 @@ You are done when a pull request runs AIV and prints a verdict.
    ```yaml
    repos:
      - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-       rev: v1.0.4
+       rev: v2.0
        hooks:
          - id: aiv-gate
    ```
 
-4. **Wire CI** - follow the [hardened deployment guide](docs/DEPLOYMENT.md). The next-release Action requires a compatible source/release jar and a positive capability handshake.
+4. **Wire CI** - follow the [deployment guide](docs/DEPLOYMENT.md). The Action uses `aiv-version: 2.0` unless you pass `cli-jar-path` or `cli-jar-url`.
 
 5. **Open a pull request** - see a verdict. Start with [Quick start](docs/TUTORIAL.md), then run the [complete all-gates Hello World](docs/HELLO-WORLD.md).
 
@@ -198,7 +198,7 @@ Details: [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md).
 
 ```bash
 mvn clean verify
-java -jar aiv-cli/target/aiv-cli-1.0.4.jar --diff origin/main
+java -jar aiv-cli/target/aiv-cli-2.0.jar --diff origin/main
 ```
 
 **Exit codes:** `0` pass · `1` a blocking gate failed · `2` bad args/config · `3` git failure.
@@ -226,7 +226,7 @@ Start at the [documentation site](https://vaquarkhan.github.io/aiv-integrity-gat
 | [docs/AIDLC.md](docs/AIDLC.md) | AI-DLC sensor integration |
 | [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | `.aiv/config.yaml` and CLI flags |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 25-project module, runtime, trust, evidence, and deployment architecture |
-| [InfoQ-style technical article](docs/blog/AIV-VERIFIABLE-CHANGE.md) | Long-form verification-gap and architecture narrative |
+| [Technical article](docs/blog/AIV-VERIFIABLE-CHANGE.md) | Long-form verification-gap and architecture narrative |
 | [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build and contribute |
 | [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md) | Audit log, report, proposal checks |
 

@@ -6,7 +6,7 @@
 
     <groupId>io.github.vaquarkhan</groupId>
     <artifactId>aiv-gate</artifactId>
-    <version>1.0.4</version>
+    <version>2.0</version>
     <packaging>pom</packaging>
     <name>AIV Gate - Automated Integrity Validation</name>
     <description>Deterministic, diff-scoped integrity evidence for pull requests, coding agents, and AI-driven development workflows. Local gates can be combined with explicitly declared registry, external-tool, and advisory model inputs.</description>

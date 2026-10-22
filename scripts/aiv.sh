@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Thin wrapper: downloads shaded JAR once, then runs java -jar.
 set -euo pipefail
-AIV_VERSION="${AIV_VERSION:-1.0.4}"
+AIV_VERSION="${AIV_VERSION:-2.0}"
 CACHE_DIR="${AIV_HOME:-${HOME}/.aiv}"
 JAR="${AIV_CLI_JAR:-$CACHE_DIR/aiv-cli-${AIV_VERSION}.jar}"
 mkdir -p "$(dirname "$JAR")"

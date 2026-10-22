@@ -2,7 +2,7 @@
 
 ## Why it exists
 
-Catches **low-signal changes**: empty scaffolding, repetitive boilerplate, and (for Java) classes with almost no real control flow. This is the main statistical signal that a change is “slop” rather than intentional logic.
+Catches **low-signal changes**: empty scaffolding, repetitive boilerplate, and (for Java) classes with almost no real control flow. This is the main statistical signal that a change is "slop" rather than intentional logic.
 
 ## When a finding is legitimate
 

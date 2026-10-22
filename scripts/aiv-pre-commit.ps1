@@ -10,7 +10,7 @@ if ($env:AIV_WORKSPACE) {
     Set-Location (Get-Location)
 }
 
-$Version = if ($env:AIV_VERSION) { $env:AIV_VERSION } else { "1.0.4" }
+$Version = if ($env:AIV_VERSION) { $env:AIV_VERSION } else { "2.0" }
 $Jar = $env:AIV_CLI_JAR
 if (-not $Jar) {
     if (Test-Path ".\aiv-cli.jar") {

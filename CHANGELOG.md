@@ -2,10 +2,11 @@
 
 All notable changes to **AIV Integrity Gate** are documented here. Version numbers follow the Maven reactor (`aiv-gate` parent POM).
 
-## Unreleased
+## 2.0 - 2026-10-22
 
 ### User-facing
 
+- **Release 2.0.** Reactor version, Action `aiv-version` default, install scripts, and user docs use `2.0`. Tag `v2.0`.
 - **v2 trust boundary:** configuration is read from one pinned base-commit OID; the complete `.aiv/` tree (including ignored files) is compared, symlinks/escapes are rejected, and policy blobs are materialized into an immutable per-run snapshot consumed by design, rules, baselines, evidence digests, and audit `policy_commit`. `--require-trusted-config` / `--require-trusted-policy` fail closed; `[CONFIG-CHANGE]` and `[POLICY-FALLBACK]` remain visible. `/aiv skip` is default-deny (allow list + good signature).
 - **New gates:** `test-adequacy` (assertion-free added tests hard; missing tests advisory), `package-existence` (PyPI / npm / Maven Central lookups; UNVERIFIED reported, never hidden), `duplication` (advisory), `external` (runs trusted tools, ingests SARIF as `external.<tool>.<rule>`), `rules` (generic YAML rule engine with shipped packs; `airflow` pack ships), `jev` (opt-in, advisory-only decision-model questions; the only gate that calls a model, never blocks).
 - **Tamper-evident audit:** `--audit-log` / `audit_log` / `AIV_AUDIT_LOG` append each run to a SHA-256 hash chain (`aiv-audit`, now wired into the CLI); the `[AUDIT]` anchor line goes to stdout, the JSON report and the PR comment. `aiv audit verify <log> [--expect-head]`. New notices `[SKIP-HONORED]` and `[SUPPRESSED]` make overrides visible.
@@ -51,7 +52,7 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 ### Breaking changes
 
 - **Maven artifact rename:** `io.github.vaquarkhan:aiv-plugin-design-lucene` is now **`io.github.vaquarkhan:aiv-plugin-design`** (same Java packages). Update any explicit dependency or BOM entry that referenced the old artifact id.
-- **`--output-json` consumers:** JSON reports moved from **`schema_version: 1`** (1.0.3) to **`schema_version: 2`** in 1.0.4. Tooling that assumed the v1 shape must be updated; see this changelog’s 1.0.4 structured JSON bullet for the new fields.
+- **`--output-json` consumers:** JSON reports moved from **`schema_version: 1`** (1.0.3) to **`schema_version: 2`** in 1.0.4. Tooling that assumed the v1 shape must be updated; see this changelog's 1.0.4 structured JSON bullet for the new fields.
 
 ### User-facing
 

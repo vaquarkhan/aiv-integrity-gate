@@ -14,7 +14,7 @@ AIV contains 24 child modules and 16 gate ids, but a user does not install 24 se
 | Run the shaded CLI | `aiv-cli`, `aiv-core`, `aiv-api`, Git/stdout adapters, plus bundled plugin/evidence dependencies |
 | Configure a useful repository gate | no universal set; choose an explicit profile based on the problem |
 
-Do not confuse “bundled” with “enabled.” A plugin jar can be inside the CLI and remain disabled. Conversely, `package-existence` can be enabled but still need registry access to produce confirmed results.
+Do not confuse "bundled" with "enabled." A plugin jar can be inside the CLI and remain disabled. Conversely, `package-existence` can be enabled but still need registry access to produce confirmed results.
 
 ## 2. Recommended starting rule
 
@@ -75,7 +75,7 @@ Legend: **H** hard, **A** advisory, **O** off.
 | license-header | O | O | O | H or A |
 | jev | O | O | O | A only |
 
-“Full governed” is a pattern, not a shipped preset. Build it explicitly for the repository and enable only tools/services available in its CI environment.
+"Full governed" is a pattern, not a shipped preset. Build it explicitly for the repository and enable only tools/services available in its CI environment.
 
 ## 5. Shipped presets
 

@@ -1,6 +1,6 @@
 # CI snippets beyond GitHub Actions
 
-Any CI runner with JDK 17+ and complete Git base history can run AIV. The examples below assume a **compatible hardened jar** supplied from an immutable internal artifact location. Stable Central 1.0.4 is the core release; strict policy/verify behavior is next-release source functionality.
+Any CI runner with JDK 17+ and complete Git base history can run AIV 2.0. Point `AIV_CLI_URL` at `aiv-cli-2.0.jar` from tag `v2.0` or from Maven Central once that coordinate is uploaded.
 
 ## Generic strict CI
 

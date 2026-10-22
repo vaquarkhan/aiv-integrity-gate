@@ -3,7 +3,8 @@ $ErrorActionPreference = 'Stop'
 $Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 Push-Location $Root
 try {
-    $ver = mvn -q -DforceStdout help:evaluate -Dexpression=project.version -f pom.xml
+    $ver = (& mvn -q "-DforceStdout" help:evaluate "-Dexpression=project.version" -f pom.xml | Out-String).Trim()
+    if ($ver -notmatch '^[0-9]+(\.[0-9]+)*$') { throw "Maven did not return a version: $ver" }
 } finally {
     Pop-Location
 }

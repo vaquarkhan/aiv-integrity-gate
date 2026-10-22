@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "${AIV_WORKSPACE:-.}"
 
-VERSION="${AIV_VERSION:-1.0.4}"
+VERSION="${AIV_VERSION:-2.0}"
 JAR="${AIV_CLI_JAR:-}"
 if [[ -z "$JAR" ]]; then
   if [[ -f "./aiv-cli.jar" ]]; then

@@ -4,9 +4,10 @@
 
 1. **[Quick start](TUTORIAL.md):** build current source, choose a profile, run locally and in strict CI.
 2. **[Hello World](HELLO-WORLD.md):** a 30-step lab exercising every gate one by one.
-3. **[Module adoption guide](MODULE-ADOPTION-GUIDE.md):** which modules/gates are mandatory, optional, advisory, or standalone.
-4. **[Architecture](ARCHITECTURE.md):** all 25 projects, runtime/trust/evidence/integration flows with eight explained PNG diagrams.
-5. **[InfoQ-style article](blog/AIV-VERIFIABLE-CHANGE.md):** long-form problem, design, lessons, and adoption narrative.
+3. **[Gate map](GATES.md):** open one gate without walking the whole lab.
+4. **[Module adoption guide](MODULE-ADOPTION-GUIDE.md):** which modules/gates are mandatory, optional, advisory, or standalone.
+5. **[Architecture](ARCHITECTURE.md):** all 25 projects, runtime/trust/evidence/integration flows with eight explained PNG diagrams.
+6. **[Technical article](blog/AIV-VERIFIABLE-CHANGE.md):** long-form problem, design, lessons, and adoption narrative.
 
 ## Operate AIV
 

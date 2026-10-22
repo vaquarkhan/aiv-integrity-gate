@@ -79,7 +79,7 @@ java -jar aiv-cli.jar verify --request req.json --workspace . --audit-log verify
 ```json
 {
   "schema_version": 2,
-  "aiv_cli_version": "1.0.4",
+  "aiv_cli_version": "2.0",
   "verdict": "pass",
   "blocking": false,
   "passed": true,

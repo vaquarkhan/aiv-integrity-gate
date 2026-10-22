@@ -19,9 +19,9 @@ inputs:
     required: false
     default: '17'
   aiv-version:
-    description: 'Released CLI version containing --require-trusted-config. Set after the next hardened release; ignored when cli-jar-path or cli-jar-url is set.'
+    description: 'Released CLI version. Ignored when cli-jar-path or cli-jar-url is set.'
     required: false
-    default: ''
+    default: '2.0'
   maven-central-base:
     description: 'Maven repository base, without a trailing slash.'
     required: false

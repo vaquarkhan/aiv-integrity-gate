@@ -13,12 +13,12 @@ Pre-commit gives developers and coding agents immediate feedback on staged chang
 - pre-commit (for the hook-repository option).
 - curl/PowerShell only when a script downloads a released jar.
 
-## Stable 1.0.4 hook
+## Release 2.0 hook
 
 ```yaml
 repos:
   - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-    rev: v1.0.4
+    rev: v2.0
     hooks:
       - id: aiv-gate
       # - id: aiv-gate-windows
@@ -29,22 +29,22 @@ pre-commit install
 pre-commit run aiv-gate --all-files
 ```
 
-This uses the stable core release behavior. The hook evaluates the staged index against `HEAD`.
+The hook evaluates the staged index against `HEAD`.
 
-## Current source behavior
+## Local jar
 
-For the next-release gates/trust/verify behavior, build the current jar and point the local wrapper at it:
+To run a jar built from tag `v2.0`, point the wrapper at it:
 
 ```bash
 mvn -pl aiv-cli -am clean package
-export AIV_CLI_JAR="$(pwd)/aiv-cli/target/aiv-cli-1.0.4.jar"
+export AIV_CLI_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
 ./scripts/aiv-pre-commit.sh
 ```
 
 Windows PowerShell:
 
 ```powershell
-$env:AIV_CLI_JAR = (Resolve-Path "aiv-cli\target\aiv-cli-1.0.4.jar").Path
+$env:AIV_CLI_JAR = (Resolve-Path "aiv-cli\target\aiv-cli-2.0.jar").Path
 .\scripts\aiv-pre-commit.ps1
 ```
 

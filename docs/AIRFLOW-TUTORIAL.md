@@ -171,7 +171,7 @@ Airflow uses `prek` as its pre-commit runner. Add AIV so contributors see the ev
 # .pre-commit-config.yaml (excerpt)
 repos:
   - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-    rev: v1.0.4
+    rev: v2.0
     hooks:
       - id: aiv-gate
 ```

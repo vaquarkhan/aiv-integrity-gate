@@ -6,10 +6,10 @@
 
 ```bash
 mvn -pl aiv-cli -am clean package
-java -jar aiv-cli/target/aiv-cli-1.0.4.jar --version
+java -jar aiv-cli/target/aiv-cli-2.0.jar --version
 ```
 
-The source branch contains next-release capabilities. The Maven Central 1.0.4 artifact is the stable core release.
+Release 2.0 is `io.github.vaquarkhan.aiv:aiv-cli:2.0`. Tag `v2.0` builds the same jar.
 
 ## Commands
 

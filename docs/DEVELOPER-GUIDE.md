@@ -85,7 +85,7 @@ Build the current source jar so this walkthrough includes schema-v2 verify, immu
 
 ```bash
 mvn -pl aiv-cli -am clean package
-export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-1.0.4.jar"
+export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
 java -jar "$AIV_JAR" verify --capabilities
 ```
 
@@ -244,7 +244,7 @@ When selected findings exist, the PR receives the `AI-SLOP` label and one commen
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-    rev: v1.0.4
+    rev: v2.0
     hooks:
       - id: aiv-gate
 ```

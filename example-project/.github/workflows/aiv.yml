@@ -22,7 +22,7 @@ jobs:
       - name: Download AIV CLI (Maven Central)
         run: |
           curl -fsSL -o aiv-cli.jar \
-            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
+            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/2.0/aiv-cli-2.0.jar"
 
       - name: Run AIV
         id: aiv

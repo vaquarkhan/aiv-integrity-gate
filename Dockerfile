@@ -3,7 +3,7 @@
 # Run:  docker run --rm -v "%cd%:/workspace" -w /workspace aiv-gate:local --diff origin/main
 FROM eclipse-temurin:17-jre-jammy
 
-ARG AIV_VERSION=1.0.4
+ARG AIV_VERSION=2.0
 ENV AIV_VERSION=${AIV_VERSION}
 
 RUN apt-get update \

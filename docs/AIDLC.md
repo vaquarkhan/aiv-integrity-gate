@@ -56,14 +56,14 @@ Full request mode is required when evidence depends on relationships between fil
 
 ## Build prerequisite
 
-The AI-DLC adapter depends on source/next-release `aiv verify`. Build the current jar:
+The AI-DLC adapter calls `aiv verify` from release 2.0. Build the jar:
 
 ```bash
 mvn -pl aiv-cli -am clean package
-export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-1.0.4.jar"
+export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
 ```
 
-The 1.0.4 filename reflects current Maven metadata; verify capabilities are checked through:
+Confirm the jar reports the verify capabilities:
 
 ```bash
 java -jar "$AIV_JAR" verify --capabilities

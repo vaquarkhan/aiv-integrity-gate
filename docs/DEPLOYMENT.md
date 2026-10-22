@@ -8,30 +8,29 @@ AIV is a local/CI executable, not a long-running server. Deployment means placin
 
 ## 1. Choose a distribution channel
 
-### Stable core release
+### Release 2.0
 
-Maven Central 1.0.4 and the `@v1` Action provide the stable core gate:
+Tag `v2.0` and the Action input `aiv-version: 2.0` are this release. The Maven coordinate is `io.github.vaquarkhan.aiv:aiv-cli:2.0`:
 
 ```bash
 curl -fsSL -o aiv-cli.jar \
-  https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar
+  https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/2.0/aiv-cli-2.0.jar
 ```
 
-### Current hardened source
-
-The immutable policy tree, strict RFC JSON, schema-v2 verify, AI-DLC plugin, and hardened Action are next-release source capabilities:
+### Build tag v2.0
 
 ```bash
 git clone https://github.com/vaquarkhan/aiv-integrity-gate.git
 cd aiv-integrity-gate
+git checkout v2.0
 mvn clean verify
-export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-1.0.4.jar"
+export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
 java -jar "$AIV_JAR" verify --capabilities
 ```
 
 A compatible jar reports a successful capability handshake containing `trusted-policy` and `policy-tree-digest`.
 
-For consumer CI before the release, publish the source-built jar as an internal immutable artifact and pass it through `cli-jar-path` or `cli-jar-url`. Do not clone a mutable default branch in every consumer build.
+For consumer CI, pass that jar through `cli-jar-path` or `cli-jar-url`, or set `aiv-version: 2.0`. Do not clone a mutable default branch in every consumer build.
 
 ## 2. Choose an explicit profile
 

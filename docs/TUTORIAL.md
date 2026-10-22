@@ -8,13 +8,13 @@ This page gets the current source build running on one repository. For a guided 
 
 ## 1. Build the current source version
 
-The stable Maven Central artifact remains 1.0.4. The hardened policy snapshot, schema-v2 verify, strict JSON, AI-DLC plugin, and hardened Action are next-release source capabilities.
+Release 2.0 includes the policy snapshot, schema-v2 verify, strict JSON, the AI-DLC plugin, and the hardened Action. Build tag `v2.0`, or download `aiv-cli-2.0.jar` when that coordinate is on Maven Central.
 
 ```bash
 git clone https://github.com/vaquarkhan/aiv-integrity-gate.git
 cd aiv-integrity-gate
 mvn clean verify
-export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-1.0.4.jar"
+export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
 java -jar "$AIV_JAR" verify --capabilities
 ```
 
