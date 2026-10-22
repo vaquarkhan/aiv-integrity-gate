@@ -1,0 +1,10 @@
+title: AIV Integrity Gate
+description: A fast, deterministic integrity gate for AI-generated code. No model calls, no API keys.
+theme: jekyll-theme-cayman
+liquid:
+  error_mode: warn
+exclude:
+  - deck/
+  - reports/
+  - dashboard/
+  - apache/

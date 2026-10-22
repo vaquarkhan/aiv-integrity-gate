@@ -133,6 +133,52 @@ public final class AIVConfig {
         return Optional.empty();
     }
 
+    /** Boolean global setting; accepts YAML booleans and the strings {@code true}/{@code false}. */
+    public boolean getGlobalBoolean(String key, boolean defaultValue) {
+        Object v = globalConfig.get(key);
+        if (v instanceof Boolean b) {
+            return b;
+        }
+        if (v instanceof String s && ("true".equalsIgnoreCase(s.trim()) || "false".equalsIgnoreCase(s.trim()))) {
+            return Boolean.parseBoolean(s.trim());
+        }
+        return defaultValue;
+    }
+
+    /** String-list global setting. Non-string entries are rendered with {@link Object#toString()}. */
+    public List<String> getGlobalStringList(String key) {
+        Object val = globalConfig.get(key);
+        if (val instanceof List) {
+            return ((List<?>) val).stream()
+                    .filter(o -> o != null)
+                    .map(Object::toString)
+                    .map(String::trim)
+                    .filter(s -> !s.isBlank())
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    /** Opt-in label for deterministic findings. The label does not assert AI authorship. */
+    public Optional<String> getAiSlopPrLabel() {
+        return getGlobalString("ai_slop_pr_label");
+    }
+
+    /** When true, publish or update one deterministic findings comment on the pull request. */
+    public boolean isAiSlopPrCommentEnabled() {
+        return getGlobalBoolean("ai_slop_pr_comment", false);
+    }
+
+    /** Gate IDs that qualify for the opt-in AI-SLOP label/comment. Empty means all failed gates. */
+    public List<String> getAiSlopLabelGates() {
+        return getGlobalStringList("ai_slop_label_gates");
+    }
+
+    /** Rule IDs or rule-family wildcards (for example {@code security.*}) qualifying for the opt-in signal. */
+    public List<String> getAiSlopLabelRules() {
+        return getGlobalStringList("ai_slop_label_rules");
+    }
+
     /**
      * Gate ids whose advisory failures trigger {@link #getAdvisoryPrLabel()}. Empty means the
      * publisher default set ({@code design}, {@code invariant}, {@code density}, {@code cohesion}).

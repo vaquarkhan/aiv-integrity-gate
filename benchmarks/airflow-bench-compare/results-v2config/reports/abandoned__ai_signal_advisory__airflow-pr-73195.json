@@ -1,0 +1,72 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "ruff-airflow: no changed files match, not run",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

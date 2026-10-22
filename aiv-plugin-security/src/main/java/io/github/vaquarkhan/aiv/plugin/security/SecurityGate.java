@@ -14,12 +14,14 @@ import io.github.vaquarkhan.aiv.port.QualityGate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * High-precision secret / credential leak tripwire on <em>added</em> lines only.
@@ -51,6 +53,77 @@ public final class SecurityGate implements QualityGate {
     /** Minimum Shannon entropy (bits/char) for {@link #ENTROPY_ASSIGNMENT} values. */
     static final double ENTROPY_THRESHOLD = 4.5;
 
+    /**
+     * Per-repository settings read from the gate's {@code config} map.
+     *
+     * <pre>
+     * - id: security
+     *   config:
+     *     entropy_threshold: 4.5                 # bits/char for keyword-bound password/secret values
+     *     disabled_rules: [high-entropy-secret]  # rule suffixes to skip
+     *     allow_patterns: ["EXAMPLE_KEY_", "test-fixtures/"]   # regex; matching lines are ignored
+     *     extra_patterns:                        # project tokens, rule id becomes security.&lt;key&gt;
+     *       internal-token: "\\bINT-[A-Z0-9]{24}\\b"
+     * </pre>
+     */
+    record Settings(double entropyThreshold, Set<String> disabled, List<Pattern> allow, Map<String, Pattern> extra) {
+
+        static Settings from(Map<String, Object> cfg) {
+            double threshold = cfg.get("entropy_threshold") instanceof Number n ? n.doubleValue() : ENTROPY_THRESHOLD;
+            Set<String> disabled = new HashSet<>();
+            for (String d : strings(cfg.get("disabled_rules"))) {
+                disabled.add(d.toLowerCase(Locale.ROOT).replace("security.", ""));
+            }
+            List<Pattern> allow = new ArrayList<>();
+            for (String regex : strings(cfg.get("allow_patterns"))) {
+                allow.add(compile("security.allow_patterns", regex));
+            }
+            Map<String, Pattern> extra = new LinkedHashMap<>();
+            if (cfg.get("extra_patterns") instanceof Map<?, ?> m) {
+                for (Map.Entry<?, ?> e : m.entrySet()) {
+                    if (e.getKey() != null && e.getValue() != null) {
+                        extra.put(e.getKey().toString().trim().toLowerCase(Locale.ROOT),
+                                compile("security.extra_patterns." + e.getKey(), e.getValue().toString()));
+                    }
+                }
+            }
+            return new Settings(threshold, disabled, allow, extra);
+        }
+
+        boolean enabled(String rule) {
+            return !disabled.contains(rule);
+        }
+
+        boolean allowed(String line) {
+            for (Pattern p : allow) {
+                if (p.matcher(line).find()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    private static Pattern compile(String key, String regex) {
+        try {
+            return Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            throw new IllegalArgumentException(key + ": invalid regex '" + regex + "': " + e.getDescription(), e);
+        }
+    }
+
+    static List<String> strings(Object v) {
+        List<String> out = new ArrayList<>();
+        if (v instanceof List<?> list) {
+            for (Object o : list) {
+                if (o != null && !o.toString().isBlank()) {
+                    out.add(o.toString().trim());
+                }
+            }
+        }
+        return out;
+    }
+
     @Override
     public String getId() {
         return "security";
@@ -61,6 +134,7 @@ public final class SecurityGate implements QualityGate {
         List<String> failures = new ArrayList<>();
         List<Finding> findings = new ArrayList<>();
         Map<String, Set<String>> added = parseAddedLines(context.getDiff().getRawDiff());
+        Settings s = Settings.from(context.getConfig().findGate(getId()).map(g -> g.getConfig()).orElse(Map.of()));
 
         for (ChangedFile f : context.getDiff().getChangedFiles()) {
             String content = f.getContent();
@@ -71,7 +145,7 @@ public final class SecurityGate implements QualityGate {
                     || added.isEmpty()
                     || !added.containsKey(norm(f.getPath()));
             Set<String> lines = scanAll ? null : added.get(norm(f.getPath()));
-            scan(f.getPath(), content, lines, failures, findings);
+            scan(f.getPath(), content, lines, s, failures, findings);
         }
         if (failures.isEmpty()) {
             return GateResult.pass(getId());
@@ -79,71 +153,83 @@ public final class SecurityGate implements QualityGate {
         return GateResult.fail(getId(), String.join("\n", failures), findings);
     }
 
-    private static void scan(
-            String path, String content, Set<String> onlyAdded, List<String> failures, List<Finding> findings) {
+    private static void scan(String path, String content, Set<String> onlyAdded, Settings s,
+                             List<String> failures, List<Finding> findings) {
         String[] lines = content.split("\n", -1);
         for (int i = 0; i < lines.length; i++) {
             String line = lines[i];
             if (onlyAdded != null && !onlyAdded.contains(line)) {
                 continue;
             }
+            if (s.allowed(line)) {
+                continue;
+            }
+            for (Map.Entry<String, Pattern> e : s.extra().entrySet()) {
+                if (e.getValue().matcher(line).find()) {
+                    hit(path, i + 1, "security." + e.getKey(), "Project secret pattern '" + e.getKey()
+                            + "' on added line in " + path, s, failures, findings);
+                }
+            }
             if (AWS_ACCESS_KEY.matcher(line).find()) {
                 hit(path, i + 1, "security.aws-key", "AWS access key id on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (GITHUB_PAT.matcher(line).find() || GITHUB_FINE_PAT.matcher(line).find()) {
                 hit(path, i + 1, "security.github-token", "GitHub token on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (SLACK_TOKEN.matcher(line).find()) {
                 hit(path, i + 1, "security.slack-token", "Slack token on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (PRIVATE_KEY.matcher(line).find()) {
                 hit(path, i + 1, "security.private-key", "Private key block on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (STRIPE_LIVE.matcher(line).find()) {
                 hit(path, i + 1, "security.stripe-live", "Stripe live secret key on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (NPM_TOKEN.matcher(line).find()) {
                 hit(path, i + 1, "security.npm-token", "npm token on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (GOOGLE_API_KEY.matcher(line).find()) {
                 hit(path, i + 1, "security.google-api-key", "Google API key on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (OPENAI_PROJ.matcher(line).find()) {
                 hit(path, i + 1, "security.openai-key", "OpenAI project API key on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (ANTHROPIC_KEY.matcher(line).find()) {
                 hit(path, i + 1, "security.anthropic-key", "Anthropic API key on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (SENDGRID_KEY.matcher(line).find()) {
                 hit(path, i + 1, "security.sendgrid-key", "SendGrid API key on added line in " + path,
-                        failures, findings);
+                        s, failures, findings);
             }
             if (GENERIC_ASSIGNED_SECRET.matcher(line).find()) {
                 hit(path, i + 1, "security.assigned-secret",
-                        "Hard-coded secret assignment on added line in " + path, failures, findings);
+                        "Hard-coded secret assignment on added line in " + path, s, failures, findings);
             }
             Matcher ent = ENTROPY_ASSIGNMENT.matcher(line);
             if (ent.find()) {
                 String value = ent.group(2);
-                if (shannonEntropy(value) >= ENTROPY_THRESHOLD && !looksLikePlaceholder(value)) {
+                if (shannonEntropy(value) >= s.entropyThreshold() && !looksLikePlaceholder(value)) {
                     hit(path, i + 1, "security.high-entropy-secret",
-                            "High-entropy secret assignment on added line in " + path, failures, findings);
+                            "High-entropy secret assignment on added line in " + path, s, failures, findings);
                 }
             }
         }
     }
 
-    private static void hit(
-            String path, int line, String rule, String msg, List<String> failures, List<Finding> findings) {
+    private static void hit(String path, int line, String rule, String msg, Settings s,
+                            List<String> failures, List<Finding> findings) {
+        if (!s.enabled(rule.substring("security.".length()))) {
+            return;
+        }
         failures.add(msg);
         findings.add(Finding.atLine(rule, path, line, msg));
     }

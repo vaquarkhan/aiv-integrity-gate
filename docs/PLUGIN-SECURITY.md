@@ -1,22 +1,57 @@
-# Security plugin (`aiv-plugin-security`)
+# Configure the security gate
 
-Shipped as an **optional** gate (`id: security`, **off by default**).
+The `security` gate is a high-confidence added-line credential tripwire. It is not a full repository/history secret scanner; use the `external` gate to include one.
 
-Scans **added lines** for high-confidence credential leaks:
+Scans added lines for high-confidence credential leaks:
 
 - Vendor prefixes (AWS, GitHub, Slack, Stripe, npm, Google, OpenAI, Anthropic, SendGrid)
 - Private key PEM headers
-- Obvious `api_key = "…"` assignments
-- Keyword-bound high-entropy password/secret values (not every random string)
+- Obvious `api_key` assignments
+- Keyword-bound high-entropy password or secret values, not every random string
+
+## Enable
 
 ```yaml
 gates:
   - id: security
     enabled: true
+    severity: fail
+    config:
+      entropy_threshold: 4.5
+      allow_patterns: ["src/test/resources/fixtures/"]
+      disabled_rules: []
+      extra_patterns:
+        internal-token: "\\bINT-[A-Z0-9]{24}\\b"
 ```
 
-```bash
-java -jar aiv-cli.jar explain security
+## Built-in evidence
+
+Vendor token/key forms, private-key headers, password/secret/token assignments, and keyword-bound high-entropy candidates. Placeholders and reviewed fixture paths can be excluded.
+
+## Added-line scope
+
+With raw diff, only added lines are scanned. File-only agent requests without raw diff evaluate the supplied content. Keep full repository/history scanning in a dedicated tool.
+
+## Combine with a full scanner
+
+```yaml
+  - id: external
+    enabled: true
+    severity: fail
+    config:
+      tools:
+        - id: gitleaks
+          command: ["gitleaks", "detect", "--report-format", "sarif", "--report-path", "{sarif_file}"]
+          sarif: file
+          on_missing: fail
 ```
 
-Not a replacement for enterprise secret scanners; a forever-on tripwire for accidental paste into a PR.
+The external result receives stable `external.gitleaks.*` ids and joins the same JSON/SARIF/GitHub/audit receipt.
+
+## Test
+
+Add a fake known-format key on a branch, run against the base ref, confirm the expected `security.*` rule/file/line, remove it, and confirm the finding clears.
+
+Full algorithm/config/test details: [aiv-plugin-security README](../aiv-plugin-security/README.md). Profile advice: [MODULE-ADOPTION-GUIDE.md](MODULE-ADOPTION-GUIDE.md).
+
+**Author:** Viquar Khan

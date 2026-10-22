@@ -1,0 +1,45 @@
+# Apache Kafka Improvement Proposal (KIP).
+# Source of truth: https://cwiki.apache.org/confluence/display/KAFKA/KIP-Template
+# Template phrases are the template's own instruction sentences; finding one in a published KIP means the
+# instruction was left in place instead of being replaced.
+#
+# Calibrated on the 50 most recent KIPs (October 2026, see docs/EVIDENCE-AND-PROPOSALS.md): heading aliases
+# cover the variants authors actually use ("1 Motivation", "Detailed design", "Testing"), and minimum word
+# counts are low enough that a terse but real answer ("Unit tests.", "None.") passes; an empty heading does not.
+name: kip
+number: "\\bKIP-(\\d+)\\b"
+status_heading: "^status$"
+state_source: field
+state_field: "^current state\\s*:?\\s*(.*)$"
+known_states: [under discussion, in discussion, discussion, discussing, draft, voting, vote, under vote, accepted, adopted,
+               approved, implemented, released, completed, done, rejected, discarded, withdrawn, abandoned, dormant,
+               inactive, superseded, deferred, on hold, in progress, work in progress, wip, postponed, replaced]
+accepted_states: [accepted, adopted, approved, implemented, released, completed, done]
+discussion_link: "lists\\.apache\\.org|mail-archives\\.apache\\.org|markmail\\.org|mail-archive\\.com"
+issue_link: "issues\\.apache\\.org/jira/browse/KAFKA-\\d+|\\bKAFKA-\\d+\\b"
+require_issue_when_accepted: false
+placeholder: "(?-i)\\b(TBD|TODO|FIXME|XXX)\\b|(?i)lorem ipsum"
+required_sections:
+  - {id: motivation, heading: "^(motivation|background)\\b", min_words: 10}
+  - {id: public-interfaces, heading: "\\bpublic interfaces?\\b|^public api\\b|^interface changes\\b", min_words: 3}
+  - {id: proposed-changes, heading: "^(proposed changes?|detailed design|design( details)?|proposal)\\b", min_words: 15}
+  - {id: compatibility, heading: "^(compatibility|backward(s)? compatibility|migration)", min_words: 3}
+  - {id: test-plan, heading: "^(test plan|testing( plan)?|test strategy)\\b", min_words: 2}
+  - {id: rejected-alternatives, heading: "^rejected\\b.*\\balternatives?\\b|^alternatives( considered)?\\b", min_words: 1}
+template_phrases:
+  - "Describe the problems you are trying to solve"
+  - "Briefly list any new interfaces that will be introduced as part of this proposal or any existing interfaces that will be removed or changed"
+  - "Describe the new thing you want to do in appropriate detail"
+  - "What impact (if any) will there be on existing users? If we are changing behavior how will we phase out the older behavior?"
+  - "Describe in few sentences how the KIP will be tested"
+  - "If there are alternative ways of accomplishing the same thing, what were they?"
+  - "One of \"Under Discussion\", \"Accepted\", \"Rejected\""
+  - "Replace anything in italics with your own description"
+  - "DID YOU REMEMBER TO BUMP THE NEXT KIP NUMBER"
+assistant_artifacts:
+  - "^\\s*Thinking\\.\\.\\.\\s*$"
+  - "\\bthought for \\d+ seconds?\\b"
+  - "\\bas an ai (language )?model\\b"
+  - "^\\s*(certainly|sure)[!,] here(?:'s| is)\\b"
+  - "\\bI hope this helps\\b"
+  - "\\blet me know if you (?:need|want|would like)\\b"

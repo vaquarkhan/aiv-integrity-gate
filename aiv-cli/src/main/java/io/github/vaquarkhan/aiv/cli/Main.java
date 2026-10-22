@@ -8,10 +8,12 @@ package io.github.vaquarkhan.aiv.cli;
 import io.github.vaquarkhan.aiv.adapter.git.GitDiffProvider;
 import io.github.vaquarkhan.aiv.adapter.git.MemoryDiffProvider;
 import io.github.vaquarkhan.aiv.adapter.github.GithubChecksPublisher;
+import io.github.vaquarkhan.aiv.adapter.github.GithubPrDeterministicFindingsPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.GithubPrLabelPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.GithubPrReviewCommentsPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.StdoutReportPublisher;
 import io.github.vaquarkhan.aiv.cli.config.DocChecksConfigProvider;
+import io.github.vaquarkhan.aiv.cli.config.GitRefConfigProvider;
 import io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider;
 import io.github.vaquarkhan.aiv.core.Orchestrator;
 import io.github.vaquarkhan.aiv.model.AIVConfig;
@@ -78,6 +80,18 @@ public final class Main {
                 return 1;
             }
         }
+        if (args.length > 0 && "audit".equals(args[0])) {
+            return EvidenceCommands.audit(tail(args), System.out, System.err);
+        }
+        if (args.length > 0 && "report".equals(args[0])) {
+            return EvidenceCommands.report(tail(args), System.out, System.err);
+        }
+        if (args.length > 0 && "proposal".equals(args[0])) {
+            return io.github.vaquarkhan.aiv.proposal.ProposalCli.run(tail(args));
+        }
+        if (args.length > 0 && "verify".equals(args[0])) {
+            return VerifyCommand.run(tail(args), System.in, System.out, System.err);
+        }
         if (args.length > 0 && "explain".equals(args[0])) {
             if (args.length < 2) {
                 System.err.println("Usage: java -jar aiv-cli.jar explain <gate-id>");
@@ -103,18 +117,30 @@ public final class Main {
         Path baselinePath = null;
         Path diffJsonPath = null;
         boolean publishPrComments = false;
+        boolean publishAiSlopLabel = false;
+        boolean publishAiSlopComment = false;
+        String aiSlopLabelOverride = null;
         boolean mechanicalFix = false;
+        boolean configFromWorkspace = false;
+        boolean requireTrustedConfig = false;
+        String auditLogArg = null;
 
         for (int i = 0; i < gateArgs.length; i++) {
             if ("--quiet".equals(gateArgs[i])) {
                 quiet = true;
-            } else if ("--workspace".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--audit-log".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
+                auditLogArg = gateArgs[++i];
+            } else if ("--config-from-workspace".equals(gateArgs[i])) {
+                configFromWorkspace = true;
+            } else if ("--require-trusted-config".equals(gateArgs[i])) {
+                requireTrustedConfig = true;
+            } else if ("--workspace".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 workspace = Paths.get(gateArgs[++i]).toAbsolutePath();
-            } else if ("--diff".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--diff".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 baseRef = gateArgs[++i];
-            } else if ("--head".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--head".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 headRef = gateArgs[++i];
-            } else if ("--diff-json".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--diff-json".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 diffJsonPath = Paths.get(gateArgs[++i]);
             } else if ("--fix".equals(gateArgs[i])) {
                 mechanicalFix = true;
@@ -122,28 +148,38 @@ public final class Main {
                 includeDocChecks = true;
             } else if ("--doctor".equals(gateArgs[i])) {
                 doctor = true;
-            } else if ("--baseline".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--baseline".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 baselinePath = Paths.get(gateArgs[++i]);
-            } else if ("--output-json".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--output-json".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 jsonOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
-            } else if ("--output-sarif".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--output-sarif".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 sarifOutputPath = Paths.get(gateArgs[++i]).toAbsolutePath();
             } else if ("--publish-github-checks".equals(gateArgs[i])) {
                 publishGithubChecks = true;
             } else if ("--publish-pr-comments".equals(gateArgs[i])) {
                 publishPrComments = true;
+            } else if ("--label-ai-slop".equals(gateArgs[i])) {
+                publishAiSlopLabel = true;
+                if (i + 1 < gateArgs.length && !gateArgs[i + 1].startsWith("-")) {
+                    aiSlopLabelOverride = gateArgs[++i];
+                }
+            } else if ("--comment-ai-slop".equals(gateArgs[i])) {
+                publishAiSlopComment = true;
             } else if ("--label-pr-on-advisory".equals(gateArgs[i])) {
                 labelPrOnAdvisory = true;
                 if (i + 1 < gateArgs.length && !gateArgs[i + 1].startsWith("-")) {
                     advisoryLabelOverride = gateArgs[++i];
                 }
-            } else if ("--warnings-exit-code".equals(gateArgs[i]) && i + 1 < gateArgs.length) {
+            } else if ("--warnings-exit-code".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 try {
                     warningsExitCode = Integer.parseInt(gateArgs[++i].trim());
                 } catch (NumberFormatException ex) {
                     log.error("Invalid --warnings-exit-code (expected integer)");
                     return 2;
                 }
+            } else {
+                log.error("Unknown option or missing value: {}", gateArgs[i]);
+                return 2;
             }
         }
 
@@ -161,6 +197,13 @@ public final class Main {
                 diffProvider = applyMechanicalFix(workspace, baseRef, headRef, diffProvider);
             }
             ConfigProvider configProvider = new YamlConfigProvider();
+            GitRefConfigProvider trustedConfigProvider = null;
+            // Trust boundary: judge the PR with the config from the protected base ref, not the PR head.
+            // Only meaningful for a real git diff (the in-memory --diff-json path has no base ref).
+            if (!configFromWorkspace && diffJsonPath == null) {
+                trustedConfigProvider = new GitRefConfigProvider(baseRef, configProvider);
+                configProvider = trustedConfigProvider;
+            }
             if (includeDocChecks) {
                 configProvider = new DocChecksConfigProvider(configProvider, true);
             }
@@ -176,12 +219,77 @@ public final class Main {
                     return new AIVConfig(base.getGates(), global);
                 };
             }
+            // Resolve config once, freeze every policy sidecar, and make gates consume that same snapshot.
+            AIVConfig resolvedConfig = configProvider.getConfig(workspace);
+            boolean policyFallback = trustedConfigProvider != null && trustedConfigProvider.usedFallback();
+            String pinnedPolicyCommit = trustedConfigProvider != null && !policyFallback
+                    ? trustedConfigProvider.resolvedBaseCommit(workspace).orElse(null) : null;
+            if (requireTrustedConfig && trustedConfigProvider == null) {
+                log.error("--require-trusted-config needs a git diff and base-ref policy");
+                return 2;
+            }
+            if (requireTrustedConfig && policyFallback) {
+                log.error("Trusted policy unavailable at {}; workspace fallback refused", baseRef);
+                return 2;
+            }
+            if (requireTrustedConfig && !trustedConfigProvider.policyTreeMatches(workspace)) {
+                log.error("Policy files under .aiv differ from trusted ref {}; policy evaluation refused", baseRef);
+                return 2;
+            }
+            Path policySnapshot = trustedConfigProvider != null && !policyFallback
+                    ? trustedConfigProvider.snapshotPolicyTree(workspace)
+                    : VerifyCommand.snapshotWorkspacePolicy(workspace);
+            if (baselinePath != null) {
+                Path sourceBaseline = baselinePath.isAbsolute() ? baselinePath.normalize()
+                        : workspace.resolve(baselinePath).toAbsolutePath().normalize();
+                Path frozenBaseline = policySnapshot.resolve(".aiv/cli-baseline.txt");
+                Files.createDirectories(frozenBaseline.getParent());
+                Files.copy(sourceBaseline, frozenBaseline, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                Map<String, Object> global = new HashMap<>(resolvedConfig.getGlobalConfig());
+                global.put("baseline", ".aiv/cli-baseline.txt");
+                resolvedConfig = new AIVConfig(resolvedConfig.getGates(), global);
+            }
+            VerifyCommand.policyTreeMaterial(resolvedConfig, policySnapshot);
+            if (requireTrustedConfig) {
+                Map<String, Object> protectedGlobal = new HashMap<>(resolvedConfig.getGlobalConfig());
+                protectedGlobal.put("protect_policy_paths", true);
+                resolvedConfig = new AIVConfig(resolvedConfig.getGates(), protectedGlobal);
+            }
+            AIVConfig finalResolvedConfig = resolvedConfig;
+            configProvider = ignored -> finalResolvedConfig;
             var recording = new RecordingReportPublisher(new StdoutReportPublisher(quiet));
-            var orchestrator = new Orchestrator(diffProvider, configProvider, recording);
-            int coreExit = orchestrator.run(workspace, baseRef, headRef, doctor);
+            int coreExit;
+            try {
+                coreExit = new Orchestrator(diffProvider, configProvider, recording, policySnapshot)
+                        .run(workspace, baseRef, headRef, doctor);
+            } finally {
+                VerifyCommand.deletePolicySnapshot(policySnapshot);
+            }
             AIVResult last = recording.getLastResult();
+            if (last != null && trustedConfigProvider != null && trustedConfigProvider.usedFallback()) {
+                List<String> notices = new ArrayList<>(last.getNotices());
+                notices.add("[POLICY-FALLBACK] trusted policy unavailable at " + baseRef + "; workspace policy used");
+                last = new AIVResult(last.isPassed(), last.getGateResults(), notices);
+                if (!quiet) {
+                    System.out.println(notices.get(notices.size() - 1));
+                }
+            }
             if (last != null) {
                 try {
+                    // The audit log location comes from the same (base-ref) config as the verdict, so a PR cannot
+                    // redirect or switch off its own record. CLI flag and AIV_AUDIT_LOG override for CI jobs.
+                    String auditLog = firstNonBlank(auditLogArg, GITHUB_ENV.apply("AIV_AUDIT_LOG"),
+                            configProvider.getConfig(workspace).getGlobalString("audit_log").orElse(null));
+                    if (auditLog != null) {
+                        Path logPath = Paths.get(auditLog);
+                        logPath = logPath.isAbsolute() ? logPath : workspace.resolve(logPath).normalize();
+                        String source = configFromWorkspace || diffJsonPath != null ? "workspace" : "base-ref";
+                        last = EvidenceCommands.record(logPath, last, workspace, baseRef, headRef, coreExit, doctor,
+                                cliVersion(), source, pinnedPolicyCommit);
+                        if (!quiet) {
+                            System.out.println(last.getNotices().get(last.getNotices().size() - 1));
+                        }
+                    }
                     if (jsonOutputPath != null) {
                         Path parent = jsonOutputPath.getParent();
                         if (parent != null) {
@@ -202,8 +310,26 @@ public final class Main {
                     if (publishPrComments) {
                         GithubPrReviewCommentsPublisher.publish(last, GITHUB_ENV);
                     }
+                    AIVConfig publicationConfig = configProvider.getConfig(workspace);
                     if (labelPrOnAdvisory || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_LABEL_PR_ON_ADVISORY")))) {
-                        publishAdvisoryPrLabel(workspace, last, advisoryLabelOverride);
+                        publishAdvisoryPrLabel(publicationConfig, last, advisoryLabelOverride);
+                    }
+                    // Publication selection comes from the same trusted configuration as the verdict. A pull
+                    // request cannot change which findings are labeled or commented by editing workspace config.
+                    boolean github = inGithubContext(GITHUB_ENV);
+                    boolean configAiSlopLabel = publicationConfig.getAiSlopPrLabel().isPresent();
+                    boolean configAiSlopComment = publicationConfig.isAiSlopPrCommentEnabled();
+                    if (!github && (configAiSlopLabel || configAiSlopComment) && !publishAiSlopLabel && !publishAiSlopComment) {
+                        log.info("AI-SLOP label/comment configured but GITHUB_TOKEN/GITHUB_REPOSITORY are not set; publication skipped (local run)");
+                    }
+                    if (publishAiSlopLabel || (configAiSlopLabel && github)
+                            || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_LABEL_AI_SLOP")))) {
+                        publishAiSlopLabel(last, publicationConfig, aiSlopLabelOverride);
+                    }
+                    if (publishAiSlopComment || (configAiSlopComment && github)
+                            || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_COMMENT_AI_SLOP")))) {
+                        GithubPrDeterministicFindingsPublisher.publish(last,
+                                publicationConfig.getAiSlopLabelGates(), publicationConfig.getAiSlopLabelRules(), GITHUB_ENV);
                     }
                 } catch (IOException e) {
                     log.error("Could not write report: {}", e.getMessage());
@@ -275,9 +401,8 @@ public final class Main {
         return coreExit;
     }
 
-    static void publishAdvisoryPrLabel(Path workspace, AIVResult last, String labelOverride)
+    static void publishAdvisoryPrLabel(AIVConfig cfg, AIVResult last, String labelOverride)
             throws IOException, InterruptedException {
-        AIVConfig cfg = new YamlConfigProvider().getConfig(workspace);
         String label = firstNonBlank(
                 labelOverride,
                 GITHUB_ENV.apply("AIV_PR_ADVISORY_LABEL"),
@@ -285,6 +410,21 @@ public final class Main {
                 GithubPrLabelPublisher.DEFAULT_LABEL);
         List<String> gates = cfg.getAdvisoryLabelGates();
         GithubPrLabelPublisher.apply(last, label, gates, GITHUB_ENV);
+    }
+
+    static void publishAiSlopLabel(AIVResult last, AIVConfig cfg, String labelOverride)
+            throws IOException, InterruptedException {
+        String label = firstNonBlank(labelOverride, GITHUB_ENV.apply("AIV_AI_SLOP_LABEL"),
+                cfg.getAiSlopPrLabel().orElse(null), "AI-SLOP");
+        GithubPrLabelPublisher.applyForSelectedFindings(last, label, cfg.getAiSlopLabelGates(),
+                cfg.getAiSlopLabelRules(), GITHUB_ENV);
+    }
+
+    /** True when a token and an owner/repo are available, i.e. GitHub publication can be attempted. */
+    static boolean inGithubContext(java.util.function.Function<String, String> env) {
+        String token = env.apply("GITHUB_TOKEN");
+        String repo = env.apply("GITHUB_REPOSITORY");
+        return token != null && !token.isBlank() && repo != null && repo.contains("/");
     }
 
     static String firstNonBlank(String... values) {
@@ -297,6 +437,10 @@ public final class Main {
             }
         }
         return null;
+    }
+
+    private static boolean hasValue(String[] args, int index) {
+        return index + 1 < args.length && !args[index + 1].startsWith("--");
     }
 
     private static String blankToEmpty(String s) {

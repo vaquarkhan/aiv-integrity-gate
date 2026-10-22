@@ -59,6 +59,31 @@ class SarifReportWriterTest {
     }
 
     @Test
+    void writesPassWithUnverifiedFindingAsNote(@TempDir Path dir) throws Exception {
+        Path out = dir.resolve("unverified.sarif");
+        Finding finding = Finding.atLine("syntax.unverified", "a.tsx", 1, "transform unavailable");
+        GateResult unverified = new GateResult("syntax", true, "SKIPPED", false, List.of(finding));
+        SarifReportWriter.write(new AIVResult(true, List.of(unverified)), out, "1.0");
+        String sarif = Files.readString(out);
+        assertTrue(sarif.contains("syntax.unverified"));
+        assertTrue(sarif.contains("\"level\": \"note\""));
+    }
+
+    @Test
+    void preservesBlockingAndAdvisorySeverity(@TempDir Path dir) throws Exception {
+        Path out = dir.resolve("severity.sarif");
+        var result = new AIVResult(false, List.of(
+                GateResult.fail("hard", "blocked"),
+                GateResult.advisory("soft", "review")));
+        SarifReportWriter.write(result, out, "1.0");
+        String s = Files.readString(out);
+        assertTrue(s.contains("\"ruleId\": \"hard.gate\""));
+        assertTrue(s.contains("\"level\": \"error\""));
+        assertTrue(s.contains("\"ruleId\": \"soft.gate\""));
+        assertTrue(s.contains("\"level\": \"warning\""));
+    }
+
+    @Test
     void writesSarifVersionAndResult(@TempDir Path dir) throws Exception {
         Path out = dir.resolve("out.sarif");
         var f = Finding.atLine("density.entropy", "a/B.java", 4, "low entropy");

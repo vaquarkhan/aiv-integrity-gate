@@ -1,52 +1,79 @@
-# AIV Integrity Gate - GitHub Marketplace / composite action
-# Usage (after a release is on Maven Central or you pass cli-jar-url):
-#   - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
-#     with:
-#       fetch-depth: 0
-#   - uses: vaquarkhan/aiv-integrity-gate@v1
-#     with:
-#       base-ref: origin/${{ github.base_ref }}
-#
+# AIV Integrity Gate composite action
 # Author: Vaquar Khan
 name: 'AIV Integrity Gate'
-description: 'Run Automated Integrity Validation on PR diffs (syntax, density, design, dependency, optional invariant/doc checks). Downloads the shaded CLI uber JAR from Maven Central by default.'
+description: 'Run deterministic integrity checks on a pull-request diff and emit JSON and SARIF evidence.'
 branding:
   icon: 'shield'
   color: 'blue'
 
 inputs:
   base-ref:
-    description: 'Base ref for the diff (for example origin/main). On pull_request use origin/${{ github.base_ref }}.'
+    description: 'Base ref for the diff, for example origin/${{ github.base_ref }}.'
     required: true
   workspace:
-    description: 'Repository root to analyze'
+    description: 'Repository root to analyze.'
     required: false
     default: '${{ github.workspace }}'
   java-version:
-    description: 'JDK version used to run the CLI JAR'
+    description: 'JDK version used to run AIV.'
     required: false
     default: '17'
-  # Release checklist: bump this default to match the reactor <version> in pom.xml when tagging a release.
   aiv-version:
-    description: 'Released CLI version (io.github.vaquarkhan.aiv:aiv-cli on Maven Central). Ignored if cli-jar-url is set.'
+    description: 'Released CLI version. Ignored when cli-jar-path or cli-jar-url is set.'
     required: false
-    default: '1.0.4'
+    default: '2.0'
   maven-central-base:
-    description: 'Maven repository base (no trailing slash). Path io/github/vaquarkhan/aiv/aiv-cli/... is appended.'
+    description: 'Maven repository base, without a trailing slash.'
     required: false
     default: 'https://repo1.maven.org/maven2'
-  cli-jar-url:
-    description: 'Optional full URL to the shaded aiv-cli JAR. When set, skips Maven Central and downloads this file instead (for example a GitHub Release asset before Central publish).'
+  cli-jar-path:
+    description: 'Optional path to an already-built AIV CLI jar. Preferred for testing an unreleased build.'
     required: false
     default: ''
+  cli-jar-url:
+    description: 'Optional full URL to an AIV CLI jar. Used when cli-jar-path is empty.'
+    required: false
+    default: ''
+  output-json:
+    description: 'Path for the versioned JSON report, relative to the workspace unless absolute.'
+    required: false
+    default: 'aiv-report.json'
+  output-sarif:
+    description: 'Path for the SARIF 2.1.0 report, relative to the workspace unless absolute.'
+    required: false
+    default: 'aiv-results.sarif'
+  publish-github-checks:
+    description: 'Publish a GitHub Check with annotations. Requires checks: write.'
+    required: false
+    default: 'false'
   label-pr-on-advisory:
-    description: 'When true on pull_request, apply/remove a PR label for advisory (severity=warn) findings without failing CI. Requires pull-requests: write.'
+    description: 'Apply/remove a label for advisory findings. Requires pull-requests: write.'
     required: false
     default: 'false'
   advisory-pr-label:
-    description: 'Label name used when label-pr-on-advisory is true (default aiv:advisory).'
+    description: 'Label name used when label-pr-on-advisory is true.'
     required: false
     default: 'aiv:advisory'
+  label-ai-slop:
+    description: 'Apply/remove an opt-in label for configured deterministic findings. Does not infer authorship.'
+    required: false
+    default: 'false'
+  ai-slop-label:
+    description: 'Label name used when label-ai-slop is true.'
+    required: false
+    default: 'AI-SLOP'
+  comment-ai-slop:
+    description: 'Publish/update one deterministic findings comment. Requires pull-requests: write.'
+    required: false
+    default: 'false'
+
+outputs:
+  json-report:
+    description: 'Path to the generated JSON report.'
+    value: ${{ steps.run.outputs.json-report }}
+  sarif-report:
+    description: 'Path to the generated SARIF report.'
+    value: ${{ steps.run.outputs.sarif-report }}
 
 runs:
   using: 'composite'
@@ -57,35 +84,78 @@ runs:
         distribution: 'temurin'
         java-version: ${{ inputs.java-version }}
 
-    - name: Download AIV CLI
+    - name: Resolve AIV CLI
+      id: cli
       shell: bash
       run: |
         set -euo pipefail
-        if [ -n "${{ inputs.cli-jar-url }}" ]; then
-          echo "Downloading CLI from cli-jar-url"
-          curl -fsSL -o "$GITHUB_WORKSPACE/aiv-cli.jar" "${{ inputs.cli-jar-url }}"
+        DEST="$RUNNER_TEMP/aiv-cli.jar"
+        if [ -n "${{ inputs.cli-jar-path }}" ]; then
+          SOURCE="${{ inputs.cli-jar-path }}"
+          if [[ "$SOURCE" != /* ]]; then SOURCE="${{ inputs.workspace }}/$SOURCE"; fi
+          test -f "$SOURCE" || { echo "::error::AIV CLI jar not found: $SOURCE"; exit 1; }
+          cp "$SOURCE" "$DEST"
+        elif [ -n "${{ inputs.cli-jar-url }}" ]; then
+          curl -fsSL -o "$DEST" "${{ inputs.cli-jar-url }}"
         else
           VERSION="${{ inputs.aiv-version }}"
+          [ -n "$VERSION" ] || {
+            echo "::error::This hardened Action requires cli-jar-path, cli-jar-url, or an aiv-version released with --require-trusted-config."
+            exit 1
+          }
           BASE="${{ inputs.maven-central-base }}"
           URL="$BASE/io/github/vaquarkhan/aiv/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"
-          echo "Downloading $URL"
-          curl -fsSL -o "$GITHUB_WORKSPACE/aiv-cli.jar" "$URL" || {
-            echo "::error::Could not download $URL. Publish io.github.vaquarkhan.aiv:aiv-cli:$VERSION to Maven Central, attach the shaded JAR to a GitHub Release and pass cli-jar-url, or build from source. See docs/DEPLOYMENT.md (Maven Central section)."
+          curl -fsSL -o "$DEST" "$URL" || {
+            echo "::error::Could not download $URL. Set cli-jar-path for a source build or cli-jar-url for a release asset."
             exit 1
           }
         fi
+        echo "jar=$DEST" >> "$GITHUB_OUTPUT"
+        java -jar "$DEST" --version
+        PROBE="$(java -jar "$DEST" verify --capabilities 2>/dev/null)" || {
+          echo "::error::The selected CLI does not provide a successful hardened capability handshake."
+          exit 1
+        }
+        printf '%s' "$PROBE" | grep -q '"status":"ok"' &&
+        printf '%s' "$PROBE" | grep -q '"trusted-policy"' || {
+          echo "::error::The selected CLI does not provide the hardened trusted-policy contract. Use cli-jar-path with this source build or choose a compatible release."
+          exit 1
+        }
 
     - name: Run AIV Gate
+      id: run
       shell: bash
       env:
         AIV_GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+        AIV_PR_TITLE: ${{ github.event.pull_request.title }}
+        AIV_PR_BODY: ${{ github.event.pull_request.body }}
+        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_SHA: ${{ github.sha }}
       run: |
         set -euo pipefail
-        EXTRA=()
+        WORKSPACE="${{ inputs.workspace }}"
+        JSON_OUT="${{ inputs.output-json }}"
+        SARIF_OUT="${{ inputs.output-sarif }}"
+        [[ "$JSON_OUT" = /* ]] || JSON_OUT="$WORKSPACE/$JSON_OUT"
+        [[ "$SARIF_OUT" = /* ]] || SARIF_OUT="$WORKSPACE/$SARIF_OUT"
+        EXTRA=(--output-json "$JSON_OUT" --output-sarif "$SARIF_OUT")
+        if [ "${{ inputs.publish-github-checks }}" = "true" ]; then
+          EXTRA+=(--publish-github-checks)
+        fi
         if [ "${{ inputs.label-pr-on-advisory }}" = "true" ] && [ "${{ github.event_name }}" = "pull_request" ]; then
           EXTRA+=(--label-pr-on-advisory "${{ inputs.advisory-pr-label }}")
         fi
-        java -jar "$GITHUB_WORKSPACE/aiv-cli.jar" \
-          --workspace "${{ inputs.workspace }}" \
+        if [ "${{ inputs.label-ai-slop }}" = "true" ] && [ "${{ github.event_name }}" = "pull_request" ]; then
+          EXTRA+=(--label-ai-slop "${{ inputs.ai-slop-label }}")
+        fi
+        if [ "${{ inputs.comment-ai-slop }}" = "true" ] && [ "${{ github.event_name }}" = "pull_request" ]; then
+          EXTRA+=(--comment-ai-slop)
+        fi
+        java -jar "${{ steps.cli.outputs.jar }}" \
+          --workspace "$WORKSPACE" \
           --diff "${{ inputs.base-ref }}" \
+          --require-trusted-config \
           "${EXTRA[@]}"
+        echo "json-report=$JSON_OUT" >> "$GITHUB_OUTPUT"
+        echo "sarif-report=$SARIF_OUT" >> "$GITHUB_OUTPUT"

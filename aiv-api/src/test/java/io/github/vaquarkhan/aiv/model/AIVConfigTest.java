@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.model;
@@ -30,6 +18,30 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Vaquar Khan
  */
 class AIVConfigTest {
+
+    @Test
+    void aiSlopPublicationSettings() {
+        var empty = new AIVConfig(List.of(), Map.of());
+        assertTrue(empty.getAiSlopPrLabel().isEmpty());
+        assertFalse(empty.isAiSlopPrCommentEnabled());
+        assertTrue(empty.getAiSlopLabelGates().isEmpty());
+        assertTrue(empty.getAiSlopLabelRules().isEmpty());
+        assertTrue(empty.getGlobalBoolean("missing", true));
+
+        var cfg = new AIVConfig(List.of(), Map.of(
+                "ai_slop_pr_label", " AI-SLOP ",
+                "ai_slop_pr_comment", "TRUE",
+                "ai_slop_label_gates", Arrays.asList(" security ", null, "", 7),
+                "ai_slop_label_rules", "not-a-list"));
+        assertEquals("AI-SLOP", cfg.getAiSlopPrLabel().orElseThrow());
+        assertTrue(cfg.isAiSlopPrCommentEnabled());
+        assertEquals(List.of("security", "7"), cfg.getAiSlopLabelGates());
+        assertTrue(cfg.getAiSlopLabelRules().isEmpty());
+
+        assertFalse(new AIVConfig(List.of(), Map.of("ai_slop_pr_comment", Boolean.FALSE)).isAiSlopPrCommentEnabled());
+        assertTrue(new AIVConfig(List.of(), Map.of("ai_slop_pr_comment", "yes")).getGlobalBoolean("ai_slop_pr_comment", true));
+        assertFalse(new AIVConfig(List.of(), Map.of("ai_slop_pr_comment", 1)).getGlobalBoolean("ai_slop_pr_comment", false));
+    }
 
     @Test
     void gateConfigGetters() {

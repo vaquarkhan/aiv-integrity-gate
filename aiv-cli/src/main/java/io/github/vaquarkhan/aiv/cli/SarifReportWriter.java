@@ -47,14 +47,15 @@ public final class SarifReportWriter {
     private static void appendResults(StringBuilder sb, AIVResult result) {
         List<ResultEntry> flat = new ArrayList<>();
         for (GateResult g : result.getGateResults()) {
-            if (g.isPassed()) {
+            if (g.isPassed() && g.getFindings().isEmpty()) {
                 continue;
             }
+            String level = g.isPassed() ? "note" : g.blocksCi() ? "error" : "warning";
             if (g.getFindings().isEmpty()) {
-                flat.add(new ResultEntry(g.getGateId() + ".gate", null, 1, g.getMessage()));
+                flat.add(new ResultEntry(g.getGateId() + ".gate", null, 1, g.getMessage(), level));
             } else {
                 for (Finding f : g.getFindings()) {
-                    flat.add(new ResultEntry(f.getRuleId(), f.getFilePath(), f.getStartLine(), f.getMessage()));
+                    flat.add(new ResultEntry(f.getRuleId(), f.getFilePath(), f.getStartLine(), f.getMessage(), level));
                 }
             }
         }
@@ -70,7 +71,7 @@ public final class SarifReportWriter {
             ResultEntry e = flat.get(i);
             sb.append("        {\n");
             sb.append("          \"ruleId\": \"").append(JsonReportWriter.escape(e.ruleId)).append("\",\n");
-            sb.append("          \"level\": \"error\",\n");
+            sb.append("          \"level\": \"").append(e.level).append("\",\n");
             sb.append("          \"message\": { \"text\": \"").append(JsonReportWriter.escape(e.message)).append("\" }");
             if (e.filePath != null) {
                 sb.append(",\n          \"locations\": [\n            {\n");
@@ -90,6 +91,6 @@ public final class SarifReportWriter {
         return path.replace('\\', '/');
     }
 
-    private record ResultEntry(String ruleId, String filePath, int line, String message) {
+    private record ResultEntry(String ruleId, String filePath, int line, String message, String level) {
     }
 }

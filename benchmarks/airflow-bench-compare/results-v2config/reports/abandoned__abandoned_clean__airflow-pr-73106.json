@@ -1,0 +1,254 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:20 Test added without any assertion/expectation/verification: 'def test_monitor_pod_empty_logs(self):' (a test that cannot fail proves nothing; add an assertion or remove it)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.assertion-free-test",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 20,
+          "message": "Test added without any assertion/expectation/verification: 'def test_monitor_pod_empty_logs(self):' (a test that cannot fail proves nothing; add an assertion or remove it)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 29 findings\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py:10 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py:23 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py:43 [ruff-airflow error] missing closing quote in string literal\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:5 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:5 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:8 [ruff-airflow error] Expected `,`, found `except`\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:8 [ruff-airflow error] Expected `,`, found `:`\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:8 [ruff-airflow error] Expected `)`, found newline\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:9 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:11 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:12 [ruff-airflow error] Expected class, function definition or async function definition after decorator\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:14 [ruff-airflow error] Expected an indented block after `try` statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py:15 [ruff-airflow error] Expected `except` or `finally` after `try` block\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py:6 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py:6 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py:8 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py:11 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py:37 [ruff-airflow error] Expected class, function definition or async function definition after decorator\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:1 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:1 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:2 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:2 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:2 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:4 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:23 [ruff-airflow error] Expected a statement",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py",
+          "start_line": 10,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py",
+          "start_line": 23,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/kubernetes_helper_functions.py",
+          "start_line": 43,
+          "message": "[ruff-airflow error] missing closing quote in string literal"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 5,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 5,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 8,
+          "message": "[ruff-airflow error] Expected `,`, found `except`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 8,
+          "message": "[ruff-airflow error] Expected `,`, found `:`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 8,
+          "message": "[ruff-airflow error] Expected `)`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 9,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 11,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 12,
+          "message": "[ruff-airflow error] Expected class, function definition or async function definition after decorator"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 14,
+          "message": "[ruff-airflow error] Expected an indented block after `try` statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/src/airflow/providers/cncf/kubernetes/utils/pod_manager.py",
+          "start_line": 15,
+          "message": "[ruff-airflow error] Expected `except` or `finally` after `try` block"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py",
+          "start_line": 6,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py",
+          "start_line": 6,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py",
+          "start_line": 8,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py",
+          "start_line": 11,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/test_kubernetes_helper_functions.py",
+          "start_line": 37,
+          "message": "[ruff-airflow error] Expected class, function definition or async function definition after decorator"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 4,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py",
+          "start_line": 23,
+          "message": "[ruff-airflow error] Expected a statement"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -2,10 +2,21 @@
 
 All notable changes to **AIV Integrity Gate** are documented here. Version numbers follow the Maven reactor (`aiv-gate` parent POM).
 
-## Unreleased
+## 2.0 - 2026-10-22
 
 ### User-facing
 
+- **Release 2.0.** Reactor version, Action `aiv-version` default, install scripts, and user docs use `2.0`. Tag `v2.0`.
+- **v2 trust boundary:** configuration is read from one pinned base-commit OID; the complete `.aiv/` tree (including ignored files) is compared, symlinks/escapes are rejected, and policy blobs are materialized into an immutable per-run snapshot consumed by design, rules, baselines, evidence digests, and audit `policy_commit`. `--require-trusted-config` / `--require-trusted-policy` fail closed; `[CONFIG-CHANGE]` and `[POLICY-FALLBACK]` remain visible. `/aiv skip` is default-deny (allow list + good signature).
+- **New gates:** `test-adequacy` (assertion-free added tests hard; missing tests advisory), `package-existence` (PyPI / npm / Maven Central lookups; UNVERIFIED reported, never hidden), `duplication` (advisory), `external` (runs trusted tools, ingests SARIF as `external.<tool>.<rule>`), `rules` (generic YAML rule engine with shipped packs; `airflow` pack ships), `jev` (opt-in, advisory-only decision-model questions; the only gate that calls a model, never blocks).
+- **Tamper-evident audit:** `--audit-log` / `audit_log` / `AIV_AUDIT_LOG` append each run to a SHA-256 hash chain (`aiv-audit`, now wired into the CLI); the `[AUDIT]` anchor line goes to stdout, the JSON report and the PR comment. `aiv audit verify <log> [--expect-head]`. New notices `[SKIP-HONORED]` and `[SUPPRESSED]` make overrides visible.
+- **Evidence report:** `aiv report` (`aiv-report`): static HTML with per-rule calibration from reviewer labels, override counts, JSONL export; DuckDB queries in `docs/reports/aiv-audit.duckdb.sql`.
+- **Proposals:** `aiv proposal check|scan` (`aiv-proposal`) for KIP, FLIP and SPIP on Confluence, JIRA and files; pilot on 80 proposals in `benchmarks/proposal-pilot/`.
+- **Fixes:** config-requested GitHub publication no longer fails local runs; git and external-tool timeouts kill the process tree and no longer surface as a Windows file-locking error; 106 source files carried an ASF contributor header although this is not an ASF project, now `Copyright 2026 Vaquar Khan` with `SPDX-License-Identifier: Apache-2.0`.
+- **AI-SLOP publication:** `--label-ai-slop [name]`, `--comment-ai-slop`; config `ai_slop_pr_label`, `ai_slop_pr_comment`, `ai_slop_label_gates`, `ai_slop_label_rules`; the comment states the findings are deterministic and do not claim authorship.
+- **Configurable gates:** invariant (`placeholder_words`, `disabled_rules`, `extra_artifact_patterns`), security (`entropy_threshold`, `disabled_rules`, `allow_patterns`, `extra_patterns`), license-header (`header_markers`, `generated_markers`, `file_extensions`, `exclude_paths`).
+- **Presets:** `asf` (every gate explicit) and `airflow` (advisory-only pilot: `rules` with the airflow pack, ruff AIR via `external`).
+- **Docs and product assets:** [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md), [DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md), [AIDLC.md](docs/AIDLC.md), and [MCP.md](docs/MCP.md). The full module README set and generated architecture/gate/trust visuals describe the hardened immutable-policy design.
 - **Inline suppressions:** `// aiv-disable-next-line`, `aiv-disable-line`, and file-level `aiv-disable` (optional rule id / prefix). See [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md).
 - **Config presets:** `java -jar aiv-cli.jar init --preset agent-paste-strict|java-ci|minimal` ([`presets/`](presets/)).
 - **Docker + wrappers:** [`Dockerfile`](Dockerfile) (Central JAR), [`scripts/aiv.sh`](scripts/aiv.sh) / [`scripts/aiv.ps1`](scripts/aiv.ps1).
@@ -14,9 +25,10 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 - **Syntax depth:** JS/MJS/CJS via `node --check`; TS via `node --experimental-strip-types --check` when available; Go via `gofmt` stdin. Missing toolchains skip (precision-first). JSX/TSX skipped.
 - **PR review comments:** `--publish-pr-comments` posts line comments with deterministic fix hints (no LLM).
 - **In-memory / agent diff:** `--diff-json <path>` + [`MemoryDiffProvider`](aiv-adapter-git) (see [docs/MCP.md](docs/MCP.md)).
+- **`aiv verify` (agent / MCP entry point):** reads one JSON request and writes a single JSON verdict object to stdout (diagnostics to stderr), so an MCP server, a CI step, or another tool (e.g. mcp-test-harness, aegis-mcp-gateway) can call it in one line regardless of language. Deterministic `evidence_digest` (SHA-256 of the request), optional `--policy-ref` trust boundary, optional `--audit-log` hash-chain record. Logs now go to stderr so stdout is always machine-parseable. See [docs/MCP.md](docs/MCP.md).
 - **Mechanical `--fix`:** opt-in removal of conflict markers and known elision lines only; then re-evaluates with cleaned contents.
 - **Security heuristics (FP-disciplined):** GitHub fine-grained `github_pat_`, OpenAI `sk-proj-`, Anthropic `sk-ant-`, SendGrid `SG.…`, plus keyword-bound high-entropy password/secret assignments (Shannon ≥ 4.5; placeholders skipped). Still off by default.
-- **Security gate:** additional high-precision shapes — Stripe `sk_live_`, npm `npm_`, Google `AIza` (still off by default).
+- **Security gate:** additional high-precision shapes: Stripe `sk_live_`, npm `npm_`, Google `AIza` (still off by default).
 - **Baseline suppressions:** `baseline: .aiv/baseline.txt` or `--baseline path` (lines `rule_id|file` or `rule_id|file|message substring`).
 - **Security gate (`aiv-plugin-security`):** optional added-line secret tripwire (AWS/GitHub/Slack/private key/assigned secrets). Off by default.
 - **Corpora:** `benchmarks/true-positive/` + `benchmarks/high-breakage/run-demo.ps1`.
@@ -27,19 +39,20 @@ All notable changes to **AIV Integrity Gate** are documented here. Version numbe
 - **Syntax gate (`aiv-plugin-syntax`):** parse-validity pre-gate for changed Java, Python, YAML, and JSON. Precision-first skips for missing Python toolchain, Helm/Jinja templates, `tsconfig*.json` (JSONC), and `.java` files that are actually Dockerfiles (`#` first line). Rule id: `syntax.parse`. `aiv explain syntax`.
 - **Dependency gate:** Python **stdlib** allowlist and **first-party** package scan (top-level dirs with `__init__.py`) so legitimate Airflow-style imports are not false-flagged.
 - **Invariant gate:** **AI edit-artifact** rule on code files only (`invariant.ai-edit-artifact`: elision markers, assistant chatter, SEARCH/REPLACE blocks), in addition to merge-conflict and TBD/FIXME/XXX checks.
-- **Two-stage CI:** [`.github/workflows/copilot-review.yml`](.github/workflows/copilot-review.yml) requests advisory Copilot review only after **AIV Gate** succeeds; [`.github/copilot-instructions.md`](.github/copilot-instructions.md) steers generation. See [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md).
+- **Two-stage CI:** [`.github/workflows/copilot-review.yml`](.github/workflows/copilot-review.yml) requests advisory Copilot review only after **AIV Gate** succeeds. See [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md).
 - **Docs:** [ARCHITECTURE.md](docs/ARCHITECTURE.md), [DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md), deepened [TUTORIAL.md](docs/TUTORIAL.md), diagrams under `docs/images/`.
 
 ### Maintainers
 
 - Reactor module `aiv-plugin-syntax` registered in root and `aiv-cli` POMs (ServiceLoader discovery in the shaded JAR).
+- New modules `aiv-plugin-test-adequacy`, `aiv-plugin-package-existence`, `aiv-plugin-duplication`, `aiv-plugin-external`, `aiv-plugin-rules`, `aiv-plugin-jev`, `aiv-report`, `aiv-proposal`. Every module now has a README. `JsonLite` (strict JSON reader/writer, no dependency) moved to `aiv-api` (`io.github.vaquarkhan.aiv.util`). The short-lived `aiv-plugin-airflow-dag` module was replaced by the generic `rules` engine plus the `airflow` rule pack before release.
 
 ## 1.0.4 - 2026-04-19
 
 ### Breaking changes
 
 - **Maven artifact rename:** `io.github.vaquarkhan:aiv-plugin-design-lucene` is now **`io.github.vaquarkhan:aiv-plugin-design`** (same Java packages). Update any explicit dependency or BOM entry that referenced the old artifact id.
-- **`--output-json` consumers:** JSON reports moved from **`schema_version: 1`** (1.0.3) to **`schema_version: 2`** in 1.0.4. Tooling that assumed the v1 shape must be updated; see this changelog’s 1.0.4 structured JSON bullet for the new fields.
+- **`--output-json` consumers:** JSON reports moved from **`schema_version: 1`** (1.0.3) to **`schema_version: 2`** in 1.0.4. Tooling that assumed the v1 shape must be updated; see this changelog's 1.0.4 structured JSON bullet for the new fields.
 
 ### User-facing
 

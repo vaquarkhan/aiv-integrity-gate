@@ -1,21 +1,14 @@
-# CI snippets (beyond GitHub Actions)
+# CI snippets beyond GitHub Actions
 
-The CLI is portable: any runner with **JDK 17+** and **Git** can run the shaded JAR.
-GitHub composite action: root [`action.yml`](../action.yml).
+Any CI runner with JDK 17+ and complete Git base history can run AIV 2.0. Point `AIV_CLI_URL` at `aiv-cli-2.0.jar` from tag `v2.0` or from Maven Central once that coordinate is uploaded.
 
-## Generic (any CI)
-
-```bash
-curl -fsSL -o aiv-cli.jar \
-  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
-java -jar aiv-cli.jar --workspace . --diff origin/main --head HEAD
-```
-
-Docker:
+## Generic strict CI
 
 ```bash
-docker build -t aiv-gate:local .
-docker run --rm -v "$PWD:/workspace" -w /workspace aiv-gate:local --diff origin/main
+curl -fsSL -o aiv-cli.jar "$AIV_CLI_URL"
+java -jar aiv-cli.jar verify --capabilities
+java -jar aiv-cli.jar --workspace . --diff "$BASE_REF" --head "$HEAD_REF" \
+  --require-trusted-config --output-json aiv-report.json --output-sarif aiv-results.sarif
 ```
 
 ## GitLab CI
@@ -25,12 +18,19 @@ aiv:
   image: eclipse-temurin:17-jdk
   stage: test
   variables:
-    AIV_VERSION: "1.0.4"
-  script:
+    AIV_CLI_URL: "https://artifacts.example/aiv/aiv-cli-compatible.jar"
+  before_script:
     - apt-get update && apt-get install -y git curl
-    - curl -fsSL -o aiv-cli.jar
-        "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/${AIV_VERSION}/aiv-cli-${AIV_VERSION}.jar"
-    - java -jar aiv-cli.jar --workspace . --diff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-main}" --head HEAD
+    - git fetch origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+  script:
+    - curl -fsSL -o aiv-cli.jar "$AIV_CLI_URL"
+    - java -jar aiv-cli.jar verify --capabilities
+    - java -jar aiv-cli.jar --workspace .
+        --diff "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --head "$CI_COMMIT_SHA"
+        --require-trusted-config --output-json aiv-report.json --output-sarif aiv-results.sarif
+  artifacts:
+    when: always
+    paths: [aiv-report.json, aiv-results.sarif]
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 ```
@@ -40,8 +40,7 @@ aiv:
 ```yaml
 jobs:
   - job: aiv
-    pool:
-      vmImage: ubuntu-latest
+    pool: { vmImage: ubuntu-latest }
     steps:
       - checkout: self
         fetchDepth: 0
@@ -51,27 +50,40 @@ jobs:
           jdkArchitectureOption: x64
           jdkSourceOption: PreInstalled
       - bash: |
-          curl -fsSL -o aiv-cli.jar \
-            "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
-          java -jar aiv-cli.jar --workspace . --diff origin/main --head HEAD
+          curl -fsSL -o aiv-cli.jar "$AIV_CLI_URL"
+          java -jar aiv-cli.jar verify --capabilities
+          java -jar aiv-cli.jar --workspace . --diff origin/main --head HEAD \
+            --require-trusted-config --output-json aiv-report.json --output-sarif aiv-results.sarif
         displayName: Run AIV Integrity Gate
+        env:
+          AIV_CLI_URL: $(AIV_CLI_URL)
+      - publish: aiv-report.json
+        artifact: aiv-json
+      - publish: aiv-results.sarif
+        artifact: aiv-sarif
 ```
 
-## pre-push hook (local)
+## Container
+
+```bash
+docker build -t aiv-gate:local .
+docker run --rm -v "$PWD:/workspace" -w /workspace aiv-gate:local \
+  --diff origin/main --head HEAD --require-trusted-config
+```
+
+Use an image built from the same reviewed source/release as the policy contract.
+
+## Pre-push
 
 ```bash
 #!/usr/bin/env bash
-# .git/hooks/pre-push
 set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
-JAR="${AIV_CLI_JAR:-$HOME/.aiv/aiv-cli-1.0.4.jar}"
-if [[ ! -f "$JAR" ]]; then
-  mkdir -p "$(dirname "$JAR")"
-  curl -fsSL -o "$JAR" \
-    "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
-fi
-java -jar "$JAR" --workspace "$ROOT" --diff "@{upstream}" --head HEAD 2>/dev/null \
-  || java -jar "$JAR" --workspace "$ROOT" --diff origin/main --head HEAD
+JAR="${AIV_CLI_JAR:?set AIV_CLI_JAR to a compatible jar}"
+BASE="$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || echo origin/main)"
+java -jar "$JAR" --workspace "$ROOT" --diff "$BASE" --head HEAD
 ```
 
-Prefer [PRE-COMMIT.md](PRE-COMMIT.md) for staged-tree checks at commit time.
+Local pre-push is feedback; strict CI remains the enforcement boundary. See [DEPLOYMENT.md](DEPLOYMENT.md).
+
+**Author:** Viquar Khan

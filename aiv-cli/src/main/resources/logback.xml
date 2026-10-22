@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- stdout is reserved for machine output (report JSON, the `verify` verdict); diagnostics go to stderr. -->
+        <target>System.err</target>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
             <charset>UTF-8</charset>

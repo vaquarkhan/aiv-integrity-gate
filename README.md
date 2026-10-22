@@ -4,413 +4,233 @@
   <a href="https://github.com/vaquarkhan/aiv-integrity-gate/actions/workflows/aiv.yml"><img src="https://img.shields.io/github/actions/workflow/status/vaquarkhan/aiv-integrity-gate/aiv.yml?label=CI&style=flat-square" alt="CI status" /></a>
   <a href="https://central.sonatype.com/artifact/io.github.vaquarkhan/aiv-cli"><img src="https://img.shields.io/maven-central/v/io.github.vaquarkhan/aiv-cli?label=Maven%20Central&style=flat-square" alt="Maven Central" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="Apache 2.0" /></a>
-  <a href="https://vaquarkhan.github.io/aiv-airflow-bench/"><img src="https://img.shields.io/badge/Bench-GitHub%20Pages-0F766E?style=flat-square" alt="Bench report on GitHub Pages" /></a>
+  <a href="https://vaquarkhan.github.io/aiv-integrity-gate/"><img src="https://img.shields.io/badge/Docs-GitHub%20Pages-0F766E?style=flat-square" alt="Docs" /></a>
 </p>
 
-## Overview
+<p align="center"><b>A deterministic integrity gate for AI-generated code.</b><br/>
+Ask whether a change is backed by objective evidence and get a structured verdict that binds the exact request and resolved policy.</p>
 
-**AIV Integrity Gate** is a **diff-scoped**, **deterministic**, **local-first** integrity gate for Git changes and pull requests. It runs as a shaded Java CLI (no LLM, no API keys required for the hard path). It evaluates **changed files / added lines** and returns a clear pass or fail.
+> **Release 2.0.** Use tag `v2.0`. The Action input `aiv-version` defaults to `2.0`. Coordinates: `io.github.vaquarkhan.aiv:aiv-cli:2.0`.
 
-**Primary job:** fail fast on changes that are objectively broken before a long CI matrix runs - for example unparseable files, leftover merge-conflict or agent edit-paste junk, tautology tests, and imports that are not backed by the project lockfile. Soft signals (density, cohesion) stay advisory (`warn` + optional PR label) and are not the sole merge block.
+<p align="center"><img src="docs/images/aiv-architecture.png" alt="AIV architecture: one deterministic engine called from pre-commit, CI, MCP, AI-DLC, and policy engines" width="900" /></p>
 
-**Design promise:** precision-first - when uncertain, pass. Almost never block a good PR.
+**Architecture at a glance.** Every front door reaches the same core. AIV separates the source workspace from an immutable policy snapshot, then publishes one severity-aware result to terminal, JSON, SARIF, GitHub, audit, and report surfaces.
 
-| | |
-|--|--|
-| **Current version** | `1.0.4` (reactor / Maven Central / action default) |
-| **Runtime** | JDK 17+, Git |
-| **Install** | Shaded JAR from Maven Central, [composite action](action.yml), [pre-commit](docs/PRE-COMMIT.md) |
-| **License** | [Apache License 2.0](LICENSE) (source license only - **not** an ASF project) |
-| **Author** | Vaquar Khan |
+## Why teams use it
 
-## Evidence and bench
+AI agents write code faster than anyone can review it. AIV sits at the point where a change is produced and returns objective, repeatable evidence before a human or a long CI matrix ever looks at it:
 
-Public bench and live results (separate repo from this source tree):
+- **Verified dependency declarations.** Newly declared packages in supported manifests are checked against their registry; unavailable registries are reported as unverified.
+- **Tests with assertion evidence.** Added test functions must contain a recognized assertion, expectation, or verification call.
+- **Clean diffs.** Merge markers, elision lines (`... existing code ...`), and assistant chatter are caught on added lines.
+- **No leaked secrets.** Credential patterns and keyword-bound high-entropy strings are flagged before they ship.
+- **It parses.** Changed files are checked for syntax so you never burn a CI run on a guaranteed failure.
+- **A tamper-evident trail.** Every verdict can append to a SHA-256 hash chain you can verify later.
 
-| Resource | URL |
-|----------|-----|
-| Bench repository | [vaquarkhan/aiv-airflow-bench](https://github.com/vaquarkhan/aiv-airflow-bench) |
-| Published report (GitHub Pages) | [vaquarkhan.github.io/aiv-airflow-bench](https://vaquarkhan.github.io/aiv-airflow-bench/) |
-| Raw JSON on Pages | under `/docs/data` on that site (for example `labeled-latest.json`) |
-| Harness / scripts (this repo) | [`benchmarks/airflow/`](benchmarks/airflow/) · [METHODOLOGY.md](benchmarks/airflow/METHODOLOGY.md) |
+With the local deterministic profile, the same request and resolved policy produce the same verdict. `aiv verify` reports the policy digest and declares when enabled gates depend on a package registry, an external tool, or the optional advisory decision model.
 
-The Pages report is for **independent validation** of labeled fixtures and abandoned-PR recreations. It is research evidence, not a marketing claim about CI cost savings. Reproduce locally with the scripts under `benchmarks/airflow/scripts/` and compare to the published JSON.
+## Works with the stack you already have
 
-## Documentation map
+One engine, many front doors. Call AIV wherever your change is produced.
 
-| Document | Audience |
-|----------|----------|
-| [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) | Commit-time install (recommended) |
-| [docs/TUTORIAL.md](docs/TUTORIAL.md) | First end-to-end setup |
-| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable in a consumer repo / CI |
-| [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | `.aiv/config.yaml` and CLI flags |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Modules, ports, plugins |
-| [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build and contribute to AIV |
-| [docs/WHY-NOT-PMD-SEMGREP.md](docs/WHY-NOT-PMD-SEMGREP.md) | Diff gate vs whole-repo SAST |
-| [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) | Hard gate, then advisory Copilot |
-| [docs/PLUGIN-SECURITY.md](docs/PLUGIN-SECURITY.md) | Optional secrets gate |
-| [CHANGELOG.md](CHANGELOG.md) | Release history |
-| [docs/README.md](docs/README.md) | Full doc index |
+| Front door | Use it for |
+|------------|-----------|
+| **pre-commit** | Catch issues on the developer machine, before a PR exists |
+| **CI / GitHub Action** | Backstop on every pull request, with SARIF and Checks |
+| **`aiv verify` (MCP / agent)** | One JSON request in, one JSON verdict out - callable from any agent, orchestrator, or MCP server |
+| **AI-DLC sensor** | Deterministic evidence at an [AI-DLC](https://awslabs.github.io/aidlc-workflows/) phase boundary |
+| **Policy engine (OPA)** | Feed verdict facts into a Rego policy decision |
 
-## How it works
+Languages: Java, Python, JavaScript, TypeScript, Go, Kotlin, Scala, Ruby, C, C++, and shell, plus YAML and JSON. Structural and policy checks apply to any path you configure.
 
-1. Resolve a Git diff between two refs (or staged tree for pre-commit).
-2. Load `.aiv/config.yaml` and discover `QualityGate` plugins via ServiceLoader.
-3. Run enabled gates (syntax, design, dependency, density, cohesion, invariant, optional security / docs).
-4. Print a report; optional `--output-json` / `--output-sarif` / GitHub Checks / advisory PR labels.
-5. Exit `0` pass, `1` gate fail, `2` bad args/config, `3` git failure (see below).
+## `aiv verify`: the agent-facing entry point
 
-Typical path: **pre-commit** (shift-left) → **CI Action** (backstop) → merge only if hard gates pass. Soft gates may label the PR without failing CI.
+`aiv verify` reads one JSON request and writes one JSON verdict to stdout (diagnostics go to stderr), so any tool can call it the same way regardless of language.
 
-### Diagrams (optional)
+<p align="center"><img src="docs/images/aiv-verify-flow.png" alt="aiv verify: request JSON in, verdict JSON out" width="860" /></p>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-value-flow.png" alt="PR diff through Syntax Density Design Dependency Invariant to Pass or Fail" width="920" />
-</p>
+**Machine contract.** The request is strict RFC 8259 JSON. The response binds the request, canonical config, frozen policy sidecars, and pinned policy commit into one evidence digest.
 
-| Example FAIL | Example PASS |
-|:---:|:---:|
-| <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-demo-fail.png" alt="Caught before CI FAIL findings" width="440" /> | <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-demo-pass.png" alt="Sample AIV Report PASS" width="440" /> |
+```bash
+echo '{"artifact":{"files":[{"path":"src/A.java","changeType":"MODIFIED","content":"class A {}"}]}}' \
+  | java -jar aiv-cli.jar verify --workspace .
+```
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-shift-left.png" alt="pre-commit then GitHub Action then merge" width="920" />
-</p>
+```json
+{
+  "verdict": "pass",
+  "gates": [ { "id": "package-existence", "passed": true, "findings": [] } ],
+  "evidence_digest": "sha256:…",
+  "audit": { "record_hash": "…", "log": "verify-audit.log" }
+}
+```
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/vaquarkhan/aiv-integrity-gate/main/docs/images/aiv-hex-architecture.png" alt="AIV hexagonal module architecture" width="560" />
-</p>
+The `evidence_digest` ties the verdict to the exact inputs, and `--audit-log` appends a tamper-evident record. Full contract: [docs/MCP.md](docs/MCP.md).
 
-More assets: [`docs/images/`](docs/images/).
+## AI-DLC integration
 
-## What it catches (hard vs soft)
+<p align="center"><img src="docs/images/aiv-aidlc-flow.png" alt="AIV as an AI-DLC verification sensor" width="880" /></p>
 
-| Without AIV | With AIV |
-|-------------|---------|
-| Broken / unparseable files burn the full CI matrix | **Syntax** fails in seconds (hard) |
-| Agent paste leaves `... existing code ...` or SEARCH/REPLACE junk | **Invariant** edit-artifact rules on **added lines** (hard) |
-| Empty `assertTrue(true)` / `expect(true).toBe(true)` tests | **Invariant** placeholder-test on test paths (hard) |
-| Hallucinated imports look fine until runtime | **Dependency** vs pom / requirements (hard when enabled) |
-| Soft structure signals | **Density / cohesion** warn/label only; optional Copilot after AIV - [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) |
+**Lifecycle integration.** AI-DLC owns stage sequencing and human routing. AIV supplies file-local advisory evidence or full-request fail-closed evidence at the phase boundary.
 
-### Why not PMD, Semgrep, or Checkstyle?
+AIV drops into [AI-DLC](https://awslabs.github.io/aidlc-workflows/) as a deterministic verification sensor. When an agent writes code during the Construction phase, the sensor runs `aiv verify` and returns the machine-checkable evidence the verifier is designed to act on. Advisory by default; promote to blocking when your team is ready.
 
-They are strong **whole-repo** analyzers. AIV is a **diff-scoped** integrity pre-filter. Use both: AIV first, then depth tools. Details: [docs/WHY-NOT-PMD-SEMGREP.md](docs/WHY-NOT-PMD-SEMGREP.md).
+```bash
+export AIV_JAR=/path/to/aiv-cli.jar
+python3 integrations/aidlc/aiv_aidlc_sensor.py --file src/App.java
+```
 
-| | **AIV** | **PMD / Semgrep / Checkstyle** |
-|--|---------|--------------------------------|
-| **Scope** | PR diff by default | Project-wide rulesets |
-| **Sweet spot** | Objectively broken artifacts on **changed / added** lines | Bugs, style, security patterns across the tree |
-| **Config** | `.aiv/config.yaml` + rules in-repo | Tool-specific XML/YAML |
-| **Air gap** | Single shaded JAR + local rules | Varies; all can run offline |
+Install routes and the sensor manifest: [integrations/aidlc/](integrations/aidlc/) · narrative: [docs/AIDLC.md](docs/AIDLC.md).
 
-### Identity
+## Quick start
 
-- **Maven group:** `io.github.vaquarkhan` - this is **not** an Apache Software Foundation project.
-- **License:** [Apache License 2.0](LICENSE) on this source - not ASF incubation or `org.apache.*` packages.
+You are done when a pull request runs AIV and prints a verdict.
 
----
-
-## See it run
-
-- **This repo CI:** [Actions](https://github.com/vaquarkhan/aiv-integrity-gate/actions)
-- **Bench CI + open PRs:** [aiv-airflow-bench Actions](https://github.com/vaquarkhan/aiv-airflow-bench/actions)
-- **Published metrics / JSON:** [GitHub Pages report](https://vaquarkhan.github.io/aiv-airflow-bench/)
-
----
-
-## Quick start (about five minutes)
-
-You are done when a PR runs AIV and prints a report (pass or fail).
-
-1. **Download the CLI (no clone required)** - From Maven Central, fetch the shaded uber JAR. The version must match the reactor `<version>` in this project’s root [`pom.xml`](pom.xml) (current line: **1.0.4**). See [docs/MAVEN-VERSION.md](docs/MAVEN-VERSION.md) for `${project.version}`, coordinates, and scripted downloads.
+1. **Get the CLI** for release 2.0:
 
    ```bash
-   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/1.0.4/aiv-cli-1.0.4.jar"
+   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/2.0/aiv-cli-2.0.jar"
    ```
 
-   From a **clone** of this repo you can resolve the version with Maven instead of hardcoding it:
+   Or build tag `v2.0` from source:
 
    ```bash
-   VERSION="$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version -f pom.xml)"
-   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/${VERSION}/aiv-cli-${VERSION}.jar"
+   git clone https://github.com/vaquarkhan/aiv-integrity-gate.git && cd aiv-integrity-gate
+   mvn -q -pl aiv-cli -am clean package
+   # jar at aiv-cli/target/aiv-cli-<version>.jar
    ```
 
-   Or use [scripts/install-aiv.sh](scripts/install-aiv.sh) or [scripts/print-maven-version.sh](scripts/print-maven-version.sh) (same version source, configurable `AIV_VERSION`).
+2. **Bootstrap config** - writes `.aiv/config.yaml` and starter rules from a quick language sniff:
 
-2. **Bootstrap config** - `java -jar aiv-cli.jar init --workspace .` writes `.aiv/config.yaml` and starter `.aiv/design-rules.yaml` from a quick language sniff, or copy from [`example-project/`](example-project/).
+   ```bash
+   java -jar aiv-cli.jar init --workspace .
+   ```
 
-3. **Shift left (recommended)** - Install the [pre-commit hook](docs/PRE-COMMIT.md) so bad agent paste never becomes a PR:
+3. **Shift left** - add the [pre-commit hook](docs/PRE-COMMIT.md) so issues never reach a PR:
 
    ```yaml
-   # .pre-commit-config.yaml
    repos:
      - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-       rev: v1.0.4
+       rev: v2.0
        hooks:
          - id: aiv-gate
    ```
 
-4. **Wire CI as backstop** - Prefer the [composite action](action.yml) (`vaquarkhan/aiv-integrity-gate@v1`), or adapt [`example-project/.github/workflows/aiv.yml`](example-project/.github/workflows/aiv.yml).
+4. **Wire CI** - follow the [deployment guide](docs/DEPLOYMENT.md). The Action uses `aiv-version: 2.0` unless you pass `cli-jar-path` or `cli-jar-url`.
 
-5. **Open a pull request** - Intentionally violate a design rule (e.g. `System.exit` with the sample rules) to see a **fail**, then fix to **pass**.
+5. **Open a pull request** - see a verdict. Start with [Quick start](docs/TUTORIAL.md), then run the [complete all-gates Hello World](docs/HELLO-WORLD.md).
 
-**Developers changing AIV itself:** see **[docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md)** (build, verify, run shaded JAR, add a gate). User guides: [docs/TUTORIAL.md](docs/TUTORIAL.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/MAVEN-VERSION.md](docs/MAVEN-VERSION.md), [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md). **Release notes:** [CHANGELOG.md](CHANGELOG.md).
+## What it checks
 
----
+<p align="center"><img src="docs/images/aiv-gate-catalog.png" alt="AIV gate catalog grouped by evidence job" width="900" /></p>
 
-## Problems and Solutions
+**Gate catalog.** Change-integrity and behavioral gates produce the strongest objective evidence. Review-focus gates stay advisory. Governance surfaces are opt-in or advisory and all share one result contract.
 
-| Pain Area | What Happens | Feature That Addresses It |
-|-----------|--------------|---------------------------|
-| Broken AI/agent paste | Partial LLM pastes, elision markers, SEARCH/REPLACE junk, conflict markers | **Invariant** (`ai-edit-artifact`, merge markers) on **added lines** |
-| Fake tests | `assertTrue(true)` / `expect(true).toBe(true)` dumps | **Invariant** `placeholder-test` (test paths only) |
-| Won't-parse / guaranteed CI fail | Broken Java/Python/YAML/JSON that would fail later in the matrix | **Syntax** pre-gate (precision-first: skips when uncertain) |
-| Unknown imports | Typos or imports not in lockfile | **Dependency** vs pom / requirements (stdlib + first-party allowed) |
-| Design drift | Forbidden APIs / missing required patterns | **Design** YAML rules (+ attribution phrases if you enable them) |
-| Soft structure signals | Verbose scaffolding, multi-area sprawl | **Density / cohesion** as **warn + PR label** (not sole hard block) |
-| Urgent merges | Need to bypass for hotfix | `/aiv skip` on its own line in the **latest** PR commit (optional `skip_allowlist`) |
-| Refactors flagged | Deletion-heavy changes trip density | Refactor exception (net lines threshold) |
-| Trusted authors | Maintainers hit soft gates | `trusted_authors` bypass for density |
-| Issue squatting | Assigned then ghost | Assignment Gate: assign after AIV passes |
+Hard checks block only on objective, reproducible defects on the diff. Everything softer is advisory - a signal, surfaced but never the sole merge block. The project owns every gate, threshold, scope, and severity in `.aiv/config.yaml`.
 
----
+| Check | What it proves | Mode |
+|-------|----------------|------|
+| **syntax** | changed files parse (Java/Python/YAML/JSON in process; JS/TS/Go via the local toolchain) | hard |
+| **invariant** | no merge markers, elision lines, assistant chatter, or placeholder tests on added lines | hard |
+| **test-adequacy** | added tests assert something; production change with no test is flagged | hard / advisory |
+| **package-existence** | declared dependencies exist on PyPI, npm, or Maven Central | hard |
+| **dependency** | imports are backed by the project manifest | hard |
+| **security** | no hard-coded credentials on added lines | hard |
+| **duplication** | added blocks that already exist in the workspace | advisory |
+| **density / cohesion** | logic density and multi-area sprawl signals | advisory |
+| **rules** | YAML rule packs for any framework (ships an `airflow` pack; add your own in `.aiv/rules/`) | configurable |
+| **external** | folds ruff, semgrep, gitleaks, or any SARIF producer into the same verdict | configurable |
+| **doc-integrity / pr-metadata / license-header** | docs links and paths, PR hygiene, source headers | opt-in |
+| **jev** | calibrated yes/no questions from a decision model, printed beside the evidence | advisory, opt-in |
 
-## What This Tool Does
+## The trust boundary
 
-When someone opens a pull request, AIV runs a set of checks on the changed files:
+<p align="center"><img src="docs/images/aiv-trust-evidence.png" alt="AIV immutable policy and evidence chain" width="900" /></p>
 
-1. **Density** - Does the code have enough real logic, or is it mostly scaffolding? Empty classes and copy-paste boilerplate get flagged.
+**Trust boundary.** A symbolic base ref is pinned once. Policy blobs are materialized into a private snapshot, consumed by gates, hashed into evidence, and named by the audit record.
 
-2. **Design** - Does the code follow your project's rules? You define forbidden patterns (for example, do not use `System.exit`) and required patterns. Prefer **objective AI markers** (e.g. "Generated by ChatGPT", "as an AI language model") over emoji hard-blocks — emoji appears in legitimate code and is a poor slop selector.
+A change cannot switch off the gate that judges it:
 
-3. **Dependency** - Are new imports in Java and Python files declared in your lockfile? Python **stdlib** and **first-party** packages (directories with `__init__.py`) are allowed automatically so real projects are not false-flagged.
+- In fail-closed CI (`--require-trusted-config`), policy is read from the **base ref** and the complete `.aiv/` policy tree must match it. That protects config, design rules, rule packs, and baselines together; policy changes are reviewed in a separate run.
+- `aiv verify --require-trusted-policy --policy-ref <ref>` also refuses policy-tree drift and binds the resolved base commit into the policy/evidence digest.
+- `/aiv skip` is **default-deny** - honored only for an allow-listed author with a good commit signature, and always surfaced.
+- A file-level disable must name a rule; a bare directive suppresses nothing.
+- When a check cannot run (missing toolchain, unreachable registry) it says so, instead of passing quietly.
 
-4. **Syntax** - Do changed Java / Python / YAML / JSON files **parse**? Catches guaranteed downstream CI failures in milliseconds. Precision-first: skips when the toolchain is missing or the file is intentionally non-strict (templated YAML, `tsconfig*.json`, `Dockerfile.java`).
+## Evidence, reports, and proposals
 
-5. **Invariant** - Merge-conflict markers, TBD/FIXME/XXX placeholders, and **AI edit-artifacts** in code files only (elision markers, assistant chatter, `<<<<<<< SEARCH` / `>>>>>>> REPLACE`). Off by default in this repo's dogfood config; enable when you want those hard blocks.
+- **Tamper-evident audit.** Every run can append to a SHA-256 hash chain whose head prints in the CI log and the PR comment; verify later with `aiv audit verify --expect-head`.
+- **Evidence report.** `aiv report` turns the audit log into a static HTML report with a per-rule calibration table and a JSONL export for DuckDB.
+- **Proposal checks.** `aiv proposal` checks improvement proposals (KIP, FLIP, SPIP on Confluence, JIRA, or files) for missing sections, leftover template text, and content changed after acceptance.
 
-6. **Doc Integrity** - Validates documentation files (.md, .txt, .rst): path existence, cross-references, required mentions, command completeness, path fabrication. Enable via **`--include-doc-checks`** (forces the gate on every run) or via config (`enabled: true` plus **`auto: true`** to run only when the diff touches docs). See [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md#doc-integrity-gate) for the decision table.
-
-AIV works with Java, Python, Go, Rust, Kotlin, Scala, JavaScript, TypeScript, C, C++, Ruby, and shell. The density gate runs full logic checks on Java only; other languages get entropy checks. Design and dependency checks apply to whatever languages you configure. Syntax covers Java, Python, YAML, and JSON.
-
-No API keys or paid services are required for the hard gate. Everything runs locally in your CI. Optional advisory Copilot review can run **after** AIV passes — see [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md).
-
----
+Details: [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md).
 
 ## Modules
 
 | Module | Purpose |
 |--------|---------|
-| `aiv-api` | Interfaces, models, and extension points |
-| `aiv-core` | Orchestrator that runs gates in sequence |
-| `aiv-plugin-density` | Logic density and entropy checks |
-| `aiv-plugin-design` | Design compliance via YAML rules (Java-aware surface matching; phrase boundaries for prose-like markers) |
-| `aiv-plugin-dependency` | Import validation against pom.xml and requirements (Python stdlib + first-party allowlist) |
-| `aiv-plugin-syntax` | Parse-validity pre-gate (Java, Python, YAML/JSON) |
-| `aiv-plugin-invariant-template` | Invariant gate (merge markers, placeholders, AI edit-artifacts; enable in config) |
-| `aiv-plugin-doc-integrity` | Documentation integrity (paths, cross-refs, commands) |
-| `aiv-adapter-git` | Git diff provider |
-| `aiv-adapter-github` | **Default:** `StdoutReportPublisher` (human-readable report to stdout). **Optional:** `GithubChecksPublisher` when you pass **`--publish-github-checks`** (requires `GITHUB_TOKEN` and repository env). |
-| `aiv-cli` | Command-line entry point |
+| [`aiv-api`](aiv-api/README.md) | Gate contract, models, dependency-free utilities (`JsonLite`) |
+| [`aiv-core`](aiv-core/README.md) | Orchestrator: skip policy, severity, baseline, suppressions, notices |
+| [`aiv-cli`](aiv-cli/README.md) | Command-line entry point and shaded jar; `verify`, base-ref config, audit, subcommands |
+| [`aiv-plugin-syntax`](aiv-plugin-syntax/README.md) | `syntax`: changed files must parse |
+| [`aiv-plugin-invariant-template`](aiv-plugin-invariant-template/README.md) | `invariant`: markers, placeholders, agent paste artifacts on added lines |
+| [`aiv-plugin-dependency`](aiv-plugin-dependency/README.md) | `dependency`: imports must be declared |
+| [`aiv-plugin-package-existence`](aiv-plugin-package-existence/README.md) | `package-existence`: dependencies must exist in their registry |
+| [`aiv-plugin-security`](aiv-plugin-security/README.md) | `security`: secret patterns and entropy on added lines |
+| [`aiv-plugin-test-adequacy`](aiv-plugin-test-adequacy/README.md) | `test-adequacy`: assertion-free tests, missing tests |
+| [`aiv-plugin-design`](aiv-plugin-design/README.md) | `design` project rules and `cohesion` |
+| [`aiv-plugin-duplication`](aiv-plugin-duplication/README.md) | `duplication`: added blocks already in the workspace |
+| [`aiv-plugin-density`](aiv-plugin-density/README.md) | `density`: logic density and entropy |
+| [`aiv-plugin-doc-integrity`](aiv-plugin-doc-integrity/README.md) | `doc-integrity`: links, fabricated paths, doc rules |
+| [`aiv-plugin-prmeta`](aiv-plugin-prmeta/README.md) | `pr-metadata`: PR title and body hygiene |
+| [`aiv-plugin-license-header`](aiv-plugin-license-header/README.md) | `license-header`: headers on added source files |
+| [`aiv-plugin-external`](aiv-plugin-external/README.md) | `external`: fold any SARIF producer into the verdict |
+| [`aiv-plugin-rules`](aiv-plugin-rules/README.md) | `rules`: generic YAML rule engine with rule packs |
+| [`aiv-plugin-jev`](aiv-plugin-jev/README.md) | `jev`: optional decision-model questions, advisory only |
+| [`aiv-audit`](aiv-audit/README.md) | SHA-256 hash-chained, tamper-evident log |
+| [`aiv-report`](aiv-report/README.md) | Evidence report with per-rule calibration, JSONL export |
+| [`aiv-proposal`](aiv-proposal/README.md) | KIP, FLIP, SPIP checks |
+| [`aiv-governance`](aiv-governance/README.md) | Standalone delegate/fallback/human-routing library; not bundled in CLI |
+| [`aiv-adapter-git`](aiv-adapter-git/README.md) | Git and in-memory diff providers |
+| [`aiv-adapter-github`](aiv-adapter-github/README.md) | Stdout, GitHub Checks, review comments, labels |
 
----
-
-## Build and Run
-
-Build the project:
-
-```bash
-mvn clean package
-```
-
-Run AIV from the repo root (compare your working tree to `origin/main`). Replace the JAR name with your Maven `${project.version}` (for example `1.0.4`):
-
-```bash
-java -jar aiv-cli/target/aiv-cli-1.0.4.jar --diff origin/main
-```
-
-Or via Maven:
+## Build and run
 
 ```bash
-mvn -pl aiv-cli exec:java -Dexec.args="--diff origin/main"
+mvn clean verify
+java -jar aiv-cli/target/aiv-cli-2.0.jar --diff origin/main
 ```
 
-**Exit codes**
+**Exit codes:** `0` pass · `1` a blocking gate failed · `2` bad args/config · `3` git failure.
 
-| Code | Meaning |
-|------|---------|
-| `0` | All blocking gates passed (or `doctor` mode - informational only). |
-| `1` | At least one blocking gate failed. |
-| `2` | Invalid arguments or configuration (including unreadable `--output-json` path). |
-| `3` | Git subprocess failure (bad ref, dirty state, etc.). |
-| `4` (optional) | Set with `--warnings-exit-code 4` when the run **passed** but emitted **notices** (e.g. oversized files skipped from scanning). Default remains `0` in that case. |
+**Structured output:** `--output-json` (schema with per-gate findings), `--output-sarif` (SARIF 2.1.0), `--publish-github-checks`, `--label-pr-on-advisory`. Machine-only CI: pair `--quiet` with `--output-json`.
 
-**Structured output:** `--output-json path/to/aiv-report.json` writes `schema_version: 2`, top-level **`doctor_mode`** (set `true` for `doctor` subcommand runs), and per-gate **`findings`**. Pipelines should treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. **`--output-sarif`** writes SARIF 2.1.0 with **`runs[].properties.doctorMode`**. **`--publish-github-checks`** posts a GitHub Check with annotations. **`--label-pr-on-advisory`** tags the PR when soft (`severity: warn`) AI-slop signals appear without failing CI (see [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md)). **`--quiet`** suppresses the human-readable stdout report and the one-line INFO summary (pair with `--output-json` / `--output-sarif` for machine-only CI). See [CHANGELOG.md](CHANGELOG.md).
-
-### Working on this codebase
-
-If you are changing AIV itself, run a full validation (unit tests plus JaCoCo line coverage checks):
+Building AIV itself runs unit tests plus 100% line-coverage checks:
 
 ```bash
 mvn clean verify
 ```
 
-The parent POM enforces **100% line coverage** per module on `verify`. If the build fails at `jacoco:check`, open `MODULE/target/site/jacoco/index.html` for that module and add or extend tests for the red lines.
-
-On GitHub, [`.github/workflows/aiv.yml`](.github/workflows/aiv.yml) runs **`mvn clean verify -pl aiv-cli -am`** (unit tests and JaCoCo) before executing the AIV gate on the diff.
-
----
-
-## Example Project
-
-The `example-project/` directory contains a minimal setup: config files, design rules, and a GitHub Actions workflow. Use it to see how AIV behaves on real code.
-
-Validate locally (from the parent repo):
-
-```bash
-scripts\validate-example.bat   # Windows
-./scripts/validate-example.sh  # Linux or Mac
-```
-
----
-
-## Releasing (maintainers)
-
-1. **Version alignment:** after bumping the reactor **`<version>`** in the root `pom.xml`, run **`scripts/sync-action-version.ps1`** (Windows) or **`scripts/sync-action-version.sh`** (Git Bash / Linux) so [action.yml](action.yml) **`inputs.aiv-version`** default matches Maven Central.  
-2. **GitHub Release (JAR):** push a tag `vX.Y.Z` - workflow **Release (GitHub)** runs `mvn verify` and uploads `aiv-cli-X.Y.Z.jar` to the [Releases](https://github.com/vaquarkhan/aiv-integrity-gate/releases) page.  
-3. **Maven Central:** add repository secrets (`CENTRAL_TOKEN_*`, `GPG_*`), then run **Actions → Publish to Maven Central** with version `X.Y.Z` (after the GitHub release).  
-4. **Marketplace:** publish the root **`action.yml`** from the GitHub UI when you want listing updates (and align the Marketplace description with the POM “not ASF” disclaimer if needed).
-
-Details: [DEPLOYMENT.md](docs/DEPLOYMENT.md) (GitHub release, Maven Central, `cli-jar-url`).
-
----
-
 ## Documentation
 
-| Document | Contents |
+Start at the [documentation site](https://vaquarkhan.github.io/aiv-integrity-gate/) or the [docs folder](docs/README.md).
+
+| Document | Audience |
 |----------|----------|
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Module map, Mermaid diagrams, how to add a gate. |
-| [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build, run, test, contribute (maintainers). |
-| [docs/TUTORIAL.md](docs/TUTORIAL.md) | Long-form getting started (walkthrough, CLI, CI, troubleshooting). |
-| [docs/README.md](docs/README.md) | Index of all guides. |
-| [docs/pipeline-aiv-copilot.md](docs/pipeline-aiv-copilot.md) | Two-stage flow: AIV hard gate → Copilot advisory. |
-| [benchmarks/airflow/README.md](benchmarks/airflow/README.md) | Airflow E2E benchmark, labeled corpus, HTML reports (`reports/latest.html`). |
-| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable AIV in your repo, CI workflows, Maven Central / Marketplace publishing. |
-| [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | Full configuration reference for gates and rules. |
-| [docs/dashboard/README.md](docs/dashboard/README.md) | Static dashboard for JSON run history. |
-| `*/README.md` (per module) | Short module-specific notes (API, core, plugins, adapters, CLI). |
-
----
-
-## Minimal Configuration
-
-Create `.aiv/config.yaml`:
-
-```yaml
-schema_version: 1
-# Optional: skip generated paths
-# exclude_paths:
-#   - "**/generated/**"
-#   - "**/*.pb.java"
-
-gates:
-  - id: density
-    enabled: true
-    config:
-      ldr_threshold: 0.25
-      entropy_threshold: 4.0
-  - id: design
-    enabled: true
-    config:
-      rules_path: .aiv/design-rules.yaml
-  - id: dependency
-    enabled: true
-  - id: syntax
-    enabled: true
-  - id: invariant
-    enabled: true
-  - id: doc-integrity
-    enabled: false
-    config:
-      rules_path: .aiv/doc-rules.yaml
-      auto: true
-```
-
-Create `.aiv/design-rules.yaml` with at least one constraint:
-
-```yaml
-constraints:
-  - id: no-system-exit
-    keywords: []
-    forbidden_calls: [System.exit]
-    required_calls: []
-
-  # Prefer objective AI attribution markers. Avoid emoji hard-blocks (false positives on legitimate code).
-  - id: no-ai-generated-markers
-    keywords: []
-    forbidden_calls: ["Generated by AI", "AI-generated", "Generated by ChatGPT", "as an AI language model"]
-    required_calls: []
-
-  - id: use-specific-api
-    keywords: [expireSnapshots]
-    forbidden_calls: [table.removeSnapshots]
-    required_calls: [ExpireSnapshots]
-```
-
-Optional: add `.aiv/doc-rules.yaml` for documentation validation (paths, cross-refs, commands). Use **`--include-doc-checks`** for “every run” doc validation, or enable **`doc-integrity`** in `config.yaml` (often with **`auto: true`** so only doc-changing PRs pay the cost). Details: [DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md#doc-integrity-gate).
-
-If you omit these files, AIV uses built-in defaults and looks for `.aiv/design-rules.yaml` when the design gate is enabled.
-
----
-
-## CI Integration
-
-### GitHub Action (Marketplace / composite)
-
-After **`io.github.vaquarkhan.aiv:aiv-cli`** is published to Maven Central (see [DEPLOYMENT.md](docs/DEPLOYMENT.md#option-b-deploy-to-maven-central)), consumers can run the **root** composite action. It downloads the **shaded** uber JAR from Central by default:
-
-```yaml
-jobs:
-  aiv:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
-        with:
-          fetch-depth: 0
-      - uses: vaquarkhan/aiv-integrity-gate@v1
-        with:
-          base-ref: origin/${{ github.base_ref }}
-          aiv-version: '1.0.4'
-```
-
-Optional input **`cli-jar-url`** points to a full URL for the shaded JAR (for example a GitHub Release asset) when you do not want the Central download. Inputs are documented in [action.yml](action.yml).
-
-### Raw shell step
-
-Add a step to your pipeline:
-
-```yaml
-- run: java -jar aiv-cli.jar --workspace . --diff origin/main
-```
-
-Append `--include-doc-checks` to that command when you want the doc-integrity gate on every run without editing `config.yaml`. The job fails when any gate fails. No secrets are required for the default setup.
-
----
-
-## Human Override and Exceptions
-
-**Skip all gates:** Put **`/aiv skip`** or **`aiv skip`** on its **own line** in the **latest** commit message on the PR head (anchored match - not a substring inside unrelated text). If **`skip_allowlist`** is set in `.aiv/config.yaml`, only those author emails may use the directive.
-
-**Refactoring:** Per-file net LOC can exempt density checks for deletions-heavy changes (see configuration reference).
-
-**Trusted authors:** List committer email addresses in `trusted_authors` under the density gate config. Bypass applies only when the latest head commit is signed and the signer email matches. Treat this as project-policy convenience, not a standalone identity proof.
-
----
-
-## Roadmap
-
-No open near-term items. Shipped features: this README and [CHANGELOG.md](CHANGELOG.md).
+| [docs/TUTORIAL.md](docs/TUTORIAL.md) | First source-build and strict run |
+| [docs/HELLO-WORLD.md](docs/HELLO-WORLD.md) | Exercise all 16 gates one by one |
+| [docs/GATES.md](docs/GATES.md) | Open one gate |
+| [docs/MODULE-ADOPTION-GUIDE.md](docs/MODULE-ADOPTION-GUIDE.md) | Mandatory/optional modules and profiles |
+| [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) | Commit-time install |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable in a repo / CI |
+| [docs/MCP.md](docs/MCP.md) | `aiv verify` and MCP wiring |
+| [docs/AIDLC.md](docs/AIDLC.md) | AI-DLC sensor integration |
+| [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | `.aiv/config.yaml` and CLI flags |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 25-project module, runtime, trust, evidence, and deployment architecture |
+| [Technical article](docs/blog/AIV-VERIFIABLE-CHANGE.md) | Long-form verification-gap and architecture narrative |
+| [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build and contribute |
+| [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md) | Audit log, report, proposal checks |
 
 ## License
 
-Licensed under the **Apache License 2.0** (see [LICENSE](LICENSE)). This is a license on the **source code**, not affiliation with the Apache Software Foundation.
+[Apache License 2.0](LICENSE). Author: Viquar Khan.

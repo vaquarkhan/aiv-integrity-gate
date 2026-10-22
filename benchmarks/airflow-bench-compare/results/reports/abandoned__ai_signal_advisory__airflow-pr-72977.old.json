@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/abandoned/pr-72977/airflow-core/src/airflow/api_fastapi/execution_api/app.py (SyntaxError line 1: unmatched ')')\nDoes not parse: providers/abandoned/pr-72977/shared/logging/src/airflow_shared/logging/structlog.py (SyntaxError line 3: unexpected indent)\nDoes not parse: providers/abandoned/pr-72977/task-sdk/.pre-commit-config.yaml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 4, column 3:\n      - repo: https://github.com/boido ... \n      ^\n)\nDoes not parse: providers/abandoned/pr-72977/task-sdk/src/airflow/sdk/api/client.py (SyntaxError line 8: unmatched ']')\nDoes not parse: providers/abandoned/pr-72977/task-sdk/src/airflow/sdk/execution_time/supervisor.py (SyntaxError line 8: unexpected indent)\nDoes not parse: providers/abandoned/pr-72977/task-sdk/tests/task_sdk/execution_time/test_supervisor.py (SyntaxError line 8: unexpected indent)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72977/airflow-core/src/airflow/api_fastapi/execution_api/app.py",
+          "start_line": 1,
+          "message": "Does not parse: providers/abandoned/pr-72977/airflow-core/src/airflow/api_fastapi/execution_api/app.py (SyntaxError line 1: unmatched ')')"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72977/shared/logging/src/airflow_shared/logging/structlog.py",
+          "start_line": 3,
+          "message": "Does not parse: providers/abandoned/pr-72977/shared/logging/src/airflow_shared/logging/structlog.py (SyntaxError line 3: unexpected indent)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72977/task-sdk/.pre-commit-config.yaml",
+          "start_line": 4,
+          "message": "Does not parse: providers/abandoned/pr-72977/task-sdk/.pre-commit-config.yaml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 4, column 3:\n      - repo: https://github.com/boido ... \n      ^\n)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72977/task-sdk/src/airflow/sdk/api/client.py",
+          "start_line": 8,
+          "message": "Does not parse: providers/abandoned/pr-72977/task-sdk/src/airflow/sdk/api/client.py (SyntaxError line 8: unmatched ']')"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72977/task-sdk/src/airflow/sdk/execution_time/supervisor.py",
+          "start_line": 8,
+          "message": "Does not parse: providers/abandoned/pr-72977/task-sdk/src/airflow/sdk/execution_time/supervisor.py (SyntaxError line 8: unexpected indent)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72977/task-sdk/tests/task_sdk/execution_time/test_supervisor.py",
+          "start_line": 8,
+          "message": "Does not parse: providers/abandoned/pr-72977/task-sdk/tests/task_sdk/execution_time/test_supervisor.py (SyntaxError line 8: unexpected indent)"
+        }
+      ]
+    }
+  ]
+}

@@ -1,63 +1,93 @@
-# Pre-commit (shift-left)
+# Pre-commit: run AIV before a pull request exists
 
-Highest-ROI install: catch objectively broken AI/agent output **before** the PR exists.
+Pre-commit gives developers and coding agents immediate feedback on staged change before CI/review.
 
-<p align="center">
-  <img src="images/aiv-shift-left.svg" alt="AIV at pre-commit, then GitHub Action, then merge only if hard gates pass" width="880" />
-</p>
+![AIV shift-left path](images/aiv-shift-left.png)
+
+**Figure 1: Pre-commit is the first layer, not the only layer.** Local checks reduce avoidable CI/review work. Strict CI remains the trusted backstop because local hooks can be skipped and local policy is developer-controlled.
 
 ## Requirements
 
-- JDK 17+
-- `git`
-- `curl` (bash) or PowerShell (Windows) for Maven Central download on first run
+- JDK 17 or newer.
+- Git.
+- pre-commit (for the hook-repository option).
+- curl/PowerShell only when a script downloads a released jar.
 
-## Option A - official hook repo
-
-`.pre-commit-config.yaml`:
+## Release 2.0 hook
 
 ```yaml
 repos:
   - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-    rev: v1.0.4   # pin a tag or commit
+    rev: v2.0
     hooks:
-      - id: aiv-gate          # bash / Git Bash / macOS / Linux
-      # - id: aiv-gate-windows  # native Windows PowerShell instead
+      - id: aiv-gate
+      # - id: aiv-gate-windows
 ```
-
-Then:
 
 ```bash
 pre-commit install
-# stage files, then:
-pre-commit run aiv-gate --all-files   # or commit as usual
+pre-commit run aiv-gate --all-files
 ```
 
-The hook gates **staged** changes only (index tree vs `HEAD`).
+The hook evaluates the staged index against `HEAD`.
 
-## Option B - local script
+## Local jar
+
+To run a jar built from tag `v2.0`, point the wrapper at it:
 
 ```bash
-# Linux / macOS / Git Bash
+mvn -pl aiv-cli -am clean package
+export AIV_CLI_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
 ./scripts/aiv-pre-commit.sh
-
-# Windows PowerShell
-./scripts/aiv-pre-commit.ps1
 ```
 
-Environment overrides:
+Windows PowerShell:
 
-| Variable | Meaning |
+```powershell
+$env:AIV_CLI_JAR = (Resolve-Path "aiv-cli\target\aiv-cli-2.0.jar").Path
+.\scripts\aiv-pre-commit.ps1
+```
+
+## Wrapper environment
+
+| Variable | Purpose |
 |----------|---------|
-| `AIV_CLI_JAR` | Path to shaded `aiv-cli.jar` |
-| `AIV_VERSION` | Maven Central version (default `1.0.4`) |
-| `AIV_WORKSPACE` | Repo root |
-| `AIV_DIFF_BASE` / `AIV_DIFF_HEAD` | Skip staged-tree mode; compare these refs |
+| `AIV_CLI_JAR` | compatible source/release jar path |
+| `AIV_VERSION` | stable Maven Central version for download fallback |
+| `AIV_WORKSPACE` | repository root |
+| `AIV_DIFF_BASE`, `AIV_DIFF_HEAD` | override staged mode with explicit refs |
 
-## CI still matters
+## Recommended local profile
 
-Keep the [composite action](../action.yml) as a backstop. Pre-commit is prevention; CI catches skipped hooks.
+Use `minimal` initially:
 
-## Claims
+```bash
+java -jar "$AIV_CLI_JAR" init --preset minimal --workspace .
+```
 
-This path fails objectively broken paste early without blocking good commits when hard rules stay precise.
+It enables only syntax and invariant. Add local deterministic gates as the team becomes comfortable. Avoid requiring registries/models/tools on every developer machine unless those dependencies are standard and reliable.
+
+## Suppression and failure workflow
+
+When AIV reports a finding:
+
+1. Fix the objective defect where possible.
+2. If the finding is valid but intentionally accepted, use the narrowest rule-scoped suppression.
+3. Never use a broad file-level disable without a rule id.
+4. Commit policy/suppression changes for review.
+5. Let strict CI apply the trusted base policy.
+
+Every accepted baseline/inline suppression is surfaced as `[SUPPRESSED]` in the result/evidence.
+
+## Why CI remains mandatory
+
+A local hook can be skipped, run with different tools, or use workspace fallback. CI should fetch the base ref and run:
+
+```bash
+java -jar aiv-cli.jar --workspace . --diff origin/main --head HEAD \
+  --require-trusted-config --output-json aiv-report.json --output-sarif aiv-results.sarif
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) and [MODULE-ADOPTION-GUIDE.md](MODULE-ADOPTION-GUIDE.md).
+
+**Author:** Viquar Khan

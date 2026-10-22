@@ -1,4 +1,4 @@
-# Airflow AIV benchmark — methodology
+# Airflow AIV benchmark: methodology
 
 ## What we measure
 
@@ -8,7 +8,7 @@
 | `objective_slop` | Real PR whose **file patches** contain verified AIV hard markers | Yes | TP / FN |
 | `synthetic_negative` | Clean local fixture | No | TN / FP |
 | `merged_control` | Merged Airflow PR, no verified markers in patch | No | TN / FP |
-| `closed_unmerged_sample` | Closed unmerged PR, **no** verified markers | No | Flag-rate only — **not** AI-slop ground truth |
+| `closed_unmerged_sample` | Closed unmerged PR, **no** verified markers | No | Flag-rate only: **not** AI-slop ground truth |
 
 ## What we do **not** claim
 
@@ -35,7 +35,7 @@ For each PR, `GET /repos/{repo}/pulls/{n}/files` patches are scanned for:
 
 ## Materialization note
 
-Each PR is scored in a **mini git workspace**. Changed files are loaded from the GitHub Contents API at the PR **head SHA** (full file text). Patch-only reconstruction is a fallback and can create false syntax failures — prefer head contents for published reports.
+Each PR is scored in a **mini git workspace**. Changed files are loaded from the GitHub Contents API at the PR **head SHA** (full file text). Patch-only reconstruction is a fallback and can create false syntax failures: prefer head contents for published reports.
 
 
 ```bash
@@ -45,10 +45,10 @@ python benchmarks/airflow/scripts/run-e2e-benchmark.py run
 
 Each case is materialized as a **tiny git repo** (PR patches applied as files + `.aiv/` from this folder). `aiv-cli` runs with `--output-json`. Verdicts:
 
-- **TP** — labeled positive and hard-fail
-- **FN** — labeled positive and hard-pass
-- **FP** — labeled control/sample and hard-fail
-- **TN** — labeled control and hard-pass
+- **TP**: labeled positive and hard-fail
+- **FN**: labeled positive and hard-pass
+- **FP**: labeled control/sample and hard-fail
+- **TN**: labeled control and hard-pass
 
 Reports: `benchmarks/airflow/reports/latest.html` and `latest.json` (plus timestamped `run-*` folders).
 

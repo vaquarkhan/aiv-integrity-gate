@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "AI edit-artifact / elision marker found in providers/bench/slop-edit-01/edit-01.py",
+      "findings": [
+        {
+          "rule_id": "invariant.ai-edit-artifact",
+          "file": "providers/bench/slop-edit-01/edit-01.py",
+          "start_line": 1,
+          "message": "AI edit-artifact / elision marker found in providers/bench/slop-edit-01/edit-01.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/bench/slop-edit-01/edit-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-01test, edit-01tests, testedit-01, edit-01it, edit-01spec, edit-01testcase, test_edit-01, edit-01_test, edit-01_spec, edit-01.test, edit-01.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/slop-edit-01/edit-01.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-01test, edit-01tests, testedit-01, edit-01it, edit-01spec, edit-01testcase, test_edit-01, edit-01_test, edit-01_spec, edit-01.test, edit-01.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

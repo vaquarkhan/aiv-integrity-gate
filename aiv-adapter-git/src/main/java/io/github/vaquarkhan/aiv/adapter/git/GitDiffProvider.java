@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.adapter.git;
@@ -87,11 +75,40 @@ public final class GitDiffProvider implements DiffProvider {
         if (p.waitFor(timeoutSeconds, TimeUnit.SECONDS)) {
             return false;
         }
+        // Kill the whole tree: on Windows a wrapper (git.cmd, a credential helper, a pager) can outlive the
+        // parent and keep the redirected output file open.
+        java.util.List<ProcessHandle> tree = p.descendants().toList();
+        tree.forEach(ProcessHandle::destroyForcibly);
         p.destroyForcibly();
+        // destroyForcibly is asynchronous; wait (bounded) until the tree is gone so it no longer holds the
+        // working directory or the redirected output file.
+        for (int i = 0; i < 50 && (p.isAlive() || tree.stream().anyMatch(ProcessHandle::isAlive)); i++) { LockSupport.parkNanos(100_000_000L); }
         return true;
     }
 
-    private record GitCapture(int exitCode, String stdout, boolean timedOut) {}
+    /**
+     * Best-effort temp-file cleanup. A timed-out child on Windows can still hold the handle for a moment; that
+     * must not turn a clear "timed out" verdict into an unrelated file-locking error, so the file is deleted on
+     * JVM exit instead.
+     */
+    static void deleteQuietly(Path tmp) {
+        try {
+            Files.deleteIfExists(tmp);
+        } catch (java.io.IOException e) {
+            tmp.toFile().deleteOnExit();
+        }
+    }
+
+    private record GitCapture(int exitCode, String stdout, String stderr, boolean timedOut) {}
+
+    /** Appends git's own stderr so "no merge base" is not reported as a bare exit code. */
+    static String gitFailureDetail(String prefix, int exitCode, String stderr) {
+        String msg = prefix + exitCode;
+        if (stderr == null || stderr.isBlank()) {
+            return msg;
+        }
+        return msg + ": " + stderr.strip().replace('\r', ' ').replace('\n', ' ');
+    }
 
     /**
      * Runs {@code git} with stdout appended to a temp file, then reads that file after the process exits.
@@ -100,26 +117,29 @@ public final class GitDiffProvider implements DiffProvider {
      */
     private static GitCapture runGitCapture(ProcessBuilder pb, long timeoutSeconds) throws Exception {
         Path tmp = Files.createTempFile("aiv-git-", ".out");
+        Path err = Files.createTempFile("aiv-git-", ".err");
         try {
             pb.redirectOutput(tmp.toFile());
-            pb.redirectError(ProcessBuilder.Redirect.DISCARD);
+            pb.redirectError(err.toFile());
             Process p = pb.start();
             if (gitProcessTimedOut(p, timeoutSeconds)) {
                 log.warn("Git subprocess timed out after {}s (command: {})", timeoutSeconds, pb.command());
                 for (int i = 0; i < 20; i++) {
                     LockSupport.parkNanos(50_000_000L);
                 }
-                return new GitCapture(-1, null, true);
+                return new GitCapture(-1, null, null, true);
             }
             int exit = p.exitValue();
+            String stderr = new String(Files.readAllBytes(err), StandardCharsets.UTF_8);
             if (!Files.isRegularFile(tmp) || Files.size(tmp) > maxGitCaptureBytes()) {
-                return new GitCapture(exit, "", false);
+                return new GitCapture(exit, "", stderr, false);
             }
             // Lenient UTF-8: binary patches (e.g. PNG) must not abort the whole gate.
             byte[] bytes = Files.readAllBytes(tmp);
-            return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), false);
+            return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), stderr, false);
         } finally {
-            Files.deleteIfExists(tmp);
+            deleteQuietly(tmp);
+            deleteQuietly(err);
         }
     }
 
@@ -172,7 +192,7 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff --numstat timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException("git diff --numstat failed with exit " + cap.exitCode());
+                throw new IllegalStateException(gitFailureDetail("git diff --numstat failed with exit ", cap.exitCode(), cap.stderr()));
             }
             String text = cap.stdout() != null ? cap.stdout() : "";
             int added = 0;
@@ -233,9 +253,9 @@ public final class GitDiffProvider implements DiffProvider {
                 return false;
             }
             String status = cap.stdout().lines().findFirst().orElse("").trim();
-            // G/U/X/Y/R are signed states; N means unsigned.
-            return "G".equals(status) || "U".equals(status) || "X".equals(status)
-                    || "Y".equals(status) || "R".equals(status);
+            // Only G (good, valid signature) counts. U = good but untrusted key, X = expired, Y = expired key,
+            // R = revoked key, E = cannot check, N = unsigned. Anything but G is not identity evidence.
+            return "G".equals(status);
         } catch (Exception e) {
             log.debug("Could not parse signature status", e);
             return false;
@@ -278,7 +298,7 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException("git diff failed with exit " + cap.exitCode());
+                throw new IllegalStateException(gitFailureDetail("git diff failed with exit ", cap.exitCode(), cap.stderr()));
             }
             return cap.stdout() != null ? cap.stdout() : "";
         } catch (IllegalStateException e) {
@@ -300,7 +320,7 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff --name-status timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException("git diff --name-status failed with exit " + cap.exitCode());
+                throw new IllegalStateException(gitFailureDetail("git diff --name-status failed with exit ", cap.exitCode(), cap.stderr()));
             }
             String nameStatus = cap.stdout() != null ? cap.stdout() : "";
             for (String line : nameStatus.split("\n")) {

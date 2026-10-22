@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="650" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">Deployment and integration topology</text>
+<text x="40" y="76" font-size="15" fill="#475569">Use a small profile locally, a trusted strict profile in CI, and the same verify contract for agents</text>
+<rect x="40" y="115" width="330" height="135" rx="12" fill="#E8F1FF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="56" y="142" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Developer workstation</text>
+<text x="56" y="165" text-anchor="start" font-size="12" fill="#475569">pre-commit / direct CLI</text>
+<text x="56" y="183" text-anchor="start" font-size="12" fill="#475569">minimal or balanced profile</text>
+<text x="56" y="201" text-anchor="start" font-size="12" fill="#475569">fast feedback before PR</text>
+<rect x="435" y="115" width="330" height="135" rx="12" fill="#DFF7F2" stroke="#5EEAD4" stroke-width="1.5"/>
+<text x="451" y="142" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">CI trust boundary</text>
+<text x="451" y="165" text-anchor="start" font-size="12" fill="#475569">source-built or compatible release jar</text>
+<text x="451" y="183" text-anchor="start" font-size="12" fill="#475569">--require-trusted-config</text>
+<text x="451" y="201" text-anchor="start" font-size="12" fill="#475569">JSON + SARIF + Checks + audit</text>
+<rect x="830" y="115" width="330" height="135" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="846" y="142" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Agent / lifecycle host</text>
+<text x="846" y="165" text-anchor="start" font-size="12" fill="#475569">aiv verify schema v2</text>
+<text x="846" y="183" text-anchor="start" font-size="12" fill="#475569">MCP wrapper or AI-DLC sensor</text>
+<text x="846" y="201" text-anchor="start" font-size="12" fill="#475569">advisory or fail closed</text>
+<line x1="370" y1="183" x2="430" y2="183" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="765" y1="183" x2="825" y2="183" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="105" y="350" width="270" height="130" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="240.0" y="377" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Repository policy</text>
+<text x="240.0" y="400" text-anchor="middle" font-size="12" fill="#475569">.aiv/config.yaml</text>
+<text x="240.0" y="418" text-anchor="middle" font-size="12" fill="#475569">design/doc/rule sidecars</text>
+<text x="240.0" y="436" text-anchor="middle" font-size="12" fill="#475569">reviewed on the primary branch</text>
+<rect x="465" y="350" width="270" height="130" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="600.0" y="377" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Evidence outputs</text>
+<text x="600.0" y="400" text-anchor="middle" font-size="12" fill="#475569">terminal | JSON | SARIF</text>
+<text x="600.0" y="418" text-anchor="middle" font-size="12" fill="#475569">labels | comments | Checks</text>
+<text x="600.0" y="436" text-anchor="middle" font-size="12" fill="#475569">hash-chain head</text>
+<rect x="825" y="350" width="270" height="130" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="960.0" y="377" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Downstream decisions</text>
+<text x="960.0" y="400" text-anchor="middle" font-size="12" fill="#475569">branch protection</text>
+<text x="960.0" y="418" text-anchor="middle" font-size="12" fill="#475569">OPA / policy host</text>
+<text x="960.0" y="436" text-anchor="middle" font-size="12" fill="#475569">human review / AI-DLC gate</text>
+<line x1="600" y1="250" x2="240" y2="345" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="600" y1="250" x2="600" y2="345" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="600" y1="250" x2="960" y2="345" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="600" y="565" text-anchor="middle" font-size="13" font-weight="700" fill="#0F766E">AIV computes evidence. The repository, CI platform, or orchestrator decides what must block.</text>
+</svg>

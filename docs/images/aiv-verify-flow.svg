@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="520" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">aiv verify: a stable contract for agents and tools</text>
+<text x="40" y="76" font-size="15" fill="#475569">Strict request in, frozen-policy verdict out</text>
+<rect x="45" y="125" width="260" height="250" rx="12" fill="#E8F1FF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="61" y="152" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Request JSON</text>
+<text x="61" y="175" text-anchor="start" font-size="12" fill="#475569">artifact.files + rawDiff</text>
+<text x="61" y="193" text-anchor="start" font-size="12" fill="#475569">policyRef + context</text>
+<text x="61" y="211" text-anchor="start" font-size="12" fill="#475569">strict RFC 8259</text>
+<text x="61" y="229" text-anchor="start" font-size="12" fill="#475569">unknown options fail closed</text>
+<rect x="470" y="125" width="260" height="250" rx="12" fill="#DFF7F2" stroke="#5EEAD4" stroke-width="1.5"/>
+<text x="486" y="152" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Verification</text>
+<text x="486" y="175" text-anchor="start" font-size="12" fill="#475569">resolve policy once</text>
+<text x="486" y="193" text-anchor="start" font-size="12" fill="#475569">snapshot immutable .aiv</text>
+<text x="486" y="211" text-anchor="start" font-size="12" fill="#475569">run configured gates</text>
+<text x="486" y="229" text-anchor="start" font-size="12" fill="#475569">preserve severity</text>
+<rect x="895" y="125" width="260" height="250" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="911" y="152" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Response JSON</text>
+<text x="911" y="175" text-anchor="start" font-size="12" fill="#475569">pass / block</text>
+<text x="911" y="193" text-anchor="start" font-size="12" fill="#475569">gates + findings</text>
+<text x="911" y="211" text-anchor="start" font-size="12" fill="#475569">policy + evidence digests</text>
+<text x="911" y="229" text-anchor="start" font-size="12" fill="#475569">external inputs + audit head</text>
+<line x1="305" y1="250" x2="465" y2="250" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="730" y1="250" x2="890" y2="250" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="600" y="455" text-anchor="middle" font-size="14" font-weight="700" fill="#0F766E">stdout is one JSON object; diagnostics stay on stderr; verify --capabilities provides a positive handshake.</text>
+</svg>

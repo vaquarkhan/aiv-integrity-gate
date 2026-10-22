@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py (SyntaxError line 1: unexpected indent)\nDoes not parse: providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py (SyntaxError line 1: unexpected indent)\nDoes not parse: providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py (SyntaxError line 1: unexpected indent)\nDoes not parse: providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py (SyntaxError line 2: unexpected indent)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "Does not parse: providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py (SyntaxError line 1: unexpected indent)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+          "start_line": 1,
+          "message": "Does not parse: providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py (SyntaxError line 1: unexpected indent)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 1,
+          "message": "Does not parse: providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py (SyntaxError line 1: unexpected indent)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 2,
+          "message": "Does not parse: providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py (SyntaxError line 2: unexpected indent)"
+        }
+      ]
+    }
+  ]
+}

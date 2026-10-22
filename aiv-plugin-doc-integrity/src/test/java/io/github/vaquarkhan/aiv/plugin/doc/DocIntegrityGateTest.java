@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.plugin.doc;
@@ -120,6 +108,29 @@ class DocIntegrityGateTest {
         ));
         GateResult r = gate.evaluate(ctx);
         assertTrue(r.isPassed());
+    }
+
+    @Test
+    void readsRulesFromFrozenPolicyWorkspace(@TempDir Path dir) throws Exception {
+        Path source = dir.resolve("source");
+        Path policy = dir.resolve("policy");
+        Files.createDirectories(source.resolve(".aiv"));
+        Files.createDirectories(policy.resolve(".aiv"));
+        Files.writeString(source.resolve(".aiv/doc-rules.yaml"), "doc_constraints: []\n");
+        Files.writeString(policy.resolve(".aiv/doc-rules.yaml"), """
+                doc_constraints:
+                  - id: frozen
+                    trigger_keywords: ["golden file"]
+                    required_mentions: ["REQUIRED_FLAG"]
+                    scope: [README.md]
+                """);
+        Diff diff = new Diff("base", "head", List.of(new ChangedFile("README.md",
+                ChangedFile.ChangeType.ADDED, "This golden file workflow is documented.")), "");
+        AIVConfig config = new AIVConfig(List.of(new AIVConfig.GateConfig("doc-integrity", true,
+                Map.of("rules_path", ".aiv/doc-rules.yaml"))), Map.of());
+        GateResult result = new DocIntegrityGate().evaluate(new AIVContext(source, policy, diff, config, Map.of()));
+        assertFalse(result.isPassed());
+        assertTrue(ruleIds(result).contains("doc-integrity.required-mention"));
     }
 
     @Test

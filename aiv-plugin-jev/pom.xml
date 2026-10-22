@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.vaquarkhan</groupId>
+        <artifactId>aiv-gate</artifactId>
+        <version>2.0</version>
+    </parent>
+    <artifactId>aiv-plugin-jev</artifactId>
+    <packaging>jar</packaging>
+    <name>AIV Plugin - Jev (advisory, opt-in)</name>
+    <description>Optional, advisory-only gate that asks a System One decision model (TypeSafe Jev, or a local Ollama decision model) calibrated yes/no questions about the diff. Never blocks; off unless configured. Not an Apache Software Foundation project.</description>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

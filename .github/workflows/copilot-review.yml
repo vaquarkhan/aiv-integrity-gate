@@ -1,10 +1,10 @@
 # Stage 2 of the AI-slop pipeline: advisory Copilot code review.
 #
 # Ordering (see docs/pipeline-aiv-copilot.md):
-#   Stage 1  AIV Gate (.github/workflows/aiv.yml) — deterministic HARD gate (~seconds).
-#            Blocks objective slop: won't-parse, elision markers, hallucinated imports,
-#            real conflict markers. precision ~1.0, so it is safe to fail the build.
-#   Stage 2  THIS workflow — LLM review, ADVISORY only. Never fails the build.
+#   Stage 1  AIV Gate (.github/workflows/aiv.yml): deterministic hard gate.
+#            Blocks configured objective findings such as parse failures, elision markers,
+#            undeclared imports, and conflict markers. Each finding is reproducible.
+#   Stage 2  THIS workflow: LLM review, ADVISORY only. Never fails the build.
 #
 # It is gated on AIV success via `workflow_run`: Copilot is only asked to review a PR
 # that already passed the cheap deterministic gate, so no LLM cost is spent on PRs that
@@ -12,7 +12,7 @@
 # is excluded): its verdict is non-deterministic and must stay a human-facing suggestion.
 #
 # Requires: "Copilot code review" enabled for the repository/org. If it is not enabled,
-# the request step is a no-op warning — it never blocks a PR.
+# the request step is a no-op warning: it never blocks a PR.
 name: Copilot Review (advisory)
 
 on:
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Request Copilot review on the PR that passed AIV
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
             const headSha = context.payload.workflow_run.head_sha;

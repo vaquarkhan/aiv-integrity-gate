@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "AI edit-artifact / elision marker found in providers/bench/slop-edit-04/edit-04.py",
+      "findings": [
+        {
+          "rule_id": "invariant.ai-edit-artifact",
+          "file": "providers/bench/slop-edit-04/edit-04.py",
+          "start_line": 1,
+          "message": "AI edit-artifact / elision marker found in providers/bench/slop-edit-04/edit-04.py"
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/bench/slop-edit-04/edit-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-04test, edit-04tests, testedit-04, edit-04it, edit-04spec, edit-04testcase, test_edit-04, edit-04_test, edit-04_spec, edit-04.test, edit-04.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/slop-edit-04/edit-04.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-04test, edit-04tests, testedit-04, edit-04it, edit-04spec, edit-04testcase, test_edit-04, edit-04_test, edit-04_spec, edit-04.test, edit-04.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 0 findings",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

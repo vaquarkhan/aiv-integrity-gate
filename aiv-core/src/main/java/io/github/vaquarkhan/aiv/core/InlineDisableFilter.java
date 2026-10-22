@@ -31,7 +31,8 @@ import java.util.regex.Pattern;
  * # aiv-disable invariant.ai-edit-artifact
  * code(); // aiv-disable-line security.aws-key
  * </pre>
- * File-level {@code aiv-disable} (optional rule id) suppresses matching findings for that path.
+ * File-level {@code aiv-disable &lt;rule-id&gt;} suppresses matching findings for that path. The rule id is
+ * mandatory at file level (a bare directive or {@code *} is ignored) so one comment can never blank a file.
  * Next-line / same-line directives use the finding's {@code startLine}.
  */
 public final class InlineDisableFilter {
@@ -97,6 +98,10 @@ public final class InlineDisableFilter {
             String kind = m.group(1); // null | next-line | line
             Set<String> rules = parseRules(m.group(2));
             if (kind == null) {
+                // File-level suppression must name a rule (or rule family). A bare "aiv-disable" or a
+                // lone "*" would silence every gate for the whole file with one comment; that is an
+                // evasion path, not a suppression, so it is ignored.
+                rules.remove("*");
                 fileDisable.addAll(rules);
             } else if ("next-line".equalsIgnoreCase(kind)) {
                 nextLine.computeIfAbsent(i + 2, k -> new HashSet<>()).addAll(rules);

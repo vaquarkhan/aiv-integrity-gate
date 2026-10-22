@@ -1,21 +1,21 @@
 # Preset: minimal
-# Smallest hard set: parse + invariant only.
+# Smallest local hard set: syntax + invariant. Every other gate is explicit off.
 schema_version: 1
 fail_fast: false
 gates:
-  - id: syntax
-    enabled: true
-  - id: invariant
-    enabled: true
-  - id: design
-    enabled: false
-  - id: dependency
-    enabled: false
-  - id: density
-    enabled: false
-  - id: cohesion
-    enabled: false
-  - id: security
-    enabled: false
-  - id: doc-integrity
-    enabled: false
+  - { id: syntax, enabled: true }
+  - { id: invariant, enabled: true }
+  - { id: dependency, enabled: false }
+  - { id: package-existence, enabled: false }
+  - { id: test-adequacy, enabled: false }
+  - { id: security, enabled: false }
+  - { id: design, enabled: false }
+  - { id: density, enabled: false }
+  - { id: cohesion, enabled: false }
+  - { id: duplication, enabled: false }
+  - { id: doc-integrity, enabled: false }
+  - { id: pr-metadata, enabled: false }
+  - { id: license-header, enabled: false }
+  - { id: external, enabled: false }
+  - { id: rules, enabled: false }
+  - { id: jev, enabled: false }

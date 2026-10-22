@@ -1,7 +1,7 @@
 # Runs AIV against true-positive fixtures packed as a two-commit git repo (expect FAIL).
 $ErrorActionPreference = "Stop"
 $Root = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
-$JarVersion = "1.0.4"
+$JarVersion = "2.0"
 Set-Location $Root
 Write-Host "Building aiv-cli..."
 mvn -q -pl aiv-cli -am package -DskipTests

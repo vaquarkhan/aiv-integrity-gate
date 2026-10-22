@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="520" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">AIV inside an AI-DLC phase gate</text>
+<text x="40" y="76" font-size="15" fill="#475569">Machine-checkable integrity evidence before Construction advances</text>
+<rect x="40" y="135" width="220" height="120" rx="12" fill="#E8F1FF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="150.0" y="162" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Agent output</text>
+<text x="150.0" y="185" text-anchor="middle" font-size="12" fill="#475569">changed code</text>
+<text x="150.0" y="203" text-anchor="middle" font-size="12" fill="#475569">full request or file</text>
+<line x1="260" y1="195" x2="300" y2="195" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="305" y="135" width="220" height="120" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="415.0" y="162" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">AIV sensor</text>
+<text x="415.0" y="185" text-anchor="middle" font-size="12" fill="#475569">advisory or fail closed</text>
+<text x="415.0" y="203" text-anchor="middle" font-size="12" fill="#475569">trusted policy ref</text>
+<line x1="525" y1="195" x2="565" y2="195" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="570" y="135" width="220" height="120" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="680.0" y="162" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Evidence</text>
+<text x="680.0" y="185" text-anchor="middle" font-size="12" fill="#475569">rules + locations</text>
+<text x="680.0" y="203" text-anchor="middle" font-size="12" fill="#475569">external inputs visible</text>
+<line x1="790" y1="195" x2="830" y2="195" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="835" y="135" width="220" height="120" rx="12" fill="#E8F1FF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="945.0" y="162" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">AI-DLC gate</text>
+<text x="945.0" y="185" text-anchor="middle" font-size="12" fill="#475569">record and advance</text>
+<text x="945.0" y="203" text-anchor="middle" font-size="12" fill="#475569">or audited intervention</text>
+<rect x="170" y="330" width="860" height="95" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="600.0" y="357" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Two sensor contracts</text>
+<text x="600.0" y="380" text-anchor="middle" font-size="12" fill="#475569">aiv: advisory file-local feedback | aiv-blocking: trusted policy required, failures and external inputs fail closed</text>
+<text x="600.0" y="398" text-anchor="middle" font-size="12" fill="#475569">Authoritative phase evidence uses --request with the complete raw diff and changed-file set.</text>
+</svg>

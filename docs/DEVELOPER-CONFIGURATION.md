@@ -1,573 +1,505 @@
-# AIV Developer Configuration Guide
+# Configuration reference
 
-You are in the right place if you need every knob AIV exposes: gates, YAML layout, CLI flags, and how defaults behave when files are missing. AIV works with any Git-based project (Java, Python, Go, Rust, and more). Project-specific settings live under `.aiv/` in the repo root.
+This is the complete reference for `.aiv/config.yaml`, the rule files it points to, the CLI flags, and the environment variables. Every gate is configured through the same shape, so you can tune AIV to your repository without changing code.
 
-**Author:** Vaquar Khan
-
----
-
-## Pain Areas and Features
-
-| Pain Area | Feature |
-|-----------|---------|
-| Reviewer overload, low-quality PR flood | Density gate |
-| Design drift, wrong API usage | Design gate |
-| Unknown imports, supply-chain risk | Dependency gate |
-| Fragile edge-case code | Invariant gate |
-| Urgent merges | `/aiv skip` |
-| Legitimate refactors flagged | Refactor exception |
-| Core maintainer friction | Trusted authors |
-
-See [README.md](../README.md#problems-and-solutions) for the full mapping.
+**Author:** Viquar Khan
 
 ---
 
-## Quick Start
+## 1. File layout
 
-1. Create `.aiv/config.yaml` (optional - defaults apply if missing)
-2. Create `.aiv/design-rules.yaml` (optional - for design compliance)
-3. Create `.aiv/doc-rules.yaml` (optional - for documentation validation)
-4. Run AIV: `java -jar aiv-cli.jar --diff origin/main` (add `--include-doc-checks` when you want doc integrity without editing YAML)
-
-For a full walkthrough (install, CI, troubleshooting), see **[TUTORIAL.md](TUTORIAL.md)**.
-
-If you are editing **this** AIV repository, run `mvn clean verify` before opening a PR so tests and the **100%** JaCoCo line gate stay green.
-
----
-
-## File Layout
-
-```
+```text
 your-project/
-├── .aiv/
-│   ├── config.yaml          # Gate thresholds and enable/disable
-│   ├── design-rules.yaml    # Forbidden/required patterns
-│   └── doc-rules.yaml       # Doc integrity (optional)
-├── .github/
-│   └── workflows/
-│       └── aiv.yml          # AIV on PR/push (example: see upstream aiv-integrity-gate)
-└── ...
+  .aiv/
+    config.yaml          # which gates run, their settings, severity, publication
+    design-rules.yaml    # forbidden / required patterns (design gate)
+    doc-rules.yaml       # documentation rules (doc-integrity gate)
+    baseline.txt         # optional known findings (rule_id|file per line)
+    rules/
+      team.yaml          # generic project/framework rule packs
+  .github/workflows/aiv.yml
 ```
 
-### Global keys (top level of `config.yaml`)
+Where policy is read from matters. For a real Git diff AIV pins the base ref once to a commit OID, reads configuration from that commit, and materializes the complete `.aiv/` tree into a private immutable snapshot. Design rules, generic rules, documentation rules, and baselines consume the same frozen bytes. Workspace and `--diff-json` runs copy `.aiv/` once for internal consistency. `--require-trusted-config` refuses missing base policy, ignored/untracked extras, symlinks, path escapes, and any live-tree difference. Non-strict fallback emits `[POLICY-FALLBACK]`; `--config-from-workspace` is an explicit opt-out.
 
-Alongside `gates`, you may set:
+---
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `exclude_paths` | list of strings | Repository-relative globs (`**`, `*`, optional `glob:` prefix). See `PathFilter` in source: invalid globs fall back to simple matching. **Negation (`!pattern`) is not supported**—only positive excludes. |
-| `fail_fast` | boolean | If `true`, stop after the first failing gate. Default `false` runs all gates and aggregates failures. |
-| `advisory_pr_label` | string | Optional GitHub PR label name used with `--label-pr-on-advisory` (default in CLI is `aiv:advisory`). |
-| `advisory_label_gates` | list of strings | Gate ids whose **advisory** (`severity: warn`) failures trigger the PR label. Empty → `design`, `invariant`, `density`, `cohesion`. |
-| `baseline` | string | Path to baseline suppressions (`rule_id\|file` lines). Or use CLI `--baseline`. |
-| `skip_allowlist` | list of emails | If non-empty, only these **git author emails** may honor `/aiv skip` on the latest commit (case-insensitive). This is metadata from `git log`, not cryptographic proof of identity. |
+## 2. Shape of a gate entry
 
-### Inline suppressions (source comments)
+```yaml
+schema_version: 1
+gates:
+  - id: <gate-id>          # one of the ids in section 4
+    enabled: true          # false disables the gate entirely
+    severity: fail         # fail (default) blocks CI; warn reports only
+    config:                # gate-specific keys, see section 4
+      key: value
+```
 
-Without a baseline file, suppress findings with comments in the source (any common comment style: `//`, `#`, `--`, `/* */`):
+Rules that apply to every gate:
+
+- A gate absent from a partial list is enabled with defaults except `doc-integrity`, `security`, `license-header`, `pr-metadata`, `external`, `rules`, and `jev`, which are default-off in the orchestrator. The no-config/generated default policy is a separate explicit configuration and enables additional hard/advisory gates. For predictable production behavior, list all 16 gate ids or start from a shipped explicit preset.
+- `severity: warn` turns a failed result into an advisory result. Advisory results are printed, written to JSON and SARIF, can trigger a PR label, and never change the exit code. Any other value behaves as `fail`.
+- `config` is a free map. Unknown keys are ignored. Wrong types fall back to the default for that key, except regex lists, which fail the run with a clear message when a pattern does not compile.
+- Two gates return mixed results on their own: `test-adequacy` returns `missing-tests` findings as advisory even when the gate severity is `fail`, and `package-existence` returns `UNVERIFIED` findings as a passing result unless `strict: true`.
+
+Shared keys accepted by the gates that scan source files (`density`, `design`, `invariant`, `duplication`, `license-header`):
+
+| Key | Type | Meaning |
+|---|---|---|
+| `file_extensions` | list | Extensions to scan, with or without the leading dot. Replaces the gate default. |
+| `languages` | list | Alternative to `file_extensions`: `java`, `kotlin`, `python`, `go`, `rust`, `scala`, `javascript`, `typescript`, `c`, `cpp`, `ruby`, `shell`. |
+
+---
+
+## 3. Global keys (top level of `config.yaml`)
+
+| Key | Type | Default | Meaning |
+|---|---|---|---|
+| `schema_version` | integer | `1` | Must be `1`. |
+| `exclude_paths` | list of globs | empty | Repository-relative globs removed from every gate. `**` is supported; negation is not. |
+| `fail_fast` | boolean | `false` | Stop at the first blocking gate instead of collecting all findings. |
+| `baseline` | string | none | Path to a baseline file. Findings listed as `rule_id|file` are ignored. |
+| `skip_allowlist` | list of emails | empty | Authors allowed to use `/aiv skip` in the latest commit message. **Empty means the directive is ignored.** The commit must also carry a good signature (`git log --format=%G?` prints `G`). |
+| `advisory_pr_label` | string | `aiv:advisory` | Label applied by `--label-pr-on-advisory` when advisory findings exist. |
+| `advisory_label_gates` | list | `design, invariant, density, cohesion` | Gates whose advisory findings trigger `advisory_pr_label`. |
+| `ai_slop_pr_label` | string | none | When set, AIV applies this label (for example `AI-SLOP`) to the pull request whenever the selected deterministic findings exist, and removes it when they do not. The label states that configured evidence needs review. It does not claim AI authorship. |
+| `ai_slop_pr_comment` | boolean | `false` | When true, AIV creates or updates one PR comment listing the selected findings with rule, file, line, severity and a fixed remediation hint, and deletes the comment when no findings remain. |
+| `ai_slop_label_gates` | list | empty (all failed gates) | Gate ids whose findings qualify for the label and comment. |
+| `ai_slop_label_rules` | list | empty (all rules) | Rule ids or families (`security.*`) that qualify. Combined with `ai_slop_label_gates` using AND. |
+| `audit_log` | string | none | Append every run to this hash-chained, tamper-evident audit log (relative to the workspace). Read from the base ref like every other key, so a PR cannot redirect or disable its own record. `--audit-log` and `AIV_AUDIT_LOG` override it. See [EVIDENCE-AND-PROPOSALS.md](EVIDENCE-AND-PROPOSALS.md). |
+
+Example of a focused publication policy:
+
+```yaml
+ai_slop_pr_label: AI-SLOP
+ai_slop_pr_comment: true
+ai_slop_label_gates: [invariant, security, package-existence, test-adequacy]
+ai_slop_label_rules:
+  - invariant.*
+  - security.*
+  - package-existence.unknown-package
+  - test-adequacy.assertion-free-test
+```
+
+---
+
+## 4. Gate reference
+
+### `syntax` (hard)
+
+Parses changed files. Java, YAML and JSON are parsed in process. Python, JavaScript,
+TypeScript and Go use bounded local toolchains. Missing tools, unsupported transforms, templated
+YAML, `tsconfig*.json`, and JSX/TSX without a transform are reported as `syntax.unverified`.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `strict_toolchains` | `false` | When `true`, any unverified external/transform syntax result blocks. |
+
+Interpreter commands can be overridden with JVM properties such as
+`-Daiv.python.command=python3`, `-Daiv.node.command=node`, and
+`-Daiv.gofmt.command=gofmt`. External validators time out after 30 seconds by default; override
+with `-Daiv.syntax.timeout.seconds=N`.
+
+Rules: `syntax.parse`, `syntax.unverified`.
+
+### `invariant` (hard)
+
+Markers that should never reach mainline. All checks except merge conflicts run on **added lines only** when a unified diff is available.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `placeholder_words` | `[TBD, FIXME, XXX]` | Words treated as placeholders. Replaces the default list. |
+| `disabled_rules` | empty | Rule suffixes to skip: `merge-conflict`, `placeholder`, `ai-edit-artifact`, `ai-provenance`, `placeholder-test`. |
+| `extra_artifact_patterns` | empty | Case-insensitive regexes checked on added lines of code files. Findings use rule `invariant.custom-artifact`. |
+| `file_extensions` / `languages` | built-in code list | Which files count as code for artifact checks. |
+
+Rules: `invariant.merge-conflict`, `invariant.placeholder`, `invariant.ai-edit-artifact`, `invariant.custom-artifact`, `invariant.ai-provenance`, `invariant.placeholder-test`.
+
+### `test-adequacy` (hard for assertion-free tests, advisory for missing tests)
+
+| Key | Default | Meaning |
+|---|---|---|
+| `check_assertions` | `true` | Flag test functions added by the change whose body contains no assertion, expectation, verification or exception check. Java, Kotlin, Scala, Python, JavaScript, TypeScript, Go. |
+| `require_tests` | `true` | Flag production source files changed with no test file in the diff and no conventionally named test in the workspace (`FooTest`, `test_foo`, `foo.spec`, `foo_test`, and similar). Always advisory. |
+| `max_workspace_files` | `20000` | Upper bound for the workspace test-file scan. |
+
+Rules: `test-adequacy.assertion-free-test`, `test-adequacy.missing-tests`.
+
+### `package-existence` (hard)
+
+Every dependency newly declared in `requirements*.txt`, `pyproject.toml` (dependency arrays only), `package.json` (`dependencies`, `devDependencies`) and `pom.xml` must exist in its registry.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `strict` | `false` | Treat an unreachable registry (`UNVERIFIED`) as a failure. |
+| `allow` | empty | Package names never checked (internal or private packages). |
+| `pypi_url` | `https://pypi.org/simple/` | PyPI simple index base. Point at a mirror in air-gapped CI. |
+| `npm_url` | `https://registry.npmjs.org/` | npm registry base. |
+| `maven_url` | `https://repo1.maven.org/maven2/` | Maven repository base. |
+| `timeout_seconds` | `5` | Per-request timeout. |
+
+Rules: `package-existence.unknown-package` (hard), `package-existence.unverified` (reported, passing unless `strict`).
+
+### `dependency` (hard)
+
+Java and Python imports must be backed by the root `pom.xml` or `requirements.txt` / `pyproject.toml`. Python standard library and first-party packages are allowed automatically.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `whitelist` | empty | Additional allowed import prefixes. |
+
+### `security` (hard, default on)
+
+Secret patterns on added lines.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `entropy_threshold` | `4.5` | Minimum Shannon entropy (bits per character) for keyword-bound password or secret values. |
+| `disabled_rules` | empty | Rule suffixes to skip, for example `high-entropy-secret`. |
+| `allow_patterns` | empty | Regexes. Lines matching any pattern are ignored (test fixtures, documented examples). |
+| `extra_patterns` | empty | Map of `name: regex`. Each match reports rule `security.<name>`. |
+
+Built-in rules: `security.aws-key`, `security.github-token`, `security.slack-token`, `security.private-key`, `security.stripe-live`, `security.npm-token`, `security.google-api-key`, `security.openai-key`, `security.anthropic-key`, `security.sendgrid-key`, `security.assigned-secret`, `security.high-entropy-secret`.
+
+### `design` (hard)
+
+Project rules from `rules_path`.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `rules_path` | `.aiv/design-rules.yaml` | Rule file. |
+| `file_extensions` / `languages` | built-in list | Files to scan. |
+
+Rule file:
+
+```yaml
+constraints:
+  - id: no-system-exit
+    keywords: []                      # when non-empty, the rule applies only to files containing one
+    forbidden_calls: [System.exit]    # any match fails
+    required_calls: []                # all must be present when the rule applies
+```
+
+Rules: `design.forbidden.<constraint-id>`, `design.required.<constraint-id>`.
+
+### `duplication` (advisory)
+
+| Key | Default | Meaning |
+|---|---|---|
+| `min_lines` | `6` | Consecutive significant added lines that must match existing code. |
+| `max_files` | `5000` | Workspace files scanned. |
+| `max_file_bytes` | `524288` | Larger files are skipped. |
+| `include_tests` | `false` | Also probe changed test files. |
+| `file_extensions` / `languages` | built-in list | Files to scan. |
+
+Rules: `duplication.clone`.
+
+### `density` (advisory recommended)
+
+| Key | Default | Meaning |
+|---|---|---|
+| `ldr_threshold` | `0.25` | Minimum logic density ratio. Java only. |
+| `entropy_threshold` | `4.0` | Minimum character entropy. |
+| `entropy_min_bytes` | `300` | Files smaller than this skip the entropy check. |
+| `refactor_net_loc_threshold` | `-50` | Files whose net line change is at or below this value are exempt. |
+| `trusted_authors` | empty | Author emails exempt when the head commit has a good signature. |
+| `file_extensions` / `languages` | built-in list | Files to scan. |
+
+Rules: `density.ldr`, `density.entropy`.
+
+### `cohesion` (advisory recommended)
+
+| Key | Default | Meaning |
+|---|---|---|
+| `max_areas` | `3` | Maximum distinct directory areas touched. |
+| `area_depth` | `2` | Path depth that defines an area. |
+| `max_files` | `0` | Maximum changed files; `0` disables. |
+
+Rules: `cohesion.areas`, `cohesion.files`.
+
+### `doc-integrity` (opt-in)
+
+| Key | Default | Meaning |
+|---|---|---|
+| `rules_path` | `.aiv/doc-rules.yaml` | Rule file with `doc_constraints` and `canonical_commands`. |
+| `auto` | `false` | Run only when the diff touches documentation. `--include-doc-checks` forces the gate on. |
+
+### `pr-metadata` (opt-in)
+
+Reads the PR title and body from `AIV_PR_TITLE` and `AIV_PR_BODY`. The composite action exports both.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `min_title_words` | `2` | Titles with fewer words fail. |
+| `require_disclosure` | `false` | Require a Gen-AI disclosure marker in the body. |
+
+### `license-header` (opt-in)
+
+Added source files must carry a license header.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `header_markers` | Apache 2.0 text or SPDX `Apache-2.0` | Case-insensitive strings; any one in the first 4 KB satisfies the check. Replaces the default list. |
+| `generated_markers` | `generated by`, `do not edit`, `@generated` | Files whose head contains one are skipped. |
+| `file_extensions` / `languages` | built-in source list | Files that must carry a header. |
+| `exclude_paths` | empty | Globs never checked. |
+
+Rules: `license-header.missing`.
+
+### `external` (opt-in)
+
+Runs analyzers the project already trusts and folds their SARIF results into the AIV verdict. AIV does not re-implement them; it runs the command, reads SARIF, and reports each result under the same trust boundary as the built-in gates (base-ref config, no silent skips). The gate only runs when `enabled: true` and at least one `tools:` entry exists.
+
+```yaml
+- id: external
+  enabled: true
+  severity: warn
+  config:
+    tools:
+      - id: ruff-airflow
+        command: ["ruff", "check", "--select", "AIR", "--output-format", "sarif", "--exit-zero", "{files}"]
+        sarif: stdout
+        severity: warn
+        min_level: warning
+        changed_files_only: true
+        file_extensions: [.py]
+        timeout_seconds: 120
+        on_missing: skip
+```
+
+Per-tool keys:
+
+| Key | Default | Meaning |
+|---|---|---|
+| `id` | required | Short name; becomes part of every rule id. |
+| `command` | required | Argument list. `{files}` expands to the changed files that match `file_extensions`. If it is present and no file matches, the tool is not run. |
+| `sarif` | `stdout` | Where the SARIF is: `stdout` or a path (relative to the workspace) that the tool writes. |
+| `severity` | `fail` | `warn` makes the tool advisory; anything else blocks. |
+| `min_level` | `warning` | Drop SARIF results below `none`, `note`, `warning` or `error`. |
+| `changed_files_only` | `true` | Drop results whose file is not in the diff. |
+| `file_extensions` / `languages` | all changed files | Which changed files are passed to `{files}`. |
+| `timeout_seconds` | `120` | Kill the tool after this long. |
+| `on_missing` | `skip` | `skip` records the tool as `SKIPPED` in the summary when the binary is missing or times out; `fail` turns that into a blocking finding. |
+
+Rules: `external.<tool-id>.<sarif-rule-id>` for each result; `external.<tool-id>.missing`, `.timeout` (only with `on_missing: fail`); `external.<tool-id>.no-output` and `.bad-output` always block, because a tool that ran but produced no SARIF is not evidence.
+
+### `rules` (opt-in, generic rule engine)
+
+AIV ships no framework-specific gate. Framework knowledge lives in rule packs (YAML shipped inside the jar under `rulepacks/<name>.yaml`) and in your own rule documents. The engine is the same for every pack and every language: it works on added lines of the files a rule selects, and it understands Python indentation bodies as well as brace bodies (Java, Kotlin, Go, JavaScript, TypeScript, C#).
+
+```yaml
+- id: rules
+  enabled: true
+  severity: warn
+  config:
+    packs: [airflow]                    # shipped packs
+    rules_files: [".aiv/rules/*.yaml"]  # your rule documents (globs, relative to the workspace, read from the base ref)
+    rules: []                           # inline rules, same schema as a document's rules list
+    params:                             # override any pack or document param
+      known_conn_ids: [aws_default, google_cloud_default]
+    disabled_rules: [airflow.missing-catchup]
+```
+
+| Gate key | Default | Meaning |
+|---|---|---|
+| `packs` | empty | Shipped packs to load. Unknown names fail the run with exit 2. |
+| `rules_files` | empty | Globs or paths of rule documents. A plain path that does not exist, or a glob that matches nothing, is skipped. An unreadable file or a workspace that cannot be scanned fails the run. |
+| `rules` | empty | Inline rules. |
+| `params` | empty | Values for `${name}` references in packs and documents. A list param replaces the pack default. |
+| `disabled_rules` | empty | Rule ids to drop (`airflow.missing-catchup` or `rules.airflow.missing-catchup`). |
+
+A rule document:
+
+```yaml
+name: team            # optional; pack rules get ids rules.<name>.<id>, documents without a name get rules.<id>
+params:               # defaults for ${...} references
+  banned_hosts: [internal.example.com]
+defaults:             # merged into every rule unless the rule sets the key
+  paths: ["**/*.py"]
+  file_filter: "^\\s*(from|import)\\s+airflow"   # regex the whole file must match before any rule runs
+rules:
+  - id: no-print
+    kind: pattern
+    pattern: "\\bprint\\("
+    severity: warn
+    message: "print() in production code"
+```
+
+Rule keys (all kinds): `id`, `kind` (`pattern`, `call`, `hollow-function`; default `pattern`), `paths` (globs; `**` crosses directories), `file_filter` (regex on the file content), `added_lines_only` (default `true`; `false` scans the whole file), `message` (may use `{value}`), `severity` (`warn` makes that rule advisory even when the gate blocks).
+
+| Kind | Keys | Fires when |
+|---|---|---|
+| `pattern` | `pattern`; optional `capture_group`, `capture_matches`, `allowed` or `allowed_param`, `skip_when_allowed_empty` (default `true`) | The regex matches a line. With a capture, the captured value must also match `capture_matches`, or must be absent from the allowlist. |
+| `call` | `call` (callee regex; the engine appends `\s*\(` and reads the whole balanced call, across lines); `if_arg`, `require_arg`, or `capture` + `capture_matches` / `allowed` | `require_arg` is not passed as a keyword (optionally only when `if_arg` is), or the captured value matches / is not allowed. |
+| `hollow-function` | `function` (name regex) | The function body is only `pass`, `return`, `...`, `raise NotImplementedError`, `throw new UnsupportedOperationException(...)`, `panic(...)`, or comments. |
+
+`${name}` in any string is replaced by the param. A list param becomes a quoted alternation `(?:a|b)`; `${name|raw}` joins the items as regex fragments; an empty list becomes `(?!)`, which matches nothing.
+
+Shipped pack `airflow` (rule ids `rules.airflow.*`): `start-date-now`, `missing-catchup`, `example-dag-id`, `sensor-no-timeout`, `hollow-execute`, `placeholder-task`, `removed-import`, `unknown-conn-id`. Params: `example_dag_id_pattern` (`^(example|test|my|sample|demo)_`), `known_conn_ids` (empty; the rule is silent until filled), `placeholder_commands` (regex list), `removed_imports` (Airflow 3 removed paths). The pack source is `aiv-plugin-rules/src/main/resources/rulepacks/airflow.yaml`; copy it into `.aiv/rules/` to fork it.
+
+### `jev` (opt-in, advisory only, model-assisted)
+
+The one gate that calls a model, and the only gate that can never block: whatever severity is configured, its outcome is pass or advisory. It sends the diff, the changed file list and the PR title/body to a System One decision model and asks the yes/no questions you configure. Each answer is a calibrated probability that is written into the receipt as `jev.<check-id>` when it reaches `report_at`. Hosts: TypeSafe (`https://api.typesafe.ai`, `TYPESAFE_API_KEY`), any gateway speaking the same `POST /v1/systemone` API, or a local Ollama server with a decision model (`api_key_env: ""`). Cost is the host's; TypeSafe lists $0.042 per million input tokens with output free (September 2026). Nothing runs when the key is missing; the receipt then says `SKIPPED jev: ... not set`.
+
+```yaml
+- id: jev
+  enabled: true
+  config:
+    base_url: https://api.typesafe.ai
+    api_key_env: TYPESAFE_API_KEY
+    model: jev-latest
+    report_at: 0.75
+    max_diff_chars: 60000
+    timeout_seconds: 30
+    checks:
+      description-mismatch: "Does `diff` change behaviour that `pr_title` and `pr_body` do not mention?"
+      tests-only-call:
+        question: "Do the tests added in `diff` call the new code without checking its result?"
+        yes: "At least one added test has no meaningful expectation about the outcome"
+        no: "Every added test checks a result, an exception or a side effect"
+```
+
+| Key | Default | Meaning |
+|---|---|---|
+| `base_url` | `https://api.typesafe.ai` | Host; `/v1/systemone` is appended. |
+| `api_key_env` | `TYPESAFE_API_KEY` | Environment variable holding the bearer token. Empty string: send no token (local Ollama). |
+| `model` | `jev-latest` | Model id in the host's format. |
+| `report_at` | `0.75` | P(yes) at or above this becomes a finding. Everything below is still printed in the gate summary. |
+| `max_diff_chars` | `60000` | The diff is cut here before sending; the cut is marked in the text. |
+| `timeout_seconds` | `30` | Per request. |
+| `checks` | required | Map of check id to question (string) or `{question, yes, no}`. At most 64. |
+
+Rules: `jev.<check-id>`. Failure modes (missing key, HTTP error, non-JSON response, timeout) are reported as `SKIPPED jev: <reason>` and never hidden.
+
+---
+
+## 5. Inline suppressions
 
 | Directive | Effect |
-|-----------|--------|
-| `aiv-disable-next-line` | Suppress matching findings on the **next** non-empty line |
-| `aiv-disable-line` | Suppress on the **same** line (trailing comment) |
-| `aiv-disable` | File-level: suppress matching findings for that path |
+|---|---|
+| `// aiv-disable-next-line [rule]` | Suppress findings on the next line. |
+| `code(); // aiv-disable-line [rule]` | Suppress findings on the same line. |
+| `// aiv-disable <rule>` | File-level suppression. **The rule id is mandatory**; a bare directive or `*` suppresses nothing. |
 
-Optional rule id or prefix after the directive (for example `// aiv-disable-next-line invariant.placeholder` or `// aiv-disable security.*`). Bare directive suppresses all rules for that scope.
+Rule values accept an exact id (`invariant.placeholder`) or a family (`security.*`). `#`, `--` and `/* */` comment styles work as well.
 
-Example:
+---
+
+## 6. CLI
+
+```text
+java -jar aiv-cli.jar [doctor] [options]
+java -jar aiv-cli.jar init --workspace . [--preset minimal|java-ci|agent-paste-strict|asf|airflow]
+java -jar aiv-cli.jar explain <gate-or-rule-id>
+java -jar aiv-cli.jar audit verify <log> [--expect-head <sha256>]
+java -jar aiv-cli.jar report --audit-log <log> [--out report.html] [--labels labels.csv] [--export-jsonl dir] [--expect-head <sha256>] [--min-labeled N]
+java -jar aiv-cli.jar proposal check|scan ...      (see EVIDENCE-AND-PROPOSALS.md)
+java -jar aiv-cli.jar --version
+```
+
+| Option | Meaning |
+|---|---|
+| `--workspace <dir>` | Repository root. Default: current directory. |
+| `--diff <base-ref>` | Base ref. Default `origin/main`. |
+| `--head <ref>` | Head ref. Default `HEAD`. |
+| `--diff-json <file>` | Evaluate an in-memory diff instead of Git. |
+| `--config-from-workspace` | Read config from the working tree instead of the base ref. |
+| `--baseline <file>` | Baseline suppressions. |
+| `--include-doc-checks` | Force the doc-integrity gate on. |
+| `--fix` | Rewrite conflict markers and elision lines before evaluating. |
+| `--output-json <file>` | Write the JSON report (`schema_version: 2`). |
+| `--output-sarif <file>` | Write SARIF 2.1.0. |
+| `--publish-github-checks` | Post a GitHub Check with annotations. |
+| `--publish-pr-comments` | Post one review comment per finding with a fixed hint. |
+| `--label-ai-slop [name]` | Apply or remove the deterministic findings label. Default name `AI-SLOP`. |
+| `--comment-ai-slop` | Create, update or delete the deterministic findings comment. |
+| `--label-pr-on-advisory [name]` | Apply or remove the advisory label. |
+| `--warnings-exit-code <n>` | Exit with `n` when the run passed with notices. |
+| `--quiet` | Suppress the human-readable report. |
+| `--audit-log <file>` | Append this run to a hash-chained audit log and print the `[AUDIT]` anchor line (also added to the JSON report notices and the PR comment). |
+| `doctor` / `--doctor` | Informational run, always exits 0. |
+
+Exit codes: `0` pass, `1` a blocking gate failed, `2` invalid arguments or configuration (including an audit log that cannot be written), `3` Git failure. `audit verify` exits `0` intact, `1` tampered or anchor mismatch, `2` usage. `report` exits `0` when the chain verifies and `1` when it does not (the report is still written and says where the chain breaks).
+
+Every run also reports, as notices, what a reviewer would otherwise not see: `[CONFIG-CHANGE]` (the change edits `.aiv/`), `[SKIP-IGNORED]` and `[SKIP-HONORED]` (`/aiv skip` attempts, with the author when honoured) and `[SUPPRESSED]` (findings removed by a baseline or inline `aiv-disable`, with the rule ids). With an audit log these become the `overrides` field of the record.
+
+---
+
+## 7. Environment variables
+
+| Variable | Used by |
+|---|---|
+| `GITHUB_TOKEN`, `GITHUB_REPOSITORY` | Checks, labels, comments. The composite action exports the token. |
+| `AIV_GITHUB_PR_NUMBER` or `GITHUB_EVENT_PATH` | PR number resolution. |
+| `GITHUB_SHA` or `AIV_GITHUB_HEAD_SHA` | Review comments and checks. |
+| `AIV_PR_TITLE`, `AIV_PR_BODY`, `AIV_PR_TEMPLATE` | `pr-metadata` gate. |
+| `AIV_LABEL_AI_SLOP=true`, `AIV_AI_SLOP_LABEL` | Enable and name the deterministic label without CLI flags. |
+| `AIV_COMMENT_AI_SLOP=true` | Enable the deterministic comment without CLI flags. |
+| `AIV_LABEL_PR_ON_ADVISORY=true`, `AIV_PR_ADVISORY_LABEL` | Advisory label. |
+| `AIV_AUDIT_LOG` | Audit log path. Wins over the `audit_log` key; `--audit-log` wins over both. |
+| `TYPESAFE_API_KEY` (or the name in `jev.api_key_env`) | `jev` gate only. |
+| `AIV_GITHUB_API_BASE`, `AIV_GITHUB_PR_COMMENTS_API_BASE`, `AIV_GITHUB_FINDINGS_API_BASE` | API base overrides for GitHub Enterprise or proxies. |
+
+GitHub permissions: labels and comments need `pull-requests: write`; checks need `checks: write`. On pull requests from forks the default token is read-only, so publication fails with a clear error and the gate result is unaffected.
+
+---
+
+## 8. Complete example
 
 ```yaml
-exclude_paths:
-  - "**/generated/**"
-
+schema_version: 1
 fail_fast: false
+exclude_paths: ["**/generated/**", "docs/**"]
 
-skip_allowlist:
-  - "release@example.com"
-
-gates:
-  - id: density
-    enabled: true
-```
-
----
-
-## Adding AIV to an Existing Project
-
-Step-by-step guide to enable AIV in any Git repo. The commands below clone Apache Iceberg only as a stand-in; use your own remote if you are not working on Iceberg. No deployment - AIV is cloned and built by the workflow at runtime.
-
-### Step 1: Clone the target repo
-
-```bash
-git clone https://github.com/apache/iceberg.git
-cd iceberg
-```
-
-Or fork on GitHub and clone your fork.
-
-### Step 2: Create the `.aiv` folder
-
-```bash
-mkdir .aiv
-```
-
-### Step 3: Create `.aiv/config.yaml`
-
-Create `.aiv/config.yaml` with:
-
-```yaml
-gates:
-  - id: density
-    enabled: true
-    config:
-      ldr_threshold: 0.25
-      entropy_threshold: 5.0
-  - id: design
-    enabled: true
-    config:
-      rules_path: .aiv/design-rules.yaml
-  - id: dependency
-    enabled: true
-  - id: invariant
-    enabled: true
-```
-
-### Step 4: Create `.aiv/design-rules.yaml`
-
-Create `.aiv/design-rules.yaml` with project-specific rules. Minimal example:
-
-```yaml
-constraints:
-  - id: snapshot-expiration
-    keywords: [ExpireSnapshots, expireSnapshots]
-    forbidden_calls: [table.removeSnapshots]
-    required_calls: [ExpireSnapshots]
-```
-
-### Step 5: Create `.github/workflows/aiv.yml`
-
-Create `.github/workflows/` if it does not exist, then create `aiv.yml`:
-
-```yaml
-name: AIV Gate
-on:
-  pull_request:
-    branches: [main, master]
-
-jobs:
-  aiv:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9
-        with:
-          distribution: temurin
-          java-version: 17
-
-      - name: Clone and build AIV
-        run: |
-          git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-src
-          cd aiv-src
-          mvn -B -ntp clean verify -pl aiv-cli -am
-
-      - name: Run AIV
-        run: |
-          VERSION=$(cd aiv-src && mvn -q -DforceStdout -Dexpression=project.version help:evaluate)
-          java -jar aiv-src/aiv-cli/target/aiv-cli-${VERSION}.jar \
-            --workspace ${{ github.workspace }} \
-            --diff origin/${{ github.base_ref }}
-```
-
-**Note:** If your main branch is not `main` or `master`, change the `branches` line (e.g. `branches: [develop]`).
-
-### Step 6: Commit and push
-
-```bash
-git add .aiv .github
-git commit -m "Add AIV gate for code validation"
-git push origin main
-```
-
-### Step 7: Verify
-
-1. Open a pull request to your fork (or upstream if you have access).
-2. The **AIV Gate** workflow runs automatically.
-3. Check the **Actions** tab for the run. Green = pass, red = fail.
-
-### Summary
-
-| Step | Action |
-|------|--------|
-| 1 | Clone the target repo |
-| 2 | `mkdir .aiv` |
-| 3 | Create `.aiv/config.yaml` |
-| 4 | Create `.aiv/design-rules.yaml` |
-| 5 | Create `.github/workflows/aiv.yml` |
-| 6 | `git add`, `commit`, `push` |
-| 7 | Open a PR and verify AIV runs |
-
----
-
-## 1. config.yaml
-
-**Path:** `.aiv/config.yaml`
-
-Controls which gates run and their thresholds. If the file is missing, AIV uses built-in defaults. Malformed YAML throws an error instead of silently falling back.
-
-### Full Example
-
-```yaml
-# .aiv/config.yaml
+ai_slop_pr_label: AI-SLOP
+ai_slop_pr_comment: true
+ai_slop_label_gates: [invariant, security, package-existence, test-adequacy]
 
 gates:
-  - id: density
-    enabled: true
-    config:
-      ldr_threshold: 0.25      # Logic Density Ratio (0.0-1.0)
-      entropy_threshold: 5.0   # Shannon entropy minimum
-
-  - id: design
-    enabled: true
-    config:
-      rules_path: .aiv/design-rules.yaml
-
-  - id: dependency
-    enabled: true
-    config:
-      whitelist: []   # optional: allow packages not in lockfile
-
   - id: syntax
     enabled: true
-    config: {}
-
   - id: invariant
     enabled: true
-    config: {}
-```
-
-### Gate Reference
-
-| Gate ID      | Purpose                    | Config Keys           | Defaults                    |
-|--------------|----------------------------|-----------------------|-----------------------------|
-| `density`    | Logic density + entropy    | `ldr_threshold`, `entropy_threshold`, `refactor_net_loc_threshold`, `trusted_authors` | 0.25, 4.0, -50 |
-| `design`     | Design compliance          | `rules_path`          | `.aiv/design-rules.yaml`    |
-| `cohesion`   | Multi-area / oversized PR  | `max_areas`, `area_depth`, `max_files` | 3, 2, 0 (files off) |
-| `dependency` | Import vs lockfile         | `whitelist`           | -                           |
-| `syntax`     | Parse validity (Java/Python/YAML/JSON) | -              | enabled when listed or by default if omitted |
-| `invariant`  | Merge markers, placeholders (added lines), AI edit-artifacts / provenance trailers | - | - |
-| `doc-integrity` | Documentation validation | `rules_path`, `auto` | `.aiv/doc-rules.yaml`       |
-
-For every changed documentation file, **`doc-integrity`** also checks **relative Markdown links** `[label](path)` (skipping `http://`, `https://`, `mailto:`): the path must resolve to a file in the workspace. If the link includes a **`#fragment`** and the target ends with `.md`, a matching **ATX heading slug** (GitHub-style) must exist in that file. Optional rules in `doc-rules.yaml` add required mentions and canonical command checks.
-
-### Density Gate
-
-| Key                       | Type   | Description                                      | Default |
-|---------------------------|--------|--------------------------------------------------|---------|
-| `ldr_threshold`           | float  | Min Logic Density Ratio (control flow vs structure) | 0.25 |
-| `entropy_threshold`       | float  | Minimum normalized Shannon entropy for scanned files (below threshold fails the gate) | 4.0     |
-| `refactor_net_loc_threshold` | int | Skip density when net LOC <= this (e.g. -50)     | -50     |
-| `trusted_authors`         | list or string | Git **author emails** that bypass density when the head commit is signed (same caveats as `skip_allowlist`) | - |
-| `file_extensions`         | list   | Extensions to validate                          | All common |
-| `languages`               | list   | Language names                                   | -       |
-
-- **LDR < threshold** → fail (too much scaffolding, too little logic). LDR runs for Java only.
-- **Entropy < effective threshold** → fail (statistical low-signal heuristic; tune `entropy_threshold` / `entropy_min_bytes`). Entropy runs for all configured extensions.
-- **Net LOC <= refactor_net_loc_threshold** → skip (refactoring intent).
-- **Author in trusted_authors + signed head commit** → skip.
-
-### Dependency Gate
-
-| Key         | Type   | Description                              | Default |
-|-------------|--------|------------------------------------------|---------|
-| `whitelist` | list   | Package names allowed without lockfile   | -       |
-
-Validates Java imports against `pom.xml` and Python imports against `requirements.txt` or `pyproject.toml`. Fails on unknown third-party imports. **Python stdlib** modules and **first-party** packages (workspace directories containing `__init__.py` whose parent is not itself a package) are allowed automatically. Use `whitelist` for intentional exceptions.
-
-### Syntax Gate
-
-No gate-specific config keys. Checks that changed `.java`, `.py`, `.yaml`/`.yml`, and `.json` files parse. Skips when uncertain (missing Python interpreter, Helm/Jinja templates, `tsconfig*.json`, Dockerfile-named-as-`.java`). Override the Python binary with JVM property `aiv.python.command`. Rule id: `syntax.parse`.
-
-### Doc Integrity Gate
-
-**Two ways to turn it on (pick one primary model to avoid surprises):**
-
-| Mechanism | Effect |
-|-----------|--------|
-| CLI **`--include-doc-checks`** | Wraps config to turn **`doc-integrity` on** for that run and forces **`auto: false`**, so doc checks run **even when the diff has no doc files** (CI “always validate docs” without editing `config.yaml`). |
-| Config **`doc-integrity` → `enabled: true`** | Gate is on whenever AIV runs; set **`auto: true`** so the orchestrator **only** runs it when the diff touches doc-like paths (typical for code-heavy repos). |
-
-With **`auto: true`** in `config.yaml` alone, the gate is skipped on code-only PRs. **`--include-doc-checks`** is the opposite default for `auto`: it sets **`auto: false`** so every run evaluates documentation rules.
-
-Validates markdown and text files (.md, .txt, .rst, AGENTS.md, CLAUDE.md, CONTRIBUTING.md) for: path existence, cross-reference validity, required mentions (YAML-configurable), command completeness, and path fabrication.
-
-| Key         | Type    | Description                                    | Default                |
-|-------------|---------|------------------------------------------------|------------------------|
-| `rules_path`| string  | Path to doc rules YAML                         | `.aiv/doc-rules.yaml`  |
-| `auto`      | boolean | When true, run only when diff has doc files    | false                  |
-
-### Design Gate
-
-| Key               | Type   | Description                    | Default                  |
-|-------------------|--------|--------------------------------|--------------------------|
-| `rules_path`      | string | Path to design rules YAML      | `.aiv/design-rules.yaml` |
-| `file_extensions` | list   | Extensions to validate         | All common source extensions |
-| `languages`       | list   | Language names                 | -                        |
-
-### Cohesion Gate
-
-Flags PRs that touch too many independent path areas (generic “please split this PR” signal). Prefer `severity: warn` + advisory label.
-
-| Key          | Type | Description | Default |
-|--------------|------|-------------|---------|
-| `max_areas`  | int  | Max distinct directory areas before finding | 3 |
-| `area_depth` | int  | Directory segments per area (file name excluded) | 2 |
-| `max_files`  | int  | Optional cap on changed files (`0` = disabled) | 0 |
-
-Example: changing `.github/workflows/*`, `scripts/ci/*`, and `scripts/tests/*` is three areas at `area_depth: 2`.
-
-### Multi-Language Support
-
-All gates support multiple languages via `file_extensions` or `languages`:
-
-```yaml
-gates:
+    config:
+      placeholder_words: [TBD, FIXME, XXX, HACK]
+      extra_artifact_patterns: ["TODO: implement actual logic"]
+  - id: test-adequacy
+    enabled: true
+  - id: package-existence
+    enabled: true
+    config:
+      allow: [internal-sdk]
+  - id: security
+    enabled: true
+    config:
+      allow_patterns: ["tests/fixtures/"]
+      extra_patterns:
+        internal-token: "\\bINT-[A-Z0-9]{24}\\b"
+  - id: dependency
+    enabled: true
   - id: design
+    enabled: true
     config:
       rules_path: .aiv/design-rules.yaml
-      file_extensions: [".java", ".py", ".go", ".rs", ".kt"]
-  - id: density
-    config:
-      languages: [java, python, go]
-```
-
-Default extensions: `.java`, `.kt`, `.py`, `.go`, `.rs`, `.scala`, `.js`, `.ts`, `.jsx`, `.tsx`, `.c`, `.cpp`, `.h`, `.rb`, `.sh`, `.bash`
-
-Density LDR check runs for Java only; entropy runs for all configured extensions.
-
-### Human Override
-
-Put `/aiv skip` or `aiv skip` on its **own line** in the **latest** commit message on the PR head (anchored pattern - not a substring in unrelated prose). All gates are skipped for that run. If **`skip_allowlist`** is configured, the latest commit’s author email must match an entry.
-
-### Disabling Gates
-
-```yaml
-gates:
+  - id: duplication
+    enabled: true
+    severity: warn
   - id: density
     enabled: true
-  - id: design
-    enabled: false   # Skip design compliance
-  - id: invariant
+    severity: warn
+  - id: cohesion
+    enabled: true
+    severity: warn
+    config:
+      max_areas: 4
+  - id: pr-metadata
+    enabled: true
+    severity: warn
+    config:
+      require_disclosure: true
+  - id: license-header
+    enabled: false
+  - id: doc-integrity
     enabled: false
 ```
-
----
-
-## 2. design-rules.yaml
-
-**Path:** `.aiv/design-rules.yaml` (or path set in `config.yaml`)
-
-Defines constraints: forbidden calls and required calls per area of the codebase.
-
-### Schema
-
-```yaml
-constraints:
-  - id: <constraint-name>
-    keywords: [<strings>]        # Optional: when to apply
-    forbidden_calls: [<strings>]
-    required_calls: [<strings>]
-```
-
-### Example: Snapshot Expiration
-
-```yaml
-constraints:
-  - id: snapshot-expiration
-    keywords: [ExpireSnapshots, expireSnapshots]
-    forbidden_calls: [table.removeSnapshots]
-    required_calls: [ExpireSnapshots]
-```
-
-- **keywords:** Constraint applies only if file content or path contains any keyword. Empty = applies to all matched files. Matching is case-insensitive.
-- **forbidden_calls:** Token-aware, case-insensitive match in file content → fail.
-- **required_calls:** If constraint applies, file must contain all of these token-aware, case-insensitive patterns → fail if any missing.
-
-### Example: No Java Serialization
-
-```yaml
-constraints:
-  - id: no-serialization
-    keywords: []
-    forbidden_calls:
-      - implements Serializable
-      - java.io.ObjectOutputStream
-    required_calls: []
-```
-
-### Example: API Usage
-
-```yaml
-constraints:
-  - id: use-new-api
-    keywords: [DataFrame, Dataset]
-    forbidden_calls: [oldDeprecatedMethod]
-    required_calls: [newRecommendedMethod]
-```
-
----
-
-## 3. CLI Arguments
-
-| Argument      | Description                    | Default        |
-|---------------|--------------------------------|----------------|
-| `--workspace` | Path to repo root              | `.`            |
-| `--diff`      | Base ref for diff              | `origin/main`  |
-| `--head`      | Head ref for diff              | `HEAD`         |
-| `--diff-json` *path* | In-memory / agent diff JSON (skips git). See [MCP.md](MCP.md). | (flag absent) |
-| `--fix` | Opt-in mechanical cleanup of conflict markers and known elision lines in changed files, then re-evaluate. | (flag absent) |
-| `--include-doc-checks` | For this run, wrap config so the **doc-integrity** gate is enabled for documentation files (same effect as turning it on in YAML for local experiments). | (flag absent) |
-| `--doctor`    | Informational run: same checks, exit `0` (tune before enforcement). JSON includes **`doctor_mode: true`**; SARIF includes **`runs[].properties.doctorMode: true`**. | (flag absent) |
-| `--output-json` *path* | Write a JSON report (`schema_version: 2`, top-level **`doctor_mode`**, per-gate **`findings`**) after the run. Treat **`passed`** as non-blocking when **`doctor_mode`** is `true`. | (no file) |
-| `--output-sarif` *path* | Write SARIF 2.1.0 after the run; run **`properties.doctorMode`** mirrors JSON `doctor_mode`. | (no file) |
-| `--quiet` | Suppress human stdout report and INFO line (use with `--output-json` / `--output-sarif` for machine-only output). | (flag absent) |
-| `--baseline` *path* | Suppress findings in a baseline file (`rule_id\|file` or `rule_id\|file\|message`). | (flag absent) |
-| `--publish-github-checks` | After a successful run, POST a GitHub Check run with annotations (needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `GITHUB_SHA` or `AIV_GITHUB_HEAD_SHA`). | (flag absent) |
-| `--publish-pr-comments` | Post PR review comments with deterministic fix hints (needs token, repo, SHA, PR number). | (flag absent) |
-| `--label-pr-on-advisory` [*label*] | On pull requests: if advisory (`severity: warn`) findings appear on configured gates (`design` / `invariant` / `density` by default), add a PR label (default `aiv:advisory`); remove it when clean. Needs `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `AIV_GITHUB_PR_NUMBER` or `GITHUB_EVENT_PATH`. Optional label name after the flag; or set `advisory_pr_label` / `AIV_PR_ADVISORY_LABEL`. | (flag absent) |
-| `--warnings-exit-code` *n* | If the run **passed** but there were **notices** (e.g. skipped oversized files), exit with code *n* (e.g. `4`) instead of `0`. | `0` (disabled) |
-| `--version`, `-V` | Print CLI version and exit   | -              |
-
-**Exit codes:** `0` = success; `1` = blocking gate failed; `2` = bad args/config; `3` = git failure. Optional non-zero exit when passes-with-notices if `--warnings-exit-code` is set.
-
-### Examples
-
-```bash
-# Default (current dir, diff vs origin/main)
-java -jar aiv-cli.jar
-
-# Custom workspace and base ref
-java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/develop
-
-# Compare two refs
-java -jar aiv-cli.jar --diff origin/main --head feature-branch
-
-# Also run doc integrity checks for this invocation
-java -jar aiv-cli.jar --workspace /path/to/repo --diff origin/main --include-doc-checks
-
-# Machine-readable report for dashboards
-java -jar aiv-cli.jar --diff origin/main --output-json target/aiv-report.json
-```
-
----
-
-## 4. CI Configuration
-
-### GitHub Actions
-
-**Recommended (composite action - downloads shaded JAR from Maven Central):**
-
-```yaml
-- uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
-  with:
-    fetch-depth: 0
-- uses: vaquarkhan/aiv-integrity-gate@v1
-  with:
-    base-ref: origin/${{ github.base_ref }}
-    aiv-version: "1.0.4"
-```
-
-See the repository root **`action.yml`** for optional inputs (`cli-jar-url`, `maven-central-base`, etc.).
-
-### Jenkins
-
-```groovy
-stage('AIV') {
-  steps {
-    sh 'java -jar aiv-cli.jar --workspace ${WORKSPACE} --diff origin/${CHANGE_TARGET}'
-  }
-}
-```
-
-### Environment
-
-No env vars required for default (free) mode. Config is read from `.aiv/` in the workspace.
-
-For **`--publish-github-checks`:** set `GITHUB_TOKEN`, `GITHUB_REPOSITORY` (`owner/repo`), and `GITHUB_SHA` (or `AIV_GITHUB_HEAD_SHA` for PR head). Optional: `AIV_GITHUB_CHECKS_URL` to override the Checks API URL (advanced).
-
----
-
-## 5. Tuning for Your Project
-
-### Too Many False Positives (Density)
-
-- Lower `ldr_threshold` (e.g. 0.2) or lower `entropy_threshold` (e.g. 3.5).
-- Or disable the density gate: `enabled: false`.
-
-### Design Rules Too Strict
-
-- Add more specific `keywords` so constraints apply only where relevant.
-- Remove or relax `required_calls` if not always applicable.
-
-### Design Rules Too Loose
-
-- Add more `forbidden_calls` for known bad patterns.
-- Use empty `keywords` to apply constraints to all Java files.
-
-### Path Exclusions
-
-Skip generated code, vendored dependencies, or other paths:
-
-```yaml
-# .aiv/config.yaml
-exclude_paths:
-  - "**/generated/**"
-  - "**/target/**"
-  - "**/*.pb.java"
-  - "**/vendor/**"
-
-gates:
-  - id: density
-    enabled: true
-  # ...
-```
-
-Glob patterns use Java PathMatcher syntax. Common patterns:
-- `**/generated/**` - any path containing `generated/`
-- `**/*.pb.java` - protobuf-generated Java files
-- `**/vendor/**` - vendored dependencies
-
----
-
-## 6. Defaults Summary
-
-When `.aiv/config.yaml` is missing, the CLI’s built-in default (see `YamlConfigProvider`) turns on density, design, dependency, and **syntax**, leaves **invariant** and **doc-integrity** disabled unless you enable them (or pass `--include-doc-checks` for docs). Gates present via ServiceLoader but **omitted** from the YAML list default to **enabled**, except `doc-integrity`.
-
-| Gate      | Enabled (built-in default list) | Config                                      |
-|-----------|---------|---------------------------------------------|
-| density   | true    | ldr_threshold: 0.25, entropy_threshold: 4.0 |
-| design    | true    | rules_path: .aiv/design-rules.yaml          |
-| dependency| true    | (none)                                      |
-| syntax    | true    | (none)                                      |
-| invariant | false   | (none)                                      |
-| doc-integrity | false | rules_path: .aiv/doc-rules.yaml, auto: true |
-
-When `.aiv/design-rules.yaml` is missing or empty, the design gate passes (no constraints).
-
----
-
-## 7. Validation
-
-Config is loaded at runtime from `.aiv/config.yaml`. If the file **exists** but is not valid YAML or cannot be parsed into the expected shape, loading throws an `IllegalArgumentException` with a clear message (you will see it in CI logs). That is intentional: you get a hard failure instead of silent guessing.
-
-If the config file is **missing**, AIV uses the defaults in the table above. When something looks wrong, confirm the file path is `workspace/.aiv/config.yaml` and run a quick syntax check with any YAML linter.
-
----
-
-## See Also
-
-- [README.md](../README.md) - Overview and quick start
-- [TUTORIAL.md](TUTORIAL.md) - Detailed getting-started guide
-- [DEPLOYMENT.md](DEPLOYMENT.md) - CI, workflows, Maven Central / Marketplace

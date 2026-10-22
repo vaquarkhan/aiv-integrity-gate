@@ -1,0 +1,91 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 3 findings\nproviders/snapshot/pr-73326/airflow-core/src/airflow/triggers/__init__.py:13 [ruff-airflow error] unexpected EOF while parsing\nproviders/snapshot/pr-73326/airflow-core/tests/unit/triggers/test_callback.py:1 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-73326/airflow-core/tests/unit/triggers/test_callback.py:6 [ruff-airflow error] Expected a statement",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73326/airflow-core/src/airflow/triggers/__init__.py",
+          "start_line": 13,
+          "message": "[ruff-airflow error] unexpected EOF while parsing"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73326/airflow-core/tests/unit/triggers/test_callback.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73326/airflow-core/tests/unit/triggers/test_callback.py",
+          "start_line": 6,
+          "message": "[ruff-airflow error] Expected a statement"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.vaquarkhan</groupId>
+        <artifactId>aiv-gate</artifactId>
+        <version>2.0</version>
+    </parent>
+    <artifactId>aiv-proposal</artifactId>
+    <packaging>jar</packaging>
+    <name>AIV Proposal</name>
+    <description>Advisory, deterministic checks for improvement proposals (KIP, FLIP, SPIP, ...) that live outside git: Confluence pages, JIRA tickets, Markdown or HTML files. Template completeness, leftover template text, placeholders, state and discussion-link hygiene, number collisions, references to proposals that do not exist, and content changed after acceptance (via the hash-chained audit log). Not an Apache Software Foundation project.</description>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-audit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

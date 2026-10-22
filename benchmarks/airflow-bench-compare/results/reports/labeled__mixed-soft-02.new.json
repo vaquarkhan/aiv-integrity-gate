@@ -1,0 +1,72 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/bench/mixed-soft-02/soft-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: soft-02test, soft-02tests, testsoft-02, soft-02it, soft-02spec, soft-02testcase, test_soft-02, soft-02_test, soft-02_spec, soft-02.test, soft-02.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/mixed-soft-02/soft-02.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-02test, soft-02tests, testsoft-02, soft-02it, soft-02spec, soft-02testcase, test_soft-02, soft-02_test, soft-02_spec, soft-02.test, soft-02.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

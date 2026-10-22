@@ -1,0 +1,104 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/abandoned/pr-72977/devel-common/src/tests_common/test_utils/in_process_taskrun.py:1 Production file changed with no test in this change and no conventional test found (expected one of: in_process_taskruntest, in_process_taskruntests, testin_process_taskrun, in_process_taskrunit, in_process_taskrunspec, in_process_taskruntestcase, test_in_process_taskrun, in_process_taskrun_test, in_process_taskrun_spec, in_process_taskrun.test, in_process_taskrun.spec)\nproviders/abandoned/pr-72977/shared/logging/src/airflow_shared/logging/structlog.py:1 Production file changed with no test in this change and no conventional test found (expected one of: structlogtest, structlogtests, teststructlog, structlogit, structlogspec, structlogtestcase, test_structlog, structlog_test, structlog_spec, structlog.test, structlog.spec)\nproviders/abandoned/pr-72977/task-sdk/dev/generate_task_sdk_models.py:1 Production file changed with no test in this change and no conventional test found (expected one of: generate_task_sdk_modelstest, generate_task_sdk_modelstests, testgenerate_task_sdk_models, generate_task_sdk_modelsit, generate_task_sdk_modelsspec, generate_task_sdk_modelstestcase, test_generate_task_sdk_models, generate_task_sdk_models_test, generate_task_sdk_models_spec, generate_task_sdk_models.test, generate_task_sdk_models.spec)\nproviders/abandoned/pr-72977/task-sdk/src/airflow/sdk/api/client.py:1 Production file changed with no test in this change and no conventional test found (expected one of: clienttest, clienttests, testclient, clientit, clientspec, clienttestcase, test_client, client_test, client_spec, client.test, client.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/abandoned/pr-72977/devel-common/src/tests_common/test_utils/in_process_taskrun.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: in_process_taskruntest, in_process_taskruntests, testin_process_taskrun, in_process_taskrunit, in_process_taskrunspec, in_process_taskruntestcase, test_in_process_taskrun, in_process_taskrun_test, in_process_taskrun_spec, in_process_taskrun.test, in_process_taskrun.spec)"
+        },
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/abandoned/pr-72977/shared/logging/src/airflow_shared/logging/structlog.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: structlogtest, structlogtests, teststructlog, structlogit, structlogspec, structlogtestcase, test_structlog, structlog_test, structlog_spec, structlog.test, structlog.spec)"
+        },
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/abandoned/pr-72977/task-sdk/dev/generate_task_sdk_models.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: generate_task_sdk_modelstest, generate_task_sdk_modelstests, testgenerate_task_sdk_models, generate_task_sdk_modelsit, generate_task_sdk_modelsspec, generate_task_sdk_modelstestcase, test_generate_task_sdk_models, generate_task_sdk_models_test, generate_task_sdk_models_spec, generate_task_sdk_models.test, generate_task_sdk_models.spec)"
+        },
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/abandoned/pr-72977/task-sdk/src/airflow/sdk/api/client.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: clienttest, clienttests, testclient, clientit, clientspec, clienttestcase, test_client, client_test, client_spec, client.test, client.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "\n(diff):1 ruff-airflow: produced no SARIF output (exit 2)",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.no-output",
+          "file": "(diff)",
+          "start_line": 1,
+          "message": "ruff-airflow: produced no SARIF output (exit 2)"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

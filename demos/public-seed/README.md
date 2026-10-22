@@ -11,9 +11,9 @@ Use this folder only when you want a two-file smoke check without cloning the be
 | Path | Intent |
 |------|--------|
 | `.aiv/config.yaml` | Strict-ish demo config (syntax + invariant + security) |
-| `pass/CleanService.java` | Clean added file — should pass |
-| `fail/BrokenPaste.java` | Conflict marker + AI elision — should fail invariant |
-| `fail/leaked.env` | Fake AWS key shape — should fail security when enabled |
+| `pass/CleanService.java` | Clean added file: should pass |
+| `fail/BrokenPaste.java` | Conflict marker + AI elision: should fail invariant |
+| `fail/leaked.env` | Fake AWS key shape: should fail security when enabled |
 
 ## Local smoke
 

@@ -20,7 +20,7 @@ https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/<version>/aiv-cl
 io.github.vaquarkhan.aiv:aiv-cli:<version>
 ```
 
-Replace `<version>` with the reactor root `<version>` (for example `1.0.4`).
+Replace `<version>` with the reactor root `<version>` (for example `2.0`).
 
 ## Resolve `<version>` from a Git clone
 

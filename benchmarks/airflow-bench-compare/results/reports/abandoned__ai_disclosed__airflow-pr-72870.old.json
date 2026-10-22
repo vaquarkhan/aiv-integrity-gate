@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py (SyntaxError line 28: closing parenthesis ')' does not match opening parenthesis '[' on line 25)\nDoes not parse: providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py (SyntaxError line 13: unexpected indent)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 25,
+          "message": "Does not parse: providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py (SyntaxError line 28: closing parenthesis ')' does not match opening parenthesis '[' on line 25)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 13,
+          "message": "Does not parse: providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py (SyntaxError line 13: unexpected indent)"
+        }
+      ]
+    }
+  ]
+}

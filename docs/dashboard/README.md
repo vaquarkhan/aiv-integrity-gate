@@ -61,4 +61,4 @@ Opening **`index.html` via `file://`** still loads a small embedded fallback dat
 
 Uploaded JSON is read with the **File API** in the browser; nothing is sent to a server unless you host one yourself.
 
-**Author:** Vaquar Khan
+**Author:** Viquar Khan

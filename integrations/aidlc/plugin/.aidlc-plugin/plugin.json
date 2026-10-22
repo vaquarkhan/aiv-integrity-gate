@@ -1,0 +1,13 @@
+{
+  "name": "aiv-integrity",
+  "version": "0.1.0",
+  "description": "Deterministic integrity evidence for AI-DLC Construction outputs through AIV Integrity Gate.",
+  "author": { "name": "Vaquar Khan" },
+  "dependencies": ["core"],
+  "aidlc": {
+    "contributes": {
+      "sensors": "sensors/",
+      "tools": "tools/"
+    }
+  }
+}

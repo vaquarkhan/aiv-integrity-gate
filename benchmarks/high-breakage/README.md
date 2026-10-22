@@ -13,4 +13,4 @@ Expect **FAIL** with findings from syntax / invariant / security. That is succes
 
 ## Why this exists
 
-Mature repos rarely contain these defects. This corpus shows AIV's value where breakage is present: leave-on tripwire, seconds, no LLM.
+Mature repositories rarely contain these objective defects. This corpus proves the configured rules fire on known breakage and remain suitable as a local/CI tripwire; it does not establish a time-savings or field precision percentage.

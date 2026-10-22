@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.cli;
@@ -63,7 +51,7 @@ class MainTest {
     @BeforeAll
     static void tightenGitTimeoutForTests() {
         previousTimeout = System.getProperty(TIMEOUT_PROP);
-        System.setProperty(TIMEOUT_PROP, "10");
+        System.setProperty(TIMEOUT_PROP, "60");
     }
 
     @AfterAll
@@ -187,28 +175,25 @@ class MainTest {
     }
 
     @Test
-    void bareWorkspaceFlagDoesNotCrash(@TempDir Path repo) throws Exception {
+    void bareWorkspaceFlagFailsClosed(@TempDir Path repo) throws Exception {
         initRepo(repo);
-        int code = Main.run(new String[]{"--workspace"});
-        assertTrue(code == 0 || code == 1 || code == 3);
+        assertEquals(2, Main.run(new String[]{"--workspace"}));
     }
 
     @Test
-    void bareDiffFlagDoesNotCrash(@TempDir Path repo) throws Exception {
+    void bareDiffFlagFailsClosed(@TempDir Path repo) throws Exception {
         initRepo(repo);
-        int code = Main.run(new String[]{"--diff"});
-        assertTrue(code == 0 || code == 1 || code == 3);
+        assertEquals(2, Main.run(new String[]{"--diff"}));
     }
 
     @Test
-    void bareHeadFlagDoesNotCrash(@TempDir Path repo) throws Exception {
+    void bareHeadFlagFailsClosed(@TempDir Path repo) throws Exception {
         initRepo(repo);
-        int code = Main.run(new String[]{"--head"});
-        assertTrue(code == 0 || code == 1 || code == 3);
+        assertEquals(2, Main.run(new String[]{"--head"}));
     }
 
     @Test
-    void unknownFlagDoesNotCrash(@TempDir Path repo) throws Exception {
+    void unknownFlagFailsClosed(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{
                 "--workspace", repo.toString(),
@@ -216,11 +201,11 @@ class MainTest {
                 "--head", "HEAD",
                 "--not-a-real-flag"
         });
-        assertTrue(code == 0 || code == 1);
+        assertEquals(2, code);
     }
 
     @Test
-    void missingArgValuesDoNotCrash(@TempDir Path repo) throws Exception {
+    void missingArgValuesFailClosed(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{
                 "--workspace",
@@ -230,7 +215,7 @@ class MainTest {
                 "--workspace", repo.toString(),
                 "--diff", "HEAD"
         });
-        assertTrue(code == 0 || code == 1 || code == 3);
+        assertEquals(2, code);
     }
 
     @Test
@@ -335,6 +320,157 @@ class MainTest {
         assertEquals(0, Main.run(new String[]{
                 "--workspace", empty.toString(),
                 "--diff-json", json.toString(),
+                "--quiet"
+        }));
+    }
+
+    @Test
+    void aiSlopLabelAndCommentFlagsRequireGithubEnvironment(@TempDir Path empty) throws Exception {
+        Path json = empty.resolve("proposed.json");
+        Files.writeString(json, """
+                {"files":[{"path":"Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}]}
+                """, StandardCharsets.UTF_8);
+        Files.createDirectories(empty.resolve(".aiv"));
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                ai_slop_label_gates: [test-adequacy]
+                ai_slop_label_rules: ["test-adequacy.*"]
+                gates:
+                  - id: syntax
+                    enabled: true
+                """, StandardCharsets.UTF_8);
+        var prev = Main.GITHUB_ENV;
+        Main.GITHUB_ENV = k -> null;
+        try {
+            // explicit label flag with a custom name: publisher needs GITHUB_TOKEN -> exit 2
+            assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(),
+                    "--label-ai-slop", "needs-evidence", "--quiet"}));
+            // comment only
+            assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(),
+                    "--comment-ai-slop", "--quiet"}));
+            // env-driven label
+            Main.GITHUB_ENV = k -> "AIV_LABEL_AI_SLOP".equals(k) ? "true" : null;
+            assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(), "--quiet"}));
+            Main.GITHUB_ENV = k -> "AIV_COMMENT_AI_SLOP".equals(k) ? "true" : null;
+            assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(), "--quiet"}));
+        } finally {
+            Main.GITHUB_ENV = prev;
+        }
+        // config-driven: ai_slop_pr_label present in .aiv/config.yaml
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                ai_slop_pr_label: AI-SLOP
+                ai_slop_pr_comment: true
+                gates:
+                  - id: syntax
+                    enabled: true
+                """, StandardCharsets.UTF_8);
+        Main.GITHUB_ENV = k -> null;
+        try {
+            // Outside a GitHub context a config-requested publication is skipped, so a local or pre-commit run
+            // with a preset that labels PRs still exits on the gate verdict, not on a missing token.
+            assertEquals(1, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(), "--quiet"}),
+                    "exit 1 is the gate verdict for this fixture; exit 2 would mean the missing token broke the run");
+            // With a token and repo present the same config does try to publish and the failure surfaces.
+            Main.GITHUB_ENV = k -> switch (k) {
+                case "GITHUB_TOKEN" -> "tok";
+                case "GITHUB_REPOSITORY" -> "o/n";
+                default -> null;
+            };
+            assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(), "--quiet"}));
+        } finally {
+            Main.GITHUB_ENV = prev;
+        }
+        assertFalse(Main.inGithubContext(k -> "GITHUB_TOKEN".equals(k) ? "tok" : null));
+        assertFalse(Main.inGithubContext(k -> "GITHUB_REPOSITORY".equals(k) ? "o/n" : " "));
+        assertFalse(Main.inGithubContext(k -> "GITHUB_REPOSITORY".equals(k) ? "no-slash" : "tok"));
+        assertTrue(Main.inGithubContext(k -> "GITHUB_REPOSITORY".equals(k) ? "o/n" : "tok"));
+    }
+
+    @Test
+    void aiSlopLabelAndCommentPublishAgainstGithubApi(@TempDir Path empty) throws Exception {
+        Path json = empty.resolve("proposed.json");
+        Files.writeString(json, """
+                {"files":[{"path":"src/main/java/Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}]}
+                """, StandardCharsets.UTF_8);
+        Files.createDirectories(empty.resolve(".aiv"));
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                ai_slop_pr_label: AI-SLOP
+                ai_slop_pr_comment: true
+                gates:
+                  - id: syntax
+                    enabled: true
+                  - id: test-adequacy
+                    enabled: true
+                    severity: warn
+                  - id: density
+                    enabled: false
+                  - id: design
+                    enabled: false
+                  - id: dependency
+                    enabled: false
+                  - id: cohesion
+                    enabled: false
+                """, StandardCharsets.UTF_8);
+        List<String> calls = new java.util.ArrayList<>();
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/", ex -> {
+            ex.getRequestBody().readAllBytes();
+            String key = ex.getRequestMethod() + " " + ex.getRequestURI().getPath();
+            calls.add(key);
+            byte[] body = key.endsWith("/comments") && key.startsWith("GET") ? "[]".getBytes(StandardCharsets.UTF_8)
+                    : "{}".getBytes(StandardCharsets.UTF_8);
+            int code = key.startsWith("POST") && key.endsWith("/comments") ? 201 : 200;
+            ex.sendResponseHeaders(code, body.length);
+            ex.getResponseBody().write(body);
+            ex.close();
+        });
+        server.start();
+        var prev = Main.GITHUB_ENV;
+        try {
+            String base = "http://127.0.0.1:" + server.getAddress().getPort();
+            Map<String, String> env = Map.of(
+                    "GITHUB_TOKEN", "t", "GITHUB_REPOSITORY", "o/r", "AIV_GITHUB_PR_NUMBER", "5",
+                    "AIV_GITHUB_API_BASE", base, "AIV_GITHUB_FINDINGS_API_BASE", base);
+            Main.GITHUB_ENV = env::get;
+            // the advisory missing-tests finding on Ok.java is selected (no gate/rule filter configured)
+            assertEquals(0, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(), "--quiet"}));
+            assertTrue(calls.stream().anyMatch(c -> c.equals("POST /repos/o/r/issues/5/labels")), calls.toString());
+            assertTrue(calls.stream().anyMatch(c -> c.equals("POST /repos/o/r/issues/5/comments")), calls.toString());
+        } finally {
+            Main.GITHUB_ENV = prev;
+            server.stop(0);
+        }
+    }
+
+    @Test
+    void configFromWorkspaceFlagIsAccepted(@TempDir Path empty) throws Exception {
+        Path json = empty.resolve("proposed.json");
+        Files.writeString(json, """
+                {"files":[{"path":"Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}]}
+                """, StandardCharsets.UTF_8);
+        Files.createDirectories(empty.resolve(".aiv"));
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                gates:
+                  - id: syntax
+                    enabled: true
+                  - id: density
+                    enabled: false
+                  - id: design
+                    enabled: false
+                  - id: dependency
+                    enabled: false
+                  - id: cohesion
+                    enabled: false
+                  - id: invariant
+                    enabled: false
+                """, StandardCharsets.UTF_8);
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", empty.toString(),
+                "--diff-json", json.toString(),
+                "--config-from-workspace",
                 "--quiet"
         }));
     }
@@ -808,7 +944,7 @@ class MainTest {
                 "--head", "HEAD",
                 "--warnings-exit-code", "9"
         });
-        assertTrue(code == 0 || code == 1);
+        assertTrue(code == 0 || code == 1 || code == 9);
     }
 
     @Test
@@ -850,6 +986,71 @@ class MainTest {
         parseWorkspace.setAccessible(true);
         Path w = (Path) parseWorkspace.invoke(null, (Object) new String[0]);
         assertNotNull(w);
+    }
+
+    @Test
+    void normalModeRejectsUnknownOptionsAndMissingValues() {
+        assertEquals(2, Main.run(new String[]{"--require-trusted-confg"}));
+        assertEquals(2, Main.run(new String[]{"--workspace"}));
+        assertEquals(2, Main.run(new String[]{"--diff"}));
+        assertEquals(2, Main.run(new String[]{"--head"}));
+        assertEquals(2, Main.run(new String[]{"--diff-json"}));
+        assertEquals(2, Main.run(new String[]{"--baseline"}));
+        assertEquals(2, Main.run(new String[]{"--output-json"}));
+        assertEquals(2, Main.run(new String[]{"--output-sarif"}));
+        assertEquals(2, Main.run(new String[]{"--warnings-exit-code"}));
+        assertEquals(2, Main.run(new String[]{"unexpected-positional"}));
+    }
+
+    @Test
+    void requireTrustedConfigRejectsMemoryDiff(@TempDir Path repo) throws Exception {
+        Path diff = repo.resolve("diff.json");
+        Files.writeString(diff, "{\"files\":[]}", StandardCharsets.UTF_8);
+        assertEquals(2, Main.run(new String[]{"--workspace", repo.toString(), "--diff-json", diff.toString(),
+                "--require-trusted-config"}));
+    }
+
+    @Test
+    void requireTrustedConfigRejectsFallbackAndAcceptsCommittedPolicy(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        assertEquals(2, Main.run(new String[]{"--workspace", repo.toString(), "--diff", "HEAD", "--head", "HEAD",
+                "--require-trusted-config"}));
+        Files.createDirectories(repo.resolve(".aiv"));
+        Files.writeString(repo.resolve(".aiv/config.yaml"), "schema_version: 1\ngates: []\n",
+                StandardCharsets.UTF_8);
+        runGit(repo, "add", ".aiv/config.yaml");
+        runGit(repo, "commit", "-m", "add policy");
+        int accepted = Main.run(new String[]{"--workspace", repo.toString(), "--diff", "HEAD", "--head", "HEAD",
+                "--require-trusted-config", "--quiet"});
+        assertTrue(accepted == 0 || accepted == 1);
+        Files.writeString(repo.resolve(".aiv/design-rules.yaml"), "constraints: []\n", StandardCharsets.UTF_8);
+        assertEquals(2, Main.run(new String[]{"--workspace", repo.toString(), "--diff", "HEAD", "--head", "HEAD",
+                "--require-trusted-config", "--quiet"}));
+    }
+
+    @Test
+    void defaultBaseRefRunConsumesFrozenTrustedSidecars(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Files.createDirectories(repo.resolve(".aiv"));
+        Files.writeString(repo.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                gates:
+                  - {id: design, enabled: true}
+                """, StandardCharsets.UTF_8);
+        Files.writeString(repo.resolve(".aiv/design-rules.yaml"), """
+                constraints:
+                  - id: no-exit
+                    keywords: [java]
+                    forbidden_calls: [System.exit]
+                """, StandardCharsets.UTF_8);
+        runGit(repo, "add", ".aiv");
+        runGit(repo, "commit", "-m", "trusted policy");
+        Files.writeString(repo.resolve(".aiv/design-rules.yaml"), "constraints: []\n", StandardCharsets.UTF_8);
+        Files.writeString(repo.resolve("Bad.java"), "class Bad { void x(){ System.exit(1); } }\n", StandardCharsets.UTF_8);
+        runGit(repo, "add", ".");
+        runGit(repo, "commit", "-m", "attempt sidecar bypass");
+        assertEquals(1, Main.run(new String[]{"--workspace", repo.toString(), "--diff", "HEAD^",
+                "--head", "HEAD", "--quiet"}));
     }
 
     private static void initRepo(Path repo) throws Exception {

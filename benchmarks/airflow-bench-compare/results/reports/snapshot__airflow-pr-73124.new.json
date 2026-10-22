@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/snapshot/pr-73124/.github/workflows/basic-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 9, column 7:\n          - run: cd airflow-core/src/airfl ... \n          ^\n)\nDoes not parse: providers/snapshot/pr-73124/.github/workflows/ui-e2e-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 8, column 7:\n          - name: \"Install UI dependencies\"\n          ^\n)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/snapshot/pr-73124/.github/workflows/basic-tests.yml",
+          "start_line": 9,
+          "message": "Does not parse: providers/snapshot/pr-73124/.github/workflows/basic-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 9, column 7:\n          - run: cd airflow-core/src/airfl ... \n          ^\n)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/snapshot/pr-73124/.github/workflows/ui-e2e-tests.yml",
+          "start_line": 8,
+          "message": "Does not parse: providers/snapshot/pr-73124/.github/workflows/ui-e2e-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 8, column 7:\n          - name: \"Install UI dependencies\"\n          ^\n)"
+        }
+      ]
+    },
+    {
+      "id": "test-adequacy",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

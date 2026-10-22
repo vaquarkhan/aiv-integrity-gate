@@ -8,6 +8,7 @@ package io.github.vaquarkhan.aiv.adapter.git;
 import io.github.vaquarkhan.aiv.model.ChangedFile;
 import io.github.vaquarkhan.aiv.model.Diff;
 import io.github.vaquarkhan.aiv.port.DiffProvider;
+import io.github.vaquarkhan.aiv.util.JsonLite;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,14 +16,13 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 /**
- * In-memory / agent-facing {@link DiffProvider}. Loads a proposed change set from JSON so gates can
- * run without git (MCP tools, pre-commit agent loops, unit tests).
+ * In-memory / agent-facing {@link DiffProvider}. Loads a proposed change set from strict RFC 8259
+ * JSON so gates can run without git (MCP tools, AI-DLC sensors, pre-commit agent loops, tests).
  *
- * <p>Minimal JSON shape (SnakeYAML-friendly; no external JSON lib required in this module):
+ * <p>Minimal JSON shape:
  * <pre>
  * {
  *   "baseRef": "memory",
@@ -36,13 +36,6 @@ import java.util.regex.Pattern;
  */
 public final class MemoryDiffProvider implements DiffProvider {
 
-    private static final Pattern PATH = Pattern.compile("\"path\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"");
-    private static final Pattern CHANGE = Pattern.compile("\"changeType\"\\s*:\\s*\"(\\w+)\"");
-    private static final Pattern CONTENT = Pattern.compile("\"content\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"", Pattern.DOTALL);
-    private static final Pattern BASE = Pattern.compile("\"baseRef\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"");
-    private static final Pattern HEAD = Pattern.compile("\"headRef\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"");
-    private static final Pattern RAW = Pattern.compile("\"rawDiff\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"", Pattern.DOTALL);
-
     private final Diff diff;
 
     public MemoryDiffProvider(Diff diff) {
@@ -54,75 +47,59 @@ public final class MemoryDiffProvider implements DiffProvider {
         return new MemoryDiffProvider(parseJson(json));
     }
 
+    /** Parse and validate the agent-facing diff schema. Malformed entries fail loudly. */
     public static Diff parseJson(String json) {
         if (json == null || json.isBlank()) {
             return new Diff("memory", "proposed", List.of(), "");
         }
-        String base = first(BASE, json, "memory");
-        String head = first(HEAD, json, "proposed");
-        String raw = unescape(first(RAW, json, ""));
-        List<ChangedFile> files = new ArrayList<>();
-        // Split roughly on file objects
-        int idx = 0;
-        while (true) {
-            int p = json.indexOf("\"path\"", idx);
-            if (p < 0) {
-                break;
-            }
-            int end = json.indexOf("\"path\"", p + 6);
-            String chunk = end < 0 ? json.substring(p) : json.substring(p, end);
-            Matcher pm = PATH.matcher(chunk);
-            if (!pm.find()) {
-                idx = p + 6;
-                continue;
-            }
-            String path = unescape(pm.group(1));
-            Matcher cm = CHANGE.matcher(chunk);
-            String ct = cm.find() ? cm.group(1) : "MODIFIED";
-            Matcher cont = CONTENT.matcher(chunk);
-            String content = cont.find() ? unescape(cont.group(1)) : "";
-            files.add(new ChangedFile(path, parseChangeType(ct), content));
-            idx = p + 6;
+        Object parsed = JsonLite.parse(json);
+        if (!(parsed instanceof Map<?, ?> root)) {
+            throw new IllegalArgumentException("diff JSON root must be an object");
         }
-        return new Diff(unescape(base), unescape(head), files, raw);
+        String base = stringOr(root.get("baseRef"), "memory", "baseRef");
+        String head = stringOr(root.get("headRef"), "proposed", "headRef");
+        String raw = stringOr(root.get("rawDiff"), "", "rawDiff");
+        Object fileValue = root.get("files");
+        if (fileValue != null && !(fileValue instanceof List<?>)) {
+            throw new IllegalArgumentException("diff JSON 'files' must be an array");
+        }
+
+        List<ChangedFile> files = new ArrayList<>();
+        for (Object entry : JsonLite.list(fileValue)) {
+            if (!(entry instanceof Map<?, ?> file)) {
+                throw new IllegalArgumentException("each diff JSON file entry must be an object");
+            }
+            String path = requiredString(file.get("path"), "file.path");
+            String type = stringOr(file.get("changeType"), "MODIFIED", "file.changeType");
+            String content = stringOr(file.get("content"), "", "file.content");
+            files.add(new ChangedFile(path, parseChangeType(type), content));
+        }
+        return new Diff(base, head, files, raw);
+    }
+
+    private static String requiredString(Object value, String field) {
+        if (!(value instanceof String s) || s.isBlank()) {
+            throw new IllegalArgumentException("diff JSON '" + field + "' must be a non-blank string");
+        }
+        return s;
+    }
+
+    private static String stringOr(Object value, String fallback, String field) {
+        if (value == null) {
+            return fallback;
+        }
+        if (!(value instanceof String s)) {
+            throw new IllegalArgumentException("diff JSON '" + field + "' must be a string");
+        }
+        return s;
     }
 
     private static ChangedFile.ChangeType parseChangeType(String raw) {
         try {
             return ChangedFile.ChangeType.valueOf(raw.trim().toUpperCase(Locale.ROOT));
-        } catch (Exception e) {
-            return ChangedFile.ChangeType.MODIFIED;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("diff JSON 'file.changeType' must be ADDED, MODIFIED, or DELETED", e);
         }
-    }
-
-    private static String first(Pattern p, String json, String def) {
-        Matcher m = p.matcher(json);
-        return m.find() ? m.group(1) : def;
-    }
-
-    static String unescape(String s) {
-        if (s == null) {
-            return "";
-        }
-        StringBuilder out = new StringBuilder(s.length());
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == '\\' && i + 1 < s.length()) {
-                char n = s.charAt(++i);
-                out.append(switch (n) {
-                    case 'n' -> '\n';
-                    case 'r' -> '\r';
-                    case 't' -> '\t';
-                    case '"' -> '"';
-                    case '\\' -> '\\';
-                    case '/' -> '/';
-                    default -> n;
-                });
-            } else {
-                out.append(c);
-            }
-        }
-        return out.toString();
     }
 
     @Override

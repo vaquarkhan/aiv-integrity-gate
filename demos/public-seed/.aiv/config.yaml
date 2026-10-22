@@ -1,4 +1,4 @@
-# Demo seed config — syntax + invariant hard; security on for leaked.env
+# Demo seed config: syntax + invariant hard; security on for leaked.env
 schema_version: 1
 fail_fast: false
 gates:

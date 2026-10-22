@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.core;
@@ -22,6 +10,7 @@ import io.github.vaquarkhan.aiv.model.AIVContext;
 import io.github.vaquarkhan.aiv.model.AIVResult;
 import io.github.vaquarkhan.aiv.model.ChangedFile;
 import io.github.vaquarkhan.aiv.model.Diff;
+import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.ConfigProvider;
 import io.github.vaquarkhan.aiv.port.DiffProvider;
@@ -52,11 +41,18 @@ public final class Orchestrator {
     private final DiffProvider diffProvider;
     private final ConfigProvider configProvider;
     private final ReportPublisher reportPublisher;
+    private final Path policyWorkspace;
 
     public Orchestrator(DiffProvider diffProvider, ConfigProvider configProvider, ReportPublisher reportPublisher) {
+        this(diffProvider, configProvider, reportPublisher, null);
+    }
+
+    public Orchestrator(DiffProvider diffProvider, ConfigProvider configProvider, ReportPublisher reportPublisher,
+                        Path policyWorkspace) {
         this.diffProvider = diffProvider;
         this.configProvider = configProvider;
         this.reportPublisher = reportPublisher;
+        this.policyWorkspace = policyWorkspace;
     }
 
     /**
@@ -75,9 +71,13 @@ public final class Orchestrator {
         warnRelaxedIdentityHooks(config);
 
         if (shouldHonorSkip(diff, config)) {
-            log.warn("Skipping gates: /aiv skip on latest commit (author allowlist satisfied)");
+            log.warn("Skipping gates: /aiv skip on latest commit (allowlisted author, signed commit)");
+            List<String> skipNotices = new ArrayList<>(diff.getWarnings());
+            skipNotices.add("[SKIP-HONORED] /aiv skip honored for " + diff.getAuthorEmail()
+                    + " (on skip_allowlist, good signature); no gate was evaluated.");
             AIVResult aivResult = new AIVResult(true, List.of(
-                    new GateResult("skip", true, "Human override: /aiv skip on latest commit")), diff.getWarnings());
+                    new GateResult("skip", true, "Human override: /aiv skip on latest commit by allowlisted author "
+                            + diff.getAuthorEmail() + " (signed)")), skipNotices);
             reportPublisher.publish(aivResult);
             return 0;
         }
@@ -99,12 +99,25 @@ public final class Orchestrator {
                 diff.getLinesAdded(), diff.getLinesDeleted(), diff.getAuthorEmail(), diff.isHeadCommitSigned(),
                 diff.isSkipDirectivePresent(),
                 diff.getWarnings(), filteredLoc);
-        AIVContext context = new AIVContext(workspace, filteredDiff, config);
+        AIVContext context = new AIVContext(workspace,
+                policyWorkspace == null ? workspace : policyWorkspace, filteredDiff, config, Map.of());
 
         List<QualityGate> gates = loadGates();
         List<GateResult> results = new ArrayList<>();
+        List<String> suppressions = new ArrayList<>();
         boolean overallPassed = true;
         boolean failFast = config.isFailFast();
+        List<String> protectedPolicyChanges = changedAivConfigPaths(diff);
+        if (config.getGlobalBoolean("protect_policy_paths", false) && !protectedPolicyChanges.isEmpty()) {
+            List<Finding> policyFindings = new ArrayList<>();
+            for (String path : protectedPolicyChanges) {
+                policyFindings.add(Finding.atLine("policy-integrity.changed", path, 1,
+                        "Protected policy file changed; evaluate policy changes in a separately approved run"));
+            }
+            results.add(GateResult.fail("policy-integrity",
+                    "Protected .aiv policy files differ from the trusted base ref", policyFindings));
+            overallPassed = false;
+        }
 
         for (QualityGate gate : gates) {
             if (!isGateEnabled(gate.getId(), config, filtered)) {
@@ -112,8 +125,12 @@ public final class Orchestrator {
             }
             GateResult raw = gate.evaluate(context);
             GateResult severityApplied = applySeverity(raw, gate.getId(), config);
-            GateResult baselined = applyBaseline(severityApplied, config, workspace);
+            GateResult baselined = applyBaseline(severityApplied, config, context.getPolicyWorkspace());
             GateResult result = InlineDisableFilter.apply(baselined, context);
+            String suppressed = suppressionNotice(gate.getId(), severityApplied, result);
+            if (suppressed != null) {
+                suppressions.add(suppressed);
+            }
             results.add(result);
             if (!result.isPassed()) {
                 log.info("Gate {} failed: {}", gate.getId(), result.getMessage());
@@ -129,6 +146,16 @@ public final class Orchestrator {
         }
 
         List<String> notices = new ArrayList<>(filteredDiff.getWarnings());
+        List<String> cfgChanges = changedAivConfigPaths(diff);
+        if (!cfgChanges.isEmpty()) {
+            notices.add("[CONFIG-CHANGE] This change modifies AIV configuration: " + String.join(", ", cfgChanges)
+                    + ". Verdict must be computed with the base-ref config (CLI default); review the change deliberately.");
+        }
+        notices.addAll(suppressions);
+        if (diff.isSkipDirectivePresent()) {
+            notices.add("[SKIP-IGNORED] /aiv skip directive found on the head commit but not honored "
+                    + "(requires skip_allowlist membership and a good commit signature).");
+        }
         if (doctor) {
             notices.add(0, "[DOCTOR] Informational run: gate outcomes are reported but not CI-blocking.");
         }
@@ -152,6 +179,26 @@ public final class Orchestrator {
         return GateResult.advisory(gateId, raw.getMessage(), raw.getFindings());
     }
 
+    /**
+     * Visible record of findings removed by the baseline or inline {@code aiv-disable} directives, so a
+     * suppression is never silent: it reaches the report, the JSON output and the audit chain.
+     */
+    static String suppressionNotice(String gateId, GateResult before, GateResult after) {
+        int removed = before.getFindings().size() - after.getFindings().size();
+        if (removed <= 0) {
+            return null;
+        }
+        java.util.TreeSet<String> rules = new java.util.TreeSet<>();
+        List<Finding> kept = after.getFindings();
+        for (Finding f : before.getFindings()) {
+            if (!kept.contains(f)) {
+                rules.add(f.getRuleId());
+            }
+        }
+        return "[SUPPRESSED] " + gateId + ": " + removed + " finding" + (removed == 1 ? "" : "s")
+                + " removed by baseline or inline aiv-disable (rules: " + String.join(", ", rules) + ")";
+    }
+
     static GateResult applyBaseline(GateResult raw, AIVConfig config, Path workspace) {
         String baselineRel = config.getGlobalString("baseline").orElse("");
         if (baselineRel.isBlank()) {
@@ -168,13 +215,24 @@ public final class Orchestrator {
         }
     }
 
-    private static boolean shouldHonorSkip(Diff diff, AIVConfig config) {
+    /**
+     * Default-deny human override. {@code /aiv skip} is honored only when the project has an explicit
+     * {@code skip_allowlist} AND the head commit author is on it AND the head commit carries a good
+     * ({@code %G? == G}) signature. An empty allowlist means the directive is ignored: anyone (including
+     * a coding agent told to "make CI green") can write a commit message, so an open skip is not a gate.
+     */
+    static boolean shouldHonorSkip(Diff diff, AIVConfig config) {
         if (!diff.isSkipDirectivePresent()) {
             return false;
         }
         List<String> allow = config.getSkipAllowlist();
         if (allow.isEmpty()) {
-            return true;
+            log.warn("/aiv skip present but ignored: skip_allowlist is empty (default-deny)");
+            return false;
+        }
+        if (!diff.isHeadCommitSigned()) {
+            log.warn("/aiv skip present but ignored: head commit is not signed with a good signature");
+            return false;
         }
         String author = diff.getAuthorEmail();
         if (author == null || author.isBlank()) {
@@ -183,18 +241,39 @@ public final class Orchestrator {
         return allow.stream().anyMatch(a -> a.equalsIgnoreCase(author.trim()));
     }
 
+    /** Paths under {@code .aiv/} that a PR touched; reported so reviewers see a gate-config change. */
+    static List<String> changedAivConfigPaths(Diff diff) {
+        List<String> out = new ArrayList<>();
+        for (ChangedFile f : diff.getChangedFiles()) {
+            String p = f.getPath() == null ? "" : f.getPath().replace('\\', '/');
+            if (p.startsWith(".aiv/") || p.contains("/.aiv/")) {
+                out.add(p);
+            }
+        }
+        return out;
+    }
+
     private List<QualityGate> loadGates() {
         return ServiceLoader.load(QualityGate.class).stream()
                 .map(ServiceLoader.Provider::get)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gates that are OFF unless explicitly enabled in config. These are opt-in either because they
+     * are expensive/noisy ({@code doc-integrity}, {@code security}) or because they enforce
+     * ASF-specific policy that a project adopts deliberately ({@code license-header},
+     * {@code pr-metadata}) - typically via the {@code asf} preset.
+     */
+    private static final java.util.Set<String> DEFAULT_OFF_GATES =
+            java.util.Set.of("doc-integrity", "security", "license-header", "pr-metadata", "external", "rules", "jev");
+
     private boolean isGateEnabled(String gateId, AIVConfig config, List<ChangedFile> filteredFiles) {
         boolean enabled = config.getGates().stream()
                 .filter(g -> g.getId().equals(gateId))
                 .findFirst()
                 .map(AIVConfig.GateConfig::isEnabled)
-                .orElse(!"doc-integrity".equals(gateId) && !"security".equals(gateId));
+                .orElse(!DEFAULT_OFF_GATES.contains(gateId));
         if (!enabled) return false;
         if (!"doc-integrity".equals(gateId)) return true;
         Object auto = config.getGates().stream()

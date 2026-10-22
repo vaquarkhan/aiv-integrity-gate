@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MemoryDiffProviderTest {
@@ -52,27 +53,37 @@ class MemoryDiffProviderTest {
     }
 
     @Test
-    void parseEmptyAndBadChangeType() {
-        Diff empty = MemoryDiffProvider.parseJson("");
-        assertTrue(empty.getChangedFiles().isEmpty());
-        Diff d = MemoryDiffProvider.parseJson(
-                "{\"files\":[{\"path\":\"t.py\",\"changeType\":\"nope\",\"content\":\"x\"}]}");
-        assertEquals(ChangedFile.ChangeType.MODIFIED, d.getChangedFiles().get(0).getChangeType());
+    void parseEmptyDefaultsAndRejectsBadChangeType() {
+        assertTrue(MemoryDiffProvider.parseJson("").getChangedFiles().isEmpty());
+        assertTrue(MemoryDiffProvider.parseJson("{}").getChangedFiles().isEmpty());
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson(
+                "{\"files\":[{\"path\":\"t.py\",\"changeType\":\"nope\",\"content\":\"x\"}]}"));
     }
 
     @Test
-    void unescapeHandlesCommonEscapes() {
-        assertEquals("a\nb\t\"\\/", MemoryDiffProvider.unescape("a\\nb\\t\\\"\\\\\\/"));
-        assertEquals("\r", MemoryDiffProvider.unescape("\\r"));
-        assertEquals("", MemoryDiffProvider.unescape(null));
-        assertEquals("z", MemoryDiffProvider.unescape("\\z"));
-    }
-
-    @Test
-    void skipsMalformedPathEntries() {
-        Diff d = MemoryDiffProvider.parseJson("{\"files\":[{\"path\": 1, \"content\":\"x\"}, {\"path\":\"ok.py\",\"content\":\"y\"}]}");
+    void strictParserHandlesUnicodeAndNestedPathData() {
+        Diff d = MemoryDiffProvider.parseJson("{\"metadata\":{\"path\":\"not-a-file\"},"
+                + "\"files\":[{\"content\":\"\\u03bb\",\"path\":\"src/\\u03bb.py\"}]}");
         assertEquals(1, d.getChangedFiles().size());
-        assertEquals("ok.py", d.getChangedFiles().get(0).getPath());
+        assertEquals("src/λ.py", d.getChangedFiles().get(0).getPath());
+        assertEquals("λ", d.getChangedFiles().get(0).getContent());
+    }
+
+    @Test
+    void rejectsMalformedSchema() {
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson("[]"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson("{\"baseRef\":1}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson("{\"headRef\":1}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson("{\"rawDiff\":1}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson("{\"files\":{}}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson("{\"files\":[1]}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson("{\"files\":[{}]}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson(
+                "{\"files\":[{\"path\":1}]}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson(
+                "{\"files\":[{\"path\":\"x\",\"changeType\":1}]}"));
+        assertThrows(IllegalArgumentException.class, () -> MemoryDiffProvider.parseJson(
+                "{\"files\":[{\"path\":\"x\",\"content\":1}]}"));
     }
 
     @Test

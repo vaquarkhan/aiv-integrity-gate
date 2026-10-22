@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Merge conflict marker found in providers/bench/slop-conflict-05/conflict-05.py",
+      "findings": [
+        {
+          "rule_id": "invariant.merge-conflict",
+          "file": "providers/bench/slop-conflict-05/conflict-05.py",
+          "start_line": 1,
+          "message": "Merge conflict marker found in providers/bench/slop-conflict-05/conflict-05.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/bench/slop-conflict-05/conflict-05.py (SyntaxError line 3: invalid syntax)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/bench/slop-conflict-05/conflict-05.py",
+          "start_line": 3,
+          "message": "Does not parse: providers/bench/slop-conflict-05/conflict-05.py (SyntaxError line 3: invalid syntax)"
+        }
+      ]
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/bench/slop-conflict-05/conflict-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict-05test, conflict-05tests, testconflict-05, conflict-05it, conflict-05spec, conflict-05testcase, test_conflict-05, conflict-05_test, conflict-05_spec, conflict-05.test, conflict-05.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/slop-conflict-05/conflict-05.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-05test, conflict-05tests, testconflict-05, conflict-05it, conflict-05spec, conflict-05testcase, test_conflict-05, conflict-05_test, conflict-05_spec, conflict-05.test, conflict-05.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}
