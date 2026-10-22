@@ -2,6 +2,13 @@
 
 The `security` gate is a high-confidence added-line credential tripwire. It is not a full repository/history secret scanner; use the `external` gate to include one.
 
+Scans added lines for high-confidence credential leaks:
+
+- Vendor prefixes (AWS, GitHub, Slack, Stripe, npm, Google, OpenAI, Anthropic, SendGrid)
+- Private key PEM headers
+- Obvious `api_key` assignments
+- Keyword-bound high-entropy password or secret values, not every random string
+
 ## Enable
 
 ```yaml

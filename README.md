@@ -219,6 +219,7 @@ Start at the [documentation site](https://vaquarkhan.github.io/aiv-integrity-gat
 |----------|----------|
 | [docs/TUTORIAL.md](docs/TUTORIAL.md) | First source-build and strict run |
 | [docs/HELLO-WORLD.md](docs/HELLO-WORLD.md) | Exercise all 16 gates one by one |
+| [docs/GATES.md](docs/GATES.md) | Open one gate |
 | [docs/MODULE-ADOPTION-GUIDE.md](docs/MODULE-ADOPTION-GUIDE.md) | Mandatory/optional modules and profiles |
 | [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) | Commit-time install |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable in a repo / CI |
