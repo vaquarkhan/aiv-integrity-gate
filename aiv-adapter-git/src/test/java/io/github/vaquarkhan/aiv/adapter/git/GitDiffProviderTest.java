@@ -434,6 +434,14 @@ class GitDiffProviderTest {
     }
 
     @Test
+    void gitFailureDetailIncludesStderr() {
+        assertEquals("git diff failed with exit 128",
+                GitDiffProvider.gitFailureDetail("git diff failed with exit ", 128, " \n"));
+        assertEquals("git diff failed with exit 128: fatal: no merge base",
+                GitDiffProvider.gitFailureDetail("git diff failed with exit ", 128, "fatal: no merge base\r\n"));
+    }
+
+    @Test
     void getDiffFailsClosedWhenNumstatFails(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
         Path stub = writeDelegatingGitStub(repo, Map.of("failNumstat", true));

@@ -127,8 +127,10 @@ public final class RulesGate implements QualityGate {
         }
         for (String glob : RuleLoader.strings(cfg.get("rules_files"), Map.of())) {
             List<Path> matched = resolve(workspace, glob);
+            // A missing plain path or an empty glob is an optional overlay (the airflow preset
+            // lists .aiv/rules/*.yaml before a project has added any local rules).
             if (matched.isEmpty()) {
-                throw new IllegalArgumentException("rules: configured rules_files entry matched no files: " + glob);
+                continue;
             }
             for (Path file : matched) {
                 try {

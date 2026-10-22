@@ -44,7 +44,7 @@ def main():
 
     _, txt, _ = sh(["git", "branch", "-r", "--format=%(refname:short)"], cwd=bench)
     branches = sorted(b.strip().replace("origin/", "", 1) for b in txt.splitlines()
-                      if b.strip() and "HEAD" not in b and b.strip() != "origin/main")
+                      if b.strip().startswith("origin/") and "HEAD" not in b and b.strip() != "origin/main")
     if a.only:
         branches = [b for b in branches if a.only in b]
     print(f"{len(branches)} branches", flush=True)

@@ -99,7 +99,16 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private record GitCapture(int exitCode, String stdout, boolean timedOut) {}
+    private record GitCapture(int exitCode, String stdout, String stderr, boolean timedOut) {}
+
+    /** Appends git's own stderr so "no merge base" is not reported as a bare exit code. */
+    static String gitFailureDetail(String prefix, int exitCode, String stderr) {
+        String msg = prefix + exitCode;
+        if (stderr == null || stderr.isBlank()) {
+            return msg;
+        }
+        return msg + ": " + stderr.strip().replace('\r', ' ').replace('\n', ' ');
+    }
 
     /**
      * Runs {@code git} with stdout appended to a temp file, then reads that file after the process exits.
@@ -108,26 +117,29 @@ public final class GitDiffProvider implements DiffProvider {
      */
     private static GitCapture runGitCapture(ProcessBuilder pb, long timeoutSeconds) throws Exception {
         Path tmp = Files.createTempFile("aiv-git-", ".out");
+        Path err = Files.createTempFile("aiv-git-", ".err");
         try {
             pb.redirectOutput(tmp.toFile());
-            pb.redirectError(ProcessBuilder.Redirect.DISCARD);
+            pb.redirectError(err.toFile());
             Process p = pb.start();
             if (gitProcessTimedOut(p, timeoutSeconds)) {
                 log.warn("Git subprocess timed out after {}s (command: {})", timeoutSeconds, pb.command());
                 for (int i = 0; i < 20; i++) {
                     LockSupport.parkNanos(50_000_000L);
                 }
-                return new GitCapture(-1, null, true);
+                return new GitCapture(-1, null, null, true);
             }
             int exit = p.exitValue();
+            String stderr = new String(Files.readAllBytes(err), StandardCharsets.UTF_8);
             if (!Files.isRegularFile(tmp) || Files.size(tmp) > maxGitCaptureBytes()) {
-                return new GitCapture(exit, "", false);
+                return new GitCapture(exit, "", stderr, false);
             }
             // Lenient UTF-8: binary patches (e.g. PNG) must not abort the whole gate.
             byte[] bytes = Files.readAllBytes(tmp);
-            return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), false);
+            return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), stderr, false);
         } finally {
             deleteQuietly(tmp);
+            deleteQuietly(err);
         }
     }
 
@@ -180,7 +192,7 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff --numstat timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException("git diff --numstat failed with exit " + cap.exitCode());
+                throw new IllegalStateException(gitFailureDetail("git diff --numstat failed with exit ", cap.exitCode(), cap.stderr()));
             }
             String text = cap.stdout() != null ? cap.stdout() : "";
             int added = 0;
@@ -286,7 +298,7 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException("git diff failed with exit " + cap.exitCode());
+                throw new IllegalStateException(gitFailureDetail("git diff failed with exit ", cap.exitCode(), cap.stderr()));
             }
             return cap.stdout() != null ? cap.stdout() : "";
         } catch (IllegalStateException e) {
@@ -308,7 +320,7 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff --name-status timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException("git diff --name-status failed with exit " + cap.exitCode());
+                throw new IllegalStateException(gitFailureDetail("git diff --name-status failed with exit ", cap.exitCode(), cap.stderr()));
             }
             String nameStatus = cap.stdout() != null ? cap.stdout() : "";
             for (String line : nameStatus.split("\n")) {

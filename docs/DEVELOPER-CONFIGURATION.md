@@ -304,7 +304,7 @@ AIV ships no framework-specific gate. Framework knowledge lives in rule packs (Y
 | Gate key | Default | Meaning |
 |---|---|---|
 | `packs` | empty | Shipped packs to load. Unknown names fail the run with exit 2. |
-| `rules_files` | empty | Globs or paths of rule documents. A plain path that does not exist is skipped; an unreadable file fails the run. |
+| `rules_files` | empty | Globs or paths of rule documents. A plain path that does not exist, or a glob that matches nothing, is skipped. An unreadable file or a workspace that cannot be scanned fails the run. |
 | `rules` | empty | Inline rules. |
 | `params` | empty | Values for `${name}` references in packs and documents. A list param replaces the pack default. |
 | `disabled_rules` | empty | Rule ids to drop (`airflow.missing-catchup` or `rules.airflow.missing-catchup`). |

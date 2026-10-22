@@ -196,8 +196,7 @@ class RulesGateTest {
         assertTrue(e.getMessage().contains("disk"));
         assertThrows(IllegalArgumentException.class,
                 () -> gate.evaluate(ctx(ws.resolve("does-not-exist"), Map.of("rules_files", List.of("*.yaml")), "")));
-        assertThrows(IllegalArgumentException.class,
-                () -> gate.evaluate(ctx(ws, Map.of("rules_files", List.of("missing.yaml")), "")));
+        assertTrue(gate.loadRules(Map.of("rules_files", List.of("missing.yaml", ".aiv/rules/*.yaml")), Map.of(), ws).isEmpty());
     }
 
     @Test
