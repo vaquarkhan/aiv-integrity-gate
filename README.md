@@ -232,7 +232,6 @@ Start at the [documentation site](https://vaquarkhan.github.io/aiv-integrity-gat
 | [LinkedIn carousel PDF](docs/deck/AIV-LinkedIn-Carousel.pdf) | Self-contained 16-page portrait share document |
 | [Editable LinkedIn carousel](docs/deck/AIV-LinkedIn-Carousel.pptx) | PowerPoint source for the carousel |
 | [Detailed sales deck](docs/deck/AIV-Integrity-Gate-Sales-Deck.pptx) | Presenter-led problem, gates, trust, integration, and pilot pitch |
-| [Adversarial product review](docs/ADVERSARIAL-PRODUCT-REVIEW.md) | Hardening ledger and Critical 0 / High 0 certification |
 
 ## License
 

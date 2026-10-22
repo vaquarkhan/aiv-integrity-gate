@@ -52,7 +52,6 @@ This map separates authored product guidance from examples, benchmark evidence, 
 
 | Location | Classification |
 |----------|----------------|
-| [ADVERSARIAL-PRODUCT-REVIEW.md](ADVERSARIAL-PRODUCT-REVIEW.md) | internal/product hardening ledger, final Critical 0 / High 0 certification |
 | `benchmarks/airflow-bench-compare/` | regression/experimental evidence with methodology limits |
 | `benchmarks/proposal-pilot/` | proposal-check pilot outputs |
 | `docs/reports/` | query examples and generated evidence support |

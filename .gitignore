@@ -52,6 +52,13 @@ docs/GAP-ANALYSIS.md
 docs/AIV-ARCHITECTURE-BRAINSTORM.md
 docs/AIV-AIRFLOW-EVIDENCE-BRIEF.md
 docs/evidence-airflow-marker-scan.json
+docs/ADVERSARIAL-PRODUCT-REVIEW.md
+docs/apache/APACHE-AIV-GATE-ANALYSIS.md
+docs/apache/RED-TEAM-OBJECTIONS.md
+docs/deck/LINKEDIN-CAROUSEL-STORY.md
+.github/copilot-instructions.md
+.github/WORKFLOWS.md
+.github/workflows/README.md
 
 # Local experiment / corpus artifacts (never ship)
 airflow-sample/
@@ -63,8 +70,14 @@ aiv-airflow-*.md
 aiv-magpie-*.md
 maven-portable/
 
-# Benchmark local scratch JSON (published reports live under reports/)
+# Benchmark local scratch (published reports live under reports/)
 benchmarks/**/results/*.json
+benchmarks/airflow-bench-compare/results/COMPARE.md
+benchmarks/airflow-bench-compare/results-v2config/SUMMARY.md
+benchmarks/airflow-bench-compare/results-audit/duckdb.md
+benchmarks/proposal-pilot/results/**/SUMMARY.md
+benchmarks/airflow-bench-compare/results-v2config-*/
+benchmarks/airflow-bench-compare/results-v2-benchconfig-*/
 # Keep latest.html / latest.json / census-latest.*; drop bulky per-run trees from git optional
 benchmarks/**/reports/run-*/
 benchmarks/**/reports/census-score.log
