@@ -22,7 +22,7 @@ if (-not $Jar) {
         New-Item -ItemType Directory -Force -Path $Cache | Out-Null
         $Jar = Join-Path $Cache "aiv-cli-$Version.jar"
         if (-not (Test-Path $Jar)) {
-            $Url = "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/$Version/aiv-cli-$Version.jar"
+            $Url = "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/$Version/aiv-cli-$Version.jar"
             Write-Host "AIV: downloading CLI $Version from Maven Central..."
             Invoke-WebRequest -Uri $Url -OutFile $Jar -UseBasicParsing
         }

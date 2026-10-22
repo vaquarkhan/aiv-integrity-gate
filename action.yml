@@ -104,7 +104,7 @@ runs:
             exit 1
           }
           BASE="${{ inputs.maven-central-base }}"
-          URL="$BASE/io/github/vaquarkhan/aiv/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"
+          URL="$BASE/io/github/vaquarkhan/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"
           curl -fsSL -o "$DEST" "$URL" || {
             echo "::error::Could not download $URL. Set cli-jar-path for a source build or cli-jar-url for a release asset."
             exit 1

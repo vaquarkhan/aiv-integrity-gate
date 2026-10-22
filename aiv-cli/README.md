@@ -9,7 +9,7 @@ mvn -pl aiv-cli -am clean package
 java -jar aiv-cli/target/aiv-cli-2.0.jar --version
 ```
 
-Release 2.0 is `io.github.vaquarkhan.aiv:aiv-cli:2.0`. Tag `v2.0` builds the same jar.
+Release 2.0 is `io.github.vaquarkhan:aiv-cli:2.0`. Tag `v2.0` builds the same jar.
 
 ## Commands
 

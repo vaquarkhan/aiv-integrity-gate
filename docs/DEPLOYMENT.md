@@ -10,11 +10,11 @@ AIV is a local/CI executable, not a long-running server. Deployment means placin
 
 ### Release 2.0
 
-Tag `v2.0` and the Action input `aiv-version: 2.0` are this release. The Maven coordinate is `io.github.vaquarkhan.aiv:aiv-cli:2.0`:
+Tag `v2.0` and the Action input `aiv-version: 2.0` are this release. The Maven coordinate is `io.github.vaquarkhan:aiv-cli:2.0`:
 
 ```bash
 curl -fsSL -o aiv-cli.jar \
-  https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/2.0/aiv-cli-2.0.jar
+  https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/2.0/aiv-cli-2.0.jar
 ```
 
 ### Build tag v2.0

@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: 'Release version (no v prefix), must match the GitHub tag, e.g. 1.0.0'
+        description: 'Release version (no v prefix), must match the GitHub tag, e.g. 2.0'
         required: true
         type: string
 
@@ -46,8 +46,8 @@ jobs:
           RELEASE_VERSION: ${{ github.event.inputs.release_version }}
         run: |
           set -euo pipefail
-          [[ "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]] || {
-            echo "::error::release_version must be a Maven-safe semantic version without a v prefix"
+          [[ "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?([.-][0-9A-Za-z.-]+)?$ ]] || {
+            echo "::error::release_version must be a Maven version such as 2.0 or 2.0.0, without a v prefix"
             exit 1
           }
           POM_VERSION="$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)"

@@ -11,13 +11,13 @@ Every consumer-facing example that pins a numeric release (download URL, composi
 Download URL pattern (HTTPS, no trailing slash on the version segment):
 
 ```text
-https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/<version>/aiv-cli-<version>.jar
+https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/<version>/aiv-cli-<version>.jar
 ```
 
 **Maven coordinates** (for tooling and documentation):
 
 ```text
-io.github.vaquarkhan.aiv:aiv-cli:<version>
+io.github.vaquarkhan:aiv-cli:<version>
 ```
 
 Replace `<version>` with the reactor root `<version>` (for example `2.0`).
@@ -37,7 +37,7 @@ Example: download the CLI JAR using the resolved version on Linux or macOS:
 ```bash
 VERSION="$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version -f pom.xml)"
 curl -fsSL -o aiv-cli.jar \
-  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv/aiv-cli/${VERSION}/aiv-cli-${VERSION}.jar"
+  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/${VERSION}/aiv-cli-${VERSION}.jar"
 ```
 
 ## Composite GitHub Action
