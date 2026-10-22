@@ -57,7 +57,9 @@ docs/apache/APACHE-AIV-GATE-ANALYSIS.md
 docs/apache/APACHE-ADOPTION-ROADMAP.md
 docs/apache/PRODUCT-CHANGES.md
 docs/apache/RED-TEAM-OBJECTIONS.md
-docs/deck/LINKEDIN-CAROUSEL-STORY.md
+docs/deck/
+docs/images/generate_product_visuals.py
+docs/images/generate_figures.py
 .github/copilot-instructions.md
 .github/WORKFLOWS.md
 .github/workflows/README.md

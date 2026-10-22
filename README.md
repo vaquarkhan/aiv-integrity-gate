@@ -229,9 +229,6 @@ Start at the [documentation site](https://vaquarkhan.github.io/aiv-integrity-gat
 | [InfoQ-style technical article](docs/blog/AIV-VERIFIABLE-CHANGE.md) | Long-form verification-gap and architecture narrative |
 | [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build and contribute |
 | [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md) | Audit log, report, proposal checks |
-| [LinkedIn carousel PDF](docs/deck/AIV-LinkedIn-Carousel.pdf) | Self-contained 16-page portrait share document |
-| [Editable LinkedIn carousel](docs/deck/AIV-LinkedIn-Carousel.pptx) | PowerPoint source for the carousel |
-| [Detailed sales deck](docs/deck/AIV-Integrity-Gate-Sales-Deck.pptx) | Presenter-led problem, gates, trust, integration, and pilot pitch |
 
 ## License
 

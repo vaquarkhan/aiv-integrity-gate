@@ -33,10 +33,6 @@
 
 ## Product/evidence assets
 
-- [LinkedIn carousel PDF](deck/AIV-LinkedIn-Carousel.pdf): primary self-contained social/share document.
-- [Editable LinkedIn carousel PowerPoint](deck/AIV-LinkedIn-Carousel.pptx): 4:5 portrait source.
-- [LinkedIn carousel contact sheet](deck/AIV-LinkedIn-Carousel-contact-sheet.png): all 16 pages at a glance.
-- [Detailed landscape sales deck](deck/AIV-Integrity-Gate-Sales-Deck.pptx): presenter-led technical version.
 - [Generated diagrams](images/)
 - [Module READMEs](../aiv-api/README.md): every `aiv-*` module has a detailed guide.
 

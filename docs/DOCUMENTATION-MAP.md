@@ -37,16 +37,12 @@ This map separates authored product guidance from examples, benchmark evidence, 
 | [../aiv-api/README.md](../aiv-api/README.md) | model/port contract |
 | `../aiv-*/README.md` | detailed guide for each of 24 child modules |
 
-## Product and sales assets
+## Narrative and diagrams
 
 | Artifact | Purpose |
 |----------|---------|
-| [LinkedIn carousel PDF](deck/AIV-LinkedIn-Carousel.pdf) | Self-contained 16-page portrait document for social sharing |
-| [Editable LinkedIn carousel](deck/AIV-LinkedIn-Carousel.pptx) | PowerPoint source for the share document |
-| [LinkedIn contact sheet](deck/AIV-LinkedIn-Carousel-contact-sheet.png) | All pages at feed-preview size |
-| [Detailed landscape deck](deck/AIV-Integrity-Gate-Sales-Deck.pptx) | Presenter-led technical sales narrative |
 | [InfoQ-style article](blog/AIV-VERIFIABLE-CHANGE.md) | long-form technical narrative |
-| [images/](images/) | generated PNG/SVG source assets |
+| [images/](images/) | architecture and gate diagrams used by the docs |
 
 ## Evidence and review records
 
@@ -56,7 +52,6 @@ This map separates authored product guidance from examples, benchmark evidence, 
 | `benchmarks/proposal-pilot/` | proposal-check pilot outputs |
 | `docs/reports/` | query examples and generated evidence support |
 | `docs/apache/` | historical ecosystem analysis, not primary product positioning |
-| `docs/deck/rendered-sales-deck/` | generated review previews |
 
 ## Generated Markdown
 
@@ -77,7 +72,6 @@ Files under benchmark `results/` directories are generated evidence. They should
 ```bash
 python scripts/validate-docs.py
 python docs/images/validate_visuals.py
-python docs/deck/validate_deck.py
 ```
 
 The doc validator checks all local Markdown links, all 24 module READMEs, prohibited punctuation, stale image references, and minimum module-guide sections.
