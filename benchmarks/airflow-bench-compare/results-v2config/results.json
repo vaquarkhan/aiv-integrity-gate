@@ -1,0 +1,1577 @@
+[
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73059",
+    "exit": 0,
+    "secs": 6.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73072",
+    "exit": 0,
+    "secs": 4.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73106",
+    "exit": 0,
+    "secs": 5.4,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.assertion-free-test",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73137",
+    "exit": 0,
+    "secs": 5.6,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73155",
+    "exit": 0,
+    "secs": 6.1,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.assertion-free-test",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73186",
+    "exit": 0,
+    "secs": 5.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73201",
+    "exit": 0,
+    "secs": 5.4,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73278",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-70250",
+    "exit": 0,
+    "secs": 4.6,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72844",
+    "exit": 0,
+    "secs": 4.9,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.assertion-free-test"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72870",
+    "exit": 0,
+    "secs": 5.9,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72986",
+    "exit": 0,
+    "secs": 4.9,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73056",
+    "exit": 0,
+    "secs": 6.3,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.no-output"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73068",
+    "exit": 0,
+    "secs": 4.9,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73069",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73075",
+    "exit": 0,
+    "secs": 5.2,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73096",
+    "exit": 0,
+    "secs": 5.0,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73105",
+    "exit": 0,
+    "secs": 4.6,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73124",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73176",
+    "exit": 0,
+    "secs": 5.0,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73192",
+    "exit": 0,
+    "secs": 5.8,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73271",
+    "exit": 0,
+    "secs": 6.5,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73289",
+    "exit": 0,
+    "secs": 6.0,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73326",
+    "exit": 0,
+    "secs": 5.6,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-72977",
+    "exit": 0,
+    "secs": 6.3,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests",
+      "test-adequacy.missing-tests",
+      "test-adequacy.missing-tests",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.no-output"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-72983",
+    "exit": 0,
+    "secs": 6.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-73195",
+    "exit": 0,
+    "secs": 5.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "case/ai-attribution",
+    "exit": 0,
+    "secs": 5.7,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "case/ai-edit-artifact",
+    "exit": 0,
+    "secs": 5.1,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "case/clean-control",
+    "exit": 0,
+    "secs": 5.9,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "case/merge-conflict",
+    "exit": 0,
+    "secs": 6.6,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-01",
+    "exit": 0,
+    "secs": 5.6,
+    "gates": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-02",
+    "exit": 0,
+    "secs": 5.7,
+    "gates": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-03",
+    "exit": 0,
+    "secs": 6.0,
+    "gates": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-04",
+    "exit": 0,
+    "secs": 5.2,
+    "gates": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-05",
+    "exit": 0,
+    "secs": 5.1,
+    "gates": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-01",
+    "exit": 0,
+    "secs": 6.3,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-02",
+    "exit": 0,
+    "secs": 4.9,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-03",
+    "exit": 0,
+    "secs": 6.1,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-04",
+    "exit": 0,
+    "secs": 5.3,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-05",
+    "exit": 0,
+    "secs": 4.8,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-01",
+    "exit": 0,
+    "secs": 5.1,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-02",
+    "exit": 0,
+    "secs": 5.7,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-03",
+    "exit": 0,
+    "secs": 5.5,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-04",
+    "exit": 0,
+    "secs": 5.8,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-05",
+    "exit": 0,
+    "secs": 5.3,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-01",
+    "exit": 0,
+    "secs": 5.3,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-02",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-03",
+    "exit": 0,
+    "secs": 5.6,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-04",
+    "exit": 0,
+    "secs": 4.8,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-05",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-01",
+    "exit": 0,
+    "secs": 4.8,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-02",
+    "exit": 0,
+    "secs": 4.9,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-03",
+    "exit": 0,
+    "secs": 5.6,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.ai-provenance",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-04",
+    "exit": 0,
+    "secs": 5.4,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-05",
+    "exit": 0,
+    "secs": 5.4,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-06",
+    "exit": 0,
+    "secs": 5.1,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-01",
+    "exit": 0,
+    "secs": 5.4,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-02",
+    "exit": 0,
+    "secs": 5.4,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-03",
+    "exit": 0,
+    "secs": 4.5,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-04",
+    "exit": 0,
+    "secs": 4.4,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-05",
+    "exit": 0,
+    "secs": 5.3,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-06",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [
+      "invariant",
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-01",
+    "exit": 0,
+    "secs": 4.5,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-02",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-03",
+    "exit": 0,
+    "secs": 4.5,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-04",
+    "exit": 0,
+    "secs": 4.1,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-05",
+    "exit": 0,
+    "secs": 4.4,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-06",
+    "exit": 0,
+    "secs": 6.1,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-07",
+    "exit": 0,
+    "secs": 4.6,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-08",
+    "exit": 0,
+    "secs": 5.1,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-01",
+    "exit": 0,
+    "secs": 5.6,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.placeholder",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-02",
+    "exit": 0,
+    "secs": 5.3,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.placeholder",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-03",
+    "exit": 0,
+    "secs": 5.2,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-04",
+    "exit": 0,
+    "secs": 5.0,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-05",
+    "exit": 0,
+    "secs": 6.4,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.placeholder",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-01",
+    "exit": 0,
+    "secs": 5.9,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-02",
+    "exit": 0,
+    "secs": 7.9,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-03",
+    "exit": 0,
+    "secs": 5.7,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-04",
+    "exit": 0,
+    "secs": 5.4,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-05",
+    "exit": 0,
+    "secs": 8.9,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "origin",
+    "exit": 0,
+    "secs": 6.3,
+    "gates": [
+      "invariant",
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-70053",
+    "exit": 0,
+    "secs": 5.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-70250",
+    "exit": 0,
+    "secs": 4.8,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73124",
+    "exit": 0,
+    "secs": 5.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73271",
+    "exit": 0,
+    "secs": 6.0,
+    "gates": [
+      "test-adequacy",
+      "external"
+    ],
+    "rules": [
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.missing-tests",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73278",
+    "exit": 0,
+    "secs": 4.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73289",
+    "exit": 0,
+    "secs": 4.2,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73326",
+    "exit": 0,
+    "secs": 4.7,
+    "gates": [
+      "external"
+    ],
+    "rules": [
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax",
+      "external.ruff-airflow.invalid-syntax"
+    ],
+    "notices": []
+  }
+]

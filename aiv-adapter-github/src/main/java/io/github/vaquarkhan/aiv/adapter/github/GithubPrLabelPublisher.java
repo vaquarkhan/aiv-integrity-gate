@@ -78,6 +78,41 @@ public final class GithubPrLabelPublisher {
         }
     }
 
+    public static void applyForSelectedFindings(AIVResult result, String label, Collection<String> gateFilter,
+                                                Collection<String> ruleFilter, Function<String, String> env)
+            throws IOException, InterruptedException {
+        applySelected(result, label, GithubPrDeterministicFindingsPublisher.select(result, gateFilter, ruleFilter), env);
+    }
+
+    private static void applySelected(AIVResult result, String label,
+                                      List<GithubPrDeterministicFindingsPublisher.SelectedFinding> selected,
+                                      Function<String, String> env) throws IOException, InterruptedException {
+        String token = env.apply("GITHUB_TOKEN");
+        String repo = env.apply("GITHUB_REPOSITORY");
+        if (token == null || token.isBlank()) {
+            throw new IllegalStateException("GITHUB_TOKEN is not set");
+        }
+        if (repo == null || !repo.contains("/")) {
+            throw new IllegalStateException("GITHUB_REPOSITORY must be owner/repo");
+        }
+        String resolvedLabel = (label == null || label.isBlank()) ? DEFAULT_LABEL : label.trim();
+        int prNumber = resolvePrNumber(env);
+        if (prNumber <= 0) {
+            throw new IllegalStateException(
+                    "Set AIV_GITHUB_PR_NUMBER or run on a pull_request event (GITHUB_EVENT_PATH)");
+        }
+
+        int slash = repo.indexOf('/');
+        String owner = repo.substring(0, slash);
+        String name = repo.substring(slash + 1);
+        ensureLabelExists(owner, name, resolvedLabel, token, env);
+        if (!selected.isEmpty()) {
+            addLabel(owner, name, prNumber, resolvedLabel, token, env);
+        } else {
+            removeLabel(owner, name, prNumber, resolvedLabel, token, env);
+        }
+    }
+
     static boolean hasAdvisoryAiSlop(AIVResult result, Set<String> aiSlopGates) {
         if (result == null) {
             return false;

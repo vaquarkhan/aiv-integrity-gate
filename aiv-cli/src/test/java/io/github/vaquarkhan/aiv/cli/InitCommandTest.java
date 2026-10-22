@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InitCommandTest {
@@ -95,6 +96,21 @@ class InitCommandTest {
         assertTrue(cfg.contains("Preset: minimal") || cfg.contains("id: syntax"));
         assertTrue(cfg.contains("id: invariant"));
         assertTrue(Files.exists(root.resolve(".aiv/design-rules.yaml")));
+    }
+
+    @Test
+    void airflowPresetIsAdvisoryAndWiresExternalRuff(@TempDir Path root) throws Exception {
+        assertEquals(0, InitCommand.run(root, "airflow"));
+        String cfg = Files.readString(root.resolve(".aiv/config.yaml"), StandardCharsets.UTF_8);
+        assertTrue(cfg.contains("id: rules"));
+        assertTrue(cfg.contains("id: external"));
+        assertTrue(cfg.contains("ruff-airflow"));
+        assertTrue(cfg.contains("ai_slop_pr_label: AI-SLOP"));
+        assertFalse(cfg.contains("severity: fail"), "the preset starts advisory-only");
+        var parsed = new io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider().parse(cfg);
+        assertTrue(parsed.findGate("rules").orElseThrow().isEnabled());
+        assertEquals("warn", parsed.findGate("rules").orElseThrow().getSeverity());
+        assertFalse(parsed.findGate("syntax").orElseThrow().isEnabled());
     }
 
     @Test

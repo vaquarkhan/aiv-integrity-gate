@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="700" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">Every gate has one evidence job</text>
+<text x="40" y="76" font-size="15" fill="#475569">Hard blockers require objective proof; review signals stay advisory</text>
+<rect x="40" y="110" width="250" height="500" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="56" y="137" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Change integrity</text>
+<rect x="54" y="165" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="70" y="192" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">syntax</text>
+<text x="70" y="215" text-anchor="start" font-size="12" fill="#475569">strict parse or visible unverified</text>
+<rect x="54" y="270" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="70" y="297" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">invariant</text>
+<text x="70" y="320" text-anchor="start" font-size="12" fill="#475569">conflicts, placeholders, paste artifacts</text>
+<rect x="54" y="375" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="70" y="402" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">dependency</text>
+<text x="70" y="425" text-anchor="start" font-size="12" fill="#475569">imports backed by manifests</text>
+<rect x="54" y="480" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="70" y="507" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">package-existence</text>
+<text x="70" y="530" text-anchor="start" font-size="12" fill="#475569">declared package found / absent / unverified</text>
+<rect x="330" y="110" width="250" height="500" rx="12" fill="#E8F1FF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="346" y="137" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Behavioral evidence</text>
+<rect x="344" y="165" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="360" y="192" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">test-adequacy</text>
+<text x="360" y="215" text-anchor="start" font-size="12" fill="#475569">added tests contain assertion evidence</text>
+<rect x="344" y="270" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="360" y="297" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">security</text>
+<text x="360" y="320" text-anchor="start" font-size="12" fill="#475569">added-line credential tripwire</text>
+<rect x="344" y="375" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="360" y="402" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">design</text>
+<text x="360" y="425" text-anchor="start" font-size="12" fill="#475569">repository-owned architectural constraints</text>
+<rect x="344" y="480" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="360" y="507" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">rules</text>
+<text x="360" y="530" text-anchor="start" font-size="12" fill="#475569">generic YAML project/framework checks</text>
+<rect x="620" y="110" width="250" height="500" rx="12" fill="#FFF4D6" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="636" y="137" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Review focus</text>
+<rect x="634" y="165" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="650" y="192" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">density</text>
+<text x="650" y="215" text-anchor="start" font-size="12" fill="#475569">logic/entropy signal</text>
+<rect x="634" y="270" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="650" y="297" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">cohesion</text>
+<text x="650" y="320" text-anchor="start" font-size="12" fill="#475569">multi-area change signal</text>
+<rect x="634" y="375" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="650" y="402" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">duplication</text>
+<text x="650" y="425" text-anchor="start" font-size="12" fill="#475569">exact normalized block reuse</text>
+<rect x="634" y="480" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="650" y="507" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">external</text>
+<text x="650" y="530" text-anchor="start" font-size="12" fill="#475569">trusted SARIF producer results</text>
+<rect x="910" y="110" width="250" height="500" rx="12" fill="#FEECEC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="926" y="137" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Governance surfaces</text>
+<rect x="924" y="165" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="940" y="192" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">doc-integrity</text>
+<text x="940" y="215" text-anchor="start" font-size="12" fill="#475569">links, paths, commands, references</text>
+<rect x="924" y="270" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="940" y="297" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">pr-metadata</text>
+<text x="940" y="320" text-anchor="start" font-size="12" fill="#475569">title/body/disclosure structure</text>
+<rect x="924" y="375" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="940" y="402" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">license-header</text>
+<text x="940" y="425" text-anchor="start" font-size="12" fill="#475569">new-file header policy</text>
+<rect x="924" y="480" width="222" height="88" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="940" y="507" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">jev</text>
+<text x="940" y="530" text-anchor="start" font-size="12" fill="#475569">optional advisory model questions</text>
+<text x="600" y="665" text-anchor="middle" font-size="14" font-weight="700" fill="#0F766E">All findings share stable rule IDs, file locations, severity, and one machine-readable verdict.</text>
+</svg>

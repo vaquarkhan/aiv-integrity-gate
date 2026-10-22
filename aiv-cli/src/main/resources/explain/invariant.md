@@ -6,9 +6,9 @@ Hard-block objective defects that should never reach mainline: unresolved merge 
 
 ## Rules
 
-- `invariant.merge-conflict` — `<<<<<<<` / `=======` / `>>>>>>>` line markers.
-- `invariant.placeholder` — `TBD` / `FIXME` / `XXX` (whole changed-file content today; prefer enabling carefully).
-- `invariant.ai-edit-artifact` — elision / assistant chatter / SEARCH-REPLACE blocks in **code** extensions only (not Markdown/RST prose).
+- `invariant.merge-conflict`: `<<<<<<<` / `=======` / `>>>>>>>` line markers.
+- `invariant.placeholder`: `TBD` / `FIXME` / `XXX` (whole changed-file content today; prefer enabling carefully).
+- `invariant.ai-edit-artifact`: elision / assistant chatter / SEARCH-REPLACE blocks in **code** extensions only (not Markdown/RST prose).
 
 ## Default behavior
 

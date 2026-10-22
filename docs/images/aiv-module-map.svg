@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="700" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">AIV module dependency map</text>
+<text x="40" y="76" font-size="15" fill="#475569">One parent plus 24 modules; the shaded CLI includes the runtime graph but not aiv-governance</text>
+<rect x="430" y="105" width="340" height="72" rx="12" fill="#E8F1FF" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="600.0" y="132" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">aiv-cli</text>
+<text x="600.0" y="155" text-anchor="middle" font-size="12" fill="#475569">composition root + shaded runnable jar</text>
+<rect x="40" y="225" width="250" height="170" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="165.0" y="252" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Kernel</text>
+<text x="165.0" y="275" text-anchor="middle" font-size="12" fill="#475569">aiv-api</text>
+<text x="165.0" y="293" text-anchor="middle" font-size="12" fill="#475569">aiv-core</text>
+<rect x="315" y="225" width="570" height="260" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="600.0" y="252" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">15 QualityGate plugins</text>
+<text x="600.0" y="275" text-anchor="middle" font-size="12" fill="#475569">syntax | invariant | dependency</text>
+<text x="600.0" y="293" text-anchor="middle" font-size="12" fill="#475569">package-existence | test-adequacy | security</text>
+<text x="600.0" y="311" text-anchor="middle" font-size="12" fill="#475569">design (+ cohesion) | density | duplication</text>
+<text x="600.0" y="329" text-anchor="middle" font-size="12" fill="#475569">doc-integrity | pr-metadata | license-header</text>
+<text x="600.0" y="347" text-anchor="middle" font-size="12" fill="#475569">external | rules | jev</text>
+<rect x="910" y="225" width="250" height="170" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="1035.0" y="252" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Adapters</text>
+<text x="1035.0" y="275" text-anchor="middle" font-size="12" fill="#475569">aiv-adapter-git</text>
+<text x="1035.0" y="293" text-anchor="middle" font-size="12" fill="#475569">aiv-adapter-github</text>
+<rect x="40" y="455" width="250" height="150" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="165.0" y="482" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Evidence</text>
+<text x="165.0" y="505" text-anchor="middle" font-size="12" fill="#475569">aiv-audit</text>
+<text x="165.0" y="523" text-anchor="middle" font-size="12" fill="#475569">aiv-report</text>
+<text x="165.0" y="541" text-anchor="middle" font-size="12" fill="#475569">aiv-proposal</text>
+<rect x="910" y="455" width="250" height="150" rx="12" fill="#FFF4D6" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="1035.0" y="482" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Standalone library</text>
+<text x="1035.0" y="505" text-anchor="middle" font-size="12" fill="#475569">aiv-governance</text>
+<text x="1035.0" y="523" text-anchor="middle" font-size="12" fill="#475569">not bundled by CLI</text>
+<line x1="600" y1="177" x2="165" y2="220" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="600" y1="177" x2="600" y2="220" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="600" y1="177" x2="1035" y2="220" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="430" y1="330" x2="290" y2="500" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="770" y1="330" x2="910" y2="500" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="600" y="660" text-anchor="middle" font-size="13" font-weight="700" fill="#0F766E">Every gate depends on aiv-api; aiv-core discovers gates with ServiceLoader; aiv-cli assembles the executable.</text>
+</svg>

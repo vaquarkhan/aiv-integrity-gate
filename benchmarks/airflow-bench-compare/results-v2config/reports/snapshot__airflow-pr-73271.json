@@ -1,0 +1,194 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py:48 Test added without any assertion/expectation/verification: 'def test_notifier_with_nondefault_connection_extra(' (a test that cannot fail proves nothing; add an assertion or remove it)\nproviders/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py:14 Test added without any assertion/expectation/verification: 'def test_email_with_custom_templates(self, create_runtime_ti, mock_supervisor_comms, tmp_path):' (a test that cannot fail proves nothing; add an assertion or remove it)\nproviders/snapshot/pr-73271/airflow-core/src/airflow/models/taskinstance.py:1 Production file changed with no test in this change and no conventional test found (expected one of: taskinstancetest, taskinstancetests, testtaskinstance, taskinstanceit, taskinstancespec, taskinstancetestcase, test_taskinstance, taskinstance_test, taskinstance_spec, taskinstance.test, taskinstance.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.assertion-free-test",
+          "file": "providers/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py",
+          "start_line": 48,
+          "message": "Test added without any assertion/expectation/verification: 'def test_notifier_with_nondefault_connection_extra(' (a test that cannot fail proves nothing; add an assertion or remove it)"
+        },
+        {
+          "rule_id": "test-adequacy.assertion-free-test",
+          "file": "providers/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+          "start_line": 14,
+          "message": "Test added without any assertion/expectation/verification: 'def test_email_with_custom_templates(self, create_runtime_ti, mock_supervisor_comms, tmp_path):' (a test that cannot fail proves nothing; add an assertion or remove it)"
+        },
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/snapshot/pr-73271/airflow-core/src/airflow/models/taskinstance.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: taskinstancetest, taskinstancetests, testtaskinstance, taskinstanceit, taskinstancespec, taskinstancetestcase, test_taskinstance, taskinstance_test, taskinstance_spec, taskinstance.test, taskinstance.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 17 findings\nproviders/snapshot/pr-73271/airflow-core/src/airflow/models/taskinstance.py:2 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-73271/airflow-core/src/airflow/models/taskinstance.py:9 [ruff-airflow error] Expected class, function definition or async function definition after decorator\nproviders/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py:8 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py:11 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py:18 [ruff-airflow error] Expected class, function definition or async function definition after decorator\nproviders/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py:50 [ruff-airflow error] unexpected EOF while parsing\nproviders/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py:2 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py:9 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py:12 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py:12 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py:15 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py:1 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py:7 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py:7 [ruff-airflow error] Expected `)`, found newline\nproviders/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py:8 [ruff-airflow error] Expected class, function definition or async function definition after decorator\nproviders/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py:14 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py:14 [ruff-airflow error] Expected an indented block after function definition",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/airflow-core/src/airflow/models/taskinstance.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/airflow-core/src/airflow/models/taskinstance.py",
+          "start_line": 9,
+          "message": "[ruff-airflow error] Expected class, function definition or async function definition after decorator"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py",
+          "start_line": 8,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py",
+          "start_line": 11,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py",
+          "start_line": 18,
+          "message": "[ruff-airflow error] Expected class, function definition or async function definition after decorator"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/providers/smtp/tests/unit/smtp/notifications/test_smtp.py",
+          "start_line": 50,
+          "message": "[ruff-airflow error] unexpected EOF while parsing"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+          "start_line": 9,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+          "start_line": 12,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+          "start_line": 12,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/src/airflow/sdk/execution_time/task_runner.py",
+          "start_line": 15,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+          "start_line": 7,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+          "start_line": 7,
+          "message": "[ruff-airflow error] Expected `)`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+          "start_line": 8,
+          "message": "[ruff-airflow error] Expected class, function definition or async function definition after decorator"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+          "start_line": 14,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-73271/task-sdk/tests/task_sdk/execution_time/test_task_runner.py",
+          "start_line": 14,
+          "message": "[ruff-airflow error] Expected an indented block after function definition"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -66,6 +66,30 @@ class InlineDisableFilterTest {
     }
 
     @Test
+    void bareFileLevelDisableIsIgnored() {
+        // One comment must never blank every finding in a file (evasion path, not a suppression).
+        String content = """
+                // aiv-disable
+                class A {
+                  // FIXME
+                }
+                """;
+        var ctx = context("a.java", content);
+        var raw = GateResult.fail("invariant", "x", List.of(
+                Finding.atLine("invariant.placeholder", "a.java", 3, "FIXME")));
+        assertFalse(InlineDisableFilter.apply(raw, ctx).isPassed());
+    }
+
+    @Test
+    void starOnlyFileLevelDisableIsIgnored() {
+        String content = "# aiv-disable *\nsecret = \"x\"\n";
+        var ctx = context("a.env", content);
+        var raw = GateResult.fail("security", "x", List.of(
+                Finding.atLine("security.aws-key", "a.env", 2, "key")));
+        assertFalse(InlineDisableFilter.apply(raw, ctx).isPassed());
+    }
+
+    @Test
     void sameLineDisableWorks() {
         String content = "x = 1  // aiv-disable-line density.low\n";
         var ctx = context("a.py", content);

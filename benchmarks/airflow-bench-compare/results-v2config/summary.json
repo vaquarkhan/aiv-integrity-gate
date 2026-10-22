@@ -1,0 +1,117 @@
+{
+  "branches": 89,
+  "cohorts": {
+    "abandoned/abandoned_clean": {
+      "n": 8,
+      "exit_nonzero": 0,
+      "any_signal": 4,
+      "any_signal_excl_syntax": 4,
+      "gate_counts": {
+        "external": 4,
+        "test-adequacy": 3
+      },
+      "rule_counts": {
+        "external.ruff-airflow.invalid-syntax": 97,
+        "test-adequacy.assertion-free-test": 2,
+        "test-adequacy.missing-tests": 1
+      }
+    },
+    "abandoned/ai_disclosed": {
+      "n": 16,
+      "exit_nonzero": 0,
+      "any_signal": 15,
+      "any_signal_excl_syntax": 15,
+      "gate_counts": {
+        "external": 12,
+        "test-adequacy": 7
+      },
+      "rule_counts": {
+        "external.ruff-airflow.invalid-syntax": 216,
+        "test-adequacy.missing-tests": 6,
+        "test-adequacy.assertion-free-test": 5,
+        "external.ruff-airflow.no-output": 1
+      }
+    },
+    "abandoned/ai_signal_advisory": {
+      "n": 3,
+      "exit_nonzero": 0,
+      "any_signal": 1,
+      "any_signal_excl_syntax": 1,
+      "gate_counts": {
+        "external": 1,
+        "test-adequacy": 1
+      },
+      "rule_counts": {
+        "test-adequacy.missing-tests": 4,
+        "external.ruff-airflow.no-output": 1
+      }
+    },
+    "case": {
+      "n": 4,
+      "exit_nonzero": 0,
+      "any_signal": 4,
+      "any_signal_excl_syntax": 4,
+      "gate_counts": {
+        "test-adequacy": 4,
+        "invariant": 2,
+        "external": 1
+      },
+      "rule_counts": {
+        "external.ruff-airflow.invalid-syntax": 13,
+        "test-adequacy.missing-tests": 4,
+        "invariant.ai-edit-artifact": 1,
+        "invariant.merge-conflict": 1
+      }
+    },
+    "labeled": {
+      "n": 50,
+      "exit_nonzero": 0,
+      "any_signal": 50,
+      "any_signal_excl_syntax": 50,
+      "gate_counts": {
+        "test-adequacy": 45,
+        "invariant": 31,
+        "external": 7,
+        "cohesion": 5
+      },
+      "rule_counts": {
+        "external.ruff-airflow.invalid-syntax": 83,
+        "test-adequacy.missing-tests": 45,
+        "invariant.ai-edit-artifact": 21,
+        "invariant.merge-conflict": 6,
+        "cohesion.areas": 5,
+        "invariant.placeholder": 3,
+        "invariant.ai-provenance": 1
+      }
+    },
+    "origin": {
+      "n": 1,
+      "exit_nonzero": 0,
+      "any_signal": 1,
+      "any_signal_excl_syntax": 1,
+      "gate_counts": {
+        "test-adequacy": 1,
+        "invariant": 1
+      },
+      "rule_counts": {
+        "invariant.ai-edit-artifact": 1,
+        "test-adequacy.missing-tests": 1
+      }
+    },
+    "snapshot": {
+      "n": 7,
+      "exit_nonzero": 0,
+      "any_signal": 4,
+      "any_signal_excl_syntax": 4,
+      "gate_counts": {
+        "external": 4,
+        "test-adequacy": 1
+      },
+      "rule_counts": {
+        "external.ruff-airflow.invalid-syntax": 54,
+        "test-adequacy.assertion-free-test": 2,
+        "test-adequacy.missing-tests": 1
+      }
+    }
+  }
+}

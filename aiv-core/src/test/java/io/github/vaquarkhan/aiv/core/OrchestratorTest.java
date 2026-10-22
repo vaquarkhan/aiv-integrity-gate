@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.core;
@@ -154,11 +142,13 @@ class OrchestratorTest {
     }
 
     @Test
-    void skipsAllGatesWhenSkipRequested() {
+    void skipIgnoredWhenAllowlistEmptyDefaultDeny() {
+        // Trust boundary: an open /aiv skip (empty allowlist) must never short-circuit the gates.
         var diffProvider = new DiffProvider() {
             @Override
             public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
-                return new Diff(baseRef, headRef, List.of(), "", 0, 0, null, true);
+                return new Diff(baseRef, headRef, List.of(), "", 0, 0, "anyone@example.com", true, true,
+                        List.of(), Map.of());
             }
         };
         var configProvider = new ConfigProvider() {
@@ -179,7 +169,72 @@ class OrchestratorTest {
         assertEquals(0, code);
         assertEquals(1, results.size());
         assertTrue(results.get(0).isPassed());
-        assertTrue(results.get(0).getGateResults().stream().anyMatch(r -> "skip".equals(r.getGateId())));
+        assertTrue(results.get(0).getGateResults().stream().noneMatch(r -> "skip".equals(r.getGateId())));
+        assertTrue(results.get(0).getNotices().stream().anyMatch(n -> n.startsWith("[SKIP-IGNORED]")));
+    }
+
+    @Test
+    void configChangeInDiffIsSurfacedAsNotice() {
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
+                return new Diff(baseRef, headRef, List.of(
+                        new ChangedFile(".aiv/config.yaml", ChangedFile.ChangeType.MODIFIED, "gates: []"),
+                        new ChangedFile("sub\\.aiv\\design-rules.yaml", ChangedFile.ChangeType.ADDED, "x"),
+                        new ChangedFile("src/App.java", ChangedFile.ChangeType.MODIFIED, "class A {}")), "");
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(java.nio.file.Path workspace) {
+                return new AIVConfig(allGatesDisabled(), Map.of());
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var orch = new Orchestrator(diffProvider, configProvider, results::add);
+        assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
+        String notice = results.get(0).getNotices().stream()
+                .filter(n -> n.startsWith("[CONFIG-CHANGE]")).findFirst().orElse("");
+        assertTrue(notice.contains(".aiv/config.yaml"), notice);
+        assertTrue(notice.contains("sub/.aiv/design-rules.yaml"), notice);
+        assertEquals(List.of(".aiv/config.yaml", "sub/.aiv/design-rules.yaml"),
+                Orchestrator.changedAivConfigPaths(diffProvider.getDiff(null, "a", "b")));
+    }
+
+    @Test
+    void protectedPolicyChangeIsBlocking() {
+        DiffProvider diffProvider = (workspace, baseRef, headRef) -> new Diff(baseRef, headRef, List.of(
+                new ChangedFile(".aiv/rules/team.yaml", ChangedFile.ChangeType.MODIFIED, "rules: []")), "");
+        ConfigProvider configProvider = workspace -> new AIVConfig(allGatesDisabled(),
+                Map.of("protect_policy_paths", true));
+        List<AIVResult> results = new ArrayList<>();
+        Orchestrator orchestrator = new Orchestrator(diffProvider, configProvider, results::add);
+        assertEquals(1, orchestrator.run(Paths.get("."), "main", "HEAD"));
+        GateResult policy = results.get(0).getGateResults().get(0);
+        assertEquals("policy-integrity", policy.getGateId());
+        assertTrue(policy.blocksCi());
+        assertEquals("policy-integrity.changed", policy.getFindings().get(0).getRuleId());
+    }
+
+    @Test
+    void skipRequiresGoodSignatureEvenForAllowlistedAuthor() {
+        var diffProvider = new DiffProvider() {
+            @Override
+            public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
+                // allowlisted author, skip directive present, but NOT signed
+                return new Diff(baseRef, headRef, List.of(), "", 0, 0, "boss@company.com", true);
+            }
+        };
+        var configProvider = new ConfigProvider() {
+            @Override
+            public AIVConfig getConfig(java.nio.file.Path workspace) {
+                return new AIVConfig(allGatesDisabled(), Map.of("skip_allowlist", List.of("boss@company.com")));
+            }
+        };
+        var results = new ArrayList<AIVResult>();
+        var orch = new Orchestrator(diffProvider, configProvider, results::add);
+        assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
+        assertTrue(results.get(0).getGateResults().stream().noneMatch(r -> "skip".equals(r.getGateId())));
     }
 
     @Test
@@ -187,7 +242,8 @@ class OrchestratorTest {
         var diffProvider = new DiffProvider() {
             @Override
             public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
-                return new Diff(baseRef, headRef, List.of(), "", 0, 0, "dev@example.com", true);
+                return new Diff(baseRef, headRef, List.of(), "", 0, 0, "dev@example.com", true, true,
+                        List.of(), Map.of());
             }
         };
         var configProvider = new ConfigProvider() {
@@ -226,7 +282,8 @@ class OrchestratorTest {
         var diffProvider = new DiffProvider() {
             @Override
             public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
-                return new Diff(baseRef, headRef, List.of(), "", 0, 0, "boss@company.com", true);
+                return new Diff(baseRef, headRef, List.of(), "", 0, 0, "boss@company.com", true, true,
+                        List.of(), Map.of());
             }
         };
         var configProvider = new ConfigProvider() {
@@ -252,7 +309,7 @@ class OrchestratorTest {
         var diffProvider = new DiffProvider() {
             @Override
             public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
-                return new Diff(baseRef, headRef, List.of(), "", 0, 0, null, true);
+                return new Diff(baseRef, headRef, List.of(), "", 0, 0, null, true, true, List.of(), Map.of());
             }
         };
         var configProvider = new ConfigProvider() {

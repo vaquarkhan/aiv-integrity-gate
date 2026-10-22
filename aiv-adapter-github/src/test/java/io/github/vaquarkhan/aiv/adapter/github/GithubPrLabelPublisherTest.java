@@ -161,6 +161,50 @@ class GithubPrLabelPublisherTest {
     }
 
     @Test
+    void applyForSelectedFindingsAddsOnHardFindingsAndRemovesWhenNoneSelected() throws Exception {
+        AtomicInteger posts = new AtomicInteger();
+        AtomicInteger deletes = new AtomicInteger();
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/", exchange -> {
+            String path = exchange.getRequestURI().getPath();
+            String method = exchange.getRequestMethod();
+            exchange.getRequestBody().readAllBytes();
+            int code = 200;
+            if ("GET".equals(method)) {
+                code = 200; // label already exists
+            } else if ("POST".equals(method)) {
+                posts.incrementAndGet();
+            } else if ("DELETE".equals(method)) {
+                deletes.incrementAndGet();
+                code = 204;
+            }
+            exchange.sendResponseHeaders(code, -1);
+            exchange.close();
+        });
+        server.start();
+        try {
+            System.setProperty(GithubPrLabelPublisher.LABELS_API_BASE_PROPERTY, "http://127.0.0.1:" + server.getAddress().getPort());
+            var env = env(Map.of("GITHUB_TOKEN", "tok", "GITHUB_REPOSITORY", "o/r", "AIV_GITHUB_PR_NUMBER", "9"));
+            var hard = new AIVResult(false, List.of(GateResult.fail("security", "k",
+                    List.of(Finding.atLine("security.aws-key", "a.env", 1, "key")))));
+            // hard findings qualify (unlike the advisory-only label path)
+            GithubPrLabelPublisher.applyForSelectedFindings(hard, "AI-SLOP", List.of("security"), List.of(), env);
+            assertEquals(1, posts.get());
+            // filter excludes the finding -> label removed; blank label falls back to the default
+            GithubPrLabelPublisher.applyForSelectedFindings(hard, " ", List.of("invariant"), List.of(), env);
+            assertEquals(1, deletes.get());
+            assertThrows(IllegalStateException.class, () -> GithubPrLabelPublisher.applyForSelectedFindings(
+                    hard, "AI-SLOP", null, null, env(Map.of("GITHUB_REPOSITORY", "o/r"))));
+            assertThrows(IllegalStateException.class, () -> GithubPrLabelPublisher.applyForSelectedFindings(
+                    hard, "AI-SLOP", null, null, env(Map.of("GITHUB_TOKEN", "t", "GITHUB_REPOSITORY", "bad"))));
+            assertThrows(IllegalStateException.class, () -> GithubPrLabelPublisher.applyForSelectedFindings(
+                    hard, "AI-SLOP", null, null, env(Map.of("GITHUB_TOKEN", "t", "GITHUB_REPOSITORY", "o/r"))));
+        } finally {
+            server.stop(0);
+        }
+    }
+
+    @Test
     void applyRemovesLabelWhenClean() throws Exception {
         AtomicInteger deletes = new AtomicInteger();
         HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);

@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Merge conflict marker found in providers/bench/conflict_markers.py",
+      "findings": [
+        {
+          "rule_id": "invariant.merge-conflict",
+          "file": "providers/bench/conflict_markers.py",
+          "start_line": 1,
+          "message": "Merge conflict marker found in providers/bench/conflict_markers.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/bench/conflict_markers.py (SyntaxError line 3: invalid syntax)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/bench/conflict_markers.py",
+          "start_line": 3,
+          "message": "Does not parse: providers/bench/conflict_markers.py (SyntaxError line 3: invalid syntax)"
+        }
+      ]
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/bench/conflict_markers.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict_markerstest, conflict_markerstests, testconflict_markers, conflict_markersit, conflict_markersspec, conflict_markerstestcase, test_conflict_markers, conflict_markers_test, conflict_markers_spec, conflict_markers.test, conflict_markers.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/conflict_markers.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict_markerstest, conflict_markerstests, testconflict_markers, conflict_markersit, conflict_markersspec, conflict_markerstestcase, test_conflict_markers, conflict_markers_test, conflict_markers_spec, conflict_markers.test, conflict_markers.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -9,4 +9,4 @@ This directory holds the **dogfooding** configuration for **AIV Integrity Gate**
 
 When you add AIV to **your** project, copy this structure to **your** repository root (not inside `aiv-integrity-gate`). See **[docs/TUTORIAL.md](../docs/TUTORIAL.md)** and **[docs/DEVELOPER-CONFIGURATION.md](../docs/DEVELOPER-CONFIGURATION.md)**.
 
-**Author:** Vaquar Khan
+**Author:** Viquar Khan

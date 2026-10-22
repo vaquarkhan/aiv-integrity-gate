@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.plugin.design;
@@ -60,11 +48,40 @@ class DesignComplianceGateTest {
     }
 
     @Test
-    void passesWhenNoRules(@TempDir Path dir) throws Exception {
+    void readsDesignRulesFromFrozenPolicyWorkspace(@TempDir Path dir) throws Exception {
+        Path source = dir.resolve("source");
+        Path policy = dir.resolve("policy");
+        Files.createDirectories(source.resolve(".aiv"));
+        Files.createDirectories(policy.resolve(".aiv"));
+        Files.writeString(source.resolve(".aiv/design-rules.yaml"), "constraints: []\n");
+        Files.writeString(policy.resolve(".aiv/design-rules.yaml"), """
+                constraints:
+                  - id: frozen
+                    keywords: [java]
+                    forbidden_calls: [System.exit]
+                """);
+        Diff diff = new Diff("main", "HEAD", List.of(new ChangedFile("Main.java",
+                ChangedFile.ChangeType.ADDED, "class Main { void x(){ System.exit(1); } }")), "");
+        AIVConfig config = new AIVConfig(List.of(new AIVConfig.GateConfig("design", true, Map.of())), Map.of());
+        GateResult result = new DesignComplianceGate().evaluate(
+                new AIVContext(source, policy, diff, config, Map.of()));
+        assertFalse(result.isPassed());
+        assertTrue(result.getMessage().contains("frozen"));
+    }
+
+    @Test
+    void defaultMissingRulesFileIsOptional(@TempDir Path dir) {
+        Diff diff = new Diff("main", "HEAD", List.of(
+                new ChangedFile("a.java", ChangedFile.ChangeType.ADDED, "class A {}")), "");
+        AIVConfig config = new AIVConfig(List.of(new AIVConfig.GateConfig("design", true, Map.of())), Map.of());
+        assertTrue(new DesignComplianceGate().evaluate(new AIVContext(dir, diff, config)).isPassed());
+    }
+
+    @Test
+    void configuredMissingRulesFailClosed(@TempDir Path dir) {
         var gate = new DesignComplianceGate();
         var ctx = context(dir, List.of(new ChangedFile("a.java", ChangedFile.ChangeType.ADDED, "anything")), ".aiv/nonexistent.yaml");
-        var r = gate.evaluate(ctx);
-        assertTrue(r.isPassed());
+        assertThrows(IllegalArgumentException.class, () -> gate.evaluate(ctx));
     }
 
     @Test

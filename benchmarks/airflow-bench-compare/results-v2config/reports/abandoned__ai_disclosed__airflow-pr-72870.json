@@ -1,0 +1,895 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 137 findings\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:19 [ruff-airflow error] Expected an indented block after `if` statement\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:27 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:27 [ruff-airflow error] Expected `,`, found `=`\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:28 [ruff-airflow error] Expected `,`, found `)`\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:28 [ruff-airflow error] Expected an expression or a ']'\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:28 [ruff-airflow error] Expected `,`, found newline\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:29 [ruff-airflow error] Expected `,`, found indent\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:29 [ruff-airflow error] Expected `,`, found newline\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:43 [ruff-airflow error] Expected `,`, found newline\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:44 [ruff-airflow error] Expected `,`, found newline\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:45 [ruff-airflow error] Expected `,`, found newline\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:49 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:50 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:51 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:52 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:77 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:78 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:79 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:80 [ruff-airflow error] Expected `,`, found `:`\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:82 [ruff-airflow error] Expected `,`, found `->`\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:82 [ruff-airflow error] Positional argument cannot follow keyword argument\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:82 [ruff-airflow error] Expected `,`, found `:`\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:84 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:85 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:86 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py:87 [ruff-airflow error] unexpected EOF while parsing\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:13 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:20 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:68 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:88 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Only single target (not tuple) can be annotated\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:225 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:256 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:285 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Compound statements are not allowed on the same line as simple statements\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:420 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:422 [ruff-airflow error] missing closing quote in string literal\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:423 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:423 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:424 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Expected `import`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:425 [ruff-airflow error] Expected `)`, found newline\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:427 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:427 [ruff-airflow error] Expected `import`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:427 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:427 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:427 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:427 [ruff-airflow error] Expected `,`, found `.`\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:428 [ruff-airflow error] missing closing quote in string literal\nproviders/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py:434 [ruff-airflow error] Expected a statement",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 19,
+          "message": "[ruff-airflow error] Expected an indented block after `if` statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 27,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 27,
+          "message": "[ruff-airflow error] Expected `,`, found `=`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 28,
+          "message": "[ruff-airflow error] Expected `,`, found `)`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 28,
+          "message": "[ruff-airflow error] Expected an expression or a ']'"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 28,
+          "message": "[ruff-airflow error] Expected `,`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 29,
+          "message": "[ruff-airflow error] Expected `,`, found indent"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 29,
+          "message": "[ruff-airflow error] Expected `,`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 43,
+          "message": "[ruff-airflow error] Expected `,`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 44,
+          "message": "[ruff-airflow error] Expected `,`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 45,
+          "message": "[ruff-airflow error] Expected `,`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 49,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 50,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 51,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 52,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 77,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 78,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 79,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 80,
+          "message": "[ruff-airflow error] Expected `,`, found `:`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 82,
+          "message": "[ruff-airflow error] Expected `,`, found `->`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 82,
+          "message": "[ruff-airflow error] Positional argument cannot follow keyword argument"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 82,
+          "message": "[ruff-airflow error] Expected `,`, found `:`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 84,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 85,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 86,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py",
+          "start_line": 87,
+          "message": "[ruff-airflow error] unexpected EOF while parsing"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 13,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 20,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 68,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 88,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Only single target (not tuple) can be annotated"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 225,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 256,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 285,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Compound statements are not allowed on the same line as simple statements"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 420,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 422,
+          "message": "[ruff-airflow error] missing closing quote in string literal"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 423,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 423,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 424,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Expected `import`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 425,
+          "message": "[ruff-airflow error] Expected `)`, found newline"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 427,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 427,
+          "message": "[ruff-airflow error] Expected `import`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 427,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 427,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 427,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 427,
+          "message": "[ruff-airflow error] Expected `,`, found `.`"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 428,
+          "message": "[ruff-airflow error] missing closing quote in string literal"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py",
+          "start_line": 434,
+          "message": "[ruff-airflow error] Expected a statement"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

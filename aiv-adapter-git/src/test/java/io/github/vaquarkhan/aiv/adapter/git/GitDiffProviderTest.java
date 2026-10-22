@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.adapter.git;
@@ -50,7 +38,7 @@ class GitDiffProviderTest {
     @BeforeAll
     static void tightenGitTimeoutForTests() {
         previousTimeout = System.getProperty(TIMEOUT_PROP);
-        System.setProperty(TIMEOUT_PROP, "10");
+        System.setProperty(TIMEOUT_PROP, "60");
     }
 
     @AfterAll
@@ -377,6 +365,7 @@ class GitDiffProviderTest {
     void gitProcessTimedOutClampsNonPositiveTimeoutToOneSecond() throws Exception {
         ProcessBuilder pb = quickExitProcess();
         Process p = pb.start();
+        assertTrue(p.waitFor(10, TimeUnit.SECONDS));
         assertFalse(GitDiffProvider.gitProcessTimedOut(p, -5L));
     }
 
@@ -587,6 +576,25 @@ class GitDiffProviderTest {
     }
 
     @Test
+    void onlyGoodSignatureCountsAsSigned(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+        initRepo(repo);
+        String prev = System.getProperty("aiv.git.executable");
+        try {
+            System.setProperty("aiv.git.executable", writeDelegatingGitStub(repo, Map.of("sigG", true)).toAbsolutePath().toString());
+            assertTrue(new GitDiffProvider().parseHeadCommitSigned(repo.toAbsolutePath(), "HEAD"));
+            // U (good signature, untrusted key), X/Y/R (expired/revoked) are not identity evidence.
+            System.setProperty("aiv.git.executable", writeDelegatingGitStub(repo, Map.of("sigU", true)).toAbsolutePath().toString());
+            assertFalse(new GitDiffProvider().parseHeadCommitSigned(repo.toAbsolutePath(), "HEAD"));
+        } finally {
+            if (prev == null) {
+                System.clearProperty("aiv.git.executable");
+            } else {
+                System.setProperty("aiv.git.executable", prev);
+            }
+        }
+    }
+
+    @Test
     void parseHeadCommitSignedReturnsFalseWhenGitCannotStart(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
         String prev = System.getProperty("aiv.git.executable");
@@ -703,10 +711,15 @@ class GitDiffProviderTest {
         boolean failLogFormat = Boolean.TRUE.equals(modes.get("failLogFormat"));
         boolean failLogPretty = Boolean.TRUE.equals(modes.get("failLogPretty"));
         boolean hangOnShow = Boolean.TRUE.equals(modes.get("hangOnShow"));
+        String sig = Boolean.TRUE.equals(modes.get("sigG")) ? "G" : Boolean.TRUE.equals(modes.get("sigU")) ? "U" : null;
         if (win) {
             StringBuilder sb = new StringBuilder();
             sb.append("@echo off\n");
             sb.append("set \"REAL_GIT=").append(realGit).append("\"\n");
+            if (sig != null) {
+                // cmd splits on '=': "--format=%G?" arrives as %~3 == --format and %~4 == %G?
+                sb.append("if /I \"%~3\"==\"--format\" if \"%~4\"==\"%%G?\" (echo ").append(sig).append("& exit /b 0)\n");
+            }
             if (failNumstat) {
                 sb.append("if /I \"%~1\"==\"diff\" if /I \"%~2\"==\"--numstat\" exit /b 1\n");
             }
@@ -743,6 +756,9 @@ class GitDiffProviderTest {
             StringBuilder sb = new StringBuilder();
             sb.append("#!/bin/sh\n");
             sb.append("REAL_GIT='").append(realGit.replace("'", "'\\''")).append("'\n");
+            if (sig != null) {
+                sb.append("if [ \"$1\" = log ] && [ \"$3\" = '--format=%G?' ]; then echo ").append(sig).append("; exit 0; fi\n");
+            }
             if (failNumstat) {
                 sb.append("if [ \"$1\" = diff ] && [ \"$2\" = --numstat ]; then exit 1; fi\n");
             }

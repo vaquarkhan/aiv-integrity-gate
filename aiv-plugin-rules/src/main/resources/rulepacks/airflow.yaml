@@ -1,0 +1,81 @@
+# Rule pack: airflow
+#
+# Apache Airflow DAG defects that pass `python -c "import dag"` and fail in the scheduler.
+# Every rule is a deterministic text or structure check on added lines of Python files that import
+# airflow. Rule ids become rules.airflow.<id>. Override any param from the gate config:
+#
+#   - id: rules
+#     config:
+#       packs: [airflow]
+#       params:
+#         known_conn_ids: [aws_default, google_cloud_default]
+#
+# A list param replaces the default list; repeat the defaults you want to keep.
+name: airflow
+params:
+  example_dag_id_pattern: "^(example|test|my|sample|demo)_"
+  known_conn_ids: []
+  placeholder_commands:
+    - "^\\s*echo\\s+['\"]?\\s*(todo|tbd|fixme|placeholder|implement(\\s+me)?|hello(\\s+world)?)\\b"
+  removed_imports:
+    - airflow.contrib
+    - airflow.operators.subdag
+    - airflow.operators.subdag_operator
+    - airflow.hooks.base_hook
+    - airflow.operators.bash_operator
+    - airflow.operators.python_operator
+    - airflow.operators.dummy
+    - airflow.operators.dummy_operator
+    - airflow.utils.dates
+defaults:
+  paths: ["**/*.py"]
+  file_filter: "(?m)^\\s*(from\\s+airflow[\\w.]*\\s+import|import\\s+airflow)\\b"
+rules:
+  - id: start-date-now
+    kind: pattern
+    pattern: "start_date\\s*=\\s*(datetime\\.(now|today)\\s*\\(|datetime\\.datetime\\.(now|today)\\s*\\(|pendulum\\.(now|today)\\s*\\(|date\\.today\\s*\\()"
+    message: "start_date is computed at parse time; it shifts on every scheduler cycle. Use a fixed date."
+
+  - id: missing-catchup
+    kind: call
+    call: "(?<![\\w.])(DAG|dag)"
+    if_arg: start_date
+    require_arg: catchup
+    message: "DAG declares start_date without catchup=; a past start_date backfills every missed interval."
+
+  - id: example-dag-id
+    kind: call
+    call: "(?<![\\w.])(DAG|dag)"
+    capture: "dag_id\\s*=\\s*['\"]([^'\"]+)['\"]|^DAG\\s*\\(\\s*['\"]([^'\"]+)['\"]"
+    capture_matches: "${example_dag_id_pattern}"
+    message: "dag_id '{value}' matches the placeholder pattern ${example_dag_id_pattern}"
+
+  - id: sensor-no-timeout
+    kind: call
+    call: "(?<![\\w.])([A-Z]\\w*Sensor)"
+    require_arg: timeout
+    message: "{value} has no timeout=; a sensor that never times out holds a worker slot forever."
+
+  - id: hollow-execute
+    kind: hollow-function
+    function: "execute"
+    message: "{value}() has no implementation (pass / return None / NotImplementedError)."
+
+  - id: placeholder-task
+    kind: pattern
+    pattern: "bash_command\\s*=\\s*(['\"])(.*?)\\1"
+    capture_group: 2
+    capture_matches: "(?i)${placeholder_commands|raw}"
+    message: "bash_command is a placeholder: {value}"
+
+  - id: removed-import
+    kind: pattern
+    pattern: "^\\s*(from\\s+${removed_imports}(\\.[\\w.]*)?\\s+import\\b|import\\s+${removed_imports}(\\.[\\w.]*)?\\b)"
+    message: "Import path was removed or moved in Airflow 3; use the provider or airflow.sdk path."
+
+  - id: unknown-conn-id
+    kind: pattern
+    pattern: "\\b\\w*conn_id\\s*=\\s*(['\"])([^'\"]+)\\1"
+    capture_group: 2
+    allowed_param: known_conn_ids
+    message: "conn_id '{value}' is not in known_conn_ids"

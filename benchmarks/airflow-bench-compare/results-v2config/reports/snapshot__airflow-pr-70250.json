@@ -1,0 +1,241 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 28 findings\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:1 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:4 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:17 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:17 [ruff-airflow error] Invalid annotated assignment target\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:17 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:17 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:18 [ruff-airflow error] Invalid annotated assignment target\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:18 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:18 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:19 [ruff-airflow error] Invalid annotated assignment target\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:19 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:19 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:20 [ruff-airflow error] Invalid annotated assignment target\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:20 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:20 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:21 [ruff-airflow error] Invalid annotated assignment target\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:21 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:21 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:22 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:22 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py:22 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py:8 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py:14 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py:14 [ruff-airflow error] Expected a statement\nproviders/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py:15 [ruff-airflow error] Unexpected indentation\nproviders/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py:18 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py:25 [ruff-airflow error] Expected class, function definition or async function definition after decorator\nproviders/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py:40 [ruff-airflow error] unexpected EOF while parsing",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 4,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 17,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 17,
+          "message": "[ruff-airflow error] Invalid annotated assignment target"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 17,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 17,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 18,
+          "message": "[ruff-airflow error] Invalid annotated assignment target"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 18,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 18,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 19,
+          "message": "[ruff-airflow error] Invalid annotated assignment target"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 19,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 19,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 20,
+          "message": "[ruff-airflow error] Invalid annotated assignment target"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 20,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 20,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 21,
+          "message": "[ruff-airflow error] Invalid annotated assignment target"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 21,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 21,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 22,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 22,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py",
+          "start_line": 22,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py",
+          "start_line": 8,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py",
+          "start_line": 14,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py",
+          "start_line": 14,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py",
+          "start_line": 15,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py",
+          "start_line": 18,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py",
+          "start_line": 25,
+          "message": "[ruff-airflow error] Expected class, function definition or async function definition after decorator"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py",
+          "start_line": 40,
+          "message": "[ruff-airflow error] unexpected EOF while parsing"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

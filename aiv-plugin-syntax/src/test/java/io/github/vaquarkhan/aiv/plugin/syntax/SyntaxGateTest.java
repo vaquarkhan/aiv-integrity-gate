@@ -23,8 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SyntaxGateTest {
 
     private static AIVContext ctx(ChangedFile... files) {
+        return ctx(Map.of(), files);
+    }
+
+    private static AIVContext ctx(Map<String, Object> syntaxConfig, ChangedFile... files) {
         Diff diff = new Diff("base", "head", List.of(files), "");
-        AIVConfig config = new AIVConfig(List.of(), Map.of());
+        AIVConfig config = syntaxConfig.isEmpty() ? new AIVConfig(List.of(), Map.of())
+                : new AIVConfig(List.of(new AIVConfig.GateConfig("syntax", true, syntaxConfig)), Map.of());
         return new AIVContext(Paths.get("."), diff, config);
     }
 
@@ -81,6 +86,16 @@ class SyntaxGateTest {
                 file("chart/templates/deploy.yaml", "spec:\n{{- $g := deepCopy . -}}\n  key: {{ .Value }}"),
                 file("role.yaml", "tasks:\n  - name: x\n    when: {% if foo %}")));
         assertTrue(r.isPassed());
+    }
+
+    @Test
+    void strictJsonRejectsYamlOnlySyntaxCommentsTagsAndTrailingComma() {
+        SyntaxGate gate = new SyntaxGate(src -> ValidationResult.ok());
+        for (String invalid : List.of("{foo: bar}", "{\"a\":1 // comment\n}",
+                "!!map {a: b}", "{\"a\":1,}")) {
+            assertFalse(gate.evaluate(ctx(file("bad.json", invalid))).isPassed(), invalid);
+        }
+        assertTrue(SyntaxGate.validateJson("{\"a\":[1,true,null]}").valid());
     }
 
     @Test
@@ -145,6 +160,25 @@ class SyntaxGateTest {
                 file("airflow-e2e-tests/docker/Dockerfile.java",
                         "# a dockerfile that happens to be named .java\nFROM eclipse-temurin:17\n")));
         assertTrue(r.isPassed());
+    }
+
+    @Test
+    void validationResultSkippedUsesVisibleDefault() {
+        assertTrue(ValidationResult.skipped(null).skipped());
+        assertTrue(ValidationResult.skipped(" ").detail().contains("unavailable"));
+        assertFalse(ValidationResult.ok().skipped());
+    }
+
+    @Test
+    void skippedValidatorIsVisibleAndStrictModeBlocks() {
+        SyntaxGate gate = new SyntaxGate(src -> ValidationResult.skipped("python missing"));
+        GateResult advisory = gate.evaluate(ctx(file("a.py", "x = 1")));
+        assertTrue(advisory.isPassed());
+        assertTrue(advisory.getMessage().contains("SKIPPED"));
+        assertEquals("syntax.unverified", advisory.getFindings().get(0).getRuleId());
+        GateResult strict = gate.evaluate(ctx(Map.of("strict_toolchains", true), file("a.py", "x = 1")));
+        assertFalse(strict.isPassed());
+        assertTrue(strict.blocksCi());
     }
 
     @Test

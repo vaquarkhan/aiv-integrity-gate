@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.adapter.git;
@@ -87,8 +75,28 @@ public final class GitDiffProvider implements DiffProvider {
         if (p.waitFor(timeoutSeconds, TimeUnit.SECONDS)) {
             return false;
         }
+        // Kill the whole tree: on Windows a wrapper (git.cmd, a credential helper, a pager) can outlive the
+        // parent and keep the redirected output file open.
+        java.util.List<ProcessHandle> tree = p.descendants().toList();
+        tree.forEach(ProcessHandle::destroyForcibly);
         p.destroyForcibly();
+        // destroyForcibly is asynchronous; wait (bounded) until the tree is gone so it no longer holds the
+        // working directory or the redirected output file.
+        for (int i = 0; i < 50 && (p.isAlive() || tree.stream().anyMatch(ProcessHandle::isAlive)); i++) { LockSupport.parkNanos(100_000_000L); }
         return true;
+    }
+
+    /**
+     * Best-effort temp-file cleanup. A timed-out child on Windows can still hold the handle for a moment; that
+     * must not turn a clear "timed out" verdict into an unrelated file-locking error, so the file is deleted on
+     * JVM exit instead.
+     */
+    static void deleteQuietly(Path tmp) {
+        try {
+            Files.deleteIfExists(tmp);
+        } catch (java.io.IOException e) {
+            tmp.toFile().deleteOnExit();
+        }
     }
 
     private record GitCapture(int exitCode, String stdout, boolean timedOut) {}
@@ -119,7 +127,7 @@ public final class GitDiffProvider implements DiffProvider {
             byte[] bytes = Files.readAllBytes(tmp);
             return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), false);
         } finally {
-            Files.deleteIfExists(tmp);
+            deleteQuietly(tmp);
         }
     }
 
@@ -233,9 +241,9 @@ public final class GitDiffProvider implements DiffProvider {
                 return false;
             }
             String status = cap.stdout().lines().findFirst().orElse("").trim();
-            // G/U/X/Y/R are signed states; N means unsigned.
-            return "G".equals(status) || "U".equals(status) || "X".equals(status)
-                    || "Y".equals(status) || "R".equals(status);
+            // Only G (good, valid signature) counts. U = good but untrusted key, X = expired, Y = expired key,
+            // R = revoked key, E = cannot check, N = unsigned. Anything but G is not identity evidence.
+            return "G".equals(status);
         } catch (Exception e) {
             log.debug("Could not parse signature status", e);
             return false;

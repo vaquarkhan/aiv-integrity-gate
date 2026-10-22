@@ -1,0 +1,28 @@
+# Apache Spark Project Improvement Proposal (SPIP).
+# Source of truth: https://spark.apache.org/improvement-proposals.html
+# An SPIP is a JIRA ticket labelled "SPIP" whose description answers the Heilmeier questions Q1 to Q8;
+# the vote happens on dev@ (72 hours, at least three binding +1 votes, no binding -1). The JIRA status does
+# not encode acceptance, so state checks are off. Many SPIPs keep the content in an external document; that
+# is reported, because AIV cannot read it and it is not archived on ASF infrastructure.
+name: spip
+state_source: none
+heading_line: "^Q[1-8]\\s*[.:)]"
+discussion_link: "lists\\.apache\\.org|mail-archives\\.apache\\.org|markmail\\.org"
+placeholder: "(?-i)\\b(TBD|TODO|FIXME|XXX)\\b|(?i)lorem ipsum"
+assistant_artifacts:
+  - "^\\s*Thinking\\.\\.\\.\\s*$"
+  - "\\bthought for \\d+ seconds?\\b"
+  - "\\bas an ai (language )?model\\b"
+  - "\\bI hope this helps\\b"
+external_doc: "docs\\.google\\.com|drive\\.google\\.com|dropbox\\.com|quip\\.com|notion\\.so|onedrive\\.live\\.com|sharepoint\\.com"
+required_sections:
+  - {id: q1-objective, heading: "^q1\\b", min_words: 5}
+  - {id: q2-non-goals, heading: "^q2\\b", min_words: 3}
+  - {id: q3-current-practice, heading: "^q3\\b", min_words: 5}
+  - {id: q4-whats-new, heading: "^q4\\b", min_words: 5}
+  - {id: q5-who-cares, heading: "^q5\\b", min_words: 3}
+  - {id: q6-risks, heading: "^q6\\b", min_words: 3}
+  - {id: q7-timeline, heading: "^q7\\b", min_words: 1}
+  - {id: q8-exams, heading: "^q8\\b", min_words: 3}
+template_phrases:
+  - "Articulate your objectives using absolutely no jargon"

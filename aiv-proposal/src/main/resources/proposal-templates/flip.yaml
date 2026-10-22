@@ -1,0 +1,42 @@
+# Apache Flink Improvement Proposal (FLIP).
+# Source of truth: https://cwiki.apache.org/confluence/display/FLINK/FLIP+Template
+# Flink records the state as a page label ("discussion", "accepted", "released", "rejected"), not a field.
+# In the 30 most recent FLIPs (October 2026) 20 carried no state label at all, so a missing label is not
+# reported (report_missing_state: false); labels are still used to decide "accepted".
+# The FLIP template still carries Kafka package names in its Public Interfaces guidance; a FLIP that keeps
+# that list was copied without being edited.
+name: flip
+number: "\\bFLIP-(\\d+)\\b"
+status_heading: "^(status)?$"
+state_source: labels
+report_missing_state: false
+known_states: [discussion, under-discussion, accepted, released, rejected, discarded, draft, voting, abandoned, superseded]
+accepted_states: [accepted, released]
+discussion_link: "lists\\.apache\\.org|mail-archives\\.apache\\.org|markmail\\.org|mail-archive\\.com"
+issue_link: "issues\\.apache\\.org/jira/browse/FLINK-\\d+|\\bFLINK-\\d+\\b"
+require_issue_when_accepted: false
+placeholder: "(?-i)\\b(TBD|TODO|FIXME|XXX)\\b|FLINK-XXXX|(?i)lorem ipsum"
+required_sections:
+  - {id: motivation, heading: "^(motivation|background)\\b", min_words: 10}
+  - {id: public-interfaces, heading: "\\bpublic interfaces?\\b|^public api\\b|^interface changes\\b", min_words: 3}
+  - {id: proposed-changes, heading: "^(proposed changes?|detailed design|design( details)?|proposal)\\b", min_words: 15}
+  - {id: compatibility, heading: "^(compatibility|backward(s)? compatibility|migration)", min_words: 3}
+  - {id: test-plan, heading: "^(test plan|testing( plan)?|test strategy)\\b", min_words: 2}
+  - {id: rejected-alternatives, heading: "^rejected\\b.*\\balternatives?\\b|^alternatives( considered)?\\b", min_words: 1}
+template_phrases:
+  - "Describe the problems you are trying to solve"
+  - "Briefly list any new interfaces that will be introduced as part of this proposal or any existing interfaces that will be removed or changed"
+  - "Describe the new thing you want to do in appropriate detail"
+  - "What impact (if any) will there be on existing users? If we are changing behavior how will we phase out the older behavior?"
+  - "Describe in few sentences how the FLIP will be tested"
+  - "If there are alternative ways of accomplishing the same thing, what were they?"
+  - "Replace anything in italics with your own description"
+  - "link to https://lists.apache.org/list.html?dev@flink.apache.org"
+  - "org/apache/kafka/clients/producer"
+assistant_artifacts:
+  - "^\\s*Thinking\\.\\.\\.\\s*$"
+  - "\\bthought for \\d+ seconds?\\b"
+  - "\\bas an ai (language )?model\\b"
+  - "^\\s*(certainly|sure)[!,] here(?:'s| is)\\b"
+  - "\\bI hope this helps\\b"
+  - "\\blet me know if you (?:need|want|would like)\\b"

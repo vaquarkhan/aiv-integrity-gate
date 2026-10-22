@@ -1,5 +1,5 @@
 schema_version: 1
-# AIV config - tuned for this repository baseline.
+# AIV config - tuned for this repository baseline (dogfood).
 # Exclude docs and example project from code-focused gates.
 exclude_paths:
   - "docs/**"
@@ -14,28 +14,18 @@ advisory_label_gates:
   - invariant
   - density
   - cohesion
-# Optional: only these commit author emails may use /aiv skip on the latest commit
+  - duplication
+  - test-adequacy
+# /aiv skip is default-deny: with no allowlist the directive is ignored. When set, the head commit
+# must also carry a GOOD signature (%G? == G). Author email alone is never trusted.
 # skip_allowlist:
 #   - maintainer@example.com
 gates:
-  - id: density
+  # ---- Hard gates: objective, deterministic, reproducible defects on the diff ----
+  - id: syntax
     enabled: true
-    config:
-      ldr_threshold: 0.25
-      entropy_threshold: 4.0
-      refactor_net_loc_threshold: -50
-  - id: design
+  - id: invariant
     enabled: true
-    config:
-      rules_path: .aiv/design-rules.yaml
-  - id: cohesion
-    enabled: true
-    # Advisory by default: "split this PR" is review guidance, not always a hard defect.
-    severity: warn
-    config:
-      max_areas: 4
-      area_depth: 2
-      max_files: 0
   - id: dependency
     enabled: true
     config:
@@ -47,12 +37,34 @@ gates:
         - com.github.javaparser.ast.expr
         - com.github.javaparser.ast.body
         - com.github.javaparser.ast.visitor
-  - id: invariant
-    enabled: false
-  - id: security
-    enabled: false
-  - id: syntax
+  - id: package-existence
     enabled: true
+  - id: security
+    enabled: true
+  - id: test-adequacy
+    enabled: true
+  - id: design
+    enabled: true
+    config:
+      rules_path: .aiv/design-rules.yaml
+  # ---- Soft signals: advisory, never the sole merge block ----
+  - id: density
+    enabled: true
+    severity: warn
+    config:
+      ldr_threshold: 0.25
+      entropy_threshold: 4.0
+      refactor_net_loc_threshold: -50
+  - id: cohesion
+    enabled: true
+    severity: warn
+    config:
+      max_areas: 4
+      area_depth: 2
+      max_files: 0
+  - id: duplication
+    enabled: true
+    severity: warn
   - id: doc-integrity
     enabled: false
     config:

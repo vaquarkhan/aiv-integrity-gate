@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="700" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">One AIV run, end to end</text>
+<text x="40" y="76" font-size="15" fill="#475569">The source diff and immutable policy snapshot stay separate throughout evaluation</text>
+<rect x="35" y="125" width="205" height="125" rx="12" fill="#E8F1FF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="137.5" y="152" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">1. Parse</text>
+<text x="137.5" y="175" text-anchor="middle" font-size="12" fill="#475569">strict options</text>
+<text x="137.5" y="193" text-anchor="middle" font-size="12" fill="#475569">select Git or JSON diff</text>
+<line x1="240" y1="188" x2="262" y2="188" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="267" y="125" width="205" height="125" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="369.5" y="152" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">2. Pin</text>
+<text x="369.5" y="175" text-anchor="middle" font-size="12" fill="#475569">resolve base ref once</text>
+<text x="369.5" y="193" text-anchor="middle" font-size="12" fill="#475569">read config from commit OID</text>
+<line x1="472" y1="188" x2="494" y2="188" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="499" y="125" width="205" height="125" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="601.5" y="152" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">3. Freeze</text>
+<text x="601.5" y="175" text-anchor="middle" font-size="12" fill="#475569">compare complete .aiv tree</text>
+<text x="601.5" y="193" text-anchor="middle" font-size="12" fill="#475569">materialize Git blobs / copy workspace</text>
+<line x1="704" y1="188" x2="726" y2="188" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="731" y="125" width="205" height="125" rx="12" fill="#FFF4D6" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="833.5" y="152" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">4. Evaluate</text>
+<text x="833.5" y="175" text-anchor="middle" font-size="12" fill="#475569">ServiceLoader gates</text>
+<text x="833.5" y="193" text-anchor="middle" font-size="12" fill="#475569">severity -&gt; baseline -&gt; suppression</text>
+<line x1="936" y1="188" x2="958" y2="188" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="963" y="125" width="205" height="125" rx="12" fill="#FEECEC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="1065.5" y="152" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">5. Publish</text>
+<text x="1065.5" y="175" text-anchor="middle" font-size="12" fill="#475569">human + JSON + SARIF</text>
+<text x="1065.5" y="193" text-anchor="middle" font-size="12" fill="#475569">GitHub + audit + report</text>
+<rect x="75" y="335" width="505" height="180" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="91" y="362" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Source workspace</text>
+<text x="91" y="385" text-anchor="start" font-size="12" fill="#475569">Changed files and full repository context</text>
+<text x="91" y="403" text-anchor="start" font-size="12" fill="#475569">Used by syntax, dependency discovery, test lookup,</text>
+<text x="91" y="421" text-anchor="start" font-size="12" fill="#475569">duplication corpus, doc link/path targets, external tools</text>
+<rect x="620" y="335" width="505" height="180" rx="12" fill="#DFF7F2" stroke="#5EEAD4" stroke-width="1.5"/>
+<text x="636" y="362" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Policy workspace</text>
+<text x="636" y="385" text-anchor="start" font-size="12" fill="#475569">Frozen .aiv config sidecars from one captured source</text>
+<text x="636" y="403" text-anchor="start" font-size="12" fill="#475569">Used by design rules, generic rules, doc rules, baselines</text>
+<text x="636" y="421" text-anchor="start" font-size="12" fill="#475569">Exact bytes feed policy/evidence digest and audit commit</text>
+<line x1="330" y1="250" x2="330" y2="330" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="870" y1="250" x2="870" y2="330" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="600" y="610" text-anchor="middle" font-size="13" font-weight="700" fill="#0F766E">Snapshot cleanup happens after evaluation; publishers consume the already-resolved config and result.</text>
+</svg>

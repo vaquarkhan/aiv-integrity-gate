@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.model;
@@ -36,6 +24,7 @@ class AIVContextTest {
         var config = new AIVConfig(java.util.List.of(), java.util.Map.of());
         var ctx = new AIVContext(workspace, diff, config);
         assertEquals(workspace, ctx.getWorkspace());
+        assertEquals(workspace, ctx.getPolicyWorkspace());
         assertEquals(diff, ctx.getDiff());
         assertEquals(config, ctx.getConfig());
         assertTrue(ctx.getMetadata().isEmpty());
@@ -47,6 +36,18 @@ class AIVContextTest {
         var withMeta = ctx.withMetadata("key", "value");
         assertEquals("value", withMeta.getMetadata().get("key"));
         assertTrue(ctx.getMetadata().isEmpty());
+    }
+
+    @Test
+    void separatePolicyWorkspaceIsPreservedWithMetadata() {
+        var workspace = Paths.get("/work");
+        var policy = Paths.get("/policy");
+        var context = new AIVContext(workspace, policy, new Diff("a", "b", java.util.List.of(), ""),
+                new AIVConfig(java.util.List.of(), java.util.Map.of()), Map.of());
+        assertEquals(policy, context.getPolicyWorkspace());
+        assertEquals(policy, context.withMetadata("k", "v").getPolicyWorkspace());
+        var fallback = new AIVContext(workspace, null, context.getDiff(), context.getConfig(), null);
+        assertEquals(workspace, fallback.getPolicyWorkspace());
     }
 
     @Test

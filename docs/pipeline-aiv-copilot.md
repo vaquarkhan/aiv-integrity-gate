@@ -1,45 +1,57 @@
-# AIV → Copilot pipeline
+# Deterministic AIV gate followed by advisory model review
 
-Two-stage PR quality flow for this repository.
+Use deterministic evidence first, then spend model/human judgement on a change that cleared the objective boundary.
+
+![AIV deployment topology](images/aiv-deployment-map.png)
+
+**Figure 1: CI is the trust boundary.** AIV pins/freeze policy, runs objective gates, and publishes machine evidence. A successful workflow can trigger an advisory model review. The model never changes the AIV verdict.
+
+## Workflow
 
 ```text
-PR opened / updated
-        │
-        ▼
-┌───────────────────────────────┐
-│ Stage 1: AIV Gate (HARD)      │
-│ .github/workflows/aiv.yml     │
-│ seconds, deterministic        │
-│ fail → block merge / CI red   │
-└───────────────┬───────────────┘
-                │ success only
-                ▼
-┌───────────────────────────────┐
-│ Stage 2: Copilot review       │
-│ .github/workflows/            │
-│   copilot-review.yml          │
-│ advisory only — never fails   │
-└───────────────────────────────┘
+Pull request
+  -> AIV strict gate
+       -> syntax/invariant/dependency/test/security/design/rules
+       -> external analyzer SARIF as configured
+       -> JSON/SARIF/GitHub/audit evidence
+  -> success event
+       -> Copilot or another model review (advisory)
+  -> human merge decision
 ```
 
 ## Why this order
 
-- **Cheap and certain before expensive and fuzzy.** AIV catches objective defects (won't-parse, conflict / edit-artifact markers, unresolved imports) without an LLM.
-- **No LLM cost on broken PRs.** Copilot is requested only after AIV succeeds (`workflow_run` on `AIV Gate` success).
-- **Invariant:** AIV is the only hard gate. Copilot (and Magpie / any LLM judge) stays advisory.
-- Soft AI-slop signals (`severity: warn`) can **label** the PR (`--label-pr-on-advisory`) without failing CI. See [benchmarks/airflow/README.md](../benchmarks/airflow/README.md).
+- Deterministic defects do not need model tokens or judgement.
+- A model can focus on intent, architecture, maintainability, and surprising interactions.
+- Branch protection receives a reproducible hard result.
+- Advisory findings/model comments remain visible without pretending to be objective blockers.
 
-## Prevention layer
+## Required AIV command
 
-[`.github/copilot-instructions.md`](../.github/copilot-instructions.md) steers generation away from the same artifacts AIV blocks.
+```bash
+java -jar aiv-cli.jar --workspace . --diff origin/main --head HEAD \
+  --require-trusted-config --output-json aiv-report.json --output-sarif aiv-results.sarif
+```
 
-## Honest scope
+## Repository workflows
 
-AIV does **not** answer "is this PR valuable?" That remains human or advisory review.
+- `.github/workflows/aiv.yml`: builds source, runs strict gate, records report, fails closed.
+- `.github/workflows/copilot-review.yml`: listens for successful AIV workflow completion and requests advisory Copilot review.
 
-A defensible **CI-savings percentage** still needs a labeled true-positive corpus (PRs that would fail expensive CI for parse/conflict-class defects). Until that exists, claim earlier enforcement and reduced false blocks — not a specific savings %.
+All third-party Actions are pinned to immutable commit SHAs. The model-review workflow catches permission/configuration failures as advisory warnings rather than merge blockers.
 
-## Rollout notes
+## Separation of responsibilities
 
-- Do **not** use emoji presence as a hard design signal (false blocks on legitimate code).
-- Prefer hard rules on **added lines** against the correct merge-base; soft signals (density, style, TBD/FIXME) should stay advisory or tightly scoped.
+| Concern | Owner |
+|---------|-------|
+| parse/import/package/test/security/design facts | AIV or trusted analyzer |
+| policy immutability and evidence digest | AIV CLI |
+| contextual judgement | Copilot/other reviewer |
+| workflow ordering | GitHub Actions/orchestrator |
+| final acceptance | maintainers/branch protection |
+
+## What to measure
+
+Track findings acted on, false-positive labels, review time spent on basic facts, and model comments that found non-deterministic issues. Do not claim a savings percentage without a measured labeled cohort.
+
+**Author:** Viquar Khan

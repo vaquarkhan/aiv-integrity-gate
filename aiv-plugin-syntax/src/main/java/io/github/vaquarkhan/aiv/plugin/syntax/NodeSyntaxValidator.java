@@ -58,7 +58,7 @@ public final class NodeSyntaxValidator implements SourceValidator {
             }
             CommandExecutor.ExecResult result = executor.run(cmd, "");
             if (!result.available()) {
-                return ValidationResult.ok();
+                return ValidationResult.skipped("node validator unavailable: " + result.stderr());
             }
             if (result.exitCode() == 0) {
                 return ValidationResult.ok();
@@ -67,15 +67,14 @@ public final class NodeSyntaxValidator implements SourceValidator {
             String err = result.stderr() == null ? "" : result.stderr();
             if ((typescript || jsx) && (err.contains("bad option") || err.contains("unknown option")
                     || err.contains("Experimental") || err.contains("not supported"))) {
-                return ValidationResult.ok();
+                return ValidationResult.skipped("node does not support the required syntax check: " + lastLine(err));
             }
             if (jsx && err.toLowerCase().contains("unexpected token")) {
-                // Classic JSX without transform — do not false-fail
-                return ValidationResult.ok();
+                return ValidationResult.skipped("JSX requires a transform before syntax validation");
             }
             return ValidationResult.fail(parseLine(err), lastLine(err));
         } catch (Exception e) {
-            return ValidationResult.ok();
+            return ValidationResult.skipped("node validator failed: " + e.getMessage());
         } finally {
             if (tmp != null) {
                 bestEffortDelete(tmp);

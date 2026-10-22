@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="700" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">AIV Integrity Gate architecture</text>
+<text x="40" y="76" font-size="15" fill="#475569">One evidence engine, frozen policy, multiple delivery surfaces</text>
+<rect x="40" y="105" width="200" height="70" rx="12" fill="#E8F1FF" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="140.0" y="132" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Developer</text>
+<text x="140.0" y="155" text-anchor="middle" font-size="12" fill="#475569">pre-commit</text>
+<line x1="140" y1="175" x2="140" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="270" y="105" width="200" height="70" rx="12" fill="#E8F1FF" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="370.0" y="132" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">CI / Action</text>
+<text x="370.0" y="155" text-anchor="middle" font-size="12" fill="#475569">pull request</text>
+<line x1="370" y1="175" x2="370" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="500" y="105" width="200" height="70" rx="12" fill="#E8F1FF" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="600.0" y="132" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Agent / MCP</text>
+<text x="600.0" y="155" text-anchor="middle" font-size="12" fill="#475569">JSON verify</text>
+<line x1="600" y1="175" x2="600" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="730" y="105" width="200" height="70" rx="12" fill="#E8F1FF" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="830.0" y="132" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">AI-DLC</text>
+<text x="830.0" y="155" text-anchor="middle" font-size="12" fill="#475569">phase sensor</text>
+<line x1="830" y1="175" x2="830" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="960" y="105" width="200" height="70" rx="12" fill="#E8F1FF" stroke="#93C5FD" stroke-width="1.5"/>
+<text x="1060.0" y="132" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Policy engine</text>
+<text x="1060.0" y="155" text-anchor="middle" font-size="12" fill="#475569">facts / verdict</text>
+<line x1="1060" y1="175" x2="1060" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="220" width="1120" height="95" rx="12" fill="#DFF7F2" stroke="#5EEAD4" stroke-width="1.5"/>
+<text x="56" y="247" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Trust boundary</text>
+<text x="56" y="270" text-anchor="start" font-size="12" fill="#475569">Resolve config once | compare complete .aiv tree | reject ignored extras and symlinks</text>
+<text x="56" y="288" text-anchor="start" font-size="12" fill="#475569">Materialize immutable policy snapshot from trusted Git blobs | bind request + config + sidecars + commit</text>
+<line x1="600" y1="315" x2="600" y2="350" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="355" width="1120" height="190" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="56" y="382" text-anchor="start" font-size="15" font-weight="700" fill="#0B132B">Deterministic verdict engine</text>
+<text x="56" y="405" text-anchor="start" font-size="12" fill="#475569">Hard evidence: syntax | invariant | dependency | package existence | test adequacy | security | design</text>
+<text x="56" y="423" text-anchor="start" font-size="12" fill="#475569">Review evidence: density | cohesion | duplication | documentation | PR metadata | license header</text>
+<text x="56" y="441" text-anchor="start" font-size="12" fill="#475569">Extension surfaces: generic YAML rules | trusted external SARIF | optional advisory Jev questions</text>
+<text x="56" y="459" text-anchor="start" font-size="12" fill="#475569">Core policy: severity | fail-fast | baselines | inline suppressions | signed allow-listed skip</text>
+<line x1="140" y1="545" x2="140" y2="580" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="585" width="200" height="70" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="140.0" y="612" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Verdict JSON</text>
+<text x="140.0" y="635" text-anchor="middle" font-size="12" fill="#475569">schema v2</text>
+<line x1="370" y1="545" x2="370" y2="580" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="270" y="585" width="200" height="70" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="370.0" y="612" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">SARIF / Checks</text>
+<text x="370.0" y="635" text-anchor="middle" font-size="12" fill="#475569">severity preserved</text>
+<line x1="600" y1="545" x2="600" y2="580" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="500" y="585" width="200" height="70" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="600.0" y="612" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">PR feedback</text>
+<text x="600.0" y="635" text-anchor="middle" font-size="12" fill="#475569">labels / comments</text>
+<line x1="830" y1="545" x2="830" y2="580" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="730" y="585" width="200" height="70" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="830.0" y="612" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Audit chain</text>
+<text x="830.0" y="635" text-anchor="middle" font-size="12" fill="#475569">locked append</text>
+<line x1="1060" y1="545" x2="1060" y2="580" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="960" y="585" width="200" height="70" rx="12" fill="#FFF4D6" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="1060.0" y="612" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">HTML / JSONL</text>
+<text x="1060.0" y="635" text-anchor="middle" font-size="12" fill="#475569">calibration / query</text>
+</svg>

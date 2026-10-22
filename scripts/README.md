@@ -19,4 +19,4 @@ The JAR name includes the **current Maven project version** (for example `aiv-cl
 
 **`print-maven-version.sh`** (Linux, macOS, Git Bash) prints the reactor root `<version>` from [`pom.xml`](../pom.xml) using `mvn help:evaluate`. Use it in scripts so download URLs stay aligned with the POM (see [docs/MAVEN-VERSION.md](../docs/MAVEN-VERSION.md)).
 
-**Author:** Vaquar Khan
+**Author:** Viquar Khan

@@ -1,0 +1,4 @@
+Picked up JAVA_TOOL_OPTIONS: -Dlog4j2.formatMsgNoLookups=true
+exported records.jsonl and findings.jsonl to jsonl
+chain intact: 89 records, head 1bd813b405a1f35c64f4dde45e33101491fd45dbce33179b63b51def77e89c0c
+gate runs 89, rules 10, proposal checks 0; wrote report.html

@@ -11,6 +11,6 @@ YAML workflows in this folder are picked up automatically by GitHub.
 
 Pin action versions to full commit SHAs where security policy requires reproducible builds. **Dependabot** (see `../dependabot.yml`) proposes updates.
 
-See also **[../README.md](../README.md)** in `.github/`.
+See also the project [README](../../README.md).
 
-**Author:** Vaquar Khan
+**Author:** Viquar Khan

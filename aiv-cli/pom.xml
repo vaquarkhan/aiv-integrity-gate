@@ -47,6 +47,46 @@
         </dependency>
         <dependency>
             <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-prmeta</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-license-header</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-test-adequacy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-duplication</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-package-existence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-external</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-rules</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-plugin-jev</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-report</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
+            <artifactId>aiv-proposal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.vaquarkhan</groupId>
             <artifactId>aiv-adapter-git</artifactId>
         </dependency>
         <dependency>

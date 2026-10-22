@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/abandoned/pr-73105/airflow-core/src/airflow/cli/cli_config.py (SyntaxError line 6: '(' was never closed)\nDoes not parse: providers/abandoned/pr-73105/airflow-core/tests/unit/cli/commands/test_dag_command.py (SyntaxError line 1: unexpected indent)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73105/airflow-core/src/airflow/cli/cli_config.py",
+          "start_line": 6,
+          "message": "Does not parse: providers/abandoned/pr-73105/airflow-core/src/airflow/cli/cli_config.py (SyntaxError line 6: '(' was never closed)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73105/airflow-core/tests/unit/cli/commands/test_dag_command.py",
+          "start_line": 1,
+          "message": "Does not parse: providers/abandoned/pr-73105/airflow-core/tests/unit/cli/commands/test_dag_command.py (SyntaxError line 1: unexpected indent)"
+        }
+      ]
+    }
+  ]
+}

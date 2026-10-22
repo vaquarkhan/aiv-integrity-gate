@@ -17,6 +17,6 @@ This directory configures **Dependabot**, **CI**, **release**, and **publishing*
 
 ## Composite action
 
-The **repository root** `action.yml` (not in this folder) defines the **Marketplace / composite** action that downloads the shaded CLI from Maven Central and runs `java -jar`.
+The repository root `action.yml` defines the hardened composite action. It resolves a caller-supplied compatible jar (path, URL, or compatible release version), requires a positive capability handshake, runs strict trusted policy, and emits JSON/SARIF with optional GitHub publication.
 
-**Author:** Vaquar Khan
+**Author:** Viquar Khan

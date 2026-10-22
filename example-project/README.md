@@ -2,7 +2,7 @@
 
 This is the smallest layout we could get away with while still looking like a real repo: config under `.aiv`, a workflow under `.github`, and enough code to show a pass and a fail. Use it when you want a hands-on demo without touching production.
 
-**Author:** Vaquar Khan
+**Author:** Viquar Khan
 
 ---
 

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" font-family="Segoe UI,Arial,sans-serif">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#475569"/></marker></defs>
+<rect width="1200" height="520" fill="#FFFFFF"/>
+<text x="40" y="48" font-size="28" font-weight="700" fill="#0B132B">From untrusted change to defensible evidence</text>
+<text x="40" y="76" font-size="15" fill="#475569">The policy used by the gate cannot be replaced during the run</text>
+<rect x="40" y="130" width="180" height="120" rx="12" fill="#FEECEC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="130.0" y="157" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Untrusted change</text>
+<text x="130.0" y="180" text-anchor="middle" font-size="12" fill="#475569">Git diff or strict JSON</text>
+<text x="130.0" y="198" text-anchor="middle" font-size="12" fill="#475569">source workspace</text>
+<line x1="220" y1="190" x2="280" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="285" y="130" width="180" height="120" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="375.0" y="157" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Trusted policy</text>
+<text x="375.0" y="180" text-anchor="middle" font-size="12" fill="#475569">base commit</text>
+<text x="375.0" y="198" text-anchor="middle" font-size="12" fill="#475569">complete .aiv tree</text>
+<line x1="465" y1="190" x2="525" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="530" y="130" width="180" height="120" rx="12" fill="#DFF7F2" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="620.0" y="157" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Frozen snapshot</text>
+<text x="620.0" y="180" text-anchor="middle" font-size="12" fill="#475569">regular Git blobs only</text>
+<text x="620.0" y="198" text-anchor="middle" font-size="12" fill="#475569">no ignored extras / symlinks</text>
+<line x1="710" y1="190" x2="770" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="775" y="130" width="180" height="120" rx="12" fill="#E8F1FF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="865.0" y="157" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Verdict</text>
+<text x="865.0" y="180" text-anchor="middle" font-size="12" fill="#475569">hard + advisory</text>
+<text x="865.0" y="198" text-anchor="middle" font-size="12" fill="#475569">request + policy digest</text>
+<line x1="955" y1="190" x2="1015" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1020" y="130" width="180" height="120" rx="12" fill="#FFF4D6" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="1110.0" y="157" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Audit anchor</text>
+<text x="1110.0" y="180" text-anchor="middle" font-size="12" fill="#475569">OS-locked hash chain</text>
+<text x="1110.0" y="198" text-anchor="middle" font-size="12" fill="#475569">external head verification</text>
+<rect x="165" y="325" width="870" height="100" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="600.0" y="352" text-anchor="middle" font-size="15" font-weight="700" fill="#0B132B">Evidence binding</text>
+<text x="600.0" y="375" text-anchor="middle" font-size="12" fill="#475569">SHA-256(request bytes + canonical config + exact frozen sidecar bytes + resolved policy commit)</text>
+<text x="600.0" y="393" text-anchor="middle" font-size="12" fill="#475569">Same captured inputs produce the same local verdict; external registry/tool/model dependencies are declared.</text>
+<text x="600" y="475" text-anchor="middle" font-size="14" font-weight="700" fill="#0F766E">No time-of-check / time-of-use gap: gates and evidence consume the same frozen bytes.</text>
+</svg>

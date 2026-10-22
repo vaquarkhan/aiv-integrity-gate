@@ -1,5 +1,5 @@
 name: AIV Gate (Airflow fork)
-# For https://github.com/vaquarkhan/airflow — builds aiv-cli from source until
+# For https://github.com/vaquarkhan/airflow: builds aiv-cli from source until
 # Maven Central ships a release with --label-pr-on-advisory.
 on:
   pull_request:

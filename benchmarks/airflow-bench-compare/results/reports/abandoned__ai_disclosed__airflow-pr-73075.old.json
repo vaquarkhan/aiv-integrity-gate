@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/abandoned/pr-73075/airflow-core/src/airflow/models/trigger.py (SyntaxError line 2: unexpected indent)\nDoes not parse: providers/abandoned/pr-73075/airflow-core/tests/unit/models/test_trigger.py (SyntaxError line 1: unexpected indent)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73075/airflow-core/src/airflow/models/trigger.py",
+          "start_line": 2,
+          "message": "Does not parse: providers/abandoned/pr-73075/airflow-core/src/airflow/models/trigger.py (SyntaxError line 2: unexpected indent)"
+        },
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-73075/airflow-core/tests/unit/models/test_trigger.py",
+          "start_line": 1,
+          "message": "Does not parse: providers/abandoned/pr-73075/airflow-core/tests/unit/models/test_trigger.py (SyntaxError line 1: unexpected indent)"
+        }
+      ]
+    }
+  ]
+}

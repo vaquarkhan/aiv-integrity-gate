@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 6 findings\nproviders/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py:4 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py:4 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py:4 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py:5 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py:7 [ruff-airflow error] unexpected EOF while parsing",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py",
+          "start_line": 4,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py",
+          "start_line": 4,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py",
+          "start_line": 4,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py",
+          "start_line": 5,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py",
+          "start_line": 7,
+          "message": "[ruff-airflow error] unexpected EOF while parsing"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

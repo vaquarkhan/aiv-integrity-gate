@@ -39,10 +39,10 @@ public final class GoSyntaxValidator implements SourceValidator {
         try {
             result = executor.run(List.of(gofmtCommand), source);
         } catch (Exception e) {
-            return ValidationResult.ok();
+            return ValidationResult.skipped("gofmt validator failed: " + e.getMessage());
         }
         if (!result.available()) {
-            return ValidationResult.ok();
+            return ValidationResult.skipped("gofmt validator unavailable: " + result.stderr());
         }
         if (result.exitCode() == 0) {
             return ValidationResult.ok();

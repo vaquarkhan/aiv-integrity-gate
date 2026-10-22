@@ -1,0 +1,60 @@
+# Preset: asf  (deliberately NARROW - the evidence layer, nothing redundant)
+#
+# AIV does not compete with the incumbents that already do these better and
+# Python-native; enable those tools directly instead:
+#   - secrets            -> gitleaks / GitHub secret scanning / detect-secrets
+#   - import boundaries  -> import-linter / ruff (TID) / Dependabot
+#   - lint & complexity  -> ruff / Semgrep / SonarCloud
+#   - syntax             -> your CI / ruff / prek
+#   - merge markers      -> standard pre-commit check-merge-conflict
+#   - license at release -> Apache RAT / ATR
+#
+# What AIV uniquely contributes to an ASF project is the deterministic, local,
+# reproducible AI-provenance / disclosure EVIDENCE layer, delivered as a prek
+# hook (id: aiv-gate) and paired with the tamper-evident hash-chained audit
+# (module aiv-audit). Every check below is ADVISORY (severity: warn) and stays
+# advisory until it is calibrated to zero false positives on THIS repo's
+# merged-PR history; only then should a project promote one to blocking.
+schema_version: 1
+fail_fast: false
+gates:
+  - id: license-header
+    enabled: true
+    severity: warn
+  - id: pr-metadata
+    enabled: true
+    severity: warn
+    config:
+      min_title_words: 2
+      require_disclosure: false
+  - id: invariant
+    enabled: true
+    severity: warn
+  # Slop sensors that the incumbents above do NOT cover, advisory during calibration:
+  - id: package-existence     # hallucinated / slopsquattable dependency names (registry lookup)
+    enabled: true
+    severity: warn
+  - id: test-adequacy         # assertion-free tests added by the change; production code without tests
+    enabled: true
+    severity: warn
+  - id: duplication           # added blocks that copy existing code (DRY / churn signal)
+    enabled: true
+    severity: warn
+  # Everything else is EXPLICITLY OFF so that nothing falls back to a hard default:
+  - id: syntax
+    enabled: false
+  - id: density
+    enabled: false
+  - id: cohesion
+    enabled: false
+  - id: design
+    enabled: false
+  - id: dependency
+    enabled: false
+  - id: security
+    enabled: false
+  - id: doc-integrity
+    enabled: false
+  - { id: external, enabled: false }
+  - { id: rules, enabled: false }
+  - { id: jev, enabled: false }

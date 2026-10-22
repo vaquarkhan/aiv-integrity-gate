@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>AIV evidence report</title>
+<style>body{font-family:system-ui,sans-serif;margin:2rem;color:#14213d;max-width:1100px}table{border-collapse:collapse;width:100%;margin:1rem 0}th,td{border:1px solid #c9d1d9;padding:.4rem .6rem;text-align:left;vertical-align:top}th{background:#eef2f7}caption{text-align:left;font-weight:600;padding:.4rem 0}.ok{background:#e8f5ee;border-left:6px solid #1b7f4b;padding:.8rem}.bad{background:#fdecec;border-left:6px solid #b42318;padding:.8rem}code{font-size:.9em}</style></head><body>
+<h1>AIV evidence report</h1>
+<p class="ok" role="status">chain intact: 80 records, head 08755212519078f1430ef086efd6d07000c232f341f0765159a63dffbe15bdda</p>
+<p>Records: 80. Gate runs: 0 (passed 0). Proposal checks: 80. Period: 2026-10-18T16:58:24.456579700Z to 2026-10-18T16:58:41.915535800Z.</p>
+<p>Findings are deterministic evidence. They do not determine whether AI authored a change.</p>
+<table><caption>Rules: counts and calibration (minimum 20 labelled findings and zero false positives to promote)</caption>
+<tr><th scope="col">Rule</th><th scope="col">Findings</th><th scope="col">Runs</th><th scope="col">Files</th><th scope="col">Blocking / advisory</th><th scope="col">TP / FP</th><th scope="col">Calibration</th><th scope="col">Last seen</th></tr>
+<tr><td colspan="8">No findings recorded.</td></tr>
+</table>
+<table><caption>Gates</caption>
+<tr><th scope="col">Gate</th><th scope="col">Runs</th><th scope="col">Blocking failures</th><th scope="col">Advisory failures</th></tr>
+</table>
+<table><caption>Override evidence</caption>
+<tr><th scope="col">Kind</th><th scope="col">Count</th><th scope="col">Meaning</th></tr>
+<tr><td><code>config_change</code></td><td>0</td><td>runs where the change edited .aiv/ (judged with the base-ref config)</td></tr>
+<tr><td><code>skip_ignored</code></td><td>0</td><td>/aiv skip attempts that were refused (not allowlisted or not signed)</td></tr>
+<tr><td><code>skip_honored</code></td><td>0</td><td>/aiv skip honoured for an allowlisted, signed author (no gate ran)</td></tr>
+<tr><td><code>suppressed</code></td><td>0</td><td>gate results where a baseline or inline aiv-disable removed findings</td></tr>
+</table>
+<table><caption>Proposal checks</caption>
+<tr><th scope="col">Proposal</th><th scope="col">State</th><th scope="col">Version</th><th scope="col">Findings</th><th scope="col">Content SHA-256</th></tr>
+<tr><td>KIP-1381: Allow Brokers to Disable Compression Types for Client Writes</td><td>under discussion</td><td>4</td><td></td><td><code>e103a2639f65a0b69ba25dd638bf333d024c5ea2f81fe10f24e3309507350f58</code></td></tr>
+<tr><td>KIP-1382: Expose Explicit Configuration Deletions to AlterConfigPolicy</td><td>under discussion</td><td>3</td><td></td><td><code>9eeb2e21e2cd23c5d0c9e9184fc0aeb7185511426bac8479f37bd8ed53c58d2c</code></td></tr>
+<tr><td>KIP-1380: Measure local.retention.ms from remote upload time instead of record timestamps</td><td>under discussion</td><td>9</td><td></td><td><code>2ad971e733642b2481446e3260171d86e37dc3a5414dcbffb9c1a1813c6d0180</code></td></tr>
+<tr><td>KIP-1379: Make server-side rack-aware assignment opt-in</td><td>under discussion</td><td>1</td><td></td><td><code>0e1c77c8d798ef7ca1981023f82ba9b6002300680e825fb58b35c6d06bb2b436</code></td></tr>
+<tr><td>KIP-1378: Allow Consumer Group Renaming in MirrorMaker 2 Checkpoint Connector</td><td>under discussion</td><td>4</td><td>proposal.template-text</td><td><code>4ed6cfce9ada81faac64ed72292a2b4aa509234baa82bbb6225e0a0f267e1af1</code></td></tr>
+<tr><td>KIP-1377: ByteBuffer serialize method for Serializer</td><td>under discussion</td><td>5</td><td></td><td><code>c104bd178792199b34d3ce05d38d741f3a19c734eccc0f89912014a054485674</code></td></tr>
+<tr><td>KIP-1376: Support setting TLS named groups</td><td>draft</td><td>8</td><td></td><td><code>464e29e2e92786788dd44c1e6a20b1e63949b0b925870bcc8939bd2483b0dd3a</code></td></tr>
+<tr><td>KIP-1375: Add SuspendReason to StateRestoreListener.onRestoreSuspended</td><td>under discussion</td><td>2</td><td>proposal.template-text</td><td><code>8db326744ec8a519bf674b9415127bd53fd8514e762d3f2973e307de3e182e96</code></td></tr>
+<tr><td>KIP-1374: Allow StreamsBuilder.globalTable to Rekey</td><td>under discussion</td><td>7</td><td></td><td><code>6446438b04a4a15b27bde095e71944d8b3147eac5077649d21c40ec610c3435d</code></td></tr>
+<tr><td>KIP-1373: Client Quota Utilization Metrics</td><td>under discussion</td><td>9</td><td></td><td><code>4169600f0a89b435e53c173c5a1fd55a038ad7eef5a3303063a877e70bcedff5</code></td></tr>
+<tr><td>KIP-1372: Reject topic configurations where min.insync.replicas exceeds the replication factor</td><td>under discussion</td><td>2</td><td></td><td><code>204368a0a3427f2287735e58c97a9270198827cd994e8581acf9006e87cd8bb1</code></td></tr>
+<tr><td>KIP-1371: Explicit Wait Conditions for Consumer Request Managers</td><td>under discussion</td><td>22</td><td></td><td><code>96cad3a5b6fe6e6702a5973295427c3e09e9bde7de1dfad2fba0f28c75594d0b</code></td></tr>
+<tr><td>KIP-1370: Include Instance and Rack IDs in kafka-streams-groups.sh Member Output</td><td>under discussion</td><td>10</td><td></td><td><code>7fdde0fa4184cc40e8546450471d291249bb69373a9d0a0c7c35dbfe17678ffb</code></td></tr>
+<tr><td>KIP-1369: API-Contract Annotations for Nullity/Thread Safety</td><td>draft</td><td>5</td><td></td><td><code>e5e381ba9834729ed22755ef30dacf157ea91486c0c33b92ac905647e4a9bb7c</code></td></tr>
+<tr><td>KIP-1368: Client framework name and version</td><td>under discussion</td><td>18</td><td></td><td><code>1591939b00a9573dc19ec280688c8bebb28795f66bcf24caa2e123fbb908091c</code></td></tr>
+<tr><td>KIP-1367: Reserve apiKey values for private use</td><td>under discussion</td><td>3</td><td></td><td><code>c31bc7ac5e68c1bb87497bce153c0cff5b55a8a462f7ad13e230f794fca5ef96</code></td></tr>
+<tr><td>KIP-1366: Configurable Segment Interval for Window and Session Stores</td><td>under discussion</td><td>6</td><td></td><td><code>13e4426c3c2f211af333f947f6ef37cc994d6a30999e2f08853bbe094d06afd5</code></td></tr>
+<tr><td>KIP-1365: Transform Observability and Skipped Record Handling for Kafka Connect</td><td>under discussion</td><td>2</td><td></td><td><code>775f19124c8bb6165b4289397748b1f4818755b2a1340cb50a88c19d59baee18</code></td></tr>
+<tr><td>KIP-1364: Expose Rebalance Cause to RebalanceConsumer and Metrics</td><td>in discussion</td><td>10</td><td></td><td><code>35c8ec0840d1a36a171a8dd51b2264db60b3b0eb8e44a17e774f084abe37a29e</code></td></tr>
+<tr><td>KIP-1363: Add --checkpoint option to kafka-metadata-shell and deprecate --snapshot</td><td>under discussion</td><td>7</td><td>proposal.empty-section</td><td><code>a5c1cc78999797a363df710b6328155dad06c902a3be6d1bbdbf7794c25e53eb</code></td></tr>
+<tr><td>KIP-1362: Add a rollback-compatible storage format option for KRaft migration</td><td>under discussion</td><td>4</td><td></td><td><code>1d6857c9da5238c9b3387bb0164bfbfdde1d2934687a5a357e491431b0914add</code></td></tr>
+<tr><td>KIP-1361 Change the default `auto.offset.reset` to `by_duration:PT5S`</td><td>under discussion</td><td>9</td><td></td><td><code>e67ed0c9fe4008e4207b26ac9ca0611b669a6a6da228d761e045b4089d7ce262</code></td></tr>
+<tr><td>KIP-1360: Cluster Synchronous Mirroring</td><td>draft</td><td>33</td><td>proposal.placeholder, proposal.placeholder</td><td><code>8a4a9fd4d21f62921ddeed49c6a7d2efa253f9899e7e8250db86c87927138023</code></td></tr>
+<tr><td>KIP-1358: Gradual and gated preferred-leader election in the KRaft controller</td><td>under discussion</td><td>4</td><td></td><td><code>e54a047fa6418bf9c836ee6fcc3aaf60a78ccdaa49a81177045f8125ca527ac5</code></td></tr>
+<tr><td>KIP-1359: Improve usability of resetting group offsets</td><td>under discussion</td><td>8</td><td></td><td><code>c15ed663dd2f8920dfe4474133e447a95f861ef2a41b307df3db7b5ecf1fd790</code></td></tr>
+<tr><td>KIP-1357: Add broker side custom assignors for &quot;streams&quot; groups</td><td>accepted</td><td>63</td><td></td><td><code>921aa07710ba53c198ff669945088cbad30478ee80688e43d3b09e6a7c309cd4</code></td></tr>
+<tr><td>KIP-1356: Introduce IQv2 for headers-aware state stores</td><td>accepted</td><td>19</td><td>proposal.missing-section</td><td><code>d959a27ed534bfc5cb67deb17f0fc9c05f49d2b52e4aa6a74964744db7318cc4</code></td></tr>
+<tr><td>KIP-1355: In-rack traffic observability for clients and brokers</td><td>under discussion</td><td>5</td><td></td><td><code>ed36531b92b927226f1b9097523fffcff0388afa5fc00f5aedaead32ead21973</code></td></tr>
+<tr><td>KIP-1354: Single purpose TLS extended key usages (EKU) support</td><td>under discussion</td><td>5</td><td>proposal.missing-section</td><td><code>54fa14808bcdb8c4619429c400454b7cc8e16c7df2037a44dee28df1f5b17a61</code></td></tr>
+<tr><td>KIP-1352: Ranges and Range Aggregations in the Kafka Streams DSL</td><td>under discussion</td><td>44</td><td></td><td><code>b8649aa59f4d538f815cbeb8e767a570568e3f6f23ec8a5f8addb916adc80d61</code></td></tr>
+<tr><td>KIP-1351: Add --cancel-all to kafka-reassign-partitions</td><td>under discussion</td><td>3</td><td></td><td><code>f6ed770880ccb7df712655d1212a6d64171f1149babeaf7135ce78dbe7622fa6</code></td></tr>
+<tr><td>KIP-1350: Expose Streams Group Heartbeat Statuses as Kafka Streams Metrics</td><td>under discussion</td><td>6</td><td></td><td><code>1d34236a876585031ead54833a341376c193b96694608337d9a359a2516b9c50</code></td></tr>
+<tr><td>KIP-1348: Complete Kafka Streams Built-in Exception Handler Symmetry with LogAndContinueProductionExceptionHandler</td><td>under discussion</td><td>32</td><td></td><td><code>a1ed0ce467c6671cf7bf70b0be3e78952e41746dd91c3babbc2e9ab9293abfde</code></td></tr>
+<tr><td>KIP-1346 Parallelize loadSegmentFiles</td><td>under discussion</td><td>3</td><td></td><td><code>e232953dc1a0683f14a972776c118eab6665666e67e10cb0a98845d81732bcf1</code></td></tr>
+<tr><td>KIP-1347: Overriding voter set on storage formatting</td><td>under discussion</td><td>7</td><td></td><td><code>6df13883471d2c4e30c69bb14f4cd0946c348db0eb23556edf125403b28acac9</code></td></tr>
+<tr><td>KIP-1349: Bytes-based configurable snapshot frequency for share groups</td><td>under discussion</td><td>87</td><td></td><td><code>e7bdb98edd990df6f4d8a269c4597c5e917729405df84c2e17c52e49c9f95aad</code></td></tr>
+<tr><td>KIP-1345: Cross-Cluster Atomic Transactions via Global Transaction Coordinator</td><td>draft</td><td>4</td><td>proposal.empty-section, proposal.empty-section, proposal.empty-section, proposal.empty-section, proposal.assistant-artifact</td><td><code>52504454abbbc8683c49d175ff2fcc3e353f068625c0f8eff426499bba1e2f2b</code></td></tr>
+<tr><td>KIP-1344: Add Transaction Coordinator Metrics for Transaction State Log Appends and Marker Completion</td><td>under discussion.</td><td>4</td><td></td><td><code>1e58193ade457794079d4647662d88e6fcbc699f3fd40f6e1193bc7472890bfd</code></td></tr>
+<tr><td>KIP-1343: Allow opt-in leader-only acknowledgement in DeleteRecords</td><td>one of under discussion, accepted, rejected</td><td>9</td><td>proposal.unknown-state</td><td><code>9fdf3dd2a40fae0d14d5c300d8a37f30674b146457b56db033c79614a6694b9b</code></td></tr>
+<tr><td>KIP-1342: Deprecate Authorizer#aclCount</td><td>under discussion</td><td>7</td><td></td><td><code>74557e97e06bc56604842c1895d58f775897f9cb13a2b070ca389ee680921ab0</code></td></tr>
+<tr><td>KIP-1341: Replace `&lt;default&gt;` placeholder in `ConfigEntity#name()` with `Optional&lt;String&gt; entityName()`</td><td>under discussion</td><td>4</td><td></td><td><code>06c3382e4abae544add10fe6a3306dda6dbeaa232bf793c5064dad5233953d11</code></td></tr>
+<tr><td>KIP-1340: Expose Both Mapped Key and Stream Key in Streams-GlobalKTable Joins</td><td>accepted</td><td>24</td><td></td><td><code>469238bea3d71393b2623548098c5902dc60c1dcdf07d3268f1e2f5d7088f07c</code></td></tr>
+<tr><td>KIP-1339: Make KafkaConfigBackingStore read_write_total_timeout configurable</td><td>under discussion</td><td>6</td><td></td><td><code>b1095a13e15caef5f4ee230a1bbc78ef3985ced7579a456523259e64928c8bd8</code></td></tr>
+<tr><td>KIP-1338: Structured MDC Context for Kafka Logging</td><td>under discussion</td><td>7</td><td></td><td><code>4d1d7896ce83731f486cf1b3711dcac005e8c069ac7a1e5316ae23ea1b3e9901</code></td></tr>
+<tr><td>KIP-1337: Add Protobuf MessageFormatter for Kafka Console Consumer</td><td>under discussion</td><td>3</td><td></td><td><code>70ce00970c615d7ad0ce6d4751af3608ae16ab1785b49162594a4adf015909d6</code></td></tr>
+<tr><td>KIP-1336: Progress Signaling for Share-Group In-Flight Records (markInProgress + IN_PROGRESS State)</td><td>draft</td><td>7</td><td>proposal.missing-section, proposal.missing-section, proposal.missing-section</td><td><code>3a566c20498afd47a4882db84af34382ecde1368641221cc001e9a3dce2171ad</code></td></tr>
+<tr><td>KIP-1335 Bounded concurrency for partition reassignment via kafka-reassign-partitions.sh</td><td>under discussion</td><td>12</td><td></td><td><code>ca66f25a42cd330daa7509a90cbec0532286f2174f9f858039a2d3d6ff492f4d</code></td></tr>
+<tr><td>KIP-1333: Support log segments larger than 2 GB</td><td>under discussion</td><td>9</td><td></td><td><code>7dd51a4a4d79c5b24bc728bb5cffa40583699543898c68a19e65ad2a6c4d0b4e</code></td></tr>
+<tr><td>KIP-1332: Dynamic memory allocation for the Kafka producer</td><td>accepted</td><td>99</td><td></td><td><code>620952f8635751fd6e55205ee2b13987a17202edaa7580b43a6e6485c31b3dfc</code></td></tr>
+<tr><td>KIP-1329: ListClientConnections Admin API</td><td>under discussion</td><td>6</td><td></td><td><code>ba938e308882e7ecdebbfc0b759938a53466f67cffa627369f1626bd122f0c22</code></td></tr>
+<tr><td>FLIP-617: Add a Public REST Endpoint for Operator Coordinator Requests</td><td>discussion</td><td>7</td><td></td><td><code>bc2b7c3e43af6b87e63960c307d569821b0d57c4aa64cc8665d52cd1942cb627</code></td></tr>
+<tr><td>FLIP-616: Materialized Tables support for Table API</td><td>discussion</td><td>2</td><td></td><td><code>822baca1dcd116d8db91cc537ba4366649a30a7cde1048ec75035a5bc53de296</code></td></tr>
+<tr><td>FLIP-613 : Remote Artifact Fetch for Session-Mode Job Submission - detailed</td><td></td><td>2</td><td>proposal.number-collision</td><td><code>f629085ad93d9b8c1e6102f12c3affed922299694462ab306ad5cf3bfee262e4</code></td></tr>
+<tr><td>FLIP-615: Snapshot Splitters for Table and Database Ingestion</td><td>discussion</td><td>10</td><td></td><td><code>52c2a6bbd10134314ffd7a7b52615ac920f06ea24190b6c42c8c0f55745c3597</code></td></tr>
+<tr><td>FLIP-614: Add built-in DEDUPLICATE_KEEP_FIRST PTF</td><td></td><td>6</td><td></td><td><code>21c3d1db8ae60b61729e35585d90985008d02f472bf72b2d1820d35939db70ba</code></td></tr>
+<tr><td>FLIP-613 : Remote Artifact Fetch for Session-Mode Job Submission</td><td></td><td>10</td><td>proposal.number-collision</td><td><code>bc641a199699e73189462327cf9e87d03be14309a20c5de3c69665ec75e7effc</code></td></tr>
+<tr><td>FLIP-612: Native XML Functions for Flink SQL</td><td>voting</td><td>11</td><td></td><td><code>36ec89d00290705e5079c5a4c0eae74e463074be064fab84aeb7c4a9753e8762</code></td></tr>
+<tr><td>FLIP-611: Running Flink jobs in MiniCluster using the Kubernetes Operator</td><td></td><td>6</td><td></td><td><code>b0d6521642219f835dea1c46fd1e718dab93905d40864e68887cbac3cee82835</code></td></tr>
+<tr><td>FLIP-610: Dynamic Ratelimit in Flink Source</td><td></td><td>17</td><td></td><td><code>29e48c6c649670807e80ab28db18a6568b95328c9ee84b2aa8d80043b131ad58</code></td></tr>
+<tr><td>FLIP-608: Flink on Ray — Ray Resource Backend For Flink</td><td>discussion</td><td>33</td><td></td><td><code>008d3f359f5f366ca5aed7aa43a215f57fa6b577d611755b628fbb6534706f93</code></td></tr>
+<tr><td>FLIP-609: Type Inference for Python User Defined Functions</td><td></td><td>6</td><td></td><td><code>5c4fbc81dc319d30e0b64c2539b765fe26cb6929401c46c7b48daca8e4bc92bd</code></td></tr>
+<tr><td>FLIP-607 Migrate Flink off end-of-life OkHttp; keep it off the core classpath</td><td>accepted</td><td>3</td><td></td><td><code>a0e3a28c316eb6d8c611b6d8644f8f6f540dee333eba964aa9cccbfdba5a1a1c</code></td></tr>
+<tr><td>FLIP-605: State catch-up of streaming jobs state using BATCH execution mode</td><td></td><td>4</td><td></td><td><code>0b2e3ef3350a030002545a2c9b2b5ad3dfe1b440d49e5d09f32cefba466197b4</code></td></tr>
+<tr><td>FLIP-604: Complete VARIANT Primitive Coverage with UUID and Timestamps</td><td>accepted</td><td>8</td><td></td><td><code>a8576ec499b4b3d3015b3a7c0706bbc8f5ff698908f56ebe8f5af248e885e1d3</code></td></tr>
+<tr><td>FLIP-603: [FileSystems] GCS SDK-native filesystem</td><td></td><td>9</td><td></td><td><code>75321d7e4090d5aaccf1869efa812fa6ec2c6be365d1eb2177b317eb331d57dc</code></td></tr>
+<tr><td>FLIP-602: Extended JDBC Scan Partitioning Options for Efficient Data Ingestion</td><td></td><td>6</td><td></td><td><code>5985ed54dad9628f15ebd3191d39be9dbdaa7d719b7fc034fde4c49e5c11996e</code></td></tr>
+<tr><td>FLIP-601: [Filesystems] Client Side Encryption support for SDK Native FileSystems</td><td></td><td>3</td><td></td><td><code>1b1570cf1d651836b4a0b6937f56bc24710b7b9491094cc2a87e141d63591009</code></td></tr>
+<tr><td>FLIP-600: Independent Checkpoint Based On Pipeline Region</td><td></td><td>22</td><td>proposal.missing-section</td><td><code>7d552c3c0bab4516044e144229cba36c9a7e6049cec772a3a810d09b679bf910</code></td></tr>
+<tr><td>FLIP-599: State Catalog</td><td></td><td>13</td><td>proposal.empty-section</td><td><code>ca7fb5ae9da918be65d48b88616c7edda54b0512440aa92dc94162770c314e3a</code></td></tr>
+<tr><td>FLIP-598: [Filesystems] Gen2 Datalake SDK Native FileSystem for Azure</td><td>discussion</td><td>7</td><td></td><td><code>2233ff61d16ec86d26c964ac72756da062c4bcb786d65951516f2e7b8cce8068</code></td></tr>
+<tr><td>FLIP-597: [Filesystems] Hadoop-less Flink filesystems</td><td>discussion</td><td>14</td><td>proposal.placeholder</td><td><code>2d536b2c510afb9eaea7f2143c665d5d3f3d786a2c288735a0ccc0e342a369ce</code></td></tr>
+<tr><td>FLIP-595: Differentiate monotonic and non-monotonic counters in Flink metrics</td><td></td><td>12</td><td></td><td><code>ccb830996380b3d8c80b37fa8001e52efed1865fa6c9add53df1a9480bad79c6</code></td></tr>
+<tr><td>FLIP-594: Support Auto-Rewrite for RpcOperator Service</td><td></td><td>6</td><td>proposal.missing-section, proposal.missing-section</td><td><code>736938c8849c2d9a2742bd257e8fe4e18a6c2d3f94910d3eed908a316cb0c94b</code></td></tr>
+<tr><td>FLIP-593: Introduce Built-in Operators for Multimodal Data Processing</td><td></td><td>1</td><td></td><td><code>6c666dfc0521402221cb7d80317014a14a83601dab60d63c618753a4d3832df2</code></td></tr>
+<tr><td>FLIP-592: First-Class Accelerator Resource Support</td><td></td><td>6</td><td>proposal.missing-section</td><td><code>fdba37d976549e10fceafdc904f18be4eb42981f372c66bc0efdc034e885b34c</code></td></tr>
+<tr><td>FLIP-591: Introducing Python DataFrame API in PyFlink</td><td></td><td>24</td><td></td><td><code>eb0cf5e529ff7bc84685a84c08991dcac05b486f912e52103941dd979e79a1d8</code></td></tr>
+<tr><td>FLIP-590: Introduce Multimodal Data Type:  Vector, Tensor, and Image</td><td></td><td>4</td><td></td><td><code>44dc306f5c35849f35e22e8697d15e2e21be69f6b4bcb452a7b4ec1ab7cf8f6b</code></td></tr>
+<tr><td>FLIP-589: Introduce FILE Type for Byte-Content References</td><td></td><td>9</td><td></td><td><code>8342ce94c8ed31cc18b23d0b8aafa3d70c3dec106a949fafb6d0b5a339cea027</code></td></tr>
+<tr><td>FLIP-588: Support per-job delegation tokens</td><td>accepted</td><td>38</td><td></td><td><code>cd36bcd7bd8c811c46719718132dc17848c59a14c86d6a2154e40599f7e17be6</code></td></tr>
+<tr><td>FLIP-587: Expose per downstream target numRecordsOut metric</td><td></td><td>2</td><td></td><td><code>49f0cd85b8902ca3e9ca84e6fa6409a2f7b6f570a65ae90e5db7a740a611f46e</code></td></tr>
+</table>
+<p>Generated by AIV from a hash-chained audit log. Reproduce with <code>aiv report --audit-log &lt;log&gt;</code>.</p>
+</body></html>

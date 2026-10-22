@@ -14,6 +14,7 @@ import io.github.vaquarkhan.aiv.model.ChangedFile;
 import io.github.vaquarkhan.aiv.model.Finding;
 import io.github.vaquarkhan.aiv.model.GateResult;
 import io.github.vaquarkhan.aiv.port.QualityGate;
+import io.github.vaquarkhan.aiv.util.JsonLite;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
@@ -65,14 +66,26 @@ public final class SyntaxGate implements QualityGate {
     @Override
     public GateResult evaluate(AIVContext context) {
         List<String> failures = new ArrayList<>();
+        List<String> skipped = new ArrayList<>();
         List<Finding> findings = new ArrayList<>();
+        boolean strictToolchains = context.getConfig().findGate(getId())
+                .map(g -> Boolean.TRUE.equals(g.getConfig().get("strict_toolchains"))).orElse(false);
         for (ChangedFile file : context.getDiff().getChangedFiles()) {
             String content = file.getContent();
             if (content == null || content.isBlank()) {
                 continue;
             }
             ValidationResult vr = validateByType(file.getPath().toLowerCase(), content);
-            if (vr == null || vr.valid()) {
+            if (vr == null) {
+                continue;
+            }
+            if (vr.skipped()) {
+                String msg = file.getPath() + " " + vr.detail();
+                skipped.add(msg);
+                findings.add(Finding.atLine("syntax.unverified", file.getPath(), 1, msg));
+                continue;
+            }
+            if (vr.valid()) {
                 continue;
             }
             int line = vr.line() != null ? vr.line() : 1;
@@ -80,16 +93,21 @@ public final class SyntaxGate implements QualityGate {
             failures.add(msg);
             findings.add(Finding.atLine("syntax.parse", file.getPath(), line, msg));
         }
-        if (failures.isEmpty()) {
-            return GateResult.pass(getId());
+        if (!failures.isEmpty()) {
+            return GateResult.fail(getId(), String.join("\n", failures), findings);
         }
-        return GateResult.fail(getId(), String.join("\n", failures), findings);
+        if (!skipped.isEmpty()) {
+            String message = String.join("\n", skipped);
+            return strictToolchains ? GateResult.fail(getId(), message, findings)
+                    : new GateResult(getId(), true, message, false, findings);
+        }
+        return GateResult.pass(getId());
     }
 
     private ValidationResult validateByType(String lowerPath, String content) {
         if (lowerPath.endsWith(".java")) {
             if (startsWithHash(content)) {
-                return ValidationResult.ok();
+                return ValidationResult.skipped("hash-prefixed Java-like file is not parsed as Java");
             }
             return validateJava(content);
         }
@@ -97,8 +115,7 @@ public final class SyntaxGate implements QualityGate {
             return pythonValidator.validate(content);
         }
         if (lowerPath.endsWith(".jsx") || lowerPath.endsWith(".tsx")) {
-            // JSX needs a transform; Node --check alone is high-FP — skip (precision-first).
-            return ValidationResult.ok();
+            return ValidationResult.skipped("JSX/TSX requires a configured transform");
         }
         if (lowerPath.endsWith(".ts") || lowerPath.endsWith(".mts")) {
             return tsValidator.validate(content);
@@ -114,9 +131,9 @@ public final class SyntaxGate implements QualityGate {
         }
         if (lowerPath.endsWith(".json")) {
             if (isTsConfig(lowerPath)) {
-                return ValidationResult.ok();
+                return ValidationResult.skipped("tsconfig JSON may contain comments and requires a TypeScript parser");
             }
-            return validateYamlLike(content);
+            return validateJson(content);
         }
         return null;
     }
@@ -150,9 +167,18 @@ public final class SyntaxGate implements QualityGate {
         return ValidationResult.fail(1, detail);
     }
 
+    static ValidationResult validateJson(String content) {
+        try {
+            JsonLite.parse(content);
+            return ValidationResult.ok();
+        } catch (IllegalArgumentException parseError) {
+            return ValidationResult.fail(1, parseError.getMessage());
+        }
+    }
+
     static ValidationResult validateYamlLike(String content) {
         if (content.contains("{{") || content.contains("{%")) {
-            return ValidationResult.ok();
+            return ValidationResult.skipped("templated YAML/JSON requires rendering before parse validation");
         }
         try {
             Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));

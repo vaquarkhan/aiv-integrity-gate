@@ -59,10 +59,10 @@ public final class PythonSyntaxValidator implements SourceValidator {
         try {
             result = executor.run(List.of(pythonCommand, "-c", SCRIPT), source);
         } catch (Exception cannotRun) {
-            return ValidationResult.ok();
+            return ValidationResult.skipped("python validator failed: " + cannotRun.getMessage());
         }
         if (!result.available()) {
-            return ValidationResult.ok();
+            return ValidationResult.skipped("python validator unavailable: " + result.stderr());
         }
         if (result.exitCode() == 0) {
             return ValidationResult.ok();

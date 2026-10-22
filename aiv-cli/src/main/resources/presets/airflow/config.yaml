@@ -1,0 +1,90 @@
+# Preset: airflow
+#
+# Advisory-only starting point for an Apache Airflow repository (or any Airflow DAG repo).
+# Every gate reports and labels; nothing blocks until the project has calibrated a rule against
+# its own merged pull requests (see docs/AIRFLOW-TUTORIAL.md, section 7). Promote a rule by
+# changing its severity to fail once it shows zero false positives on 90 days of merged PRs.
+#
+# Static checks that Airflow already runs (prek, ruff, mypy) are not duplicated here. Ruff's
+# AIR rules are pulled into the same AIV receipt through the external gate, so one comment
+# shows everything.
+schema_version: 1
+fail_fast: false
+exclude_paths:
+  - "docs/**"
+  - "*.md"
+  - "chart/**"
+  - "generated/**"
+
+# The label and comment report deterministic evidence. They do not claim AI authorship.
+ai_slop_pr_label: AI-SLOP
+ai_slop_pr_comment: true
+ai_slop_label_gates: [rules, invariant, security, package-existence, test-adequacy, external]
+
+gates:
+  # Generic rule engine loading the shipped "airflow" rule pack (rules.airflow.*). Add your own
+  # rules under .aiv/rules/*.yaml; see docs/DEVELOPER-CONFIGURATION.md section "rules".
+  - id: rules
+    enabled: true
+    severity: warn
+    config:
+      packs: [airflow]
+      rules_files: [".aiv/rules/*.yaml"]
+      params:
+        example_dag_id_pattern: "^(example|test|my|sample|demo)_"
+        # known_conn_ids: [aws_default, google_cloud_default]
+  - id: external
+    enabled: true
+    severity: warn
+    config:
+      tools:
+        - id: ruff-airflow
+          command: ["ruff", "check", "--select", "AIR", "--output-format", "sarif", "--exit-zero", "{files}"]
+          sarif: stdout
+          severity: warn
+          file_extensions: [.py]
+          on_missing: skip
+  - id: invariant
+    enabled: true
+    severity: warn
+  - id: test-adequacy
+    enabled: true
+    severity: warn
+  - id: package-existence
+    enabled: true
+    severity: warn
+    config:
+      allow: [apache-airflow]
+  - id: security
+    enabled: true
+    severity: warn
+    config:
+      allow_patterns: ["tests/.*/fixtures/"]
+  - id: pr-metadata
+    enabled: true
+    severity: warn
+    config:
+      min_title_words: 3
+      require_disclosure: false
+  - id: cohesion
+    enabled: true
+    severity: warn
+    config:
+      max_areas: 3
+      area_depth: 2
+  - id: duplication
+    enabled: true
+    severity: warn
+  - id: syntax
+    enabled: false
+  - id: dependency
+    enabled: false
+  - id: design
+    enabled: false
+  - id: density
+    enabled: false
+  - id: license-header
+    enabled: false
+  - id: doc-integrity
+    enabled: false
+  - { id: jev, enabled: false }

@@ -1,0 +1,398 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "security",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "pr-metadata",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:47 Test added without any assertion/expectation/verification: 'def test_has_option(self):' (a test that cannot fail proves nothing; add an assertion or remove it)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.assertion-free-test",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 47,
+          "message": "Test added without any assertion/expectation/verification: 'def test_has_option(self):' (a test that cannot fail proves nothing; add an assertion or remove it)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "external",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "ruff-airflow: 53 findings\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Compound statements are not allowed on the same line as simple statements\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Expected `in`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Expected `:`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:1 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Simple statements must be separated by newlines or semicolons\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Got unexpected token `\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected `,`, found name\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:2 [ruff-airflow error] Expected an identifier\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:3 [ruff-airflow error] missing closing quote in string literal\nproviders/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py:28 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py:2 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py:2 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py:2 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py:4 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py:32 [ruff-airflow error] unexpected EOF while parsing\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:1 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:1 [ruff-airflow error] Only single target (not tuple) can be annotated\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:1 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:1 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:1 [ruff-airflow error] Expected an expression\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:2 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:2 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:2 [ruff-airflow error] Expected a statement\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:2 [ruff-airflow error] Invalid annotated assignment target\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:2 [ruff-airflow error] Expected an expression\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:3 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:35 [ruff-airflow error] Expected an indented block after `try` statement\nproviders/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py:36 [ruff-airflow error] Expected `except` or `finally` after `try` block\nproviders/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:2 [ruff-airflow error] Unexpected indentation\nproviders/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:4 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:20 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:30 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:47 [ruff-airflow error] unindent does not match any outer indentation level\nproviders/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:49 [ruff-airflow error] missing closing quote in string literal\nproviders/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:50 [ruff-airflow error] Expected dedent, found end of file",
+      "findings": [
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Compound statements are not allowed on the same line as simple statements"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected `in`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected `:`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Simple statements must be separated by newlines or semicolons"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Got unexpected token `"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected `,`, found name"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected an identifier"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 3,
+          "message": "[ruff-airflow error] missing closing quote in string literal"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/src/airflow/providers/google/cloud/hooks/bigquery.py",
+          "start_line": 28,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+          "start_line": 4,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/providers/google/tests/unit/google/cloud/hooks/test_bigquery.py",
+          "start_line": 32,
+          "message": "[ruff-airflow error] unexpected EOF while parsing"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Only single target (not tuple) can be annotated"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 1,
+          "message": "[ruff-airflow error] Expected an expression"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected a statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Invalid annotated assignment target"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Expected an expression"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 3,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 35,
+          "message": "[ruff-airflow error] Expected an indented block after `try` statement"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/src/airflow_shared/configuration/parser.py",
+          "start_line": 36,
+          "message": "[ruff-airflow error] Expected `except` or `finally` after `try` block"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 2,
+          "message": "[ruff-airflow error] Unexpected indentation"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 4,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 20,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 30,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 47,
+          "message": "[ruff-airflow error] unindent does not match any outer indentation level"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 49,
+          "message": "[ruff-airflow error] missing closing quote in string literal"
+        },
+        {
+          "rule_id": "external.ruff-airflow.invalid-syntax",
+          "file": "providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py",
+          "start_line": 50,
+          "message": "[ruff-airflow error] Expected dedent, found end of file"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

@@ -1,18 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2026 Vaquar Khan
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package io.github.vaquarkhan.aiv.cli.config;
@@ -23,6 +11,7 @@ import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -45,8 +34,18 @@ public final class YamlConfigProvider implements ConfigProvider {
         if (!Files.exists(configPath)) {
             return defaultConfig();
         }
+        String content;
         try {
-            String content = Files.readString(configPath);
+            content = Files.readString(configPath);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Cannot read .aiv/config.yaml: " + e.getMessage(), e);
+        }
+        return parse(content);
+    }
+
+    /** Parses a {@code .aiv/config.yaml} document from any source (workspace file, {@code git show}, memory). */
+    public AIVConfig parse(String content) {
+        try {
             Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
             Map<String, Object> root = yaml.load(content);
             if (root == null) {
@@ -58,23 +57,13 @@ public final class YamlConfigProvider implements ConfigProvider {
                     (Map<String, Object>) root.getOrDefault("global", Collections.emptyMap()));
             Integer schemaVersion = parseSchemaVersion(root.get("schema_version"));
             global.put("schema_version", schemaVersion);
-            if (root.containsKey("exclude_paths") && !global.containsKey("exclude_paths")) {
-                global.put("exclude_paths", root.get("exclude_paths"));
-            }
-            if (root.containsKey("fail_fast") && !global.containsKey("fail_fast")) {
-                global.put("fail_fast", root.get("fail_fast"));
-            }
-            if (root.containsKey("skip_allowlist") && !global.containsKey("skip_allowlist")) {
-                global.put("skip_allowlist", root.get("skip_allowlist"));
-            }
-            if (root.containsKey("advisory_pr_label") && !global.containsKey("advisory_pr_label")) {
-                global.put("advisory_pr_label", root.get("advisory_pr_label"));
-            }
-            if (root.containsKey("advisory_label_gates") && !global.containsKey("advisory_label_gates")) {
-                global.put("advisory_label_gates", root.get("advisory_label_gates"));
-            }
-            if (root.containsKey("baseline") && !global.containsKey("baseline")) {
-                global.put("baseline", root.get("baseline"));
+            for (String key : List.of(
+                    "exclude_paths", "fail_fast", "skip_allowlist", "advisory_pr_label", "advisory_label_gates",
+                    "baseline", "ai_slop_pr_label", "ai_slop_pr_comment", "ai_slop_label_gates", "ai_slop_label_rules",
+                    "audit_log")) {
+                if (root.containsKey(key) && !global.containsKey(key)) {
+                    global.put(key, root.get(key));
+                }
             }
             return new AIVConfig(gates, Collections.unmodifiableMap(global));
         } catch (Exception e) {
@@ -85,15 +74,21 @@ public final class YamlConfigProvider implements ConfigProvider {
     private AIVConfig defaultConfig() {
         return new AIVConfig(
                 List.of(
+                        // Hard gates: objective defects on the diff.
+                        new AIVConfig.GateConfig("syntax", true, Map.of()),
+                        new AIVConfig.GateConfig("invariant", true, Map.of()),
+                        new AIVConfig.GateConfig("dependency", true, Map.of()),
+                        new AIVConfig.GateConfig("package-existence", true, Map.of()),
+                        new AIVConfig.GateConfig("security", true, Map.of()),
+                        new AIVConfig.GateConfig("test-adequacy", true, Map.of()),
+                        new AIVConfig.GateConfig("design", true, Map.of("rules_path", ".aiv/design-rules.yaml")),
+                        // Soft signals: advisory only.
                         new AIVConfig.GateConfig("density", true, Map.of(
                                 "ldr_threshold", 0.25,
                                 "entropy_threshold", 4.0,
-                                "refactor_net_loc_threshold", -50)),
-                        new AIVConfig.GateConfig("design", true, Map.of("rules_path", ".aiv/design-rules.yaml")),
-                        new AIVConfig.GateConfig("dependency", true, Map.of()),
-                        new AIVConfig.GateConfig("syntax", true, Map.of()),
-                        new AIVConfig.GateConfig("invariant", false, Map.of()),
-                        new AIVConfig.GateConfig("security", false, Map.of()),
+                                "refactor_net_loc_threshold", -50), "warn"),
+                        new AIVConfig.GateConfig("cohesion", true, Map.of(), "warn"),
+                        new AIVConfig.GateConfig("duplication", true, Map.of(), "warn"),
                         new AIVConfig.GateConfig("doc-integrity", false, Map.of("rules_path", ".aiv/doc-rules.yaml", "auto", true))
                 ),
                 Map.of("fail_fast", false, "schema_version", CONFIG_SCHEMA_VERSION)
