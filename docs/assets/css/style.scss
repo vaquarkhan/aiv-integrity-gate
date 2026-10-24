@@ -3,11 +3,78 @@
 
 @import "{{ site.theme }}";
 
+.page-header {
+  background: #1f3a93;
+  background-image: none;
+  padding: 2.5rem 1rem;
+}
+
+.page-header .project-name,
+.page-header .project-tagline {
+  color: #fff;
+}
+
+.page-header .btn {
+  background: #fff;
+  border: 2px solid #fff;
+  color: #1f3a93;
+  font-weight: 700;
+}
+
+.page-header .btn:hover {
+  background: #d9480f;
+  border-color: #d9480f;
+  color: #fff;
+}
+
+.main-content {
+  color: #1b1f2a;
+  font-size: 1.05rem;
+}
+
+.main-content h1,
+.main-content h2,
+.main-content h3 {
+  color: #1b1f2a;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.main-content h2 {
+  border-bottom: 3px solid #d9480f;
+  padding-bottom: 6px;
+}
+
+.main-content .aiv-hero {
+  background: #f4f6fb;
+  border: 1px solid #d7dce6;
+  border-top: 8px solid #d9480f;
+  border-radius: 12px;
+  padding: 22px 24px 8px;
+  margin: 0 0 28px;
+}
+
+.main-content .aiv-kicker {
+  margin: 0 0 6px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #d9480f;
+}
+
+.main-content .aiv-lede {
+  margin: 0 0 18px;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: #1b1f2a;
+}
+
 .main-content .aiv-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin: 8px 0 28px;
+  margin: 0 0 18px;
 }
 
 .main-content a.aiv-btn {
@@ -15,28 +82,136 @@
   margin: 0;
   padding: 12px 18px;
   border-radius: 8px;
-  border: 2px solid #155799;
-  background: #155799;
-  color: #fff;
+  border: 2px solid #1f3a93;
+  background: #fff;
+  color: #1f3a93;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
 }
 
 .main-content a.aiv-btn:hover {
-  background: #159957;
-  border-color: #159957;
-  color: #fff;
+  background: #eef2fb;
+  color: #1f3a93;
   text-decoration: none;
 }
 
-.main-content a.aiv-btn-secondary {
-  background: #fff;
-  color: #155799;
+.main-content a.aiv-btn-benchmark {
+  background: #d9480f;
+  border-color: #d9480f;
+  color: #fff;
+  padding: 16px 26px;
+  font-size: 20px;
+  box-shadow: 0 8px 18px rgba(217, 72, 15, 0.28);
 }
 
-.main-content a.aiv-btn-secondary:hover {
-  background: #f3f7fb;
-  border-color: #155799;
-  color: #155799;
+.main-content a.aiv-btn-benchmark:hover {
+  background: #b93b0c;
+  border-color: #b93b0c;
+  color: #fff;
+}
+
+.main-content .aiv-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 0 0 28px;
+}
+
+.main-content a.aiv-kpi {
+  display: block;
+  background: #f4f6fb;
+  border: 1px solid #d7dce6;
+  border-top: 6px solid #1f3a93;
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #1b1f2a;
+}
+
+.main-content a.aiv-kpi.hot {
+  border-top-color: #d9480f;
+}
+
+.main-content a.aiv-kpi:hover {
+  background: #fff;
+  text-decoration: none;
+}
+
+.main-content .aiv-kpi .num {
+  display: block;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #1b1f2a;
+}
+
+.main-content .aiv-kpi .lbl {
+  display: block;
+  margin-top: 4px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  color: #4b5160;
+}
+
+.main-content .aiv-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 18px 0 28px;
+}
+
+.main-content a.aiv-card {
+  display: block;
+  background: #fff;
+  border: 1px solid #d7dce6;
+  border-left: 8px solid #1f3a93;
+  border-radius: 10px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: #1b1f2a;
+}
+
+.main-content a.aiv-card.hot {
+  border-left-color: #d9480f;
+  background: #fff7f1;
+}
+
+.main-content a.aiv-card:hover {
+  background: #f4f6fb;
+  text-decoration: none;
+}
+
+.main-content a.aiv-card.hot:hover {
+  background: #fff1e8;
+}
+
+.main-content .aiv-card .step {
+  display: block;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #d9480f;
+}
+
+.main-content .aiv-card h3 {
+  margin: 4px 0 6px;
+  color: #1f3a93;
+  font-size: 18px;
+}
+
+.main-content .aiv-card p {
+  margin: 0;
+  color: #4b5160;
+  font-size: 15px;
+}
+
+.main-content img {
+  border: 1px solid #d7dce6;
+  border-radius: 10px;
 }
