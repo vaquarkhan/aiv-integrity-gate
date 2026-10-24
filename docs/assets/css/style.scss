@@ -3,6 +3,12 @@
 
 @import "{{ site.theme }}";
 
+html,
+body {
+  background: #fff;
+  color: #1b1f2a;
+}
+
 .page-header {
   background: #1f3a93;
   background-image: none;
@@ -28,6 +34,7 @@
 }
 
 .main-content {
+  background: #fff;
   color: #1b1f2a;
   font-size: 1.05rem;
 }
