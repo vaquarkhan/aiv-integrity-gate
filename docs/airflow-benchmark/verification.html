@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verification | AIV Airflow Benchmark</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.6;
+       color: #1b1f2a; background: #ffffff; }
+header.site { background: #1f3a93; color: #fff; }
+header.site .inner { max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap;
+                      align-items: center; gap: 14px 28px; }
+header.site .brand { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; }
+header.site .brand small { display: block; font-weight: 400; font-size: 13px; opacity: 0.85; }
+nav.main { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-left: auto; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; }
+nav.main a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; border: 1px solid transparent; }
+nav.main a:hover { border-color: rgba(255,255,255,0.6); }
+nav.main a.current { background: #fff; color: #1f3a93; font-weight: 700; }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; color: #1b1f2a; line-height: 1.2; }
+h1 { font-size: 40px; margin: 10px 0 8px; }
+h2 { font-size: 28px; margin-top: 44px; border-bottom: 3px solid #d9480f; padding-bottom: 6px; }
+h3 { font-size: 21px; margin-top: 28px; }
+p.lede { font-size: 22px; color: #4b5160; margin-top: 0; }
+a { color: #1f3a93; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.kpi { background: #f4f6fb; border: 1px solid #d7dce6; border-top: 6px solid #1f3a93; border-radius: 10px; padding: 16px 18px; }
+.kpi.orange { border-top-color: #d9480f; }
+.kpi.purple { border-top-color: #6b2fb3; }
+.kpi.gold { border-top-color: #b7791f; }
+.kpi .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 38px; font-weight: 800; color: #1b1f2a; line-height: 1.1; }
+.kpi .lbl { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 4px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 24px 0; }
+.card { display: block; background: #ffffff; border: 1px solid #d7dce6; border-left: 8px solid #6b2fb3; border-radius: 10px;
+         padding: 18px 20px; text-decoration: none; color: #1b1f2a; }
+.card:hover { background: #f4f6fb; }
+.card h3 { margin: 0 0 6px; color: #1f3a93; }
+.card p { margin: 0; color: #4b5160; font-size: 16px; }
+.card .step { font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #d9480f; font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+th, td { border: 1px solid #d7dce6; padding: 9px 12px; text-align: left; vertical-align: top; }
+th { background: #1f3a93; color: #fff; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: #f4f6fb; }
+.panel { background: #f4f6fb; border: 1px solid #d7dce6; border-radius: 10px; padding: 18px 22px; margin: 20px 0; }
+.callout { border-left: 8px solid #d9480f; background: #fff7f1; padding: 14px 20px; margin: 22px 0; border-radius: 0 10px 10px 0; }
+.callout.purple { border-left-color: #6b2fb3; background: #f6f1fc; }
+.callout.navy { border-left-color: #1f3a93; background: #eef2fb; }
+.callout h3 { margin-top: 0; }
+.chart-wrap { background: #fff; border: 1px solid #d7dce6; border-radius: 10px; padding: 16px; margin: 18px 0; }
+.chart-wrap figcaption { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 8px; }
+figure { margin: 0; }
+svg.chart text, svg.donut text { font-family: "Segoe UI", Arial, sans-serif; fill: #1b1f2a; }
+svg .axis { font-size: 15px; }
+svg .val { font-size: 15px; font-weight: 700; }
+svg .small { font-size: 12px; }
+svg.chart text.cell-big { font-size: 36px; font-weight: 800; fill: #fff; }
+svg.chart text.cell-label { font-size: 14px; fill: #fff; }
+svg .donut-big { font-size: 30px; font-weight: 800; }
+svg .donut-small { font-size: 13px; fill: #4b5160; }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+ul.legend { list-style: none; padding: 0; margin: 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+ul.legend li { margin: 6px 0; }
+.swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: -2px; margin-right: 8px; }
+.muted { color: #4b5160; }
+code, pre { font-family: Consolas, "Courier New", monospace; font-size: 15px; }
+pre { background: #f0f2f7; border: 1px solid #d7dce6; border-radius: 8px; padding: 14px 16px; overflow-x: auto; }
+.pager { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 18px; border-top: 1px solid #d7dce6;
+          font-family: "Segoe UI", Arial, sans-serif; }
+footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px;
+               font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
+.badge { display: inline-block; font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
+.badge.block { background: #1f3a93; }
+.badge.pass { background: #6b2fb3; }
+.badge.warn { background: #b7791f; }
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
+<nav class="main" aria-label="Site"><a href="index.html" class="">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="">Why AIV helps</a><a href="verification.html" class="current">Verification</a></nav>
+</div></header>
+<main>
+<figure><img src="images/verification.png" alt="Verification" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
+
+<h1>Verification</h1>
+<p class="lede">Every figure on this site is generated from files on disk by a script you can read and rerun. This page lists the files, the commands and the claims that are deliberately not made.</p>
+<h2>Receipts behind each page</h2>
+<table>
+<thead><tr><th>File</th><th>Generated</th><th>Feeds</th></tr></thead>
+<tbody>
+<tr><td><code>benchmarks/airflow/reports/labeled-latest.json</code></td><td>2026-10-23T13:41:54.528317+00:00</td><td>Fixture suite: 35 TP, 0 FN, 0 FP, 15 TN; rule counts</td></tr>
+<tr><td><code>benchmarks/airflow/results/structural-latest.json</code></td><td>2026-10-23T13:50:03.156936+00:00</td><td>Structural suite: 2/2 blocked, 0 false blocks</td></tr>
+<tr><td><code>benchmarks/airflow/results/selected-real-head-latest.json</code></td><td>2026-10-23T13:50:22.157875+00:00</td><td>Selected Airflow suite: #59957 and #70842 gate output</td></tr>
+<tr><td><code>benchmarks/airflow/results/professional-benchmark-latest.json</code></td><td>2026-10-23T19:02:17.836519+00:00</td><td>Census, metadata labels, lower bounds, value and buyer tables</td></tr>
+<tr><td><code>aiv-airflow-bench/README.md</code></td><td>bench repo</td><td>Seven project table, disclosure and trailer counts</td></tr>
+<tr><td><code>aiv-airflow-bench/docs/data/windows-latest.json</code></td><td>2026-10-23T02:32:31.630252+00:00</td><td>Stored sample composition by class</td></tr>
+</tbody></table>
+<p>All three suite receipts were produced by the same jar: <code>aiv-cli-1.0.4.jar</code>.</p>
+<h2>Reproduce from source</h2>
+<pre>cd aiv-integrity-gate
+
+# 1. Build the CLI from the current source
+mvn -pl aiv-core,aiv-plugin-invariant-template,aiv-adapter-git -am install -DskipTests
+mvn -pl aiv-cli clean package -DskipTests
+
+# 2. Run the three suites
+python benchmarks/airflow/scripts/run-structural-benchmark.py --jar aiv-cli/target/aiv-cli-1.0.4.jar --output benchmarks/airflow/results/structural-latest.json
+python benchmarks/airflow/scripts/run-labeled-benchmark.py
+python benchmarks/airflow/scripts/run-selected-real-airflow.py --jar aiv-cli/target/aiv-cli-1.0.4.jar
+
+# 3. Rebuild the summary receipt and this site
+python benchmarks/airflow/scripts/generate-professional-report.py
+python benchmarks/airflow/scripts/generate-benchmark-site.py</pre>
+<p>Run the full test reactor with <code>mvn clean verify</code> to confirm the gate code itself. Coverage gates are strict:
+the API module requires 100 percent line coverage and the Git adapter 99 percent.</p>
+<h2>What is verified and what is not</h2>
+<table>
+<thead><tr><th>Statement</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>AIV blocked 35 of 35 designed positives and passed 15 of 15 designed controls</td><td><span class="badge block">verified by receipt</span></td></tr>
+<tr><td>AIV blocked an added conflict and an unapproved gitlink in real Git repositories and passed an approved gitlink</td><td><span class="badge block">verified by receipt</span></td></tr>
+<tr><td>AIV blocked Airflow #59957 on <code>invariant.merge-conflict</code> and passed #70842</td><td><span class="badge block">verified by receipt</span></td></tr>
+<tr><td>Exactly one of 555 stored Airflow patches carries an added line hard marker</td><td><span class="badge block">verified by census</span></td></tr>
+<tr><td>The fixture suite reflects real world prevalence of AI slop</td><td><span class="badge warn">not claimed: fixtures are designed</span></td></tr>
+<tr><td>The selected suite is a complete repository checkout</td><td><span class="badge warn">not claimed: changed-file head reconstruction with patch fallback; not a complete repository checkout</span></td></tr>
+<tr><td>AIV catches a known percentage of all AI slop in Airflow</td><td><span class="badge warn">not claimed: unknown</span></td></tr>
+<tr><td>Disclosure, merge or closure status indicates a defect</td><td><span class="badge warn">not claimed</span></td></tr>
+</tbody></table>
+<div class="callout navy">
+<h3>Claim boundary</h3>
+<p>All local rows and stored patches were processed. Only actual AIV executions are performance denominators. The percentage of all real AI slop caught is unknown.</p>
+</div>
+<h2>Site integrity checks</h2>
+<p>The generator refuses to write any page containing an em dash or an en dash, verifies that every internal link resolves to a
+generated page, and recomputes the headline totals from the suite receipts rather than copying them from the summary file.</p>
+
+<div class="pager"><a href="value.html">&larr; Why AIV helps</a><a href="index.html">Back to overview &rarr;</a></div>
+</main>
+<footer class="site">Generated 2026-10-23T19:02:17.836519+00:00 by <code>benchmarks/airflow/scripts/generate-benchmark-site.py</code> from result files on disk.
+Author: Viquar Khan. Static HTML, inline SVG, no scripts, no external assets.</footer>
+</body>
+</html>

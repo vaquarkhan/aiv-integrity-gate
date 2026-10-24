@@ -41,6 +41,11 @@ description: Deterministic evidence for agent-generated change.
 - [Configuration reference](DEVELOPER-CONFIGURATION.md)
 - [Audit/report/proposal operations](EVIDENCE-AND-PROPOSALS.md)
 
+## Benchmark
+
+- [Airflow benchmark walkthrough](airflow-benchmark/index.html): the narrative pages and screenshots.
+- [Measured full stored-patch run](benchmark/index.html): every stored patch scored by AIV. The 15,575-row index is metadata only.
+
 ## Build and contribute
 
 - [Developer guide](DEVELOPER-GUIDE.md)

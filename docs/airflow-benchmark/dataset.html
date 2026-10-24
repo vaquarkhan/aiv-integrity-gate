@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dataset | AIV Airflow Benchmark</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.6;
+       color: #1b1f2a; background: #ffffff; }
+header.site { background: #1f3a93; color: #fff; }
+header.site .inner { max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap;
+                      align-items: center; gap: 14px 28px; }
+header.site .brand { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; }
+header.site .brand small { display: block; font-weight: 400; font-size: 13px; opacity: 0.85; }
+nav.main { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-left: auto; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; }
+nav.main a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; border: 1px solid transparent; }
+nav.main a:hover { border-color: rgba(255,255,255,0.6); }
+nav.main a.current { background: #fff; color: #1f3a93; font-weight: 700; }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; color: #1b1f2a; line-height: 1.2; }
+h1 { font-size: 40px; margin: 10px 0 8px; }
+h2 { font-size: 28px; margin-top: 44px; border-bottom: 3px solid #d9480f; padding-bottom: 6px; }
+h3 { font-size: 21px; margin-top: 28px; }
+p.lede { font-size: 22px; color: #4b5160; margin-top: 0; }
+a { color: #1f3a93; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.kpi { background: #f4f6fb; border: 1px solid #d7dce6; border-top: 6px solid #1f3a93; border-radius: 10px; padding: 16px 18px; }
+.kpi.orange { border-top-color: #d9480f; }
+.kpi.purple { border-top-color: #6b2fb3; }
+.kpi.gold { border-top-color: #b7791f; }
+.kpi .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 38px; font-weight: 800; color: #1b1f2a; line-height: 1.1; }
+.kpi .lbl { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 4px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 24px 0; }
+.card { display: block; background: #ffffff; border: 1px solid #d7dce6; border-left: 8px solid #6b2fb3; border-radius: 10px;
+         padding: 18px 20px; text-decoration: none; color: #1b1f2a; }
+.card:hover { background: #f4f6fb; }
+.card h3 { margin: 0 0 6px; color: #1f3a93; }
+.card p { margin: 0; color: #4b5160; font-size: 16px; }
+.card .step { font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #d9480f; font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+th, td { border: 1px solid #d7dce6; padding: 9px 12px; text-align: left; vertical-align: top; }
+th { background: #1f3a93; color: #fff; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: #f4f6fb; }
+.panel { background: #f4f6fb; border: 1px solid #d7dce6; border-radius: 10px; padding: 18px 22px; margin: 20px 0; }
+.callout { border-left: 8px solid #d9480f; background: #fff7f1; padding: 14px 20px; margin: 22px 0; border-radius: 0 10px 10px 0; }
+.callout.purple { border-left-color: #6b2fb3; background: #f6f1fc; }
+.callout.navy { border-left-color: #1f3a93; background: #eef2fb; }
+.callout h3 { margin-top: 0; }
+.chart-wrap { background: #fff; border: 1px solid #d7dce6; border-radius: 10px; padding: 16px; margin: 18px 0; }
+.chart-wrap figcaption { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 8px; }
+figure { margin: 0; }
+svg.chart text, svg.donut text { font-family: "Segoe UI", Arial, sans-serif; fill: #1b1f2a; }
+svg .axis { font-size: 15px; }
+svg .val { font-size: 15px; font-weight: 700; }
+svg .small { font-size: 12px; }
+svg.chart text.cell-big { font-size: 36px; font-weight: 800; fill: #fff; }
+svg.chart text.cell-label { font-size: 14px; fill: #fff; }
+svg .donut-big { font-size: 30px; font-weight: 800; }
+svg .donut-small { font-size: 13px; fill: #4b5160; }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+ul.legend { list-style: none; padding: 0; margin: 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+ul.legend li { margin: 6px 0; }
+.swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: -2px; margin-right: 8px; }
+.muted { color: #4b5160; }
+code, pre { font-family: Consolas, "Courier New", monospace; font-size: 15px; }
+pre { background: #f0f2f7; border: 1px solid #d7dce6; border-radius: 8px; padding: 14px 16px; overflow-x: auto; }
+.pager { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 18px; border-top: 1px solid #d7dce6;
+          font-family: "Segoe UI", Arial, sans-serif; }
+footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px;
+               font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
+.badge { display: inline-block; font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
+.badge.block { background: #1f3a93; }
+.badge.pass { background: #6b2fb3; }
+.badge.warn { background: #b7791f; }
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
+<nav class="main" aria-label="Site"><a href="index.html" class="">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="current">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
+</div></header>
+<main>
+<figure><img src="images/dataset.png" alt="Dataset" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
+
+<h1>Dataset</h1>
+<p class="lede">Seven open source projects, one year of pull requests, and a complete Airflow index. All counts come from the
+<code>aiv-airflow-bench</code> corpus committed alongside this repository.</p>
+<h2>Seven projects at a glance</h2>
+<table>
+<thead><tr><th>Project</th><th class="num">PRs, 6 months</th><th class="num">PRs, 1 year</th><th class="num">Generated-by search, 6 months</th><th class="num">Generated-by search, 1 year</th><th class="num">Stored sample, 6 months</th><th class="num">Stored sample, 1 year</th></tr></thead>
+<tbody><tr><td>Airflow</td><td class="num">8,552</td><td class="num">15,575</td><td class="num">5,174</td><td class="num">7,474</td><td class="num">305</td><td class="num">555</td></tr><tr><td>Flink</td><td class="num">1,584</td><td class="num">2,441</td><td class="num">986</td><td class="num">1,012</td><td class="num">32</td><td class="num">51</td></tr><tr><td>Kafka</td><td class="num">1,813</td><td class="num">3,181</td><td class="num">43</td><td class="num">55</td><td class="num">32</td><td class="num">38</td></tr><tr><td>curl</td><td class="num">1,894</td><td class="num">3,853</td><td class="num">322</td><td class="num">657</td><td class="num">13</td><td class="num">18</td></tr><tr><td>Godot</td><td class="num">3,668</td><td class="num">7,589</td><td class="num">47</td><td class="num">79</td><td class="num">39</td><td class="num">62</td></tr><tr><td>Ghostty</td><td class="num">1,192</td><td class="num">2,492</td><td class="num">10</td><td class="num">27</td><td class="num">32</td><td class="num">53</td></tr><tr><td>COSMIC compositor</td><td class="num">242</td><td class="num">425</td><td class="num">6</td><td class="num">7</td><td class="num">20</td><td class="num">41</td></tr></tbody></table>
+<p class="muted">Windows: one year 2025-10-22 to 2026-10-22; six months 2026-04-22 to 2026-10-22.
+The <code>Generated-by</code> search column is a GitHub search total and includes template text on some projects. It is a signal of disclosure volume, not a census of AI authored changes.</p>
+<div class="chart-wrap"><figure><svg class="chart" viewBox="0 0 820 535" width="100%" role="img" aria-label="Pull requests, Generated-by hits and stored samples per project, log scale"><title>Pull requests, Generated-by hits and stored samples per project, log scale</title><text x="180" y="37.5" text-anchor="end" class="axis">Airflow</text><rect x="190" y="4" width="520" height="16" fill="#1f3a93" rx="3"><title>PRs, 1 year: 15,575</title></rect><text x="716" y="17" class="val small">15,575</text><rect x="190" y="23" width="480" height="16" fill="#d9480f" rx="3"><title>Generated-by search, 1 year: 7,474</title></rect><text x="676" y="36" class="val small">7,474</text><rect x="190" y="42" width="340" height="16" fill="#6b2fb3" rx="3"><title>Stored sample, 1 year: 555</title></rect><text x="536" y="55" class="val small">555</text><text x="180" y="112.5" text-anchor="end" class="axis">Flink</text><rect x="190" y="79" width="420" height="16" fill="#1f3a93" rx="3"><title>PRs, 1 year: 2,441</title></rect><text x="616" y="92" class="val small">2,441</text><rect x="190" y="98" width="373" height="16" fill="#d9480f" rx="3"><title>Generated-by search, 1 year: 1,012</title></rect><text x="569" y="111" class="val small">1,012</text><rect x="190" y="117" width="213" height="16" fill="#6b2fb3" rx="3"><title>Stored sample, 1 year: 51</title></rect><text x="409" y="130" class="val small">51</text><text x="180" y="187.5" text-anchor="end" class="axis">Kafka</text><rect x="190" y="154" width="434" height="16" fill="#1f3a93" rx="3"><title>PRs, 1 year: 3,181</title></rect><text x="630" y="167" class="val small">3,181</text><rect x="190" y="173" width="217" height="16" fill="#d9480f" rx="3"><title>Generated-by search, 1 year: 55</title></rect><text x="413" y="186" class="val small">55</text><rect x="190" y="192" width="197" height="16" fill="#6b2fb3" rx="3"><title>Stored sample, 1 year: 38</title></rect><text x="393" y="205" class="val small">38</text><text x="180" y="262.5" text-anchor="end" class="axis">curl</text><rect x="190" y="229" width="445" height="16" fill="#1f3a93" rx="3"><title>PRs, 1 year: 3,853</title></rect><text x="641" y="242" class="val small">3,853</text><rect x="190" y="248" width="350" height="16" fill="#d9480f" rx="3"><title>Generated-by search, 1 year: 657</title></rect><text x="546" y="261" class="val small">657</text><rect x="190" y="267" width="159" height="16" fill="#6b2fb3" rx="3"><title>Stored sample, 1 year: 18</title></rect><text x="355" y="280" class="val small">18</text><text x="180" y="337.5" text-anchor="end" class="axis">Godot</text><rect x="190" y="304" width="481" height="16" fill="#1f3a93" rx="3"><title>PRs, 1 year: 7,589</title></rect><text x="677" y="317" class="val small">7,589</text><rect x="190" y="323" width="236" height="16" fill="#d9480f" rx="3"><title>Generated-by search, 1 year: 79</title></rect><text x="432" y="336" class="val small">79</text><rect x="190" y="342" width="223" height="16" fill="#6b2fb3" rx="3"><title>Stored sample, 1 year: 62</title></rect><text x="419" y="355" class="val small">62</text><text x="180" y="412.5" text-anchor="end" class="axis">Ghostty</text><rect x="190" y="379" width="421" height="16" fill="#1f3a93" rx="3"><title>PRs, 1 year: 2,492</title></rect><text x="617" y="392" class="val small">2,492</text><rect x="190" y="398" width="179" height="16" fill="#d9480f" rx="3"><title>Generated-by search, 1 year: 27</title></rect><text x="375" y="411" class="val small">27</text><rect x="190" y="417" width="215" height="16" fill="#6b2fb3" rx="3"><title>Stored sample, 1 year: 53</title></rect><text x="411" y="430" class="val small">53</text><text x="180" y="487.5" text-anchor="end" class="axis">COSMIC compositor</text><rect x="190" y="454" width="326" height="16" fill="#1f3a93" rx="3"><title>PRs, 1 year: 425</title></rect><text x="522" y="467" class="val small">425</text><rect x="190" y="473" width="112" height="16" fill="#d9480f" rx="3"><title>Generated-by search, 1 year: 7</title></rect><text x="308" y="486" class="val small">7</text><rect x="190" y="492" width="201" height="16" fill="#6b2fb3" rx="3"><title>Stored sample, 1 year: 41</title></rect><text x="397" y="505" class="val small">41</text></svg>
+<figcaption>Per project, one year window, logarithmic scale so the smaller projects stay visible. Navy: pull requests. Orange: Generated-by search hits. Purple: stored patch sample.</figcaption></figure></div>
+<h2>Airflow: the complete index</h2>
+<p>The Airflow row is a complete index of 15,575 pull requests, not only the 555 row stored patch sample.
+Reading every stored body gives the following label counts. A pull request can carry more than one label.</p>
+<div class="chart-wrap"><figure><svg class="chart" viewBox="0 0 820 238" width="100%" role="img" aria-label="Airflow metadata labels, one year"><title>Airflow metadata labels, one year</title><text x="180" y="21.68" text-anchor="end" class="axis">Merged</text><rect x="190" y="4" width="520" height="26" fill="#f4f6fb" rx="4"/><rect x="190" y="4" width="520" height="26" fill="#1f3a93" rx="4"/><text x="718" y="21.68" class="val">7,265</text><text x="180" y="59.68" text-anchor="end" class="axis">Closed unmerged</text><rect x="190" y="42" width="520" height="26" fill="#f4f6fb" rx="4"/><rect x="190" y="42" width="156" height="26" fill="#d9480f" rx="4"/><text x="354" y="59.68" class="val">2,182</text><text x="180" y="97.68" text-anchor="end" class="axis">Open</text><rect x="190" y="80" width="520" height="26" fill="#f4f6fb" rx="4"/><rect x="190" y="80" width="18" height="26" fill="#6b2fb3" rx="4"/><text x="216" y="97.68" class="val">248</text><text x="180" y="135.68" text-anchor="end" class="axis">AI disclosed</text><rect x="190" y="118" width="520" height="26" fill="#f4f6fb" rx="4"/><rect x="190" y="118" width="310" height="26" fill="#b7791f" rx="4"/><text x="508" y="135.68" class="val">4,329</text><text x="180" y="173.68" text-anchor="end" class="axis">AI tool mention</text><rect x="190" y="156" width="520" height="26" fill="#f4f6fb" rx="4"/><rect x="190" y="156" width="109" height="26" fill="#8a94a6" rx="4"/><text x="307" y="173.68" class="val">1,526</text><text x="180" y="211.68" text-anchor="end" class="axis">AI slop discussion</text><rect x="190" y="194" width="520" height="26" fill="#f4f6fb" rx="4"/><rect x="190" y="194" width="2" height="26" fill="#b42318" rx="4"/><text x="200" y="211.68" class="val">25</text></svg>
+<figcaption>Metadata labels over 15,575 indexed Airflow pull requests. Labels overlap; they are not a partition.</figcaption></figure></div>
+<table>
+<thead><tr><th>Measure</th><th class="num">Last 6 months</th><th class="num">One year</th></tr></thead>
+<tbody>
+<tr><td>Pull requests indexed</td><td class="num">8,552</td><td class="num">15,575</td></tr>
+<tr><td>Filled AI disclosures</td><td class="num">3,666</td><td class="num">4,329</td></tr>
+<tr><td>Filled Generated-by trailers</td><td class="num muted">n/a</td><td class="num">3,527</td></tr>
+<tr><td>Issues in the stored index</td><td class="num">1,100</td><td class="num">2,427</td></tr>
+<tr><td>Dev list messages</td><td class="num">1,965</td><td class="num">4,377</td></tr>
+<tr><td>Stored patches with sidecar</td><td class="num">305</td><td class="num">555</td></tr>
+</tbody></table>
+<h2>Stored sample composition</h2>
+<p>Each project's stored sample is labelled by how the pull request was selected. These are selection classes, not quality judgements.</p>
+<div class="chart-wrap"><figure><svg class="chart" viewBox="0 0 820 528" width="100%" role="img" aria-label="Stored sample by selection class, one year"><title>Stored sample by selection class, one year</title><text x="180" y="39.0" text-anchor="end" class="axis">Airflow (555)</text><rect x="190" y="4" width="520" height="12" fill="#b7791f" rx="3"><title>ai_disclosed: 311</title></rect><text x="716" y="13" class="val small">311</text><rect x="190" y="19" width="226" height="12" fill="#d9480f" rx="3"><title>closed_unmerged_sample: 135</title></rect><text x="422" y="28" class="val small">135</text><rect x="190" y="34" width="181" height="12" fill="#1f3a93" rx="3"><title>merged_control: 108</title></rect><text x="377" y="43" class="val small">108</text><rect x="190" y="49" width="2" height="12" fill="#6b2fb3" rx="3"><title>objective_slop: 1</title></rect><text x="198" y="58" class="val small">1</text><text x="180" y="113.0" text-anchor="end" class="axis">Flink (51)</text><rect x="190" y="78" width="40" height="12" fill="#b7791f" rx="3"><title>ai_disclosed: 24</title></rect><text x="236" y="87" class="val small">24</text><rect x="190" y="93" width="35" height="12" fill="#1f3a93" rx="3"><title>merged_control: 21</title></rect><text x="231" y="102" class="val small">21</text><rect x="190" y="108" width="10" height="12" fill="#8a94a6" rx="3"><title>ai_tool_mention: 6</title></rect><text x="206" y="117" class="val small">6</text><text x="180" y="187.0" text-anchor="end" class="axis">Kafka (38)</text><rect x="190" y="152" width="37" height="12" fill="#1f3a93" rx="3"><title>merged_control: 22</title></rect><text x="233" y="161" class="val small">22</text><rect x="190" y="167" width="15" height="12" fill="#b7791f" rx="3"><title>ai_disclosed: 9</title></rect><text x="211" y="176" class="val small">9</text><rect x="190" y="182" width="12" height="12" fill="#8a94a6" rx="3"><title>ai_tool_mention: 7</title></rect><text x="208" y="191" class="val small">7</text><text x="180" y="261.0" text-anchor="end" class="axis">curl (18)</text><rect x="190" y="226" width="25" height="12" fill="#1f3a93" rx="3"><title>merged_control: 15</title></rect><text x="221" y="235" class="val small">15</text><rect x="190" y="241" width="5" height="12" fill="#b42318" rx="3"><title>ai_slop_discussion: 3</title></rect><text x="201" y="250" class="val small">3</text><text x="180" y="335.0" text-anchor="end" class="axis">Godot (62)</text><rect x="190" y="300" width="40" height="12" fill="#1f3a93" rx="3"><title>merged_control: 24</title></rect><text x="236" y="309" class="val small">24</text><rect x="190" y="315" width="40" height="12" fill="#d9480f" rx="3"><title>closed_unmerged_sample: 24</title></rect><text x="236" y="324" class="val small">24</text><rect x="190" y="330" width="17" height="12" fill="#b42318" rx="3"><title>ai_slop_discussion: 10</title></rect><text x="213" y="339" class="val small">10</text><rect x="190" y="345" width="7" height="12" fill="#8a94a6" rx="3"><title>ai_tool_mention: 4</title></rect><text x="203" y="354" class="val small">4</text><text x="180" y="409.0" text-anchor="end" class="axis">Ghostty (53)</text><rect x="190" y="374" width="40" height="12" fill="#d9480f" rx="3"><title>closed_unmerged_sample: 24</title></rect><text x="236" y="383" class="val small">24</text><rect x="190" y="389" width="40" height="12" fill="#1f3a93" rx="3"><title>merged_control: 24</title></rect><text x="236" y="398" class="val small">24</text><rect x="190" y="404" width="7" height="12" fill="#b42318" rx="3"><title>ai_slop_discussion: 4</title></rect><text x="203" y="413" class="val small">4</text><rect x="190" y="419" width="2" height="12" fill="#b7791f" rx="3"><title>ai_disclosed: 1</title></rect><text x="198" y="428" class="val small">1</text><text x="180" y="483.0" text-anchor="end" class="axis">COSMIC compositor (41)</text><rect x="190" y="448" width="37" height="12" fill="#d9480f" rx="3"><title>closed_unmerged_sample: 22</title></rect><text x="233" y="457" class="val small">22</text><rect x="190" y="463" width="30" height="12" fill="#1f3a93" rx="3"><title>merged_control: 18</title></rect><text x="226" y="472" class="val small">18</text><rect x="190" y="478" width="2" height="12" fill="#b42318" rx="3"><title>ai_slop_discussion: 1</title></rect><text x="198" y="487" class="val small">1</text></svg>
+<figcaption>Stored one year sample per project (case count in parentheses), split by selection class.</figcaption></figure><ul class="legend"><li><span class="swatch" style="background:#1f3a93"></span>merged control <strong>0</strong> <span class="muted">(0.0%)</span></li><li><span class="swatch" style="background:#d9480f"></span>closed unmerged sample <strong>0</strong> <span class="muted">(0.0%)</span></li><li><span class="swatch" style="background:#b7791f"></span>ai disclosed <strong>0</strong> <span class="muted">(0.0%)</span></li><li><span class="swatch" style="background:#8a94a6"></span>ai tool mention <strong>0</strong> <span class="muted">(0.0%)</span></li><li><span class="swatch" style="background:#b42318"></span>ai slop discussion <strong>0</strong> <span class="muted">(0.0%)</span></li><li><span class="swatch" style="background:#6b2fb3"></span>objective slop <strong>0</strong> <span class="muted">(0.0%)</span></li></ul></div>
+<p>Next: <a href="methodology.html">how the benchmark turns this corpus into verifiable tests</a>.</p>
+
+<div class="pager"><a href="problem.html">&larr; The AI slop problem</a><a href="methodology.html">Methodology &rarr;</a></div>
+</main>
+<footer class="site">Generated 2026-10-23T19:02:17.836519+00:00 by <code>benchmarks/airflow/scripts/generate-benchmark-site.py</code> from result files on disk.
+Author: Viquar Khan. Static HTML, inline SVG, no scripts, no external assets.</footer>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dataset</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.6; color: #1b1f2a; background: #fff; }
+header.site { background: #1f3a93; color: #fff; }
+header.site .inner { max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+header.site .brand { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; }
+header.site .brand small { display: block; font-weight: 400; font-size: 13px; opacity: 0.85; }
+nav.main { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-left: auto; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; }
+nav.main a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+nav.main a.current { background: #fff; color: #1f3a93; font-weight: 700; }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.2; }
+h1 { font-size: 40px; margin: 10px 0 8px; }
+h2 { font-size: 28px; margin-top: 40px; border-bottom: 3px solid #d9480f; padding-bottom: 6px; }
+p.lede { font-size: 22px; color: #4b5160; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.kpi { background: #f4f6fb; border: 1px solid #d7dce6; border-top: 6px solid #1f3a93; border-radius: 10px; padding: 16px 18px; }
+.kpi.orange { border-top-color: #d9480f; }
+.kpi.purple { border-top-color: #6b2fb3; }
+.kpi .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 34px; font-weight: 800; line-height: 1.1; }
+.kpi .lbl { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; }
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+th, td { border: 1px solid #d7dce6; padding: 9px 12px; text-align: left; vertical-align: top; }
+th { background: #1f3a93; color: #fff; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: #f4f6fb; }
+.callout { border-left: 8px solid #d9480f; background: #fff7f1; padding: 14px 20px; margin: 22px 0; }
+a { color: #1f3a93; }
+.muted { color: #4b5160; }
+footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px; font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
+svg text { font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; fill: #1b1f2a; }
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">AIV Integrity Gate<small>Full stored-patch benchmark</small></a>
+<nav class="main"><a href="index.html" class="">Overview</a><a href="dataset.html" class="current">Dataset</a><a href="results.html" class="">Full run</a><a href="limits.html" class="">Limits</a></nav>
+</div></header>
+<main>
+
+<h1>Two layers were on disk. One was executed.</h1>
+<table>
+<thead><tr><th>Layer</th><th class="num">Rows</th><th>What AIV could do</th></tr></thead>
+<tbody>
+<tr><td>Airflow metadata index, one year</td><td class="num">15,575</td><td>Nothing. No patch is stored. Labels are not defect truth.</td></tr>
+<tr><td>Every stored patch file</td><td class="num">2,098</td><td>Executed. The patch was applied onto the file at the recorded base commit, then aiv-cli 2.0 scored the diff.</td></tr>
+<tr><td>of which Apache Airflow files</td><td class="num">1,219</td><td>Executed. Proof folder plus the year folder.</td></tr>
+<tr><td>of which other project files</td><td class="num">879</td><td>Executed. Every stored patch file in those folders.</td></tr>
+<tr><td>Unique pull requests</td><td class="num">2,080</td><td>Some Airflow pull requests are stored twice, once in each Airflow folder.</td></tr>
+</tbody>
+</table>
+<div class="callout">
+<p>Unscored means the stored patch could not be applied or had no file hunks. It is not a pass and not a block. A filled Generated-by line was not treated as a failure. Errors: 0.</p>
+</div>
+
+</main>
+<footer class="site">Measured with local aiv-cli 2.0 built 2026-10-23 (working tree on ed1afa0 plus the uncommitted gate changes). Rows: benchmarks/industry-e2e/results-full/rows.jsonl. Policy is the Airflow bench .aiv tree, invariant gate set to fail. The 15,575-row index was not executed, because those records have no patch.</footer>
+</body>
+</html>

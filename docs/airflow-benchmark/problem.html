@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AI slop problem | AIV Airflow Benchmark</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.6;
+       color: #1b1f2a; background: #ffffff; }
+header.site { background: #1f3a93; color: #fff; }
+header.site .inner { max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap;
+                      align-items: center; gap: 14px 28px; }
+header.site .brand { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; }
+header.site .brand small { display: block; font-weight: 400; font-size: 13px; opacity: 0.85; }
+nav.main { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-left: auto; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; }
+nav.main a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; border: 1px solid transparent; }
+nav.main a:hover { border-color: rgba(255,255,255,0.6); }
+nav.main a.current { background: #fff; color: #1f3a93; font-weight: 700; }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; color: #1b1f2a; line-height: 1.2; }
+h1 { font-size: 40px; margin: 10px 0 8px; }
+h2 { font-size: 28px; margin-top: 44px; border-bottom: 3px solid #d9480f; padding-bottom: 6px; }
+h3 { font-size: 21px; margin-top: 28px; }
+p.lede { font-size: 22px; color: #4b5160; margin-top: 0; }
+a { color: #1f3a93; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.kpi { background: #f4f6fb; border: 1px solid #d7dce6; border-top: 6px solid #1f3a93; border-radius: 10px; padding: 16px 18px; }
+.kpi.orange { border-top-color: #d9480f; }
+.kpi.purple { border-top-color: #6b2fb3; }
+.kpi.gold { border-top-color: #b7791f; }
+.kpi .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 38px; font-weight: 800; color: #1b1f2a; line-height: 1.1; }
+.kpi .lbl { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 4px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 24px 0; }
+.card { display: block; background: #ffffff; border: 1px solid #d7dce6; border-left: 8px solid #6b2fb3; border-radius: 10px;
+         padding: 18px 20px; text-decoration: none; color: #1b1f2a; }
+.card:hover { background: #f4f6fb; }
+.card h3 { margin: 0 0 6px; color: #1f3a93; }
+.card p { margin: 0; color: #4b5160; font-size: 16px; }
+.card .step { font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #d9480f; font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+th, td { border: 1px solid #d7dce6; padding: 9px 12px; text-align: left; vertical-align: top; }
+th { background: #1f3a93; color: #fff; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: #f4f6fb; }
+.panel { background: #f4f6fb; border: 1px solid #d7dce6; border-radius: 10px; padding: 18px 22px; margin: 20px 0; }
+.callout { border-left: 8px solid #d9480f; background: #fff7f1; padding: 14px 20px; margin: 22px 0; border-radius: 0 10px 10px 0; }
+.callout.purple { border-left-color: #6b2fb3; background: #f6f1fc; }
+.callout.navy { border-left-color: #1f3a93; background: #eef2fb; }
+.callout h3 { margin-top: 0; }
+.chart-wrap { background: #fff; border: 1px solid #d7dce6; border-radius: 10px; padding: 16px; margin: 18px 0; }
+.chart-wrap figcaption { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 8px; }
+figure { margin: 0; }
+svg.chart text, svg.donut text { font-family: "Segoe UI", Arial, sans-serif; fill: #1b1f2a; }
+svg .axis { font-size: 15px; }
+svg .val { font-size: 15px; font-weight: 700; }
+svg .small { font-size: 12px; }
+svg.chart text.cell-big { font-size: 36px; font-weight: 800; fill: #fff; }
+svg.chart text.cell-label { font-size: 14px; fill: #fff; }
+svg .donut-big { font-size: 30px; font-weight: 800; }
+svg .donut-small { font-size: 13px; fill: #4b5160; }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+ul.legend { list-style: none; padding: 0; margin: 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+ul.legend li { margin: 6px 0; }
+.swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: -2px; margin-right: 8px; }
+.muted { color: #4b5160; }
+code, pre { font-family: Consolas, "Courier New", monospace; font-size: 15px; }
+pre { background: #f0f2f7; border: 1px solid #d7dce6; border-radius: 8px; padding: 14px 16px; overflow-x: auto; }
+.pager { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 18px; border-top: 1px solid #d7dce6;
+          font-family: "Segoe UI", Arial, sans-serif; }
+footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px;
+               font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
+.badge { display: inline-block; font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
+.badge.block { background: #1f3a93; }
+.badge.pass { background: #6b2fb3; }
+.badge.warn { background: #b7791f; }
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
+<nav class="main" aria-label="Site"><a href="index.html" class="">Overview</a><a href="problem.html" class="current">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
+</div></header>
+<main>
+<figure><img src="images/problem.png" alt="The AI slop problem" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
+
+<h1>The AI slop problem in open source</h1>
+<p class="lede">Low-effort machine generated contributions are now a daily tax on volunteer maintainers. Airflow is one of the clearest places to watch it happen.</p>
+<h2>What maintainers are seeing</h2>
+<p>Over the last two years, coding assistants moved from autocomplete to autonomous agents that open pull requests on their own.
+Most of those changes are fine. A growing minority are not: they ship with unresolved merge conflict markers, with the literal
+<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; SEARCH</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; REPLACE</code> blocks that an editing tool
+uses internally, with <code>TODO: implement</code> placeholders in production paths, with a Git submodule pointer that nobody
+asked for, or with marketing style attribution comments pasted into source. None of these need a human to spot. All of them
+currently consume a human's time anyway, because they land in the same review queue as everything else.</p>
+<p>The cost is not only the minutes spent on each bad change. It is the erosion of reviewer attention. When a queue fills with
+obviously broken submissions, careful review of the genuinely difficult changes suffers, and maintainers start to burn out or
+close contributions in bulk. Several projects in this dataset now require contributors to state whether a tool wrote the code.
+Airflow added a disclosure checkbox and a <code>Generated-by</code> trailer for exactly that reason.</p>
+<h2>What the Airflow stream looks like</h2>
+<div class="kpis">
+<div class="kpi"><div class="num">7,265</div><div class="lbl">merged pull requests in the one year index</div></div>
+<div class="kpi orange"><div class="num">2,182</div><div class="lbl">closed without merge</div></div>
+<div class="kpi purple"><div class="num">248</div><div class="lbl">still open at index time</div></div>
+<div class="kpi gold"><div class="num">4,329</div><div class="lbl">filled AI disclosure</div></div>
+</div>
+<div class="row">
+<div class="chart-wrap"><figure><svg class="donut" viewBox="0 0 260 260" width="260" height="260" role="img" aria-label="Filled Generated-by trailers by tool"><title>Filled Generated-by trailers by tool</title><circle cx="130.0" cy="130.0" r="98.8" fill="none" stroke="#1f3a93" stroke-width="41.6" stroke-dasharray="488.60 132.18" stroke-dashoffset="-0.00" transform="rotate(-90 130.0 130.0)"><title>Claude: 2,776</title></circle><circle cx="130.0" cy="130.0" r="98.8" fill="none" stroke="#d9480f" stroke-width="41.6" stroke-dasharray="75.51 545.27" stroke-dashoffset="-488.60" transform="rotate(-90 130.0 130.0)"><title>Codex: 429</title></circle><circle cx="130.0" cy="130.0" r="98.8" fill="none" stroke="#6b2fb3" stroke-width="41.6" stroke-dasharray="11.44 609.34" stroke-dashoffset="-564.10" transform="rotate(-90 130.0 130.0)"><title>Cursor: 65</title></circle><circle cx="130.0" cy="130.0" r="98.8" fill="none" stroke="#b7791f" stroke-width="41.6" stroke-dasharray="10.74 610.04" stroke-dashoffset="-575.54" transform="rotate(-90 130.0 130.0)"><title>Copilot: 61</title></circle><circle cx="130.0" cy="130.0" r="98.8" fill="none" stroke="#8a94a6" stroke-width="41.6" stroke-dasharray="8.27 612.51" stroke-dashoffset="-586.28" transform="rotate(-90 130.0 130.0)"><title>Antigravity: 47</title></circle><circle cx="130.0" cy="130.0" r="98.8" fill="none" stroke="#2c5aa0" stroke-width="41.6" stroke-dasharray="7.22 613.56" stroke-dashoffset="-594.55" transform="rotate(-90 130.0 130.0)"><title>Gemini: 41</title></circle><circle cx="130.0" cy="130.0" r="98.8" fill="none" stroke="#9b4f1e" stroke-width="41.6" stroke-dasharray="19.01 601.77" stroke-dashoffset="-601.77" transform="rotate(-90 130.0 130.0)"><title>other: 108</title></circle><text x="130.0" y="126.0" text-anchor="middle" class="donut-big">3,527</text><text x="130.0" y="148.0" text-anchor="middle" class="donut-small">total</text></svg><figcaption>Filled <code>Generated-by</code> trailers in the Airflow one year index, by tool.</figcaption></figure></div>
+<div><ul class="legend"><li><span class="swatch" style="background:#1f3a93"></span>Claude <strong>2,776</strong> <span class="muted">(78.7%)</span></li><li><span class="swatch" style="background:#d9480f"></span>Codex <strong>429</strong> <span class="muted">(12.2%)</span></li><li><span class="swatch" style="background:#6b2fb3"></span>Cursor <strong>65</strong> <span class="muted">(1.8%)</span></li><li><span class="swatch" style="background:#b7791f"></span>Copilot <strong>61</strong> <span class="muted">(1.7%)</span></li><li><span class="swatch" style="background:#8a94a6"></span>Antigravity <strong>47</strong> <span class="muted">(1.3%)</span></li><li><span class="swatch" style="background:#2c5aa0"></span>Gemini <strong>41</strong> <span class="muted">(1.2%)</span></li><li><span class="swatch" style="background:#9b4f1e"></span>other <strong>108</strong> <span class="muted">(3.1%)</span></li></ul><p class="muted">Total filled trailers: 3,527. Disclosures that left the placeholder tool name are counted as disclosed but not attributed to a tool.</p></div>
+</div>
+<div class="callout purple">
+<h3>Disclosure is not defect</h3>
+<p>4,329 disclosed pull requests does not mean 4,329 bad pull requests. Many disclosed changes
+were merged after normal review. Likewise, a closed unmerged pull request is often closed for scope or timing, not quality.
+This benchmark therefore never uses disclosure, merge or closure as the truth label for a defect. It uses the content of the
+added lines, and only where a defect is mechanically provable.</p>
+</div>
+<h2>Why a gate, and not a detector</h2>
+<p>Tools that try to guess whether a model wrote a block of code are probabilistic and easy to argue with. A maintainer cannot
+reject a contribution on a classifier's hunch. A gate that says "this file contains an unresolved conflict block at line 212"
+is a different kind of statement: it is true or false, it is reproducible, and the contributor can fix it without debate.
+AIV is built around that second kind of statement. The rest of this site shows what that choice buys, and what it does not.</p>
+<p>Next: <a href="dataset.html">the dataset</a>, including Airflow and six other projects.</p>
+
+<div class="pager"><a href="index.html">&larr; Overview</a><a href="dataset.html">Dataset &rarr;</a></div>
+</main>
+<footer class="site">Generated 2026-10-23T19:02:17.836519+00:00 by <code>benchmarks/airflow/scripts/generate-benchmark-site.py</code> from result files on disk.
+Author: Viquar Khan. Static HTML, inline SVG, no scripts, no external assets.</footer>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full benchmark</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.6; color: #1b1f2a; background: #fff; }
+header.site { background: #1f3a93; color: #fff; }
+header.site .inner { max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+header.site .brand { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; }
+header.site .brand small { display: block; font-weight: 400; font-size: 13px; opacity: 0.85; }
+nav.main { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-left: auto; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; }
+nav.main a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+nav.main a.current { background: #fff; color: #1f3a93; font-weight: 700; }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.2; }
+h1 { font-size: 40px; margin: 10px 0 8px; }
+h2 { font-size: 28px; margin-top: 40px; border-bottom: 3px solid #d9480f; padding-bottom: 6px; }
+p.lede { font-size: 22px; color: #4b5160; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.kpi { background: #f4f6fb; border: 1px solid #d7dce6; border-top: 6px solid #1f3a93; border-radius: 10px; padding: 16px 18px; }
+.kpi.orange { border-top-color: #d9480f; }
+.kpi.purple { border-top-color: #6b2fb3; }
+.kpi .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 34px; font-weight: 800; line-height: 1.1; }
+.kpi .lbl { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; }
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+th, td { border: 1px solid #d7dce6; padding: 9px 12px; text-align: left; vertical-align: top; }
+th { background: #1f3a93; color: #fff; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: #f4f6fb; }
+.callout { border-left: 8px solid #d9480f; background: #fff7f1; padding: 14px 20px; margin: 22px 0; }
+a { color: #1f3a93; }
+.muted { color: #4b5160; }
+footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px; font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
+svg text { font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; fill: #1b1f2a; }
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">AIV Integrity Gate<small>Full stored-patch benchmark</small></a>
+<nav class="main"><a href="index.html" class="current">Overview</a><a href="dataset.html" class="">Dataset</a><a href="results.html" class="">Full run</a><a href="limits.html" class="">Limits</a></nav>
+</div></header>
+<main>
+
+<h1>Full stored-patch run, not a sample</h1>
+<p class="lede">AIV was executed on every stored patch file: 2,098 files, 2,080 unique pull requests. 1,219 of the files are Apache Airflow. 879 are from other projects.</p>
+<div class="kpis">
+<div class="kpi"><div class="num">2,098</div><div class="lbl">stored patch files executed by AIV</div></div>
+<div class="kpi orange"><div class="num">113</div><div class="lbl">blocked by a gate finding</div></div>
+<div class="kpi purple"><div class="num">1,803</div><div class="lbl">passed. 182 could not be scored</div></div>
+<div class="kpi"><div class="num">15,575</div><div class="lbl">Airflow rows indexed, not executed</div></div>
+</div>
+<div class="callout">
+<h3>What was executed</h3>
+<p>This is every <code>prs/*.json</code> file in the stored corpus: the Airflow year folder, the Airflow proof folder, and the other project folders. It is not the 555-case sample and not the 55-case fixture subset. The 15,575-row index has titles, bodies, and line counts only. It has no diff, so AIV cannot score it. A block is a gate finding. It is not a label that the pull request is AI slop. Unscored is not a pass.</p>
+<p>Of these files, 1,605 had been scored earlier. Those verdicts are the same, except two Airflow files that were previously unscored because the base file could not be fetched. Those two, pull requests 61939 and 69095, are now blocked for an AI-generated marker. The other 493 files are the Airflow year folder, scored in this run. Eighteen Airflow pull requests are stored in both Airflow folders. Each of those pairs has the same verdict.</p>
+</div>
+<h2>Airflow stored patches</h2>
+<p>Airflow files include the labeled proof set and the extra year folder. Where the same pull request is stored in both folders, both files were executed, so the Airflow file count can be higher than the unique pull-request count.</p>
+<table>
+<thead><tr><th>Label</th><th class="num">Files</th><th class="num">Blocked</th><th class="num">Passed</th><th class="num">Unscored</th><th class="num">Errors</th></tr></thead>
+<tbody><tr><td>AI disclosed</td><td class='num'>311</td><td class='num'>10</td><td class='num'>296</td><td class='num'>5</td><td class='num'>0</td></tr><tr><td>Merged control</td><td class='num'>108</td><td class='num'>4</td><td class='num'>98</td><td class='num'>6</td><td class='num'>0</td></tr><tr><td>Closed, not merged</td><td class='num'>135</td><td class='num'>9</td><td class='num'>108</td><td class='num'>18</td><td class='num'>0</td></tr><tr><td>Objective marker</td><td class='num'>1</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0</td><td class='num'>0</td></tr><tr><td>Stored patch</td><td class='num'>664</td><td class='num'>67</td><td class='num'>507</td><td class='num'>90</td><td class='num'>0</td></tr></tbody>
+</table>
+<p class="muted">Airflow files: 91 blocked, 1,009 passed, 119 unscored, 0 errors.</p>
+<h2>Why a patch blocked</h2>
+<svg viewBox="0 0 720 302" role="img">
+<text x="0" y="26">Assertion-free test</text>
+<rect x="260" y="8" width="390.0" height="24" rx="3" fill="#d9480f"/>
+<text x="658.0" y="26">50</text>
+<text x="0" y="68">AI-generated marker in the diff</text>
+<rect x="260" y="50" width="296.4" height="24" rx="3" fill="#d9480f"/>
+<text x="564.4" y="68">38</text>
+<text x="0" y="110">Placeholder text</text>
+<rect x="260" y="92" width="117.0" height="24" rx="3" fill="#d9480f"/>
+<text x="385.0" y="110">15</text>
+<text x="0" y="152">Syntax error</text>
+<rect x="260" y="134" width="54.6" height="24" rx="3" fill="#d9480f"/>
+<text x="322.6" y="152">7</text>
+<text x="0" y="194">Provenance trailer in the diff</text>
+<rect x="260" y="176" width="7.8" height="24" rx="3" fill="#d9480f"/>
+<text x="275.8" y="194">1</text>
+<text x="0" y="236">Placeholder test</text>
+<rect x="260" y="218" width="7.8" height="24" rx="3" fill="#d9480f"/>
+<text x="275.8" y="236">1</text>
+<text x="0" y="278">Merge-conflict marker</text>
+<rect x="260" y="260" width="7.8" height="24" rx="3" fill="#d9480f"/>
+<text x="275.8" y="278">1</text>
+</svg>
+<p class="muted">One primary rule per blocked file. A missing-tests finding is not counted as the reason when a harder finding is on the same gate.</p>
+
+</main>
+<footer class="site">Measured with local aiv-cli 2.0 built 2026-10-23 (working tree on ed1afa0 plus the uncommitted gate changes). Rows: benchmarks/industry-e2e/results-full/rows.jsonl. Policy is the Airflow bench .aiv tree, invariant gate set to fail. The 15,575-row index was not executed, because those records have no patch.</footer>
+</body>
+</html>

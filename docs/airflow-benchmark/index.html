@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview | AIV Airflow Benchmark</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.6;
+       color: #1b1f2a; background: #ffffff; }
+header.site { background: #1f3a93; color: #fff; }
+header.site .inner { max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap;
+                      align-items: center; gap: 14px 28px; }
+header.site .brand { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; }
+header.site .brand small { display: block; font-weight: 400; font-size: 13px; opacity: 0.85; }
+nav.main { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-left: auto; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; }
+nav.main a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; border: 1px solid transparent; }
+nav.main a:hover { border-color: rgba(255,255,255,0.6); }
+nav.main a.current { background: #fff; color: #1f3a93; font-weight: 700; }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; color: #1b1f2a; line-height: 1.2; }
+h1 { font-size: 40px; margin: 10px 0 8px; }
+h2 { font-size: 28px; margin-top: 44px; border-bottom: 3px solid #d9480f; padding-bottom: 6px; }
+h3 { font-size: 21px; margin-top: 28px; }
+p.lede { font-size: 22px; color: #4b5160; margin-top: 0; }
+a { color: #1f3a93; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.kpi { background: #f4f6fb; border: 1px solid #d7dce6; border-top: 6px solid #1f3a93; border-radius: 10px; padding: 16px 18px; }
+.kpi.orange { border-top-color: #d9480f; }
+.kpi.purple { border-top-color: #6b2fb3; }
+.kpi.gold { border-top-color: #b7791f; }
+.kpi .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 38px; font-weight: 800; color: #1b1f2a; line-height: 1.1; }
+.kpi .lbl { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 4px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 24px 0; }
+.card { display: block; background: #ffffff; border: 1px solid #d7dce6; border-left: 8px solid #6b2fb3; border-radius: 10px;
+         padding: 18px 20px; text-decoration: none; color: #1b1f2a; }
+.card:hover { background: #f4f6fb; }
+.card h3 { margin: 0 0 6px; color: #1f3a93; }
+.card p { margin: 0; color: #4b5160; font-size: 16px; }
+.card .step { font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #d9480f; font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+th, td { border: 1px solid #d7dce6; padding: 9px 12px; text-align: left; vertical-align: top; }
+th { background: #1f3a93; color: #fff; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: #f4f6fb; }
+.panel { background: #f4f6fb; border: 1px solid #d7dce6; border-radius: 10px; padding: 18px 22px; margin: 20px 0; }
+.callout { border-left: 8px solid #d9480f; background: #fff7f1; padding: 14px 20px; margin: 22px 0; border-radius: 0 10px 10px 0; }
+.callout.purple { border-left-color: #6b2fb3; background: #f6f1fc; }
+.callout.navy { border-left-color: #1f3a93; background: #eef2fb; }
+.callout h3 { margin-top: 0; }
+.chart-wrap { background: #fff; border: 1px solid #d7dce6; border-radius: 10px; padding: 16px; margin: 18px 0; }
+.chart-wrap figcaption { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 8px; }
+figure { margin: 0; }
+svg.chart text, svg.donut text { font-family: "Segoe UI", Arial, sans-serif; fill: #1b1f2a; }
+svg .axis { font-size: 15px; }
+svg .val { font-size: 15px; font-weight: 700; }
+svg .small { font-size: 12px; }
+svg.chart text.cell-big { font-size: 36px; font-weight: 800; fill: #fff; }
+svg.chart text.cell-label { font-size: 14px; fill: #fff; }
+svg .donut-big { font-size: 30px; font-weight: 800; }
+svg .donut-small { font-size: 13px; fill: #4b5160; }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+ul.legend { list-style: none; padding: 0; margin: 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+ul.legend li { margin: 6px 0; }
+.swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: -2px; margin-right: 8px; }
+.muted { color: #4b5160; }
+code, pre { font-family: Consolas, "Courier New", monospace; font-size: 15px; }
+pre { background: #f0f2f7; border: 1px solid #d7dce6; border-radius: 8px; padding: 14px 16px; overflow-x: auto; }
+.pager { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 18px; border-top: 1px solid #d7dce6;
+          font-family: "Segoe UI", Arial, sans-serif; }
+footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px;
+               font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
+.badge { display: inline-block; font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
+.badge.block { background: #1f3a93; }
+.badge.pass { background: #6b2fb3; }
+.badge.warn { background: #b7791f; }
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
+<nav class="main" aria-label="Site"><a href="index.html" class="current">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
+</div></header>
+<main>
+<figure><img src="images/index.png" alt="Overview of the Airflow benchmark" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
+<p><a href="../benchmark/index.html">Open the measured full stored-patch run</a></p>
+
+<h1>Can a deterministic gate stop AI slop before a human reviews it?</h1>
+<p class="lede">An end-to-end benchmark of the AIV Integrity Gate. 2,098 stored patch files were executed: 1,219 Apache Airflow files and 879 files from six other projects. The 15,575-row index has no diffs, so it was not executed.</p>
+<div class="kpis">
+<div class="kpi"><div class="num">2,098</div><div class="lbl">stored patch files executed, not a sample</div></div>
+<div class="kpi orange"><div class="num">113</div><div class="lbl">blocked by a gate finding</div></div>
+<div class="kpi purple"><div class="num">1,803</div><div class="lbl">passed. 182 could not be scored</div></div>
+<div class="kpi gold"><div class="num">15,575</div><div class="lbl">Airflow rows indexed, not executed</div></div>
+</div>
+<div class="callout">
+<h3>Read this first</h3>
+<p>All local rows and stored patches were processed. Only actual AIV executions are performance denominators. The percentage of all real AI slop caught is unknown. AIV does not detect who or what wrote the code. It blocks objective, mechanically
+verifiable defects such as unresolved merge conflict blocks, unauthorized Git submodule links, edit tool artifacts and
+placeholder text left on the added lines of a change. Disclosure, merge and closure status are context, not defect truth.</p>
+</div>
+<h2>Walk the benchmark end to end</h2>
+<div class="cards"><a class="card" href="problem.html"><span class="step">Step 1</span><h3>The AI slop problem</h3><p>Why open source maintainers are drowning in low-effort AI generated pull requests, and what the Airflow numbers show.</p></a><a class="card" href="dataset.html"><span class="step">Step 2</span><h3>Dataset</h3><p>15,575 Airflow pull requests indexed over one year, plus six other projects, with merged, closed, open and disclosure counts.</p></a><a class="card" href="methodology.html"><span class="step">Step 3</span><h3>Methodology</h3><p>How the benchmark labels cases, what counts as an objective defect, and why each suite has its own denominator.</p></a><a class="card" href="catches.html"><span class="step">Step 4</span><h3>What AIV caught</h3><p>Every blocking rule that fired, the fixture classes behind them, and the real Airflow pull request that was intercepted.</p></a><a class="card" href="proof.html"><span class="step">Step 5</span><h3>Proof</h3><p>Confusion matrices, exact 95 percent lower bounds, and the full census of stored patches.</p></a><a class="card" href="value.html"><span class="step">Step 6</span><h3>Why AIV helps</h3><p>How a deterministic evidence gate keeps obvious defects out of the review queue without pretending to judge authorship.</p></a><a class="card" href="verification.html"><span class="step">Step 7</span><h3>Verification</h3><p>Reproduce every number from the JSON receipts and the current source, and read the claim boundaries honestly.</p></a></div>
+<h2>Small fixture suites</h2>
+<p>These three rows are designed checks. They are not the 2,098 stored patch files. The counts above are the full stored-patch execution.</p>
+<table>
+<thead><tr><th>Suite</th><th class="num">Positives</th><th class="num">Detected</th><th class="num">Controls</th><th class="num">False blocks</th><th class="num">Exact 95% lower bound on recall</th></tr></thead>
+<tbody>
+<tr><td>Designed fixture agreement</td><td class="num">35</td><td class="num">35</td><td class="num">15</td><td class="num">0</td><td class="num">90.0%</td></tr><tr><td>Production-equivalent Git structure</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num">0</td><td class="num">15.8%</td></tr><tr><td>Selected Airflow reconstruction</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">2.5%</td></tr>
+</tbody></table>
+<p class="muted">Each suite keeps its own denominator. Pooling them into a single field accuracy figure would be misleading, so the site never does that.</p>
+
+<div class="pager"><span></span><a href="problem.html">The AI slop problem &rarr;</a></div>
+</main>
+<footer class="site">Generated 2026-10-23T19:02:17.836519+00:00 by <code>benchmarks/airflow/scripts/generate-benchmark-site.py</code> from result files on disk.
+Author: Viquar Khan. Static HTML, inline SVG, no scripts, no external assets.</footer>
+</body>
+</html>

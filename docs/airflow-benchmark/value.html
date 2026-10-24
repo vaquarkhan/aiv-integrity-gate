@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why AIV helps | AIV Airflow Benchmark</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.6;
+       color: #1b1f2a; background: #ffffff; }
+header.site { background: #1f3a93; color: #fff; }
+header.site .inner { max-width: 1080px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap;
+                      align-items: center; gap: 14px 28px; }
+header.site .brand { font-family: "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; }
+header.site .brand small { display: block; font-weight: 400; font-size: 13px; opacity: 0.85; }
+nav.main { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-left: auto; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; }
+nav.main a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; border: 1px solid transparent; }
+nav.main a:hover { border-color: rgba(255,255,255,0.6); }
+nav.main a.current { background: #fff; color: #1f3a93; font-weight: 700; }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+h1, h2, h3 { font-family: "Segoe UI", Arial, sans-serif; color: #1b1f2a; line-height: 1.2; }
+h1 { font-size: 40px; margin: 10px 0 8px; }
+h2 { font-size: 28px; margin-top: 44px; border-bottom: 3px solid #d9480f; padding-bottom: 6px; }
+h3 { font-size: 21px; margin-top: 28px; }
+p.lede { font-size: 22px; color: #4b5160; margin-top: 0; }
+a { color: #1f3a93; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.kpi { background: #f4f6fb; border: 1px solid #d7dce6; border-top: 6px solid #1f3a93; border-radius: 10px; padding: 16px 18px; }
+.kpi.orange { border-top-color: #d9480f; }
+.kpi.purple { border-top-color: #6b2fb3; }
+.kpi.gold { border-top-color: #b7791f; }
+.kpi .num { font-family: "Segoe UI", Arial, sans-serif; font-size: 38px; font-weight: 800; color: #1b1f2a; line-height: 1.1; }
+.kpi .lbl { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 4px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 24px 0; }
+.card { display: block; background: #ffffff; border: 1px solid #d7dce6; border-left: 8px solid #6b2fb3; border-radius: 10px;
+         padding: 18px 20px; text-decoration: none; color: #1b1f2a; }
+.card:hover { background: #f4f6fb; }
+.card h3 { margin: 0 0 6px; color: #1f3a93; }
+.card p { margin: 0; color: #4b5160; font-size: 16px; }
+.card .step { font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #d9480f; font-weight: 700; }
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+th, td { border: 1px solid #d7dce6; padding: 9px 12px; text-align: left; vertical-align: top; }
+th { background: #1f3a93; color: #fff; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: #f4f6fb; }
+.panel { background: #f4f6fb; border: 1px solid #d7dce6; border-radius: 10px; padding: 18px 22px; margin: 20px 0; }
+.callout { border-left: 8px solid #d9480f; background: #fff7f1; padding: 14px 20px; margin: 22px 0; border-radius: 0 10px 10px 0; }
+.callout.purple { border-left-color: #6b2fb3; background: #f6f1fc; }
+.callout.navy { border-left-color: #1f3a93; background: #eef2fb; }
+.callout h3 { margin-top: 0; }
+.chart-wrap { background: #fff; border: 1px solid #d7dce6; border-radius: 10px; padding: 16px; margin: 18px 0; }
+.chart-wrap figcaption { font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; color: #4b5160; margin-top: 8px; }
+figure { margin: 0; }
+svg.chart text, svg.donut text { font-family: "Segoe UI", Arial, sans-serif; fill: #1b1f2a; }
+svg .axis { font-size: 15px; }
+svg .val { font-size: 15px; font-weight: 700; }
+svg .small { font-size: 12px; }
+svg.chart text.cell-big { font-size: 36px; font-weight: 800; fill: #fff; }
+svg.chart text.cell-label { font-size: 14px; fill: #fff; }
+svg .donut-big { font-size: 30px; font-weight: 800; }
+svg .donut-small { font-size: 13px; fill: #4b5160; }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+ul.legend { list-style: none; padding: 0; margin: 0; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; }
+ul.legend li { margin: 6px 0; }
+.swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: -2px; margin-right: 8px; }
+.muted { color: #4b5160; }
+code, pre { font-family: Consolas, "Courier New", monospace; font-size: 15px; }
+pre { background: #f0f2f7; border: 1px solid #d7dce6; border-radius: 8px; padding: 14px 16px; overflow-x: auto; }
+.pager { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 18px; border-top: 1px solid #d7dce6;
+          font-family: "Segoe UI", Arial, sans-serif; }
+footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px;
+               font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
+.badge { display: inline-block; font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
+.badge.block { background: #1f3a93; }
+.badge.pass { background: #6b2fb3; }
+.badge.warn { background: #b7791f; }
+</style>
+</head>
+<body>
+<header class="site"><div class="inner">
+<a class="brand" href="index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
+<nav class="main" aria-label="Site"><a href="index.html" class="">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="current">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
+</div></header>
+<main>
+<figure><img src="images/value.png" alt="Why AIV helps" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
+
+<h1>Why AIV helps a project avoid AI slop</h1>
+<p class="lede">AIV protects review capacity by blocking objective change defects early, while keeping disclosure and subjective signals out of the hard-fail path.</p>
+<h2>What was the problem, what AIV caught, what proved it</h2>
+<table>
+<thead><tr><th>Capability</th><th>Before</th><th>After</th><th>Evidence</th></tr></thead>
+<tbody><tr><td><strong>Objective defect interception</strong></td><td>Literal and structural defects could reach expensive review</td><td>Conflict blocks and unauthorized gitlinks fail before merge</td><td>35/35 fixtures, 2/2 structural, PR #59957</td></tr><tr><td><strong>False-block protection</strong></td><td>Gate-wide severity could promote lower-confidence signals</td><td>Per-rule fail, warn, and off actions keep subjective signals advisory</td><td>0/17 observed hard control failures</td></tr><tr><td><strong>Immutable evidence</strong></td><td>Mutable workspace and movable refs could change evaluated bytes</td><td>Pinned commit OIDs and git show bind content to reviewed head</td><td>Git adapter trust and timeout regression suites</td></tr><tr><td><strong>Fail-closed execution</strong></td><td>Oversized or failed collection could become an empty pass</td><td>Missing, oversized, malformed, and timed-out evidence stops evaluation</td><td>Capture-limit and source-retrieval tests</td></tr><tr><td><strong>Benchmark integrity</strong></td><td>Exit failures and removed lines could inflate true positives</td><td>Added-line labels and canonical schema v3 receipts are mandatory</td><td>Reconciled TP/FN/FP/TN and zero errors</td></tr><tr><td><strong>Bypass resistance</strong></td><td>Author email plus generic signature status could authorize skip</td><td>Full-run skip is disabled; protected rules are unsuppressible</td><td>Skip and suppression regression tests</td></tr></tbody></table>
+<h2>How it fits into a review process</h2>
+<p>AIV runs where CI already runs. It reads the pull request as Git sees it, pinned to the reviewed head commit, and emits a
+receipt that says which rules blocked, which only warned, and which passed. Because the hard fail path contains only objective
+rules, a block is something the contributor fixes, not something the maintainer has to argue about. Reviewer time moves from
+"did you leave a conflict marker in here" to "is this the right change".</p>
+<div class="kpis">
+<div class="kpi"><div class="num">38/38</div><div class="lbl">objective detections on executed suites</div></div>
+<div class="kpi orange"><div class="num">0</div><div class="lbl">clean changes wrongly blocked out of 17</div></div>
+<div class="kpi purple"><div class="num">0</div><div class="lbl">bypasses available: full run skip is disabled, protected rules cannot be suppressed</div></div>
+</div>
+<h2>Who benefits</h2>
+<table>
+<thead><tr><th>Buyer</th><th>Pain</th><th>Value</th><th>Proof</th></tr></thead>
+<tbody><tr><td><strong>Maintainers</strong></td><td>Review queues absorb obvious broken changes</td><td>Objective defects are intercepted before scarce reviewer time is spent</td><td>38/38 observed objective detections across separated suites</td></tr><tr><td><strong>Platform engineering</strong></td><td>Different repositories enforce quality inconsistently</td><td>One deterministic, policy-pinned receipt works in CI, agents, and workflow gates</td><td>Schema v3, immutable OIDs, per-rule actions</td></tr><tr><td><strong>Security and governance</strong></td><td>Mutable inputs and bypasses weaken evidence</td><td>Fail-closed collection, unsuppressible rules, and disabled full-run skip</td><td>Trust, timeout, suppression, and skip regression tests</td></tr><tr><td><strong>Engineering leadership</strong></td><td>AI policy debates lack measurable evidence</td><td>Separates objective defects from disclosure and subjective signals</td><td>0/17 observed hard control failures; broad recall reported as unknown</td></tr></tbody></table>
+<h2>Recommended adoption path</h2>
+<ol><li>Start advisory: capture findings without blocking delivery.</li><li>Calibrate each rule on repository-owned positives and controls.</li><li>Promote only objective rules whose confidence bounds meet policy.</li><li>Protect promoted rules with immutable policy and audited evidence.</li></ol>
+<div class="callout purple">
+<h3>What AIV is not</h3>
+<p>It is not an AI detector. It does not read disclosure checkboxes to decide anything. It does not catch a change that is
+syntactically perfect, well tested and wrong. Those remain human work, and this benchmark does not pretend otherwise. What AIV
+does is remove the mechanically obvious failures from the queue, every time, with a receipt.</p>
+</div>
+<p>Next: <a href="verification.html">how to verify every number on this site yourself</a>.</p>
+
+<div class="pager"><a href="proof.html">&larr; Proof</a><a href="verification.html">Verification &rarr;</a></div>
+</main>
+<footer class="site">Generated 2026-10-23T19:02:17.836519+00:00 by <code>benchmarks/airflow/scripts/generate-benchmark-site.py</code> from result files on disk.
+Author: Viquar Khan. Static HTML, inline SVG, no scripts, no external assets.</footer>
+</body>
+</html>
