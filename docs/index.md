@@ -7,12 +7,15 @@ description: Deterministic evidence for agent-generated change.
 
 **Turn an untrusted change into a policy-bound, machine-readable verdict before detailed review.**
 
+[Open the benchmark](airflow-benchmark/index.html)
+
 ![AIV complete architecture](images/aiv-architecture.png)
 
 **Figure 1: One engine, multiple delivery surfaces.** Developers, CI, agents, AI-DLC, and policy hosts call the same gate engine. AIV freezes policy before evaluation and publishes one result to human, machine, GitHub, and audit surfaces.
 
 ## Start here
 
+- [Benchmark](airflow-benchmark/index.html)
 - [Quick start](TUTORIAL.md)
 - [Complete Hello World: all gates one by one](HELLO-WORLD.md)
 - [One page per gate](GATES.md)

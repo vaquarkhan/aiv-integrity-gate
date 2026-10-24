@@ -83,9 +83,6 @@ footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color:
 <nav class="main" aria-label="Site"><a href="index.html" class="current">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
 </div></header>
 <main>
-<figure><img src="images/index.png" alt="Overview of the Airflow benchmark" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
-<p><a href="../benchmark/index.html">Open the measured full stored-patch run</a></p>
-
 <h1>Can a deterministic gate stop AI slop before a human reviews it?</h1>
 <p class="lede">An end-to-end benchmark of the AIV Integrity Gate. 2,098 stored patch files were executed: 1,219 Apache Airflow files and 879 files from six other projects. The 15,575-row index has no diffs, so it was not executed.</p>
 <div class="kpis">
@@ -94,6 +91,8 @@ footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color:
 <div class="kpi purple"><div class="num">1,803</div><div class="lbl">passed. 182 could not be scored</div></div>
 <div class="kpi gold"><div class="num">15,575</div><div class="lbl">Airflow rows indexed, not executed</div></div>
 </div>
+<p><a href="../benchmark/index.html">Open the measured full stored-patch run</a></p>
+<figure><img src="images/index.png" alt="Overview of the Airflow benchmark" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
 <div class="callout">
 <h3>Read this first</h3>
 <p>All local rows and stored patches were processed. Only actual AIV executions are performance denominators. The percentage of all real AI slop caught is unknown. AIV does not detect who or what wrote the code. It blocks objective, mechanically
