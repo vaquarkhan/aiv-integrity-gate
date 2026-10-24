@@ -1,0 +1,42 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.main-content .aiv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 8px 0 28px;
+}
+
+.main-content a.aiv-btn {
+  display: inline-block;
+  margin: 0;
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: 2px solid #155799;
+  background: #155799;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.main-content a.aiv-btn:hover {
+  background: #159957;
+  border-color: #159957;
+  color: #fff;
+  text-decoration: none;
+}
+
+.main-content a.aiv-btn-secondary {
+  background: #fff;
+  color: #155799;
+}
+
+.main-content a.aiv-btn-secondary:hover {
+  background: #f3f7fb;
+  border-color: #155799;
+  color: #155799;
+}

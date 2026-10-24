@@ -7,7 +7,11 @@ description: Deterministic evidence for agent-generated change.
 
 **Turn an untrusted change into a policy-bound, machine-readable verdict before detailed review.**
 
-[Open the benchmark](airflow-benchmark/index.html)
+<div class="aiv-actions">
+  <a class="aiv-btn" href="airflow-benchmark/index.html">Open the benchmark</a>
+  <a class="aiv-btn aiv-btn-secondary" href="benchmark/index.html">Measured results</a>
+  <a class="aiv-btn aiv-btn-secondary" href="TUTORIAL.md">Quick start</a>
+</div>
 
 ![AIV complete architecture](images/aiv-architecture.png)
 
