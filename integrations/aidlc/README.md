@@ -4,6 +4,17 @@ Run **AIV Integrity Gate** at an [AI-DLC](https://awslabs.github.io/aidlc-workfl
 verification boundary. The adapter calls `aiv verify` and returns the standard sensor
 shape: `pass` plus file/line/rule/message violations.
 
+> **About AI-DLC.** AI-DLC is an open-source project published by AWS at
+> [github.com/awslabs/aidlc-workflows](https://github.com/awslabs/aidlc-workflows) under the
+> MIT-0 license. AIV and this plugin are a separate, independent Apache-2.0 project. They are
+> not part of AI-DLC and are not affiliated with or endorsed by AWS.
+>
+> **What it helps.** AI-DLC's built-in sensors check documents, traceability, lint and types.
+> This plugin adds deterministic code-diff evidence (conflict blocks, agent edit artifacts,
+> unresolved imports, assertion-free tests, added secrets) at the Construction approval gate,
+> using the same `.aiv` policy that later runs in the pull request. See
+> [docs/AIDLC.md](../../docs/AIDLC.md#what-using-aiv-with-ai-dlc-helps).
+
 ## Two evidence modes
 
 | Mode | Input | Best for |

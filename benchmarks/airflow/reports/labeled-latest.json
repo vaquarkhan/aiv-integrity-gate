@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-19T20:37:56.167489+00:00",
-  "aiv_jar": "C:\\Users\\Administrator\\Downloads\\aiv-integrity-gate\\aiv-cli\\target\\aiv-cli-1.0.4.jar",
+  "generated_at": "2026-10-24T23:58:33.821648+00:00",
+  "aiv_jar": "aiv-cli/target/aiv-cli-1.0.4.jar",
   "corpus": "benchmarks/airflow/corpus/cases-labeled-50.json",
   "claims": {
-    "tag": "VERIFIED",
+    "tag": "FIXTURE-AGREEMENT",
     "n_cases": 50,
     "positives_expect_fail": 35,
     "negatives_expect_pass": 15,
@@ -18,7 +18,7 @@
     "block_rate_on_labeled_slop": 1.0,
     "advisory_expected": 5,
     "advisory_hit": 5,
-    "statement": "On the labeled 50-case bench: blocked 35/35 expected-fail cases (recall 100.0%), FP 0/15 expected-pass (0.0%), precision 100.0%.",
+    "statement": "On the complete 50-case designed fixture suite: agreed with 35/35 expected-fail cases (recall 100.0%), FP 0/15 expected-pass (0.0%), precision 100.0%.",
     "not_claimed": [
       "That this equals % of AIP-120's 508 external closed-unmerged PRs",
       "That unlabeled Airflow closed-unmerged volume is AI authorship",
@@ -26,39 +26,26 @@
     ]
   },
   "metrics": {
-    "positives": {
-      "TP": 30,
-      "FP": 0,
-      "TN": 0,
-      "FN": 0,
-      "ERROR": 0,
-      "UNEXPECTED_FAIL": 0,
-      "OTHER": 0
-    },
-    "negatives_controls": {
-      "TP": 0,
-      "FP": 0,
-      "TN": 5,
-      "FN": 0,
-      "ERROR": 0,
-      "UNEXPECTED_FAIL": 0,
-      "OTHER": 0
-    },
-    "closed_unmerged_sample": {
-      "TP": 0,
-      "FP": 0,
-      "TN": 0,
-      "FN": 0,
-      "ERROR": 0,
-      "UNEXPECTED_FAIL": 0,
-      "OTHER": 0
-    },
-    "hard_gate_precision": 1.0,
-    "hard_gate_recall_on_labeled_positives": 1.0,
-    "false_positive_rate_on_controls": 0.0,
-    "closed_unmerged_hard_flag_rate": null,
+    "tag": "FIXTURE-AGREEMENT",
     "n_cases": 50,
-    "n_errors": 0
+    "positives_expect_fail": 35,
+    "negatives_expect_pass": 15,
+    "TP": 35,
+    "FN": 0,
+    "FP": 0,
+    "TN": 15,
+    "hard_gate_recall": 1.0,
+    "hard_gate_precision": 1.0,
+    "false_positive_rate": 0.0,
+    "block_rate_on_labeled_slop": 1.0,
+    "advisory_expected": 5,
+    "advisory_hit": 5,
+    "statement": "On the complete 50-case designed fixture suite: agreed with 35/35 expected-fail cases (recall 100.0%), FP 0/15 expected-pass (0.0%), precision 100.0%.",
+    "not_claimed": [
+      "That this equals % of AIP-120's 508 external closed-unmerged PRs",
+      "That unlabeled Airflow closed-unmerged volume is AI authorship",
+      "Exact CI dollars saved"
+    ]
   },
   "cases": [
     {
@@ -74,10 +61,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_negative",
         "expect_hard_fail": false
       },
@@ -85,6 +78,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -92,6 +87,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -99,6 +96,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -106,6 +105,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -113,13 +114,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-01_sftptest, proper-01_sftptests, testproper-01_sftp, proper-01_sftpit, proper-01_sftpspec, proper-01_sftptestcase, test_proper-01_sftp, proper-01_sftp_test, proper-01_sftp_spec, proper-01_sftp.test, proper-01_sftp.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/proper/proper-01_sftp.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-01_sftptest, proper-01_sftptests, testproper-01_sftp, proper-01_sftpit, proper-01_sftpspec, proper-01_sftptestcase, test_proper-01_sftp, proper-01_sftp_test, proper-01_sftp_spec, proper-01_sftp.test, proper-01_sftp.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/proper-01/aiv-report.json"
     },
     {
       "id": "proper-02",
@@ -134,10 +171,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_negative",
         "expect_hard_fail": false
       },
@@ -145,6 +188,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -152,6 +197,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -159,6 +206,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -166,6 +215,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -173,13 +224,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-02_httptest, proper-02_httptests, testproper-02_http, proper-02_httpit, proper-02_httpspec, proper-02_httptestcase, test_proper-02_http, proper-02_http_test, proper-02_http_spec, proper-02_http.test, proper-02_http.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/proper/proper-02_http.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-02_httptest, proper-02_httptests, testproper-02_http, proper-02_httpit, proper-02_httpspec, proper-02_httptestcase, test_proper-02_http, proper-02_http_test, proper-02_http_spec, proper-02_http.test, proper-02_http.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/proper-02/aiv-report.json"
     },
     {
       "id": "proper-03",
@@ -194,10 +281,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_negative",
         "expect_hard_fail": false
       },
@@ -205,6 +298,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -212,6 +307,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -219,6 +316,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -226,6 +325,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -233,13 +334,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-03_jdbctest, proper-03_jdbctests, testproper-03_jdbc, proper-03_jdbcit, proper-03_jdbcspec, proper-03_jdbctestcase, test_proper-03_jdbc, proper-03_jdbc_test, proper-03_jdbc_spec, proper-03_jdbc.test, proper-03_jdbc.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/proper/proper-03_jdbc.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-03_jdbctest, proper-03_jdbctests, testproper-03_jdbc, proper-03_jdbcit, proper-03_jdbcspec, proper-03_jdbctestcase, test_proper-03_jdbc, proper-03_jdbc_test, proper-03_jdbc_spec, proper-03_jdbc.test, proper-03_jdbc.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/proper-03/aiv-report.json"
     },
     {
       "id": "proper-04",
@@ -254,10 +391,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_negative",
         "expect_hard_fail": false
       },
@@ -265,6 +408,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -272,6 +417,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -279,6 +426,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -286,6 +435,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -293,13 +444,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-04_kafkatest, proper-04_kafkatests, testproper-04_kafka, proper-04_kafkait, proper-04_kafkaspec, proper-04_kafkatestcase, test_proper-04_kafka, proper-04_kafka_test, proper-04_kafka_spec, proper-04_kafka.test, proper-04_kafka.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/proper/proper-04_kafka.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-04_kafkatest, proper-04_kafkatests, testproper-04_kafka, proper-04_kafkait, proper-04_kafkaspec, proper-04_kafkatestcase, test_proper-04_kafka, proper-04_kafka_test, proper-04_kafka_spec, proper-04_kafka.test, proper-04_kafka.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/proper-04/aiv-report.json"
     },
     {
       "id": "proper-05",
@@ -314,10 +501,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_negative",
         "expect_hard_fail": false
       },
@@ -325,6 +518,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -332,6 +527,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -339,6 +536,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -346,6 +545,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -353,13 +554,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-05_redistest, proper-05_redistests, testproper-05_redis, proper-05_redisit, proper-05_redisspec, proper-05_redistestcase, test_proper-05_redis, proper-05_redis_test, proper-05_redis_spec, proper-05_redis.test, proper-05_redis.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/proper/proper-05_redis.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-05_redistest, proper-05_redistests, testproper-05_redis, proper-05_redisit, proper-05_redisspec, proper-05_redistestcase, test_proper-05_redis, proper-05_redis_test, proper-05_redis_spec, proper-05_redis.test, proper-05_redis.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/proper-05/aiv-report.json"
     },
     {
       "id": "slop-edit-01",
@@ -374,12 +611,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -387,6 +632,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -394,6 +641,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -401,6 +650,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -408,6 +659,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-01.py",
@@ -422,13 +675,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-01test, edit-01tests, testedit-01, edit-01it, edit-01spec, edit-01testcase, test_edit-01, edit-01_test, edit-01_spec, edit-01.test, edit-01.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-01.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-01test, edit-01tests, testedit-01, edit-01it, edit-01spec, edit-01testcase, test_edit-01, edit-01_test, edit-01_spec, edit-01.test, edit-01.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-01/aiv-report.json"
     },
     {
       "id": "slop-edit-02",
@@ -443,12 +732,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -456,6 +753,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -463,6 +762,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -470,6 +771,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -477,6 +780,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-02.py",
@@ -491,13 +796,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-02test, edit-02tests, testedit-02, edit-02it, edit-02spec, edit-02testcase, test_edit-02, edit-02_test, edit-02_spec, edit-02.test, edit-02.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-02.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-02test, edit-02tests, testedit-02, edit-02it, edit-02spec, edit-02testcase, test_edit-02, edit-02_test, edit-02_spec, edit-02.test, edit-02.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-02/aiv-report.json"
     },
     {
       "id": "slop-edit-03",
@@ -512,12 +853,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -525,6 +874,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -532,6 +883,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -539,6 +892,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -546,6 +901,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-03.py",
@@ -560,13 +917,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-03test, edit-03tests, testedit-03, edit-03it, edit-03spec, edit-03testcase, test_edit-03, edit-03_test, edit-03_spec, edit-03.test, edit-03.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-03.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-03test, edit-03tests, testedit-03, edit-03it, edit-03spec, edit-03testcase, test_edit-03, edit-03_test, edit-03_spec, edit-03.test, edit-03.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-03/aiv-report.json"
     },
     {
       "id": "slop-edit-04",
@@ -581,12 +974,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -594,6 +995,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -601,6 +1004,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -608,6 +1013,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -615,6 +1022,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-04.py",
@@ -629,13 +1038,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-04test, edit-04tests, testedit-04, edit-04it, edit-04spec, edit-04testcase, test_edit-04, edit-04_test, edit-04_spec, edit-04.test, edit-04.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-04.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-04test, edit-04tests, testedit-04, edit-04it, edit-04spec, edit-04testcase, test_edit-04, edit-04_test, edit-04_spec, edit-04.test, edit-04.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-04/aiv-report.json"
     },
     {
       "id": "slop-edit-05",
@@ -650,12 +1095,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -663,6 +1116,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -670,6 +1125,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -677,6 +1134,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -684,6 +1143,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-05.py",
@@ -698,13 +1159,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-05test, edit-05tests, testedit-05, edit-05it, edit-05spec, edit-05testcase, test_edit-05, edit-05_test, edit-05_spec, edit-05.test, edit-05.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-05.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-05test, edit-05tests, testedit-05, edit-05it, edit-05spec, edit-05testcase, test_edit-05, edit-05_test, edit-05_spec, edit-05.test, edit-05.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-05/aiv-report.json"
     },
     {
       "id": "slop-edit-06",
@@ -719,12 +1216,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -732,6 +1237,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -739,6 +1246,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -746,6 +1255,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -753,6 +1264,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-06.py",
@@ -767,13 +1280,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-06test, edit-06tests, testedit-06, edit-06it, edit-06spec, edit-06testcase, test_edit-06, edit-06_test, edit-06_spec, edit-06.test, edit-06.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-06.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-06test, edit-06tests, testedit-06, edit-06it, edit-06spec, edit-06testcase, test_edit-06, edit-06_test, edit-06_spec, edit-06.test, edit-06.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-06/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-06/aiv-report.json"
     },
     {
       "id": "slop-edit-07",
@@ -788,12 +1337,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -801,6 +1358,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -808,6 +1367,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -815,6 +1376,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -822,6 +1385,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-07.py",
@@ -836,13 +1401,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-07test, edit-07tests, testedit-07, edit-07it, edit-07spec, edit-07testcase, test_edit-07, edit-07_test, edit-07_spec, edit-07.test, edit-07.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-07.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-07test, edit-07tests, testedit-07, edit-07it, edit-07spec, edit-07testcase, test_edit-07, edit-07_test, edit-07_spec, edit-07.test, edit-07.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-07/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-07/aiv-report.json"
     },
     {
       "id": "slop-edit-08",
@@ -857,12 +1458,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -870,6 +1479,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -877,6 +1488,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -884,6 +1497,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -891,6 +1506,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-08.py",
@@ -905,13 +1522,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-08test, edit-08tests, testedit-08, edit-08it, edit-08spec, edit-08testcase, test_edit-08, edit-08_test, edit-08_spec, edit-08.test, edit-08.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/edit-08.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-08test, edit-08tests, testedit-08, edit-08it, edit-08spec, edit-08testcase, test_edit-08, edit-08_test, edit-08_spec, edit-08.test, edit-08.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-08/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-edit-08/aiv-report.json"
     },
     {
       "id": "slop-conflict-01",
@@ -926,13 +1579,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant",
           "syntax"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.merge-conflict",
+          "syntax.parse"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -940,6 +1602,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -947,6 +1611,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -954,6 +1620,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -961,20 +1629,24 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-01.py",
+          "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-01.py",
           "findings": [
             {
               "rule_id": "invariant.merge-conflict",
               "file": "providers/bench/labeled/ai-slop/conflict-01.py",
               "start_line": 1,
-              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-01.py"
+              "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-01.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-01.py (SyntaxError line 3: invalid syntax)",
@@ -986,9 +1658,43 @@
               "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-01.py (SyntaxError line 3: invalid syntax)"
             }
           ]
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-01test, conflict-01tests, testconflict-01, conflict-01it, conflict-01spec, conflict-01testcase, test_conflict-01, conflict-01_test, conflict-01_spec, conflict-01.test, conflict-01.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/conflict-01.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-01test, conflict-01tests, testconflict-01, conflict-01it, conflict-01spec, conflict-01testcase, test_conflict-01, conflict-01_test, conflict-01_spec, conflict-01.test, conflict-01.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-conflict-01/aiv-report.json"
     },
     {
       "id": "slop-conflict-02",
@@ -1003,13 +1709,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant",
           "syntax"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.merge-conflict",
+          "syntax.parse"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1017,6 +1732,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1024,6 +1741,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1031,6 +1750,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1038,20 +1759,24 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-02.py",
+          "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-02.py",
           "findings": [
             {
               "rule_id": "invariant.merge-conflict",
               "file": "providers/bench/labeled/ai-slop/conflict-02.py",
               "start_line": 1,
-              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-02.py"
+              "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-02.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-02.py (SyntaxError line 3: invalid syntax)",
@@ -1063,9 +1788,43 @@
               "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-02.py (SyntaxError line 3: invalid syntax)"
             }
           ]
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-02test, conflict-02tests, testconflict-02, conflict-02it, conflict-02spec, conflict-02testcase, test_conflict-02, conflict-02_test, conflict-02_spec, conflict-02.test, conflict-02.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/conflict-02.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-02test, conflict-02tests, testconflict-02, conflict-02it, conflict-02spec, conflict-02testcase, test_conflict-02, conflict-02_test, conflict-02_spec, conflict-02.test, conflict-02.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-conflict-02/aiv-report.json"
     },
     {
       "id": "slop-conflict-03",
@@ -1080,13 +1839,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant",
           "syntax"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.merge-conflict",
+          "syntax.parse"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1094,6 +1862,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1101,6 +1871,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1108,6 +1880,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1115,20 +1889,24 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-03.py",
+          "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-03.py",
           "findings": [
             {
               "rule_id": "invariant.merge-conflict",
               "file": "providers/bench/labeled/ai-slop/conflict-03.py",
               "start_line": 1,
-              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-03.py"
+              "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-03.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-03.py (SyntaxError line 3: invalid syntax)",
@@ -1140,9 +1918,43 @@
               "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-03.py (SyntaxError line 3: invalid syntax)"
             }
           ]
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-03test, conflict-03tests, testconflict-03, conflict-03it, conflict-03spec, conflict-03testcase, test_conflict-03, conflict-03_test, conflict-03_spec, conflict-03.test, conflict-03.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/conflict-03.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-03test, conflict-03tests, testconflict-03, conflict-03it, conflict-03spec, conflict-03testcase, test_conflict-03, conflict-03_test, conflict-03_spec, conflict-03.test, conflict-03.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-conflict-03/aiv-report.json"
     },
     {
       "id": "slop-conflict-04",
@@ -1157,13 +1969,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant",
           "syntax"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.merge-conflict",
+          "syntax.parse"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1171,6 +1992,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1178,6 +2001,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1185,6 +2010,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1192,20 +2019,24 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-04.py",
+          "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-04.py",
           "findings": [
             {
               "rule_id": "invariant.merge-conflict",
               "file": "providers/bench/labeled/ai-slop/conflict-04.py",
               "start_line": 1,
-              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-04.py"
+              "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-04.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-04.py (SyntaxError line 3: invalid syntax)",
@@ -1217,9 +2048,43 @@
               "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-04.py (SyntaxError line 3: invalid syntax)"
             }
           ]
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-04test, conflict-04tests, testconflict-04, conflict-04it, conflict-04spec, conflict-04testcase, test_conflict-04, conflict-04_test, conflict-04_spec, conflict-04.test, conflict-04.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/conflict-04.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-04test, conflict-04tests, testconflict-04, conflict-04it, conflict-04spec, conflict-04testcase, test_conflict-04, conflict-04_test, conflict-04_spec, conflict-04.test, conflict-04.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-conflict-04/aiv-report.json"
     },
     {
       "id": "slop-conflict-05",
@@ -1234,13 +2099,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant",
           "syntax"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.merge-conflict",
+          "syntax.parse"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1248,6 +2122,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1255,6 +2131,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1262,6 +2140,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1269,20 +2149,24 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-05.py",
+          "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-05.py",
           "findings": [
             {
               "rule_id": "invariant.merge-conflict",
               "file": "providers/bench/labeled/ai-slop/conflict-05.py",
               "start_line": 1,
-              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-05.py"
+              "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-05.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-05.py (SyntaxError line 3: invalid syntax)",
@@ -1294,9 +2178,43 @@
               "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-05.py (SyntaxError line 3: invalid syntax)"
             }
           ]
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-05test, conflict-05tests, testconflict-05, conflict-05it, conflict-05spec, conflict-05testcase, test_conflict-05, conflict-05_test, conflict-05_spec, conflict-05.test, conflict-05.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/conflict-05.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-05test, conflict-05tests, testconflict-05, conflict-05it, conflict-05spec, conflict-05testcase, test_conflict-05, conflict-05_test, conflict-05_spec, conflict-05.test, conflict-05.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-conflict-05/aiv-report.json"
     },
     {
       "id": "slop-conflict-06",
@@ -1311,13 +2229,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant",
           "syntax"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.merge-conflict",
+          "syntax.parse"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1325,6 +2252,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1332,6 +2261,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1339,6 +2270,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1346,20 +2279,24 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-06.py",
+          "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-06.py",
           "findings": [
             {
               "rule_id": "invariant.merge-conflict",
               "file": "providers/bench/labeled/ai-slop/conflict-06.py",
               "start_line": 1,
-              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-06.py"
+              "message": "Unresolved merge conflict block found on the added surface of providers/bench/labeled/ai-slop/conflict-06.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-06.py (SyntaxError line 3: invalid syntax)",
@@ -1371,9 +2308,43 @@
               "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-06.py (SyntaxError line 3: invalid syntax)"
             }
           ]
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-06test, conflict-06tests, testconflict-06, conflict-06it, conflict-06spec, conflict-06testcase, test_conflict-06, conflict-06_test, conflict-06_spec, conflict-06.test, conflict-06.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/conflict-06.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: conflict-06test, conflict-06tests, testconflict-06, conflict-06it, conflict-06spec, conflict-06testcase, test_conflict-06, conflict-06_test, conflict-06_spec, conflict-06.test, conflict-06.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-06/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-conflict-06/aiv-report.json"
     },
     {
       "id": "slop-attr-01",
@@ -1388,12 +2359,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "design"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "design.forbidden.no-ai-generated-markers"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1401,6 +2380,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1408,6 +2389,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Forbidden call 'Generated by ChatGPT' in providers/bench/labeled/ai-slop/attr-01.py (constraint: no-ai-generated-markers)",
@@ -1422,6 +2405,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1429,6 +2414,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1436,13 +2423,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-01test, attr-01tests, testattr-01, attr-01it, attr-01spec, attr-01testcase, test_attr-01, attr-01_test, attr-01_spec, attr-01.test, attr-01.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/attr-01.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-01test, attr-01tests, testattr-01, attr-01it, attr-01spec, attr-01testcase, test_attr-01, attr-01_test, attr-01_spec, attr-01.test, attr-01.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-attr-01/aiv-report.json"
     },
     {
       "id": "slop-attr-02",
@@ -1457,12 +2480,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "design"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "design.forbidden.no-ai-generated-markers"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1470,6 +2501,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1477,6 +2510,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Forbidden call 'Generated by Claude' in providers/bench/labeled/ai-slop/attr-02.py (constraint: no-ai-generated-markers)",
@@ -1491,6 +2526,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1498,6 +2535,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1505,13 +2544,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-02test, attr-02tests, testattr-02, attr-02it, attr-02spec, attr-02testcase, test_attr-02, attr-02_test, attr-02_spec, attr-02.test, attr-02.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/attr-02.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-02test, attr-02tests, testattr-02, attr-02it, attr-02spec, attr-02testcase, test_attr-02, attr-02_test, attr-02_spec, attr-02.test, attr-02.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-attr-02/aiv-report.json"
     },
     {
       "id": "slop-attr-03",
@@ -1526,14 +2601,24 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "design",
           "invariant",
           "syntax"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "design.forbidden.no-ai-generated-markers",
+          "invariant.ai-provenance",
+          "syntax.parse"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1541,6 +2626,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1548,6 +2635,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Forbidden call 'Generated-by:' in providers/bench/labeled/ai-slop/attr-03.py (constraint: no-ai-generated-markers)",
@@ -1562,6 +2651,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1569,6 +2660,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI provenance trailer pasted into providers/bench/labeled/ai-slop/attr-03.py",
@@ -1583,6 +2676,8 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Does not parse: providers/bench/labeled/ai-slop/attr-03.py (SyntaxError line 3: unexpected indent)",
@@ -1594,9 +2689,43 @@
               "message": "Does not parse: providers/bench/labeled/ai-slop/attr-03.py (SyntaxError line 3: unexpected indent)"
             }
           ]
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-03test, attr-03tests, testattr-03, attr-03it, attr-03spec, attr-03testcase, test_attr-03, attr-03_test, attr-03_spec, attr-03.test, attr-03.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/attr-03.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-03test, attr-03tests, testattr-03, attr-03it, attr-03spec, attr-03testcase, test_attr-03, attr-03_test, attr-03_spec, attr-03.test, attr-03.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-attr-03/aiv-report.json"
     },
     {
       "id": "slop-attr-04",
@@ -1611,12 +2740,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "design"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "design.forbidden.no-ai-generated-markers"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1624,6 +2761,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1631,6 +2770,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Forbidden call 'AI-generated' in providers/bench/labeled/ai-slop/attr-04.py (constraint: no-ai-generated-markers)",
@@ -1645,6 +2786,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1652,6 +2795,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1659,13 +2804,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-04test, attr-04tests, testattr-04, attr-04it, attr-04spec, attr-04testcase, test_attr-04, attr-04_test, attr-04_spec, attr-04.test, attr-04.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/attr-04.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-04test, attr-04tests, testattr-04, attr-04it, attr-04spec, attr-04testcase, test_attr-04, attr-04_test, attr-04_spec, attr-04.test, attr-04.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-attr-04/aiv-report.json"
     },
     {
       "id": "slop-attr-05",
@@ -1680,12 +2861,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "design"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "design.forbidden.no-ai-generated-markers"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1693,6 +2882,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1700,6 +2891,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Forbidden call 'Generated by Copilot' in providers/bench/labeled/ai-slop/attr-05.py (constraint: no-ai-generated-markers)",
@@ -1714,6 +2907,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1721,6 +2916,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1728,13 +2925,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-05test, attr-05tests, testattr-05, attr-05it, attr-05spec, attr-05testcase, test_attr-05, attr-05_test, attr-05_spec, attr-05.test, attr-05.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/attr-05.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-05test, attr-05tests, testattr-05, attr-05it, attr-05spec, attr-05testcase, test_attr-05, attr-05_test, attr-05_spec, attr-05.test, attr-05.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-attr-05/aiv-report.json"
     },
     {
       "id": "slop-attr-06",
@@ -1749,12 +2982,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1762,6 +3003,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1769,6 +3012,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1776,6 +3021,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1783,6 +3030,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/attr-06.py",
@@ -1797,13 +3046,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-06test, attr-06tests, testattr-06, attr-06it, attr-06spec, attr-06testcase, test_attr-06, attr-06_test, attr-06_spec, attr-06.test, attr-06.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/attr-06.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: attr-06test, attr-06tests, testattr-06, attr-06it, attr-06spec, attr-06testcase, test_attr-06, attr-06_test, attr-06_spec, attr-06.test, attr-06.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-06/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-attr-06/aiv-report.json"
     },
     {
       "id": "slop-ph-01",
@@ -1818,12 +3103,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.placeholder"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1831,6 +3124,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1838,6 +3133,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1845,6 +3142,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1852,27 +3151,65 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-01.py",
+          "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-01.py",
           "findings": [
             {
               "rule_id": "invariant.placeholder",
               "file": "providers/bench/labeled/ai-slop/placeholder-01.py",
               "start_line": 1,
-              "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-01.py"
+              "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-01.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-01test, placeholder-01tests, testplaceholder-01, placeholder-01it, placeholder-01spec, placeholder-01testcase, test_placeholder-01, placeholder-01_test, placeholder-01_spec, placeholder-01.test, placeholder-01.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/placeholder-01.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-01test, placeholder-01tests, testplaceholder-01, placeholder-01it, placeholder-01spec, placeholder-01testcase, test_placeholder-01, placeholder-01_test, placeholder-01_spec, placeholder-01.test, placeholder-01.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-ph-01/aiv-report.json"
     },
     {
       "id": "slop-ph-02",
@@ -1887,12 +3224,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.placeholder"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1900,6 +3245,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1907,6 +3254,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1914,6 +3263,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1921,27 +3272,65 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-02.py",
+          "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-02.py",
           "findings": [
             {
               "rule_id": "invariant.placeholder",
               "file": "providers/bench/labeled/ai-slop/placeholder-02.py",
               "start_line": 1,
-              "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-02.py"
+              "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-02.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-02test, placeholder-02tests, testplaceholder-02, placeholder-02it, placeholder-02spec, placeholder-02testcase, test_placeholder-02, placeholder-02_test, placeholder-02_spec, placeholder-02.test, placeholder-02.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/placeholder-02.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-02test, placeholder-02tests, testplaceholder-02, placeholder-02it, placeholder-02spec, placeholder-02testcase, test_placeholder-02, placeholder-02_test, placeholder-02_spec, placeholder-02.test, placeholder-02.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-ph-02/aiv-report.json"
     },
     {
       "id": "slop-ph-03",
@@ -1956,13 +3345,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "design",
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "design.forbidden.no-ai-generated-markers",
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -1970,6 +3368,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1977,6 +3377,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Forbidden call 'YOUR_CODE_HERE' in providers/bench/labeled/ai-slop/placeholder-03.py (constraint: no-ai-generated-markers)",
@@ -1991,6 +3393,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -1998,6 +3402,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-03.py",
@@ -2012,13 +3418,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-03test, placeholder-03tests, testplaceholder-03, placeholder-03it, placeholder-03spec, placeholder-03testcase, test_placeholder-03, placeholder-03_test, placeholder-03_spec, placeholder-03.test, placeholder-03.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/placeholder-03.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-03test, placeholder-03tests, testplaceholder-03, placeholder-03it, placeholder-03spec, placeholder-03testcase, test_placeholder-03, placeholder-03_test, placeholder-03_spec, placeholder-03.test, placeholder-03.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-ph-03/aiv-report.json"
     },
     {
       "id": "slop-ph-04",
@@ -2033,13 +3475,22 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "design",
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "design.forbidden.no-ai-generated-markers",
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -2047,6 +3498,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2054,6 +3507,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "Forbidden call 'INSERT_YOUR_CODE' in providers/bench/labeled/ai-slop/placeholder-04.py (constraint: no-ai-generated-markers)",
@@ -2068,6 +3523,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2075,6 +3532,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-04.py",
@@ -2089,13 +3548,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-04test, placeholder-04tests, testplaceholder-04, placeholder-04it, placeholder-04spec, placeholder-04testcase, test_placeholder-04, placeholder-04_test, placeholder-04_spec, placeholder-04.test, placeholder-04.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/placeholder-04.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-04test, placeholder-04tests, testplaceholder-04, placeholder-04it, placeholder-04spec, placeholder-04testcase, test_placeholder-04, placeholder-04_test, placeholder-04_spec, placeholder-04.test, placeholder-04.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-ph-04/aiv-report.json"
     },
     {
       "id": "slop-ph-05",
@@ -2110,12 +3605,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.placeholder"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -2123,6 +3626,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2130,6 +3635,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2137,6 +3644,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2144,27 +3653,65 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
-          "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-05.py",
+          "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-05.py",
           "findings": [
             {
               "rule_id": "invariant.placeholder",
               "file": "providers/bench/labeled/ai-slop/placeholder-05.py",
               "start_line": 1,
-              "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-05.py"
+              "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-05.py"
             }
           ]
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-05test, placeholder-05tests, testplaceholder-05, placeholder-05it, placeholder-05spec, placeholder-05testcase, test_placeholder-05, placeholder-05_test, placeholder-05_spec, placeholder-05.test, placeholder-05.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/placeholder-05.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-05test, placeholder-05tests, testplaceholder-05, placeholder-05it, placeholder-05spec, placeholder-05testcase, test_placeholder-05, placeholder-05_test, placeholder-05_spec, placeholder-05.test, placeholder-05.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-ph-05/aiv-report.json"
     },
     {
       "id": "slop-search-01",
@@ -2179,12 +3726,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -2192,6 +3747,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2199,6 +3756,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2206,6 +3765,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2213,6 +3774,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-01.py",
@@ -2227,13 +3790,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-01test, search-01tests, testsearch-01, search-01it, search-01spec, search-01testcase, test_search-01, search-01_test, search-01_spec, search-01.test, search-01.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/search-01.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-01test, search-01tests, testsearch-01, search-01it, search-01spec, search-01testcase, test_search-01, search-01_test, search-01_spec, search-01.test, search-01.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-search-01/aiv-report.json"
     },
     {
       "id": "slop-search-02",
@@ -2248,12 +3847,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -2261,6 +3868,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2268,6 +3877,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2275,6 +3886,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2282,6 +3895,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-02.py",
@@ -2296,13 +3911,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-02test, search-02tests, testsearch-02, search-02it, search-02spec, search-02testcase, test_search-02, search-02_test, search-02_spec, search-02.test, search-02.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/search-02.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-02test, search-02tests, testsearch-02, search-02it, search-02spec, search-02testcase, test_search-02, search-02_test, search-02_spec, search-02.test, search-02.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-search-02/aiv-report.json"
     },
     {
       "id": "slop-search-03",
@@ -2317,12 +3968,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -2330,6 +3989,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2337,6 +3998,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2344,6 +4007,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2351,6 +4016,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-03.py",
@@ -2365,13 +4032,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-03test, search-03tests, testsearch-03, search-03it, search-03spec, search-03testcase, test_search-03, search-03_test, search-03_spec, search-03.test, search-03.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/search-03.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-03test, search-03tests, testsearch-03, search-03it, search-03spec, search-03testcase, test_search-03, search-03_test, search-03_spec, search-03.test, search-03.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-search-03/aiv-report.json"
     },
     {
       "id": "slop-search-04",
@@ -2386,12 +4089,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -2399,6 +4110,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2406,6 +4119,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2413,6 +4128,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2420,6 +4137,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-04.py",
@@ -2434,13 +4153,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-04test, search-04tests, testsearch-04, search-04it, search-04spec, search-04testcase, test_search-04, search-04_test, search-04_spec, search-04.test, search-04.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/search-04.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-04test, search-04tests, testsearch-04, search-04it, search-04spec, search-04testcase, test_search-04, search-04_test, search-04_spec, search-04.test, search-04.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-search-04/aiv-report.json"
     },
     {
       "id": "slop-search-05",
@@ -2455,12 +4210,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "synthetic_positive",
         "expect_hard_fail": true
       },
@@ -2468,6 +4231,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2475,6 +4240,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2482,6 +4249,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2489,6 +4258,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-05.py",
@@ -2503,13 +4274,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-05test, search-05tests, testsearch-05, search-05it, search-05spec, search-05testcase, test_search-05, search-05_test, search-05_spec, search-05.test, search-05.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/ai-slop/search-05.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: search-05test, search-05tests, testsearch-05, search-05it, search-05spec, search-05testcase, test_search-05, search-05_test, search-05_spec, search-05.test, search-05.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/slop-search-05/aiv-report.json"
     },
     {
       "id": "mixed-cohesion-01",
@@ -2526,10 +4333,14 @@
         "hard_fail": false,
         "advisory": true,
         "blocking_gates": [],
+        "blocking_rules": [],
         "advisory_gates": [
           "cohesion"
         ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -2537,6 +4348,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2544,6 +4357,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2551,6 +4366,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:advisory",
+          "partition": "advisory",
           "passed": false,
           "blocks_ci": false,
           "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
@@ -2565,6 +4382,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2572,13 +4391,42 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-cohesion-01/aiv-report.json"
     },
     {
       "id": "mixed-cohesion-02",
@@ -2595,10 +4443,14 @@
         "hard_fail": false,
         "advisory": true,
         "blocking_gates": [],
+        "blocking_rules": [],
         "advisory_gates": [
           "cohesion"
         ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -2606,6 +4458,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2613,6 +4467,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2620,6 +4476,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:advisory",
+          "partition": "advisory",
           "passed": false,
           "blocks_ci": false,
           "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
@@ -2634,6 +4492,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2641,13 +4501,42 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-cohesion-02/aiv-report.json"
     },
     {
       "id": "mixed-cohesion-03",
@@ -2664,10 +4553,14 @@
         "hard_fail": false,
         "advisory": true,
         "blocking_gates": [],
+        "blocking_rules": [],
         "advisory_gates": [
           "cohesion"
         ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -2675,6 +4568,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2682,6 +4577,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2689,6 +4586,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:advisory",
+          "partition": "advisory",
           "passed": false,
           "blocks_ci": false,
           "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
@@ -2703,6 +4602,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2710,13 +4611,42 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-cohesion-03/aiv-report.json"
     },
     {
       "id": "mixed-cohesion-04",
@@ -2733,10 +4663,14 @@
         "hard_fail": false,
         "advisory": true,
         "blocking_gates": [],
+        "blocking_rules": [],
         "advisory_gates": [
           "cohesion"
         ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -2744,6 +4678,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2751,6 +4687,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2758,6 +4696,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:advisory",
+          "partition": "advisory",
           "passed": false,
           "blocks_ci": false,
           "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
@@ -2772,6 +4712,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2779,13 +4721,42 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-cohesion-04/aiv-report.json"
     },
     {
       "id": "mixed-cohesion-05",
@@ -2802,10 +4773,14 @@
         "hard_fail": false,
         "advisory": true,
         "blocking_gates": [],
+        "blocking_rules": [],
         "advisory_gates": [
           "cohesion"
         ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -2813,6 +4788,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2820,6 +4797,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2827,6 +4806,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:advisory",
+          "partition": "advisory",
           "passed": false,
           "blocks_ci": false,
           "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
@@ -2841,6 +4822,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2848,13 +4831,42 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-cohesion-05/aiv-report.json"
     },
     {
       "id": "mixed-soft-01",
@@ -2869,10 +4881,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -2880,6 +4898,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2887,6 +4907,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2894,6 +4916,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2901,6 +4925,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2908,13 +4934,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-01test, soft-01tests, testsoft-01, soft-01it, soft-01spec, soft-01testcase, test_soft-01, soft-01_test, soft-01_spec, soft-01.test, soft-01.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/soft/soft-01.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-01test, soft-01tests, testsoft-01, soft-01it, soft-01spec, soft-01testcase, test_soft-01, soft-01_test, soft-01_spec, soft-01.test, soft-01.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-soft-01/aiv-report.json"
     },
     {
       "id": "mixed-soft-02",
@@ -2929,10 +4991,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -2940,6 +5008,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2947,6 +5017,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2954,6 +5026,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2961,6 +5035,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -2968,13 +5044,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-02test, soft-02tests, testsoft-02, soft-02it, soft-02spec, soft-02testcase, test_soft-02, soft-02_test, soft-02_spec, soft-02.test, soft-02.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/soft/soft-02.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-02test, soft-02tests, testsoft-02, soft-02it, soft-02spec, soft-02testcase, test_soft-02, soft-02_test, soft-02_spec, soft-02.test, soft-02.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-soft-02/aiv-report.json"
     },
     {
       "id": "mixed-soft-03",
@@ -2989,10 +5101,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -3000,6 +5118,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3007,6 +5127,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3014,6 +5136,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3021,6 +5145,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3028,13 +5154,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-03test, soft-03tests, testsoft-03, soft-03it, soft-03spec, soft-03testcase, test_soft-03, soft-03_test, soft-03_spec, soft-03.test, soft-03.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/soft/soft-03.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-03test, soft-03tests, testsoft-03, soft-03it, soft-03spec, soft-03testcase, test_soft-03, soft-03_test, soft-03_spec, soft-03.test, soft-03.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-soft-03/aiv-report.json"
     },
     {
       "id": "mixed-soft-04",
@@ -3049,10 +5211,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -3060,6 +5228,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3067,6 +5237,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3074,6 +5246,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3081,6 +5255,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3088,13 +5264,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-04test, soft-04tests, testsoft-04, soft-04it, soft-04spec, soft-04testcase, test_soft-04, soft-04_test, soft-04_spec, soft-04.test, soft-04.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/soft/soft-04.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-04test, soft-04tests, testsoft-04, soft-04it, soft-04spec, soft-04testcase, test_soft-04, soft-04_test, soft-04_spec, soft-04.test, soft-04.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-soft-04/aiv-report.json"
     },
     {
       "id": "mixed-soft-05",
@@ -3109,10 +5321,16 @@
       "outcome": {
         "verdict": "TN",
         "hard_fail": false,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [],
-        "advisory_gates": [],
+        "blocking_rules": [],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 0,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": false
       },
@@ -3120,6 +5338,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3127,6 +5347,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3134,6 +5356,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3141,6 +5365,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3148,13 +5374,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-05test, soft-05tests, testsoft-05, soft-05it, soft-05spec, soft-05testcase, test_soft-05, soft-05_test, soft-05_spec, soft-05.test, soft-05.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/soft/soft-05.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-05test, soft-05tests, testsoft-05, soft-05it, soft-05spec, soft-05testcase, test_soft-05, soft-05_test, soft-05_spec, soft-05.test, soft-05.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-soft-05/aiv-report.json"
     },
     {
       "id": "mixed-hard-01",
@@ -3169,12 +5431,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": true
       },
@@ -3182,6 +5452,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3189,6 +5461,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3196,6 +5470,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3203,6 +5479,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-01.py",
@@ -3217,13 +5495,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-01test, mixed-hard-01tests, testmixed-hard-01, mixed-hard-01it, mixed-hard-01spec, mixed-hard-01testcase, test_mixed-hard-01, mixed-hard-01_test, mixed-hard-01_spec, mixed-hard-01.test, mixed-hard-01.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-01.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-01test, mixed-hard-01tests, testmixed-hard-01, mixed-hard-01it, mixed-hard-01spec, mixed-hard-01testcase, test_mixed-hard-01, mixed-hard-01_test, mixed-hard-01_spec, mixed-hard-01.test, mixed-hard-01.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-01/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-hard-01/aiv-report.json"
     },
     {
       "id": "mixed-hard-02",
@@ -3238,12 +5552,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": true
       },
@@ -3251,6 +5573,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3258,6 +5582,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3265,6 +5591,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3272,6 +5600,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-02.py",
@@ -3286,13 +5616,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-02test, mixed-hard-02tests, testmixed-hard-02, mixed-hard-02it, mixed-hard-02spec, mixed-hard-02testcase, test_mixed-hard-02, mixed-hard-02_test, mixed-hard-02_spec, mixed-hard-02.test, mixed-hard-02.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-02.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-02test, mixed-hard-02tests, testmixed-hard-02, mixed-hard-02it, mixed-hard-02spec, mixed-hard-02testcase, test_mixed-hard-02, mixed-hard-02_test, mixed-hard-02_spec, mixed-hard-02.test, mixed-hard-02.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-02/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-hard-02/aiv-report.json"
     },
     {
       "id": "mixed-hard-03",
@@ -3307,12 +5673,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": true
       },
@@ -3320,6 +5694,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3327,6 +5703,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3334,6 +5712,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3341,6 +5721,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-03.py",
@@ -3355,13 +5737,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-03test, mixed-hard-03tests, testmixed-hard-03, mixed-hard-03it, mixed-hard-03spec, mixed-hard-03testcase, test_mixed-hard-03, mixed-hard-03_test, mixed-hard-03_spec, mixed-hard-03.test, mixed-hard-03.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-03.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-03test, mixed-hard-03tests, testmixed-hard-03, mixed-hard-03it, mixed-hard-03spec, mixed-hard-03testcase, test_mixed-hard-03, mixed-hard-03_test, mixed-hard-03_spec, mixed-hard-03.test, mixed-hard-03.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-03/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-hard-03/aiv-report.json"
     },
     {
       "id": "mixed-hard-04",
@@ -3376,12 +5794,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": true
       },
@@ -3389,6 +5815,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3396,6 +5824,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3403,6 +5833,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3410,6 +5842,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-04.py",
@@ -3424,13 +5858,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-04test, mixed-hard-04tests, testmixed-hard-04, mixed-hard-04it, mixed-hard-04spec, mixed-hard-04testcase, test_mixed-hard-04, mixed-hard-04_test, mixed-hard-04_spec, mixed-hard-04.test, mixed-hard-04.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-04.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-04test, mixed-hard-04tests, testmixed-hard-04, mixed-hard-04it, mixed-hard-04spec, mixed-hard-04testcase, test_mixed-hard-04, mixed-hard-04_test, mixed-hard-04_spec, mixed-hard-04.test, mixed-hard-04.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-04/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-hard-04/aiv-report.json"
     },
     {
       "id": "mixed-hard-05",
@@ -3445,12 +5915,20 @@
       "outcome": {
         "verdict": "TP",
         "hard_fail": true,
-        "advisory": false,
+        "advisory": true,
         "blocking_gates": [
           "invariant"
         ],
-        "advisory_gates": [],
+        "blocking_rules": [
+          "invariant.ai-edit-artifact"
+        ],
+        "advisory_gates": [
+          "test-adequacy"
+        ],
         "exit_code": 1,
+        "execution_valid": true,
+        "expected_rules": [],
+        "expected_rule_hit": true,
         "label_class": "mixed_sample",
         "expect_hard_fail": true
       },
@@ -3458,6 +5936,8 @@
       "gates": [
         {
           "id": "density",
+          "result_key": "density:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3465,6 +5945,8 @@
         },
         {
           "id": "design",
+          "result_key": "design:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3472,6 +5954,8 @@
         },
         {
           "id": "cohesion",
+          "result_key": "cohesion:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
@@ -3479,6 +5963,8 @@
         },
         {
           "id": "invariant",
+          "result_key": "invariant:blocking",
+          "partition": "blocking",
           "passed": false,
           "blocks_ci": true,
           "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-05.py",
@@ -3493,13 +5979,49 @@
         },
         {
           "id": "syntax",
+          "result_key": "syntax:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "test-adequacy",
+          "result_key": "test-adequacy:advisory",
+          "partition": "advisory",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-05test, mixed-hard-05tests, testmixed-hard-05, mixed-hard-05it, mixed-hard-05spec, mixed-hard-05testcase, test_mixed-hard-05, mixed-hard-05_test, mixed-hard-05_spec, mixed-hard-05.test, mixed-hard-05.spec)",
+          "findings": [
+            {
+              "rule_id": "test-adequacy.missing-tests",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-05.py",
+              "start_line": 1,
+              "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-05test, mixed-hard-05tests, testmixed-hard-05, mixed-hard-05it, mixed-hard-05spec, mixed-hard-05testcase, test_mixed-hard-05, mixed-hard-05_test, mixed-hard-05_spec, mixed-hard-05.test, mixed-hard-05.spec)"
+            }
+          ]
+        },
+        {
+          "id": "duplication",
+          "result_key": "duplication:pass",
+          "partition": "pass",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "rules",
+          "result_key": "rules:pass",
+          "partition": "pass",
           "passed": true,
           "blocks_ci": false,
           "message": "OK",
           "findings": []
         }
       ],
-      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-05/aiv-report.json"
+      "aiv_report_path": "reports/labeled-20261024T235128Z/mixed-hard-05/aiv-report.json"
     }
   ],
   "claim_policy": {

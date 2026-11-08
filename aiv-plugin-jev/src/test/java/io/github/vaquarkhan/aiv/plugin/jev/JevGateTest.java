@@ -86,6 +86,7 @@ class JevGateTest {
 
         assertEquals("https://api.typesafe.ai/v1/systemone", sentUrl.get());
         assertEquals("Bearer k", sentHeaders.get().get("Authorization"));
+        assertTrue(Long.parseLong(sentHeaders.get().get("X-AIV-Deadline-Epoch-Ms")) > System.currentTimeMillis());
         Object req = JsonLite.parse(sentBody.get());
         assertEquals("jev-latest", JsonLite.get(req, "model"));
         assertEquals("0123456789\n[... truncated by AIV at 10 characters ...]", JsonLite.get(req, "state", "diff"));
@@ -115,6 +116,10 @@ class JevGateTest {
                 "TYPESAFE_API_KEY is not set");
         Map<String, String> env = Map.of("TYPESAFE_API_KEY", "k");
         assertSkipped(gate((u, h, b, d) -> { throw new IOException("refused"); }, env).evaluate(ctx(cfg, "d", Map.of())), "refused");
+        assertSkipped(gate((u, h, b, d) -> { throw new java.net.ConnectException(); }, env).evaluate(ctx(cfg, "d", Map.of())),
+                "request failed (ConnectException)");
+        assertSkipped(gate((u, h, b, d) -> { throw new IOException(" "); }, env).evaluate(ctx(cfg, "d", Map.of())),
+                "request failed (IOException)");
         assertSkipped(gate((u, h, b, d) -> { throw new InterruptedException(); }, env).evaluate(ctx(cfg, "d", Map.of())), "interrupted");
         assertTrue(Thread.interrupted());
         assertSkipped(gate((u, h, b, d) -> new JevGate.Response(401, " {\"error\":  \"bad key\"} "), env).evaluate(ctx(cfg, "d", Map.of())),
@@ -153,6 +158,25 @@ class JevGateTest {
                 List.of(new JevGate.Check("x", "q", null, "n")), "m", 10);
         assertEquals("n", JsonLite.get(onlyNo, "questions", "x", "criteria", "false"));
         assertEquals("", JsonLite.get(onlyNo, "state", "pr_title"));
+    }
+
+    @Test
+    void validatesProbabilityCharacterAndTimeoutSettings() {
+        assertEquals(0.75, JevGate.probability(null, 0.75, "report_at"));
+        assertEquals(0.4, JevGate.probability(0.4, 0.75, "report_at"));
+        assertThrows(IllegalArgumentException.class, () -> JevGate.probability(-0.1, 0.75, "report_at"));
+        assertThrows(IllegalArgumentException.class, () -> JevGate.probability(1.1, 0.75, "report_at"));
+        assertThrows(IllegalArgumentException.class, () -> JevGate.probability(Double.NaN, 0.75, "report_at"));
+
+        assertEquals(60_000, JevGate.positiveInt(null, 60_000, "max_diff_chars"));
+        assertEquals(4, JevGate.positiveInt(4, 60_000, "max_diff_chars"));
+        assertThrows(IllegalArgumentException.class, () -> JevGate.positiveInt(0, 60_000, "max_diff_chars"));
+
+        assertEquals(30, JevGate.boundedTimeout(null, 30));
+        assertEquals(5, JevGate.boundedTimeout(5, 30));
+        assertEquals(300, JevGate.boundedTimeout(300, 30));
+        assertThrows(IllegalArgumentException.class, () -> JevGate.boundedTimeout(4, 30));
+        assertThrows(IllegalArgumentException.class, () -> JevGate.boundedTimeout(301, 30));
     }
 
     @Test

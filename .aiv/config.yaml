@@ -7,7 +7,7 @@ exclude_paths:
   - "benchmarks/**"
 # Run all gates and aggregate failures (set true to stop at first failure)
 fail_fast: false
-# When severity=warn gates find AI-slop signals, optional PR label (CLI --label-pr-on-advisory)
+# When severity=warn gates find advisory findings, optionally label the pull request (CLI --label-pr-on-advisory)
 advisory_pr_label: aiv:advisory
 advisory_label_gates:
   - design

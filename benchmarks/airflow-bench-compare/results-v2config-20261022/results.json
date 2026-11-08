@@ -1,0 +1,745 @@
+[
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73059",
+    "exit": 2,
+    "secs": 3.5,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73072",
+    "exit": 2,
+    "secs": 2.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73106",
+    "exit": 2,
+    "secs": 3.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73137",
+    "exit": 2,
+    "secs": 2.1,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73155",
+    "exit": 2,
+    "secs": 2.5,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73186",
+    "exit": 2,
+    "secs": 3.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73201",
+    "exit": 2,
+    "secs": 2.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73278",
+    "exit": 2,
+    "secs": 3.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-70250",
+    "exit": 2,
+    "secs": 2.6,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72844",
+    "exit": 2,
+    "secs": 2.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72870",
+    "exit": 2,
+    "secs": 3.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72986",
+    "exit": 2,
+    "secs": 3.5,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73056",
+    "exit": 2,
+    "secs": 3.1,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73068",
+    "exit": 2,
+    "secs": 3.6,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73069",
+    "exit": 2,
+    "secs": 2.5,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73075",
+    "exit": 2,
+    "secs": 2.6,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73096",
+    "exit": 2,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73105",
+    "exit": 2,
+    "secs": 1.6,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73124",
+    "exit": 2,
+    "secs": 3.5,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73176",
+    "exit": 2,
+    "secs": 2.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73192",
+    "exit": 2,
+    "secs": 2.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73271",
+    "exit": 2,
+    "secs": 3.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73289",
+    "exit": 2,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73326",
+    "exit": 2,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-72977",
+    "exit": 2,
+    "secs": 4.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-72983",
+    "exit": 2,
+    "secs": 3.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-73195",
+    "exit": 2,
+    "secs": 3.1,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "case/ai-attribution",
+    "exit": 3,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "case/ai-edit-artifact",
+    "exit": 2,
+    "secs": 2.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "case/clean-control",
+    "exit": 3,
+    "secs": 1.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "case/merge-conflict",
+    "exit": 3,
+    "secs": 1.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-01",
+    "exit": 2,
+    "secs": 1.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-02",
+    "exit": 2,
+    "secs": 1.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-03",
+    "exit": 2,
+    "secs": 2.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-04",
+    "exit": 2,
+    "secs": 3.6,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-cohesion-05",
+    "exit": 2,
+    "secs": 3.5,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-01",
+    "exit": 2,
+    "secs": 2.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-02",
+    "exit": 2,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-03",
+    "exit": 2,
+    "secs": 1.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-04",
+    "exit": 2,
+    "secs": 3.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-hard-05",
+    "exit": 2,
+    "secs": 2.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-01",
+    "exit": 2,
+    "secs": 2.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-02",
+    "exit": 2,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-03",
+    "exit": 2,
+    "secs": 1.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-04",
+    "exit": 2,
+    "secs": 3.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/mixed-soft-05",
+    "exit": 2,
+    "secs": 3.5,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-01",
+    "exit": 2,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-02",
+    "exit": 2,
+    "secs": 2.1,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-03",
+    "exit": 2,
+    "secs": 2.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-04",
+    "exit": 2,
+    "secs": 3.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/proper-05",
+    "exit": 2,
+    "secs": 4.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-01",
+    "exit": 2,
+    "secs": 2.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-02",
+    "exit": 1,
+    "secs": 5.4,
+    "gates": [
+      "syntax",
+      "test-adequacy"
+    ],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "test-adequacy.assertion-free-test"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-03",
+    "exit": 1,
+    "secs": 4.4,
+    "gates": [
+      "syntax"
+    ],
+    "rules": [
+      "syntax.parse"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-04",
+    "exit": 2,
+    "secs": 2.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-05",
+    "exit": 2,
+    "secs": 3.1,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-attr-06",
+    "exit": 2,
+    "secs": 3.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-01",
+    "exit": 2,
+    "secs": 4.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-02",
+    "exit": 0,
+    "secs": 3.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-03",
+    "exit": 2,
+    "secs": 2.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-04",
+    "exit": 2,
+    "secs": 2.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-05",
+    "exit": 2,
+    "secs": 3.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-conflict-06",
+    "exit": 2,
+    "secs": 4.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-01",
+    "exit": 1,
+    "secs": 6.0,
+    "gates": [
+      "syntax"
+    ],
+    "rules": [
+      "syntax.parse"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-02",
+    "exit": 2,
+    "secs": 2.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-03",
+    "exit": 2,
+    "secs": 3.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-04",
+    "exit": 2,
+    "secs": 3.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-05",
+    "exit": 2,
+    "secs": 2.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-06",
+    "exit": 1,
+    "secs": 4.4,
+    "gates": [
+      "syntax"
+    ],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-07",
+    "exit": 2,
+    "secs": 4.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-edit-08",
+    "exit": 2,
+    "secs": 3.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-01",
+    "exit": 2,
+    "secs": 3.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-02",
+    "exit": 2,
+    "secs": 4.1,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-03",
+    "exit": 2,
+    "secs": 2.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-04",
+    "exit": 0,
+    "secs": 2.5,
+    "gates": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-ph-05",
+    "exit": 2,
+    "secs": 2.6,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-01",
+    "exit": 2,
+    "secs": 2.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-02",
+    "exit": 2,
+    "secs": 2.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-03",
+    "exit": 1,
+    "secs": 4.9,
+    "gates": [
+      "syntax"
+    ],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-04",
+    "exit": 2,
+    "secs": 2.9,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "labeled/slop-search-05",
+    "exit": 2,
+    "secs": 2.7,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "origin",
+    "exit": 2,
+    "secs": 3.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-70053",
+    "exit": 2,
+    "secs": 4.0,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-70250",
+    "exit": 3,
+    "secs": 2.3,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73124",
+    "exit": 2,
+    "secs": 4.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73271",
+    "exit": 3,
+    "secs": 1.4,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73278",
+    "exit": 3,
+    "secs": 1.8,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73289",
+    "exit": 3,
+    "secs": 2.2,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  },
+  {
+    "branch": "snapshot/airflow-pr-73326",
+    "exit": 3,
+    "secs": 2.1,
+    "gates": [],
+    "rules": [],
+    "notices": []
+  }
+]

@@ -64,6 +64,8 @@
         <module>aiv-plugin-external</module>
         <module>aiv-plugin-rules</module>
         <module>aiv-plugin-jev</module>
+        <module>aiv-plugin-review-routing</module>
+        <module>aiv-plugin-change-policy</module>
         <module>aiv-audit</module>
         <module>aiv-governance</module>
         <module>aiv-report</module>
@@ -158,6 +160,16 @@
             <dependency>
                 <groupId>io.github.vaquarkhan</groupId>
                 <artifactId>aiv-plugin-jev</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.vaquarkhan</groupId>
+                <artifactId>aiv-plugin-review-routing</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.vaquarkhan</groupId>
+                <artifactId>aiv-plugin-change-policy</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

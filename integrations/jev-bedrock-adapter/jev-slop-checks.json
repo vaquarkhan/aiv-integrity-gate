@@ -1,0 +1,32 @@
+{
+  "description_mismatch": {
+    "question": "Does the description claim things the diff does not do (tests, fixes, behavior, numbers)?",
+    "yes": "At least one concrete claim in the title or description is not supported by the diff.",
+    "no": "The description matches what the diff changes, or makes no concrete claims."
+  },
+  "unrelated_changes": {
+    "question": "Does the diff include changes unrelated to the stated purpose?",
+    "yes": "Some files or hunks serve a different purpose than the title and description state.",
+    "no": "Every changed file supports the stated purpose."
+  },
+  "unfinished_code": {
+    "question": "Does the change contain placeholder, stub, mock-only or unfinished logic presented as complete?",
+    "yes": "There are stubs, TODO implementations, fake data paths or elided code in non-test code.",
+    "no": "The implementation is complete for what it claims."
+  },
+  "missing_why": {
+    "question": "Is the motivation for the change missing or generic?",
+    "yes": "The description does not explain why the change is needed, or only restates the diff.",
+    "no": "The description gives a concrete reason, issue or reproduction."
+  },
+  "unnecessary_code": {
+    "question": "Does the change add unnecessary code for its purpose?",
+    "yes": "It reimplements likely existing helpers, adds over-engineered abstractions, verbose comments or code the stated purpose does not need.",
+    "no": "The amount of code is proportionate to the purpose."
+  },
+  "likely_broken": {
+    "question": "Is the change likely not to work as intended?",
+    "yes": "There is a concrete logic error, a call to an API that does not exist, a wrong signature or a missed case that breaks the stated purpose.",
+    "no": "No concrete reason to believe the change is broken."
+  }
+}

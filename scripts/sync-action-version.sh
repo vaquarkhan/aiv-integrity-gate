@@ -8,5 +8,5 @@ if [[ -z "${VER}" ]]; then
   exit 1
 fi
 # Replace default under aiv-version (multiline block)
-perl -i -0pe "s/(aiv-version:\s*\n\s+description:[^\n]*\n\s+required:[^\n]*\n\s+default: ')[0-9.]+(')/\${1}${VER}\${2}/s" "${ROOT}/action.yml"
+perl -i -0pe "s/(aiv-version:\s*\n\s+description:[^\n]*\n\s+required:[^\n]*\n\s+default: ')[^']*(')/\${1}${VER}\${2}/s" "${ROOT}/action.yml"
 echo "action.yml: inputs.aiv-version default set to ${VER}"

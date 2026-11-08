@@ -8,9 +8,13 @@ package io.github.vaquarkhan.aiv.cli;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -105,12 +109,35 @@ class InitCommandTest {
         assertTrue(cfg.contains("id: rules"));
         assertTrue(cfg.contains("id: external"));
         assertTrue(cfg.contains("ruff-airflow"));
-        assertTrue(cfg.contains("ai_slop_pr_label: AI-SLOP"));
+        assertTrue(cfg.contains("deterministic_findings_pr_label: aiv:findings"));
+        assertTrue(cfg.contains("id: review-routing"));
+        assertTrue(cfg.contains("id: change-policy"));
         assertFalse(cfg.contains("severity: fail"), "the preset starts advisory-only");
         var parsed = new io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider().parse(cfg);
         assertTrue(parsed.findGate("rules").orElseThrow().isEnabled());
         assertEquals("warn", parsed.findGate("rules").orElseThrow().getSeverity());
         assertFalse(parsed.findGate("syntax").orElseThrow().isEnabled());
+    }
+
+    @Test
+    void everyShippedPresetExplicitlyNamesAllAvailableGates() throws Exception {
+        Set<String> expected = Set.of(
+                "syntax", "invariant", "dependency", "package-existence", "test-adequacy", "security",
+                "design", "density", "cohesion", "duplication", "doc-integrity", "pr-metadata",
+                "license-header", "external", "rules", "jev", "review-routing", "change-policy");
+        var parser = new io.github.vaquarkhan.aiv.cli.config.YamlConfigProvider();
+        for (String name : List.of("minimal", "java-ci", "agent-paste-strict", "asf", "airflow")) {
+            try (InputStream in = InitCommand.class.getResourceAsStream("/presets/" + name + "/config.yaml")) {
+                assertTrue(in != null, "missing preset resource: " + name);
+                String yaml = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+                var gates = parser.parse(yaml).getGates();
+                Set<String> ids = gates.stream().map(g -> g.getId()).collect(Collectors.toSet());
+                assertEquals(expected, ids, "preset gate ids: " + name);
+                assertEquals(18, gates.size(), "each gate appears exactly once: " + name);
+                assertFalse(parser.parse(yaml).findGate("review-routing").orElseThrow().isEnabled());
+                assertFalse(parser.parse(yaml).findGate("change-policy").orElseThrow().isEnabled());
+            }
+        }
     }
 
     @Test

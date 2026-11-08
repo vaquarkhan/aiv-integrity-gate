@@ -79,6 +79,15 @@ class GateResultTest {
     }
 
     @Test
+    void advisoryRulesAreCarriedAndDefaultEmpty() {
+        var f = Finding.atLine("g.warn", "a.java", 1, "m");
+        var r = new GateResult("g", false, "m", true, java.util.List.of(f), java.util.Set.of("g.warn"));
+        assertEquals(java.util.Set.of("g.warn"), r.getAdvisoryRules());
+        assertTrue(new GateResult("g", false, "m", true, null, null).getAdvisoryRules().isEmpty());
+        assertTrue(GateResult.fail("g", "m").getAdvisoryRules().isEmpty());
+    }
+
+    @Test
     void threeArgConstructorSetsBlocksFromPassed() {
         var failed = new GateResult("g", false, "m");
         assertFalse(failed.isPassed());

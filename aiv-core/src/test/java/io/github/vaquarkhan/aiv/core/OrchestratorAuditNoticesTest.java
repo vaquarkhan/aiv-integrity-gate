@@ -64,14 +64,14 @@ class OrchestratorAuditNoticesTest {
     }
 
     @Test
-    void honoredSkipIsReportedWithIdentity() {
+    void unauthenticatedSkipIsIgnoredAndGateStillRuns() {
         var results = new ArrayList<AIVResult>();
         var orch = new Orchestrator(
                 (ws, b, h) -> new Diff(b, h, List.of(), "", 0, 0, "lead@example.org", true, true, List.of(), Map.of()),
                 ws -> new AIVConfig(onlyFail(), Map.of("skip_allowlist", List.of("lead@example.org"))), results::add);
-        assertEquals(0, orch.run(Path.of("."), "main", "HEAD"));
+        assertEquals(1, orch.run(Path.of("."), "main", "HEAD"));
         assertTrue(results.get(0).getNotices().stream().anyMatch(n ->
-                n.equals("[SKIP-HONORED] /aiv skip honored for lead@example.org (on skip_allowlist, good signature); no gate was evaluated.")),
+                n.equals("[SKIP-IGNORED] /aiv skip directive found on the pinned head commit; unauthenticated full-run bypass is disabled.")),
                 results.get(0).getNotices().toString());
     }
 }

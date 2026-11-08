@@ -54,6 +54,10 @@ public final class GitRefConfigProvider implements ConfigProvider {
     }
 
     GitRefConfigProvider(String baseRef, ConfigProvider workspaceFallback, GitShow gitShow) {
+        // The ref is a positional git argument (rev-parse, show); a leading '-' would be parsed as an option.
+        if (baseRef != null && baseRef.startsWith("-")) {
+            throw new IllegalArgumentException("Policy ref must not start with '-': " + baseRef);
+        }
         this.baseRef = baseRef;
         this.workspaceFallback = workspaceFallback;
         this.parser = new YamlConfigProvider();

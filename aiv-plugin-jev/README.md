@@ -27,7 +27,7 @@ with design constraints, generic rules, or a trusted static analyzer.
    body. Metadata values take precedence over `AIV_PR_TITLE` and
    `AIV_PR_BODY`.
 5. Truncate the raw diff after `max_diff_chars` and append a truncation marker.
-6. POST to `<base_url>/v1/systemone`.
+6. POST to `<base_url>/v1/systemone` with an absolute deadline header so a compatible adapter can bound its work inside the JEV client deadline.
 7. Read `answers.<check-id>.noul` as `P(yes)`.
 8. Report probabilities at or above `report_at` as advisory findings. Print the
    selected model, optional input-token count, threshold, and returned answers
@@ -49,7 +49,7 @@ underscores, or hyphens.
 | `model` | `jev-latest` | Model sent in the request. |
 | `report_at` | `0.75` | Minimum `P(yes)` for an advisory finding. |
 | `max_diff_chars` | `60000` | Maximum raw diff characters sent. |
-| `timeout_seconds` | `30` | Connect and request timeout. |
+| `timeout_seconds` | `30` | Total JEV client deadline, bounded from 5 to 300 seconds. The gate sends its loopback adapter an absolute deadline with a one-second response margin. |
 
 A check can be a question string or a mapping with `question`, optional `yes`,
 and optional `no` criteria.
@@ -129,10 +129,7 @@ telemetry cannot turn model advice into enforcement.
 
 ## Honest boundaries
 
-The plugin trusts returned probabilities and does not validate that they are in
-the range 0 through 1. Negative `max_diff_chars` and nonpositive timeout values
-are not proactively validated. There is no retry. A non-success response can
-place up to 200 collapsed characters of the response body in the skip summary.
+The plugin validates returned threshold configuration before an HTTP call: `report_at` is a finite probability from 0 through 1, `max_diff_chars` must be positive, and `timeout_seconds` is limited to 5 through 300 seconds. It adds `X-AIV-Deadline-Epoch-Ms` with a one-second response margin. A compatible endpoint must honor that deadline itself. There is no retry in the gate. A non-success response can place up to 200 collapsed characters of the response body in the skip summary.
 The model can be wrong, inconsistent, unavailable, or sensitive to prompt and
 context wording. Jev is not an authorship classifier and never provides a hard
 verdict.
@@ -144,8 +141,7 @@ accuracy.
 ## Tests and build
 
 `JevGateTest` covers service loading, the off state, request shape,
-authorization, truncation, threshold behavior, validation, skip outcomes,
-interrupt restoration, and a real local JDK HTTP exchange.
+authorization, truncation, threshold behavior, configuration validation, deadline propagation, skip outcomes, interrupt restoration, and a real local JDK HTTP exchange.
 
 From this module:
 

@@ -404,7 +404,7 @@ def score_census(args: argparse.Namespace) -> dict[str, Any]:
     summary = {
         "schema_version": 1,
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "aiv_jar": str(jar),
+        "aiv_jar": _e2e.portable_path(jar),
         "window": corpus.get("window"),
         "materialize_mode": materialize_mode,
         "aiv_config_override": cfg_override or None,

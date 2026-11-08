@@ -53,6 +53,16 @@ class GitRefConfigProviderTest {
     }
 
     @Test
+    void rejectsPolicyRefThatGitWouldParseAsAnOption() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> new GitRefConfigProvider("--output=/tmp/x", new YamlConfigProvider()));
+        assertTrue(e.getMessage().contains("must not start with '-'"));
+        assertThrows(IllegalArgumentException.class,
+                () -> new GitRefConfigProvider("-p", new YamlConfigProvider(), (dir, spec) -> Optional.empty()));
+        assertEquals("origin/main-x", new GitRefConfigProvider("origin/main-x", new YamlConfigProvider()).getBaseRef());
+    }
+
+    @Test
     void fallsBackToWorkspaceWhenBaseHasNoConfig(@TempDir Path ws) throws Exception {
         Files.createDirectories(ws.resolve(".aiv"));
         Files.writeString(ws.resolve(".aiv/config.yaml"), HEAD_CFG, StandardCharsets.UTF_8);

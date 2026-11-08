@@ -45,7 +45,9 @@ class JsonReportWriterTest {
                 List.of("notice one"));
         JsonReportWriter.write(result, out, "9.9.9");
         String s = Files.readString(out);
-        assertTrue(s.contains("\"schema_version\": 2"));
+        assertTrue(s.contains("\"schema_version\": 3"));
+        assertTrue(s.contains("\"result_key\": \"density:pass\""));
+        assertTrue(s.contains("\"partition\": \"pass\""));
         assertTrue(s.contains("\"doctor_mode\": false"));
         assertTrue(s.contains("\"aiv_cli_version\": \"9.9.9\""));
         assertTrue(s.contains("\"id\": \"density\""));

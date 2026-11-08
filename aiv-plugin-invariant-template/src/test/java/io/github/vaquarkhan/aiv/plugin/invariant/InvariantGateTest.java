@@ -54,7 +54,7 @@ class InvariantGateTest {
                 "<<<<<<< HEAD\nclass A {}\n=======\nclass B {}\n>>>>>>> branch\n")));
         var r = gate.evaluate(ctx);
         assertFalse(r.isPassed());
-        assertTrue(r.getMessage().contains("Merge conflict marker"));
+        assertTrue(r.getMessage().contains("Unresolved merge conflict block"));
         assertTrue(r.getFindings().stream().anyMatch(f -> "invariant.merge-conflict".equals(f.getRuleId())));
     }
 
@@ -239,6 +239,59 @@ class InvariantGateTest {
                 List.of(new ChangedFile("a.java", ChangedFile.ChangeType.MODIFIED, content)), raw);
         var ctx = new AIVContext(Paths.get("."), diff, new AIVConfig(List.of(), java.util.Map.of()));
         assertFalse(gate.evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void legacyConflictBlockOutsideAddedSurfaceDoesNotFail() {
+        String content = "<<<<<<< HEAD\nlegacy\n=======\nlegacy-other\n>>>>>>> branch\nnew_line = 1\n";
+        String raw = """
+                diff --git a/mod.py b/mod.py
+                --- a/mod.py
+                +++ b/mod.py
+                @@ -5,0 +6 @@
+                +new_line = 1
+                """;
+        var diff = new Diff("main", "HEAD",
+                List.of(new ChangedFile("mod.py", ChangedFile.ChangeType.MODIFIED, content)), raw);
+        var ctx = new AIVContext(Paths.get("."), diff, new AIVConfig(List.of(), java.util.Map.of()));
+        assertTrue(new InvariantGate().evaluate(ctx).isPassed());
+    }
+
+    @Test
+    void conflictExampleInMarkdownDoesNotFail() {
+        var file = new ChangedFile("docs/conflicts.md", ChangedFile.ChangeType.ADDED,
+                "<<<<<<< HEAD\nleft\n=======\nright\n>>>>>>> branch\n");
+        assertTrue(new InvariantGate().evaluate(context(List.of(file))).isPassed());
+    }
+
+    @Test
+    void authoritativeUnexpectedGitlinkFails() {
+        var file = gitlink("airflow", ChangedFile.Provenance.TRUSTED_GIT_ADAPTER);
+        GateResult result = new InvariantGate().evaluate(context(List.of(file)));
+        assertFalse(result.isPassed());
+        assertTrue(result.getFindings().stream()
+                .anyMatch(f -> "invariant.unexpected-gitlink".equals(f.getRuleId())));
+    }
+
+    @Test
+    void callerAssertedGitlinkCannotProduceHardFinding() {
+        var file = gitlink("airflow", ChangedFile.Provenance.CALLER_ASSERTED);
+        assertTrue(new InvariantGate().evaluate(context(List.of(file))).isPassed());
+    }
+
+    @Test
+    void approvedAuthoritativeGitlinkPasses() {
+        var file = gitlink("vendor/approved", ChangedFile.Provenance.TRUSTED_GIT_ADAPTER);
+        var cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("invariant", true,
+                java.util.Map.of("allowed_gitlinks", List.of("vendor/**")))), java.util.Map.of());
+        var ctx = new AIVContext(Paths.get("."), new Diff("main", "HEAD", List.of(file), ""), cfg);
+        assertTrue(new InvariantGate().evaluate(ctx).isPassed());
+    }
+
+    private ChangedFile gitlink(String path, ChangedFile.Provenance provenance) {
+        return new ChangedFile(path, ChangedFile.ChangeType.ADDED, "", null,
+                "000000", "160000", "0".repeat(40), "1".repeat(40),
+                ChangedFile.ObjectType.GITLINK, ChangedFile.SourceCompleteness.COMPLETE, provenance);
     }
 
     private AIVContext context(List<ChangedFile> files) {

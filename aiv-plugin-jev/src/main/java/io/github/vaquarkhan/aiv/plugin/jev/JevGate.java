@@ -43,7 +43,7 @@ import java.util.function.Function;
  *     model: jev-latest
  *     report_at: 0.75                        # report a check when P(yes) is at or above this
  *     max_diff_chars: 60000
- *     timeout_seconds: 30
+ *     timeout_seconds: 30                # total request deadline; adapter work must finish inside it
  *     checks:
  *       description-mismatch: "Does `diff` change behaviour that `pr_title` and `pr_body` do not mention?"
  *       tests-only-call:
@@ -101,12 +101,15 @@ public final class JevGate implements QualityGate {
         // An explicit empty string means "this host needs no key" (local Ollama); absent means the TypeSafe default.
         String keyEnv = cfg.get("api_key_env") == null ? "TYPESAFE_API_KEY" : cfg.get("api_key_env").toString().trim();
         String model = str(cfg.get("model"), "jev-latest");
-        double reportAt = cfg.get("report_at") instanceof Number n ? n.doubleValue() : 0.75;
-        int maxChars = cfg.get("max_diff_chars") instanceof Number n ? n.intValue() : 60000;
-        long timeout = cfg.get("timeout_seconds") instanceof Number n ? n.longValue() : 30L;
+        double reportAt = probability(cfg.get("report_at"), 0.75, "report_at");
+        int maxChars = positiveInt(cfg.get("max_diff_chars"), 60000, "max_diff_chars");
+        long timeout = boundedTimeout(cfg.get("timeout_seconds"), 30L);
 
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("Content-Type", "application/json");
+        // Leave one second for response serialization and HTTP delivery. The loopback Bedrock adapter
+        // uses this absolute deadline to bound its own request/retry work inside this client timeout.
+        headers.put("X-AIV-Deadline-Epoch-Ms", Long.toString(System.currentTimeMillis() + (timeout - 1) * 1000L));
         if (!keyEnv.isBlank()) {
             String key = env.apply(keyEnv);
             if (key == null || key.isBlank()) {
@@ -120,7 +123,10 @@ public final class JevGate implements QualityGate {
         try {
             resp = transport.post(baseUrl + "/v1/systemone", headers, body, Duration.ofSeconds(timeout));
         } catch (IOException e) {
-            return skipped("request failed (" + e.getMessage() + ")");
+            // java.net.http reports a refused loopback connection as ConnectException with a null message.
+            String reason = e.getMessage() == null || e.getMessage().isBlank()
+                    ? e.getClass().getSimpleName() : e.getMessage();
+            return skipped("request failed (" + reason + ")");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             return skipped("request interrupted");
@@ -237,6 +243,30 @@ public final class JevGate implements QualityGate {
             throw new IllegalArgumentException("jev.checks: at most 64 checks per run");
         }
         return out;
+    }
+
+    static double probability(Object raw, double defaultValue, String key) {
+        double value = raw instanceof Number n ? n.doubleValue() : defaultValue;
+        if (!Double.isFinite(value) || value < 0.0 || value > 1.0) {
+            throw new IllegalArgumentException("jev." + key + " must be between 0 and 1");
+        }
+        return value;
+    }
+
+    static int positiveInt(Object raw, int defaultValue, String key) {
+        int value = raw instanceof Number n ? n.intValue() : defaultValue;
+        if (value < 1) {
+            throw new IllegalArgumentException("jev." + key + " must be at least 1");
+        }
+        return value;
+    }
+
+    static long boundedTimeout(Object raw, long defaultValue) {
+        long value = raw instanceof Number n ? n.longValue() : defaultValue;
+        if (value < 5 || value > 300) {
+            throw new IllegalArgumentException("jev.timeout_seconds must be between 5 and 300");
+        }
+        return value;
     }
 
     private static GateResult skipped(String why) {

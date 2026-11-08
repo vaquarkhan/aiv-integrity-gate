@@ -1,9 +1,9 @@
 # Preset: airflow
 #
-# Advisory-only starting point for an Apache Airflow repository (or any Airflow DAG repo).
-# Every gate reports and labels; nothing blocks until the project has calibrated a rule against
-# its own merged pull requests (see docs/AIRFLOW-TUTORIAL.md, section 7). Promote a rule by
-# changing its severity to fail once it shows zero false positives on 90 days of merged PRs.
+# Advisory-first starting point for an Apache Airflow repository (or any Airflow DAG repo).
+# Only independently objective structural rules are configured to block. Every other rule remains
+# advisory until a family-deduplicated holdout meets a declared false-block confidence bound.
+# See docs/AIRFLOW-AI-SLOP-END-TO-END-ANALYSIS.md.
 #
 # Static checks that Airflow already runs (prek, ruff, mypy) are not duplicated here. Ruff's
 # AIR rules are pulled into the same AIV receipt through the external gate, so one comment
@@ -16,10 +16,10 @@ exclude_paths:
   - "chart/**"
   - "generated/**"
 
-# The label and comment report deterministic evidence. They do not claim AI authorship.
-ai_slop_pr_label: AI-SLOP
-ai_slop_pr_comment: true
-ai_slop_label_gates: [rules, invariant, security, package-existence, test-adequacy, external]
+# The label and comment report selected deterministic findings. They do not claim AI authorship.
+deterministic_findings_pr_label: aiv:findings
+deterministic_findings_pr_comment: true
+deterministic_findings_label_gates: [rules, invariant, security, package-existence, test-adequacy, external]
 
 gates:
   # Generic rule engine loading the shipped "airflow" rule pack (rules.airflow.*). Add your own
@@ -47,6 +47,26 @@ gates:
   - id: invariant
     enabled: true
     severity: warn
+    config:
+      rule_actions:
+        invariant.merge-conflict: fail
+        invariant.unexpected-gitlink: fail
+        invariant.*: warn
+      unsuppressible_rules:
+        - invariant.merge-conflict
+        - invariant.unexpected-gitlink
+      allowed_gitlinks: []
+      # Optional, off by default: flag PRs that edit files AI reviewers read from the PR head
+      # branch, and hidden Unicode in them. See docs/AI-integration/AI-REVIEW-INTEGRATION-HANDOFF.md.
+      # review_instruction_paths:
+      #   - .github/copilot-instructions.md
+      #   - .github/instructions/**
+      #   - .github/skills/**
+      #   - "**/AGENTS.md"
+      #   - "**/CLAUDE.md"
+      #   - "**/GEMINI.md"
+      #   - "**/REVIEW.md"
+      # hidden_unicode: instruction_files     # or all_files
   - id: test-adequacy
     enabled: true
     severity: warn
@@ -88,3 +108,6 @@ gates:
   - id: doc-integrity
     enabled: false
   - { id: jev, enabled: false }
+  - { id: review-routing, enabled: false }
+  - { id: change-policy, enabled: false }
+  # To enable it, replace this entry with a configured advisory policy pack.

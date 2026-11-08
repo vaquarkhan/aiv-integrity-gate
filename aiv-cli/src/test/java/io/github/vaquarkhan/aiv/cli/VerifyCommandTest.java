@@ -26,6 +26,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -177,6 +178,21 @@ class VerifyCommandTest {
                 "--require-trusted-policy"}, REQUEST, exit);
         assertEquals(2, exit[0]);
         assertTrue(JsonLite.str(result.get("error")).contains("needs --policy-ref"));
+    }
+
+    @Test
+    void policyRefStartingWithDashIsRejectedBeforeGitRuns(@TempDir Path tmp) {
+        int[] exit = new int[1];
+        Map<String, Object> flag = runVerify(new String[]{"--workspace", tmp.toString(), "--policy-ref", "-x"},
+                REQUEST, exit);
+        assertEquals(2, exit[0]);
+        assertTrue(JsonLite.str(flag.get("error")).contains("must not start with '-'"));
+        assertNull(flag.get("verdict"));
+
+        String fromJson = "{\"policyRef\":\"--output=/tmp/pwn\"," + REQUEST.substring(1);
+        Map<String, Object> json = runVerify(new String[]{"--workspace", tmp.toString()}, fromJson, exit);
+        assertEquals(2, exit[0]);
+        assertTrue(JsonLite.str(json.get("error")).contains("invalid policy ref"));
     }
 
     @Test

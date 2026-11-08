@@ -1,0 +1,9 @@
+# Copy to backend.hcl and replace the placeholders. backend.hcl is ignored by Git.
+# The state bucket must already exist with encryption, versioning, access logging,
+# public-access blocking, and tightly scoped administration.
+
+bucket       = "<TERRAFORM_STATE_BUCKET>"
+key          = "aiv/jev/production/terraform.tfstate"
+region       = "<STATE_BUCKET_REGION>"
+encrypt      = true
+use_lockfile = true

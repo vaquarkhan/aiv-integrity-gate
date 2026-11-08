@@ -20,27 +20,46 @@ import static org.junit.jupiter.api.Assertions.*;
 class AIVConfigTest {
 
     @Test
-    void aiSlopPublicationSettings() {
+    void deterministicFindingsPublicationSettingsPreferCanonicalKeysAndSupportLegacyAliases() {
         var empty = new AIVConfig(List.of(), Map.of());
-        assertTrue(empty.getAiSlopPrLabel().isEmpty());
-        assertFalse(empty.isAiSlopPrCommentEnabled());
-        assertTrue(empty.getAiSlopLabelGates().isEmpty());
-        assertTrue(empty.getAiSlopLabelRules().isEmpty());
+        assertTrue(empty.getDeterministicFindingsPrLabel().isEmpty());
+        assertFalse(empty.isDeterministicFindingsPrCommentEnabled());
+        assertTrue(empty.getDeterministicFindingsLabelGates().isEmpty());
+        assertTrue(empty.getDeterministicFindingsLabelRules().isEmpty());
         assertTrue(empty.getGlobalBoolean("missing", true));
 
-        var cfg = new AIVConfig(List.of(), Map.of(
-                "ai_slop_pr_label", " AI-SLOP ",
-                "ai_slop_pr_comment", "TRUE",
-                "ai_slop_label_gates", Arrays.asList(" security ", null, "", 7),
-                "ai_slop_label_rules", "not-a-list"));
-        assertEquals("AI-SLOP", cfg.getAiSlopPrLabel().orElseThrow());
-        assertTrue(cfg.isAiSlopPrCommentEnabled());
-        assertEquals(List.of("security", "7"), cfg.getAiSlopLabelGates());
-        assertTrue(cfg.getAiSlopLabelRules().isEmpty());
+        var canonical = new AIVConfig(List.of(), Map.of(
+                "deterministic_findings_pr_label", " aiv:findings ",
+                "deterministic_findings_pr_comment", "TRUE",
+                "deterministic_findings_label_gates", Arrays.asList(" security ", null, "", 7),
+                "deterministic_findings_label_rules", "not-a-list",
+                "ai_slop_pr_label", "legacy-must-not-win"));
+        assertEquals("aiv:findings", canonical.getDeterministicFindingsPrLabel().orElseThrow());
+        assertTrue(canonical.isDeterministicFindingsPrCommentEnabled());
+        assertEquals(List.of("security", "7"), canonical.getDeterministicFindingsLabelGates());
+        assertTrue(canonical.getDeterministicFindingsLabelRules().isEmpty());
+        assertEquals("aiv:findings", canonical.getAiSlopPrLabel().orElseThrow());
 
-        assertFalse(new AIVConfig(List.of(), Map.of("ai_slop_pr_comment", Boolean.FALSE)).isAiSlopPrCommentEnabled());
-        assertTrue(new AIVConfig(List.of(), Map.of("ai_slop_pr_comment", "yes")).getGlobalBoolean("ai_slop_pr_comment", true));
-        assertFalse(new AIVConfig(List.of(), Map.of("ai_slop_pr_comment", 1)).getGlobalBoolean("ai_slop_pr_comment", false));
+        var legacy = new AIVConfig(List.of(), Map.of(
+                "ai_slop_pr_label", " legacy-findings ",
+                "ai_slop_pr_comment", "TRUE",
+                "ai_slop_label_gates", List.of("security"),
+                "ai_slop_label_rules", List.of("security.*")));
+        assertEquals("legacy-findings", legacy.getDeterministicFindingsPrLabel().orElseThrow());
+        assertEquals("legacy-findings", legacy.getAiSlopPrLabel().orElseThrow());
+        assertTrue(legacy.isDeterministicFindingsPrCommentEnabled());
+        assertTrue(legacy.isAiSlopPrCommentEnabled());
+        assertEquals(List.of("security"), legacy.getDeterministicFindingsLabelGates());
+        assertEquals(List.of("security"), legacy.getAiSlopLabelGates());
+        assertEquals(List.of("security.*"), legacy.getDeterministicFindingsLabelRules());
+        assertEquals(List.of("security.*"), legacy.getAiSlopLabelRules());
+
+        assertFalse(new AIVConfig(List.of(), Map.of("deterministic_findings_pr_comment", Boolean.FALSE))
+                .isDeterministicFindingsPrCommentEnabled());
+        assertTrue(new AIVConfig(List.of(), Map.of("deterministic_findings_pr_comment", "yes"))
+                .getGlobalBoolean("deterministic_findings_pr_comment", true));
+        assertFalse(new AIVConfig(List.of(), Map.of("deterministic_findings_pr_comment", 1))
+                .getGlobalBoolean("deterministic_findings_pr_comment", false));
     }
 
     @Test
@@ -191,10 +210,44 @@ class AIVConfigTest {
     }
 
     @Test
+    void ruleActionsPreferExactOverFamily() {
+        var gate = new AIVConfig.GateConfig("invariant", true, Map.of(
+                "rule_actions", Map.of(
+                        "invariant.*", "warn",
+                        "invariant.merge-conflict", "fail")));
+        var cfg = new AIVConfig(List.of(gate), Map.of());
+        assertEquals("fail", cfg.getRuleAction("invariant", "invariant.merge-conflict", "warn"));
+        assertEquals("warn", cfg.getRuleAction("invariant", "invariant.placeholder", "fail"));
+        assertEquals("fail", cfg.getRuleAction("missing", "missing.rule", "fail"));
+        assertEquals("warn", cfg.getRuleAction("invariant", null, "warn"));
+        assertEquals("off", new AIVConfig(List.of(new AIVConfig.GateConfig("plain", true, Map.of())), Map.of())
+                .getRuleAction("plain", "plain.rule", "off"));
+    }
+
+    @Test
+    void invalidRuleActionFailsClosed() {
+        var cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("g", true,
+                Map.of("rule_actions", Map.of("g.r", "ignore")))), Map.of());
+        assertThrows(IllegalArgumentException.class, () -> cfg.getRuleAction("g", "g.r", "fail"));
+    }
+
+    @Test
+    void unsuppressibleRulesSupportExactAndFamilyMatches() {
+        var cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("invariant", true,
+                Map.of("unsuppressible_rules", List.of("invariant.merge-conflict", "invariant.git.*")))), Map.of());
+        assertTrue(cfg.isRuleUnsuppressible("invariant", "invariant.merge-conflict"));
+        assertTrue(cfg.isRuleUnsuppressible("invariant", "invariant.git.unexpected"));
+        assertFalse(cfg.isRuleUnsuppressible("invariant", "invariant.placeholder"));
+        assertFalse(cfg.isRuleUnsuppressible("invariant", null));
+        assertFalse(new AIVConfig(List.of(new AIVConfig.GateConfig("plain", true, Map.of())), Map.of())
+                .isRuleUnsuppressible("plain", "plain.rule"));
+    }
+
+    @Test
     void advisoryPrLabelOptional() {
         assertTrue(new AIVConfig(List.of(), Map.of()).getAdvisoryPrLabel().isEmpty());
-        assertEquals("aiv:ai-slop",
-                new AIVConfig(List.of(), Map.of("advisory_pr_label", " aiv:ai-slop ")).getAdvisoryPrLabel().orElseThrow());
+        assertEquals("aiv:advisory",
+                new AIVConfig(List.of(), Map.of("advisory_pr_label", " aiv:advisory ")).getAdvisoryPrLabel().orElseThrow());
         assertTrue(new AIVConfig(List.of(), Map.of("advisory_pr_label", "  ")).getAdvisoryPrLabel().isEmpty());
     }
 

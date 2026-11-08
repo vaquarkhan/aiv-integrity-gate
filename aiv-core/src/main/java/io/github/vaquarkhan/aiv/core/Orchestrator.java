@@ -70,17 +70,8 @@ public final class Orchestrator {
         AIVConfig config = configProvider.getConfig(workspace);
         warnRelaxedIdentityHooks(config);
 
-        if (shouldHonorSkip(diff, config)) {
-            log.warn("Skipping gates: /aiv skip on latest commit (allowlisted author, signed commit)");
-            List<String> skipNotices = new ArrayList<>(diff.getWarnings());
-            skipNotices.add("[SKIP-HONORED] /aiv skip honored for " + diff.getAuthorEmail()
-                    + " (on skip_allowlist, good signature); no gate was evaluated.");
-            AIVResult aivResult = new AIVResult(true, List.of(
-                    new GateResult("skip", true, "Human override: /aiv skip on latest commit by allowlisted author "
-                            + diff.getAuthorEmail() + " (signed)")), skipNotices);
-            reportPublisher.publish(aivResult);
-            return 0;
-        }
+        // Record and ignore unauthenticated skip directives. No gate bypass occurs.
+        shouldHonorSkip(diff, config);
 
         List<ChangedFile> filtered = diff.getChangedFiles().stream()
                 .filter(f -> !PathFilter.isExcluded(f.getPath(), config.getExcludePaths()))
@@ -99,8 +90,12 @@ public final class Orchestrator {
                 diff.getLinesAdded(), diff.getLinesDeleted(), diff.getAuthorEmail(), diff.isHeadCommitSigned(),
                 diff.isSkipDirectivePresent(),
                 diff.getWarnings(), filteredLoc);
+        List<ChangedFile> excluded = diff.getChangedFiles().stream()
+                .filter(f -> PathFilter.isExcluded(f.getPath(), config.getExcludePaths()))
+                .collect(Collectors.toList());
         AIVContext context = new AIVContext(workspace,
-                policyWorkspace == null ? workspace : policyWorkspace, filteredDiff, config, Map.of());
+                policyWorkspace == null ? workspace : policyWorkspace, filteredDiff, config,
+                Map.of(AIVContext.EXCLUDED_CHANGED_FILES, excluded));
 
         List<QualityGate> gates = loadGates();
         List<GateResult> results = new ArrayList<>();
@@ -124,24 +119,27 @@ public final class Orchestrator {
                 continue;
             }
             GateResult raw = gate.evaluate(context);
-            GateResult severityApplied = applySeverity(raw, gate.getId(), config);
-            GateResult baselined = applyBaseline(severityApplied, config, context.getPolicyWorkspace());
-            GateResult result = InlineDisableFilter.apply(baselined, context);
-            String suppressed = suppressionNotice(gate.getId(), severityApplied, result);
-            if (suppressed != null) {
-                suppressions.add(suppressed);
-            }
-            results.add(result);
-            if (!result.isPassed()) {
-                log.info("Gate {} failed: {}", gate.getId(), result.getMessage());
-                if (result.blocksCi()) {
-                    overallPassed = false;
-                    if (failFast) {
-                        break;
-                    }
-                } else {
-                    log.warn("Advisory (severity=warn): {} - {}", gate.getId(), result.getMessage());
+            List<GateResult> actionResults = applyRuleActions(raw, gate.getId(), config);
+            boolean stop = false;
+            for (GateResult actionResult : actionResults) {
+                GateResult result = applySuppressions(actionResult, gate.getId(), config, context);
+                String suppressed = suppressionNotice(gate.getId(), actionResult, result);
+                if (suppressed != null) {
+                    suppressions.add(suppressed);
                 }
+                results.add(result);
+                if (!result.isPassed()) {
+                    log.info("Gate {} failed: {}", gate.getId(), result.getMessage());
+                    if (result.blocksCi()) {
+                        overallPassed = false;
+                        stop = failFast;
+                    } else {
+                        log.warn("Advisory: {} - {}", gate.getId(), result.getMessage());
+                    }
+                }
+            }
+            if (stop) {
+                break;
             }
         }
 
@@ -153,8 +151,8 @@ public final class Orchestrator {
         }
         notices.addAll(suppressions);
         if (diff.isSkipDirectivePresent()) {
-            notices.add("[SKIP-IGNORED] /aiv skip directive found on the head commit but not honored "
-                    + "(requires skip_allowlist membership and a good commit signature).");
+            notices.add("[SKIP-IGNORED] /aiv skip directive found on the pinned head commit; "
+                    + "unauthenticated full-run bypass is disabled.");
         }
         if (doctor) {
             notices.add(0, "[DOCTOR] Informational run: gate outcomes are reported but not CI-blocking.");
@@ -177,6 +175,72 @@ public final class Orchestrator {
             return raw;
         }
         return GateResult.advisory(gateId, raw.getMessage(), raw.getFindings());
+    }
+
+    /**
+     * Applies rule-specific actions before suppression. Mixed hard/advisory findings are represented as
+     * separate results with the same stable gate id so existing publishers remain schema-compatible.
+     * Intrinsically advisory gates cannot be promoted to blocking by configuration.
+     */
+    static List<GateResult> applyRuleActions(GateResult raw, String gateId, AIVConfig config) {
+        if (raw == null || raw.isPassed() || raw.getFindings().isEmpty()) {
+            return List.of(applySeverity(raw, gateId, config));
+        }
+        String gateDefault = raw.blocksCi()
+                ? config.findGate(gateId).map(AIVConfig.GateConfig::getSeverity).orElse("fail")
+                : "warn";
+        List<Finding> hard = new ArrayList<>();
+        List<Finding> advisory = new ArrayList<>();
+        for (Finding finding : raw.getFindings()) {
+            String ruleDefault = raw.getAdvisoryRules().contains(finding.getRuleId()) ? "warn" : gateDefault;
+            String action = config.getRuleAction(gateId, finding.getRuleId(), ruleDefault);
+            if ("off".equals(action)) {
+                continue;
+            }
+            if ("fail".equals(action) && raw.blocksCi()) {
+                hard.add(finding);
+            } else {
+                advisory.add(finding);
+            }
+        }
+        List<GateResult> out = new ArrayList<>();
+        if (!hard.isEmpty()) {
+            out.add(GateResult.fail(gateId, findingMessages(hard), hard));
+        }
+        if (!advisory.isEmpty()) {
+            out.add(GateResult.advisory(gateId, findingMessages(advisory), advisory));
+        }
+        return out.isEmpty() ? List.of(GateResult.pass(gateId)) : List.copyOf(out);
+    }
+
+    static GateResult applySuppressions(GateResult raw, String gateId, AIVConfig config, AIVContext context) {
+        if (raw == null || raw.isPassed() || raw.getFindings().isEmpty()) {
+            return raw;
+        }
+        List<Finding> protectedFindings = raw.getFindings().stream()
+                .filter(f -> config.isRuleUnsuppressible(gateId, f.getRuleId())).toList();
+        if (protectedFindings.isEmpty()) {
+            return InlineDisableFilter.apply(
+                    applyBaseline(raw, config, context.getPolicyWorkspace()), context);
+        }
+        List<Finding> suppressible = raw.getFindings().stream()
+                .filter(f -> !config.isRuleUnsuppressible(gateId, f.getRuleId())).toList();
+        List<Finding> kept = new ArrayList<>(protectedFindings);
+        if (!suppressible.isEmpty()) {
+            GateResult candidate = raw.blocksCi()
+                    ? GateResult.fail(gateId, findingMessages(suppressible), suppressible)
+                    : GateResult.advisory(gateId, findingMessages(suppressible), suppressible);
+            GateResult filtered = InlineDisableFilter.apply(
+                    applyBaseline(candidate, config, context.getPolicyWorkspace()), context);
+            kept.addAll(filtered.getFindings());
+        }
+        return raw.blocksCi()
+                ? GateResult.fail(gateId, findingMessages(kept), kept)
+                : GateResult.advisory(gateId, findingMessages(kept), kept);
+    }
+
+    private static String findingMessages(List<Finding> findings) {
+        return findings.stream().map(Finding::getMessage).collect(Collectors.joining("\n"));
     }
 
     /**
@@ -216,29 +280,15 @@ public final class Orchestrator {
     }
 
     /**
-     * Default-deny human override. {@code /aiv skip} is honored only when the project has an explicit
-     * {@code skip_allowlist} AND the head commit author is on it AND the head commit carries a good
-     * ({@code %G? == G}) signature. An empty allowlist means the directive is ignored: anyone (including
-     * a coding agent told to "make CI green") can write a commit message, so an open skip is not a gate.
+     * Full-run skip directives are disabled. Git author email is caller-controlled and {@code %G? == G}
+     * proves only that some trusted signature exists, not that it belongs to an allowlisted identity.
+     * A future break-glass path must bind a signer fingerprint and one pinned commit OID in a signed receipt.
      */
     static boolean shouldHonorSkip(Diff diff, AIVConfig config) {
-        if (!diff.isSkipDirectivePresent()) {
-            return false;
+        if (diff.isSkipDirectivePresent()) {
+            log.warn("/aiv skip present but ignored: unauthenticated full-run bypass is disabled");
         }
-        List<String> allow = config.getSkipAllowlist();
-        if (allow.isEmpty()) {
-            log.warn("/aiv skip present but ignored: skip_allowlist is empty (default-deny)");
-            return false;
-        }
-        if (!diff.isHeadCommitSigned()) {
-            log.warn("/aiv skip present but ignored: head commit is not signed with a good signature");
-            return false;
-        }
-        String author = diff.getAuthorEmail();
-        if (author == null || author.isBlank()) {
-            return false;
-        }
-        return allow.stream().anyMatch(a -> a.equalsIgnoreCase(author.trim()));
+        return false;
     }
 
     /** Paths under {@code .aiv/} that a PR touched; reported so reviewers see a gate-config change. */
@@ -266,7 +316,8 @@ public final class Orchestrator {
      * {@code pr-metadata}) - typically via the {@code asf} preset.
      */
     private static final java.util.Set<String> DEFAULT_OFF_GATES =
-            java.util.Set.of("doc-integrity", "security", "license-header", "pr-metadata", "external", "rules", "jev");
+            java.util.Set.of("doc-integrity", "security", "license-header", "pr-metadata", "external", "rules", "jev",
+                    "review-routing", "change-policy");
 
     private boolean isGateEnabled(String gateId, AIVConfig config, List<ChangedFile> filteredFiles) {
         boolean enabled = config.getGates().stream()

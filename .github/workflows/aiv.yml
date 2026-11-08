@@ -38,6 +38,11 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Built aiv-cli version: $VERSION"
 
+      - name: Validate local release contract
+        run: |
+          python scripts/validate-release-contract.py
+          python scripts/validate-presets.py
+
       - name: Run AIV
         id: aiv
         shell: bash

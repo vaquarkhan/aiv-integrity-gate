@@ -1,0 +1,10 @@
+# Built-in pack: strict-agent. For repositories that accept agent PRs only for small tasks.
+# Size and test policies block (plus mega-diff from the base pack); a maintainer override label still applies.
+extends: oss-maintainer
+budgets:
+  default: { files: 20, lines: 600 }
+policies:
+  - { id: over-budget, action: fail }
+  - { id: small-fix-huge-diff, action: fail }
+  - { id: small-intent-large-diff, action: fail }
+  - { id: untested-source-change, action: fail }

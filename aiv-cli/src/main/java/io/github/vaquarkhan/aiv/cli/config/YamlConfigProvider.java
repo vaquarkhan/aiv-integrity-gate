@@ -59,7 +59,9 @@ public final class YamlConfigProvider implements ConfigProvider {
             global.put("schema_version", schemaVersion);
             for (String key : List.of(
                     "exclude_paths", "fail_fast", "skip_allowlist", "advisory_pr_label", "advisory_label_gates",
-                    "baseline", "ai_slop_pr_label", "ai_slop_pr_comment", "ai_slop_label_gates", "ai_slop_label_rules",
+                    "baseline", "deterministic_findings_pr_label", "deterministic_findings_pr_comment",
+                    "deterministic_findings_label_gates", "deterministic_findings_label_rules",
+                    "ai_slop_pr_label", "ai_slop_pr_comment", "ai_slop_label_gates", "ai_slop_label_rules",
                     "audit_log")) {
                 if (root.containsKey(key) && !global.containsKey(key)) {
                     global.put(key, root.get(key));

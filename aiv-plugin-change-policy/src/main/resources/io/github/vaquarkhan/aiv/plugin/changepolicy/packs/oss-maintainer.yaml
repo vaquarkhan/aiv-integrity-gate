@@ -1,0 +1,113 @@
+# Built-in pack: oss-maintainer. Every policy is advisory (warn) except mega-diff, which never flagged a
+# merged PR in the calibration data and can be overridden by label. See
+# docs/AI-integration/CHANGE-POLICY-ENGINE-DESIGN.md for the evidence behind each one.
+budgets:
+  default: { files: 50, lines: 1500 }
+author_tiers:
+  maintainer: [OWNER, MEMBER, COLLABORATOR]
+policies:
+  - id: over-budget
+    when: { fact: budget.exceeded, eq: true }
+    action: warn
+    overridable: true
+    message: "Change is over the review budget: {budget.detail}. Split it into smaller PRs, or ask a maintainer to apply an override label."
+  # The only blocking pack policy. On the Airflow index (15,575 PRs) every one of the 27 PRs with
+  # 1,000+ changed files was closed unmerged; most were small fixes built on the wrong base branch.
+  - id: mega-diff
+    when: { fact: files.changed, gte: 1000 }
+    action: fail
+    overridable: true
+    message: "{files.changed} files changed. A diff this size is almost always a wrong base branch or an accidental merge. Rebase onto the target branch, or ask a maintainer to apply an override label for a real mass change."
+  # 5,000 lines, not 1,000: on human Airflow PRs a small-change title with 1,000+ lines still merged at
+  # 66.1% (baseline 75.9%); at 5,000+ lines it merged at 32.3%.
+  - id: small-fix-huge-diff
+    when:
+      all:
+        - { fact: intent.class, in: [typo, docs, fix, bump] }
+        - { fact: lines.total_changed, gte: 5000 }
+    action: warn
+    overridable: true
+    message: "Title reads as '{intent.class}' but the diff changes {lines.total_changed} lines. Check the base branch, drop unrelated changes, or retitle and explain."
+  - id: large-new-code-unit
+    when:
+      any:
+        - { fact: code.large_new_files, gte: 1 }
+        - { fact: code.max_function_lines, gte: 150 }
+        - { fact: code.stub_functions, gte: 2 }
+    action: warn
+    message: "New code is hard to review in one piece: {code.large_new_files} new source files of 500+ lines, longest new function about {code.max_function_lines} lines, {code.stub_functions} stub functions. Split it into smaller units and remove stubs."
+  - id: small-intent-large-diff
+    when:
+      all:
+        - { fact: intent.class, in: [typo, docs, fix, bump] }
+        - { fact: files.reviewable, gt: 10 }
+    action: warn
+    overridable: true
+    message: "Title reads as '{intent.class}' but {files.reviewable} reviewable files changed ({scope.area_list}). Keep a small fix small, or retitle and explain the wider change."
+  - id: untested-source-change
+    when:
+      all:
+        - { fact: lines.source_changed, gte: 200 }
+        - { fact: tests.files_changed, eq: 0 }
+    action: warn
+    overridable: true
+    message: "{lines.source_changed} source lines changed with no test changes. Add or update tests, or explain why none are needed."
+  # CI definitions only. Calibration on Airflow showed build-infra (dev tooling, its tests) changes
+  # routinely ride along with source changes in merged PRs, so build-infra is not part of this policy.
+  - id: infra-with-source
+    when:
+      all:
+        - { fact: files.by_category.ci, gte: 1 }
+        - { fact: lines.source_changed, gt: 0 }
+    action: warn
+    message: "CI workflow files change together with source code. Send the CI change as its own PR."
+  - id: ci-change-by-non-collaborator
+    when:
+      all:
+        - { fact: meta.author_tier, eq: external }
+        - any:
+            - { fact: files.by_category.ci, gte: 1 }
+            - { fact: files.by_category.build-infra, gte: 1 }
+    action: warn
+    message: "CI or build-infrastructure files changed by an author without write access. A maintainer must review the CI change before project CI runs it."
+  - id: lockfile-change
+    when:
+      all:
+        - { fact: files.by_category.lockfile, gte: 1 }
+        - { fact: files.by_category.dependency-manifest, eq: 0 }
+        - not: { fact: intent.class, eq: bump }
+    action: warn
+    message: "A lockfile changed without any dependency manifest change. Regenerate it in a dedicated dependency PR, or revert it."
+  - id: formatting-churn
+    when: { fact: churn.whitespace_only_files, gte: 3 }
+    action: warn
+    message: "{churn.whitespace_only_files} files change only whitespace or formatting. Revert formatting-only edits outside the change."
+  - id: description-claims-mismatch
+    when:
+      any:
+        - { fact: claims.tests_overclaim, gt: 2 }
+        - all:
+            - { fact: claims.tests_added, eq: true }
+            - { fact: tests.files_changed, eq: 0 }
+            - { fact: lines.source_changed, gt: 0 }
+    action: warn
+    message: "The description claims {claims.tests_count} tests or added tests, but the diff adds {tests.functions_added} test functions in {tests.files_changed} test files. Make the description match the diff."
+  # Maintainers are exempt: calibration showed release, backport and CI-upgrade PRs by maintainers
+  # (short template-free bodies) were most of the merged hits.
+  - id: template-compliance
+    when:
+      all:
+        - { fact: meta.author_tier, ne: maintainer }
+        - any:
+            - { fact: template.sections_missing, gt: 0 }
+            - { fact: meta.body_words, lt: 15 }
+    action: warn
+    message: "The PR description is missing required content ({template.missing_list}; {meta.body_words} words). Explain why the change is needed and how it was tested."
+  - id: disclosure-consistency
+    when: { fact: claims.ai_disclosure_mismatch, eq: true }
+    action: warn
+    message: "A Generated-by trailer and the AI disclosure checkbox disagree. Fix the disclosure section."
+  - id: behind-base
+    when: { fact: git.behind_base, gt: 200 }
+    action: warn
+    message: "The branch is {git.behind_base} commits behind the base branch. Rebase before review."

@@ -1,0 +1,3 @@
+# Reviewed runtime dependency for the local JEV Bedrock adapter.
+# Update deliberately, test against the selected model, and review the resolved transitive dependencies.
+boto3==1.43.126

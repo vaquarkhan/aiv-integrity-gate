@@ -1,0 +1,47 @@
+name: Terraform validate
+
+on:
+  pull_request:
+    paths:
+      - "integrations/jev-bedrock-adapter/terraform/**"
+      - ".github/workflows/terraform-validate.yml"
+      - ".gitignore"
+  push:
+    branches: [main]
+    paths:
+      - "integrations/jev-bedrock-adapter/terraform/**"
+      - ".github/workflows/terraform-validate.yml"
+      - ".gitignore"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e
+        with:
+          terraform_version: 1.14.3
+          terraform_wrapper: false
+
+      - name: Format
+        run: terraform fmt -check -recursive integrations/jev-bedrock-adapter/terraform
+
+      - name: Initialize and validate reusable module
+        working-directory: integrations/jev-bedrock-adapter/terraform/modules/github-oidc-bedrock-role
+        run: |
+          terraform init -backend=false -input=false
+          terraform validate
+          terraform test
+
+      - name: Initialize and validate production root
+        working-directory: integrations/jev-bedrock-adapter/terraform/environments/prod
+        run: |
+          terraform init -backend=false -input=false
+          terraform validate
+
+      - name: Reject committed credentials and personal data
+        run: python integrations/jev-bedrock-adapter/terraform/validate_security.py

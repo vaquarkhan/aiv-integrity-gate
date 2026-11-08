@@ -30,9 +30,8 @@ import java.util.regex.Pattern;
  * Publishes one deterministic AIV findings comment on a pull request.
  *
  * <p>The comment is deliberately evidence-oriented. It lists rules, paths, lines and fixed remediation
- * text, but it does not infer whether a human or an AI wrote the change. A repository may choose the
- * literal label {@code AI-SLOP}; that label means only that configured deterministic AIV rules found
- * evidence requiring review, not that AIV identified AI authorship.
+ * text, but it does not infer whether a human or an AI wrote the change. Legacy AI-SLOP labels remain
+ * accepted through v1 compatibility aliases, but new policies should use neutral finding labels.
  */
 public final class GithubPrDeterministicFindingsPublisher {
 

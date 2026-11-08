@@ -1,0 +1,121 @@
+{
+  "id": "slop-ph-02",
+  "title": "ai-slop: placeholder (expect FAIL)",
+  "label": {
+    "class": "synthetic_positive",
+    "subtype": "placeholder",
+    "expect_hard_fail": true,
+    "expect_advisory": false,
+    "notes": "Labeled objective AI-slop; hard-pass = FN"
+  },
+  "outcome": {
+    "verdict": "TP",
+    "hard_fail": true,
+    "advisory": true,
+    "blocking_gates": [
+      "invariant"
+    ],
+    "blocking_rules": [
+      "invariant.placeholder"
+    ],
+    "advisory_gates": [
+      "test-adequacy"
+    ],
+    "exit_code": 1,
+    "execution_valid": true,
+    "expected_rules": [],
+    "expected_rule_hit": true,
+    "label_class": "synthetic_positive",
+    "expect_hard_fail": true
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "result_key": "density:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "result_key": "design:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "result_key": "cohesion:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "result_key": "invariant:blocking",
+      "partition": "blocking",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-02.py",
+      "findings": [
+        {
+          "rule_id": "invariant.placeholder",
+          "file": "providers/bench/labeled/ai-slop/placeholder-02.py",
+          "start_line": 1,
+          "message": "Placeholder marker found in providers/bench/labeled/ai-slop/placeholder-02.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "result_key": "syntax:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "result_key": "test-adequacy:advisory",
+      "partition": "advisory",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-02test, placeholder-02tests, testplaceholder-02, placeholder-02it, placeholder-02spec, placeholder-02testcase, test_placeholder-02, placeholder-02_test, placeholder-02_spec, placeholder-02.test, placeholder-02.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/ai-slop/placeholder-02.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-02test, placeholder-02tests, testplaceholder-02, placeholder-02it, placeholder-02spec, placeholder-02testcase, test_placeholder-02, placeholder-02_test, placeholder-02_spec, placeholder-02.test, placeholder-02.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "result_key": "duplication:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "result_key": "rules:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20261023T133532Z/slop-ph-02/aiv-report.json"
+}

@@ -1,5 +1,8 @@
 # AIV Integrity Gate composite action
 # Author: Vaquar Khan
+#
+# Security: every input reaches the shell through an environment variable, never through
+# ${{ }} interpolation inside a script, so an input value cannot inject shell syntax.
 name: 'AIV Integrity Gate'
 description: 'Run deterministic integrity checks on a pull-request diff and emit JSON and SARIF evidence.'
 branding:
@@ -19,9 +22,9 @@ inputs:
     required: false
     default: '17'
   aiv-version:
-    description: 'Released CLI version. Ignored when cli-jar-path or cli-jar-url is set.'
+    description: 'Released hardened CLI version used only when cli-jar-path and cli-jar-url are empty. The release process sets this after the matching Maven Central artifact and capability handshake are verified.'
     required: false
-    default: '2.0'
+    default: ''
   maven-central-base:
     description: 'Maven repository base, without a trailing slash.'
     required: false
@@ -31,7 +34,11 @@ inputs:
     required: false
     default: ''
   cli-jar-url:
-    description: 'Optional full URL to an AIV CLI jar. Used when cli-jar-path is empty.'
+    description: 'Optional full URL to an AIV CLI jar. Used when cli-jar-path is empty. Requires cli-jar-sha256.'
+    required: false
+    default: ''
+  cli-jar-sha256:
+    description: 'Expected SHA-256 of the CLI jar (64 hex characters). Required with cli-jar-url; strongly recommended with aiv-version. The run stops when the downloaded jar does not match.'
     required: false
     default: ''
   output-json:
@@ -54,18 +61,38 @@ inputs:
     description: 'Label name used when label-pr-on-advisory is true.'
     required: false
     default: 'aiv:advisory'
+  label-deterministic-findings:
+    description: 'Apply/remove a label for selected deterministic findings. Does not infer authorship.'
+    required: false
+    default: 'false'
+  deterministic-findings-label:
+    description: 'Label name used when label-deterministic-findings is true.'
+    required: false
+    default: 'aiv:findings'
+  comment-deterministic-findings:
+    description: 'Publish/update one selected deterministic-findings comment. Requires pull-requests: write.'
+    required: false
+    default: 'false'
   label-ai-slop:
-    description: 'Apply/remove an opt-in label for configured deterministic findings. Does not infer authorship.'
+    description: 'Deprecated alias for label-deterministic-findings. Retained for v1 compatibility.'
     required: false
     default: 'false'
   ai-slop-label:
-    description: 'Label name used when label-ai-slop is true.'
+    description: 'Deprecated label override used only with label-ai-slop.'
     required: false
-    default: 'AI-SLOP'
+    default: ''
   comment-ai-slop:
-    description: 'Publish/update one deterministic findings comment. Requires pull-requests: write.'
+    description: 'Deprecated alias for comment-deterministic-findings. Retained for v1 compatibility.'
     required: false
     default: 'false'
+  label-review-tier:
+    description: 'Opt-in: label the PR aiv:review-<tier> from the review-routing gate (must be enabled in .aiv/config.yaml). Requires pull-requests: write.'
+    required: false
+    default: 'false'
+  output-fix-brief:
+    description: 'Opt-in: path for a Markdown fix brief a contributor can hand to their own AI assistant or AI-DLC. Empty disables it.'
+    required: false
+    default: ''
 
 outputs:
   json-report:
@@ -87,28 +114,52 @@ runs:
     - name: Resolve AIV CLI
       id: cli
       shell: bash
+      env:
+        IN_JAR_PATH: ${{ inputs.cli-jar-path }}
+        IN_JAR_URL: ${{ inputs.cli-jar-url }}
+        IN_JAR_SHA256: ${{ inputs.cli-jar-sha256 }}
+        IN_VERSION: ${{ inputs.aiv-version }}
+        IN_CENTRAL: ${{ inputs.maven-central-base }}
+        IN_WORKSPACE: ${{ inputs.workspace }}
       run: |
         set -euo pipefail
         DEST="$RUNNER_TEMP/aiv-cli.jar"
-        if [ -n "${{ inputs.cli-jar-path }}" ]; then
-          SOURCE="${{ inputs.cli-jar-path }}"
-          if [[ "$SOURCE" != /* ]]; then SOURCE="${{ inputs.workspace }}/$SOURCE"; fi
+        if [ -n "$IN_JAR_SHA256" ] && ! [[ "$IN_JAR_SHA256" =~ ^[0-9a-fA-F]{64}$ ]]; then
+          echo "::error::cli-jar-sha256 must be 64 hexadecimal characters."
+          exit 1
+        fi
+        if [ -n "$IN_JAR_PATH" ]; then
+          SOURCE="$IN_JAR_PATH"
+          if [[ "$SOURCE" != /* ]]; then SOURCE="$IN_WORKSPACE/$SOURCE"; fi
           test -f "$SOURCE" || { echo "::error::AIV CLI jar not found: $SOURCE"; exit 1; }
           cp "$SOURCE" "$DEST"
-        elif [ -n "${{ inputs.cli-jar-url }}" ]; then
-          curl -fsSL -o "$DEST" "${{ inputs.cli-jar-url }}"
+        elif [ -n "$IN_JAR_URL" ]; then
+          [ -n "$IN_JAR_SHA256" ] || { echo "::error::cli-jar-url requires cli-jar-sha256."; exit 1; }
+          [[ "$IN_JAR_URL" == https://* ]] || { echo "::error::cli-jar-url must use https."; exit 1; }
+          curl -fsSL --proto '=https' --tlsv1.2 -o "$DEST" "$IN_JAR_URL"
         else
-          VERSION="${{ inputs.aiv-version }}"
-          [ -n "$VERSION" ] || {
+          [ -n "$IN_VERSION" ] || {
             echo "::error::This hardened Action requires cli-jar-path, cli-jar-url, or an aiv-version released with --require-trusted-config."
             exit 1
           }
-          BASE="${{ inputs.maven-central-base }}"
-          URL="$BASE/io/github/vaquarkhan/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"
-          curl -fsSL -o "$DEST" "$URL" || {
+          [[ "$IN_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]] || {
+            echo "::error::aiv-version must be a release version such as 1.1.0."
+            exit 1
+          }
+          [[ "$IN_CENTRAL" == https://* ]] || { echo "::error::maven-central-base must use https."; exit 1; }
+          URL="$IN_CENTRAL/io/github/vaquarkhan/aiv-cli/$IN_VERSION/aiv-cli-$IN_VERSION.jar"
+          curl -fsSL --proto '=https' --tlsv1.2 -o "$DEST" "$URL" || {
             echo "::error::Could not download $URL. Set cli-jar-path for a source build or cli-jar-url for a release asset."
             exit 1
           }
+          [ -n "$IN_JAR_SHA256" ] || echo "::warning::No cli-jar-sha256 given; the downloaded jar is not pinned. Set cli-jar-sha256 to the published checksum."
+        fi
+        if [ -n "$IN_JAR_SHA256" ]; then
+          ACTUAL="$(sha256sum "$DEST" | cut -d' ' -f1)"
+          if [ "${ACTUAL,,}" != "${IN_JAR_SHA256,,}" ]; then
+            echo "::error::AIV CLI jar SHA-256 mismatch: expected $IN_JAR_SHA256, got $ACTUAL."
+            exit 1
+          fi
         fi
         echo "jar=$DEST" >> "$GITHUB_OUTPUT"
         java -jar "$DEST" --version
@@ -129,32 +180,68 @@ runs:
         AIV_GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
         AIV_PR_TITLE: ${{ github.event.pull_request.title }}
         AIV_PR_BODY: ${{ github.event.pull_request.body }}
+        # Read only by the opt-in change-policy gate.
+        AIV_PR_LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        AIV_PR_AUTHOR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
+        AIV_PR_DRAFT: ${{ github.event.pull_request.draft }}
         GITHUB_TOKEN: ${{ github.token }}
         GITHUB_REPOSITORY: ${{ github.repository }}
         GITHUB_SHA: ${{ github.sha }}
+        EVENT_NAME: ${{ github.event_name }}
+        AIV_JAR: ${{ steps.cli.outputs.jar }}
+        IN_BASE_REF: ${{ inputs.base-ref }}
+        IN_WORKSPACE: ${{ inputs.workspace }}
+        IN_OUTPUT_JSON: ${{ inputs.output-json }}
+        IN_OUTPUT_SARIF: ${{ inputs.output-sarif }}
+        IN_PUBLISH_CHECKS: ${{ inputs.publish-github-checks }}
+        IN_LABEL_ADVISORY: ${{ inputs.label-pr-on-advisory }}
+        IN_ADVISORY_LABEL: ${{ inputs.advisory-pr-label }}
+        IN_LABEL_FINDINGS: ${{ inputs.label-deterministic-findings }}
+        IN_FINDINGS_LABEL: ${{ inputs.deterministic-findings-label }}
+        IN_COMMENT_FINDINGS: ${{ inputs.comment-deterministic-findings }}
+        IN_LABEL_AI_SLOP: ${{ inputs.label-ai-slop }}
+        IN_AI_SLOP_LABEL: ${{ inputs.ai-slop-label }}
+        IN_COMMENT_AI_SLOP: ${{ inputs.comment-ai-slop }}
+        IN_LABEL_REVIEW_TIER: ${{ inputs.label-review-tier }}
+        IN_FIX_BRIEF: ${{ inputs.output-fix-brief }}
       run: |
         set -euo pipefail
-        WORKSPACE="${{ inputs.workspace }}"
-        JSON_OUT="${{ inputs.output-json }}"
-        SARIF_OUT="${{ inputs.output-sarif }}"
+        case "$IN_BASE_REF" in
+          ''|-*) echo "::error::base-ref must be a git ref and must not start with '-'."; exit 1 ;;
+        esac
+        WORKSPACE="$IN_WORKSPACE"
+        JSON_OUT="$IN_OUTPUT_JSON"
+        SARIF_OUT="$IN_OUTPUT_SARIF"
         [[ "$JSON_OUT" = /* ]] || JSON_OUT="$WORKSPACE/$JSON_OUT"
         [[ "$SARIF_OUT" = /* ]] || SARIF_OUT="$WORKSPACE/$SARIF_OUT"
         EXTRA=(--output-json "$JSON_OUT" --output-sarif "$SARIF_OUT")
-        if [ "${{ inputs.publish-github-checks }}" = "true" ]; then
+        if [ "$IN_PUBLISH_CHECKS" = "true" ]; then
           EXTRA+=(--publish-github-checks)
         fi
-        if [ "${{ inputs.label-pr-on-advisory }}" = "true" ] && [ "${{ github.event_name }}" = "pull_request" ]; then
-          EXTRA+=(--label-pr-on-advisory "${{ inputs.advisory-pr-label }}")
+        if [ "$IN_LABEL_ADVISORY" = "true" ] && [ "$EVENT_NAME" = "pull_request" ]; then
+          EXTRA+=(--label-pr-on-advisory "$IN_ADVISORY_LABEL")
         fi
-        if [ "${{ inputs.label-ai-slop }}" = "true" ] && [ "${{ github.event_name }}" = "pull_request" ]; then
-          EXTRA+=(--label-ai-slop "${{ inputs.ai-slop-label }}")
+        if { [ "$IN_LABEL_FINDINGS" = "true" ] || [ "$IN_LABEL_AI_SLOP" = "true" ]; } \
+          && [ "$EVENT_NAME" = "pull_request" ]; then
+          LABEL="$IN_FINDINGS_LABEL"
+          if [ -n "$IN_AI_SLOP_LABEL" ]; then LABEL="$IN_AI_SLOP_LABEL"; fi
+          EXTRA+=(--label-deterministic-findings "$LABEL")
         fi
-        if [ "${{ inputs.comment-ai-slop }}" = "true" ] && [ "${{ github.event_name }}" = "pull_request" ]; then
-          EXTRA+=(--comment-ai-slop)
+        if { [ "$IN_COMMENT_FINDINGS" = "true" ] || [ "$IN_COMMENT_AI_SLOP" = "true" ]; } \
+          && [ "$EVENT_NAME" = "pull_request" ]; then
+          EXTRA+=(--comment-deterministic-findings)
         fi
-        java -jar "${{ steps.cli.outputs.jar }}" \
+        if [ "$IN_LABEL_REVIEW_TIER" = "true" ] && [ "$EVENT_NAME" = "pull_request" ]; then
+          EXTRA+=(--label-review-tier)
+        fi
+        BRIEF_OUT="$IN_FIX_BRIEF"
+        if [ -n "$BRIEF_OUT" ]; then
+          [[ "$BRIEF_OUT" = /* ]] || BRIEF_OUT="$WORKSPACE/$BRIEF_OUT"
+          EXTRA+=(--output-fix-brief "$BRIEF_OUT")
+        fi
+        java -jar "$AIV_JAR" \
           --workspace "$WORKSPACE" \
-          --diff "${{ inputs.base-ref }}" \
+          --diff "$IN_BASE_REF" \
           --require-trusted-config \
           "${EXTRA[@]}"
         echo "json-report=$JSON_OUT" >> "$GITHUB_OUTPUT"

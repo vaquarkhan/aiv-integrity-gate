@@ -87,6 +87,20 @@ class MemoryDiffProviderTest {
     }
 
     @Test
+    void rejectsAbsoluteAndTraversalPaths() {
+        for (String bad : List.of("/etc/passwd", "\\\\server\\\\share\\\\a.py", "C:/Windows/win.ini",
+                "c:\\\\x.py", "../outside.py", "src/../../x.py", "..", "src\\\\..\\\\..\\\\x.py")) {
+            IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
+                    MemoryDiffProvider.parseJson("{\"files\":[{\"path\":\"" + bad + "\"}]}"), bad);
+            assertTrue(e.getMessage().contains("must be relative to the workspace"), bad);
+        }
+        // dots inside a name are not a traversal segment
+        Diff ok = MemoryDiffProvider.parseJson("{\"files\":[{\"path\":\"src/a..b/..c.py\"},{\"path\":\"./x.py\"}]}");
+        assertEquals("src/a..b/..c.py", ok.getChangedFiles().get(0).getPath());
+        assertEquals("./x.py", ok.getChangedFiles().get(1).getPath());
+    }
+
+    @Test
     void nullDiffConstructor() {
         assertTrue(new MemoryDiffProvider(null).getDiff(Path.of("."), "a", "b").getChangedFiles().isEmpty());
     }

@@ -1,0 +1,52 @@
+{
+  "branches": 88,
+  "note": "Airflow preset after the empty rules_files glob no longer aborts the run. Exit 3 is git three-dot with no merge base.",
+  "exit_2": 0,
+  "exit_3_no_merge_base": [
+    "case/ai-attribution",
+    "case/ai-edit-artifact",
+    "case/clean-control",
+    "case/merge-conflict",
+    "snapshot/airflow-pr-73271",
+    "snapshot/airflow-pr-73278",
+    "snapshot/airflow-pr-73289"
+  ],
+  "cohorts": {
+    "abandoned/abandoned_clean": {
+      "n": 8,
+      "exit_nonzero": 0,
+      "any_signal": 4,
+      "gate_counts": { "external": 4, "test-adequacy": 3 }
+    },
+    "abandoned/ai_disclosed": {
+      "n": 16,
+      "exit_nonzero": 0,
+      "any_signal": 15,
+      "gate_counts": { "external": 12, "test-adequacy": 7 }
+    },
+    "abandoned/ai_signal_advisory": {
+      "n": 3,
+      "exit_nonzero": 0,
+      "any_signal": 1,
+      "gate_counts": { "external": 1, "test-adequacy": 1 }
+    },
+    "case": { "n": 4, "exit_nonzero": 4, "any_signal": 0 },
+    "labeled": {
+      "n": 50,
+      "exit_nonzero": 0,
+      "any_signal": 50,
+      "gate_counts": {
+        "test-adequacy": 45,
+        "invariant": 31,
+        "external": 7,
+        "cohesion": 5
+      }
+    },
+    "snapshot": {
+      "n": 7,
+      "exit_nonzero": 3,
+      "any_signal": 2,
+      "gate_counts": { "external": 2 }
+    }
+  }
+}

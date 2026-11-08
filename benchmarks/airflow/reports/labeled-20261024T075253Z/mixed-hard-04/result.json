@@ -1,0 +1,121 @@
+{
+  "id": "mixed-hard-04",
+  "title": "mixed: otherwise-ok + edit-artifact #4 (expect FAIL)",
+  "label": {
+    "class": "mixed_sample",
+    "subtype": "clean_plus_artifact",
+    "expect_hard_fail": true,
+    "expect_advisory": false,
+    "notes": "Hard marker present; hard-pass = FN"
+  },
+  "outcome": {
+    "verdict": "TP",
+    "hard_fail": true,
+    "advisory": true,
+    "blocking_gates": [
+      "invariant"
+    ],
+    "blocking_rules": [
+      "invariant.ai-edit-artifact"
+    ],
+    "advisory_gates": [
+      "test-adequacy"
+    ],
+    "exit_code": 1,
+    "execution_valid": true,
+    "expected_rules": [],
+    "expected_rule_hit": true,
+    "label_class": "mixed_sample",
+    "expect_hard_fail": true
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "result_key": "density:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "result_key": "design:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "result_key": "cohesion:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "result_key": "invariant:blocking",
+      "partition": "blocking",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-04.py",
+      "findings": [
+        {
+          "rule_id": "invariant.ai-edit-artifact",
+          "file": "providers/bench/labeled/mixed/hard/mixed-hard-04.py",
+          "start_line": 1,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-04.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "result_key": "syntax:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "result_key": "test-adequacy:advisory",
+      "partition": "advisory",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-04test, mixed-hard-04tests, testmixed-hard-04, mixed-hard-04it, mixed-hard-04spec, mixed-hard-04testcase, test_mixed-hard-04, mixed-hard-04_test, mixed-hard-04_spec, mixed-hard-04.test, mixed-hard-04.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/mixed/hard/mixed-hard-04.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-04test, mixed-hard-04tests, testmixed-hard-04, mixed-hard-04it, mixed-hard-04spec, mixed-hard-04testcase, test_mixed-hard-04, mixed-hard-04_test, mixed-hard-04_spec, mixed-hard-04.test, mixed-hard-04.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "result_key": "duplication:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "result_key": "rules:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20261024T075253Z/mixed-hard-04/aiv-report.json"
+}

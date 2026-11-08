@@ -7,6 +7,7 @@ package io.github.vaquarkhan.aiv.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Result from a single quality gate evaluation.
@@ -21,6 +22,8 @@ public final class GateResult {
     /** When {@code !passed}, if {@code false} the failure is advisory only (does not fail CI). */
     private final boolean blocksCi;
     private final List<Finding> findings;
+    /** Rule ids in a blocking result that the gate itself rates advisory; see {@link #getAdvisoryRules()}. */
+    private final Set<String> advisoryRules;
 
     public GateResult(String gateId, boolean passed, String message) {
         this(gateId, passed, message, !passed, List.of());
@@ -31,6 +34,17 @@ public final class GateResult {
     }
 
     public GateResult(String gateId, boolean passed, String message, boolean blocksCi, List<Finding> findings) {
+        this(gateId, passed, message, blocksCi, findings, Set.of());
+    }
+
+    /**
+     * Result whose findings mix blocking and advisory rules. {@code advisoryRules} names the rule ids the
+     * gate rates advisory; the orchestrator reports those findings as advisory unless the project's
+     * {@code rule_actions} say otherwise.
+     */
+    public GateResult(String gateId, boolean passed, String message, boolean blocksCi, List<Finding> findings,
+                      Set<String> advisoryRules) {
+        this.advisoryRules = advisoryRules == null ? Set.of() : Set.copyOf(advisoryRules);
         this.gateId = gateId;
         this.passed = passed;
         this.message = message != null ? message : "";
@@ -85,5 +99,10 @@ public final class GateResult {
      */
     public List<Finding> getFindings() {
         return findings;
+    }
+
+    /** Rule ids the gate rates advisory inside a blocking result; empty for most gates. */
+    public Set<String> getAdvisoryRules() {
+        return advisoryRules;
     }
 }

@@ -1,0 +1,79 @@
+# Example only: copy to .github/workflows/ and adapt. Not active in this repository.
+#
+# Records AIV review-ledger rows as artifacts:
+#   * on every AIV Gate completion for a PR: what AIV found on that head (needs the AIV job to
+#     upload its JSON report as artifact "aiv-report", see the step below)
+#   * when the PR closes: the AI reviewer comments and the final head / merged state
+# Download the "aiv-ledger-*" artifacts into one folder and run
+#   python integrations/review-ledger/aiv_review_ledger.py report --ledger <folder>
+#
+# Add this step to the AIV job so the report is available:
+#   - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+#     if: always()
+#     with: { name: aiv-report, path: aiv-report.json, if-no-files-found: ignore }
+#
+# Security: runs on workflow_run / pull_request_target with read-only permissions and never checks
+# out PR code. The ledger tool comes from the default branch.
+name: AIV review ledger
+
+on:
+  workflow_run:
+    workflows: ["AIV Gate"]
+    types: [completed]
+  pull_request_target:
+    types: [closed]
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          sparse-checkout: integrations/review-ledger
+          persist-credentials: false
+
+      - name: Fetch the AIV report of this run
+        if: github.event_name == 'workflow_run' && github.event.workflow_run.event == 'pull_request'
+        uses: actions/download-artifact@v4 # pin to a commit SHA in your repository
+        with:
+          name: aiv-report
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+        continue-on-error: true
+
+      - name: Record AIV findings for the PR head
+        if: github.event_name == 'workflow_run' && github.event.workflow_run.event == 'pull_request'
+        env:
+          PR: ${{ github.event.workflow_run.pull_requests[0].number }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          if [ -z "$PR" ] || [ ! -f aiv-report.json ]; then echo "no PR number or report; nothing to record"; exit 0; fi
+          python integrations/review-ledger/aiv_review_ledger.py record-aiv \
+            --ledger "ledger/aiv-$PR-$SHA.jsonl" --pr "$PR" --sha "$SHA" --aiv-report aiv-report.json
+
+      - name: Record AI comments and the final state
+        if: github.event_name == 'pull_request_target'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          MERGED: ${{ github.event.pull_request.merged }}
+        run: |
+          python integrations/review-ledger/aiv_review_ledger.py collect-ai \
+            --ledger "ledger/final-$PR.jsonl" --pr "$PR" --repo "$GITHUB_REPOSITORY"
+          python integrations/review-ledger/aiv_review_ledger.py record-final \
+            --ledger "ledger/final-$PR.jsonl" --pr "$PR" --sha "$SHA" --merged "$MERGED"
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: aiv-ledger-${{ github.run_id }}
+          path: ledger/
+          if-no-files-found: ignore
+          retention-days: 90

@@ -16,10 +16,10 @@ exclude_paths:
   - "chart/**"
   - "generated/**"
 
-# The label and comment report deterministic evidence. They do not claim AI authorship.
-ai_slop_pr_label: AI-SLOP
-ai_slop_pr_comment: true
-ai_slop_label_gates: [rules, invariant, security, package-existence, test-adequacy, external]
+# The label and comment report selected deterministic findings. They do not claim AI authorship.
+deterministic_findings_pr_label: aiv:findings
+deterministic_findings_pr_comment: true
+deterministic_findings_label_gates: [rules, invariant, security, package-existence, test-adequacy, external]
 
 gates:
   # Generic rule engine loading the shipped "airflow" rule pack (rules.airflow.*). Add your own
@@ -88,3 +88,6 @@ gates:
   - id: doc-integrity
     enabled: false
   - { id: jev, enabled: false }
+  - { id: review-routing, enabled: false }
+  - { id: change-policy, enabled: false }
+  # To enable it, replace this entry with a configured advisory policy pack.

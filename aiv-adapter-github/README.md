@@ -33,7 +33,7 @@ Posts line comments for eligible structured findings and adds rule-specific reme
 Manages two label styles:
 
 - advisory label when configured warning gates have findings,
-- selected deterministic label (default `AI-SLOP`) based on configured gate/rule families.
+- selected deterministic-findings label (default `aiv:findings`) based on configured gate/rule families.
 
 The selected label describes findings only and never infers authorship. Labels are removed when findings clear.
 
@@ -51,13 +51,13 @@ Creates or updates one marker comment containing selected findings, stable order
 | `AIV_GITHUB_PR_NUMBER` | pull request number |
 | `GITHUB_EVENT_PATH` | fallback PR metadata source |
 | `AIV_PR_ADVISORY_LABEL` | advisory label override |
-| `AIV_AI_SLOP_LABEL` | selected-finding label override |
+| `AIV_DETERMINISTIC_FINDINGS_LABEL` | selected deterministic-findings label override; `AIV_AI_SLOP_LABEL` remains a v1 alias |
 
 The composite Action maps GitHub context into these values. Fork PR tokens may be read-only; explicit publication reports permission errors instead of affecting the verdict silently.
 
 ## Trust boundary
 
-`Main` passes the same resolved, frozen base-ref configuration to verdict and publication selection. A pull request cannot alter `ai_slop_label_gates`, `ai_slop_label_rules`, or label/comment enablement by editing workspace config.
+`Main` passes the same resolved, frozen base-ref configuration to verdict and publication selection. A pull request cannot alter `deterministic_findings_label_gates`, `deterministic_findings_label_rules`, or label/comment enablement by editing workspace config. Legacy `ai_slop_*` settings remain aliases during v1.
 
 ## Example
 
@@ -68,7 +68,7 @@ java -jar aiv-cli.jar \
   --publish-github-checks \
   --publish-pr-comments \
   --label-pr-on-advisory aiv:review \
-  --comment-ai-slop
+  --comment-deterministic-findings
 ```
 
 In a workflow, grant only the permissions used:

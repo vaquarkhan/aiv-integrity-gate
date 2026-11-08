@@ -21,3 +21,5 @@ gates:
   - { id: external, enabled: false }
   - { id: rules, enabled: false }
   - { id: jev, enabled: false }
+  - { id: review-routing, enabled: false }
+  - { id: change-policy, enabled: false }
