@@ -2,7 +2,7 @@
 
 All notable changes to **AIV Integrity Gate** are documented here. Version numbers follow the Maven reactor (`aiv-gate` parent POM).
 
-## Unreleased
+## 2.0.0
 
 ### User-facing
 

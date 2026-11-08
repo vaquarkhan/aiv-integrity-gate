@@ -60,7 +60,7 @@ The AI-DLC adapter calls `aiv verify` from release 2.0. Build the jar:
 
 ```bash
 mvn -pl aiv-cli -am clean package
-export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
+export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.0.jar"
 ```
 
 Confirm the jar reports the verify capabilities:

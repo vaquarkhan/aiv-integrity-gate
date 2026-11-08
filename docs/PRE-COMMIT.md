@@ -33,18 +33,18 @@ The hook evaluates the staged index against `HEAD`.
 
 ## Local jar
 
-To run a jar built from tag `v2.0`, point the wrapper at it:
+To run a jar built from tag `v2.0.0`, point the wrapper at it:
 
 ```bash
 mvn -pl aiv-cli -am clean package
-export AIV_CLI_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
+export AIV_CLI_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.0.jar"
 ./scripts/aiv-pre-commit.sh
 ```
 
 Windows PowerShell:
 
 ```powershell
-$env:AIV_CLI_JAR = (Resolve-Path "aiv-cli\target\aiv-cli-2.0.jar").Path
+$env:AIV_CLI_JAR = (Resolve-Path "aiv-cli\target\aiv-cli-2.0.0.jar").Path
 .\scripts\aiv-pre-commit.ps1
 ```
 

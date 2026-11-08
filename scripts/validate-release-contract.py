@@ -10,11 +10,12 @@ errors = []
 
 if "<groupId>io.github.vaquarkhan</groupId>" not in pom:
     errors.append("pom.xml no longer declares the expected Maven group")
-if 'URL="$BASE/io/github/vaquarkhan/aiv-cli/$VERSION/aiv-cli-$VERSION.jar"' not in action:
+if 'URL="$IN_CENTRAL/io/github/vaquarkhan/aiv-cli/$IN_VERSION/aiv-cli-$IN_VERSION.jar"' not in action:
     errors.append("action.yml Maven Central URL does not match io.github.vaquarkhan:aiv-cli")
 if 'verify --capabilities' not in action or '"trusted-policy"' not in action:
     errors.append("action.yml no longer requires the hardened capability handshake")
-if 'uses: vaquarkhan/aiv-integrity-gate@main' in (ROOT / "docs" / "DEPLOYMENT.md").read_text(encoding="utf-8"):
+deployment = (ROOT / "docs" / "DEPLOYMENT.md").read_text(encoding="utf-8")
+if "uses: vaquarkhan/aiv-integrity-gate@main" in deployment:
     errors.append("deployment guide still recommends a mutable Action branch")
 if not (ROOT / "docs" / "GITHUB-QUICKSTART.md").is_file():
     errors.append("five-minute GitHub quickstart is missing")

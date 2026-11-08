@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/vaquarkhan/aiv-integrity-gate/actions/workflows/aiv.yml"><img src="https://img.shields.io/github/actions/workflow/status/vaquarkhan/aiv-integrity-gate/aiv.yml?label=CI&style=flat-square" alt="CI status" /></a>
-  <a href="https://central.sonatype.com/artifact/io.github.vaquarkhan/aiv-cli"><img src="https://img.shields.io/maven-central/v/io.github.vaquarkhan/aiv-cli?label=Maven%20Central&style=flat-square" alt="Maven Central" /></a>
+  <a href="https://central.sonatype.com/artifact/io.github.vaquarkhan/aiv-cli/2.0.0"><img src="https://img.shields.io/badge/Maven%20Central-2.0.0-blue?style=flat-square" alt="Maven Central 2.0.0" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square" alt="Apache 2.0" /></a>
   <a href="https://vaquarkhan.github.io/aiv-integrity-gate/"><img src="https://img.shields.io/badge/Docs-GitHub%20Pages-0F766E?style=flat-square" alt="Docs" /></a>
 </p>
@@ -10,7 +10,7 @@
 <p align="center"><b>Evidence-based PR integrity and triage policy automation.</b><br/>
 Block objective diff defects, replay maintainer policy against PR history, and propose only the actions a team can audit.</p>
 
-> **Release channels:** Maven Central `1.0.4` and the `@v1` Action provide the stable core gate. The source branch contains the next-release trust boundary, evidence, `aiv verify`, AI-DLC integration, and hardened Action. Build from source and pass the jar through `cli-jar-path` until that release is published.
+> **Release channels:** Maven Central coordinate `io.github.vaquarkhan:aiv-cli:**2.0.0**` (publish with the Central workflow after tagging `v2.0.0`). Until the jar is visible on repo1, build from source or use the GitHub release asset via `cli-jar-path` / `cli-jar-url`.
 
 <p align="center"><img src="docs/images/aiv-architecture.png" alt="AIV architecture: one deterministic engine called from pre-commit, CI, MCP, AI-DLC, and policy engines" width="900" /></p>
 
@@ -115,7 +115,7 @@ You are done when a pull request runs AIV and prints a verdict.
 1. **Get the CLI** - the stable release is on Maven Central:
 
    ```bash
-   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/2.0/aiv-cli-2.0.jar"
+   curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/2.0.0/aiv-cli-2.0.0.jar"
    ```
 
    For the newest gates and `aiv verify`, build the jar from source:
@@ -137,7 +137,7 @@ You are done when a pull request runs AIV and prints a verdict.
    ```yaml
    repos:
      - repo: https://github.com/vaquarkhan/aiv-integrity-gate
-       rev: v2.0
+       rev: v2.0.0
        hooks:
          - id: aiv-gate
    ```
@@ -225,7 +225,7 @@ Details: [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md).
 
 ```bash
 mvn clean verify
-java -jar aiv-cli/target/aiv-cli-2.0.jar --diff origin/main
+java -jar aiv-cli/target/aiv-cli-2.0.0.jar --diff origin/main
 ```
 
 **Exit codes:** `0` pass · `1` a blocking gate failed · `2` bad args/config · `3` git failure.

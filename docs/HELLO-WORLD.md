@@ -23,7 +23,7 @@ git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-source
 cd aiv-source
 mvn clean verify
 export AIV_SOURCE="$(pwd)"
-export AIV_JAR="$AIV_SOURCE/aiv-cli/target/aiv-cli-2.0.jar"
+export AIV_JAR="$AIV_SOURCE/aiv-cli/target/aiv-cli-2.0.0.jar"
 java -jar "$AIV_JAR" --version
 cd ..
 ```
@@ -34,7 +34,7 @@ On Windows PowerShell:
 git clone https://github.com/vaquarkhan/aiv-integrity-gate.git aiv-source
 & "C:\tools\apache-maven-3.9.11\bin\mvn.cmd" -f aiv-source\pom.xml clean verify
 $env:AIV_SOURCE = (Resolve-Path aiv-source).Path
-$env:AIV_JAR = Join-Path $env:AIV_SOURCE "aiv-cli\target\aiv-cli-2.0.jar"
+$env:AIV_JAR = Join-Path $env:AIV_SOURCE "aiv-cli\target\aiv-cli-2.0.0.jar"
 java -jar $env:AIV_JAR --version
 ```
 
@@ -515,7 +515,7 @@ jobs:
       - uses: vaquarkhan/aiv-integrity-gate@main
         with:
           base-ref: origin/${{ github.base_ref }}
-          cli-jar-path: aiv-cli/target/aiv-cli-2.0.jar
+          cli-jar-path: aiv-cli/target/aiv-cli-2.0.0.jar
           publish-github-checks: "true"
 ```
 

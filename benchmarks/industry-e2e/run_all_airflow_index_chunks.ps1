@@ -34,17 +34,16 @@ if ($WaitPid -gt 0) {
 for ($chunk = $StartChunk; $chunk -le $EndChunk; $chunk++) {
   $chunkLog = Join-Path $logDir ("chunk-{0}.log" -f $chunk)
   Write-Log "starting chunk $chunk (size $ChunkSize) -> $chunkLog"
-  $p = Start-Process -FilePath "python" -ArgumentList @(
-    "-u", "run_airflow_index_chunks.py",
-    "--chunk", "$chunk",
-    "--chunk-size", "$ChunkSize"
-  ) -NoNewWindow -PassThru -RedirectStandardOutput $chunkLog -RedirectStandardError $chunkLog -Wait
-  Write-Log ("chunk {0} exit={1}" -f $chunk, $p.ExitCode)
-  if ($p.ExitCode -eq 3) {
+  # Start-Process cannot redirect stdout and stderr to the same path on Windows.
+  & python -u run_airflow_index_chunks.py --chunk $chunk --chunk-size $ChunkSize 2>&1 |
+    Tee-Object -FilePath $chunkLog
+  $code = $LASTEXITCODE
+  Write-Log ("chunk {0} exit={1}" -f $chunk, $code)
+  if ($code -eq 3) {
     Write-Log "chunk $chunk stopped on GitHub rate limit / fetcher stop; supervisor pauses here"
     break
   }
-  if ($p.ExitCode -ne 0) {
+  if ($code -ne 0) {
     Write-Log "chunk $chunk failed; supervisor stops"
     break
   }

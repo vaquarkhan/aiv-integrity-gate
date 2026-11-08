@@ -24,7 +24,7 @@ inputs:
   aiv-version:
     description: 'Released hardened CLI version used only when cli-jar-path and cli-jar-url are empty. The release process sets this after the matching Maven Central artifact and capability handshake are verified.'
     required: false
-    default: ''
+    default: '2.0.0'
   maven-central-base:
     description: 'Maven repository base, without a trailing slash.'
     required: false

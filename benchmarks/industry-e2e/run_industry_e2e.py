@@ -156,6 +156,8 @@ def materialize(repo: str, pr: dict, work: Path, fetch: Fetcher) -> tuple[str | 
     base_sha = pr.get("base_sha")
     if not base_sha:
         return None, "stored record has no base_sha"
+    if not POLICY.is_dir():
+        return None, f"missing policy directory: {POLICY}"
     policy = work / ".aiv"
     shutil.copytree(POLICY, policy)
     code, _, err = sh(["git", "init", "-q"], cwd=work)

@@ -8,32 +8,33 @@ AIV is a local/CI executable, not a long-running server. Deployment means placin
 
 ## 1. Choose a distribution channel
 
-### Release 2.0
+### Release 2.0.0
 
-Tag `v2.0` and the Action input `aiv-version: 2.0` are this release. The jar is a GitHub release asset; Maven Central currently has `io.github.vaquarkhan:aiv-cli` up to 1.0.2, and the Action falls back to the release asset when Central has no matching version. Verify the checksum before use:
+Tag `v2.0.0` and the Action input `aiv-version: 2.0.0` are this release. Prefer Maven Central once the coordinate is live; the GitHub release asset is the fallback. Verify the checksum before use:
 
 ```bash
 curl -fsSL -o aiv-cli.jar \
-  https://github.com/vaquarkhan/aiv-integrity-gate/releases/download/v2.0/aiv-cli-2.0.jar
-echo "28da21459080bc35f15dd7213df73273380e5fdccbdaf77458a1e8a774f65030  aiv-cli.jar" | sha256sum -c -
+  "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/2.0.0/aiv-cli-2.0.0.jar"
+# Or: https://github.com/vaquarkhan/aiv-integrity-gate/releases/download/v2.0.0/aiv-cli-2.0.0.jar
+sha256sum aiv-cli.jar
 ```
 
-In the Action, `cli-jar-sha256` pins any jar you provide by URL; release 2.0 is pinned by default.
+In the Action, set `aiv-version: 2.0.0` and pin with `cli-jar-sha256` when you download by URL.
 
-### Build tag v2.0
+### Build tag v2.0.0
 
 ```bash
 git clone https://github.com/vaquarkhan/aiv-integrity-gate.git
 cd aiv-integrity-gate
-git checkout v2.0
+git checkout v2.0.0
 mvn clean verify
-export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
+export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.0.jar"
 java -jar "$AIV_JAR" verify --capabilities
 ```
 
 A compatible jar reports a successful capability handshake containing `trusted-policy` and `policy-tree-digest`.
 
-For consumer CI, pass that jar through `cli-jar-path` or `cli-jar-url`, or set `aiv-version: 2.0`. Do not clone a mutable default branch in every consumer build.
+For consumer CI, pass that jar through `cli-jar-path` or `cli-jar-url`, or set `aiv-version: 2.0.0`. Do not clone a mutable default branch in every consumer build.
 
 ## 2. Choose an explicit profile
 
@@ -99,15 +100,15 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
           fetch-depth: 0
-      - uses: vaquarkhan/aiv-integrity-gate@main
+      - uses: vaquarkhan/aiv-integrity-gate@v2.0.0
         with:
           base-ref: origin/${{ github.base_ref }}
-          cli-jar-url: https://artifacts.example/aiv/aiv-cli-compatible.jar
+          aiv-version: "2.0.0"
           publish-github-checks: "true"
           label-pr-on-advisory: "true"
 ```
 
-Use an immutable/digest-protected internal artifact URL. After a hardened release, set `aiv-version` to that compatible release.
+   Prefer a release tag or an immutable commit SHA for `uses:`. After publish, `aiv-version: 2.0.0` pulls the Central jar.
 
 The Action:
 

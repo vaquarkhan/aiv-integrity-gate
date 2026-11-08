@@ -85,7 +85,7 @@ Build the current source jar so this walkthrough includes schema-v2 verify, immu
 
 ```bash
 mvn -pl aiv-cli -am clean package
-export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.jar"
+export AIV_JAR="$(pwd)/aiv-cli/target/aiv-cli-2.0.0.jar"
 java -jar "$AIV_JAR" verify --capabilities
 ```
 

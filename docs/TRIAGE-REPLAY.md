@@ -21,7 +21,7 @@ mvn -q -pl aiv-cli -am package
 Replay the included demonstration snapshot using the starter policy:
 
 ```bash
-java -jar aiv-cli/target/aiv-cli-2.0.jar triage replay \
+java -jar aiv-cli/target/aiv-cli-2.0.0.jar triage replay \
   --input demos/triage/airflow-like-snapshot.json \
   --policy presets/triage/oss-maintainer.yaml \
   --output-json triage-result.json \
