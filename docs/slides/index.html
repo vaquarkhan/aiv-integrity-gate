@@ -41,10 +41,12 @@ footer{text-align:center;color:var(--slate);font-size:13px;padding:24px}
 <body>
 <script src="../assets/site-nav.js?v=2" data-depth="1" data-page="slides"></script>
 <div class="aiv-callout navy" style="max-width:760px;margin:16px auto 0;font-family:Segoe UI,system-ui,sans-serif;font-size:14px">
-  <strong>Numbers on this deck vs the full run.</strong>
-  Slide images emphasize the Airflow year index (15,575 rows) and a 555-patch sample context.
-  The measured end-to-end gate run scored <strong>every stored patch file: 2,098 files → 113 blocked, 1,803 passed, 182 unscored</strong>.
-  That full run is separate from the designed 50-case fixture suite (35/35).
+  <strong>Read the two numbers correctly.</strong>
+  <strong>15,575</strong> on early slides = Airflow PR <em>metadata census</em> (titles/bodies/sizes) for queue volume.
+  Those rows have no patch, so they are <em>not</em> an AIV scoreboard and were not “skipped.”
+  <strong>Gate results</strong> = every stored patch file scored:
+  <strong>2,098 files → 113 blocked, 1,803 passed, 182 unscored</strong>
+  (plus a separate designed 50-case / 35/35 fixture suite).
   <a href="../benchmark/index.html">Open measured results</a> ·
   <a href="../data/full-stored-patch-latest.json">receipt JSON</a> ·
   <a href="../index.html">site home</a>

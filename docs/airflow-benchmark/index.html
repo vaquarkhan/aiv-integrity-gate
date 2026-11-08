@@ -87,12 +87,16 @@ footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color:
 </div></header>
 <main>
 <h1>Can a deterministic gate stop AI slop before a human reviews it?</h1>
-<p class="lede">An end-to-end benchmark of the AIV Integrity Gate. 2,098 stored patch files were executed: 1,219 Apache Airflow files and 879 files from six other projects. The 15,575-row index has no diffs, so it was not executed.</p>
+<p class="lede">An end-to-end benchmark of the AIV Integrity Gate. <strong>2,098 stored patch files were executed</strong>: 1,219 Apache Airflow files and 879 files from six other projects. That is the full gate scoreboard.</p>
 <div class="kpis">
-<div class="kpi"><div class="num">2,098</div><div class="lbl">stored patch files executed, not a sample</div></div>
+<div class="kpi"><div class="num">2,098</div><div class="lbl">files AIV scored — complete patch corpus</div></div>
 <div class="kpi orange"><div class="num">113</div><div class="lbl">blocked by a gate finding</div></div>
 <div class="kpi purple"><div class="num">1,803</div><div class="lbl">passed. 182 could not be scored</div></div>
-<div class="kpi gold"><div class="num">15,575</div><div class="lbl">Airflow rows indexed, not executed</div></div>
+<div class="kpi gold"><div class="num">1,219</div><div class="lbl">Airflow patch files in that run</div></div>
+</div>
+<div class="callout navy">
+<h3>About the 15,575 number on the slides</h3>
+<p>Slides also show <strong>15,575</strong> Airflow PRs. That is a <em>metadata census</em> of titles, bodies, and sizes for queue-volume context. Those rows have no stored diff, so they are not an AIV gate run and were never “left unfinished.” The gate results above are only for the 2,098 stored patches.</p>
 </div>
 <p><a href="../benchmark/index.html">Open the measured full stored-patch run</a></p>
 <figure><img src="images/index.png" alt="Overview of the Airflow benchmark" style="width:100%;border:1px solid #d7dce6;border-radius:10px"><figcaption class="muted">Illustrative screenshot from the older walkthrough layout. Live KPIs above are the current full 2,098-file stored-patch run; the 35/35 table below is the separate designed fixture suite.</figcaption></figure>

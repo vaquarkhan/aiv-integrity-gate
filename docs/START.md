@@ -19,7 +19,7 @@ description: Deterministic evidence for agent-generated change.
   <a class="aiv-kpi hot" href="benchmark/index.html"><span class="num">2,098</span><span class="lbl">stored patch files executed</span></a>
   <a class="aiv-kpi hot" href="benchmark/results.html"><span class="num">113</span><span class="lbl">blocked by a gate finding</span></a>
   <a class="aiv-kpi" href="benchmark/index.html"><span class="num">1,803</span><span class="lbl">passed. 182 could not be scored</span></a>
-  <a class="aiv-kpi" href="airflow-benchmark/dataset.html"><span class="num">15,575</span><span class="lbl">Airflow rows indexed, not executed</span></a>
+  <a class="aiv-kpi" href="benchmark/index.html"><span class="num">1,219</span><span class="lbl">Airflow patch files inside the 2,098-file run</span></a>
 </div>
 
 ## Start here

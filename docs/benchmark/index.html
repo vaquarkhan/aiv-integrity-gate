@@ -51,14 +51,15 @@ svg text { font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; fill: #1
 <h1>Full stored-patch run, not a sample</h1>
 <p class="lede">AIV was executed on every stored patch file: 2,098 files, 2,080 unique pull requests. 1,219 of the files are Apache Airflow. 879 are from other projects.</p>
 <div class="kpis">
-<div class="kpi"><div class="num">2,098</div><div class="lbl">stored patch files executed by AIV</div></div>
+<div class="kpi"><div class="num">2,098</div><div class="lbl">files AIV actually scored</div></div>
 <div class="kpi orange"><div class="num">113</div><div class="lbl">blocked by a gate finding</div></div>
 <div class="kpi purple"><div class="num">1,803</div><div class="lbl">passed. 182 could not be scored</div></div>
-<div class="kpi"><div class="num">15,575</div><div class="lbl">Airflow rows indexed, not executed</div></div>
+<div class="kpi"><div class="num">1,219</div><div class="lbl">Airflow patch files inside that run</div></div>
 </div>
 <div class="callout">
 <h3>What was executed</h3>
-<p>This is every <code>prs/*.json</code> file in the stored corpus: the Airflow year folder, the Airflow proof folder, and the other project folders. It is not the 555-case sample and not the 55-case fixture subset. The 15,575-row index has titles, bodies, and line counts only. It has no diff, so AIV cannot score it. A block is a gate finding. It is not a label that the pull request is AI slop. Unscored is not a pass.</p>
+<p>This is every stored <code>prs/*.json</code> patch file in the corpus (Airflow year + proof folders + six other projects). <strong>2,098 files is the complete gate scoreboard.</strong> It is not the 555-case sample and not the 55-case fixture subset. A block is a gate finding, not a label that the PR is AI slop. Unscored is not a pass.</p>
+<p><strong>15,575 is not a skipped AIV run.</strong> That number is a separate Airflow metadata census (title/body/size only, no patch). Slides use it to show queue volume. AIV cannot score rows without a diff, so those 15,575 were never part of this scoreboard.</p>
 <p>Of these files, 1,605 had been scored earlier. Those verdicts are the same, except two Airflow files that were previously unscored because the base file could not be fetched. Those two, pull requests 61939 and 69095, are now blocked for an AI-generated marker. The other 493 files are the Airflow year folder, scored in this run. Eighteen Airflow pull requests are stored in both Airflow folders. Each of those pairs has the same verdict.</p>
 </div>
 <h2>Airflow stored patches</h2>

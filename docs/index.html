@@ -27,17 +27,24 @@
     </div>
 
     <div class="aiv-kpis">
-      <div class="aiv-kpi"><div class="num">2,098</div><div class="lbl">stored patch files scored (full corpus)</div></div>
+      <div class="aiv-kpi"><div class="num">2,098</div><div class="lbl">files AIV actually scored (real gate run)</div></div>
       <div class="aiv-kpi orange"><div class="num">113</div><div class="lbl">blocked by a gate finding</div></div>
       <div class="aiv-kpi purple"><div class="num">1,803</div><div class="lbl">passed · 182 unscored</div></div>
-      <div class="aiv-kpi green"><div class="num">15,575</div><div class="lbl">Airflow rows indexed, not executed</div></div>
+      <div class="aiv-kpi green"><div class="num">1,219</div><div class="lbl">of those files are Apache Airflow patches</div></div>
     </div>
 
     <div class="aiv-callout navy">
-      <strong>Do not mix denominators.</strong>
-      The full run is every <code>prs/*.json</code> file (2,098). The labeled 50-case / 35/35 / 38/38 figures are a
-      separate designed fixture suite. Receipt:
+      <strong>What the scoreboard is.</strong>
+      AIV was run on every stored patch file in the corpus (<strong>2,098</strong>).
+      That is the real benchmark. Receipt:
       <a href="data/full-stored-patch-latest.json"><code>full-stored-patch-latest.json</code></a>.
+    </div>
+    <div class="aiv-callout">
+      <strong>What 15,575 means (not a skipped gate run).</strong>
+      Separately we indexed <strong>15,575</strong> Airflow PR titles/bodies/sizes for volume context
+      (same idea as the slides). Those rows have <em>no diff/patch bytes</em>, so AIV cannot score them.
+      They are a census, not an unfinished benchmark. Do not read them as “15k gated.”
+      The labeled 50-case / 35/35 suite is also separate designed fixtures.
     </div>
 
     <section class="aiv-panel" id="graphs">
