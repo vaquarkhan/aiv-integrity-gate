@@ -10,12 +10,15 @@ AIV is a local/CI executable, not a long-running server. Deployment means placin
 
 ### Release 2.0
 
-Tag `v2.0` and the Action input `aiv-version: 2.0` are this release. The Maven coordinate is `io.github.vaquarkhan:aiv-cli:2.0`:
+Tag `v2.0` and the Action input `aiv-version: 2.0` are this release. The jar is a GitHub release asset; Maven Central currently has `io.github.vaquarkhan:aiv-cli` up to 1.0.2, and the Action falls back to the release asset when Central has no matching version. Verify the checksum before use:
 
 ```bash
 curl -fsSL -o aiv-cli.jar \
-  https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/2.0/aiv-cli-2.0.jar
+  https://github.com/vaquarkhan/aiv-integrity-gate/releases/download/v2.0/aiv-cli-2.0.jar
+echo "28da21459080bc35f15dd7213df73273380e5fdccbdaf77458a1e8a774f65030  aiv-cli.jar" | sha256sum -c -
 ```
+
+In the Action, `cli-jar-sha256` pins any jar you provide by URL; release 2.0 is pinned by default.
 
 ### Build tag v2.0
 

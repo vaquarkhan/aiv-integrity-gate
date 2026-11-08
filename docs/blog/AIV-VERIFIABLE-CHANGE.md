@@ -302,4 +302,4 @@ The practical value is not "AI code is bad." The value is that no change, human 
 - [MCP / verify contract](../MCP.md)
 
 **Author:** Viquar Khan  
-**Email:** vaquar.khan@gmail.com
+**Author:** Viquar Khan
