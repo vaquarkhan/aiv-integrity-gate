@@ -1,0 +1,110 @@
+{
+  "id": "proper-01",
+  "title": "proper: clean Sftp helper (expect PASS)",
+  "label": {
+    "class": "synthetic_negative",
+    "subtype": "clean_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "notes": "Hand-written clean control; hard-fail = FP"
+  },
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": true,
+    "blocking_gates": [],
+    "blocking_rules": [],
+    "advisory_gates": [
+      "test-adequacy"
+    ],
+    "exit_code": 0,
+    "execution_valid": true,
+    "expected_rules": [],
+    "expected_rule_hit": true,
+    "label_class": "synthetic_negative",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "result_key": "density:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "result_key": "design:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "result_key": "cohesion:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "result_key": "invariant:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "result_key": "syntax:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "result_key": "test-adequacy:advisory",
+      "partition": "advisory",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-01_sftptest, proper-01_sftptests, testproper-01_sftp, proper-01_sftpit, proper-01_sftpspec, proper-01_sftptestcase, test_proper-01_sftp, proper-01_sftp_test, proper-01_sftp_spec, proper-01_sftp.test, proper-01_sftp.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/proper/proper-01_sftp.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-01_sftptest, proper-01_sftptests, testproper-01_sftp, proper-01_sftpit, proper-01_sftpspec, proper-01_sftptestcase, test_proper-01_sftp, proper-01_sftp_test, proper-01_sftp_spec, proper-01_sftp.test, proper-01_sftp.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "result_key": "duplication:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "result_key": "rules:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20261024T235128Z/proper-01/aiv-report.json"
+}

@@ -41,6 +41,9 @@ def compute_labeled_claims(rows: list[dict]) -> dict:
 
     positives = cohort(expect_hard=True)  # 30 slop + 5 mixed-hard = 35
     negatives = cohort(expect_hard=False)  # 5 proper + 5 cohesion + 5 soft = 15
+    errors = [r for r in rows if (r.get("outcome") or {}).get("verdict") == "ERROR"]
+    if errors:
+        raise ValueError(f"Cannot compute fixture metrics with {len(errors)} execution errors")
 
     def count_verdict(rs, v):
         return sum(1 for r in rs if (r.get("outcome") or {}).get("verdict") == v)
@@ -51,6 +54,8 @@ def compute_labeled_claims(rows: list[dict]) -> dict:
     tn = count_verdict(negatives, "TN")
     n_pos = len(positives)
     n_neg = len(negatives)
+    if tp + fn != n_pos or fp + tn != n_neg:
+        raise ValueError("Fixture confusion matrix does not reconcile with labeled denominators")
     recall = (tp / n_pos) if n_pos else None
     precision = (tp / (tp + fp)) if (tp + fp) else None
     fpr = (fp / n_neg) if n_neg else None
@@ -60,7 +65,7 @@ def compute_labeled_claims(rows: list[dict]) -> dict:
     advisory_hit = sum(1 for r in advisory_expected if (r.get("outcome") or {}).get("advisory"))
 
     return {
-        "tag": "VERIFIED",
+        "tag": "FIXTURE-AGREEMENT",
         "n_cases": len(rows),
         "positives_expect_fail": n_pos,
         "negatives_expect_pass": n_neg,
@@ -75,7 +80,7 @@ def compute_labeled_claims(rows: list[dict]) -> dict:
         "advisory_expected": len(advisory_expected),
         "advisory_hit": advisory_hit,
         "statement": (
-            f"On the labeled 50-case bench: blocked {tp}/{n_pos} expected-fail cases "
+            f"On the complete 50-case designed fixture suite: agreed with {tp}/{n_pos} expected-fail cases "
             f"(recall {(100 * recall) if recall is not None else 'n/a':.1f}%), "
             f"FP {fp}/{n_neg} expected-pass "
             f"({(100 * fpr) if fpr is not None else 'n/a':.1f}%), "
@@ -199,10 +204,10 @@ def main() -> int:
     summary = {
         "schema_version": 1,
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "aiv_jar": str(jar),
+        "aiv_jar": _e2e.portable_path(jar),
         "corpus": str(CORPUS.relative_to(_e2e.ROOT)).replace("\\", "/"),
         "claims": claims,
-        "metrics": _e2e.compute_metrics(rows),
+        "metrics": claims,
         "cases": rows,
         "claim_policy": corpus.get("claim_policy"),
     }

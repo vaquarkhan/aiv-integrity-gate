@@ -38,6 +38,18 @@ public final class AIVConfig {
         return gates.stream().filter(g -> g.getId().equals(id)).findFirst();
     }
 
+    /** Resolve a rule-specific action from a gate's config. Exact IDs win over family wildcards. */
+    public String getRuleAction(String gateId, String ruleId, String defaultAction) {
+        return findGate(gateId)
+                .map(g -> g.resolveRuleAction(ruleId, defaultAction))
+                .orElse(defaultAction);
+    }
+
+    /** True when pinned gate policy forbids baseline and inline suppression for this rule. */
+    public boolean isRuleUnsuppressible(String gateId, String ruleId) {
+        return findGate(gateId).map(g -> g.isRuleUnsuppressible(ruleId)).orElse(false);
+    }
+
     /**
      * Returns path patterns to exclude from validation (e.g. generated dirs, *.pb.java).
      */
@@ -159,24 +171,64 @@ public final class AIVConfig {
         return Collections.emptyList();
     }
 
-    /** Opt-in label for deterministic findings. The label does not assert AI authorship. */
+    /** Opt-in label for selected deterministic findings. It does not assert AI authorship. */
+    public Optional<String> getDeterministicFindingsPrLabel() {
+        return firstConfiguredString("deterministic_findings_pr_label", "ai_slop_pr_label");
+    }
+
+    /** When true, publish or update one selected deterministic-findings comment on the pull request. */
+    public boolean isDeterministicFindingsPrCommentEnabled() {
+        return firstConfiguredBoolean("deterministic_findings_pr_comment", "ai_slop_pr_comment", false);
+    }
+
+    /** Gate IDs that qualify for the opt-in deterministic-findings label/comment. Empty means all failed gates. */
+    public List<String> getDeterministicFindingsLabelGates() {
+        return firstConfiguredList("deterministic_findings_label_gates", "ai_slop_label_gates");
+    }
+
+    /** Rule IDs or rule-family wildcards (for example {@code security.*}) qualifying for the selected findings. */
+    public List<String> getDeterministicFindingsLabelRules() {
+        return firstConfiguredList("deterministic_findings_label_rules", "ai_slop_label_rules");
+    }
+
+    /** @deprecated Use {@link #getDeterministicFindingsPrLabel()}. */
+    @Deprecated
     public Optional<String> getAiSlopPrLabel() {
-        return getGlobalString("ai_slop_pr_label");
+        return getDeterministicFindingsPrLabel();
     }
 
-    /** When true, publish or update one deterministic findings comment on the pull request. */
+    /** @deprecated Use {@link #isDeterministicFindingsPrCommentEnabled()}. */
+    @Deprecated
     public boolean isAiSlopPrCommentEnabled() {
-        return getGlobalBoolean("ai_slop_pr_comment", false);
+        return isDeterministicFindingsPrCommentEnabled();
     }
 
-    /** Gate IDs that qualify for the opt-in AI-SLOP label/comment. Empty means all failed gates. */
+    /** @deprecated Use {@link #getDeterministicFindingsLabelGates()}. */
+    @Deprecated
     public List<String> getAiSlopLabelGates() {
-        return getGlobalStringList("ai_slop_label_gates");
+        return getDeterministicFindingsLabelGates();
     }
 
-    /** Rule IDs or rule-family wildcards (for example {@code security.*}) qualifying for the opt-in signal. */
+    /** @deprecated Use {@link #getDeterministicFindingsLabelRules()}. */
+    @Deprecated
     public List<String> getAiSlopLabelRules() {
-        return getGlobalStringList("ai_slop_label_rules");
+        return getDeterministicFindingsLabelRules();
+    }
+
+    private Optional<String> firstConfiguredString(String canonicalKey, String legacyKey) {
+        return getGlobalString(canonicalKey).or(() -> getGlobalString(legacyKey));
+    }
+
+    private boolean firstConfiguredBoolean(String canonicalKey, String legacyKey, boolean defaultValue) {
+        return globalConfig.containsKey(canonicalKey)
+                ? getGlobalBoolean(canonicalKey, defaultValue)
+                : getGlobalBoolean(legacyKey, defaultValue);
+    }
+
+    private List<String> firstConfiguredList(String canonicalKey, String legacyKey) {
+        return globalConfig.containsKey(canonicalKey)
+                ? getGlobalStringList(canonicalKey)
+                : getGlobalStringList(legacyKey);
     }
 
     /**
@@ -236,6 +288,56 @@ public final class AIVConfig {
         /** {@code fail} or {@code warn}. */
         public String getSeverity() {
             return severity;
+        }
+
+        /**
+         * Resolve {@code config.rule_actions}. Exact rule IDs take precedence over family wildcards.
+         * Supported actions are {@code fail}, {@code warn}, and {@code off}; invalid values fail closed.
+         */
+        public String resolveRuleAction(String ruleId, String defaultAction) {
+            Object raw = config.get("rule_actions");
+            if (!(raw instanceof Map<?, ?> actions) || ruleId == null) {
+                return normalizeAction(defaultAction);
+            }
+            Object exact = actions.get(ruleId);
+            if (exact != null) {
+                return normalizeAction(exact.toString());
+            }
+            String best = null;
+            int bestLength = -1;
+            for (Map.Entry<?, ?> entry : actions.entrySet()) {
+                String pattern = String.valueOf(entry.getKey());
+                if (pattern.endsWith(".*") && ruleId.startsWith(pattern.substring(0, pattern.length() - 1))
+                        && pattern.length() > bestLength) {
+                    best = String.valueOf(entry.getValue());
+                    bestLength = pattern.length();
+                }
+            }
+            return best == null ? normalizeAction(defaultAction) : normalizeAction(best);
+        }
+
+        public boolean isRuleUnsuppressible(String ruleId) {
+            Object raw = config.get("unsuppressible_rules");
+            if (!(raw instanceof List<?> rules) || ruleId == null) {
+                return false;
+            }
+            for (Object value : rules) {
+                if (value == null) continue;
+                String pattern = value.toString().trim();
+                if (pattern.equals(ruleId)
+                        || (pattern.endsWith(".*") && ruleId.startsWith(pattern.substring(0, pattern.length() - 1)))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static String normalizeAction(String action) {
+            String normalized = action == null ? "fail" : action.trim().toLowerCase();
+            if (!List.of("fail", "warn", "off").contains(normalized)) {
+                throw new IllegalArgumentException("rule action must be fail, warn, or off: " + action);
+            }
+            return normalized;
         }
     }
 }

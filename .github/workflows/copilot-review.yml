@@ -1,61 +1,85 @@
-# Stage 2 of the AI-slop pipeline: advisory Copilot code review.
+# Stage 2 of the deterministic pre-review evidence pipeline: advisory GitHub Copilot code review, after AIV.
 #
 # Ordering (see docs/pipeline-aiv-copilot.md):
-#   Stage 1  AIV Gate (.github/workflows/aiv.yml): deterministic hard gate.
-#            Blocks configured objective findings such as parse failures, elision markers,
-#            undeclared imports, and conflict markers. Each finding is reproducible.
-#   Stage 2  THIS workflow: LLM review, ADVISORY only. Never fails the build.
+#   Stage 1  AIV Gate (.github/workflows/aiv.yml): deterministic hard gate. Blocks objective
+#            defects such as merge conflict blocks, parse failures, edit tool artifacts and
+#            unapproved gitlinks. Each finding is reproducible.
+#   Stage 2  THIS workflow: Copilot code review, ADVISORY only. Never fails a PR.
+#   Stage 3  Human committer review and branch protection.
 #
-# It is gated on AIV success via `workflow_run`: Copilot is only asked to review a PR
-# that already passed the cheap deterministic gate, so no LLM cost is spent on PRs that
-# do not even parse. Copilot is deliberately NOT in the block path (same reason Magpie
-# is excluded): its verdict is non-deterministic and must stay a human-facing suggestion.
+# All rules live in .github/scripts/copilot-review/decide.js (unit tested). In short:
+#   * Copilot is requested only when the AIV Gate passed on the exact PR head commit.
+#   * Default mode "label": a user with write access applies `ai-review-requested`.
+#     After that, every new push that passes AIV gets one re-review. Remove the label to stop.
+#     Set repository variable AIV_COPILOT_MODE=auto to review every PR that passes AIV.
+#   * `no-ai-review` opts a PR out. Drafts wait until they are ready for review.
+#   * One review per commit. Re-reviews wait while humans are mid-discussion on the head commit.
+#   * Optional: AIV's review-routing gate labels the PR aiv:review-<tier>. Tier `none` gets no AI
+#     review; COPILOT_REVIEW_TOKEN_LITE / _BALANCED pick the requesting account per tier.
+#   * No AI review when the PR edits AI review instructions (copilot-instructions.md,
+#     .github/instructions, .github/skills, AGENTS.md, CLAUDE.md, REVIEW.md, this workflow):
+#     Copilot reads those from the PR head branch, so the PR could steer its own review.
 #
-# Requires: "Copilot code review" enabled for the repository/org. If it is not enabled,
-# the request step is a no-op warning: it never blocks a PR.
+# Security: pull_request_target and workflow_run run with a write token, so this workflow
+# never checks out or executes PR code. It checks out only .github/scripts from the default
+# branch, which a PR cannot change.
+#
+# Token: requests made as github-actions[bot] can be accepted and silently never start a
+# review. Store a fine-grained token (Pull requests: write) of a user or machine account with
+# Copilot code review as secret COPILOT_REVIEW_TOKEN. Without it the step still runs and warns.
 name: Copilot Review (advisory)
 
 on:
   workflow_run:
     workflows: ["AIV Gate"]
     types: [completed]
+  pull_request_target:
+    types: [labeled, ready_for_review]
 
 permissions:
   contents: read
+  checks: read
   pull-requests: write
+
+concurrency:
+  group: copilot-review-${{ github.event.pull_request.number || github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
 
 jobs:
   request-copilot-review:
     if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.event == 'pull_request'
+      (github.event_name == 'workflow_run' && github.event.workflow_run.event == 'pull_request') ||
+      (github.event_name == 'pull_request_target' &&
+        (github.event.action == 'ready_for_review' || github.event.label.name == (vars.AIV_COPILOT_REQUEST_LABEL || 'ai-review-requested')))
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Request Copilot review on the PR that passed AIV
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+      - name: Check out trusted decision script from the default branch
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
+          ref: ${{ github.event.repository.default_branch }}
+          sparse-checkout: .github/scripts/copilot-review
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      - name: Decide and request Copilot review
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          AIV_COPILOT_MODE: ${{ vars.AIV_COPILOT_MODE || 'label' }}
+          AIV_COPILOT_REQUEST_LABEL: ${{ vars.AIV_COPILOT_REQUEST_LABEL || 'ai-review-requested' }}
+          AIV_COPILOT_OPT_OUT_LABEL: ${{ vars.AIV_COPILOT_OPT_OUT_LABEL || 'no-ai-review' }}
+          AIV_CHECK_NAME: ${{ vars.AIV_CHECK_NAME || 'aiv' }}
+          AIV_REVIEW_INSTRUCTION_PATHS: ${{ vars.AIV_REVIEW_INSTRUCTION_PATHS }}
+          COPILOT_REVIEW_TOKEN_SET: ${{ secrets.COPILOT_REVIEW_TOKEN != '' }}
+          # Optional review tiers from AIV's review-routing gate (aiv.yml run with --label-review-tier).
+          AIV_REVIEW_TIER_PREFIX: ${{ vars.AIV_REVIEW_TIER_PREFIX || 'aiv:review-' }}
+          AIV_NO_REVIEW_TIERS: ${{ vars.AIV_NO_REVIEW_TIERS || 'none' }}
+          AIV_COPILOT_REQUIRE_TIER: ${{ vars.AIV_COPILOT_REQUIRE_TIER || 'false' }}
+          # A token per tier selects the requesting account, and with it the Lite or Balanced effort.
+          COPILOT_REVIEW_TOKEN_LITE: ${{ secrets.COPILOT_REVIEW_TOKEN_LITE }}
+          COPILOT_REVIEW_TOKEN_BALANCED: ${{ secrets.COPILOT_REVIEW_TOKEN_BALANCED }}
+        with:
+          github-token: ${{ secrets.COPILOT_REVIEW_TOKEN || github.token }}
           script: |
-            const headSha = context.payload.workflow_run.head_sha;
-            const { owner, repo } = context.repo;
-
-            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner, repo, commit_sha: headSha,
-            });
-            const pr = prs.data.find(p => p.state === 'open');
-            if (!pr) {
-              core.info(`No open PR found for ${headSha}; nothing to review.`);
-              return;
-            }
-
-            try {
-              await github.rest.pulls.requestReviewers({
-                owner, repo, pull_number: pr.number,
-                reviewers: ['Copilot'],
-              });
-              core.info(`Requested Copilot review on PR #${pr.number} (passed AIV Gate).`);
-            } catch (error) {
-              core.warning(
-                `Copilot review not requested (advisory step, PR not blocked): ${error.message}. ` +
-                `Ensure "Copilot code review" is enabled for this repository.`
-              );
-            }
+            const decide = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/copilot-review/decide.js`);
+            await decide.run({ github, context, core });

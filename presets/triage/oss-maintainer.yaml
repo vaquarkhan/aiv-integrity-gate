@@ -1,0 +1,25 @@
+# AIV Triage starter policy. Replay it against saved PR history before a project ever enables live actions.
+schema_version: aiv-triage-policy/1
+name: oss-maintainer
+labels:
+  ready: ready-for-maintainer-review
+  needs_permission: maintainer-permission-needed
+  ci_safety: maintainer-ci-approval-needed
+thresholds:
+  external_associations: [CONTRIBUTOR, FIRST_TIME_CONTRIBUTOR, FIRST_TIMER, NONE]
+  newcomer_prior_merged_prs: 0
+  newcomer_large_change_lines: 500
+  max_open_prs: 5
+  max_failing_open_prs: 3
+  stale_draft_days: 7
+  behind_base_commits: 100
+rules:
+  - { id: close-author-quality-violations, enabled: true }
+  - { id: hold-open-pr-limit, enabled: true }
+  - { id: close-stale-draft, enabled: true }
+  - { id: draft-required-ci-failure, enabled: true }
+  - { id: rebase-conflicted-or-stale-branch, enabled: true }
+  - { id: hold-unresolved-review, enabled: true }
+  - { id: hold-external-ci-definition-change, enabled: true }
+  - { id: hold-large-newcomer-without-accepted-issue, enabled: true }
+  - { id: ready-for-maintainer-review, enabled: true }

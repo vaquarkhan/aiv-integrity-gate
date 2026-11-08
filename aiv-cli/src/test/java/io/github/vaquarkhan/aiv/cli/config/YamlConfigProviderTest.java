@@ -150,15 +150,32 @@ class YamlConfigProviderTest {
     void topLevelAdvisoryLabelConfigIsLoaded(@TempDir Path dir) throws Exception {
         Files.createDirectories(dir.resolve(".aiv"));
         Files.writeString(dir.resolve(".aiv/config.yaml"), """
-            advisory_pr_label: aiv:ai-slop
+            advisory_pr_label: aiv:advisory
             advisory_label_gates:
               - design
               - density
             gates: []
             """);
         var config = new YamlConfigProvider().getConfig(dir);
-        assertEquals("aiv:ai-slop", config.getAdvisoryPrLabel().orElseThrow());
+        assertEquals("aiv:advisory", config.getAdvisoryPrLabel().orElseThrow());
         assertEquals(List.of("design", "density"), config.getAdvisoryLabelGates());
+    }
+
+    @Test
+    void canonicalDeterministicFindingsConfigIsLoaded(@TempDir Path dir) throws Exception {
+        Files.createDirectories(dir.resolve(".aiv"));
+        Files.writeString(dir.resolve(".aiv/config.yaml"), """
+            deterministic_findings_pr_label: aiv:findings
+            deterministic_findings_pr_comment: true
+            deterministic_findings_label_gates: [security]
+            deterministic_findings_label_rules: ["security.*"]
+            gates: []
+            """);
+        var config = new YamlConfigProvider().getConfig(dir);
+        assertEquals("aiv:findings", config.getDeterministicFindingsPrLabel().orElseThrow());
+        assertTrue(config.isDeterministicFindingsPrCommentEnabled());
+        assertEquals(List.of("security"), config.getDeterministicFindingsLabelGates());
+        assertEquals(List.of("security.*"), config.getDeterministicFindingsLabelRules());
     }
 
     @Test

@@ -37,6 +37,15 @@ gates:
   - id: invariant
     enabled: true
     severity: fail
+    config:
+      rule_actions:
+        invariant.merge-conflict: fail
+        invariant.unexpected-gitlink: fail
+        invariant.*: fail
+      unsuppressible_rules:
+        - invariant.merge-conflict
+        - invariant.unexpected-gitlink
+      allowed_gitlinks: []
   - id: density
     enabled: true
     # Soft signal: report + PR label via --label-pr-on-advisory; do not block merge.
@@ -49,4 +58,27 @@ gates:
     # Prefer syntax + invariant for Airflow-scale Python trees until allowlists are tuned per provider package.
     enabled: false
   - id: doc-integrity
+    enabled: false
+  - id: rules
+    enabled: true
+    severity: warn
+    config:
+      packs: [airflow]
+  - id: package-existence
+    enabled: false
+  - id: test-adequacy
+    enabled: true
+    severity: warn
+  - id: security
+    enabled: false
+  - id: pr-metadata
+    enabled: false
+  - id: duplication
+    enabled: true
+    severity: warn
+  - id: external
+    enabled: false
+  - id: license-header
+    enabled: false
+  - id: jev
     enabled: false

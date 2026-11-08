@@ -1,0 +1,68 @@
+{
+  "branches": 89,
+  "cohorts": {
+    "abandoned/abandoned_clean": {
+      "n": 8,
+      "exit_nonzero": 8,
+      "any_signal": 0,
+      "any_signal_excl_syntax": 0,
+      "gate_counts": {},
+      "rule_counts": {}
+    },
+    "abandoned/ai_disclosed": {
+      "n": 16,
+      "exit_nonzero": 16,
+      "any_signal": 0,
+      "any_signal_excl_syntax": 0,
+      "gate_counts": {},
+      "rule_counts": {}
+    },
+    "abandoned/ai_signal_advisory": {
+      "n": 3,
+      "exit_nonzero": 3,
+      "any_signal": 0,
+      "any_signal_excl_syntax": 0,
+      "gate_counts": {},
+      "rule_counts": {}
+    },
+    "case": {
+      "n": 4,
+      "exit_nonzero": 4,
+      "any_signal": 0,
+      "any_signal_excl_syntax": 0,
+      "gate_counts": {},
+      "rule_counts": {}
+    },
+    "labeled": {
+      "n": 50,
+      "exit_nonzero": 48,
+      "any_signal": 6,
+      "any_signal_excl_syntax": 2,
+      "gate_counts": {
+        "syntax": 5,
+        "test-adequacy": 2
+      },
+      "rule_counts": {
+        "syntax.parse": 10,
+        "test-adequacy.assertion-free-test": 1,
+        "test-adequacy.missing-tests": 1
+      }
+    },
+    "origin": {
+      "n": 1,
+      "exit_nonzero": 1,
+      "any_signal": 0,
+      "any_signal_excl_syntax": 0,
+      "gate_counts": {},
+      "rule_counts": {}
+    },
+    "snapshot": {
+      "n": 7,
+      "exit_nonzero": 7,
+      "any_signal": 0,
+      "any_signal_excl_syntax": 0,
+      "gate_counts": {},
+      "rule_counts": {}
+    }
+  }
+}

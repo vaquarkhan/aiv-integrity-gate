@@ -24,7 +24,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Applies or removes a GitHub PR label when soft (non-blocking) AI-slop signals are found.
+ * Applies or removes a GitHub PR label when configured advisory findings are present.
  * Use when gate {@code severity: warn} reports findings but must not fail CI.
  *
  * <p>Requires {@code GITHUB_TOKEN}, {@code GITHUB_REPOSITORY} ({@code owner/repo}), and
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public final class GithubPrLabelPublisher {
 
     public static final String DEFAULT_LABEL = "aiv:advisory";
-    public static final List<String> DEFAULT_AI_SLOP_GATES = List.of("design", "invariant", "density", "cohesion");
+    public static final List<String> DEFAULT_ADVISORY_GATES = List.of("design", "invariant", "density", "cohesion");
 
     /** When set (e.g. in tests), base API URL for labels; otherwise {@code https://api.github.com}. */
     public static final String LABELS_API_BASE_PROPERTY = "aiv.github.labels.api.base";
@@ -42,7 +42,7 @@ public final class GithubPrLabelPublisher {
     }
 
     /**
-     * If the result has advisory findings from configured AI-slop gates, add {@code label};
+     * If the result has advisory findings from configured gates, add {@code label};
      * otherwise remove {@code label} when present (best-effort).
      *
      * @param env maps variable names to values; production callers use {@code System::getenv}.
@@ -68,7 +68,7 @@ public final class GithubPrLabelPublisher {
         String owner = repo.substring(0, slash);
         String name = repo.substring(slash + 1);
         Set<String> gates = normalizeGates(aiSlopGates);
-        boolean shouldLabel = hasAdvisoryAiSlop(result, gates);
+        boolean shouldLabel = hasAdvisoryFindings(result, gates);
 
         ensureLabelExists(owner, name, resolvedLabel, token, env);
         if (shouldLabel) {
@@ -113,7 +113,7 @@ public final class GithubPrLabelPublisher {
         }
     }
 
-    static boolean hasAdvisoryAiSlop(AIVResult result, Set<String> aiSlopGates) {
+    static boolean hasAdvisoryFindings(AIVResult result, Set<String> gates) {
         if (result == null) {
             return false;
         }
@@ -121,20 +121,20 @@ public final class GithubPrLabelPublisher {
             if (g.isPassed() || g.blocksCi()) {
                 continue;
             }
-            if (aiSlopGates.isEmpty() || aiSlopGates.contains(g.getGateId().toLowerCase(Locale.ROOT))) {
+            if (gates.isEmpty() || gates.contains(g.getGateId().toLowerCase(Locale.ROOT))) {
                 return true;
             }
         }
         return false;
     }
 
-    static Set<String> normalizeGates(Collection<String> aiSlopGates) {
-        if (aiSlopGates == null || aiSlopGates.isEmpty()) {
-            return DEFAULT_AI_SLOP_GATES.stream()
+    static Set<String> normalizeGates(Collection<String> gates) {
+        if (gates == null || gates.isEmpty()) {
+            return DEFAULT_ADVISORY_GATES.stream()
                     .map(s -> s.toLowerCase(Locale.ROOT))
                     .collect(Collectors.toUnmodifiableSet());
         }
-        return aiSlopGates.stream()
+        return gates.stream()
                 .filter(s -> s != null && !s.isBlank())
                 .map(s -> s.trim().toLowerCase(Locale.ROOT))
                 .collect(Collectors.toUnmodifiableSet());
@@ -202,6 +202,11 @@ public final class GithubPrLabelPublisher {
 
     private static void ensureLabelExists(String owner, String name, String label, String token,
             Function<String, String> env) throws IOException, InterruptedException {
+        ensureLabelExists(owner, name, label, "AIV found advisory findings (non-blocking)", "FBCA04", token, env);
+    }
+
+    static void ensureLabelExists(String owner, String name, String label, String description, String color,
+            String token, Function<String, String> env) throws IOException, InterruptedException {
         URI getUri = URI.create(apiBase(env) + "/repos/" + owner + "/" + name + "/labels/"
                 + URLEncoder.encode(label, StandardCharsets.UTF_8).replace("+", "%20"));
         HttpResponse<String> get = send(HttpRequest.newBuilder(getUri)
@@ -219,8 +224,8 @@ public final class GithubPrLabelPublisher {
         }
         String body = "{"
                 + "\"name\":\"" + GithubChecksPublisher.escapeJson(label) + "\","
-                + "\"color\":\"FBCA04\","
-                + "\"description\":\"AIV found advisory AI-slop signals (non-blocking)\""
+                + "\"color\":\"" + GithubChecksPublisher.escapeJson(color) + "\","
+                + "\"description\":\"" + GithubChecksPublisher.escapeJson(description) + "\""
                 + "}";
         URI postUri = URI.create(apiBase(env) + "/repos/" + owner + "/" + name + "/labels");
         HttpResponse<String> post = send(HttpRequest.newBuilder(postUri)
@@ -238,7 +243,7 @@ public final class GithubPrLabelPublisher {
         }
     }
 
-    private static void addLabel(String owner, String name, int prNumber, String label, String token,
+    static void addLabel(String owner, String name, int prNumber, String label, String token,
             Function<String, String> env) throws IOException, InterruptedException {
         String body = "{\"labels\":[\"" + GithubChecksPublisher.escapeJson(label) + "\"]}";
         URI uri = URI.create(apiBase(env) + "/repos/" + owner + "/" + name + "/issues/" + prNumber + "/labels");
@@ -256,7 +261,7 @@ public final class GithubPrLabelPublisher {
         }
     }
 
-    private static void removeLabel(String owner, String name, int prNumber, String label, String token,
+    static void removeLabel(String owner, String name, int prNumber, String label, String token,
             Function<String, String> env) throws IOException, InterruptedException {
         URI uri = URI.create(apiBase(env) + "/repos/" + owner + "/" + name + "/issues/" + prNumber + "/labels/"
                 + URLEncoder.encode(label, StandardCharsets.UTF_8).replace("+", "%20"));
@@ -290,7 +295,7 @@ public final class GithubPrLabelPublisher {
         return s.endsWith("/") ? s.substring(0, s.length() - 1) : s;
     }
 
-    private static HttpResponse<String> send(HttpRequest request) throws IOException, InterruptedException {
+    static HttpResponse<String> send(HttpRequest request) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(15)).build();
         return client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
     }

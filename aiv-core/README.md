@@ -52,14 +52,7 @@ When the CLI enables `protect_policy_paths`, any changed path under `.aiv/` adds
 
 ## Human override
 
-`/aiv skip` is default-deny. It is honored only when:
-
-- the latest commit contains a standalone `aiv skip` or `/aiv skip` line,
-- global `skip_allowlist` is nonempty,
-- author email matches it case-insensitively,
-- Git reports signature status `G`.
-
-An accepted override emits `[SKIP-HONORED]` and evaluates no gate. Any failed condition emits `[SKIP-IGNORED]` and the normal gates run.
+`/aiv skip` is currently disabled because author email plus a generic good-signature marker does not authenticate an allowlisted signer. Every directive emits `[SKIP-IGNORED]`, and normal gates still run. A future break-glass design must bind an approved signer fingerprint, one pinned commit OID, reason, expiry, and audit receipt.
 
 ## Baselines
 

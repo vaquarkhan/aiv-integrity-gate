@@ -1,0 +1,90 @@
+{
+  "id": "proper-02",
+  "title": "proper: clean Http helper (expect PASS)",
+  "label": {
+    "class": "synthetic_negative",
+    "subtype": "clean_control",
+    "expect_hard_fail": false,
+    "expect_advisory": false,
+    "notes": "Hand-written clean control; hard-fail = FP"
+  },
+  "outcome": {
+    "verdict": "TN",
+    "hard_fail": false,
+    "advisory": true,
+    "blocking_gates": [],
+    "advisory_gates": [
+      "test-adequacy"
+    ],
+    "exit_code": 0,
+    "label_class": "synthetic_negative",
+    "expect_hard_fail": false
+  },
+  "passed": true,
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-02_httptest, proper-02_httptests, testproper-02_http, proper-02_httpit, proper-02_httpspec, proper-02_httptestcase, test_proper-02_http, proper-02_http_test, proper-02_http_spec, proper-02_http.test, proper-02_http.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/proper/proper-02_http.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-02_httptest, proper-02_httptests, testproper-02_http, proper-02_httpit, proper-02_httpspec, proper-02_httptestcase, test_proper-02_http, proper-02_http_test, proper-02_http_spec, proper-02_http.test, proper-02_http.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20261023T071634Z/proper-02/aiv-report.json"
+}

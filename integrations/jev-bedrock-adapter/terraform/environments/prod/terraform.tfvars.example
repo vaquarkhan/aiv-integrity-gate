@@ -1,0 +1,33 @@
+# Copy this file to terraform.tfvars. The copied file is ignored by Git.
+# Replace every placeholder using values approved for your AWS account and GitHub environment.
+
+aws_region = "us-east-1"
+role_name  = "aiv-jev-bedrock-github"
+
+# Production accounts normally already have this account-level provider.
+create_github_oidc_provider       = false
+existing_github_oidc_provider_arn = "arn:aws:iam::<AWS_ACCOUNT_ID>:oidc-provider/token.actions.githubusercontent.com"
+github_oidc_thumbprints           = []
+
+# Use one exact claim and exact values. A protected environment is preferred.
+# GitHub organizations using immutable subject claims should copy the exact token claim.
+github_identity_claim = "sub"
+github_identity_values = [
+  "repo:<GITHUB_ORGANIZATION>/<GITHUB_REPOSITORY>:environment:jev-review",
+]
+
+# Supply the exact profile/model resources required by your selected --model value.
+# A cross-Region profile may also need every destination foundation-model ARN.
+bedrock_resource_arns = [
+  "arn:aws:bedrock:<MODEL_REGION>::foundation-model/<MODEL_ID>",
+]
+
+allowed_bedrock_regions = ["us-east-1"]
+max_session_duration    = 3600
+permissions_boundary_arn = null
+
+tags = {
+  Environment = "production"
+  Application = "aiv-jev"
+  Owner       = "<TEAM_NAME>"
+}

@@ -1,0 +1,121 @@
+{
+  "id": "slop-edit-08",
+  "title": "ai-slop: edit_artifact (expect FAIL)",
+  "label": {
+    "class": "synthetic_positive",
+    "subtype": "edit_artifact",
+    "expect_hard_fail": true,
+    "expect_advisory": false,
+    "notes": "Labeled objective AI-slop; hard-pass = FN"
+  },
+  "outcome": {
+    "verdict": "TP",
+    "hard_fail": true,
+    "advisory": true,
+    "blocking_gates": [
+      "invariant"
+    ],
+    "blocking_rules": [
+      "invariant.ai-edit-artifact"
+    ],
+    "advisory_gates": [
+      "test-adequacy"
+    ],
+    "exit_code": 1,
+    "execution_valid": true,
+    "expected_rules": [],
+    "expected_rule_hit": true,
+    "label_class": "synthetic_positive",
+    "expect_hard_fail": true
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "result_key": "density:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "result_key": "design:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "result_key": "cohesion:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "result_key": "invariant:blocking",
+      "partition": "blocking",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-08.py",
+      "findings": [
+        {
+          "rule_id": "invariant.ai-edit-artifact",
+          "file": "providers/bench/labeled/ai-slop/edit-08.py",
+          "start_line": 1,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-08.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "result_key": "syntax:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "result_key": "test-adequacy:advisory",
+      "partition": "advisory",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-08test, edit-08tests, testedit-08, edit-08it, edit-08spec, edit-08testcase, test_edit-08, edit-08_test, edit-08_spec, edit-08.test, edit-08.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/ai-slop/edit-08.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: edit-08test, edit-08tests, testedit-08, edit-08it, edit-08spec, edit-08testcase, test_edit-08, edit-08_test, edit-08_spec, edit-08.test, edit-08.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "result_key": "duplication:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "result_key": "rules:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20261023T131026Z/slop-edit-08/aiv-report.json"
+}

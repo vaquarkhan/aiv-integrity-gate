@@ -1,0 +1,21 @@
+# Built-in pack: airflow. Extends oss-maintainer with Apache Airflow paths and its proposed
+# commit-message rule. All policies stay advisory.
+extends: oss-maintainer
+classification:
+  build-infra: ["dev/breeze/**", "scripts/ci/**"]
+  test: ["**/*.test.tsx", "**/*.test.ts", "**/tests/system/**"]
+  generated: ["**/openapi-gen/**", "**/*.gen.ts", "**/_generated/**"]
+areas:
+  providers: ["providers/**"]
+  ui: ["airflow-core/src/airflow/ui/**"]
+  core: ["airflow-core/**"]
+  task-sdk: ["task-sdk/**"]
+  chart: ["chart/**", "helm-tests/**"]
+  dev: ["dev/**", "scripts/**"]
+policies:
+  - id: commit-hygiene
+    when:
+      any:
+        - { fact: git.conventional_prefix_commits, gt: 0 }
+    action: warn
+    message: "{git.conventional_prefix_commits} commit subjects use conventional-commit prefixes, which this project does not use. Reword the commits."

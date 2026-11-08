@@ -57,10 +57,38 @@ class GitDiffProviderTest {
         var provider = new GitDiffProvider();
         Diff diff = provider.getDiff(repo.toAbsolutePath(), "HEAD", "HEAD");
         assertNotNull(diff);
-        assertEquals("HEAD", diff.getBaseRef());
-        assertEquals("HEAD", diff.getHeadRef());
+        assertEquals(runGit(repo, "rev-parse", "HEAD").trim(), diff.getBaseRef());
+        assertEquals(runGit(repo, "rev-parse", "HEAD").trim(), diff.getHeadRef());
         assertNotNull(diff.getChangedFiles());
         assertNotNull(diff.getRawDiff());
+    }
+
+    @Test
+    void rawParserCoversStatusesAndRejectsMalformedRecords() {
+        String nul = Character.toString(0);
+        String sha = "1".repeat(40);
+        String zero = "0".repeat(40);
+        String raw = ":000000 100644 " + zero + " " + sha + " A" + nul + "added.txt" + nul
+                + ":100644 000000 " + sha + " " + zero + " D" + nul + "deleted.txt" + nul
+                + ":100644 100644 " + sha + " " + sha + " R100" + nul + "old.txt" + nul + "new.txt" + nul
+                + ":100644 100644 " + sha + " " + sha + " C100" + nul + "source.txt" + nul + "copy.txt" + nul;
+        Map<String, GitDiffProvider.RawChange> parsed = GitDiffProvider.parseRawOutput(raw);
+        assertEquals(4, parsed.size());
+        assertEquals("old.txt", parsed.get("new.txt").oldPath());
+        assertEquals(ChangedFile.ChangeType.ADDED, GitDiffProvider.changeType("A"));
+        assertEquals(ChangedFile.ChangeType.DELETED, GitDiffProvider.changeType("D"));
+        assertEquals(ChangedFile.ChangeType.RENAMED, GitDiffProvider.changeType("R100"));
+        assertEquals(ChangedFile.ChangeType.COPIED, GitDiffProvider.changeType("C100"));
+        assertEquals(ChangedFile.ChangeType.MODIFIED, GitDiffProvider.changeType("M"));
+        assertEquals(ChangedFile.ObjectType.BLOB, parsed.get("added.txt").objectType());
+        assertEquals(ChangedFile.ObjectType.UNKNOWN, parsed.get("deleted.txt").objectType());
+        assertTrue(GitDiffProvider.parseRawOutput(null).isEmpty());
+        assertThrows(IllegalStateException.class, () -> GitDiffProvider.parseRawOutput("bad" + nul));
+        assertThrows(IllegalStateException.class, () -> GitDiffProvider.parseRawOutput(":bad" + nul));
+        assertThrows(IllegalStateException.class, () -> GitDiffProvider.parseRawOutput(
+                ":100644 100644 " + sha + " " + sha + " M"));
+        assertThrows(IllegalStateException.class, () -> GitDiffProvider.parseRawOutput(
+                ":100644 100644 " + sha + " " + sha + " R100" + nul + "old.txt"));
     }
 
     @Test
@@ -80,6 +108,15 @@ class GitDiffProviderTest {
                 provider.getDiff(workspace, "; rm -rf /", "HEAD"));
         assertThrows(IllegalArgumentException.class, () ->
                 provider.getDiff(workspace, "origin/main", "$(whoami)"));
+    }
+
+    @Test
+    void getDiffRejectsRefsThatGitWouldParseAsOptions() {
+        var provider = new GitDiffProvider();
+        Path workspace = Path.of(".").toAbsolutePath();
+        // '-' is a valid ref character, so these match VALID_REF; the leading-dash check must reject them.
+        assertThrows(IllegalArgumentException.class, () -> provider.getDiff(workspace, "-p", "HEAD"));
+        assertThrows(IllegalArgumentException.class, () -> provider.getDiff(workspace, "HEAD", "--all"));
     }
 
     @Test
@@ -105,7 +142,7 @@ class GitDiffProviderTest {
         Diff diff = provider.getDiff(repo.toAbsolutePath(), base, "HEAD");
 
         assertEquals(base, diff.getBaseRef());
-        assertEquals("HEAD", diff.getHeadRef());
+        assertEquals(runGit(repo, "rev-parse", "HEAD").trim(), diff.getHeadRef());
         assertEquals("test@example.com", diff.getAuthorEmail());
         assertFalse(diff.isHeadCommitSigned());
         assertTrue(diff.getLinesAdded() >= 1);
@@ -114,7 +151,39 @@ class GitDiffProviderTest {
         List<String> paths = diff.getChangedFiles().stream().map(ChangedFile::getPath).toList();
         assertTrue(paths.contains("a-renamed.txt"));
         assertTrue(paths.contains("b.txt"));
-        assertFalse(paths.contains("del.txt")); // deleted files are skipped
+        assertTrue(paths.contains("del.txt"));
+        ChangedFile renamed = diff.getChangedFiles().stream()
+                .filter(f -> "a-renamed.txt".equals(f.getPath())).findFirst().orElseThrow();
+        assertEquals(ChangedFile.ChangeType.RENAMED, renamed.getChangeType());
+        assertEquals("a.txt", renamed.getOldPath());
+        assertEquals(ChangedFile.Provenance.TRUSTED_GIT_ADAPTER, renamed.getProvenance());
+        ChangedFile deleted = diff.getChangedFiles().stream()
+                .filter(f -> "del.txt".equals(f.getPath())).findFirst().orElseThrow();
+        assertEquals(ChangedFile.ChangeType.DELETED, deleted.getChangeType());
+        assertEquals("000000", deleted.getNewMode());
+    }
+
+    @Test
+    void capturesAuthoritativeGitlinkModeAndObject(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+        initRepo(repo);
+        Files.writeString(repo.resolve("base.txt"), "base\n", StandardCharsets.UTF_8);
+        runGit(repo, "add", "base.txt");
+        runGit(repo, "commit", "-m", "base");
+        String base = runGit(repo, "rev-parse", "HEAD").trim();
+
+        runGit(repo, "update-index", "--add", "--cacheinfo", "160000," + base + ",airflow");
+        runGit(repo, "commit", "-m", "add accidental gitlink");
+
+        Diff diff = new GitDiffProvider().getDiff(repo.toAbsolutePath(), base, "HEAD");
+        ChangedFile gitlink = diff.getChangedFiles().stream()
+                .filter(f -> "airflow".equals(f.getPath())).findFirst().orElseThrow();
+        assertEquals(ChangedFile.ChangeType.ADDED, gitlink.getChangeType());
+        assertEquals("000000", gitlink.getOldMode());
+        assertEquals("160000", gitlink.getNewMode());
+        assertEquals(base, gitlink.getNewObjectId());
+        assertEquals(ChangedFile.ObjectType.GITLINK, gitlink.getObjectType());
+        assertEquals(ChangedFile.Provenance.TRUSTED_GIT_ADAPTER, gitlink.getProvenance());
+        assertTrue(gitlink.isNewGitlink());
     }
 
     @Test
@@ -189,7 +258,7 @@ class GitDiffProviderTest {
         runGit(repo, "commit", "-m", "base");
         String base = runGit(repo, "rev-parse", "HEAD").trim();
 
-        // This file name contains ".." and is rejected by sanitizePath.
+        // Repeated dots inside a filename are valid and must remain visible to gates.
         Files.writeString(repo.resolve("foo..bar.txt"), "x\n", StandardCharsets.UTF_8);
 
         // Large file (> 2MB) should be included but have empty content.
@@ -204,7 +273,7 @@ class GitDiffProviderTest {
         Diff diff = provider.getDiff(repo.toAbsolutePath(), base, "HEAD");
 
         List<String> paths = diff.getChangedFiles().stream().map(ChangedFile::getPath).toList();
-        assertFalse(paths.contains("foo..bar.txt"));
+        assertTrue(paths.contains("foo..bar.txt"));
 
         ChangedFile bigFile = diff.getChangedFiles().stream()
                 .filter(f -> "big.txt".equals(f.getPath()))
@@ -246,11 +315,12 @@ class GitDiffProviderTest {
         var provider = new GitDiffProvider();
         var w = new ArrayList<String>();
 
-        // Backslashes normalize to forward slashes in sanitizePath, so equality check should reject this input.
-        assertEquals("", provider.readFileContent(repo.toAbsolutePath(), "a\\b.txt", "HEAD", w));
+        assertThrows(IllegalStateException.class, () ->
+                provider.readFileContent(repo.toAbsolutePath(), "a\\b.txt", "HEAD", w));
 
-        // Absolute paths should be rejected (would escape the workspace).
-        assertEquals("", provider.readFileContent(repo.toAbsolutePath(), "C:/Windows/System32/drivers/etc/hosts", "HEAD", w));
+        // Absolute paths must fail closed rather than be treated as empty content.
+        assertThrows(IllegalStateException.class, () ->
+                provider.readFileContent(repo.toAbsolutePath(), "C:/Windows/System32/drivers/etc/hosts", "HEAD", w));
     }
 
     @Test
@@ -262,8 +332,9 @@ class GitDiffProviderTest {
 
         Path outside = Files.createTempFile("aiv-outside-", ".txt").toAbsolutePath();
         try {
-            // This absolute path is guaranteed to resolve outside the repo on any OS.
-            assertEquals("", provider.readFileContent(repo.toAbsolutePath(), outside.toString(), "HEAD", w));
+            // This absolute path is guaranteed to be rejected rather than treated as empty content.
+            assertThrows(IllegalStateException.class, () ->
+                    provider.readFileContent(repo.toAbsolutePath(), outside.toString(), "HEAD", w));
         } finally {
             Files.deleteIfExists(outside);
         }
@@ -284,11 +355,14 @@ class GitDiffProviderTest {
         // sanitizePath: null/blank branches
         assertNull(GitDiffProvider.sanitizePath(null));
         assertNull(GitDiffProvider.sanitizePath("   "));
+        assertNull(GitDiffProvider.sanitizePath("a/../b.py"));
+        assertEquals("foo..bar.py", GitDiffProvider.sanitizePath("foo..bar.py"));
 
-        // readFileContent: exception path when running `git show` from a missing workspace
+        // readFileContent: an unavailable repository must fail closed.
         Path missing = repo.resolve("does-not-exist");
         var warn = new ArrayList<String>();
-        assertEquals("", new GitDiffProvider().readFileContent(missing, "x.txt", "HEAD", warn));
+        assertThrows(IllegalStateException.class, () ->
+                new GitDiffProvider().readFileContent(missing, "x.txt", "HEAD", warn));
 
         // readFileContent: `git show` content length > 2MB should return empty string.
         Files.writeString(repo.resolve("base.txt"), "base\n", StandardCharsets.UTF_8);
@@ -302,8 +376,8 @@ class GitDiffProviderTest {
         Files.delete(repo.resolve("huge.txt"));
 
         warn.clear();
-        assertEquals("", new GitDiffProvider().readFileContent(repo.toAbsolutePath(), "huge.txt", "HEAD", warn));
-        assertTrue(warn.stream().anyMatch(s -> s.contains("huge.txt")));
+        assertThrows(IllegalStateException.class, () ->
+                new GitDiffProvider().readFileContent(repo.toAbsolutePath(), "huge.txt", "HEAD", warn));
     }
 
     @Test
@@ -398,7 +472,7 @@ class GitDiffProviderTest {
     }
 
     @Test
-    void runGitReadingFileReturnsEmptyStringWhenCaptureLimitExceeded(@TempDir Path repo) throws Exception {
+    void runGitFailsClosedWhenCaptureLimitExceeded(@TempDir Path repo) throws Exception {
         initRepo(repo);
         String cap = "aiv.git.capture.max.bytes";
         String prevCap = System.getProperty(cap);
@@ -408,15 +482,56 @@ class GitDiffProviderTest {
             runGit(repo, "add", "z.txt");
             runGit(repo, "commit", "-m", "z");
             String base = runGit(repo, "rev-parse", "HEAD~1").trim();
-            Diff diff = new GitDiffProvider().getDiff(repo.toAbsolutePath(), base, "HEAD");
-            assertNotNull(diff);
-            assertTrue(diff.getRawDiff().isEmpty());
+            assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().getDiff(repo.toAbsolutePath(), base, "HEAD"));
         } finally {
             if (prevCap == null) {
                 System.clearProperty(cap);
             } else {
                 System.setProperty(cap, prevCap);
             }
+        }
+    }
+
+    @Test
+    void resolveCommitRejectsInvalidOidAndWrapsLaunchFailure(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        String previous = System.getProperty("aiv.git.executable");
+        try {
+            Path bad = writeDelegatingGitStub(repo, Map.of("badRevParse", true));
+            System.setProperty("aiv.git.executable", bad.toAbsolutePath().toString());
+            assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().resolveCommit(repo, "HEAD"));
+            System.setProperty("aiv.git.executable", "missing-git-" + System.nanoTime() + ".exe");
+            assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().resolveCommit(repo, "HEAD"));
+        } finally {
+            if (previous == null) System.clearProperty("aiv.git.executable");
+            else System.setProperty("aiv.git.executable", previous);
+        }
+    }
+
+    @Test
+    void plainDiffFailureAndTimeoutFailClosed(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        String previousGit = System.getProperty("aiv.git.executable");
+        String previousTimeout = System.getProperty(TIMEOUT_PROP);
+        try {
+            Path fail = writeDelegatingGitStub(repo, Map.of("failPlainDiff", true));
+            System.setProperty("aiv.git.executable", fail.toAbsolutePath().toString());
+            assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().runGitDiffStrict(repo, "HEAD", "HEAD"));
+            Path hang = writeDelegatingGitStub(repo, Map.of("hangOnPlainDiff", true));
+            System.setProperty("aiv.git.executable", hang.toAbsolutePath().toString());
+            System.setProperty(TIMEOUT_PROP, "1");
+            IllegalStateException error = assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().runGitDiffStrict(repo, "HEAD", "HEAD"));
+            assertTrue(error.getMessage().contains("timed out"));
+        } finally {
+            if (previousGit == null) System.clearProperty("aiv.git.executable");
+            else System.setProperty("aiv.git.executable", previousGit);
+            if (previousTimeout == null) System.clearProperty(TIMEOUT_PROP);
+            else System.setProperty(TIMEOUT_PROP, previousTimeout);
         }
     }
 
@@ -431,14 +546,6 @@ class GitDiffProviderTest {
         var provider = new GitDiffProvider();
         assertEquals(0, provider.parseNum(null));
         assertEquals(0, provider.parseNum("-"));
-    }
-
-    @Test
-    void gitFailureDetailIncludesStderr() {
-        assertEquals("git diff failed with exit 128",
-                GitDiffProvider.gitFailureDetail("git diff failed with exit ", 128, " \n"));
-        assertEquals("git diff failed with exit 128: fatal: no merge base",
-                GitDiffProvider.gitFailureDetail("git diff failed with exit ", 128, "fatal: no merge base\r\n"));
     }
 
     @Test
@@ -460,9 +567,9 @@ class GitDiffProviderTest {
     }
 
     @Test
-    void getDiffFailsClosedWhenNameStatusFails(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+    void getDiffFailsClosedWhenRawFails(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
-        Path stub = writeDelegatingGitStub(repo, Map.of("failNameStatus", true));
+        Path stub = writeDelegatingGitStub(repo, Map.of("failRaw", true));
         String prev = System.getProperty("aiv.git.executable");
         try {
             System.setProperty("aiv.git.executable", stub.toAbsolutePath().toString());
@@ -504,9 +611,9 @@ class GitDiffProviderTest {
     }
 
     @Test
-    void getDiffFailsClosedWhenNameStatusTimesOut(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+    void getDiffFailsClosedWhenRawTimesOut(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
-        Path stub = writeDelegatingGitStub(repo, Map.of("hangOnNameStatus", true));
+        Path stub = writeDelegatingGitStub(repo, Map.of("hangOnRaw", true));
         String prevGit = System.getProperty("aiv.git.executable");
         String prevTimeout = System.getProperty(TIMEOUT_PROP);
         try {
@@ -651,7 +758,7 @@ class GitDiffProviderTest {
     }
 
     @Test
-    void readFileContentAddsWarningWhenGitShowTimesOut(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+    void readFileContentFailsClosedWhenGitShowTimesOut(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
         Path stub = writeDelegatingGitStub(repo, Map.of("hangOnShow", true));
         String prevGit = System.getProperty("aiv.git.executable");
@@ -664,8 +771,9 @@ class GitDiffProviderTest {
             runGit(repo, "commit", "-m", "add");
             Files.delete(repo.resolve("only-in-git.txt"));
             var warn = new ArrayList<String>();
-            assertEquals("", new GitDiffProvider().readFileContent(repo.toAbsolutePath(), "only-in-git.txt", "HEAD", warn));
-            assertTrue(warn.stream().anyMatch(s -> s.contains("timed out") && s.contains("only-in-git")));
+            IllegalStateException error = assertThrows(IllegalStateException.class, () ->
+                    new GitDiffProvider().readFileContent(repo.toAbsolutePath(), "only-in-git.txt", "HEAD", warn));
+            assertTrue(error.getMessage().contains("timed out"));
         } finally {
             if (prevGit == null) {
                 System.clearProperty("aiv.git.executable");
@@ -681,7 +789,7 @@ class GitDiffProviderTest {
     }
 
     @Test
-    void readFileContentReturnsEmptyWhenGitShowFails(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
+    void readFileContentFailsClosedWhenGitShowFails(@TempDir(cleanup = CleanupMode.NEVER) Path repo) throws Exception {
         initRepo(repo);
         var provider = new GitDiffProvider();
         Files.writeString(repo.resolve("x.txt"), "x\n", StandardCharsets.UTF_8);
@@ -689,7 +797,8 @@ class GitDiffProviderTest {
         runGit(repo, "commit", "-m", "x");
         Files.delete(repo.resolve("x.txt"));
         var warn = new ArrayList<String>();
-        assertEquals("", provider.readFileContent(repo.toAbsolutePath(), "x.txt", "not-a-valid-ref-zzz", warn));
+        assertThrows(IllegalStateException.class, () ->
+                provider.readFileContent(repo.toAbsolutePath(), "x.txt", "not-a-valid-ref-zzz", warn));
     }
 
     private static String findGitExecutable() throws Exception {
@@ -713,12 +822,15 @@ class GitDiffProviderTest {
         boolean win = System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win");
         Path stub = dir.resolve(win ? "git-stub.cmd" : "git-stub.sh");
         boolean failNumstat = Boolean.TRUE.equals(modes.get("failNumstat"));
-        boolean failNameStatus = Boolean.TRUE.equals(modes.get("failNameStatus"));
+        boolean failRaw = Boolean.TRUE.equals(modes.get("failRaw"));
         boolean hangOnNumstat = Boolean.TRUE.equals(modes.get("hangOnNumstat"));
-        boolean hangOnNameStatus = Boolean.TRUE.equals(modes.get("hangOnNameStatus"));
+        boolean hangOnRaw = Boolean.TRUE.equals(modes.get("hangOnRaw"));
         boolean failLogFormat = Boolean.TRUE.equals(modes.get("failLogFormat"));
         boolean failLogPretty = Boolean.TRUE.equals(modes.get("failLogPretty"));
         boolean hangOnShow = Boolean.TRUE.equals(modes.get("hangOnShow"));
+        boolean failPlainDiff = Boolean.TRUE.equals(modes.get("failPlainDiff"));
+        boolean hangOnPlainDiff = Boolean.TRUE.equals(modes.get("hangOnPlainDiff"));
+        boolean badRevParse = Boolean.TRUE.equals(modes.get("badRevParse"));
         String sig = Boolean.TRUE.equals(modes.get("sigG")) ? "G" : Boolean.TRUE.equals(modes.get("sigU")) ? "U" : null;
         if (win) {
             StringBuilder sb = new StringBuilder();
@@ -728,11 +840,20 @@ class GitDiffProviderTest {
                 // cmd splits on '=': "--format=%G?" arrives as %~3 == --format and %~4 == %G?
                 sb.append("if /I \"%~3\"==\"--format\" if \"%~4\"==\"%%G?\" (echo ").append(sig).append("& exit /b 0)\n");
             }
+            if (badRevParse) {
+                sb.append("if /I \"%~1\"==\"rev-parse\" (echo not-an-oid& exit /b 0)\n");
+            }
+            if (failPlainDiff) {
+                sb.append("if /I \"%~1\"==\"diff\" if /I not \"%~2\"==\"--raw\" if /I not \"%~2\"==\"--numstat\" exit /b 1\n");
+            }
+            if (hangOnPlainDiff) {
+                sb.append("if /I \"%~1\"==\"diff\" if /I not \"%~2\"==\"--raw\" if /I not \"%~2\"==\"--numstat\" (\n  :hangplain\n  goto hangplain\n)\n");
+            }
             if (failNumstat) {
                 sb.append("if /I \"%~1\"==\"diff\" if /I \"%~2\"==\"--numstat\" exit /b 1\n");
             }
-            if (failNameStatus) {
-                sb.append("if /I \"%~1\"==\"diff\" if /I \"%~2\"==\"--name-status\" exit /b 1\n");
+            if (failRaw) {
+                sb.append("if /I \"%~1\"==\"diff\" if /I \"%~2\"==\"--raw\" exit /b 1\n");
             }
             if (hangOnNumstat) {
                 sb.append("if /I \"%~1\"==\"diff\" if /I \"%~2\"==\"--numstat\" (\n");
@@ -740,8 +861,8 @@ class GitDiffProviderTest {
                 sb.append("  goto hangnum\n");
                 sb.append(")\n");
             }
-            if (hangOnNameStatus) {
-                sb.append("if /I \"%~1\"==\"diff\" if /I \"%~2\"==\"--name-status\" (\n");
+            if (hangOnRaw) {
+                sb.append("if /I \"%~1\"==\"diff\" if /I \"%~2\"==\"--raw\" (\n");
                 sb.append("  :hangns\n");
                 sb.append("  goto hangns\n");
                 sb.append(")\n");
@@ -767,17 +888,26 @@ class GitDiffProviderTest {
             if (sig != null) {
                 sb.append("if [ \"$1\" = log ] && [ \"$3\" = '--format=%G?' ]; then echo ").append(sig).append("; exit 0; fi\n");
             }
+            if (badRevParse) {
+                sb.append("if [ \"$1\" = rev-parse ]; then echo not-an-oid; exit 0; fi\n");
+            }
+            if (failPlainDiff) {
+                sb.append("if [ \"$1\" = diff ] && [ \"$2\" != --raw ] && [ \"$2\" != --numstat ]; then exit 1; fi\n");
+            }
+            if (hangOnPlainDiff) {
+                sb.append("if [ \"$1\" = diff ] && [ \"$2\" != --raw ] && [ \"$2\" != --numstat ]; then while true; do :; done; fi\n");
+            }
             if (failNumstat) {
                 sb.append("if [ \"$1\" = diff ] && [ \"$2\" = --numstat ]; then exit 1; fi\n");
             }
-            if (failNameStatus) {
-                sb.append("if [ \"$1\" = diff ] && [ \"$2\" = --name-status ]; then exit 1; fi\n");
+            if (failRaw) {
+                sb.append("if [ \"$1\" = diff ] && [ \"$2\" = --raw ]; then exit 1; fi\n");
             }
             if (hangOnNumstat) {
                 sb.append("if [ \"$1\" = diff ] && [ \"$2\" = --numstat ]; then while true; do :; done; fi\n");
             }
-            if (hangOnNameStatus) {
-                sb.append("if [ \"$1\" = diff ] && [ \"$2\" = --name-status ]; then while true; do :; done; fi\n");
+            if (hangOnRaw) {
+                sb.append("if [ \"$1\" = diff ] && [ \"$2\" = --raw ]; then while true; do :; done; fi\n");
             }
             if (failLogFormat) {
                 sb.append("if [ \"$1\" = log ] && [ \"$3\" = --format=%ae ]; then exit 1; fi\n");

@@ -36,8 +36,18 @@ public final class GithubPrReviewCommentsPublisher {
                     "Remove the conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`) and keep one resolved side."),
             Map.entry("invariant.ai-edit-artifact",
                     "Delete agent paste artifacts (elision like `// ... existing code ...`, SEARCH/REPLACE blocks, assistant chatter)."),
+            Map.entry("invariant.placeholder-test",
+                    "Replace the tautology test (for example assertTrue(true)) with an assertion on real behavior."),
             Map.entry("invariant.placeholder",
                     "Replace TBD/FIXME/XXX with real code or remove the placeholder line."),
+            Map.entry("invariant.unexpected-gitlink",
+                    "Remove the new submodule pointer (git rm --cached <path>) or ask a maintainer to approve it."),
+            Map.entry("invariant.ai-provenance",
+                    "Move the Generated-by / AI co-author line out of the source file and into the commit message."),
+            Map.entry("invariant.hidden-unicode",
+                    "Delete the invisible characters (zero-width, bidi control or tag characters) from the added lines."),
+            Map.entry("invariant.review-instruction-change",
+                    "Move AI review instruction changes into a separate PR for a maintainer to review."),
             Map.entry("syntax.parse",
                     "Fix the parse error on this line so the file compiles / parses cleanly."),
             Map.entry("security.aws-key", "Remove the hard-coded AWS key; use a secret store or CI secret."),
@@ -138,7 +148,8 @@ public final class GithubPrReviewCommentsPublisher {
                 + "**Fix:** " + hint;
     }
 
-    static String hintFor(String ruleId) {
+    /** Fixed, deterministic remediation hint for a rule id (also used by the CLI fix brief). */
+    public static String hintFor(String ruleId) {
         if (ruleId == null) {
             return "Address the finding on this line.";
         }

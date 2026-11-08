@@ -21,17 +21,23 @@ For each configured tool:
 1. Build the changed-path set and filter it with tool-specific extensions or
    languages.
 2. Replace a standalone `{files}` command argument with individual changed
-   paths. If that placeholder is present and no path matches, do not run the
-   tool.
-3. Start the command directly in the source workspace without shell parsing.
-4. Drain stdout on a separate thread so pipe backpressure cannot defeat the
+   paths. Absolute paths and paths with a `..` segment are refused and listed
+   in the gate notes. A path that starts with `-` is passed as `./<path>` so
+   the tool cannot read it as an option. If the placeholder is present and no
+   path is left, do not run the tool.
+3. When `sarif` is a file path, resolve it against the workspace. Refuse it
+   with a blocking `.bad-output` finding, without running the tool, if it
+   leaves the workspace or passes through a symbolic link. Delete any existing
+   file at that path so only this run's output is read.
+4. Start the command directly in the source workspace without shell parsing.
+5. Drain stdout on a separate thread so pipe backpressure cannot defeat the
    timeout. Stderr is discarded.
-5. Wait up to `timeout_seconds`. On timeout, forcibly terminate descendants and
+6. Wait up to `timeout_seconds`. On timeout, forcibly terminate descendants and
    then the parent process.
-6. Read SARIF from stdout or the configured workspace-relative or absolute file.
-7. Parse `runs[].results[]`, filter by `min_level`, and optionally retain only
+7. Read SARIF from stdout or the validated SARIF file inside the workspace.
+8. Parse `runs[].results[]`, filter by `min_level`, and optionally retain only
    changed-file locations.
-8. Convert retained results and aggregate blocking, advisory, and lifecycle
+9. Convert retained results and aggregate blocking, advisory, and lifecycle
    outcomes.
 
 A nonzero exit code does not decide the verdict. Valid SARIF is processed
@@ -45,7 +51,7 @@ regardless of exit code.
 | `external.<tool-id>.missing` | Command could not be started and `on_missing` is `fail`. |
 | `external.<tool-id>.timeout` | Command timed out and `on_missing` is `fail`. |
 | `external.<tool-id>.no-output` | A completed command produced no readable SARIF. |
-| `external.<tool-id>.bad-output` | Output could not be parsed as supported SARIF. |
+| `external.<tool-id>.bad-output` | Output could not be parsed as supported SARIF, or the `sarif` file path leaves the workspace, passes through a symbolic link, or cannot be cleared before the run. |
 
 Tool IDs are trimmed and normalized to lowercase.
 
@@ -57,7 +63,7 @@ and a nonempty command list.
 | Tool key | Default | Meaning |
 |---|---|---|
 | `command` | Required | Argument list passed directly to `ProcessBuilder`. |
-| `sarif` | `stdout` | SARIF source, either stdout or a file path. |
+| `sarif` | `stdout` | SARIF source, either stdout or a file path inside the workspace. |
 | `severity` | Blocking | Only `warn` makes analyzer findings advisory. |
 | `min_level` | `warning` | Minimum SARIF level: `note`, `warning`, or `error`. |
 | `changed_files_only` | `true` | Drop located results outside changed paths. |
@@ -134,20 +140,31 @@ when local policy needs no external executable.
 
 Stderr is discarded. Only stdout is captured. Only the first SARIF location is
 retained. Path comparison is normalized but case-sensitive. Unknown
-`min_level` values rank below known levels. A configured SARIF file is not
-removed before execution, so tool wrappers should overwrite it atomically to
-avoid stale output. Timeout termination requests descendant and parent
-termination, but the implementation does not wait until every descendant is
-confirmed dead. Commands are not sandboxed, downloaded, version-pinned, or
-restricted from network access by this module. Configure only tools already
-trusted by the execution environment.
+`min_level` values rank below known levels. Timeout termination requests
+descendant and parent termination, but the implementation does not wait until
+every descendant is confirmed dead. Commands are not sandboxed, downloaded,
+version-pinned, or restricted from network access by this module. Configure
+only tools already trusted by the execution environment.
+
+## Security notes
+
+- Changed-file names are untrusted input. They are passed as separate
+  arguments without a shell. Absolute and `..` paths are never passed, and a
+  path that starts with `-` gets a `./` prefix. Other prefixes a specific tool
+  treats specially, such as `@file` response files, are passed unchanged.
+- A configured SARIF file must stay inside the workspace on its normalized
+  path, with no symbolic link between the workspace and the file. Any existing
+  file there is deleted before the tool runs, so a report committed by the
+  pull request, or left by an earlier run, cannot pass as this run's output.
+  The check runs once, before the tool starts.
 
 ## Tests and build
 
 `ExternalToolsGateTest` covers stdout and file SARIF, file expansion, level and
 changed-path filtering, Windows paths, missing and timeout policies,
 interruption, invalid and absent output, real process timeout, missing binaries,
-and parser defaults.
+parser defaults, unsafe and dash-prefixed changed paths, stale SARIF deletion,
+and SARIF paths that escape the workspace or pass through a symbolic link.
 
 From this module:
 

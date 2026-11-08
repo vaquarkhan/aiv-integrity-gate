@@ -77,6 +77,12 @@ benchmarks/**/scripts/__pycache__/
 benchmarks/**/reports/labeled-score.log
 benchmarks/**/reports/seed-labeled.log
 
+# Industry e2e local fetch/score working sets (reproducible from scripts)
+benchmarks/industry-e2e/cache/
+benchmarks/industry-e2e/corpus/
+benchmarks/industry-e2e/results-airflow-index/
+benchmarks/industry-e2e/__pycache__/
+
 # Terraform local state and operator-specific inputs
 **/.terraform/
 *.tfstate

@@ -1,0 +1,88 @@
+{
+  "schema_version": 3,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "result_key": "density:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "result_key": "design:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "result_key": "cohesion:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "result_key": "invariant:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "result_key": "syntax:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "result_key": "test-adequacy:advisory",
+      "partition": "advisory",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-03test, soft-03tests, testsoft-03, soft-03it, soft-03spec, soft-03testcase, test_soft-03, soft-03_test, soft-03_spec, soft-03.test, soft-03.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/mixed/soft/soft-03.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: soft-03test, soft-03tests, testsoft-03, soft-03it, soft-03spec, soft-03testcase, test_soft-03, soft-03_test, soft-03_spec, soft-03.test, soft-03.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "result_key": "duplication:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "result_key": "rules:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

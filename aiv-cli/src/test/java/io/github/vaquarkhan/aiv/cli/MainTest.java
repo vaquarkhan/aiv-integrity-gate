@@ -131,6 +131,15 @@ class MainTest {
     }
 
     @Test
+    void refsStartingWithDashAreArgumentErrors(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        // exit 2 (argument error) rather than 3 (git error): git is never started with an option-shaped ref
+        assertEquals(2, Main.run(new String[]{"--workspace", repo.toString(), "--diff", "-x", "--head", "HEAD"}));
+        assertEquals(2, Main.run(new String[]{"--workspace", repo.toString(), "--diff", "HEAD", "--head", "-x"}));
+        assertEquals(2, Main.run(new String[]{"--workspace", repo.toString(), "--diff", "-h"}));
+    }
+
+    @Test
     void gitDiffFailureReturnsThree(@TempDir Path repo) throws Exception {
         initRepo(repo);
         int code = Main.run(new String[]{
@@ -325,7 +334,7 @@ class MainTest {
     }
 
     @Test
-    void aiSlopLabelAndCommentFlagsRequireGithubEnvironment(@TempDir Path empty) throws Exception {
+    void deterministicFindingsLabelAndCommentFlagsRequireGithubEnvironment(@TempDir Path empty) throws Exception {
         Path json = empty.resolve("proposed.json");
         Files.writeString(json, """
                 {"files":[{"path":"Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}]}
@@ -333,8 +342,8 @@ class MainTest {
         Files.createDirectories(empty.resolve(".aiv"));
         Files.writeString(empty.resolve(".aiv/config.yaml"), """
                 schema_version: 1
-                ai_slop_label_gates: [test-adequacy]
-                ai_slop_label_rules: ["test-adequacy.*"]
+                deterministic_findings_label_gates: [test-adequacy]
+                deterministic_findings_label_rules: ["test-adequacy.*"]
                 gates:
                   - id: syntax
                     enabled: true
@@ -344,23 +353,24 @@ class MainTest {
         try {
             // explicit label flag with a custom name: publisher needs GITHUB_TOKEN -> exit 2
             assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(),
-                    "--label-ai-slop", "needs-evidence", "--quiet"}));
-            // comment only
+                    "--label-deterministic-findings", "needs-evidence", "--quiet"}));
             assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(),
-                    "--comment-ai-slop", "--quiet"}));
+                    "--label-ai-slop", "legacy-needs-evidence", "--quiet"}));
+            assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(),
+                    "--comment-deterministic-findings", "--quiet"}));
             // env-driven label
-            Main.GITHUB_ENV = k -> "AIV_LABEL_AI_SLOP".equals(k) ? "true" : null;
+            Main.GITHUB_ENV = k -> "AIV_LABEL_DETERMINISTIC_FINDINGS".equals(k) ? "true" : null;
             assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(), "--quiet"}));
-            Main.GITHUB_ENV = k -> "AIV_COMMENT_AI_SLOP".equals(k) ? "true" : null;
+            Main.GITHUB_ENV = k -> "AIV_COMMENT_DETERMINISTIC_FINDINGS".equals(k) ? "true" : null;
             assertEquals(2, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(), "--quiet"}));
         } finally {
             Main.GITHUB_ENV = prev;
         }
-        // config-driven: ai_slop_pr_label present in .aiv/config.yaml
+        // config-driven: deterministic_findings_pr_label present in .aiv/config.yaml
         Files.writeString(empty.resolve(".aiv/config.yaml"), """
                 schema_version: 1
-                ai_slop_pr_label: AI-SLOP
-                ai_slop_pr_comment: true
+                deterministic_findings_pr_label: aiv:findings
+                deterministic_findings_pr_comment: true
                 gates:
                   - id: syntax
                     enabled: true
@@ -388,7 +398,76 @@ class MainTest {
     }
 
     @Test
-    void aiSlopLabelAndCommentPublishAgainstGithubApi(@TempDir Path empty) throws Exception {
+    void reviewRoutingGateTierIsPublishedAsALabel(@TempDir Path empty) throws Exception {
+        Path json = empty.resolve("proposed.json");
+        Files.writeString(json, """
+                {"files":[{"path":".github/workflows/ci.yml","changeType":"MODIFIED","content":"on: push\\n"},
+                          {"path":"src/main/java/Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}]}
+                """, StandardCharsets.UTF_8);
+        Files.createDirectories(empty.resolve(".aiv"));
+        Files.writeString(empty.resolve(".aiv/config.yaml"), """
+                schema_version: 1
+                gates:
+                  - id: syntax
+                    enabled: false
+                  - id: test-adequacy
+                    enabled: false
+                  - id: density
+                    enabled: false
+                  - id: design
+                    enabled: false
+                  - id: dependency
+                    enabled: false
+                  - id: cohesion
+                    enabled: false
+                  - id: review-routing
+                    enabled: true
+                    config:
+                      default_tier: lite
+                      tiers:
+                        - tier: none
+                          paths: [".github/workflows/**"]
+                """, StandardCharsets.UTF_8);
+        List<String> calls = new java.util.ArrayList<>();
+        HttpServer server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/", ex -> {
+            ex.getRequestBody().readAllBytes();
+            String key = ex.getRequestMethod() + " " + ex.getRequestURI().getPath();
+            calls.add(key);
+            byte[] body = (key.equals("GET /repos/o/r/issues/5/labels") ? "[{\"name\":\"aiv:review-lite\"}]" : "{}")
+                    .getBytes(StandardCharsets.UTF_8);
+            int code = key.startsWith("DELETE") ? 204 : key.startsWith("GET /repos/o/r/labels/") ? 404
+                    : key.equals("POST /repos/o/r/labels") ? 201 : 200;
+            ex.sendResponseHeaders(code, code == 204 ? -1 : body.length);
+            if (code != 204) {
+                ex.getResponseBody().write(body);
+            }
+            ex.close();
+        });
+        server.start();
+        var prev = Main.GITHUB_ENV;
+        try {
+            String base = "http://127.0.0.1:" + server.getAddress().getPort();
+            Map<String, String> env = Map.of(
+                    "GITHUB_TOKEN", "t", "GITHUB_REPOSITORY", "o/r", "AIV_GITHUB_PR_NUMBER", "5",
+                    "AIV_GITHUB_API_BASE", base, "AIV_LABEL_REVIEW_TIER", "true");
+            Main.GITHUB_ENV = env::get;
+            Path report = empty.resolve("aiv-report.json");
+            assertEquals(0, Main.run(new String[]{"--workspace", empty.toString(), "--diff-json", json.toString(),
+                    "--quiet", "--output-json", report.toString()}));
+            assertTrue(calls.contains("DELETE /repos/o/r/issues/5/labels/aiv:review-lite"), calls.toString());
+            assertTrue(calls.contains("POST /repos/o/r/issues/5/labels"), calls.toString());
+            String r = Files.readString(report, StandardCharsets.UTF_8);
+            assertTrue(r.contains("\"rule_id\": \"review-routing.tier\""), r);
+            assertTrue(r.contains("tier=none; rule 0: path .github/workflows/ci.yml"), r);
+        } finally {
+            Main.GITHUB_ENV = prev;
+            server.stop(0);
+        }
+    }
+
+    @Test
+    void deterministicFindingsLabelAndCommentPublishAgainstGithubApi(@TempDir Path empty) throws Exception {
         Path json = empty.resolve("proposed.json");
         Files.writeString(json, """
                 {"files":[{"path":"src/main/java/Ok.java","changeType":"ADDED","content":"class Ok {}\\n"}]}
@@ -396,8 +475,8 @@ class MainTest {
         Files.createDirectories(empty.resolve(".aiv"));
         Files.writeString(empty.resolve(".aiv/config.yaml"), """
                 schema_version: 1
-                ai_slop_pr_label: AI-SLOP
-                ai_slop_pr_comment: true
+                deterministic_findings_pr_label: aiv:findings
+                deterministic_findings_pr_comment: true
                 gates:
                   - id: syntax
                     enabled: true
@@ -565,6 +644,24 @@ class MainTest {
     }
 
     @Test
+    void applyMechanicalFixNeverReadsFilesOutsideTheWorkspace(@TempDir Path dir) throws Exception {
+        Path ws = Files.createDirectories(dir.resolve("ws"));
+        Path outside = dir.resolve("Secret.java");
+        Files.writeString(outside, "secret-outside-content\n", StandardCharsets.UTF_8);
+        Files.writeString(ws.resolve("In.java"), "class In {}\n", StandardCharsets.UTF_8);
+        var inner = new MemoryDiffProvider(new Diff("a", "b", List.of(
+                new ChangedFile("../Secret.java", ChangedFile.ChangeType.MODIFIED, "diff-content"),
+                new ChangedFile(outside.toString(), ChangedFile.ChangeType.MODIFIED, "abs-content"),
+                new ChangedFile("In.java", ChangedFile.ChangeType.MODIFIED, "stale")), ""));
+        Diff d = Main.applyMechanicalFix(ws, "a", "b", inner).getDiff(ws, "a", "b");
+        assertEquals(3, d.getChangedFiles().size());
+        assertEquals("diff-content", d.getChangedFiles().get(0).getContent(), "escaping path keeps diff content");
+        assertEquals("abs-content", d.getChangedFiles().get(1).getContent(), "absolute path keeps diff content");
+        assertEquals("class In {}\n", d.getChangedFiles().get(2).getContent(), "in-workspace file is re-read");
+        assertEquals("secret-outside-content\n", Files.readString(outside, StandardCharsets.UTF_8));
+    }
+
+    @Test
     void doctorExitsZeroOnCleanRepo(@TempDir Path repo) throws Exception {
         initRepo(repo);
         assertEquals(0, Main.run(new String[]{
@@ -613,6 +710,39 @@ class MainTest {
     }
 
     @Test
+    void outputFixBriefWritesBriefForPassingRun(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        Path brief = repo.resolve("out/aiv-fix-brief.md");
+        assertEquals(0, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--output-fix-brief", brief.toString()
+        }));
+        String md = Files.readString(brief, StandardCharsets.UTF_8);
+        assertTrue(md.startsWith("# AIV fix brief"), md);
+        assertTrue(md.contains("Verdict: **PASSED**"), md);
+        assertEquals(2, Main.run(new String[]{"--output-fix-brief"}));
+    }
+
+    @Test
+    void labelReviewTierWithoutRoutingGateIsAConfigurationError(@TempDir Path repo) throws Exception {
+        initRepo(repo);
+        assertEquals(2, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--label-review-tier", "aiv:tier-"
+        }));
+        assertEquals(2, Main.run(new String[]{
+                "--workspace", repo.toString(),
+                "--diff", "HEAD",
+                "--head", "HEAD",
+                "--label-review-tier"
+        }));
+    }
+
+    @Test
     void outputJsonWritesReport(@TempDir Path repo) throws Exception {
         initRepo(repo);
         Path json = repo.resolve("aiv-report.json");
@@ -624,7 +754,7 @@ class MainTest {
         }));
         assertTrue(Files.exists(json));
         String report = Files.readString(json);
-        assertTrue(report.contains("\"schema_version\": 2"));
+        assertTrue(report.contains("\"schema_version\": 3"));
         assertTrue(report.contains("\"doctor_mode\": false"));
     }
 

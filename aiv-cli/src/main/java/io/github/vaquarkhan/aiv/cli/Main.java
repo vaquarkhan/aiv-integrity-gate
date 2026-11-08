@@ -11,6 +11,7 @@ import io.github.vaquarkhan.aiv.adapter.github.GithubChecksPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.GithubPrDeterministicFindingsPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.GithubPrLabelPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.GithubPrReviewCommentsPublisher;
+import io.github.vaquarkhan.aiv.adapter.github.GithubReviewTierLabelPublisher;
 import io.github.vaquarkhan.aiv.adapter.github.StdoutReportPublisher;
 import io.github.vaquarkhan.aiv.cli.config.DocChecksConfigProvider;
 import io.github.vaquarkhan.aiv.cli.config.GitRefConfigProvider;
@@ -65,6 +66,9 @@ public final class Main {
             }
         }
 
+        if (args.length > 0 && "triage".equals(args[0])) {
+            return TriageCommand.run(tail(args));
+        }
         if (args.length > 0 && "init".equals(args[0])) {
             try {
                 String[] initArgs = tail(args);
@@ -117,13 +121,16 @@ public final class Main {
         Path baselinePath = null;
         Path diffJsonPath = null;
         boolean publishPrComments = false;
-        boolean publishAiSlopLabel = false;
-        boolean publishAiSlopComment = false;
-        String aiSlopLabelOverride = null;
+        boolean publishDeterministicFindingsLabel = false;
+        boolean publishDeterministicFindingsComment = false;
+        String deterministicFindingsLabelOverride = null;
         boolean mechanicalFix = false;
         boolean configFromWorkspace = false;
         boolean requireTrustedConfig = false;
         String auditLogArg = null;
+        boolean labelReviewTier = false;
+        String reviewTierPrefix = null;
+        Path fixBriefPath = null;
 
         for (int i = 0; i < gateArgs.length; i++) {
             if ("--quiet".equals(gateArgs[i])) {
@@ -158,18 +165,27 @@ public final class Main {
                 publishGithubChecks = true;
             } else if ("--publish-pr-comments".equals(gateArgs[i])) {
                 publishPrComments = true;
-            } else if ("--label-ai-slop".equals(gateArgs[i])) {
-                publishAiSlopLabel = true;
+            } else if ("--label-deterministic-findings".equals(gateArgs[i])
+                    || "--label-ai-slop".equals(gateArgs[i])) {
+                publishDeterministicFindingsLabel = true;
                 if (i + 1 < gateArgs.length && !gateArgs[i + 1].startsWith("-")) {
-                    aiSlopLabelOverride = gateArgs[++i];
+                    deterministicFindingsLabelOverride = gateArgs[++i];
                 }
-            } else if ("--comment-ai-slop".equals(gateArgs[i])) {
-                publishAiSlopComment = true;
+            } else if ("--comment-deterministic-findings".equals(gateArgs[i])
+                    || "--comment-ai-slop".equals(gateArgs[i])) {
+                publishDeterministicFindingsComment = true;
             } else if ("--label-pr-on-advisory".equals(gateArgs[i])) {
                 labelPrOnAdvisory = true;
                 if (i + 1 < gateArgs.length && !gateArgs[i + 1].startsWith("-")) {
                     advisoryLabelOverride = gateArgs[++i];
                 }
+            } else if ("--label-review-tier".equals(gateArgs[i])) {
+                labelReviewTier = true;
+                if (i + 1 < gateArgs.length && !gateArgs[i + 1].startsWith("-")) {
+                    reviewTierPrefix = gateArgs[++i];
+                }
+            } else if ("--output-fix-brief".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
+                fixBriefPath = Paths.get(gateArgs[++i]).toAbsolutePath();
             } else if ("--warnings-exit-code".equals(gateArgs[i]) && hasValue(gateArgs, i)) {
                 try {
                     warningsExitCode = Integer.parseInt(gateArgs[++i].trim());
@@ -181,6 +197,11 @@ public final class Main {
                 log.error("Unknown option or missing value: {}", gateArgs[i]);
                 return 2;
             }
+        }
+        // Refs reach git as positional arguments (rev-parse, show); a leading '-' would be read as an option.
+        if (baseRef.startsWith("-") || headRef.startsWith("-")) {
+            log.error("Invalid git ref (must not start with '-'): --diff {} --head {}", baseRef, headRef);
+            return 2;
         }
 
         try {
@@ -304,8 +325,18 @@ public final class Main {
                         }
                         SarifReportWriter.write(last, sarifOutputPath, cliVersion());
                     }
+                    if (fixBriefPath != null) {
+                        Path parent = fixBriefPath.getParent();
+                        if (parent != null) {
+                            Files.createDirectories(parent);
+                        }
+                        FixBriefWriter.write(last, fixBriefPath, cliVersion(), baseRef, headRef);
+                    }
                     if (publishGithubChecks) {
                         GithubChecksPublisher.publish(last, cliVersion(), GITHUB_ENV);
+                    }
+                    if (labelReviewTier || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_LABEL_REVIEW_TIER")))) {
+                        GithubReviewTierLabelPublisher.publish(last, reviewTierPrefix, GITHUB_ENV);
                     }
                     if (publishPrComments) {
                         GithubPrReviewCommentsPublisher.publish(last, GITHUB_ENV);
@@ -317,19 +348,21 @@ public final class Main {
                     // Publication selection comes from the same trusted configuration as the verdict. A pull
                     // request cannot change which findings are labeled or commented by editing workspace config.
                     boolean github = inGithubContext(GITHUB_ENV);
-                    boolean configAiSlopLabel = publicationConfig.getAiSlopPrLabel().isPresent();
-                    boolean configAiSlopComment = publicationConfig.isAiSlopPrCommentEnabled();
-                    if (!github && (configAiSlopLabel || configAiSlopComment) && !publishAiSlopLabel && !publishAiSlopComment) {
-                        log.info("AI-SLOP label/comment configured but GITHUB_TOKEN/GITHUB_REPOSITORY are not set; publication skipped (local run)");
+                    boolean configDeterministicLabel = publicationConfig.getDeterministicFindingsPrLabel().isPresent();
+                    boolean configDeterministicComment = publicationConfig.isDeterministicFindingsPrCommentEnabled();
+                    if (!github && (configDeterministicLabel || configDeterministicComment)
+                            && !publishDeterministicFindingsLabel && !publishDeterministicFindingsComment) {
+                        log.info("Deterministic-findings label/comment configured but GITHUB_TOKEN/GITHUB_REPOSITORY are not set; publication skipped (local run)");
                     }
-                    if (publishAiSlopLabel || (configAiSlopLabel && github)
-                            || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_LABEL_AI_SLOP")))) {
-                        publishAiSlopLabel(last, publicationConfig, aiSlopLabelOverride);
+                    if (publishDeterministicFindingsLabel || (configDeterministicLabel && github)
+                            || truthyEnv("AIV_LABEL_DETERMINISTIC_FINDINGS", "AIV_LABEL_AI_SLOP")) {
+                        publishDeterministicFindingsLabel(last, publicationConfig, deterministicFindingsLabelOverride);
                     }
-                    if (publishAiSlopComment || (configAiSlopComment && github)
-                            || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply("AIV_COMMENT_AI_SLOP")))) {
+                    if (publishDeterministicFindingsComment || (configDeterministicComment && github)
+                            || truthyEnv("AIV_COMMENT_DETERMINISTIC_FINDINGS", "AIV_COMMENT_AI_SLOP")) {
                         GithubPrDeterministicFindingsPublisher.publish(last,
-                                publicationConfig.getAiSlopLabelGates(), publicationConfig.getAiSlopLabelRules(), GITHUB_ENV);
+                                publicationConfig.getDeterministicFindingsLabelGates(),
+                                publicationConfig.getDeterministicFindingsLabelRules(), GITHUB_ENV);
                     }
                 } catch (IOException e) {
                     log.error("Could not write report: {}", e.getMessage());
@@ -374,11 +407,14 @@ public final class Main {
         if (n > 0) {
             log.info("Mechanical --fix rewrote {} file(s)", n);
         }
+        Path root = workspace.toAbsolutePath().normalize();
         List<ChangedFile> updated = new ArrayList<>();
         for (ChangedFile f : original.getChangedFiles()) {
-            Path p = workspace.resolve(f.getPath());
+            Path p = root.resolve(f.getPath()).normalize();
             String content = f.getContent();
-            if (Files.isRegularFile(p)) {
+            // Same containment rule as MechanicalFixer: never read a file outside the workspace into the diff.
+            // An escaping path keeps its original diff content so gates still judge it.
+            if (p.startsWith(root) && Files.isRegularFile(p)) {
                 content = Files.readString(p, StandardCharsets.UTF_8);
             }
             updated.add(new ChangedFile(f.getPath(), f.getChangeType(), content));
@@ -412,12 +448,19 @@ public final class Main {
         GithubPrLabelPublisher.apply(last, label, gates, GITHUB_ENV);
     }
 
-    static void publishAiSlopLabel(AIVResult last, AIVConfig cfg, String labelOverride)
+    static void publishDeterministicFindingsLabel(AIVResult last, AIVConfig cfg, String labelOverride)
             throws IOException, InterruptedException {
-        String label = firstNonBlank(labelOverride, GITHUB_ENV.apply("AIV_AI_SLOP_LABEL"),
-                cfg.getAiSlopPrLabel().orElse(null), "AI-SLOP");
-        GithubPrLabelPublisher.applyForSelectedFindings(last, label, cfg.getAiSlopLabelGates(),
-                cfg.getAiSlopLabelRules(), GITHUB_ENV);
+        String label = firstNonBlank(labelOverride,
+                GITHUB_ENV.apply("AIV_DETERMINISTIC_FINDINGS_LABEL"),
+                GITHUB_ENV.apply("AIV_AI_SLOP_LABEL"),
+                cfg.getDeterministicFindingsPrLabel().orElse(null), "aiv:findings");
+        GithubPrLabelPublisher.applyForSelectedFindings(last, label,
+                cfg.getDeterministicFindingsLabelGates(), cfg.getDeterministicFindingsLabelRules(), GITHUB_ENV);
+    }
+
+    static boolean truthyEnv(String canonicalKey, String legacyKey) {
+        return "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply(canonicalKey)))
+                || "true".equalsIgnoreCase(blankToEmpty(GITHUB_ENV.apply(legacyKey)));
     }
 
     /** True when a token and an owner/repo are available, i.e. GitHub publication can be attempted. */

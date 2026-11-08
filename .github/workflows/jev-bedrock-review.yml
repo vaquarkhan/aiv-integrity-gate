@@ -1,0 +1,176 @@
+# Trusted, advisory JEV review. This workflow checks out the protected base only;
+# Trusted, advisory JEV review. This workflow checks out the protected base only;
+# it fetches the pull request head as Git objects and never executes contributor code.
+# Precondition: the protected base policy must not enable arbitrary external-tool commands in this
+# credentialed job. Use a dedicated JEV policy or run external tools before OIDC credentials are issued.
+name: JEV Bedrock review
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: jev-bedrock-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # Set this non-secret repository variable only after production setup is reviewed.
+    if: vars.JEV_BEDROCK_ENABLED == 'true' && github.event.pull_request.draft == false
+    environment: jev-review
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      AIV_CLI_URL: ${{ vars.AIV_CLI_URL }}
+      JEV_BEDROCK_MODEL_ID: ${{ vars.JEV_BEDROCK_MODEL_ID }}
+      JEV_BEDROCK_REGION: ${{ vars.JEV_BEDROCK_REGION || 'us-east-1' }}
+      AIV_PR_TITLE: ${{ github.event.pull_request.title }}
+      AIV_PR_BODY: ${{ github.event.pull_request.body }}
+    steps:
+      - name: Check out the protected base policy and adapter
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Fetch pull request head as data only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin \
+            "${{ github.event.pull_request.head.sha }}:refs/aiv/untrusted-pr-${{ github.event.pull_request.number }}"
+
+      - name: Download the released AIV CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$AIV_CLI_URL" || { echo "::error::Set the JEV_BEDROCK environment variable AIV_CLI_URL to an immutable AIV CLI release asset."; exit 1; }
+          curl --fail --location --retry 3 --output "$RUNNER_TEMP/aiv-cli.jar" "$AIV_CLI_URL"
+          java -jar "$RUNNER_TEMP/aiv-cli.jar" verify --capabilities
+
+      - name: Build an authoritative pull request diff request
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="${{ github.event.pull_request.base.sha }}"
+          head="refs/aiv/untrusted-pr-${{ github.event.pull_request.number }}"
+          python - "$base" "$head" "$RUNNER_TEMP/aiv-request.json" <<'PY'
+          import json
+          import subprocess
+          import sys
+
+          base, head, output = sys.argv[1:]
+          def git(*args):
+              return subprocess.check_output(["git", *args], text=True)
+          raw_diff = git("diff", "--no-ext-diff", "--no-renames", base, head)
+          status = git("diff", "--name-status", "--no-renames", base, head).splitlines()
+          files = []
+          for line in status:
+              kind, path = line.split("\t", 1)
+              change_type = {"A": "ADDED", "M": "MODIFIED", "D": "DELETED"}.get(kind[:1])
+              if change_type is None:
+                  raise SystemExit(f"Unsupported changed-file status: {line}")
+              content = "" if change_type == "DELETED" else git("show", f"{head}:{path}")
+              files.append({"path": path, "changeType": change_type, "content": content})
+          request = {
+              "policyRef": base,
+              "artifact": {"baseRef": base, "headRef": head, "rawDiff": raw_diff, "files": files},
+          }
+          with open(output, "w", encoding="utf-8") as handle:
+              json.dump(request, handle, ensure_ascii=False)
+          PY
+
+      - name: Configure short-lived AWS credentials
+        uses: aws-actions/configure-aws-credentials@00943011d9042930efac3dcd3a170e4273319bc8
+        with:
+          role-to-assume: ${{ vars.JEV_BEDROCK_ROLE_ARN }}
+          aws-region: ${{ env.JEV_BEDROCK_REGION }}
+
+      - name: Install the adapter dependency
+        shell: bash
+        run: python -m pip install --disable-pip-version-check --requirement integrations/jev-bedrock-adapter/requirements.txt
+
+      - name: Start and verify the loopback JEV adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$JEV_BEDROCK_MODEL_ID" || { echo "::error::Set JEV_BEDROCK_MODEL_ID on the protected GitHub environment."; exit 1; }
+          python integrations/jev-bedrock-adapter/jev_bedrock_adapter.py \
+            --model "$JEV_BEDROCK_MODEL_ID" \
+            --region "$JEV_BEDROCK_REGION" \
+            --port 8787 \
+            --connect-timeout-seconds 5 \
+            --request-timeout-seconds 20 \
+            --retry-max-attempts 1 > "$RUNNER_TEMP/jev-adapter.log" 2>&1 &
+          echo "$!" > "$RUNNER_TEMP/jev-adapter.pid"
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:8787/stats > "$RUNNER_TEMP/jev-stats-before.json"; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/jev-adapter.log"
+          echo "::error::The JEV Bedrock adapter did not become ready."
+          exit 1
+
+      - name: Evaluate the pull request diff as data
+        id: aiv
+        shell: bash
+        run: |
+          set +e
+          java -jar "$RUNNER_TEMP/aiv-cli.jar" verify \
+            --request "$RUNNER_TEMP/aiv-request.json" \
+            --workspace "$GITHUB_WORKSPACE" \
+            --policy-ref "${{ github.event.pull_request.base.sha }}" \
+            --require-trusted-policy \
+            --audit-log "$RUNNER_TEMP/aiv-audit.jsonl" > "$RUNNER_TEMP/aiv-verify.json"
+          code=$?
+          echo "exitcode=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Publish JEV and evidence receipt to the job summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## AIV JEV evidence receipt"
+            echo "\`\`\`json"
+            cat "$RUNNER_TEMP/aiv-verify.json" 2>/dev/null || true
+            echo
+            echo "\`\`\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish adapter diagnostics to the job summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## JEV Bedrock adapter"
+            echo "\`\`\`json"
+            cat "$RUNNER_TEMP/jev-stats-before.json" 2>/dev/null || true
+            curl --fail --silent http://127.0.0.1:8787/stats 2>/dev/null || true
+            echo
+            echo "\`\`\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Stop the loopback adapter
+        if: always()
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/jev-adapter.pid" ]; then
+            kill "$(cat "$RUNNER_TEMP/jev-adapter.pid")" || true
+          fi
+
+      - name: Preserve the deterministic AIV verdict
+        if: always()
+        shell: bash
+        run: |
+          test "${{ steps.aiv.outputs.exitcode }}" = "0" || {
+            echo "::error::AIV returned exit ${{ steps.aiv.outputs.exitcode || 'unknown' }}."
+            exit 1
+          }

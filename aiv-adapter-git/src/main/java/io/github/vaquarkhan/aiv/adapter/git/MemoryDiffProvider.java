@@ -69,7 +69,7 @@ public final class MemoryDiffProvider implements DiffProvider {
             if (!(entry instanceof Map<?, ?> file)) {
                 throw new IllegalArgumentException("each diff JSON file entry must be an object");
             }
-            String path = requiredString(file.get("path"), "file.path");
+            String path = requiredRelativePath(file.get("path"));
             String type = stringOr(file.get("changeType"), "MODIFIED", "file.changeType");
             String content = stringOr(file.get("content"), "", "file.content");
             files.add(new ChangedFile(path, parseChangeType(type), content));
@@ -82,6 +82,21 @@ public final class MemoryDiffProvider implements DiffProvider {
             throw new IllegalArgumentException("diff JSON '" + field + "' must be a non-blank string");
         }
         return s;
+    }
+
+    /**
+     * Changed-file paths are workspace-relative. Gates and {@code --fix} resolve them against the workspace,
+     * so an absolute path or a {@code ..} segment could point them at files outside it.
+     */
+    private static String requiredRelativePath(Object value) {
+        String path = requiredString(value, "file.path");
+        String slashed = path.replace('\\', '/');
+        boolean absolute = slashed.startsWith("/") || slashed.matches("^[A-Za-z]:.*");
+        if (absolute || List.of(slashed.split("/", -1)).contains("..")) {
+            throw new IllegalArgumentException(
+                    "diff JSON 'file.path' must be relative to the workspace without '..' segments: " + path);
+        }
+        return path;
     }
 
     private static String stringOr(Object value, String fallback, String field) {

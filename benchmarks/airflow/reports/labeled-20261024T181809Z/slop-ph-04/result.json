@@ -1,0 +1,130 @@
+{
+  "id": "slop-ph-04",
+  "title": "ai-slop: placeholder (expect FAIL)",
+  "label": {
+    "class": "synthetic_positive",
+    "subtype": "placeholder",
+    "expect_hard_fail": true,
+    "expect_advisory": false,
+    "notes": "Labeled objective AI-slop; hard-pass = FN"
+  },
+  "outcome": {
+    "verdict": "TP",
+    "hard_fail": true,
+    "advisory": true,
+    "blocking_gates": [
+      "design",
+      "invariant"
+    ],
+    "blocking_rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "invariant.ai-edit-artifact"
+    ],
+    "advisory_gates": [
+      "test-adequacy"
+    ],
+    "exit_code": 1,
+    "execution_valid": true,
+    "expected_rules": [],
+    "expected_rule_hit": true,
+    "label_class": "synthetic_positive",
+    "expect_hard_fail": true
+  },
+  "passed": false,
+  "gates": [
+    {
+      "id": "density",
+      "result_key": "density:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "result_key": "design:blocking",
+      "partition": "blocking",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Forbidden call 'INSERT_YOUR_CODE' in providers/bench/labeled/ai-slop/placeholder-04.py (constraint: no-ai-generated-markers)",
+      "findings": [
+        {
+          "rule_id": "design.forbidden.no-ai-generated-markers",
+          "file": "providers/bench/labeled/ai-slop/placeholder-04.py",
+          "start_line": 4,
+          "message": "Forbidden call 'INSERT_YOUR_CODE' in providers/bench/labeled/ai-slop/placeholder-04.py (constraint: no-ai-generated-markers)"
+        }
+      ]
+    },
+    {
+      "id": "cohesion",
+      "result_key": "cohesion:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "result_key": "invariant:blocking",
+      "partition": "blocking",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-04.py",
+      "findings": [
+        {
+          "rule_id": "invariant.ai-edit-artifact",
+          "file": "providers/bench/labeled/ai-slop/placeholder-04.py",
+          "start_line": 1,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-04.py"
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "result_key": "syntax:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "result_key": "test-adequacy:advisory",
+      "partition": "advisory",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-04test, placeholder-04tests, testplaceholder-04, placeholder-04it, placeholder-04spec, placeholder-04testcase, test_placeholder-04, placeholder-04_test, placeholder-04_spec, placeholder-04.test, placeholder-04.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/ai-slop/placeholder-04.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: placeholder-04test, placeholder-04tests, testplaceholder-04, placeholder-04it, placeholder-04spec, placeholder-04testcase, test_placeholder-04, placeholder-04_test, placeholder-04_spec, placeholder-04.test, placeholder-04.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "result_key": "duplication:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "result_key": "rules:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ],
+  "aiv_report_path": "reports/labeled-20261024T181809Z/slop-ph-04/aiv-report.json"
+}

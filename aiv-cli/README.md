@@ -9,7 +9,7 @@ mvn -pl aiv-cli -am clean package
 java -jar aiv-cli/target/aiv-cli-2.0.jar --version
 ```
 
-Release 2.0 is `io.github.vaquarkhan:aiv-cli:2.0`. Tag `v2.0` builds the same jar.
+The source branch contains next-release capabilities. The Maven Central 2.0 artifact is the stable core release.
 
 ## Commands
 
@@ -54,7 +54,7 @@ java -jar aiv-cli.jar \
 | `--publish-github-checks` | publish Check annotations |
 | `--publish-pr-comments` | publish inline review comments |
 | `--label-pr-on-advisory` | manage advisory label |
-| `--label-ai-slop` / `--comment-ai-slop` | opt-in deterministic findings publication |
+| `--label-deterministic-findings` / `--comment-deterministic-findings` | opt-in selected deterministic-findings publication; legacy AI-SLOP flags remain aliases in v1 |
 | `--warnings-exit-code N` | map passing run with notices to N |
 
 Unknown options and missing values return exit 2. This is security-relevant because a misspelled trust flag cannot be ignored.

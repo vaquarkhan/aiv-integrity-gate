@@ -1,0 +1,88 @@
+{
+  "schema_version": 3,
+  "aiv_cli_version": "1.0.4",
+  "doctor_mode": false,
+  "passed": true,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "result_key": "density:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "result_key": "design:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "result_key": "cohesion:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "result_key": "invariant:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "result_key": "syntax:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "test-adequacy",
+      "result_key": "test-adequacy:advisory",
+      "partition": "advisory",
+      "passed": false,
+      "blocks_ci": false,
+      "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-04_kafkatest, proper-04_kafkatests, testproper-04_kafka, proper-04_kafkait, proper-04_kafkaspec, proper-04_kafkatestcase, test_proper-04_kafka, proper-04_kafka_test, proper-04_kafka_spec, proper-04_kafka.test, proper-04_kafka.spec)",
+      "findings": [
+        {
+          "rule_id": "test-adequacy.missing-tests",
+          "file": "providers/bench/labeled/proper/proper-04_kafka.py",
+          "start_line": 1,
+          "message": "Production file changed with no test in this change and no conventional test found (expected one of: proper-04_kafkatest, proper-04_kafkatests, testproper-04_kafka, proper-04_kafkait, proper-04_kafkaspec, proper-04_kafkatestcase, test_proper-04_kafka, proper-04_kafka_test, proper-04_kafka_spec, proper-04_kafka.test, proper-04_kafka.spec)"
+        }
+      ]
+    },
+    {
+      "id": "duplication",
+      "result_key": "duplication:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "rules",
+      "result_key": "rules:pass",
+      "partition": "pass",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

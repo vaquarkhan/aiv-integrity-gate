@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-10-22T11:40:59",
+  "jar": "C:\\Users\\Administrator\\Downloads\\aiv-integrity-gate\\aiv-cli\\target\\aiv-cli-2.0.jar",
+  "bench": "C:\\Users\\Administrator\\Downloads\\aiv-airflow-bench",
+  "branches": 90,
+  "ground_truth": {
+    "n": 55,
+    "TP": 36,
+    "FN": 0,
+    "FP": 0,
+    "TN": 15,
+    "recall": 1.0,
+    "precision": 1.0,
+    "errors": 4
+  },
+  "exit_errors": 7,
+  "misses": [
+    "case/ai-attribution",
+    "case/ai-edit-artifact",
+    "case/merge-conflict"
+  ],
+  "false_positives": [
+    "case/clean-control"
+  ],
+  "errors": [
+    {
+      "branch": "case/ai-attribution",
+      "exit": 3,
+      "stderr_tail": "11:35:25.960 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:26.894 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+    },
+    {
+      "branch": "case/ai-edit-artifact",
+      "exit": 3,
+      "stderr_tail": "11:35:29.793 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:30.736 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+    },
+    {
+      "branch": "case/clean-control",
+      "exit": 3,
+      "stderr_tail": "11:35:33.608 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:34.417 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+    },
+    {
+      "branch": "case/merge-conflict",
+      "exit": 3,
+      "stderr_tail": "11:35:41.947 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:43.642 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+    },
+    {
+      "branch": "snapshot/airflow-pr-73271",
+      "exit": 3,
+      "stderr_tail": "11:40:42.998 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:43.668 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+    },
+    {
+      "branch": "snapshot/airflow-pr-73278",
+      "exit": 3,
+      "stderr_tail": "11:40:46.049 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:47.747 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+    },
+    {
+      "branch": "snapshot/airflow-pr-73289",
+      "exit": 3,
+      "stderr_tail": "11:40:52.043 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:53.770 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+    }
+  ]
+}

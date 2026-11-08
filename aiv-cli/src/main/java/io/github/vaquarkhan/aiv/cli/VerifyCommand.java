@@ -109,6 +109,10 @@ final class VerifyCommand {
         Object artifact = JsonLite.get(request, "artifact");
         String artifactJson = artifact != null ? JsonLite.write(artifact) : requestText;
         String policyRef = policyRefArg != null ? policyRefArg : JsonLite.str(JsonLite.get(request, "policyRef"));
+        if (policyRef != null && policyRef.startsWith("-")) {
+            // The ref reaches git as a positional argument; a leading '-' would be read as an option.
+            return error(out, "invalid policy ref (must not start with '-'): " + policyRef);
+        }
         Path workspace = workspaceArg;
         if (workspace == null) {
             String ctxWs = JsonLite.str(JsonLite.get(request, "context", "workspace"));

@@ -50,9 +50,21 @@ jobs:
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Align Maven versions
+      - name: Confirm the tag matches the committed Maven version
         shell: bash
-        run: mvn -B -ntp org.codehaus.mojo:versions-maven-plugin:2.16.2:set "-DnewVersion=${{ steps.ver.outputs.version }}" -DgenerateBackupPoms=false
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.ver.outputs.version }}"
+          POM_VERSION="$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version -f pom.xml | tr -d '\r\n')"
+          [ "$VERSION" = "$POM_VERSION" ] || {
+            echo "::error::Tag $VERSION does not match committed pom.xml version $POM_VERSION. Release from a versioned commit instead of rewriting the tag checkout."
+            exit 1
+          }
+          TAG_COMMIT="$(git rev-parse "refs/tags/${{ steps.ver.outputs.tag }}^{commit}")"
+          [ "$(git rev-parse HEAD)" = "$TAG_COMMIT" ] || {
+            echo "::error::Checked-out commit does not match the release tag."
+            exit 1
+          }
 
       - name: Build and test
         shell: bash
@@ -71,12 +83,8 @@ jobs:
           # Shaded uber JAR (not the thin original-* classifier): must contain CLI entrypoint and bundled deps.
           unzip -l "$JAR" | grep -q 'io/github/vaquarkhan/aiv/cli/Main.class'
           unzip -l "$JAR" | grep -q 'org/slf4j/'
-          if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
-            gh release upload "$TAG" --repo "${{ github.repository }}" --clobber "$JAR"
-          else
-            gh release create "$TAG" \
-              --repo "${{ github.repository }}" \
-              --title "$TAG" \
-              --generate-notes \
-              "$JAR"
-          fi
+          gh release create "$TAG" \
+            --repo "${{ github.repository }}" \
+            --title "$TAG" \
+            --generate-notes \
+            "$JAR"

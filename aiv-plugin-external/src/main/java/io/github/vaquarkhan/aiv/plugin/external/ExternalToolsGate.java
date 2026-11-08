@@ -50,6 +50,17 @@ import java.util.concurrent.TimeUnit;
  * </pre>
  *
  * Rule ids are {@code external.<tool-id>.<sarif-rule-id>} so suppressions and baselines stay stable.
+ *
+ * <p><b>Changed-file arguments.</b> File names come from the change under review, so they are untrusted.
+ * When {@code {files}} expands, a path that is absolute or has a {@code ..} segment is never passed to the
+ * tool; it is listed in the gate notes instead. A path that starts with {@code -} is passed as
+ * {@code ./<path>} so the tool cannot read it as an option. Other paths are passed unchanged.
+ *
+ * <p><b>SARIF output files.</b> When {@code sarif} names a file, it is resolved against the workspace and
+ * must stay inside it (checked on the normalized path) with no symbolic link between the workspace and the
+ * file. Otherwise the tool is not run and a blocking {@code external.<tool-id>.bad-output} finding is
+ * reported. Any existing file at that path is deleted before the tool starts, so a stale report or one
+ * committed by the pull request cannot stand in for this run's output.
  */
 public final class ExternalToolsGate implements QualityGate {
 
@@ -101,14 +112,42 @@ public final class ExternalToolsGate implements QualityGate {
         List<String> notes = new ArrayList<>();
         for (Tool tool : tools) {
             List<String> files = new ArrayList<>();
+            boolean usesFiles = tool.command().contains("{files}");
             for (String p : changed) {
                 if (tool.extensions().isEmpty() || FileExtensions.matches(p, tool.extensions())) {
-                    files.add(p);
+                    if (!isSafeRelative(p)) {
+                        if (usesFiles) {
+                            notes.add(tool.id() + ": refused unsafe path '" + p + "' (absolute or contains ..)");
+                        }
+                        continue;
+                    }
+                    files.add(fileArgument(p));
                 }
             }
-            if (files.isEmpty() && tool.command().contains("{files}")) {
+            if (files.isEmpty() && usesFiles) {
                 notes.add(tool.id() + ": no changed files match, not run");
                 continue;
+            }
+            Path sarifFile = null;
+            if (!"stdout".equalsIgnoreCase(tool.sarif())) {
+                Path root = (context.getWorkspace() == null ? Path.of("") : context.getWorkspace())
+                        .toAbsolutePath().normalize();
+                sarifFile = root.resolve(tool.sarif()).normalize();
+                if (!sarifFile.startsWith(root) || sarifFile.equals(root) || linkedPath(root, sarifFile)) {
+                    blocking.add(Finding.atLine("external." + tool.id() + ".bad-output", "(diff)", 1,
+                            tool.id() + ": sarif path '" + tool.sarif()
+                                    + "' must stay inside the workspace and must not be a symbolic link; not run"));
+                    continue;
+                }
+                try {
+                    // Only output written by this run counts: a stale or PR-committed report must not be read.
+                    Files.deleteIfExists(sarifFile);
+                } catch (IOException e) {
+                    blocking.add(Finding.atLine("external." + tool.id() + ".bad-output", "(diff)", 1,
+                            tool.id() + ": cannot remove existing sarif file '" + tool.sarif() + "' ("
+                                    + e.getMessage() + "); not run"));
+                    continue;
+                }
             }
             List<String> command = expand(tool.command(), files);
             Execution exec;
@@ -136,7 +175,7 @@ public final class ExternalToolsGate implements QualityGate {
                 }
                 continue;
             }
-            String sarif = readSarif(tool, exec, context.getWorkspace());
+            String sarif = readSarif(exec, sarifFile);
             if (sarif == null) {
                 blocking.add(Finding.atLine("external." + tool.id() + ".no-output", "(diff)", 1,
                         tool.id() + ": produced no SARIF output (exit " + exec.exitCode() + ")"));
@@ -221,19 +260,41 @@ public final class ExternalToolsGate implements QualityGate {
         return out;
     }
 
-    private static String readSarif(Tool tool, Execution exec, Path workspace) {
-        if ("stdout".equalsIgnoreCase(tool.sarif())) {
+    /** Reads SARIF from stdout when {@code sarifFile} is null, otherwise from the already-validated file. */
+    private static String readSarif(Execution exec, Path sarifFile) {
+        if (sarifFile == null) {
             return exec.stdout() == null || exec.stdout().isBlank() ? null : exec.stdout();
         }
-        Path p = Path.of(tool.sarif());
-        if (!p.isAbsolute() && workspace != null) {
-            p = workspace.resolve(p);
-        }
         try {
-            return Files.readString(p, StandardCharsets.UTF_8);
+            return Files.readString(sarifFile, StandardCharsets.UTF_8);
         } catch (IOException e) {
             return null;
         }
+    }
+
+    /**
+     * True when a changed path is safe to hand to a tool: relative (no leading slash or drive letter) and
+     * free of {@code ..} segments. Expects slashes already normalized by {@link #norm(String)}.
+     */
+    static boolean isSafeRelative(String path) {
+        if (path.isEmpty() || path.startsWith("/") || path.matches("^[A-Za-z]:.*")) {
+            return false;
+        }
+        return !List.of(path.split("/", -1)).contains("..");
+    }
+
+    /** A path that starts with {@code -} is prefixed with {@code ./} so the tool cannot parse it as an option. */
+    static String fileArgument(String path) {
+        return path.startsWith("-") ? "./" + path : path;
+    }
+
+    /** True when the target, or any directory between the workspace root and the target, is a symbolic link. */
+    static boolean linkedPath(Path root, Path target) {
+        boolean linked = false;
+        for (Path cur = target; cur != null && cur.startsWith(root) && !cur.equals(root); cur = cur.getParent()) {
+            linked |= Files.isSymbolicLink(cur);
+        }
+        return linked;
     }
 
     static String relativize(String uri, Path workspace) {

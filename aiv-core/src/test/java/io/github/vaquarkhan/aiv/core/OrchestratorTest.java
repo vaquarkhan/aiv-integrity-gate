@@ -278,7 +278,7 @@ class OrchestratorTest {
     }
 
     @Test
-    void skipHonoredWhenAuthorMatchesAllowlist() {
+    void skipRemainsDisabledEvenWhenAuthorAndSignatureAppearAllowlisted() {
         var diffProvider = new DiffProvider() {
             @Override
             public Diff getDiff(java.nio.file.Path workspace, String baseRef, String headRef) {
@@ -301,7 +301,8 @@ class OrchestratorTest {
         };
         var orch = new Orchestrator(diffProvider, configProvider, reportPublisher);
         assertEquals(0, orch.run(Paths.get("."), "main", "HEAD"));
-        assertTrue(results.get(0).getGateResults().stream().anyMatch(r -> "skip".equals(r.getGateId())));
+        assertTrue(results.get(0).getGateResults().stream().noneMatch(r -> "skip".equals(r.getGateId())));
+        assertTrue(results.get(0).getNotices().stream().anyMatch(n -> n.startsWith("[SKIP-IGNORED]")));
     }
 
     @Test
@@ -340,6 +341,94 @@ class OrchestratorTest {
         assertEquals(1, orch.run(Paths.get("."), "main", "HEAD"));
         assertEquals(List.of("pass", "fail"),
                 results.get(0).getGateResults().stream().map(GateResult::getGateId).toList());
+    }
+
+    @Test
+    void ruleActionsSplitHardAdvisoryAndOffFindings() {
+        GateResult raw = GateResult.fail("invariant", "mixed", List.of(
+                Finding.atLine("invariant.merge-conflict", "a.py", 1, "conflict"),
+                Finding.atLine("invariant.placeholder", "a.py", 2, "placeholder"),
+                Finding.atLine("invariant.ai-provenance", "a.py", 3, "provenance")));
+        AIVConfig cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("invariant", true, Map.of(
+                "rule_actions", Map.of(
+                        "invariant.merge-conflict", "fail",
+                        "invariant.placeholder", "warn",
+                        "invariant.ai-provenance", "off")), "warn")), Map.of());
+
+        List<GateResult> split = Orchestrator.applyRuleActions(raw, "invariant", cfg);
+        assertEquals(2, split.size());
+        assertTrue(split.get(0).blocksCi());
+        assertEquals("invariant.merge-conflict", split.get(0).getFindings().get(0).getRuleId());
+        assertFalse(split.get(1).blocksCi());
+        assertEquals("invariant.placeholder", split.get(1).getFindings().get(0).getRuleId());
+    }
+
+    @Test
+    void gateRatedAdvisoryRulesStayAdvisoryInsideABlockingResult() {
+        GateResult raw = new GateResult("change-policy", false, "mixed", true, List.of(
+                Finding.atLine("policy.untested", "(diff)", 1, "[FAIL] x"),
+                Finding.atLine("policy.size", "(diff)", 1, "[WARN] y"),
+                Finding.atLine("policy.churn", "(diff)", 1, "[WARN] z")), java.util.Set.of("policy.size", "policy.churn"));
+        AIVConfig cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("change-policy", true,
+                Map.of("rule_actions", Map.of("policy.churn", "fail")))), Map.of());
+        List<GateResult> split = Orchestrator.applyRuleActions(raw, "change-policy", cfg);
+        assertEquals(2, split.size());
+        assertEquals(List.of("policy.untested", "policy.churn"),
+                split.get(0).getFindings().stream().map(Finding::getRuleId).toList(), "project rule_actions still win");
+        assertEquals(List.of("policy.size"), split.get(1).getFindings().stream().map(Finding::getRuleId).toList());
+        assertFalse(split.get(1).blocksCi());
+    }
+
+    @Test
+    void ruleActionCannotPromoteIntrinsicallyAdvisoryGate() {
+        GateResult raw = GateResult.advisory("density", "signal", List.of(
+                Finding.atLine("density.entropy", "a.py", 1, "entropy")));
+        AIVConfig cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("density", true,
+                Map.of("rule_actions", Map.of("density.entropy", "fail")))), Map.of());
+        GateResult result = Orchestrator.applyRuleActions(raw, "density", cfg).get(0);
+        assertFalse(result.blocksCi());
+    }
+
+    @Test
+    void unsuppressibleRuleIgnoresInlineDirective(@TempDir Path dir) throws Exception {
+        String content = "# aiv-disable-next-line invariant.merge-conflict\n<<<<<<< HEAD\n";
+        ChangedFile file = new ChangedFile("a.py", ChangedFile.ChangeType.MODIFIED, content);
+        AIVConfig cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("invariant", true,
+                Map.of("unsuppressible_rules", List.of("invariant.merge-conflict")))), Map.of());
+        AIVContext ctx = new AIVContext(dir, new Diff("main", "HEAD", List.of(file), ""), cfg);
+        GateResult raw = GateResult.fail("invariant", "conflict", List.of(
+                Finding.atLine("invariant.merge-conflict", "a.py", 2, "conflict")));
+        assertFalse(Orchestrator.applySuppressions(raw, "invariant", cfg, ctx).isPassed());
+    }
+
+    @Test
+    void unsuppressibleAndSuppressibleFindingsAreFilteredIndependently() {
+        String content = "# aiv-disable-next-line invariant.placeholder\n# FIXME\n<<<<<<< HEAD\n";
+        ChangedFile file = new ChangedFile("a.py", ChangedFile.ChangeType.MODIFIED, content);
+        AIVConfig cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("invariant", true,
+                Map.of("unsuppressible_rules", List.of("invariant.merge-conflict")))), Map.of());
+        AIVContext ctx = new AIVContext(Path.of("."), new Diff("main", "HEAD", List.of(file), ""), cfg);
+        GateResult raw = GateResult.fail("invariant", "mixed", List.of(
+                Finding.atLine("invariant.merge-conflict", "a.py", 3, "conflict"),
+                Finding.atLine("invariant.placeholder", "a.py", 2, "placeholder")));
+        GateResult result = Orchestrator.applySuppressions(raw, "invariant", cfg, ctx);
+        assertTrue(result.blocksCi());
+        assertEquals(List.of("invariant.merge-conflict"),
+                result.getFindings().stream().map(Finding::getRuleId).toList());
+    }
+
+    @Test
+    void unsuppressibleAdvisoryRemainsAdvisoryWithSuppressiblePeer() {
+        ChangedFile file = new ChangedFile("a.py", ChangedFile.ChangeType.MODIFIED, "x = 1\n");
+        AIVConfig cfg = new AIVConfig(List.of(new AIVConfig.GateConfig("density", true,
+                Map.of("unsuppressible_rules", List.of("density.entropy")), "warn")), Map.of());
+        AIVContext ctx = new AIVContext(Path.of("."), new Diff("main", "HEAD", List.of(file), ""), cfg);
+        GateResult raw = GateResult.advisory("density", "mixed", List.of(
+                Finding.atLine("density.entropy", "a.py", 1, "entropy"),
+                Finding.atLine("density.other", "a.py", 1, "other")));
+        GateResult result = Orchestrator.applySuppressions(raw, "density", cfg, ctx);
+        assertFalse(result.blocksCi());
+        assertEquals(2, result.getFindings().size());
     }
 
     @Test
@@ -565,7 +654,8 @@ class OrchestratorTest {
                         ),
                         Map.of(
                                 "exclude_paths", List.of("**/generated/**"),
-                                "expected_changed_files", 1
+                                "expected_changed_files", 1,
+                                "expected_excluded_paths", "[src/generated/Foo.java]"
                         )
                 );
             }

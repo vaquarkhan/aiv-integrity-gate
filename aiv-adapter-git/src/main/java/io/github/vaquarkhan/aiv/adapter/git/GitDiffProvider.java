@@ -99,15 +99,20 @@ public final class GitDiffProvider implements DiffProvider {
         }
     }
 
-    private record GitCapture(int exitCode, String stdout, String stderr, boolean timedOut) {}
+    private record GitCapture(int exitCode, String stdout, boolean timedOut) {}
 
-    /** Appends git's own stderr so "no merge base" is not reported as a bare exit code. */
-    static String gitFailureDetail(String prefix, int exitCode, String stderr) {
-        String msg = prefix + exitCode;
-        if (stderr == null || stderr.isBlank()) {
-            return msg;
+    record RawChange(String status, String oldPath, String newPath,
+                             String oldMode, String newMode,
+                             String oldObjectId, String newObjectId) {
+        ChangedFile.ObjectType objectType() {
+            if ("160000".equals(newMode)) {
+                return ChangedFile.ObjectType.GITLINK;
+            }
+            if (newMode != null && !"000000".equals(newMode)) {
+                return ChangedFile.ObjectType.BLOB;
+            }
+            return ChangedFile.ObjectType.UNKNOWN;
         }
-        return msg + ": " + stderr.strip().replace('\r', ' ').replace('\n', ' ');
     }
 
     /**
@@ -117,29 +122,28 @@ public final class GitDiffProvider implements DiffProvider {
      */
     private static GitCapture runGitCapture(ProcessBuilder pb, long timeoutSeconds) throws Exception {
         Path tmp = Files.createTempFile("aiv-git-", ".out");
-        Path err = Files.createTempFile("aiv-git-", ".err");
         try {
             pb.redirectOutput(tmp.toFile());
-            pb.redirectError(err.toFile());
+            pb.redirectError(ProcessBuilder.Redirect.DISCARD);
             Process p = pb.start();
             if (gitProcessTimedOut(p, timeoutSeconds)) {
                 log.warn("Git subprocess timed out after {}s (command: {})", timeoutSeconds, pb.command());
                 for (int i = 0; i < 20; i++) {
                     LockSupport.parkNanos(50_000_000L);
                 }
-                return new GitCapture(-1, null, null, true);
+                return new GitCapture(-1, null, true);
             }
             int exit = p.exitValue();
-            String stderr = new String(Files.readAllBytes(err), StandardCharsets.UTF_8);
-            if (!Files.isRegularFile(tmp) || Files.size(tmp) > maxGitCaptureBytes()) {
-                return new GitCapture(exit, "", stderr, false);
+            long capturedBytes = Files.size(tmp);
+            if (capturedBytes > maxGitCaptureBytes()) {
+                throw new IllegalStateException("Git output exceeded capture limit of "
+                        + maxGitCaptureBytes() + " bytes");
             }
             // Lenient UTF-8: binary patches (e.g. PNG) must not abort the whole gate.
             byte[] bytes = Files.readAllBytes(tmp);
-            return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), stderr, false);
+            return new GitCapture(exit, new String(bytes, StandardCharsets.UTF_8), false);
         } finally {
             deleteQuietly(tmp);
-            deleteQuietly(err);
         }
     }
 
@@ -149,19 +153,43 @@ public final class GitDiffProvider implements DiffProvider {
     public Diff getDiff(Path workspace, String baseRef, String headRef) {
         validateRef(baseRef);
         validateRef(headRef);
+        String pinnedBase = resolveCommit(workspace, baseRef);
+        String pinnedHead = resolveCommit(workspace, headRef);
         List<String> warnings = new ArrayList<>();
-        String rawDiff = runGitDiffStrict(workspace, baseRef, headRef);
-        NumStatResult num = parseNumStatStrict(workspace, baseRef, headRef);
-        List<ChangedFile> files = parseChangedFiles(workspace, baseRef, headRef, warnings);
-        String author = parseAuthor(workspace, headRef);
-        boolean signed = parseHeadCommitSigned(workspace, headRef);
-        boolean skip = parseSkipDirectiveInLatestCommit(workspace, headRef);
-        return new Diff(baseRef, headRef, files, rawDiff, num.added(), num.deleted(), author, signed, skip,
+        String rawDiff = runGitDiffStrict(workspace, pinnedBase, pinnedHead);
+        NumStatResult num = parseNumStatStrict(workspace, pinnedBase, pinnedHead);
+        List<ChangedFile> files = parseChangedFiles(workspace, pinnedBase, pinnedHead, warnings);
+        String author = parseAuthor(workspace, pinnedHead);
+        boolean signed = parseHeadCommitSigned(workspace, pinnedHead);
+        boolean skip = parseSkipDirectiveInLatestCommit(workspace, pinnedHead);
+        return new Diff(pinnedBase, pinnedHead, files, rawDiff, num.added(), num.deleted(), author, signed, skip,
                 warnings, num.perFileNet());
     }
 
+    String resolveCommit(Path workspace, String ref) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "rev-parse", "--verify", ref);
+            pb.directory(workspace.toFile());
+            configureGitChild(pb);
+            GitCapture cap = runGitCapture(pb, gitTimeoutSeconds());
+            if (cap.timedOut() || cap.exitCode() != 0 || cap.stdout() == null || cap.stdout().isBlank()) {
+                throw new IllegalStateException("Cannot resolve git ref to commit: " + ref);
+            }
+            String oid = cap.stdout().trim();
+            if (!oid.matches("[0-9a-fA-F]{40,64}")) {
+                throw new IllegalStateException("Invalid resolved commit OID for ref: " + ref);
+            }
+            return oid;
+        } catch (IllegalStateException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new IllegalStateException("Cannot resolve git ref " + ref + ": " + e.getMessage(), e);
+        }
+    }
+
     private static void validateRef(String ref) {
-        if (ref == null || ref.isBlank() || !VALID_REF.matcher(ref).matches()) {
+        // VALID_REF allows '-' anywhere; a leading '-' would make git parse the positional ref as an option.
+        if (ref == null || ref.isBlank() || ref.startsWith("-") || !VALID_REF.matcher(ref).matches()) {
             throw new IllegalArgumentException("Invalid git ref: " + ref);
         }
     }
@@ -192,7 +220,7 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff --numstat timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException(gitFailureDetail("git diff --numstat failed with exit ", cap.exitCode(), cap.stderr()));
+                throw new IllegalStateException("git diff --numstat failed with exit " + cap.exitCode());
             }
             String text = cap.stdout() != null ? cap.stdout() : "";
             int added = 0;
@@ -298,9 +326,9 @@ public final class GitDiffProvider implements DiffProvider {
                 throw new IllegalStateException("git diff timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException(gitFailureDetail("git diff failed with exit ", cap.exitCode(), cap.stderr()));
+                throw new IllegalStateException("git diff failed with exit " + cap.exitCode());
             }
-            return cap.stdout() != null ? cap.stdout() : "";
+            return cap.stdout();
         } catch (IllegalStateException e) {
             throw e;
         } catch (Exception e) {
@@ -309,106 +337,141 @@ public final class GitDiffProvider implements DiffProvider {
     }
 
     List<ChangedFile> parseChangedFiles(Path workspace, String baseRef, String headRef, List<String> warnings) {
+        Map<String, RawChange> rawChanges = parseRawChanges(workspace, baseRef, headRef);
         List<ChangedFile> result = new ArrayList<>();
+        for (RawChange raw : rawChanges.values()) {
+            String path = raw.newPath() != null ? raw.newPath() : raw.oldPath();
+            ChangedFile.ChangeType type = changeType(raw.status());
+            int warningsBefore = warnings.size();
+            String content = type == ChangedFile.ChangeType.DELETED || raw.objectType() == ChangedFile.ObjectType.GITLINK
+                    ? "" : readFileContent(workspace, path, headRef, warnings);
+            ChangedFile.SourceCompleteness completeness = warnings.size() == warningsBefore
+                    ? ChangedFile.SourceCompleteness.COMPLETE : ChangedFile.SourceCompleteness.TRUNCATED;
+            result.add(new ChangedFile(path, type, content,
+                    raw.oldPath(), raw.oldMode(), raw.newMode(), raw.oldObjectId(), raw.newObjectId(),
+                    raw.objectType(), completeness,
+                    ChangedFile.Provenance.TRUSTED_GIT_ADAPTER));
+        }
+        return result;
+    }
+
+    static ChangedFile.ChangeType changeType(String status) {
+        return switch (status.charAt(0)) {
+            case 'A' -> ChangedFile.ChangeType.ADDED;
+            case 'D' -> ChangedFile.ChangeType.DELETED;
+            case 'R' -> ChangedFile.ChangeType.RENAMED;
+            case 'C' -> ChangedFile.ChangeType.COPIED;
+            default -> ChangedFile.ChangeType.MODIFIED;
+        };
+    }
+
+    /** Parse NUL-delimited raw diff records so paths, object IDs, and Git modes stay unambiguous. */
+    Map<String, RawChange> parseRawChanges(Path workspace, String baseRef, String headRef) {
         try {
-            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", "--name-status", baseRef + "..." + headRef);
+            ProcessBuilder pb = new ProcessBuilder(gitCommand(), "diff", "--raw", "--no-abbrev", "-z",
+                    baseRef + "..." + headRef);
             pb.directory(workspace.toFile());
             configureGitChild(pb);
-            long timeout = gitTimeoutSeconds();
-            GitCapture cap = runGitCapture(pb, timeout);
+            GitCapture cap = runGitCapture(pb, gitTimeoutSeconds());
             if (cap.timedOut()) {
-                throw new IllegalStateException("git diff --name-status timed out");
+                throw new IllegalStateException("git diff --raw timed out");
             }
             if (cap.exitCode() != 0) {
-                throw new IllegalStateException(gitFailureDetail("git diff --name-status failed with exit ", cap.exitCode(), cap.stderr()));
+                throw new IllegalStateException("git diff --raw failed with exit " + cap.exitCode());
             }
-            String nameStatus = cap.stdout() != null ? cap.stdout() : "";
-            for (String line : nameStatus.split("\n")) {
-                String[] parts = line.split("\t");
-                if (parts.length < 2) continue;
-
-                String status = parts[0].trim();
-                if (status.isEmpty()) continue;
-
-                String pathPart;
-                if (status.startsWith("R") || status.startsWith("C")) {
-                    if (parts.length < 3) continue;
-                    pathPart = parts[2];
-                } else {
-                    pathPart = parts[1];
-                }
-
-                if (status.startsWith("D")) {
-                    continue;
-                }
-
-                String path = sanitizePath(pathPart);
-                if (path == null) continue;
-
-                ChangedFile.ChangeType type = status.startsWith("A")
-                        ? ChangedFile.ChangeType.ADDED
-                        : ChangedFile.ChangeType.MODIFIED;
-
-                String content = readFileContent(workspace, path, headRef, warnings);
-                result.add(new ChangedFile(path, type, content));
-            }
+            return parseRawOutput(cap.stdout());
         } catch (IllegalStateException e) {
             throw e;
         } catch (Exception e) {
-            throw new IllegalStateException("git diff --name-status failed: " + e.getMessage(), e);
+            throw new IllegalStateException("git diff --raw failed: " + e.getMessage(), e);
         }
-        return result;
+    }
+
+    static Map<String, RawChange> parseRawOutput(String output) {
+        Map<String, RawChange> changes = new java.util.LinkedHashMap<>();
+        String[] tokens = (output == null ? "" : output)
+                .split(Pattern.quote(Character.toString(0)), -1);
+        int i = 0;
+        while (i < tokens.length && !tokens[i].isEmpty()) {
+            String header = tokens[i++];
+            if (!header.startsWith(":")) {
+                throw new IllegalStateException("Unexpected git diff --raw record");
+            }
+            String[] meta = header.substring(1).trim().split("\\s+");
+            if (meta.length != 5) {
+                throw new IllegalStateException("Invalid git diff --raw metadata");
+            }
+            if (i >= tokens.length) {
+                throw new IllegalStateException("Missing path in git diff --raw record");
+            }
+            String status = meta[4];
+            String firstPath = sanitizePath(tokens[i++]);
+            if (firstPath == null) {
+                throw new IllegalStateException("Unsafe path in git diff --raw record");
+            }
+            String oldPath = firstPath;
+            String newPath = firstPath;
+            if (status.startsWith("R") || status.startsWith("C")) {
+                if (i >= tokens.length) {
+                    throw new IllegalStateException("Missing destination path in git diff --raw record");
+                }
+                newPath = sanitizePath(tokens[i++]);
+                if (newPath == null) {
+                    throw new IllegalStateException("Unsafe destination path in git diff --raw record");
+                }
+            } else if (status.startsWith("A")) {
+                oldPath = null;
+            } else if (status.startsWith("D")) {
+                newPath = null;
+            }
+            String key = newPath != null ? newPath : oldPath;
+            if (key != null) {
+                changes.put(key, new RawChange(status, oldPath, newPath,
+                        meta[0], meta[1], meta[2], meta[3]));
+            }
+        }
+        return changes;
     }
 
     static String sanitizePath(String path) {
         if (path == null || path.isBlank()) return null;
         String normalized = path.replace("\\", "/").replaceAll("/+", "/");
-        if (normalized.contains("..") || normalized.startsWith("/")) return null;
+        boolean parentSegment = java.util.Arrays.stream(normalized.split("/"))
+                .anyMatch(".."::equals);
+        if (parentSegment || normalized.startsWith("/") || normalized.matches("^[A-Za-z]:/.*")) return null;
         return normalized;
     }
 
     String readFileContent(Path workspace, String relativePath, String headRef, List<String> warnings) {
-        if (relativePath == null || !relativePath.equals(sanitizePath(relativePath))) return "";
-        Path workspaceAbs = workspace.toAbsolutePath().normalize();
-        Path fullPath = workspace.resolve(relativePath).normalize().toAbsolutePath();
-        if (!fullPath.startsWith(workspaceAbs)) return "";
+        if (relativePath == null || !relativePath.equals(sanitizePath(relativePath))) {
+            throw new IllegalStateException("Unsafe Git path: " + relativePath);
+        }
         try {
-            if (Files.exists(fullPath)) {
-                long sz = Files.size(fullPath);
-                if (sz > MAX_FILE_SIZE_BYTES) {
-                    warnings.add("File skipped (exceeds " + MAX_FILE_SIZE_BYTES + " bytes): " + relativePath);
-                    return "";
-                }
-                byte[] bytes = Files.readAllBytes(fullPath);
-                if (looksBinary(bytes)) {
-                    warnings.add("File skipped (binary): " + relativePath);
-                    return "";
-                }
-                return new String(bytes, StandardCharsets.UTF_8);
-            }
             String gitPath = relativePath.replace("\\", "/");
             ProcessBuilder pb = new ProcessBuilder(gitCommand(), "show", headRef + ":" + gitPath);
             pb.directory(workspace.toFile());
             configureGitChild(pb);
-            long timeout = gitTimeoutSeconds();
-            GitCapture cap = runGitCapture(pb, timeout);
+            GitCapture cap = runGitCapture(pb, gitTimeoutSeconds());
             if (cap.timedOut()) {
-                warnings.add("git show timed out for: " + relativePath);
-                return "";
+                throw new IllegalStateException("git show timed out for: " + relativePath);
             }
-            if (cap.exitCode() != 0) {
-                log.debug("git show failed for {} exit {}", relativePath, cap.exitCode());
-                return "";
+            if (cap.exitCode() != 0 || cap.stdout() == null) {
+                throw new IllegalStateException("Cannot read file from pinned head: " + relativePath);
             }
-            String content = cap.stdout() != null ? cap.stdout() : "";
+            String content = cap.stdout();
             if (content.length() > MAX_FILE_SIZE_BYTES) {
-                warnings.add("File skipped (exceeds " + MAX_FILE_SIZE_BYTES + " bytes): " + relativePath);
+                throw new IllegalStateException("File exceeds " + MAX_FILE_SIZE_BYTES + " bytes: " + relativePath);
+            }
+            if (looksBinary(content.getBytes(StandardCharsets.UTF_8))) {
+                warnings.add("Binary file content not scanned: " + relativePath);
                 return "";
             }
             return content;
+        } catch (IllegalStateException e) {
+            throw e;
         } catch (Exception e) {
-            log.debug("Could not read file content: {}", relativePath, e);
-            return "";
+            throw new IllegalStateException("Cannot read file from pinned head " + relativePath + ": "
+                    + e.getMessage(), e);
         }
     }
 

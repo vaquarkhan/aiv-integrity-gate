@@ -1,0 +1,1784 @@
+[
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73059",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse"
+    ],
+    "secs": 3.2,
+    "notices": [],
+    "stderr_tail": "11:32:43.588 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:32:45.496 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-73059/.github/workflows/java-sdk-dependency-security.yml (expected '<document start>', but found '<block mapping start>'\n in 'reader', line 14, column 3:\n      dependency-submission:\n      ^\n)\n"
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73072",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 3.1,
+    "notices": [],
+    "stderr_tail": "11:32:48.598 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n"
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73106",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax",
+      "test-adequacy"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "test-adequacy.assertion-free-test"
+    ],
+    "secs": 3.8,
+    "notices": [],
+    "stderr_tail": "73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py (SyntaxError line 1: unexpected indent)\n11:32:55.497 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate test-adequacy failed: providers/abandoned/pr-73106/providers/cncf/kubernetes/tests/unit/cncf/kubernetes/utils/test_pod_manager.py:20 Test added without any assertion/expectation/verification: 'def test_monitor_pod_empty_logs(self):' (a test that cannot fail proves nothing; add an assertion or remove it)\n"
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73137",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse"
+    ],
+    "secs": 3.7,
+    "notices": [],
+    "stderr_tail": "11:32:57.922 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:33:00.329 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-73137/airflow-core/tests/unit/always/test_project_structure.py (SyntaxError line 1: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73155",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax",
+      "test-adequacy"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "test-adequacy.assertion-free-test"
+    ],
+    "secs": 7.0,
+    "notices": [],
+    "stderr_tail": "unexpected indent)\nDoes not parse: providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py (SyntaxError line 2: unexpected indent)\n11:33:09.237 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate test-adequacy failed: providers/abandoned/pr-73155/shared/configuration/tests/configuration/test_parser.py:47 Test added without any assertion/expectation/verification: 'def test_has_option(self):' (a test that cannot fail proves nothing; add an assertion or remove it)\n"
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73186",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 5.2,
+    "notices": [],
+    "stderr_tail": "11:33:12.716 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n"
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73201",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.5,
+    "notices": [],
+    "stderr_tail": " clienttestcase, test_client, client_test, client_spec, client.test, client.spec)\n11:33:22.032 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/abandoned/pr-73201/task-sdk/src/airflow/sdk/api/client.py:1 Production file changed with no test in this change and no conventional test found (expected one of: clienttest, clienttests, testclient, clientit, clientspec, clienttestcase, test_client, client_test, client_spec, client.test, client.spec)\n"
+  },
+  {
+    "branch": "abandoned/abandoned_clean/airflow-pr-73278",
+    "cohort": "abandoned/abandoned_clean",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 4.6,
+    "notices": [],
+    "stderr_tail": "11:33:24.278 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-70250",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "secs": 3.4,
+    "notices": [],
+    "stderr_tail": "11:33:30.331 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:33:32.633 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py (SyntaxError line 1: unexpected indent)\nDoes not parse: providers/abandoned/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py (SyntaxError line 8: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72844",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "test-adequacy"
+    ],
+    "soft": [],
+    "rules": [
+      "test-adequacy.assertion-free-test"
+    ],
+    "secs": 3.5,
+    "notices": [],
+    "stderr_tail": "11:33:34.426 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:33:36.807 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate test-adequacy failed: providers/abandoned/pr-72844/airflow-core/src/airflow/ui/src/layouts/Nav/Nav.test.tsx:55 Test added without any assertion/expectation/verification: 'it(\"links to the dashboard at /home\", () => {' (a test that cannot fail proves nothing; add an assertion or remove it)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72870",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "secs": 4.0,
+    "notices": [],
+    "stderr_tail": "n] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:33:42.415 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-72870/airflow-core/src/airflow/utils/db_cleanup.py (SyntaxError line 28: closing parenthesis ')' does not match opening parenthesis '[' on line 25)\nDoes not parse: providers/abandoned/pr-72870/airflow-core/tests/unit/utils/test_db_cleanup.py (SyntaxError line 13: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-72986",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse"
+    ],
+    "secs": 7.2,
+    "notices": [],
+    "stderr_tail": "11:33:45.599 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:33:51.003 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-72986/airflow-core/tests/unit/always/test_project_structure.py (SyntaxError line 1: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73056",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "syntax.unverified",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.9,
+    "notices": [],
+    "stderr_tail": "strator - Advisory (severity=warn): test-adequacy - providers/abandoned/pr-73056/shared/plugins_manager/src/airflow_shared/plugins_manager/plugins_manager.py:1 Production file changed with no test in this change and no conventional test found (expected one of: plugins_managertest, plugins_managertests, testplugins_manager, plugins_managerit, plugins_managerspec, plugins_managertestcase, test_plugins_manager, plugins_manager_test, plugins_manager_spec, plugins_manager.test, plugins_manager.spec)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73068",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse"
+    ],
+    "secs": 3.6,
+    "notices": [],
+    "stderr_tail": "11:33:56.924 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:33:59.575 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-73068/scripts/ci/prek/check_license.py (SyntaxError line 1: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73069",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse"
+    ],
+    "secs": 5.5,
+    "notices": [],
+    "stderr_tail": "11:34:03.425 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:34:07.022 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-73069/scripts/ci/prek/check_license.py (SyntaxError line 1: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73075",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "secs": 4.3,
+    "notices": [],
+    "stderr_tail": "11:34:10.473 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:34:12.921 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-73075/airflow-core/src/airflow/models/trigger.py (SyntaxError line 2: unexpected indent)\nDoes not parse: providers/abandoned/pr-73075/airflow-core/tests/unit/models/test_trigger.py (SyntaxError line 1: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73096",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax",
+      "test-adequacy"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse",
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.4,
+    "notices": [],
+    "stderr_tail": "ts/www/views/test_views_home.py:24 Test added without any assertion/expectation/verification: 'def test_home_status_filter_cookie(admin_client):' (a test that cannot fail proves nothing; add an assertion or remove it)\nproviders/abandoned/pr-73096/airflow/www/views.py:1 Production file changed with no test in this change and no conventional test found (expected one of: viewstest, viewstests, testviews, viewsit, viewsspec, viewstestcase, test_views, views_test, views_spec, views.test, views.spec)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73105",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax",
+      "test-adequacy"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse",
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.0,
+    "notices": [],
+    "stderr_tail": "hout any assertion/expectation/verification: 'def test_pause(self):' (a test that cannot fail proves nothing; add an assertion or remove it)\nproviders/abandoned/pr-73105/airflow-core/src/airflow/cli/cli_config.py:1 Production file changed with no test in this change and no conventional test found (expected one of: cli_configtest, cli_configtests, testcli_config, cli_configit, cli_configspec, cli_configtestcase, test_cli_config, cli_config_test, cli_config_spec, cli_config.test, cli_config.spec)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73124",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.unverified",
+      "syntax.parse",
+      "syntax.unverified",
+      "syntax.parse"
+    ],
+    "secs": 6.7,
+    "notices": [],
+    "stderr_tail": "ator - Gate syntax failed: Does not parse: providers/abandoned/pr-73124/.github/workflows/basic-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 9, column 7:\n          - run: cd airflow-core/src/airfl ... \n          ^\n)\nDoes not parse: providers/abandoned/pr-73124/.github/workflows/ui-e2e-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 8, column 7:\n          - name: \"Install UI dependencies\"\n          ^\n)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73176",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.9,
+    "notices": [],
+    "stderr_tail": "sts, testmain, mainit, mainspec, maintestcase, test_main, main_test, main_spec, main.test, main.spec)\n11:34:34.631 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/abandoned/pr-73176/airflow-core/src/airflow/ui/src/main.tsx:1 Production file changed with no test in this change and no conventional test found (expected one of: maintest, maintests, testmain, mainit, mainspec, maintestcase, test_main, main_test, main_spec, main.test, main.spec)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73192",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.0,
+    "notices": [],
+    "stderr_tail": "stcase, test_stats, stats_test, stats_spec, stats.test, stats.spec)\n11:34:38.739 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/abandoned/pr-73192/airflow-core/src/airflow/ui/src/pages/Dashboard/Stats/Stats.tsx:1 Production file changed with no test in this change and no conventional test found (expected one of: statstest, statstests, teststats, statsit, statsspec, statstestcase, test_stats, stats_test, stats_spec, stats.test, stats.spec)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73271",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax",
+      "test-adequacy"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.assertion-free-test",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.1,
+    "notices": [],
+    "stderr_tail": "me_ti, mock_supervisor_comms, tmp_path):' (a test that cannot fail proves nothing; add an assertion or remove it)\nproviders/abandoned/pr-73271/airflow-core/src/airflow/models/taskinstance.py:1 Production file changed with no test in this change and no conventional test found (expected one of: taskinstancetest, taskinstancetests, testtaskinstance, taskinstanceit, taskinstancespec, taskinstancetestcase, test_taskinstance, taskinstance_test, taskinstance_spec, taskinstance.test, taskinstance.spec)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73289",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse"
+    ],
+    "secs": 3.4,
+    "notices": [],
+    "stderr_tail": "11:34:45.918 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:34:48.265 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-73289/airflow-core/tests/unit/always/test_project_structure.py (SyntaxError line 1: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_disclosed/airflow-pr-73326",
+    "cohort": "abandoned/ai_disclosed",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "secs": 5.3,
+    "notices": [],
+    "stderr_tail": "11:34:50.737 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:34:54.924 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-73326/airflow-core/src/airflow/triggers/__init__.py (SyntaxError line 10: '{' was never closed)\nDoes not parse: providers/abandoned/pr-73326/airflow-core/tests/unit/triggers/test_callback.py (SyntaxError line 1: unexpected indent)\n"
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-72977",
+    "cohort": "abandoned/ai_signal_advisory",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "syntax.parse",
+      "test-adequacy.missing-tests",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 10.0,
+    "notices": [],
+    "stderr_tail": "xpected one of: structlogtest, structlogtests, teststructlog, structlogit, structlogspec, structlogtestcase, test_structlog, structlog_test, structlog_spec, structlog.test, structlog.spec)\nproviders/abandoned/pr-72977/task-sdk/src/airflow/sdk/api/client.py:1 Production file changed with no test in this change and no conventional test found (expected one of: clienttest, clienttests, testclient, clientit, clientspec, clienttestcase, test_client, client_test, client_spec, client.test, client.spec)\n"
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-72983",
+    "cohort": "abandoned/ai_signal_advisory",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified",
+      "syntax.unverified"
+    ],
+    "secs": 4.9,
+    "notices": [],
+    "stderr_tail": "11:35:09.604 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:12.602 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/abandoned/pr-72983/.github/actions/breeze/action.yml (expected '<document start>', but found '<block mapping start>'\n in 'reader', line 2, column 3:\n      uv-version:\n      ^\n)\n"
+  },
+  {
+    "branch": "abandoned/ai_signal_advisory/airflow-pr-73195",
+    "cohort": "abandoned/ai_signal_advisory",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [
+      "density"
+    ],
+    "rules": [
+      "density.entropy"
+    ],
+    "secs": 4.2,
+    "notices": [],
+    "stderr_tail": "airflow/ui/src/layouts/Details/Gantt/GanttTimeline.tsx (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md).\n11:35:18.206 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): density - Entropy 3.11 is below effective threshold 3.30 for providers/abandoned/pr-73195/airflow-core/src/airflow/ui/src/layouts/Details/Gantt/GanttTimeline.tsx (tune density gate entropy_threshold / entropy_min_bytes; see docs/DEVELOPER-CONFIGURATION.md).\n"
+  },
+  {
+    "branch": "aiv-integration-gate-v2",
+    "cohort": "other",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 3.8,
+    "notices": [],
+    "stderr_tail": "11:35:21.291 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n"
+  },
+  {
+    "branch": "case/ai-attribution",
+    "cohort": "case",
+    "expected": "FAIL",
+    "exit": 3,
+    "verdict": "ERR3",
+    "correct": false,
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 2.2,
+    "notices": [],
+    "stderr_tail": "11:35:25.960 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:26.894 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+  },
+  {
+    "branch": "case/ai-edit-artifact",
+    "cohort": "case",
+    "expected": "FAIL",
+    "exit": 3,
+    "verdict": "ERR3",
+    "correct": false,
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 2.1,
+    "notices": [],
+    "stderr_tail": "11:35:29.793 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:30.736 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+  },
+  {
+    "branch": "case/clean-control",
+    "cohort": "case",
+    "expected": "PASS",
+    "exit": 3,
+    "verdict": "ERR3",
+    "correct": false,
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 1.8,
+    "notices": [],
+    "stderr_tail": "11:35:33.608 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:34.417 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+  },
+  {
+    "branch": "case/llm-instruction-paste",
+    "cohort": "case",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design",
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "design.forbidden.no-ai-generated-markers",
+      "design.forbidden.no-ai-generated-markers",
+      "design.forbidden.no-ai-generated-markers",
+      "invariant.ai-edit-artifact",
+      "invariant.ai-provenance",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.4,
+    "notices": [],
+    "stderr_tail": "st_paste_dag, paste_dag_test, paste_dag_spec, paste_dag.test, paste_dag.spec)\n11:35:38.604 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/llm-paste/paste_dag.py:1 Production file changed with no test in this change and no conventional test found (expected one of: paste_dagtest, paste_dagtests, testpaste_dag, paste_dagit, paste_dagspec, paste_dagtestcase, test_paste_dag, paste_dag_test, paste_dag_spec, paste_dag.test, paste_dag.spec)\n"
+  },
+  {
+    "branch": "case/merge-conflict",
+    "cohort": "case",
+    "expected": "FAIL",
+    "exit": 3,
+    "verdict": "ERR3",
+    "correct": false,
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 3.4,
+    "notices": [],
+    "stderr_tail": "11:35:41.947 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:35:43.642 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+  },
+  {
+    "branch": "labeled/mixed-cohesion-01",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "secs": 3.7,
+    "notices": [],
+    "stderr_tail": " i.g.vaquarkhan.aiv.core.Orchestrator - Gate cohesion failed: PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-01, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n11:35:48.564 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): cohesion - PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-01, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n"
+  },
+  {
+    "branch": "labeled/mixed-cohesion-02",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "secs": 3.0,
+    "notices": [],
+    "stderr_tail": " i.g.vaquarkhan.aiv.core.Orchestrator - Gate cohesion failed: PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-02, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n11:35:52.552 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): cohesion - PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-02, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n"
+  },
+  {
+    "branch": "labeled/mixed-cohesion-03",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "secs": 4.0,
+    "notices": [],
+    "stderr_tail": " i.g.vaquarkhan.aiv.core.Orchestrator - Gate cohesion failed: PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-03, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n11:35:57.100 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): cohesion - PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-03, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n"
+  },
+  {
+    "branch": "labeled/mixed-cohesion-04",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "secs": 5.3,
+    "notices": [],
+    "stderr_tail": " i.g.vaquarkhan.aiv.core.Orchestrator - Gate cohesion failed: PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-04, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n11:36:04.073 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): cohesion - PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-04, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n"
+  },
+  {
+    "branch": "labeled/mixed-cohesion-05",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "cohesion"
+    ],
+    "rules": [
+      "cohesion.areas"
+    ],
+    "secs": 5.8,
+    "notices": [],
+    "stderr_tail": " i.g.vaquarkhan.aiv.core.Orchestrator - Gate cohesion failed: PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-05, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n11:36:11.127 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): cohesion - PR spans 5 path areas (max_areas=3, area_depth=2): .github/workflows, provenance/mixed-cohesion-05, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns\n"
+  },
+  {
+    "branch": "labeled/mixed-hard-01",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.9,
+    "notices": [],
+    "stderr_tail": "test, mixed-hard-01.spec)\n11:36:17.635 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-hard-01/mixed-hard-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-01test, mixed-hard-01tests, testmixed-hard-01, mixed-hard-01it, mixed-hard-01spec, mixed-hard-01testcase, test_mixed-hard-01, mixed-hard-01_test, mixed-hard-01_spec, mixed-hard-01.test, mixed-hard-01.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-hard-02",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.5,
+    "notices": [],
+    "stderr_tail": "test, mixed-hard-02.spec)\n11:36:22.631 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-hard-02/mixed-hard-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-02test, mixed-hard-02tests, testmixed-hard-02, mixed-hard-02it, mixed-hard-02spec, mixed-hard-02testcase, test_mixed-hard-02, mixed-hard-02_test, mixed-hard-02_spec, mixed-hard-02.test, mixed-hard-02.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-hard-03",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.7,
+    "notices": [],
+    "stderr_tail": "test, mixed-hard-03.spec)\n11:36:28.315 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-hard-03/mixed-hard-03.py:1 Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-03test, mixed-hard-03tests, testmixed-hard-03, mixed-hard-03it, mixed-hard-03spec, mixed-hard-03testcase, test_mixed-hard-03, mixed-hard-03_test, mixed-hard-03_spec, mixed-hard-03.test, mixed-hard-03.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-hard-04",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.9,
+    "notices": [],
+    "stderr_tail": "test, mixed-hard-04.spec)\n11:36:32.633 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-hard-04/mixed-hard-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-04test, mixed-hard-04tests, testmixed-hard-04, mixed-hard-04it, mixed-hard-04spec, mixed-hard-04testcase, test_mixed-hard-04, mixed-hard-04_test, mixed-hard-04_spec, mixed-hard-04.test, mixed-hard-04.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-hard-05",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.4,
+    "notices": [],
+    "stderr_tail": "test, mixed-hard-05.spec)\n11:36:36.853 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-hard-05/mixed-hard-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: mixed-hard-05test, mixed-hard-05tests, testmixed-hard-05, mixed-hard-05it, mixed-hard-05spec, mixed-hard-05testcase, test_mixed-hard-05, mixed-hard-05_test, mixed-hard-05_spec, mixed-hard-05.test, mixed-hard-05.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-soft-01",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.1,
+    "notices": [],
+    "stderr_tail": "ft-01spec, soft-01testcase, test_soft-01, soft-01_test, soft-01_spec, soft-01.test, soft-01.spec)\n11:36:42.489 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-soft-01/soft-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: soft-01test, soft-01tests, testsoft-01, soft-01it, soft-01spec, soft-01testcase, test_soft-01, soft-01_test, soft-01_spec, soft-01.test, soft-01.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-soft-02",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.6,
+    "notices": [],
+    "stderr_tail": "ft-02spec, soft-02testcase, test_soft-02, soft-02_test, soft-02_spec, soft-02.test, soft-02.spec)\n11:36:45.832 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-soft-02/soft-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: soft-02test, soft-02tests, testsoft-02, soft-02it, soft-02spec, soft-02testcase, test_soft-02, soft-02_test, soft-02_spec, soft-02.test, soft-02.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-soft-03",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.8,
+    "notices": [],
+    "stderr_tail": "ft-03spec, soft-03testcase, test_soft-03, soft-03_test, soft-03_spec, soft-03.test, soft-03.spec)\n11:36:49.407 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-soft-03/soft-03.py:1 Production file changed with no test in this change and no conventional test found (expected one of: soft-03test, soft-03tests, testsoft-03, soft-03it, soft-03spec, soft-03testcase, test_soft-03, soft-03_test, soft-03_spec, soft-03.test, soft-03.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-soft-04",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.7,
+    "notices": [],
+    "stderr_tail": "ft-04spec, soft-04testcase, test_soft-04, soft-04_test, soft-04_spec, soft-04.test, soft-04.spec)\n11:36:54.887 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-soft-04/soft-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: soft-04test, soft-04tests, testsoft-04, soft-04it, soft-04spec, soft-04testcase, test_soft-04, soft-04_test, soft-04_spec, soft-04.test, soft-04.spec)\n"
+  },
+  {
+    "branch": "labeled/mixed-soft-05",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.5,
+    "notices": [],
+    "stderr_tail": "ft-05spec, soft-05testcase, test_soft-05, soft-05_test, soft-05_spec, soft-05.test, soft-05.spec)\n11:37:02.317 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/mixed-soft-05/soft-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: soft-05test, soft-05tests, testsoft-05, soft-05it, soft-05spec, soft-05testcase, test_soft-05, soft-05_test, soft-05_spec, soft-05.test, soft-05.spec)\n"
+  },
+  {
+    "branch": "labeled/proper-01",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.6,
+    "notices": [],
+    "stderr_tail": "per-01_sftp.spec)\n11:37:09.514 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/proper-01/proper-01_sftp.py:1 Production file changed with no test in this change and no conventional test found (expected one of: proper-01_sftptest, proper-01_sftptests, testproper-01_sftp, proper-01_sftpit, proper-01_sftpspec, proper-01_sftptestcase, test_proper-01_sftp, proper-01_sftp_test, proper-01_sftp_spec, proper-01_sftp.test, proper-01_sftp.spec)\n"
+  },
+  {
+    "branch": "labeled/proper-02",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.2,
+    "notices": [],
+    "stderr_tail": "per-02_http.spec)\n11:37:13.864 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/proper-02/proper-02_http.py:1 Production file changed with no test in this change and no conventional test found (expected one of: proper-02_httptest, proper-02_httptests, testproper-02_http, proper-02_httpit, proper-02_httpspec, proper-02_httptestcase, test_proper-02_http, proper-02_http_test, proper-02_http_spec, proper-02_http.test, proper-02_http.spec)\n"
+  },
+  {
+    "branch": "labeled/proper-03",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.5,
+    "notices": [],
+    "stderr_tail": "per-03_jdbc.spec)\n11:37:19.265 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/proper-03/proper-03_jdbc.py:1 Production file changed with no test in this change and no conventional test found (expected one of: proper-03_jdbctest, proper-03_jdbctests, testproper-03_jdbc, proper-03_jdbcit, proper-03_jdbcspec, proper-03_jdbctestcase, test_proper-03_jdbc, proper-03_jdbc_test, proper-03_jdbc_spec, proper-03_jdbc.test, proper-03_jdbc.spec)\n"
+  },
+  {
+    "branch": "labeled/proper-04",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.5,
+    "notices": [],
+    "stderr_tail": "spec)\n11:37:25.036 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/proper-04/proper-04_kafka.py:1 Production file changed with no test in this change and no conventional test found (expected one of: proper-04_kafkatest, proper-04_kafkatests, testproper-04_kafka, proper-04_kafkait, proper-04_kafkaspec, proper-04_kafkatestcase, test_proper-04_kafka, proper-04_kafka_test, proper-04_kafka_spec, proper-04_kafka.test, proper-04_kafka.spec)\n"
+  },
+  {
+    "branch": "labeled/proper-05",
+    "cohort": "labeled",
+    "expected": "PASS",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": true,
+    "hard": [],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 9.9,
+    "notices": [],
+    "stderr_tail": "spec)\n11:37:36.551 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/proper-05/proper-05_redis.py:1 Production file changed with no test in this change and no conventional test found (expected one of: proper-05_redistest, proper-05_redistests, testproper-05_redis, proper-05_redisit, proper-05_redisspec, proper-05_redistestcase, test_proper-05_redis, proper-05_redis_test, proper-05_redis_spec, proper-05_redis.test, proper-05_redis.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-attr-01",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.0,
+    "notices": [],
+    "stderr_tail": "ttr-01spec, attr-01testcase, test_attr-01, attr-01_test, attr-01_spec, attr-01.test, attr-01.spec)\n11:37:43.741 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-attr-01/attr-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: attr-01test, attr-01tests, testattr-01, attr-01it, attr-01spec, attr-01testcase, test_attr-01, attr-01_test, attr-01_spec, attr-01.test, attr-01.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-attr-02",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.1,
+    "notices": [],
+    "stderr_tail": "ttr-02spec, attr-02testcase, test_attr-02, attr-02_test, attr-02_spec, attr-02.test, attr-02.spec)\n11:37:48.942 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-attr-02/attr-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: attr-02test, attr-02tests, testattr-02, attr-02it, attr-02spec, attr-02testcase, test_attr-02, attr-02_test, attr-02_spec, attr-02.test, attr-02.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-attr-03",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design",
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "invariant.ai-provenance",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.7,
+    "notices": [],
+    "stderr_tail": "ttr-03spec, attr-03testcase, test_attr-03, attr-03_test, attr-03_spec, attr-03.test, attr-03.spec)\n11:37:55.615 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-attr-03/attr-03.py:1 Production file changed with no test in this change and no conventional test found (expected one of: attr-03test, attr-03tests, testattr-03, attr-03it, attr-03spec, attr-03testcase, test_attr-03, attr-03_test, attr-03_spec, attr-03.test, attr-03.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-attr-04",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.1,
+    "notices": [],
+    "stderr_tail": "ttr-04spec, attr-04testcase, test_attr-04, attr-04_test, attr-04_spec, attr-04.test, attr-04.spec)\n11:38:00.782 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-attr-04/attr-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: attr-04test, attr-04tests, testattr-04, attr-04it, attr-04spec, attr-04testcase, test_attr-04, attr-04_test, attr-04_spec, attr-04.test, attr-04.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-attr-05",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.6,
+    "notices": [],
+    "stderr_tail": "ttr-05spec, attr-05testcase, test_attr-05, attr-05_test, attr-05_spec, attr-05.test, attr-05.spec)\n11:38:07.815 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-attr-05/attr-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: attr-05test, attr-05tests, testattr-05, attr-05it, attr-05spec, attr-05testcase, test_attr-05, attr-05_test, attr-05_spec, attr-05.test, attr-05.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-attr-06",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.6,
+    "notices": [],
+    "stderr_tail": "ttr-06spec, attr-06testcase, test_attr-06, attr-06_test, attr-06_spec, attr-06.test, attr-06.spec)\n11:38:14.002 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-attr-06/attr-06.py:1 Production file changed with no test in this change and no conventional test found (expected one of: attr-06test, attr-06tests, testattr-06, attr-06it, attr-06spec, attr-06testcase, test_attr-06, attr-06_test, attr-06_spec, attr-06.test, attr-06.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-conflict-01",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.7,
+    "notices": [],
+    "stderr_tail": "t-01_spec, conflict-01.test, conflict-01.spec)\n11:38:18.004 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-conflict-01/conflict-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict-01test, conflict-01tests, testconflict-01, conflict-01it, conflict-01spec, conflict-01testcase, test_conflict-01, conflict-01_test, conflict-01_spec, conflict-01.test, conflict-01.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-conflict-02",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.3,
+    "notices": [],
+    "stderr_tail": "t-02_spec, conflict-02.test, conflict-02.spec)\n11:38:22.714 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-conflict-02/conflict-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict-02test, conflict-02tests, testconflict-02, conflict-02it, conflict-02spec, conflict-02testcase, test_conflict-02, conflict-02_test, conflict-02_spec, conflict-02.test, conflict-02.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-conflict-03",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.2,
+    "notices": [],
+    "stderr_tail": "t-03_spec, conflict-03.test, conflict-03.spec)\n11:38:26.758 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-conflict-03/conflict-03.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict-03test, conflict-03tests, testconflict-03, conflict-03it, conflict-03spec, conflict-03testcase, test_conflict-03, conflict-03_test, conflict-03_spec, conflict-03.test, conflict-03.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-conflict-04",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.8,
+    "notices": [],
+    "stderr_tail": "t-04_spec, conflict-04.test, conflict-04.spec)\n11:38:33.320 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-conflict-04/conflict-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict-04test, conflict-04tests, testconflict-04, conflict-04it, conflict-04spec, conflict-04testcase, test_conflict-04, conflict-04_test, conflict-04_spec, conflict-04.test, conflict-04.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-conflict-05",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.2,
+    "notices": [],
+    "stderr_tail": "t-05_spec, conflict-05.test, conflict-05.spec)\n11:38:39.915 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-conflict-05/conflict-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict-05test, conflict-05tests, testconflict-05, conflict-05it, conflict-05spec, conflict-05testcase, test_conflict-05, conflict-05_test, conflict-05_spec, conflict-05.test, conflict-05.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-conflict-06",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant",
+      "syntax"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.merge-conflict",
+      "syntax.parse",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.7,
+    "notices": [],
+    "stderr_tail": "t-06_spec, conflict-06.test, conflict-06.spec)\n11:38:46.200 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-conflict-06/conflict-06.py:1 Production file changed with no test in this change and no conventional test found (expected one of: conflict-06test, conflict-06tests, testconflict-06, conflict-06it, conflict-06spec, conflict-06testcase, test_conflict-06, conflict-06_test, conflict-06_spec, conflict-06.test, conflict-06.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-01",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.5,
+    "notices": [],
+    "stderr_tail": "dit-01spec, edit-01testcase, test_edit-01, edit-01_test, edit-01_spec, edit-01.test, edit-01.spec)\n11:38:53.966 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-01/edit-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-01test, edit-01tests, testedit-01, edit-01it, edit-01spec, edit-01testcase, test_edit-01, edit-01_test, edit-01_spec, edit-01.test, edit-01.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-02",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.5,
+    "notices": [],
+    "stderr_tail": "dit-02spec, edit-02testcase, test_edit-02, edit-02_test, edit-02_spec, edit-02.test, edit-02.spec)\n11:38:59.644 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-02/edit-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-02test, edit-02tests, testedit-02, edit-02it, edit-02spec, edit-02testcase, test_edit-02, edit-02_test, edit-02_spec, edit-02.test, edit-02.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-03",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.9,
+    "notices": [],
+    "stderr_tail": "dit-03spec, edit-03testcase, test_edit-03, edit-03_test, edit-03_spec, edit-03.test, edit-03.spec)\n11:39:05.464 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-03/edit-03.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-03test, edit-03tests, testedit-03, edit-03it, edit-03spec, edit-03testcase, test_edit-03, edit-03_test, edit-03_spec, edit-03.test, edit-03.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-04",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.9,
+    "notices": [],
+    "stderr_tail": "dit-04spec, edit-04testcase, test_edit-04, edit-04_test, edit-04_spec, edit-04.test, edit-04.spec)\n11:39:11.919 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-04/edit-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-04test, edit-04tests, testedit-04, edit-04it, edit-04spec, edit-04testcase, test_edit-04, edit-04_test, edit-04_spec, edit-04.test, edit-04.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-05",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.9,
+    "notices": [],
+    "stderr_tail": "dit-05spec, edit-05testcase, test_edit-05, edit-05_test, edit-05_spec, edit-05.test, edit-05.spec)\n11:39:15.795 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-05/edit-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-05test, edit-05tests, testedit-05, edit-05it, edit-05spec, edit-05testcase, test_edit-05, edit-05_test, edit-05_spec, edit-05.test, edit-05.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-06",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.2,
+    "notices": [],
+    "stderr_tail": "dit-06spec, edit-06testcase, test_edit-06, edit-06_test, edit-06_spec, edit-06.test, edit-06.spec)\n11:39:19.908 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-06/edit-06.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-06test, edit-06tests, testedit-06, edit-06it, edit-06spec, edit-06testcase, test_edit-06, edit-06_test, edit-06_spec, edit-06.test, edit-06.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-07",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.1,
+    "notices": [],
+    "stderr_tail": "dit-07spec, edit-07testcase, test_edit-07, edit-07_test, edit-07_spec, edit-07.test, edit-07.spec)\n11:39:24.753 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-07/edit-07.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-07test, edit-07tests, testedit-07, edit-07it, edit-07spec, edit-07testcase, test_edit-07, edit-07_test, edit-07_spec, edit-07.test, edit-07.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-edit-08",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.2,
+    "notices": [],
+    "stderr_tail": "dit-08spec, edit-08testcase, test_edit-08, edit-08_test, edit-08_spec, edit-08.test, edit-08.spec)\n11:39:31.739 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-edit-08/edit-08.py:1 Production file changed with no test in this change and no conventional test found (expected one of: edit-08test, edit-08tests, testedit-08, edit-08it, edit-08spec, edit-08testcase, test_edit-08, edit-08_test, edit-08_spec, edit-08.test, edit-08.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-ph-01",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.placeholder",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.4,
+    "notices": [],
+    "stderr_tail": "eholder-01.spec)\n11:39:36.748 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-ph-01/placeholder-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: placeholder-01test, placeholder-01tests, testplaceholder-01, placeholder-01it, placeholder-01spec, placeholder-01testcase, test_placeholder-01, placeholder-01_test, placeholder-01_spec, placeholder-01.test, placeholder-01.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-ph-02",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.placeholder",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.8,
+    "notices": [],
+    "stderr_tail": "eholder-02.spec)\n11:39:41.257 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-ph-02/placeholder-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: placeholder-02test, placeholder-02tests, testplaceholder-02, placeholder-02it, placeholder-02spec, placeholder-02testcase, test_placeholder-02, placeholder-02_test, placeholder-02_spec, placeholder-02.test, placeholder-02.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-ph-03",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design",
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 2.5,
+    "notices": [],
+    "stderr_tail": "eholder-03.spec)\n11:39:44.637 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-ph-03/placeholder-03.py:1 Production file changed with no test in this change and no conventional test found (expected one of: placeholder-03test, placeholder-03tests, testplaceholder-03, placeholder-03it, placeholder-03spec, placeholder-03testcase, test_placeholder-03, placeholder-03_test, placeholder-03_spec, placeholder-03.test, placeholder-03.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-ph-04",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "design",
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "design.forbidden.no-ai-generated-markers",
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.3,
+    "notices": [],
+    "stderr_tail": "eholder-04.spec)\n11:39:49.998 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-ph-04/placeholder-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: placeholder-04test, placeholder-04tests, testplaceholder-04, placeholder-04it, placeholder-04spec, placeholder-04testcase, test_placeholder-04, placeholder-04_test, placeholder-04_spec, placeholder-04.test, placeholder-04.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-ph-05",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.placeholder",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.2,
+    "notices": [],
+    "stderr_tail": "eholder-05.spec)\n11:39:55.280 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-ph-05/placeholder-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: placeholder-05test, placeholder-05tests, testplaceholder-05, placeholder-05it, placeholder-05spec, placeholder-05testcase, test_placeholder-05, placeholder-05_test, placeholder-05_spec, placeholder-05.test, placeholder-05.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-search-01",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.2,
+    "notices": [],
+    "stderr_tail": "arch-01, search-01_test, search-01_spec, search-01.test, search-01.spec)\n11:40:00.535 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-search-01/search-01.py:1 Production file changed with no test in this change and no conventional test found (expected one of: search-01test, search-01tests, testsearch-01, search-01it, search-01spec, search-01testcase, test_search-01, search-01_test, search-01_spec, search-01.test, search-01.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-search-02",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.5,
+    "notices": [],
+    "stderr_tail": "arch-02, search-02_test, search-02_spec, search-02.test, search-02.spec)\n11:40:09.047 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-search-02/search-02.py:1 Production file changed with no test in this change and no conventional test found (expected one of: search-02test, search-02tests, testsearch-02, search-02it, search-02spec, search-02testcase, test_search-02, search-02_test, search-02_spec, search-02.test, search-02.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-search-03",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 4.7,
+    "notices": [],
+    "stderr_tail": "arch-03, search-03_test, search-03_spec, search-03.test, search-03.spec)\n11:40:15.560 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-search-03/search-03.py:1 Production file changed with no test in this change and no conventional test found (expected one of: search-03test, search-03tests, testsearch-03, search-03it, search-03spec, search-03testcase, test_search-03, search-03_test, search-03_spec, search-03.test, search-03.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-search-04",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 5.6,
+    "notices": [],
+    "stderr_tail": "arch-04, search-04_test, search-04_spec, search-04.test, search-04.spec)\n11:40:22.771 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-search-04/search-04.py:1 Production file changed with no test in this change and no conventional test found (expected one of: search-04test, search-04tests, testsearch-04, search-04it, search-04spec, search-04testcase, test_search-04, search-04_test, search-04_spec, search-04.test, search-04.spec)\n"
+  },
+  {
+    "branch": "labeled/slop-search-05",
+    "cohort": "labeled",
+    "expected": "FAIL",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": true,
+    "hard": [
+      "invariant"
+    ],
+    "soft": [
+      "test-adequacy"
+    ],
+    "rules": [
+      "invariant.ai-edit-artifact",
+      "test-adequacy.missing-tests"
+    ],
+    "secs": 3.0,
+    "notices": [],
+    "stderr_tail": "arch-05, search-05_test, search-05_spec, search-05.test, search-05.spec)\n11:40:27.458 [main] WARN  i.g.vaquarkhan.aiv.core.Orchestrator - Advisory (severity=warn): test-adequacy - providers/bench/slop-search-05/search-05.py:1 Production file changed with no test in this change and no conventional test found (expected one of: search-05test, search-05tests, testsearch-05, search-05it, search-05spec, search-05testcase, test_search-05, search-05_test, search-05_spec, search-05.test, search-05.spec)\n"
+  },
+  {
+    "branch": "snapshot/airflow-pr-70053",
+    "cohort": "snapshot",
+    "expected": "n/a",
+    "exit": 0,
+    "verdict": "PASS",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 2.6,
+    "notices": [],
+    "stderr_tail": "11:40:30.429 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n"
+  },
+  {
+    "branch": "snapshot/airflow-pr-70250",
+    "cohort": "snapshot",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "secs": 3.1,
+    "notices": [],
+    "stderr_tail": "11:40:34.143 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:36.106 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/snapshot/pr-70250/airflow-ctl/src/airflowctl/ctl/cli_config.py (SyntaxError line 1: unexpected indent)\nDoes not parse: providers/snapshot/pr-70250/airflow-ctl/tests/airflow_ctl/ctl/test_cli_config.py (SyntaxError line 8: unexpected indent)\n"
+  },
+  {
+    "branch": "snapshot/airflow-pr-73124",
+    "cohort": "snapshot",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.unverified",
+      "syntax.parse",
+      "syntax.unverified",
+      "syntax.parse"
+    ],
+    "secs": 3.9,
+    "notices": [],
+    "stderr_tail": "trator - Gate syntax failed: Does not parse: providers/snapshot/pr-73124/.github/workflows/basic-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 9, column 7:\n          - run: cd airflow-core/src/airfl ... \n          ^\n)\nDoes not parse: providers/snapshot/pr-73124/.github/workflows/ui-e2e-tests.yml (expected '<document start>', but found '<block sequence start>'\n in 'reader', line 8, column 7:\n          - name: \"Install UI dependencies\"\n          ^\n)\n"
+  },
+  {
+    "branch": "snapshot/airflow-pr-73271",
+    "cohort": "snapshot",
+    "expected": "n/a",
+    "exit": 3,
+    "verdict": "ERR3",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 1.5,
+    "notices": [],
+    "stderr_tail": "11:40:42.998 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:43.668 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+  },
+  {
+    "branch": "snapshot/airflow-pr-73278",
+    "cohort": "snapshot",
+    "expected": "n/a",
+    "exit": 3,
+    "verdict": "ERR3",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 3.2,
+    "notices": [],
+    "stderr_tail": "11:40:46.049 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:47.747 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+  },
+  {
+    "branch": "snapshot/airflow-pr-73289",
+    "cohort": "snapshot",
+    "expected": "n/a",
+    "exit": 3,
+    "verdict": "ERR3",
+    "correct": "",
+    "hard": [],
+    "soft": [],
+    "rules": [],
+    "secs": 4.0,
+    "notices": [],
+    "stderr_tail": "11:40:52.043 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:53.770 [main] ERROR io.github.vaquarkhan.aiv.cli.Main - AIV git error: git diff failed with exit 128: fatal: main...HEAD: no merge base\n"
+  },
+  {
+    "branch": "snapshot/airflow-pr-73326",
+    "cohort": "snapshot",
+    "expected": "n/a",
+    "exit": 1,
+    "verdict": "FAIL",
+    "correct": "",
+    "hard": [
+      "syntax"
+    ],
+    "soft": [],
+    "rules": [
+      "syntax.parse",
+      "syntax.parse"
+    ],
+    "secs": 3.2,
+    "notices": [],
+    "stderr_tail": "11:40:56.484 [main] INFO  i.g.v.a.c.c.GitRefConfigProvider - Using .aiv/config.yaml pinned to base ref 'main'\n11:40:58.485 [main] INFO  i.g.vaquarkhan.aiv.core.Orchestrator - Gate syntax failed: Does not parse: providers/snapshot/pr-73326/airflow-core/src/airflow/triggers/__init__.py (SyntaxError line 10: '{' was never closed)\nDoes not parse: providers/snapshot/pr-73326/airflow-core/tests/unit/triggers/test_callback.py (SyntaxError line 1: unexpected indent)\n"
+  }
+]

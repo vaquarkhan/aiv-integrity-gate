@@ -62,7 +62,7 @@ class EvidenceCommandsTest {
     @Test
     void recordWritesChainedRecordWithGitFacts(@TempDir Path repo) throws Exception {
         git(repo, "init", "-q");
-        git(repo, "-c", "user.name=Viquar Khan", "-c", "user.email=vaquar.khan@gmail.com", "commit", "-q", "--allow-empty", "-m", "init");
+        git(repo, "-c", "user.name=Test Author", "-c", "user.email=author@example.invalid", "commit", "-q", "--allow-empty", "-m", "init");
         EvidenceCommands.CLOCK = Clock.fixed(Instant.parse("2026-10-17T09:00:00Z"), ZoneOffset.UTC);
         Path log = repo.resolve("audit/aiv.log");
         AIVResult r = new AIVResult(false, List.of(GateResult.fail("invariant", "m",
@@ -78,7 +78,7 @@ class EvidenceCommandsTest {
         assertEquals(40, JsonLite.str(JsonLite.get(rec, "head_sha")).length());
         assertEquals(pinned, JsonLite.get(rec, "base_sha"));
         assertEquals(pinned, JsonLite.get(rec, "policy_commit"));
-        assertEquals("vaquar.khan@gmail.com", JsonLite.get(rec, "author"));
+        assertEquals("author@example.invalid", JsonLite.get(rec, "author"));
         assertEquals("base-ref", JsonLite.get(rec, "config_source"));
         assertEquals(1L, JsonLite.get(rec, "exit_code"));
         assertEquals(Boolean.TRUE, JsonLite.get(rec, "overrides", "skip_ignored"));

@@ -1,0 +1,198 @@
+{
+  "schema_version": 2,
+  "aiv_cli_version": "2.0",
+  "doctor_mode": false,
+  "passed": false,
+  "notices": [],
+  "gates": [
+    {
+      "id": "density",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "design",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "cohesion",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "invariant",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "syntax",
+      "passed": false,
+      "blocks_ci": true,
+      "message": "Does not parse: providers/abandoned/pr-72983/.github/actions/breeze/action.yml (expected '<document start>', but found '<block mapping start>'\n in 'reader', line 2, column 3:\n      uv-version:\n      ^\n)",
+      "findings": [
+        {
+          "rule_id": "syntax.parse",
+          "file": "providers/abandoned/pr-72983/.github/actions/breeze/action.yml",
+          "start_line": 2,
+          "message": "Does not parse: providers/abandoned/pr-72983/.github/actions/breeze/action.yml (expected '<document start>', but found '<block mapping start>'\n in 'reader', line 2, column 3:\n      uv-version:\n      ^\n)"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/actions/install-prek/action.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/actions/install-prek/action.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/actions/post_tests_failure/action.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/actions/post_tests_failure/action.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/actions/post_tests_success/action.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/actions/post_tests_success/action.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/actions/prepare_breeze_and_image/action.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/actions/prepare_breeze_and_image/action.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/actions/prepare_single_ci_image/action.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/actions/prepare_single_ci_image/action.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/additional-ci-image-checks.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/additional-ci-image-checks.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/additional-prod-image-tests.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/additional-prod-image-tests.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/airflow-distributions-tests.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/airflow-distributions-tests.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/airflow-e2e-tests.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/airflow-e2e-tests.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/automatic-backport.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/automatic-backport.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/backport-cli.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/backport-cli.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/basic-tests.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/basic-tests.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/ci-amd-arm.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/ci-amd-arm.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/ci-image-build.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/ci-image-build.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/ci-image-checks.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/ci-image-checks.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/ci-notification.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/ci-notification.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/codeql-analysis.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/codeql-analysis.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/finalize-tests.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/finalize-tests.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/generate-constraints.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/generate-constraints.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/integration-system-tests.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/integration-system-tests.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        },
+        {
+          "rule_id": "syntax.unverified",
+          "file": "providers/abandoned/pr-72983/.github/workflows/k8s-tests.yml",
+          "start_line": 1,
+          "message": "providers/abandoned/pr-72983/.github/workflows/k8s-tests.yml SKIPPED: templated YAML/JSON requires rendering before parse validation"
+        }
+      ]
+    },
+    {
+      "id": "test-adequacy",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "duplication",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    },
+    {
+      "id": "package-existence",
+      "passed": true,
+      "blocks_ci": false,
+      "message": "OK",
+      "findings": []
+    }
+  ]
+}

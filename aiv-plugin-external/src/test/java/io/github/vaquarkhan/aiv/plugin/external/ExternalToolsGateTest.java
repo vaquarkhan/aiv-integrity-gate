@@ -156,8 +156,11 @@ class ExternalToolsGateTest {
 
     @Test
     void sarifFromFileAndNoMatchingFiles(@TempDir Path ws) throws IOException {
-        Files.writeString(ws.resolve("out.sarif"), SARIF, StandardCharsets.UTF_8);
-        ExternalToolsGate gate = new ExternalToolsGate((c, w, t) -> new ExternalToolsGate.Execution(0, "", false));
+        // the tool writes its report during the run; a pre-existing file would be deleted first
+        ExternalToolsGate gate = new ExternalToolsGate((c, w, t) -> {
+            Files.writeString(w.resolve("out.sarif"), SARIF, StandardCharsets.UTF_8);
+            return new ExternalToolsGate.Execution(0, "", false);
+        });
         GateResult r = gate.evaluate(ctx(ws, tools(tool("gl", "fail", "sarif", "out.sarif")),
                 new ChangedFile("dags/a.py", ChangedFile.ChangeType.ADDED, "x")));
         assertFalse(r.isPassed());
@@ -173,6 +176,142 @@ class ExternalToolsGateTest {
         Map<String, Object> whole = tool("gl2", "warn", "sarif", "out.sarif", "languages", List.of("java"));
         whole.put("command", List.of("gitleaks", "detect"));
         assertFalse(gate.evaluate(ctx(ws, tools(whole), new ChangedFile("dags/a.py", ChangedFile.ChangeType.ADDED, "x"))).isPassed());
+    }
+
+    @Test
+    void changedFileNamesCannotInjectOptionsOrEscapeTheWorkspace(@TempDir Path ws) {
+        List<List<String>> seen = new ArrayList<>();
+        ExternalToolsGate gate = new ExternalToolsGate((cmd, cwd, t) -> {
+            seen.add(cmd);
+            return new ExternalToolsGate.Execution(0, "{\"runs\":[]}", false);
+        });
+        GateResult r = gate.evaluate(ctx(ws, tools(tool("ruff", "fail")),
+                new ChangedFile("--config=evil.toml", ChangedFile.ChangeType.ADDED, "x"),
+                new ChangedFile("../outside.py", ChangedFile.ChangeType.ADDED, "x"),
+                new ChangedFile("a/../../b.py", ChangedFile.ChangeType.ADDED, "x"),
+                new ChangedFile("/etc/passwd", ChangedFile.ChangeType.ADDED, "x"),
+                new ChangedFile("C:\\Windows\\win.ini", ChangedFile.ChangeType.ADDED, "x"),
+                new ChangedFile("ok..name.py", ChangedFile.ChangeType.ADDED, "x")));
+        assertTrue(r.isPassed());
+        assertEquals(1, seen.size());
+        List<String> args = seen.get(0).subList(4, seen.get(0).size());
+        assertEquals(2, args.size(), args.toString());
+        assertTrue(args.contains("./--config=evil.toml"), "leading dash is neutralized with ./");
+        assertTrue(args.contains("ok..name.py"), "dots inside a file name are not a .. segment");
+        for (String refused : List.of("../outside.py", "a/../../b.py", "/etc/passwd", "C:/Windows/win.ini")) {
+            assertTrue(r.getMessage().contains("ruff: refused unsafe path '" + refused + "'"), refused);
+        }
+
+        // only unsafe paths: the tool is not run at all
+        seen.clear();
+        GateResult none = gate.evaluate(ctx(ws, tools(tool("ruff", "fail")),
+                new ChangedFile("../x.py", ChangedFile.ChangeType.ADDED, "x")));
+        assertTrue(none.getMessage().contains("no changed files match, not run"));
+        assertTrue(seen.isEmpty());
+
+        // a command without {files} never receives paths, so nothing is reported as refused
+        Map<String, Object> whole = tool("gl", "fail");
+        whole.put("command", List.of("gitleaks", "detect"));
+        GateResult wholeRepo = gate.evaluate(ctx(ws, tools(whole),
+                new ChangedFile("../x.py", ChangedFile.ChangeType.ADDED, "x")));
+        assertFalse(wholeRepo.getMessage().contains("refused"));
+        assertEquals(List.of("gitleaks", "detect"), seen.get(0));
+    }
+
+    @Test
+    void staleSarifFileIsDeletedBeforeTheToolRuns(@TempDir Path ws) throws IOException {
+        Path out = ws.resolve("reports/out.sarif");
+        Files.createDirectories(out.getParent());
+        Files.writeString(out, SARIF, StandardCharsets.UTF_8);
+        List<Boolean> existedAtRun = new ArrayList<>();
+        ExternalToolsGate gate = new ExternalToolsGate((c, w, t) -> {
+            existedAtRun.add(Files.exists(out));
+            return new ExternalToolsGate.Execution(0, "", false);
+        });
+        GateResult r = gate.evaluate(ctx(ws, tools(tool("gl", "fail", "sarif", "reports/out.sarif")),
+                new ChangedFile("a.py", ChangedFile.ChangeType.ADDED, "x")));
+        assertEquals(List.of(false), existedAtRun);
+        assertFalse(Files.exists(out));
+        assertEquals("external.gl.no-output", r.getFindings().get(0).getRuleId());
+    }
+
+    @Test
+    void sarifPathOutsideWorkspaceIsRefusedWithoutRunning(@TempDir Path dir) throws IOException {
+        Path ws = Files.createDirectories(dir.resolve("work"));
+        Path outside = dir.resolve("planted.sarif");
+        Files.writeString(outside, SARIF, StandardCharsets.UTF_8);
+        List<List<String>> seen = new ArrayList<>();
+        ExternalToolsGate gate = new ExternalToolsGate((c, w, t) -> {
+            seen.add(c);
+            return new ExternalToolsGate.Execution(0, SARIF, false);
+        });
+        var file = new ChangedFile("a.py", ChangedFile.ChangeType.ADDED, "x");
+        for (String sarif : List.of("../planted.sarif", outside.toString(), ".", "sub/../../planted.sarif")) {
+            GateResult r = gate.evaluate(ctx(ws, tools(tool("gl", "warn", "sarif", sarif)), file));
+            assertFalse(r.isPassed(), sarif);
+            assertTrue(r.blocksCi(), "escaping sarif path blocks even for severity: warn");
+            assertEquals("external.gl.bad-output", r.getFindings().get(0).getRuleId(), sarif);
+            assertTrue(r.getFindings().get(0).getMessage().contains("must stay inside the workspace"), sarif);
+        }
+        assertTrue(seen.isEmpty(), "tool is not run");
+        assertTrue(Files.exists(outside), "file outside the workspace is never deleted");
+        assertTrue(Files.isDirectory(ws), "workspace root is never deleted");
+    }
+
+    @Test
+    void sarifPathThatCannotBeClearedIsBlocking(@TempDir Path ws) throws IOException {
+        Files.createDirectories(ws.resolve("busy"));
+        Files.writeString(ws.resolve("busy/keep.txt"), "x", StandardCharsets.UTF_8);
+        List<List<String>> seen = new ArrayList<>();
+        ExternalToolsGate gate = new ExternalToolsGate((c, w, t) -> {
+            seen.add(c);
+            return new ExternalToolsGate.Execution(0, SARIF, false);
+        });
+        GateResult r = gate.evaluate(ctx(ws, tools(tool("gl", "fail", "sarif", "busy")),
+                new ChangedFile("a.py", ChangedFile.ChangeType.ADDED, "x")));
+        assertEquals("external.gl.bad-output", r.getFindings().get(0).getRuleId());
+        assertTrue(r.getFindings().get(0).getMessage().contains("cannot remove existing sarif file"));
+        assertTrue(seen.isEmpty());
+        assertTrue(Files.exists(ws.resolve("busy/keep.txt")));
+    }
+
+    @Test
+    void symbolicLinkSarifPathIsRefused(@TempDir Path dir) throws IOException {
+        Path ws = Files.createDirectories(dir.resolve("work"));
+        Path outsideDir = Files.createDirectories(dir.resolve("elsewhere"));
+        Path outsideFile = outsideDir.resolve("planted.sarif");
+        Files.writeString(outsideFile, SARIF, StandardCharsets.UTF_8);
+        try {
+            Files.createSymbolicLink(ws.resolve("link.sarif"), outsideFile);
+            Files.createSymbolicLink(ws.resolve("linkdir"), outsideDir);
+        } catch (IOException | UnsupportedOperationException e) {
+            org.junit.jupiter.api.Assumptions.assumeTrue(false, "symbolic links unavailable: " + e.getMessage());
+        }
+        ExternalToolsGate gate = new ExternalToolsGate((c, w, t) -> new ExternalToolsGate.Execution(0, SARIF, false));
+        var file = new ChangedFile("a.py", ChangedFile.ChangeType.ADDED, "x");
+        for (String sarif : List.of("link.sarif", "linkdir/planted.sarif")) {
+            GateResult r = gate.evaluate(ctx(ws, tools(tool("gl", "fail", "sarif", sarif)), file));
+            assertEquals("external.gl.bad-output", r.getFindings().get(0).getRuleId(), sarif);
+        }
+        assertTrue(Files.exists(outsideFile), "link target is never deleted");
+    }
+
+    @Test
+    void pathHelpers(@TempDir Path ws) {
+        assertTrue(ExternalToolsGate.isSafeRelative("src/a.py"));
+        assertTrue(ExternalToolsGate.isSafeRelative("-x.py"));
+        assertTrue(ExternalToolsGate.isSafeRelative("a..b/c.py"));
+        assertFalse(ExternalToolsGate.isSafeRelative(""));
+        assertFalse(ExternalToolsGate.isSafeRelative("/a.py"));
+        assertFalse(ExternalToolsGate.isSafeRelative("c:/a.py"));
+        assertFalse(ExternalToolsGate.isSafeRelative(".."));
+        assertFalse(ExternalToolsGate.isSafeRelative("a/.."));
+        assertEquals("./-x.py", ExternalToolsGate.fileArgument("-x.py"));
+        assertEquals("src/a.py", ExternalToolsGate.fileArgument("src/a.py"));
+        Path root = ws.toAbsolutePath().normalize();
+        assertFalse(ExternalToolsGate.linkedPath(root, root.resolve("a/b/c.sarif")));
+        assertFalse(ExternalToolsGate.linkedPath(root, root));
+        assertFalse(ExternalToolsGate.linkedPath(root, root.getParent()));
     }
 
     @Test

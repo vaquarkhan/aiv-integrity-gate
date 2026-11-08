@@ -11,11 +11,11 @@ Labeling is explicit and conservative:
     AI edit-artifact / attribution strings). Expect hard fail → TP if caught.
   - merged_control: merged PR. Expect hard pass → FP if hard-fail.
   - closed_unmerged_sample: closed unmerged without verified markers. Used for
-    population flag-rate only — NOT labeled as AI slop ground truth.
+    population flag-rate only - NOT labeled as AI slop ground truth.
   - synthetic_*: local fixtures for deterministic regression.
 
-Requires: Python 3.10+, gh CLI authenticated, Java + aiv-cli JAR (optional for
-patch-only discovery mode).
+Requires: Python 3.10+, Java, and the aiv-cli JAR. GitHub access uses an authenticated
+`gh` CLI when available, otherwise the public GitHub REST API with optional `GITHUB_TOKEN`.
 """
 from __future__ import annotations
 
@@ -42,6 +42,14 @@ CORPUS_PATH = BENCH / "corpus" / "cases.json"
 REPORTS = BENCH / "reports"
 AIV_CONFIG_SRC = BENCH / ".aiv"
 
+
+def portable_path(path: Path) -> str:
+    """Record a path relative to the repository so receipts never carry a local user or machine path."""
+    try:
+        return os.path.relpath(Path(path).resolve(), ROOT).replace("\\", "/")
+    except ValueError:  # different drive on Windows
+        return Path(path).name
+
 # High-precision markers aligned with InvariantGate + design attribution rules.
 MARKER_RULES: list[tuple[str, re.Pattern[str]]] = [
     ("merge_conflict", re.compile(r"(?m)^(<<<<<<<|=======|>>>>>>>)\s")),
@@ -61,35 +69,59 @@ MARKER_RULES: list[tuple[str, re.Pattern[str]]] = [
 
 
 def gh_api(path: str, params: dict[str, str] | None = None) -> Any:
-    cmd = ["gh", "api", path]
-    if params:
-        qs = urllib.parse.urlencode(params)
-        cmd[-1] = f"{path}?{qs}" if "?" not in path else f"{path}&{qs}"
+    qs = urllib.parse.urlencode(params or {})
+    api_path = f"{path}?{qs}" if qs and "?" not in path else (f"{path}&{qs}" if qs else path)
+    if shutil.which("gh"):
+        cmd = ["gh", "api", api_path]
+        for attempt in range(4):
+            proc = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
+            if proc.returncode == 0:
+                out = proc.stdout or ""
+                return json.loads(out) if out.strip() else None
+            err = ((proc.stderr or "") + (proc.stdout or "")).strip()
+            if "rate limit" in err.lower() or "403" in err:
+                time.sleep(2 ** attempt)
+                continue
+            raise RuntimeError(f"gh api failed ({proc.returncode}): {err[:500]}")
+        raise RuntimeError(f"gh api rate-limited: {path}")
+
+    url = "https://api.github.com/" + api_path.lstrip("/")
+    headers = {"Accept": "application/vnd.github+json", "User-Agent": "aiv-airflow-benchmark"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
     for attempt in range(4):
-        proc = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-        )
-        if proc.returncode == 0:
-            out = proc.stdout or ""
-            return json.loads(out) if out.strip() else None
-        err = ((proc.stderr or "") + (proc.stdout or "")).strip()
-        if "rate limit" in err.lower() or "403" in err:
-            time.sleep(2 ** attempt)
-            continue
-        raise RuntimeError(f"gh api failed ({proc.returncode}): {err[:500]}")
-    raise RuntimeError(f"gh api rate-limited: {path}")
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as response:
+                data = response.read().decode("utf-8")
+                return json.loads(data) if data.strip() else None
+        except urllib.error.HTTPError as error:
+            if error.code in (403, 429):
+                time.sleep(2 ** attempt)
+                continue
+            raise RuntimeError(f"GitHub API failed ({error.code}): {url}") from error
+    raise RuntimeError(f"GitHub API rate-limited: {path}")
 
 
 def scan_patch_markers(patch: str | None) -> list[str]:
     if not patch:
         return []
+    # Ground truth is scoped to added source lines. Removed and context lines are not defects
+    # introduced by the change and must never create a positive label.
+    added = "\n".join(
+        line[1:]
+        for line in patch.splitlines()
+        if line.startswith("+") and not line.startswith("+++")
+    )
     hits: list[str] = []
     for name, pattern in MARKER_RULES:
-        if pattern.search(patch):
+        if pattern.search(added):
             hits.append(name)
     return hits
 
@@ -202,7 +234,7 @@ def discover(args: argparse.Namespace) -> dict[str, Any]:
             expect_hard = False
             rationale = (
                 "Closed unmerged without verified AIV hard markers in file patches. "
-                "NOT labeled as AI slop ground truth — use for flag-rate only."
+                "NOT labeled as AI slop ground truth - use for flag-rate only."
             )
         cases.append({
             "id": f"airflow-pr-{n}",
@@ -244,7 +276,7 @@ def discover(args: argparse.Namespace) -> dict[str, Any]:
         if markers:
             label_class = "objective_slop"
             expect_hard = True
-            rationale = f"Merged but patch still contains markers {markers} — treat as objective_slop."
+            rationale = f"Merged but patch still contains markers {markers} - treat as objective_slop."
         else:
             label_class = "merged_control"
             expect_hard = False
@@ -287,7 +319,7 @@ def discover(args: argparse.Namespace) -> dict[str, Any]:
         "methodology": {
             "objective_slop": "PR file patches matched AIV hard markers (conflict / AI edit-artifact / attribution).",
             "merged_control": "Merged PRs without those markers; hard fail = false positive for hard gate.",
-            "closed_unmerged_sample": "Closed unmerged without markers — population sample, not AI-slop ground truth.",
+            "closed_unmerged_sample": "Closed unmerged without markers - population sample, not AI-slop ground truth.",
             "not_claimed": "Closed-unmerged alone does not prove AI authorship (AIP-120 measures volume, not provenance).",
         },
         "stats": {
@@ -401,8 +433,8 @@ def materialize_pr_workspace(repo: str, number: int, work: Path) -> str:
     """Build a tiny git repo with PR file contents.
 
     Modes (env AIV_CENSUS_MATERIALIZE):
-      head (default) — Contents API at PR head_sha, patch fallback
-      patch           — patch text only (fast census; incomplete files)
+      head (default) - Contents API at PR head_sha, patch fallback
+      patch           - patch text only (fast census; incomplete files)
     Optional AIV_CENSUS_AIV_CONFIG=path overrides copied .aiv/config.yaml.
     """
     mode = (os.environ.get("AIV_CENSUS_MATERIALIZE") or "head").strip().lower()
@@ -566,49 +598,89 @@ def run_aiv(jar: Path, work: Path, base: str, out_json: Path) -> dict[str, Any]:
 def classify_outcome(case: dict[str, Any], report: dict[str, Any]) -> dict[str, Any]:
     label = case.get("label") or {}
     expect_hard = bool(label.get("expect_hard_fail"))
-    exit_code = report.get("_exit_code", 1)
-    hard_fail = exit_code == 1
-    # advisory: any gate not passed and not blocking — JSON may only show passed overall
-    gates = report.get("gates") or report.get("gate_results") or []
-    advisory = False
-    blocking_ids = []
-    advisory_ids = []
-    # schema_version 2 uses "gates" with passed/findings; check structure
-    for g in gates:
-        gid = g.get("id") or g.get("gate_id") or "?"
-        passed = g.get("passed", True)
-        blocks = g.get("blocks_ci")
-        if passed:
-            continue
-        if blocks is False:
-            advisory = True
-            advisory_ids.append(gid)
-        else:
-            blocking_ids.append(gid)
-            hard_fail = True
-
-    cls = label.get("class", "unknown")
-    if expect_hard and hard_fail:
-        verdict = "TP"
-    elif expect_hard and not hard_fail:
-        verdict = "FN"
-    elif not expect_hard and hard_fail:
-        verdict = (
-            "FP"
-            if cls in ("merged_control", "synthetic_negative", "closed_unmerged_sample", "mixed_sample")
-            else "UNEXPECTED_FAIL"
+    exit_code = report.get("_exit_code", 2)
+    gates = report.get("gates")
+    def canonical_gate(gate: object) -> bool:
+        if not isinstance(gate, dict) or not isinstance(gate.get("id"), str):
+            return False
+        passed = gate.get("passed")
+        blocks = gate.get("blocks_ci")
+        partition = gate.get("partition")
+        expected_partition = "pass" if passed is True and blocks is False else (
+            "blocking" if passed is False and blocks is True else (
+                "advisory" if passed is False and blocks is False else None
+            )
         )
+        return (
+            expected_partition is not None
+            and partition == expected_partition
+            and gate.get("result_key") == f"{gate['id']}:{partition}"
+            and isinstance(gate.get("findings"), list)
+        )
+
+    gate_shape_valid = isinstance(gates, list) and all(canonical_gate(gate) for gate in (gates or []))
+    execution_valid = (
+        report.get("schema_version") == 3
+        and isinstance(report.get("passed"), bool)
+        and gate_shape_valid
+    )
+    advisory_ids: list[str] = []
+    blocking_ids: list[str] = []
+    blocking_rules: list[str] = []
+    for gate in gates or []:
+        gid = gate.get("id") or gate.get("gate_id") or "?"
+        if gate.get("passed", True):
+            continue
+        if gate.get("blocks_ci") is True:
+            blocking_ids.append(gid)
+            blocking_rules.extend(
+                finding.get("rule_id", "") for finding in gate.get("findings", [])
+                if finding.get("rule_id")
+            )
+        elif gate.get("blocks_ci") is False:
+            advisory_ids.append(gid)
+
+    marker_to_rule = {
+        "merge_conflict": "invariant.merge-conflict",
+        "ai_search_replace": "invariant.ai-edit-artifact",
+        "ai_elision": "invariant.ai-edit-artifact",
+        "ai_assistant_chatter": "invariant.ai-edit-artifact",
+        "ai_attribution": "invariant.ai-provenance",
+    }
+    markers = ((case.get("discovery") or {}).get("markers_in_patch") or [])
+    expected_rules = {marker_to_rule[m] for m in markers if m in marker_to_rule}
+    expected_rule_hit = not expected_rules or bool(expected_rules.intersection(blocking_rules))
+    hard_fail = bool(blocking_ids)
+    execution_valid = execution_valid and (
+        (hard_fail and exit_code == 1 and report.get("passed") is False)
+        or (not hard_fail and exit_code == 0 and report.get("passed") is True)
+    )
+    cls = label.get("class", "unknown")
+
+    if not execution_valid or (exit_code != 0 and not hard_fail):
+        verdict = "ERROR"
+    elif expect_hard and hard_fail and expected_rule_hit:
+        verdict = "TP"
+    elif expect_hard:
+        verdict = "FN"
+    elif hard_fail:
+        verdict = "FP" if cls in (
+            "merged_control", "synthetic_negative", "closed_unmerged_sample", "mixed_sample"
+        ) else "UNEXPECTED_FAIL"
     else:
         verdict = "TN"
 
-    # closed_unmerged_sample hard fail without markers is FP for "objective hard gate precision"
     return {
         "verdict": verdict,
         "hard_fail": hard_fail,
-        "advisory": advisory,
+        "advisory": bool(advisory_ids),
         "blocking_gates": blocking_ids,
+        "blocking_rules": blocking_rules,
         "advisory_gates": advisory_ids,
         "exit_code": exit_code,
+        "execution_valid": execution_valid,
+        "expected_rules": sorted(expected_rules),
+        "expected_rule_hit": expected_rule_hit,
         "label_class": cls,
         "expect_hard_fail": expect_hard,
     }
@@ -678,7 +750,7 @@ def run_benchmark(args: argparse.Namespace) -> dict[str, Any]:
     summary = {
         "schema_version": 1,
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "aiv_jar": str(jar),
+        "aiv_jar": portable_path(jar),
         "corpus": str(CORPUS_PATH.relative_to(ROOT)).replace("\\", "/"),
         "methodology": corpus.get("methodology"),
         "metrics": metrics,
@@ -753,7 +825,7 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
 GATE_VALUE_NOTES = [
     {
         "gate": "syntax",
-        "value": "High — blocks won't-parse Python/Java/YAML/JSON before expensive CI.",
+        "value": "High - blocks won't-parse Python/Java/YAML/JSON before expensive CI.",
         "add": False,
     },
     {
@@ -780,7 +852,7 @@ GATE_VALUE_NOTES = [
         "proposed": "added-lines-only scoping",
         "value": "Highest ROI improvement: cut FPs from pre-existing FIXME/TBD on touched files.",
         "add": True,
-        "status": "enhancement to existing gates — not a new module",
+        "status": "enhancement to existing gates - not a new module",
     },
     {
         "proposed": "secrets / credential leak gate",
@@ -796,7 +868,7 @@ GATE_VALUE_NOTES = [
     },
     {
         "proposed": "LLM / Magpie judge as hard gate",
-        "value": "Do not add — precision unknown, cost high, conflicts with design invariant.",
+        "value": "Do not add - precision unknown, cost high, conflicts with design invariant.",
         "add": False,
         "status": "rejected for hard path",
     },
@@ -890,7 +962,7 @@ ul {{ margin:.3rem 0 .3rem 1.1rem; color:var(--muted); }}
 </head>
 <body>
 <main>
-  <h1>AIV Integrity Gate — Airflow benchmark</h1>
+  <h1>AIV Integrity Gate - Airflow benchmark</h1>
   <p class="sub">Generated {html.escape(summary.get('generated_at',''))} · Independent validation via linked PRs + reproduce steps</p>
   <p class="note">Closed-unmerged ≠ AI slop. Only <code>objective_slop</code> / synthetic positives are ground-truth for recall. Merged controls measure false positives.</p>
   {cards}

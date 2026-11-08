@@ -7,10 +7,10 @@
   <a href="https://vaquarkhan.github.io/aiv-integrity-gate/"><img src="https://img.shields.io/badge/Docs-GitHub%20Pages-0F766E?style=flat-square" alt="Docs" /></a>
 </p>
 
-<p align="center"><b>A deterministic integrity gate for AI-generated code.</b><br/>
-Ask whether a change is backed by objective evidence and get a structured verdict that binds the exact request and resolved policy.</p>
+<p align="center"><b>Evidence-based PR integrity and triage policy automation.</b><br/>
+Block objective diff defects, replay maintainer policy against PR history, and propose only the actions a team can audit.</p>
 
-> **Release 2.0.** Use tag `v2.0`. The Action input `aiv-version` defaults to `2.0`. Coordinates: `io.github.vaquarkhan:aiv-cli:2.0`.
+> **Release channels:** Maven Central `1.0.4` and the `@v1` Action provide the stable core gate. The source branch contains the next-release trust boundary, evidence, `aiv verify`, AI-DLC integration, and hardened Action. Build from source and pass the jar through `cli-jar-path` until that release is published.
 
 <p align="center"><img src="docs/images/aiv-architecture.png" alt="AIV architecture: one deterministic engine called from pre-commit, CI, MCP, AI-DLC, and policy engines" width="900" /></p>
 
@@ -28,6 +28,28 @@ AI agents write code faster than anyone can review it. AIV sits at the point whe
 - **A tamper-evident trail.** Every verdict can append to a SHA-256 hash chain you can verify later.
 
 With the local deterministic profile, the same request and resolved policy produce the same verdict. `aiv verify` reports the policy digest and declares when enabled gates depend on a package registry, an external tool, or the optional advisory decision model.
+
+## AIV Triage: test PR policy before automating it
+
+The integrity gate answers whether a single diff contains an objective defect. AIV Triage answers a
+separate maintainer question: **what would our PR policy have proposed for this queue, and would we trust
+it?**
+
+`aiv triage replay` reads a saved snapshot of PR and queue facts, then writes JSON and Markdown action
+proposals. It never reaches GitHub, invokes a model, reads credentials, comments, labels, drafts, closes,
+assigns, or reruns CI. This lets a team replay an open-PR cap, stale-draft timer, CI readiness rule,
+newcomer permission rule or CI-safety rule against historical data before it enables live automation.
+
+```bash
+java -jar aiv-cli.jar triage replay \
+  --input demos/triage/airflow-like-snapshot.json \
+  --policy presets/triage/oss-maintainer.yaml \
+  --output-json triage-result.json \
+  --output-markdown triage-result.md
+```
+
+The starter policy and demonstration are in this repository. Read the full [triage replay guide](docs/TRIAGE-REPLAY.md)
+and [product contract](docs/TRIAGE-PRODUCT.md) before using it with project history.
 
 ## Works with the stack you already have
 
@@ -75,6 +97,10 @@ The `evidence_digest` ties the verdict to the exact inputs, and `--audit-log` ap
 
 AIV drops into [AI-DLC](https://awslabs.github.io/aidlc-workflows/) as a deterministic verification sensor. When an agent writes code during the Construction phase, the sensor runs `aiv verify` and returns the machine-checkable evidence the verifier is designed to act on. Advisory by default; promote to blocking when your team is ready.
 
+> **About AI-DLC.** AI-DLC is an open-source project published by AWS at [github.com/awslabs/aidlc-workflows](https://github.com/awslabs/aidlc-workflows) under the MIT-0 license. AIV is a separate, independent Apache-2.0 project and is not affiliated with or endorsed by AWS. The AIV sensor plugin lives in this repository.
+
+**What using them together helps:** AI-DLC's built-in sensors check documents, traceability, lint and types. AIV adds deterministic code-diff evidence at the Construction approval gate (conflict blocks, agent edit artifacts, unresolved imports, assertion-free tests, added secrets), and the same `.aiv` policy runs again on the pull request. Details: [docs/AIDLC.md](docs/AIDLC.md#what-using-aiv-with-ai-dlc-helps).
+
 ```bash
 export AIV_JAR=/path/to/aiv-cli.jar
 python3 integrations/aidlc/aiv_aidlc_sensor.py --file src/App.java
@@ -86,13 +112,13 @@ Install routes and the sensor manifest: [integrations/aidlc/](integrations/aidlc
 
 You are done when a pull request runs AIV and prints a verdict.
 
-1. **Get the CLI** for release 2.0:
+1. **Get the CLI** - the stable release is on Maven Central:
 
    ```bash
    curl -fsSL -o aiv-cli.jar "https://repo1.maven.org/maven2/io/github/vaquarkhan/aiv-cli/2.0/aiv-cli-2.0.jar"
    ```
 
-   Or build tag `v2.0` from source:
+   For the newest gates and `aiv verify`, build the jar from source:
 
    ```bash
    git clone https://github.com/vaquarkhan/aiv-integrity-gate.git && cd aiv-integrity-gate
@@ -116,7 +142,7 @@ You are done when a pull request runs AIV and prints a verdict.
          - id: aiv-gate
    ```
 
-4. **Wire CI** - follow the [deployment guide](docs/DEPLOYMENT.md). The Action uses `aiv-version: 2.0` unless you pass `cli-jar-path` or `cli-jar-url`.
+4. **Wire CI** - follow the [hardened deployment guide](docs/DEPLOYMENT.md). The next-release Action requires a compatible source/release jar and a positive capability handshake.
 
 5. **Open a pull request** - see a verdict. Start with [Quick start](docs/TUTORIAL.md), then run the [complete all-gates Hello World](docs/HELLO-WORLD.md).
 
@@ -153,7 +179,7 @@ A change cannot switch off the gate that judges it:
 
 - In fail-closed CI (`--require-trusted-config`), policy is read from the **base ref** and the complete `.aiv/` policy tree must match it. That protects config, design rules, rule packs, and baselines together; policy changes are reviewed in a separate run.
 - `aiv verify --require-trusted-policy --policy-ref <ref>` also refuses policy-tree drift and binds the resolved base commit into the policy/evidence digest.
-- `/aiv skip` is **default-deny** - honored only for an allow-listed author with a good commit signature, and always surfaced.
+- `/aiv skip` is **disabled**: an author email plus a generic good-signature flag does not authenticate an approved signer, so a full-run bypass is never honored. Every attempt is surfaced as `[SKIP-IGNORED]` and the gates run anyway.
 - A file-level disable must name a rule; a bare directive suppresses nothing.
 - When a check cannot run (missing toolchain, unreachable registry) it says so, instead of passing quietly.
 
@@ -186,6 +212,7 @@ Details: [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md).
 | [`aiv-plugin-license-header`](aiv-plugin-license-header/README.md) | `license-header`: headers on added source files |
 | [`aiv-plugin-external`](aiv-plugin-external/README.md) | `external`: fold any SARIF producer into the verdict |
 | [`aiv-plugin-rules`](aiv-plugin-rules/README.md) | `rules`: generic YAML rule engine with rule packs |
+| [`integrations/jev-bedrock-adapter/`](integrations/jev-bedrock-adapter/README.md) | JEV System One adapter for Amazon Bedrock, including production GitHub OIDC Terraform |
 | [`aiv-plugin-jev`](aiv-plugin-jev/README.md) | `jev`: optional decision-model questions, advisory only |
 | [`aiv-audit`](aiv-audit/README.md) | SHA-256 hash-chained, tamper-evident log |
 | [`aiv-report`](aiv-report/README.md) | Evidence report with per-rule calibration, JSONL export |
@@ -218,18 +245,24 @@ Start at the [documentation site](https://vaquarkhan.github.io/aiv-integrity-gat
 | Document | Audience |
 |----------|----------|
 | [docs/TUTORIAL.md](docs/TUTORIAL.md) | First source-build and strict run |
-| [docs/HELLO-WORLD.md](docs/HELLO-WORLD.md) | Exercise all 16 gates one by one |
-| [docs/GATES.md](docs/GATES.md) | Open one gate |
+| [docs/HELLO-WORLD.md](docs/HELLO-WORLD.md) | Exercise the gates one by one |
 | [docs/MODULE-ADOPTION-GUIDE.md](docs/MODULE-ADOPTION-GUIDE.md) | Mandatory/optional modules and profiles |
 | [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) | Commit-time install |
+| [`integrations/jev-bedrock-adapter/`](integrations/jev-bedrock-adapter/README.md) | JEV System One adapter for Amazon Bedrock, including production GitHub OIDC Terraform |
+| [docs/GITHUB-QUICKSTART.md](docs/GITHUB-QUICKSTART.md) | five-minute released Action setup, strict policy, GitHub Check and SARIF upload |
+| [docs/RELEASE-CANDIDATE.md](docs/RELEASE-CANDIDATE.md) | hardened release conditions and post-release smoke test |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Enable in a repo / CI |
 | [docs/MCP.md](docs/MCP.md) | `aiv verify` and MCP wiring |
 | [docs/AIDLC.md](docs/AIDLC.md) | AI-DLC sensor integration |
 | [docs/DEVELOPER-CONFIGURATION.md](docs/DEVELOPER-CONFIGURATION.md) | `.aiv/config.yaml` and CLI flags |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 25-project module, runtime, trust, evidence, and deployment architecture |
-| [Technical article](docs/blog/AIV-VERIFIABLE-CHANGE.md) | Long-form verification-gap and architecture narrative |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 27-project module, runtime, trust, evidence, and deployment architecture |
+| [InfoQ-style technical article](docs/blog/AIV-VERIFIABLE-CHANGE.md) | Long-form verification-gap and architecture narrative |
 | [docs/DEVELOPER-GUIDE.md](docs/DEVELOPER-GUIDE.md) | Build and contribute |
 | [docs/EVIDENCE-AND-PROPOSALS.md](docs/EVIDENCE-AND-PROPOSALS.md) | Audit log, report, proposal checks |
+| [LinkedIn carousel PDF](docs/deck/AIV-LinkedIn-Carousel.pdf) | Self-contained 16-page portrait share document |
+| [Editable LinkedIn carousel](docs/deck/AIV-LinkedIn-Carousel.pptx) | PowerPoint source for the carousel |
+| [Detailed sales deck](docs/deck/AIV-Integrity-Gate-Sales-Deck.pptx) | Presenter-led problem, gates, trust, integration, and pilot pitch |
+| [Adversarial product review](docs/ADVERSARIAL-PRODUCT-REVIEW.md) | Hardening ledger and Critical 0 / High 0 certification |
 
 ## License
 

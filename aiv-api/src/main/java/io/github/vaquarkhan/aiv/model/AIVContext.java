@@ -12,6 +12,13 @@ import java.util.Map;
 /** Immutable context passed to quality gates, including a frozen policy workspace. */
 public final class AIVContext {
 
+    /**
+     * Metadata key holding the {@code List<ChangedFile>} that {@code exclude_paths} removed from
+     * {@link #getDiff()}. Gates ignore it by default; governance rules that must not be silenced by a
+     * noise filter (for example AI review instruction changes) read it explicitly.
+     */
+    public static final String EXCLUDED_CHANGED_FILES = "aiv.excluded_changed_files";
+
     private final Path workspace;
     private final Path policyWorkspace;
     private final Diff diff;

@@ -23,11 +23,11 @@ public final class JsonReportWriter {
     }
 
     /** Bumped when gate report shape changes (e.g. structured findings). */
-    public static final int SCHEMA_VERSION = 2;
+    public static final int SCHEMA_VERSION = 3;
 
     /**
      * True when this run was {@code doctor} mode (informational; exit 0 does not mean CI would pass a normal run).
-     * Machine consumers should check this flag or {@link AIVResult#getNotices()} — not only {@link AIVResult#isPassed()}.
+     * Machine consumers should check this flag or {@link AIVResult#getNotices()} - not only {@link AIVResult#isPassed()}.
      */
     public static boolean isDoctorRun(AIVResult result) {
         return result.getNotices().stream()
@@ -56,7 +56,10 @@ public final class JsonReportWriter {
                     json.append(",\n");
                 }
                 json.append("    {\n");
+                String partition = g.isPassed() ? "pass" : (g.blocksCi() ? "blocking" : "advisory");
                 json.append("      \"id\": \"").append(escape(g.getGateId())).append("\",\n");
+                json.append("      \"result_key\": \"").append(escape(g.getGateId() + ":" + partition)).append("\",\n");
+                json.append("      \"partition\": \"").append(partition).append("\",\n");
                 json.append("      \"passed\": ").append(g.isPassed()).append(",\n");
                 json.append("      \"blocks_ci\": ").append(g.blocksCi()).append(",\n");
                 json.append("      \"message\": \"").append(escape(g.getMessage())).append("\",\n");

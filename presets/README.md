@@ -1,6 +1,6 @@
 # AIV configuration presets
 
-Presets are explicit starter policies copied into `.aiv/config.yaml` by `aiv init`. Every shipped preset names all 16 gates, so omitted-gate fallback cannot silently change its behavior.
+Presets are explicit starter policies copied into `.aiv/config.yaml` by `aiv init`. Every shipped preset names all 18 available gates explicitly, so omitted-gate fallback cannot silently change its behavior. `review-routing` and `change-policy` are explicit default-off entries; teams enable and calibrate them deliberately.
 
 ```bash
 java -jar aiv-cli.jar init --preset minimal --workspace .
