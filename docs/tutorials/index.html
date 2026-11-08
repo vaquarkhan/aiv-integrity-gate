@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tutorials · AIV Integrity Gate</title>
+  <meta name="description" content="Step-by-step tutorials to install AIV, run your first check, and learn every gate." />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+  <script src="../assets/site-nav.js" data-depth="1" data-page="tutorials"></script>
+
+  <main class="aiv-shell">
+    <p class="aiv-eyebrow">New here? Start with these</p>
+    <h1>Tutorials</h1>
+    <p class="aiv-lede">
+      Short, ordered guides. Follow them in order the first time. Each page opens in the browser
+      (no file download).
+    </p>
+
+    <div class="aiv-callout navy">
+      <strong>About 15 minutes to a first result.</strong>
+      Build or download the CLI → pick a starter profile → run one change → read pass/fail.
+      Then come back for Hello World if you want every gate explained.
+    </div>
+
+    <section class="aiv-panel">
+      <h2>1) Get your first pass/fail</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card hot" href="../TUTORIAL/"><span class="step">Start</span><h3>Quick start</h3><p>Install, choose a profile, run locally, turn on strict CI. Best first page.</p></a>
+        <a class="aiv-card hot" href="../GITHUB-QUICKSTART/"><span class="step">GitHub</span><h3>GitHub Action in 5 minutes</h3><p>Drop the Action into a workflow and see a check on a pull request.</p></a>
+        <a class="aiv-card" href="../HELLO-WORLD/"><span class="step">Lab</span><h3>Hello World (all gates)</h3><p>One small example per gate so you see what each finding looks like.</p></a>
+      </div>
+    </section>
+
+    <section class="aiv-panel">
+      <h2>2) Put it where you work</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card" href="../DEPLOYMENT/"><span class="step">CI</span><h3>Deploy in CI</h3><p>GitHub Action, jars, and hardened options for real repositories.</p></a>
+        <a class="aiv-card" href="../PRE-COMMIT/"><span class="step">Local</span><h3>Pre-commit hook</h3><p>Catch obvious defects before the change is even committed.</p></a>
+        <a class="aiv-card" href="../AIRFLOW-TUTORIAL/"><span class="step">Airflow</span><h3>Airflow-shaped walkthrough</h3><p>How the gate fits an Airflow-style review workflow.</p></a>
+        <a class="aiv-card" href="../AIDLC/"><span class="step">Agents</span><h3>AWS AI-DLC sensor</h3><p>Use AIV as a deterministic sensor next to agent workflows.</p></a>
+      </div>
+    </section>
+
+    <section class="aiv-panel">
+      <h2>3) See what it measured</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card" href="../benchmark/index.html"><span class="step">Results</span><h3>2,098-file measured run</h3><p>Every stored patch we scored. Real numbers, not a marketing sample.</p></a>
+        <a class="aiv-card" href="../airflow-benchmark/index.html"><span class="step">Story</span><h3>Full benchmark walkthrough</h3><p>Problem → dataset → method → what AIV caught → proof.</p></a>
+        <a class="aiv-card" href="../slides/index.html"><span class="step">Deck</span><h3>52-slide presentation</h3><p>Same story as slides, with PDF and PowerPoint downloads.</p></a>
+      </div>
+    </section>
+
+    <p class="aiv-muted">
+      Need reference pages (gates, config, architecture)? Open
+      <a href="../guide/index.html">Docs</a>.
+    </p>
+  </main>
+
+  <footer class="aiv-footer">
+    AIV Integrity Gate · <a href="../index.html">Home</a> · <a href="../guide/index.html">Docs</a>
+  </footer>
+</body>
+</html>

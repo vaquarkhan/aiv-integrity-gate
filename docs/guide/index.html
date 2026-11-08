@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Docs · AIV Integrity Gate</title>
+  <meta name="description" content="All AIV product documentation: gates, configuration, deployment, architecture, and integrations." />
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+  <script src="../assets/site-nav.js" data-depth="1" data-page="docs"></script>
+
+  <main class="aiv-shell">
+    <p class="aiv-eyebrow">Reference library</p>
+    <h1>Documentation</h1>
+    <p class="aiv-lede">
+      Everything about installing, configuring, and operating the gate. Pages open as normal web
+      pages. If you are brand new, begin with
+      <a href="../tutorials/index.html">Tutorials</a> instead.
+    </p>
+
+    <div class="aiv-ctas">
+      <a class="aiv-btn primary" href="../tutorials/index.html">New user? Open Tutorials</a>
+      <a class="aiv-btn" href="../GATES/">Gate catalog</a>
+      <a class="aiv-btn" href="../ARCHITECTURE/">Architecture</a>
+      <a class="aiv-btn" href="../DEVELOPER-CONFIGURATION/">Configuration</a>
+    </div>
+
+    <section class="aiv-panel">
+      <h2>Understand the product</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card hot" href="../GATES/"><span class="step">Core</span><h3>Gates</h3><p>What each gate checks and how a finding is reported.</p></a>
+        <a class="aiv-card hot" href="../MODULE-ADOPTION-GUIDE/"><span class="step">Core</span><h3>Which modules to turn on</h3><p>Pick a starter profile without enabling everything at once.</p></a>
+        <a class="aiv-card" href="../ARCHITECTURE/"><span class="step">Core</span><h3>Architecture</h3><p>One engine, many front doors, pinned policy, evidence surfaces.</p></a>
+        <a class="aiv-card" href="../blog/AIV-VERIFIABLE-CHANGE/"><span class="step">Story</span><h3>Technical article</h3><p>Long-form explanation of verifiable change.</p></a>
+        <a class="aiv-card" href="../WHY-NOT-PMD-SEMGREP/"><span class="step">Compare</span><h3>Why not only PMD / Semgrep?</h3><p>How AIV sits next to linters, not instead of them.</p></a>
+      </div>
+    </section>
+
+    <section class="aiv-panel">
+      <h2>Install and run</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card" href="../DEPLOYMENT/"><span class="step">Ops</span><h3>Deployment</h3><p>CI Action, jar coordinates, and production options.</p></a>
+        <a class="aiv-card" href="../PRE-COMMIT/"><span class="step">Ops</span><h3>Pre-commit</h3><p>Run before commit on developer machines.</p></a>
+        <a class="aiv-card" href="../CI-SNIPPETS/"><span class="step">Ops</span><h3>CI snippets</h3><p>Copy-paste examples beyond GitHub Actions.</p></a>
+        <a class="aiv-card" href="../DEVELOPER-CONFIGURATION/"><span class="step">Ops</span><h3>Configuration</h3><p>Every config key and default.</p></a>
+        <a class="aiv-card" href="../MAVEN-VERSION/"><span class="step">Ops</span><h3>Maven versions</h3><p>Artifact coordinates and release versioning.</p></a>
+        <a class="aiv-card" href="../PLUGIN-SECURITY/"><span class="step">Ops</span><h3>Security gate</h3><p>Credential patterns and how to tune them.</p></a>
+      </div>
+    </section>
+
+    <section class="aiv-panel">
+      <h2>Agents, evidence, and policy</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card" href="../MCP/"><span class="step">Contract</span><h3>Strict verify (agents)</h3><p>Machine-readable request/response for agents and hosts.</p></a>
+        <a class="aiv-card" href="../AIDLC/"><span class="step">Contract</span><h3>AI-DLC</h3><p>Sensor plugin for AWS AI-DLC workflows.</p></a>
+        <a class="aiv-card" href="../EVIDENCE-AND-PROPOSALS/"><span class="step">Evidence</span><h3>Audit and proposals</h3><p>Reports, hash-chain audit, and proposal checks.</p></a>
+        <a class="aiv-card" href="../pipeline-aiv-copilot/"><span class="step">Pipeline</span><h3>AIV + Copilot review</h3><p>Deterministic gate first, advisory model review second.</p></a>
+        <a class="aiv-card" href="../TRIAGE-PRODUCT/"><span class="step">Policy</span><h3>Triage product</h3><p>Replay maintainer PR policy against history before you automate.</p></a>
+        <a class="aiv-card" href="../TRIAGE-REPLAY/"><span class="step">Policy</span><h3>Triage replay</h3><p>How to run offline triage replay safely.</p></a>
+      </div>
+    </section>
+
+    <section class="aiv-panel">
+      <h2>Build and extend</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card" href="../DEVELOPER-GUIDE/"><span class="step">Dev</span><h3>Developer guide</h3><p>Build, test, and add a gate.</p></a>
+        <a class="aiv-card" href="../DOCUMENTATION-MAP/"><span class="step">Dev</span><h3>Documentation map</h3><p>What is product guidance vs research evidence.</p></a>
+        <a class="aiv-card" href="../RELEASE-CANDIDATE/"><span class="step">Dev</span><h3>Release candidate</h3><p>Checklist for a release cut.</p></a>
+        <a class="aiv-card" href="../SHADOW-PILOT/"><span class="step">Dev</span><h3>Shadow pilot</h3><p>Advisory-first rollout pattern.</p></a>
+      </div>
+    </section>
+
+    <section class="aiv-panel">
+      <h2>Benchmark and site</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card" href="../benchmark/index.html"><span class="step">Bench</span><h3>2,098-file results</h3><p>Executed stored patches across the corpus.</p></a>
+        <a class="aiv-card" href="../airflow-benchmark/index.html"><span class="step">Bench</span><h3>Walkthrough</h3><p>Narrative pages for the Airflow benchmark.</p></a>
+        <a class="aiv-card" href="../data/index.html"><span class="step">Bench</span><h3>JSON receipts</h3><p>Machine-readable numbers behind the charts.</p></a>
+        <a class="aiv-card" href="../dashboard/index.html"><span class="step">Live</span><h3>Dashboard</h3><p>Pass/fail history charts in the browser.</p></a>
+        <a class="aiv-card" href="../slides/index.html"><span class="step">Deck</span><h3>Slides</h3><p>52-slide deck with PDF / PowerPoint.</p></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="aiv-footer">
+    AIV Integrity Gate · <a href="../index.html">Home</a> · <a href="../tutorials/index.html">Tutorials</a>
+  </footer>
+</body>
+</html>

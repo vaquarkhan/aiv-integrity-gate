@@ -74,10 +74,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .aiv-chrome nav a {
   color: #e2e8f0;
   text-decoration: none;
-  font-size: 14px;
-  padding: 7px 10px;
+  font-size: 13px;
+  padding: 6px 9px;
   border-radius: 8px;
   border: 1px solid transparent;
+  white-space: nowrap;
 }
 .aiv-chrome nav a:hover { border-color: rgba(255,255,255,0.35); color: #fff; text-decoration: none; }
 .aiv-chrome nav a[aria-current="page"] {

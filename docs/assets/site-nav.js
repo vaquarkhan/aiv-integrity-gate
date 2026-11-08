@@ -14,11 +14,12 @@
 
   var links = [
     { id: "home", label: "Home", path: "index.html" },
+    { id: "tutorials", label: "Tutorials", path: "tutorials/index.html" },
+    { id: "docs", label: "Docs", path: "guide/index.html" },
     { id: "walkthrough", label: "Walkthrough", path: "airflow-benchmark/index.html" },
     { id: "results", label: "2,098-file run", path: "benchmark/index.html" },
     { id: "slides", label: "Slides", path: "slides/index.html" },
     { id: "dashboard", label: "Dashboard", path: "dashboard/index.html" },
-    { id: "docs", label: "Docs", path: "TUTORIAL.md" },
     { id: "source", label: "Source", path: "https://github.com/vaquarkhan/aiv-integrity-gate", external: true }
   ];
 
