@@ -344,3 +344,78 @@ footer.meta {
   color: var(--text-muted);
   text-align: center;
 }
+
+/* data source selector and badge */
+.source-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.source-bar form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.source-bar label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.source-bar select,
+.source-bar input {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-muted);
+  color: var(--text);
+  min-width: 0;
+}
+
+.source-bar input[type="url"] {
+  width: min(28rem, 100%);
+}
+
+.source-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.source-badge.sample {
+  background: rgba(217, 119, 6, 0.15);
+  color: var(--warn);
+  border: 1px solid var(--warn);
+}
+
+.source-badge.live {
+  background: var(--pass-soft);
+  color: var(--pass);
+  border: 1px solid var(--pass);
+}
+
+#source-note {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.nav-links a {
+  margin-right: 0.9rem;
+  font-size: 0.85rem;
+}

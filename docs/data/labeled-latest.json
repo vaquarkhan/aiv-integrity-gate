@@ -1,0 +1,3509 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-19T20:37:56.167489+00:00",
+  "aiv_jar": "C:\\Users\\Administrator\\Downloads\\aiv-integrity-gate\\aiv-cli\\target\\aiv-cli-1.0.4.jar",
+  "corpus": "benchmarks/airflow/corpus/cases-labeled-50.json",
+  "claims": {
+    "tag": "VERIFIED",
+    "n_cases": 50,
+    "positives_expect_fail": 35,
+    "negatives_expect_pass": 15,
+    "TP": 35,
+    "FN": 0,
+    "FP": 0,
+    "TN": 15,
+    "hard_gate_recall": 1.0,
+    "hard_gate_precision": 1.0,
+    "false_positive_rate": 0.0,
+    "block_rate_on_labeled_slop": 1.0,
+    "advisory_expected": 5,
+    "advisory_hit": 5,
+    "statement": "On the labeled 50-case bench: blocked 35/35 expected-fail cases (recall 100.0%), FP 0/15 expected-pass (0.0%), precision 100.0%.",
+    "not_claimed": [
+      "That this equals % of AIP-120's 508 external closed-unmerged PRs",
+      "That unlabeled Airflow closed-unmerged volume is AI authorship",
+      "Exact CI dollars saved"
+    ]
+  },
+  "metrics": {
+    "positives": {
+      "TP": 30,
+      "FP": 0,
+      "TN": 0,
+      "FN": 0,
+      "ERROR": 0,
+      "UNEXPECTED_FAIL": 0,
+      "OTHER": 0
+    },
+    "negatives_controls": {
+      "TP": 0,
+      "FP": 0,
+      "TN": 5,
+      "FN": 0,
+      "ERROR": 0,
+      "UNEXPECTED_FAIL": 0,
+      "OTHER": 0
+    },
+    "closed_unmerged_sample": {
+      "TP": 0,
+      "FP": 0,
+      "TN": 0,
+      "FN": 0,
+      "ERROR": 0,
+      "UNEXPECTED_FAIL": 0,
+      "OTHER": 0
+    },
+    "hard_gate_precision": 1.0,
+    "hard_gate_recall_on_labeled_positives": 1.0,
+    "false_positive_rate_on_controls": 0.0,
+    "closed_unmerged_hard_flag_rate": null,
+    "n_cases": 50,
+    "n_errors": 0
+  },
+  "cases": [
+    {
+      "id": "proper-01",
+      "title": "proper: clean Sftp helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "synthetic_negative",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-01/aiv-report.json"
+    },
+    {
+      "id": "proper-02",
+      "title": "proper: clean Http helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "synthetic_negative",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-02/aiv-report.json"
+    },
+    {
+      "id": "proper-03",
+      "title": "proper: clean Jdbc helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "synthetic_negative",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-03/aiv-report.json"
+    },
+    {
+      "id": "proper-04",
+      "title": "proper: clean Kafka helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "synthetic_negative",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-04/aiv-report.json"
+    },
+    {
+      "id": "proper-05",
+      "title": "proper: clean Redis helper (expect PASS)",
+      "label": {
+        "class": "synthetic_negative",
+        "subtype": "clean_control",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "Hand-written clean control; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "synthetic_negative",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/proper-05/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-01",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-01.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-01.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-01.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-01/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-02",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-02.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-02.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-02.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-02/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-03",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-03.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-03.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-03.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-03/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-04",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-04.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-04.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-04.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-04/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-05",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-05.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-05.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-05.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-05/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-06",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-06.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-06.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-06.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-06/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-07",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-07.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-07.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-07.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-07/aiv-report.json"
+    },
+    {
+      "id": "slop-edit-08",
+      "title": "ai-slop: edit_artifact (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "edit_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-08.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/edit-08.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/edit-08.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-edit-08/aiv-report.json"
+    },
+    {
+      "id": "slop-conflict-01",
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant",
+          "syntax"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-01.py",
+          "findings": [
+            {
+              "rule_id": "invariant.merge-conflict",
+              "file": "providers/bench/labeled/ai-slop/conflict-01.py",
+              "start_line": 1,
+              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-01.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-01.py (SyntaxError line 3: invalid syntax)",
+          "findings": [
+            {
+              "rule_id": "syntax.parse",
+              "file": "providers/bench/labeled/ai-slop/conflict-01.py",
+              "start_line": 3,
+              "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-01.py (SyntaxError line 3: invalid syntax)"
+            }
+          ]
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-01/aiv-report.json"
+    },
+    {
+      "id": "slop-conflict-02",
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant",
+          "syntax"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-02.py",
+          "findings": [
+            {
+              "rule_id": "invariant.merge-conflict",
+              "file": "providers/bench/labeled/ai-slop/conflict-02.py",
+              "start_line": 1,
+              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-02.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-02.py (SyntaxError line 3: invalid syntax)",
+          "findings": [
+            {
+              "rule_id": "syntax.parse",
+              "file": "providers/bench/labeled/ai-slop/conflict-02.py",
+              "start_line": 3,
+              "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-02.py (SyntaxError line 3: invalid syntax)"
+            }
+          ]
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-02/aiv-report.json"
+    },
+    {
+      "id": "slop-conflict-03",
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant",
+          "syntax"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-03.py",
+          "findings": [
+            {
+              "rule_id": "invariant.merge-conflict",
+              "file": "providers/bench/labeled/ai-slop/conflict-03.py",
+              "start_line": 1,
+              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-03.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-03.py (SyntaxError line 3: invalid syntax)",
+          "findings": [
+            {
+              "rule_id": "syntax.parse",
+              "file": "providers/bench/labeled/ai-slop/conflict-03.py",
+              "start_line": 3,
+              "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-03.py (SyntaxError line 3: invalid syntax)"
+            }
+          ]
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-03/aiv-report.json"
+    },
+    {
+      "id": "slop-conflict-04",
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant",
+          "syntax"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-04.py",
+          "findings": [
+            {
+              "rule_id": "invariant.merge-conflict",
+              "file": "providers/bench/labeled/ai-slop/conflict-04.py",
+              "start_line": 1,
+              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-04.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-04.py (SyntaxError line 3: invalid syntax)",
+          "findings": [
+            {
+              "rule_id": "syntax.parse",
+              "file": "providers/bench/labeled/ai-slop/conflict-04.py",
+              "start_line": 3,
+              "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-04.py (SyntaxError line 3: invalid syntax)"
+            }
+          ]
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-04/aiv-report.json"
+    },
+    {
+      "id": "slop-conflict-05",
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant",
+          "syntax"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-05.py",
+          "findings": [
+            {
+              "rule_id": "invariant.merge-conflict",
+              "file": "providers/bench/labeled/ai-slop/conflict-05.py",
+              "start_line": 1,
+              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-05.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-05.py (SyntaxError line 3: invalid syntax)",
+          "findings": [
+            {
+              "rule_id": "syntax.parse",
+              "file": "providers/bench/labeled/ai-slop/conflict-05.py",
+              "start_line": 3,
+              "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-05.py (SyntaxError line 3: invalid syntax)"
+            }
+          ]
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-05/aiv-report.json"
+    },
+    {
+      "id": "slop-conflict-06",
+      "title": "ai-slop: merge_conflict (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "merge_conflict",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant",
+          "syntax"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-06.py",
+          "findings": [
+            {
+              "rule_id": "invariant.merge-conflict",
+              "file": "providers/bench/labeled/ai-slop/conflict-06.py",
+              "start_line": 1,
+              "message": "Merge conflict marker found in providers/bench/labeled/ai-slop/conflict-06.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-06.py (SyntaxError line 3: invalid syntax)",
+          "findings": [
+            {
+              "rule_id": "syntax.parse",
+              "file": "providers/bench/labeled/ai-slop/conflict-06.py",
+              "start_line": 3,
+              "message": "Does not parse: providers/bench/labeled/ai-slop/conflict-06.py (SyntaxError line 3: invalid syntax)"
+            }
+          ]
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-conflict-06/aiv-report.json"
+    },
+    {
+      "id": "slop-attr-01",
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "design"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Forbidden call 'Generated by ChatGPT' in providers/bench/labeled/ai-slop/attr-01.py (constraint: no-ai-generated-markers)",
+          "findings": [
+            {
+              "rule_id": "design.forbidden.no-ai-generated-markers",
+              "file": "providers/bench/labeled/ai-slop/attr-01.py",
+              "start_line": 3,
+              "message": "Forbidden call 'Generated by ChatGPT' in providers/bench/labeled/ai-slop/attr-01.py (constraint: no-ai-generated-markers)"
+            }
+          ]
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-01/aiv-report.json"
+    },
+    {
+      "id": "slop-attr-02",
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "design"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Forbidden call 'Generated by Claude' in providers/bench/labeled/ai-slop/attr-02.py (constraint: no-ai-generated-markers)",
+          "findings": [
+            {
+              "rule_id": "design.forbidden.no-ai-generated-markers",
+              "file": "providers/bench/labeled/ai-slop/attr-02.py",
+              "start_line": 3,
+              "message": "Forbidden call 'Generated by Claude' in providers/bench/labeled/ai-slop/attr-02.py (constraint: no-ai-generated-markers)"
+            }
+          ]
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-02/aiv-report.json"
+    },
+    {
+      "id": "slop-attr-03",
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "design",
+          "invariant",
+          "syntax"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Forbidden call 'Generated-by:' in providers/bench/labeled/ai-slop/attr-03.py (constraint: no-ai-generated-markers)",
+          "findings": [
+            {
+              "rule_id": "design.forbidden.no-ai-generated-markers",
+              "file": "providers/bench/labeled/ai-slop/attr-03.py",
+              "start_line": 3,
+              "message": "Forbidden call 'Generated-by:' in providers/bench/labeled/ai-slop/attr-03.py (constraint: no-ai-generated-markers)"
+            }
+          ]
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI provenance trailer pasted into providers/bench/labeled/ai-slop/attr-03.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-provenance",
+              "file": "providers/bench/labeled/ai-slop/attr-03.py",
+              "start_line": 1,
+              "message": "AI provenance trailer pasted into providers/bench/labeled/ai-slop/attr-03.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Does not parse: providers/bench/labeled/ai-slop/attr-03.py (SyntaxError line 3: unexpected indent)",
+          "findings": [
+            {
+              "rule_id": "syntax.parse",
+              "file": "providers/bench/labeled/ai-slop/attr-03.py",
+              "start_line": 3,
+              "message": "Does not parse: providers/bench/labeled/ai-slop/attr-03.py (SyntaxError line 3: unexpected indent)"
+            }
+          ]
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-03/aiv-report.json"
+    },
+    {
+      "id": "slop-attr-04",
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "design"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Forbidden call 'AI-generated' in providers/bench/labeled/ai-slop/attr-04.py (constraint: no-ai-generated-markers)",
+          "findings": [
+            {
+              "rule_id": "design.forbidden.no-ai-generated-markers",
+              "file": "providers/bench/labeled/ai-slop/attr-04.py",
+              "start_line": 3,
+              "message": "Forbidden call 'AI-generated' in providers/bench/labeled/ai-slop/attr-04.py (constraint: no-ai-generated-markers)"
+            }
+          ]
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-04/aiv-report.json"
+    },
+    {
+      "id": "slop-attr-05",
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "design"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Forbidden call 'Generated by Copilot' in providers/bench/labeled/ai-slop/attr-05.py (constraint: no-ai-generated-markers)",
+          "findings": [
+            {
+              "rule_id": "design.forbidden.no-ai-generated-markers",
+              "file": "providers/bench/labeled/ai-slop/attr-05.py",
+              "start_line": 3,
+              "message": "Forbidden call 'Generated by Copilot' in providers/bench/labeled/ai-slop/attr-05.py (constraint: no-ai-generated-markers)"
+            }
+          ]
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-05/aiv-report.json"
+    },
+    {
+      "id": "slop-attr-06",
+      "title": "ai-slop: attribution (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "attribution",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/attr-06.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/attr-06.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/attr-06.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-attr-06/aiv-report.json"
+    },
+    {
+      "id": "slop-ph-01",
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-01.py",
+          "findings": [
+            {
+              "rule_id": "invariant.placeholder",
+              "file": "providers/bench/labeled/ai-slop/placeholder-01.py",
+              "start_line": 1,
+              "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-01.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-01/aiv-report.json"
+    },
+    {
+      "id": "slop-ph-02",
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-02.py",
+          "findings": [
+            {
+              "rule_id": "invariant.placeholder",
+              "file": "providers/bench/labeled/ai-slop/placeholder-02.py",
+              "start_line": 1,
+              "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-02.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-02/aiv-report.json"
+    },
+    {
+      "id": "slop-ph-03",
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "design",
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Forbidden call 'YOUR_CODE_HERE' in providers/bench/labeled/ai-slop/placeholder-03.py (constraint: no-ai-generated-markers)",
+          "findings": [
+            {
+              "rule_id": "design.forbidden.no-ai-generated-markers",
+              "file": "providers/bench/labeled/ai-slop/placeholder-03.py",
+              "start_line": 4,
+              "message": "Forbidden call 'YOUR_CODE_HERE' in providers/bench/labeled/ai-slop/placeholder-03.py (constraint: no-ai-generated-markers)"
+            }
+          ]
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-03.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/placeholder-03.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-03.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-03/aiv-report.json"
+    },
+    {
+      "id": "slop-ph-04",
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "design",
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Forbidden call 'INSERT_YOUR_CODE' in providers/bench/labeled/ai-slop/placeholder-04.py (constraint: no-ai-generated-markers)",
+          "findings": [
+            {
+              "rule_id": "design.forbidden.no-ai-generated-markers",
+              "file": "providers/bench/labeled/ai-slop/placeholder-04.py",
+              "start_line": 4,
+              "message": "Forbidden call 'INSERT_YOUR_CODE' in providers/bench/labeled/ai-slop/placeholder-04.py (constraint: no-ai-generated-markers)"
+            }
+          ]
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-04.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/placeholder-04.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/placeholder-04.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-04/aiv-report.json"
+    },
+    {
+      "id": "slop-ph-05",
+      "title": "ai-slop: placeholder (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "placeholder",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-05.py",
+          "findings": [
+            {
+              "rule_id": "invariant.placeholder",
+              "file": "providers/bench/labeled/ai-slop/placeholder-05.py",
+              "start_line": 1,
+              "message": "Placeholder marker (TBD/FIXME/XXX) found in providers/bench/labeled/ai-slop/placeholder-05.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-ph-05/aiv-report.json"
+    },
+    {
+      "id": "slop-search-01",
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-01.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/search-01.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-01.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-01/aiv-report.json"
+    },
+    {
+      "id": "slop-search-02",
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-02.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/search-02.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-02.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-02/aiv-report.json"
+    },
+    {
+      "id": "slop-search-03",
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-03.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/search-03.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-03.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-03/aiv-report.json"
+    },
+    {
+      "id": "slop-search-04",
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-04.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/search-04.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-04.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-04/aiv-report.json"
+    },
+    {
+      "id": "slop-search-05",
+      "title": "ai-slop: search_replace (expect FAIL)",
+      "label": {
+        "class": "synthetic_positive",
+        "subtype": "search_replace",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Labeled objective AI-slop; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "synthetic_positive",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-05.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/ai-slop/search-05.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/ai-slop/search-05.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/slop-search-05/aiv-report.json"
+    },
+    {
+      "id": "mixed-cohesion-01",
+      "title": "mixed: multi-area sprawl #1 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
+          "findings": [
+            {
+              "rule_id": "cohesion.areas",
+              "file": "(diff)",
+              "start_line": 1,
+              "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns"
+            }
+          ]
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-01/aiv-report.json"
+    },
+    {
+      "id": "mixed-cohesion-02",
+      "title": "mixed: multi-area sprawl #2 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
+          "findings": [
+            {
+              "rule_id": "cohesion.areas",
+              "file": "(diff)",
+              "start_line": 1,
+              "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns"
+            }
+          ]
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-02/aiv-report.json"
+    },
+    {
+      "id": "mixed-cohesion-03",
+      "title": "mixed: multi-area sprawl #3 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
+          "findings": [
+            {
+              "rule_id": "cohesion.areas",
+              "file": "(diff)",
+              "start_line": 1,
+              "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns"
+            }
+          ]
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-03/aiv-report.json"
+    },
+    {
+      "id": "mixed-cohesion-04",
+      "title": "mixed: multi-area sprawl #4 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
+          "findings": [
+            {
+              "rule_id": "cohesion.areas",
+              "file": "(diff)",
+              "start_line": 1,
+              "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns"
+            }
+          ]
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-04/aiv-report.json"
+    },
+    {
+      "id": "mixed-cohesion-05",
+      "title": "mixed: multi-area sprawl #5 (expect PASS hard, advisory cohesion)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "cohesion_warn",
+        "expect_hard_fail": false,
+        "expect_advisory": true,
+        "notes": "Should trigger cohesion warn+label, not hard-fail"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": true,
+        "blocking_gates": [],
+        "advisory_gates": [
+          "cohesion"
+        ],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": false,
+          "blocks_ci": false,
+          "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns",
+          "findings": [
+            {
+              "rule_id": "cohesion.areas",
+              "file": "(diff)",
+              "start_line": 1,
+              "message": "PR spans 4 path areas (max_areas=3, area_depth=2): .github/workflows, scripts/ci, scripts/tests, scripts/tools \u2014 split unrelated concerns"
+            }
+          ]
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-cohesion-05/aiv-report.json"
+    },
+    {
+      "id": "mixed-soft-01",
+      "title": "mixed: verbose clean code #1 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-01/aiv-report.json"
+    },
+    {
+      "id": "mixed-soft-02",
+      "title": "mixed: verbose clean code #2 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-02/aiv-report.json"
+    },
+    {
+      "id": "mixed-soft-03",
+      "title": "mixed: verbose clean code #3 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-03/aiv-report.json"
+    },
+    {
+      "id": "mixed-soft-04",
+      "title": "mixed: verbose clean code #4 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-04/aiv-report.json"
+    },
+    {
+      "id": "mixed-soft-05",
+      "title": "mixed: verbose clean code #5 (expect PASS hard)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "verbose_clean",
+        "expect_hard_fail": false,
+        "expect_advisory": false,
+        "notes": "May trip density advisory; hard-fail = FP"
+      },
+      "outcome": {
+        "verdict": "TN",
+        "hard_fail": false,
+        "advisory": false,
+        "blocking_gates": [],
+        "advisory_gates": [],
+        "exit_code": 0,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": false
+      },
+      "passed": true,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-soft-05/aiv-report.json"
+    },
+    {
+      "id": "mixed-hard-01",
+      "title": "mixed: otherwise-ok + edit-artifact #1 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-01.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-01.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-01.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-01/aiv-report.json"
+    },
+    {
+      "id": "mixed-hard-02",
+      "title": "mixed: otherwise-ok + edit-artifact #2 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-02.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-02.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-02.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-02/aiv-report.json"
+    },
+    {
+      "id": "mixed-hard-03",
+      "title": "mixed: otherwise-ok + edit-artifact #3 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-03.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-03.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-03.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-03/aiv-report.json"
+    },
+    {
+      "id": "mixed-hard-04",
+      "title": "mixed: otherwise-ok + edit-artifact #4 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-04.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-04.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-04.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-04/aiv-report.json"
+    },
+    {
+      "id": "mixed-hard-05",
+      "title": "mixed: otherwise-ok + edit-artifact #5 (expect FAIL)",
+      "label": {
+        "class": "mixed_sample",
+        "subtype": "clean_plus_artifact",
+        "expect_hard_fail": true,
+        "expect_advisory": false,
+        "notes": "Hard marker present; hard-pass = FN"
+      },
+      "outcome": {
+        "verdict": "TP",
+        "hard_fail": true,
+        "advisory": false,
+        "blocking_gates": [
+          "invariant"
+        ],
+        "advisory_gates": [],
+        "exit_code": 1,
+        "label_class": "mixed_sample",
+        "expect_hard_fail": true
+      },
+      "passed": false,
+      "gates": [
+        {
+          "id": "density",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "design",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "cohesion",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        },
+        {
+          "id": "invariant",
+          "passed": false,
+          "blocks_ci": true,
+          "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-05.py",
+          "findings": [
+            {
+              "rule_id": "invariant.ai-edit-artifact",
+              "file": "providers/bench/labeled/mixed/hard/mixed-hard-05.py",
+              "start_line": 1,
+              "message": "AI edit-artifact / elision marker found in providers/bench/labeled/mixed/hard/mixed-hard-05.py"
+            }
+          ]
+        },
+        {
+          "id": "syntax",
+          "passed": true,
+          "blocks_ci": false,
+          "message": "OK",
+          "findings": []
+        }
+      ],
+      "aiv_report_path": "reports/labeled-20260919T203253Z/mixed-hard-05/aiv-report.json"
+    }
+  ],
+  "claim_policy": {
+    "primary": "Use this corpus for VERIFIED precision/recall/FP on labeled ground truth",
+    "secondary": "Airflow closed-unmerged census is volume context only \u2014 not AI-slop catch rate"
+  }
+}

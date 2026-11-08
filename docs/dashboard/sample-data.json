@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "description": "Invented demonstration runs. They are not results of a real repository.",
   "runs": [
     {"timestamp": "2026-03-20T14:00:00Z", "branch": "main", "commit": "a100001", "overall_pass": true, "duration_ms": 3100, "gates": [{"id": "density", "passed": true}, {"id": "design", "passed": true}, {"id": "dependency", "passed": true}]},
     {"timestamp": "2026-03-21T09:15:00Z", "branch": "feature/auth", "commit": "b200002", "overall_pass": false, "duration_ms": 4800, "gates": [{"id": "density", "passed": false, "message": "Low LDR"}, {"id": "design", "passed": true}, {"id": "dependency", "passed": true}]},

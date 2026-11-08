@@ -76,11 +76,14 @@ footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color:
 .badge.pass { background: #6b2fb3; }
 .badge.warn { background: #b7791f; }
 </style>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
+<script src="../assets/site-nav.js" data-depth="1" data-page="walkthrough"></script>
+
 <header class="site"><div class="inner">
-<a class="brand" href="index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
-<nav class="main" aria-label="Site"><a href="index.html" class="">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="current">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
+<a class="brand" href="../index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
+<nav class="main" aria-label="Site"><a href="../index.html" class="">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="">Proof</a><a href="value.html" class="current">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
 </div></header>
 <main>
 <figure><img src="images/value.png" alt="Why AIV helps" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
@@ -96,15 +99,21 @@ footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color:
 receipt that says which rules blocked, which only warned, and which passed. Because the hard fail path contains only objective
 rules, a block is something the contributor fixes, not something the maintainer has to argue about. Reviewer time moves from
 "did you leave a conflict marker in here" to "is this the right change".</p>
+<div class="callout navy">
+<h3>Do not mix these with the 2,098-file run</h3>
+<p>The 38/38 figure below is only the small designed suites (35 fixtures + 2 structural + 1 real reconstruction).
+It is not the full corpus result. The full stored-patch run is 113 blocked / 1,803 passed / 182 unscored out of 2,098 files.
+See <a href="../benchmark/index.html">the measured full run</a>.</p>
+</div>
 <div class="kpis">
-<div class="kpi"><div class="num">38/38</div><div class="lbl">objective detections on executed suites</div></div>
-<div class="kpi orange"><div class="num">0</div><div class="lbl">clean changes wrongly blocked out of 17</div></div>
-<div class="kpi purple"><div class="num">0</div><div class="lbl">bypasses available: full run skip is disabled, protected rules cannot be suppressed</div></div>
+<div class="kpi"><div class="num">38/38</div><div class="lbl">small designed suites only (35+2+1), not the 2,098-file run</div></div>
+<div class="kpi orange"><div class="num">0</div><div class="lbl">clean changes wrongly blocked out of 17 suite controls</div></div>
+<div class="kpi purple"><div class="num">113</div><div class="lbl">blocked on the separate full 2,098-file stored-patch run</div></div>
 </div>
 <h2>Who benefits</h2>
 <table>
 <thead><tr><th>Buyer</th><th>Pain</th><th>Value</th><th>Proof</th></tr></thead>
-<tbody><tr><td><strong>Maintainers</strong></td><td>Review queues absorb obvious broken changes</td><td>Objective defects are intercepted before scarce reviewer time is spent</td><td>38/38 observed objective detections across separated suites</td></tr><tr><td><strong>Platform engineering</strong></td><td>Different repositories enforce quality inconsistently</td><td>One deterministic, policy-pinned receipt works in CI, agents, and workflow gates</td><td>Schema v3, immutable OIDs, per-rule actions</td></tr><tr><td><strong>Security and governance</strong></td><td>Mutable inputs and bypasses weaken evidence</td><td>Fail-closed collection, unsuppressible rules, and disabled full-run skip</td><td>Trust, timeout, suppression, and skip regression tests</td></tr><tr><td><strong>Engineering leadership</strong></td><td>AI policy debates lack measurable evidence</td><td>Separates objective defects from disclosure and subjective signals</td><td>0/17 observed hard control failures; broad recall reported as unknown</td></tr></tbody></table>
+<tbody><tr><td><strong>Maintainers</strong></td><td>Review queues absorb obvious broken changes</td><td>Objective defects are intercepted before scarce reviewer time is spent</td><td>38/38 on small designed suites; 113 blocks on the separate 2,098-file full run</td></tr><tr><td><strong>Platform engineering</strong></td><td>Different repositories enforce quality inconsistently</td><td>One deterministic, policy-pinned receipt works in CI, agents, and workflow gates</td><td>Schema v3, immutable OIDs, per-rule actions</td></tr><tr><td><strong>Security and governance</strong></td><td>Mutable inputs and bypasses weaken evidence</td><td>Fail-closed collection, unsuppressible rules, and disabled full-run skip</td><td>Trust, timeout, suppression, and skip regression tests</td></tr><tr><td><strong>Engineering leadership</strong></td><td>AI policy debates lack measurable evidence</td><td>Separates objective defects from disclosure and subjective signals</td><td>0/17 observed hard control failures; broad recall reported as unknown</td></tr></tbody></table>
 <h2>Recommended adoption path</h2>
 <ol><li>Start advisory: capture findings without blocking delivery.</li><li>Calibrate each rule on repository-owned positives and controls.</li><li>Promote only objective rules whose confidence bounds meet policy.</li><li>Protect promoted rules with immutable policy and audited evidence.</li></ol>
 <div class="callout purple">

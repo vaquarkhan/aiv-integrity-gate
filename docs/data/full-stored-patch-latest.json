@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-24T03:58:28Z",
+  "tag": "VERIFIED",
+  "cli": "aiv-cli 2.0 local jar",
+  "source": "every corpus/**/prs/*.json file in this repository",
+  "n_files": 2098,
+  "n_unique_pull_requests": 2080,
+  "blocked": 113,
+  "passed": 1803,
+  "unscored": 182,
+  "errors": 0,
+  "by_folder": {
+    "ai-year": {"n": 493, "blocked": 48, "passed": 422, "unscored": 23},
+    "e2e-proof": {"n": 726, "blocked": 43, "passed": 587, "unscored": 96},
+    "curl": {"n": 249, "blocked": 6, "passed": 233, "unscored": 10},
+    "godot": {"n": 191, "blocked": 5, "passed": 166, "unscored": 20},
+    "flink": {"n": 131, "blocked": 6, "passed": 111, "unscored": 14},
+    "ghostty": {"n": 130, "blocked": 1, "passed": 120, "unscored": 9},
+    "kafka": {"n": 104, "blocked": 4, "passed": 95, "unscored": 5},
+    "cosmic": {"n": 74, "blocked": 0, "passed": 69, "unscored": 5}
+  },
+  "apache_airflow_files": {
+    "n": 1219,
+    "blocked": 91,
+    "passed": 1009,
+    "unscored": 119
+  },
+  "primary_blocking_rules": {
+    "test-adequacy.assertion-free-test": 50,
+    "design.forbidden.no-ai-generated-markers": 38,
+    "invariant.placeholder": 15,
+    "syntax.parse": 7,
+    "invariant.ai-provenance": 1,
+    "invariant.placeholder-test": 1,
+    "invariant.merge-conflict": 1
+  },
+  "objective_marker_example": "https://github.com/apache/airflow/pull/59957",
+  "not_executed": {
+    "airflow_metadata_index_rows": 15575,
+    "reason": "Those rows have titles, bodies, and line counts only. No patch bytes."
+  },
+  "not_claimed": [
+    "That a block means the pull request is AI slop.",
+    "That disclosure is a defect.",
+    "What share of all real AI slop AIV would catch.",
+    "That the 15,575-row index was scored by AIV."
+  ],
+  "pages": {
+    "walkthrough": "airflow-benchmark/index.html",
+    "measured": "benchmark/index.html",
+    "blocked_table": "benchmark/results.html"
+  }
+}

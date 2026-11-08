@@ -3,29 +3,63 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.github.io; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
     <title>AIV Integrity Gate - dashboard</title>
+    <link rel="icon" href="data:," />
     <link rel="stylesheet" href="dashboard.css" />
-  </head>
+    <link rel="stylesheet" href="../assets/site.css">
+</head>
   <body>
+<script src="../assets/site-nav.js" data-depth="1" data-page="dashboard"></script>
+
     <header class="app-header">
       <div class="brand">
         <h1>AIV dashboard</h1>
-        <p>Historical pass/fail, gate trends, and run duration - all from local JSON (no server).</p>
+        <p>Pass/fail history, gate trends and run duration. Runs in your browser; there is no server.</p>
+        <p class="nav-links aiv-muted">Use the top site bar for Home, Walkthrough, Results, Slides, and Docs.</p>
       </div>
       <div class="toolbar">
         <button type="button" class="btn btn-icon" id="theme-toggle" aria-label="Toggle color theme">
           Theme
         </button>
-        <button type="button" class="btn btn-primary" id="load-sample">Load sample data</button>
+        <button type="button" class="btn" id="load-sample">Show sample data</button>
         <label class="file-label btn">
-          Load JSON
+          Load JSON file
           <input id="file-input" type="file" accept="application/json,.json" />
         </label>
       </div>
     </header>
 
     <main>
-      <div id="status" class="status-banner" hidden></div>
+      <section class="source-bar" aria-label="Data source">
+        <span id="source-badge" class="source-badge sample">Sample data</span>
+        <form id="source-form">
+          <label for="source-select">Source</label>
+          <select id="source-select">
+            <option value="sample">Sample data (default)</option>
+            <option value="github">Live: GitHub Actions runs</option>
+            <option value="url">Live: published AIV report JSON</option>
+          </select>
+          <span data-for="github" hidden>
+            <label for="repo-input">Repository</label>
+            <input id="repo-input" type="text" spellcheck="false" autocomplete="off" placeholder="owner/name" maxlength="140" />
+            <label for="workflow-input">Workflow</label>
+            <input id="workflow-input" type="text" spellcheck="false" autocomplete="off" placeholder="aiv.yml" maxlength="104" />
+          </span>
+          <span data-for="url" hidden>
+            <label for="url-input">JSON URL</label>
+            <input id="url-input" type="url" spellcheck="false" autocomplete="off" placeholder="https://..." />
+          </span>
+          <button type="submit" class="btn btn-primary">Load</button>
+        </form>
+        <p id="source-note"></p>
+      </section>
+
+      <div id="status" class="status-banner" hidden role="status"></div>
 
       <section class="kpi-grid" aria-label="Summary">
         <div class="kpi">
@@ -44,11 +78,16 @@
           <div class="sub">count</div>
         </div>
         <div class="kpi">
-          <div class="label">Top noisy gate</div>
+          <div class="label">Most failing gate</div>
           <div class="value" id="kpi-top-gate" style="font-size: 1.1rem">-</div>
           <div class="sub">by failure count</div>
         </div>
       </section>
+
+      <p id="gate-data-note" class="status-banner" hidden>
+        This source has run-level results only. Gate charts appear when the data includes per-gate results, for
+        example AIV <code>--output-json</code> reports published as JSON.
+      </p>
 
       <section class="chart-grid" aria-label="Charts">
         <div class="chart-card span-4">
@@ -80,7 +119,7 @@
 
         <div class="chart-card span-6" id="duration-card">
           <h2>Duration</h2>
-          <p class="hint">Wall time per run when <code>duration_ms</code> is present.</p>
+          <p class="hint">Wall time per run in seconds, when the source records it.</p>
           <div class="chart-wrap">
             <canvas id="chart-duration" role="img" aria-label="Bar chart of run duration"></canvas>
           </div>
@@ -97,7 +136,7 @@
 
       <section class="chart-card" style="margin-top: 1.25rem">
         <h2>Recent runs</h2>
-        <p class="hint">Up to 50 rows, newest first.</p>
+        <p class="hint">Up to 50 rows, newest first. Live GitHub rows link to the workflow run.</p>
         <div class="table-wrap">
           <table class="data" id="runs-table">
             <thead>
@@ -115,16 +154,14 @@
       </section>
 
       <footer class="meta">
-        Data stays in your browser. Use <code>schema_version: 1</code> JSON with a <code>runs</code> array. Serve this
-        folder over HTTP (or GitHub Pages) for best results; opening <code>index.html</code> via <code>file://</code>
-        uses a small embedded fallback if <code>sample-data.json</code> cannot load.
+        The default view is invented sample data. Choose a live source to read real runs: GitHub Actions (public API,
+        60 anonymous requests per hour, cached for 5 minutes) or a published JSON file. A chosen file is read in the
+        browser and never uploaded. Share a live view with <code>?source=github&amp;repo=owner/name&amp;workflow=aiv.yml</code>.
+        Charts: Chart.js 4.4.1 (MIT), served from this site.
       </footer>
     </main>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="vendor/chart.umd.min.js"></script>
     <script src="dashboard.js" defer></script>
   </body>
 </html>

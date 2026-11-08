@@ -37,8 +37,11 @@ a { color: #1f3a93; }
 footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color: #4b5160; font-size: 14px; font-family: "Segoe UI", Arial, sans-serif; border-top: 1px solid #d7dce6; }
 svg text { font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; fill: #1b1f2a; }
 </style>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
+<script src="../assets/site-nav.js" data-depth="1" data-page="results"></script>
+
 <header class="site"><div class="inner">
 <a class="brand" href="index.html">AIV Integrity Gate<small>Full stored-patch benchmark</small></a>
 <nav class="main"><a href="index.html" class="current">Overview</a><a href="dataset.html" class="">Dataset</a><a href="results.html" class="">Full run</a><a href="limits.html" class="">Limits</a></nav>
@@ -91,6 +94,36 @@ svg text { font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; fill: #1
 </svg>
 <p class="muted">One primary rule per blocked file. A missing-tests finding is not counted as the reason when a harder finding is on the same gate.</p>
 
+<div class="callout" id="graphs">
+<h3>Live charts from the receipt</h3>
+<p class="muted">Same numbers as <code>data/full-stored-patch-latest.json</code>. Open from the site home for the full four-chart panel.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:12px">
+<div style="background:#fff;border:1px solid #d7dce6;border-radius:10px;padding:12px"><canvas id="chart-verdict-bench" height="200"></canvas></div>
+<div style="background:#fff;border:1px solid #d7dce6;border-radius:10px;padding:12px"><canvas id="chart-rules-bench" height="200"></canvas></div>
+</div>
+<p><a href="../index.html#graphs">Open all charts on the site home</a> · <a href="../index.html">Back to parent site</a></p>
+</div>
+<script src="../assets/chart.umd.min.js"></script>
+<script>
+(async function () {
+  try {
+    const data = await (await fetch("../data/full-stored-patch-latest.json")).json();
+    const common = { responsive: true, plugins: { legend: { position: "bottom" } } };
+    new Chart(document.getElementById("chart-verdict-bench"), {
+      type: "doughnut",
+      data: { labels: ["Blocked", "Passed", "Unscored"], datasets: [{ data: [data.blocked, data.passed, data.unscored], backgroundColor: ["#d9480f", "#1f3a93", "#94a3b8"] }] },
+      options: common
+    });
+    const rules = data.primary_blocking_rules || {};
+    const labels = Object.keys(rules);
+    new Chart(document.getElementById("chart-rules-bench"), {
+      type: "bar",
+      data: { labels: labels.map(k => k.split(".").pop()), datasets: [{ label: "Primary blocks", data: labels.map(k => rules[k]), backgroundColor: "#d9480f" }] },
+      options: { ...common, indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { precision: 0 } } } }
+    });
+  } catch (e) { console.warn(e); }
+})();
+</script>
 </main>
 <footer class="site">Measured with local aiv-cli 2.0 built 2026-10-23 (working tree on ed1afa0 plus the uncommitted gate changes). Rows: benchmarks/industry-e2e/results-full/rows.jsonl. Policy is the Airflow bench .aiv tree, invariant gate set to fail. The 15,575-row index was not executed, because those records have no patch.</footer>
 </body>

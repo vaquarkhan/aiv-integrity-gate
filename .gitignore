@@ -52,17 +52,6 @@ docs/GAP-ANALYSIS.md
 docs/AIV-ARCHITECTURE-BRAINSTORM.md
 docs/AIV-AIRFLOW-EVIDENCE-BRIEF.md
 docs/evidence-airflow-marker-scan.json
-docs/ADVERSARIAL-PRODUCT-REVIEW.md
-docs/apache/APACHE-AIV-GATE-ANALYSIS.md
-docs/apache/APACHE-ADOPTION-ROADMAP.md
-docs/apache/PRODUCT-CHANGES.md
-docs/apache/RED-TEAM-OBJECTIONS.md
-docs/deck/
-docs/images/generate_product_visuals.py
-docs/images/generate_figures.py
-.github/copilot-instructions.md
-.github/WORKFLOWS.md
-.github/workflows/README.md
 
 # Local experiment / corpus artifacts (never ship)
 airflow-sample/
@@ -74,14 +63,8 @@ aiv-airflow-*.md
 aiv-magpie-*.md
 maven-portable/
 
-# Benchmark local scratch (published reports live under reports/)
+# Benchmark local scratch JSON (published reports live under reports/)
 benchmarks/**/results/*.json
-benchmarks/airflow-bench-compare/results/COMPARE.md
-benchmarks/airflow-bench-compare/results-v2config/SUMMARY.md
-benchmarks/airflow-bench-compare/results-audit/duckdb.md
-benchmarks/proposal-pilot/results/**/SUMMARY.md
-benchmarks/airflow-bench-compare/results-v2config-*/
-benchmarks/airflow-bench-compare/results-v2-benchconfig-*/
 # Keep latest.html / latest.json / census-latest.*; drop bulky per-run trees from git optional
 benchmarks/**/reports/run-*/
 benchmarks/**/reports/census-score.log
@@ -93,4 +76,36 @@ aiv-cli/.aiv/
 benchmarks/**/scripts/__pycache__/
 benchmarks/**/reports/labeled-score.log
 benchmarks/**/reports/seed-labeled.log
+
+# Terraform local state and operator-specific inputs
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+terraform.tfvars
+*.auto.tfvars
+*.auto.tfvars.json
+backend.hcl
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Keep reviewed examples and dependency locks in version control
+!*.tfvars.example
+!*.hcl.example
+!.terraform.lock.hcl
+
+
+# Local Apache-facing notes; never publish
+docs/apache/
+
+# Deck / carousel builders and local artifacts (published web deck lives in docs/slides/)
+docs/deck/
+docs/images/generate_*.py
+docs/images/validate_*.py
+docs/images/__pycache__/
+docs/**/__pycache__/
 

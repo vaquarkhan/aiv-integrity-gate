@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}AIV Integrity Gate</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body class="aiv-has-chrome aiv-md">
+  {% include site-nav.html %}
+  <main class="aiv-shell main-content" role="main">
+    {{ content }}
+  </main>
+  <footer class="aiv-footer">
+    AIV Integrity Gate ·
+    <a href="https://github.com/vaquarkhan/aiv-integrity-gate">source</a> ·
+    Not affiliated with the Apache Software Foundation
+  </footer>
+</body>
+</html>

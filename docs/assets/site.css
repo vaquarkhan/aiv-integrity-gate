@@ -1,0 +1,243 @@
+:root {
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --paper: #f8fafc;
+  --card: #ffffff;
+  --navy: #0b1f3a;
+  --blue: #1f3a93;
+  --orange: #d9480f;
+  --purple: #6b2fb3;
+  --green: #0f766e;
+  --amber: #b7791f;
+  --font: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --mono: Consolas, "Courier New", monospace;
+  --max: 1100px;
+  --nav-h: 58px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(900px 420px at 0% -10%, rgba(217, 72, 15, 0.08), transparent 55%),
+    radial-gradient(800px 380px at 100% 0%, rgba(31, 58, 147, 0.08), transparent 50%),
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 40%, #ffffff 100%);
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.aiv-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 31, 58, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.aiv-chrome .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: var(--nav-h);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+.aiv-chrome .brand {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  margin-right: auto;
+}
+.aiv-chrome .brand small {
+  display: block;
+  font-weight: 500;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+.aiv-chrome nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.aiv-chrome nav a {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+.aiv-chrome nav a:hover { border-color: rgba(255,255,255,0.35); color: #fff; text-decoration: none; }
+.aiv-chrome nav a[aria-current="page"] {
+  background: #fff;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.aiv-shell { max-width: var(--max); margin: 0 auto; padding: 28px 20px 64px; }
+.aiv-eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin: 0 0 8px;
+}
+.aiv-shell h1 {
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  line-height: 1.15;
+  margin: 0 0 12px;
+  letter-spacing: -0.03em;
+}
+.aiv-lede { font-size: 1.15rem; color: var(--muted); margin: 0 0 22px; max-width: 52rem; }
+.aiv-ctas { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 28px; }
+.aiv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 2px solid var(--blue);
+  background: #fff;
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+.aiv-btn:hover { text-decoration: none; background: #eef2fb; }
+.aiv-btn.primary { background: var(--blue); color: #fff; }
+.aiv-btn.primary:hover { background: #172c70; }
+
+.aiv-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 0 0 28px;
+}
+.aiv-kpi {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--blue);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.aiv-kpi.orange { border-top-color: var(--orange); }
+.aiv-kpi.purple { border-top-color: var(--purple); }
+.aiv-kpi.green { border-top-color: var(--green); }
+.aiv-kpi .num {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.aiv-kpi .lbl { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
+
+.aiv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin: 18px 0 28px;
+}
+.aiv-card {
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--blue);
+  border-radius: 12px;
+  padding: 16px 18px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.aiv-card:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+.aiv-card.hot { border-left-color: var(--orange); }
+.aiv-card .step {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 4px;
+}
+.aiv-card h3 { margin: 0 0 6px; color: var(--blue); font-size: 1.15rem; }
+.aiv-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+.aiv-panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 0 0 22px;
+}
+.aiv-panel h2 {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+  border-bottom: 3px solid var(--orange);
+  padding-bottom: 6px;
+}
+.aiv-callout {
+  border-left: 6px solid var(--orange);
+  background: #fff7f1;
+  border-radius: 0 12px 12px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+}
+.aiv-callout.navy {
+  border-left-color: var(--blue);
+  background: #eef2fb;
+}
+.aiv-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 18px 0 8px;
+}
+.aiv-chart-box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+.aiv-chart-box h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+.aiv-chart-box canvas { width: 100% !important; max-height: 280px; }
+.aiv-muted { color: var(--muted); font-size: 0.92rem; }
+.aiv-footer {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 18px 20px 40px;
+  color: var(--muted);
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+}
+
+/* Hide legacy per-page headers once shared chrome is present */
+body.aiv-has-chrome header.site,
+body.aiv-has-chrome header.topbar,
+body.aiv-has-chrome > header:not(.aiv-chrome):not(.app-toolbar) {
+  display: none !important;
+}
+body.aiv-has-chrome .dashboard-legacy-brand { display: none !important; }
+
+@media (max-width: 640px) {
+  .aiv-chrome .brand small { display: none; }
+  .aiv-shell h1 { font-size: 1.7rem; }
+}

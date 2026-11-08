@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIV Integrity Gate — docs, benchmark &amp; deck</title>
+  <meta name="description" content="AIV Integrity Gate: deterministic PR evidence. Full 2,098-file stored-patch run (113 blocked) plus separate 50-case fixture proof. One site for docs, benchmark, slides, and dashboard." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <script src="assets/site-nav.js" data-depth="0" data-page="home"></script>
+
+  <main class="aiv-shell">
+    <p class="aiv-eyebrow">Product site · one header · verified numbers</p>
+    <h1>Deterministic evidence for AI-era pull requests.</h1>
+    <p class="aiv-lede">
+      AIV is a Java 17 gate: no model on the blocking path, policy pinned to the protected branch.
+      This Pages site is the parent for the walkthrough, the full <strong>2,098-file</strong> measured run,
+      the 52-slide deck, the dashboard, and the docs.
+    </p>
+    <div class="aiv-ctas">
+      <a class="aiv-btn primary" href="benchmark/index.html">Open 2,098-file results</a>
+      <a class="aiv-btn" href="airflow-benchmark/index.html">Walkthrough</a>
+      <a class="aiv-btn" href="slides/index.html">Slides</a>
+      <a class="aiv-btn" href="dashboard/index.html">Dashboard</a>
+      <a class="aiv-btn" href="START.html">Docs map</a>
+    </div>
+
+    <div class="aiv-kpis">
+      <div class="aiv-kpi"><div class="num">2,098</div><div class="lbl">stored patch files scored (full corpus)</div></div>
+      <div class="aiv-kpi orange"><div class="num">113</div><div class="lbl">blocked by a gate finding</div></div>
+      <div class="aiv-kpi purple"><div class="num">1,803</div><div class="lbl">passed · 182 unscored</div></div>
+      <div class="aiv-kpi green"><div class="num">15,575</div><div class="lbl">Airflow rows indexed, not executed</div></div>
+    </div>
+
+    <div class="aiv-callout navy">
+      <strong>Do not mix denominators.</strong>
+      The full run is every <code>prs/*.json</code> file (2,098). The labeled 50-case / 35/35 / 38/38 figures are a
+      separate designed fixture suite. Receipt:
+      <a href="data/full-stored-patch-latest.json"><code>full-stored-patch-latest.json</code></a>.
+    </div>
+
+    <section class="aiv-panel" id="graphs">
+      <h2>Full stored-patch run — live charts</h2>
+      <p class="aiv-muted">Loaded from <code>data/full-stored-patch-latest.json</code>. Not the 50-case fixtures.</p>
+      <div class="aiv-charts">
+        <div class="aiv-chart-box">
+          <h3>Verdict mix (2,098 files)</h3>
+          <canvas id="chart-verdict" height="220" aria-label="Blocked vs passed vs unscored"></canvas>
+        </div>
+        <div class="aiv-chart-box">
+          <h3>Primary blocking rules</h3>
+          <canvas id="chart-rules" height="220" aria-label="Blocking rules"></canvas>
+        </div>
+        <div class="aiv-chart-box">
+          <h3>Files by corpus folder</h3>
+          <canvas id="chart-folders" height="220" aria-label="Files by folder"></canvas>
+        </div>
+        <div class="aiv-chart-box">
+          <h3>Blocked by folder</h3>
+          <canvas id="chart-blocked" height="220" aria-label="Blocked by folder"></canvas>
+        </div>
+      </div>
+      <p id="chart-status" class="aiv-muted">Loading receipt…</p>
+    </section>
+
+    <section class="aiv-panel">
+      <h2>Explore the site</h2>
+      <div class="aiv-grid">
+        <a class="aiv-card hot" href="benchmark/index.html"><span class="step">Measured</span><h3>2,098-file run</h3><p>Every stored patch scored. Project tables and every blocked PR.</p></a>
+        <a class="aiv-card hot" href="airflow-benchmark/index.html"><span class="step">Story</span><h3>Full walkthrough</h3><p>Problem → dataset → method → catches → proof → value.</p></a>
+        <a class="aiv-card" href="slides/index.html"><span class="step">Deck</span><h3>52 slides</h3><p>Problem, architecture, every gate, benchmark context. PDF / PPTX.</p></a>
+        <a class="aiv-card" href="dashboard/index.html"><span class="step">Live</span><h3>Dashboard</h3><p>Pass/fail trends from sample data or GitHub Actions.</p></a>
+        <a class="aiv-card" href="TUTORIAL.md"><span class="step">Docs</span><h3>Quick start</h3><p>Install the gate and read a verdict on one change.</p></a>
+        <a class="aiv-card" href="GATES.md"><span class="step">Docs</span><h3>Gate catalog</h3><p>What each gate checks and how findings look.</p></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="aiv-footer">
+    AIV Integrity Gate · not affiliated with the Apache Software Foundation ·
+    Bench corpus also at <a href="https://vaquarkhan.github.io/aiv-airflow-bench/">aiv-airflow-bench</a>
+  </footer>
+
+  <script src="assets/chart.umd.min.js"></script>
+  <script>
+  (async function () {
+    const status = document.getElementById("chart-status");
+    const colors = {
+      blue: "#1f3a93",
+      orange: "#d9480f",
+      purple: "#6b2fb3",
+      green: "#0f766e",
+      slate: "#94a3b8",
+      gold: "#b7791f"
+    };
+    try {
+      const res = await fetch("data/full-stored-patch-latest.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      status.textContent = "Receipt " + (data.generated_at || "") + " · aiv-cli " + (data.cli || "");
+
+      const common = {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: { legend: { position: "bottom" } }
+      };
+
+      new Chart(document.getElementById("chart-verdict"), {
+        type: "doughnut",
+        data: {
+          labels: ["Blocked", "Passed", "Unscored"],
+          datasets: [{
+            data: [data.blocked, data.passed, data.unscored],
+            backgroundColor: [colors.orange, colors.blue, colors.slate]
+          }]
+        },
+        options: common
+      });
+
+      const rules = data.primary_blocking_rules || {};
+      const ruleLabels = Object.keys(rules);
+      new Chart(document.getElementById("chart-rules"), {
+        type: "bar",
+        data: {
+          labels: ruleLabels.map(function (k) { return k.split(".").pop(); }),
+          datasets: [{
+            label: "Primary blocks",
+            data: ruleLabels.map(function (k) { return rules[k]; }),
+            backgroundColor: colors.orange
+          }]
+        },
+        options: {
+          ...common,
+          indexAxis: "y",
+          plugins: { legend: { display: false } },
+          scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+        }
+      });
+
+      const folders = data.by_folder || {};
+      const folderNames = Object.keys(folders);
+      new Chart(document.getElementById("chart-folders"), {
+        type: "bar",
+        data: {
+          labels: folderNames,
+          datasets: [{
+            label: "Files",
+            data: folderNames.map(function (k) { return folders[k].n; }),
+            backgroundColor: colors.blue
+          }]
+        },
+        options: {
+          ...common,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+        }
+      });
+
+      new Chart(document.getElementById("chart-blocked"), {
+        type: "bar",
+        data: {
+          labels: folderNames,
+          datasets: [{
+            label: "Blocked",
+            data: folderNames.map(function (k) { return folders[k].blocked; }),
+            backgroundColor: colors.purple
+          }]
+        },
+        options: {
+          ...common,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+        }
+      });
+    } catch (err) {
+      status.textContent = "Could not load charts from data/full-stored-patch-latest.json (" + err.message + "). Open via http://, not file://.";
+    }
+  })();
+  </script>
+</body>
+</html>

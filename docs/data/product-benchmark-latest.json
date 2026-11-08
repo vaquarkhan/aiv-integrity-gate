@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-09-19T21:19:40.674826+00:00",
+  "labeled_50": {
+    "tag": "VERIFIED",
+    "n_cases": 50,
+    "positives_expect_fail": 35,
+    "negatives_expect_pass": 15,
+    "TP": 35,
+    "FN": 0,
+    "FP": 0,
+    "TN": 15,
+    "hard_gate_recall": 1.0,
+    "hard_gate_precision": 1.0,
+    "false_positive_rate": 0.0,
+    "block_rate_on_labeled_slop": 1.0,
+    "advisory_expected": 5,
+    "advisory_hit": 5,
+    "statement": "On the labeled 50-case bench: blocked 35/35 expected-fail cases (recall 100.0%), FP 0/15 expected-pass (0.0%), precision 100.0%.",
+    "not_claimed": [
+      "That this equals % of AIP-120's 508 external closed-unmerged PRs",
+      "That unlabeled Airflow closed-unmerged volume is AI authorship",
+      "Exact CI dollars saved"
+    ]
+  },
+  "abandoned_labeled": {
+    "tag": "VERIFIED",
+    "sampled_abandoned": 61,
+    "by_label": {
+      "ai_disclosed": 16,
+      "abandoned_clean": 42,
+      "ai_signal_advisory": 3
+    },
+    "abandoned_clean_pct": 68.9,
+    "ai_signal_pct": 31.1,
+    "hard_fail_among_sample": 1,
+    "hard_fail_pct_among_sample": 1.6,
+    "disclosed_n": 16,
+    "disclosed_hard_caught": 1,
+    "disclosed_catch_rate": 0.0625,
+    "ai_signal_n": 19,
+    "ai_signal_hard_identified": 1,
+    "bullets": [
+      "Of 61 abandoned Airflow PRs sampled, 42 (68.9%) labeled abandoned_clean.",
+      "AI-signal labels: 19 (31.1%) \u2014 mostly ai_disclosed, not marker-style objective slop.",
+      "Objective markers in sample: 0.",
+      "After AIV (head+full) on sample: hard-fail 1/61 (1.6%).",
+      "Among ai_disclosed abandoned: hard-caught 1/16 (6.2%).",
+      "Among all AI-signal labels: identified (hard) 1/19 (5.3%)."
+    ],
+    "statement": "Most abandoned PRs are not marker-style AI slop (68.9% abandoned_clean; 0 objective markers in this sample). 19 PRs carry AI-signal labels (mostly disclosure). Pushing the same diffs through AIV (head+full config) hard-blocked 1/61 of the sample and 1/16 confirmed-disclosed abandoned PRs.",
+    "not_claimed": [
+      "That abandoned_clean PRs have zero AI involvement",
+      "That AI disclosure alone means the PR should be rejected",
+      "Exact % of all 597 abandoned PRs that are AI authorship",
+      "CI dollars saved"
+    ],
+    "ai_signal_identification_rate": 0.05263157894736842,
+    "scoring_note": "AI-signal cohort re-scored with materialize=head + full benchmarks/airflow/.aiv config"
+  },
+  "chatgpt_true": {
+    "tag": "VERIFIED",
+    "cohort": "confirmed_chatgpt_disclosure_bodies",
+    "n": 5,
+    "closed_unmerged_scored": 2,
+    "closed_unmerged_hard_blocked": 1,
+    "closed_unmerged_catch_rate": 0.5,
+    "merged_scored": 3,
+    "merged_hard_blocked": 0,
+    "merged_fp_if_treat_merged_as_good": 0.0,
+    "statement": "On 2 closed-unmerged Airflow PRs with confirmed ChatGPT disclosure, AIV hard-blocked 1 (50%). On 3 merged ChatGPT-disclosed PRs, hard-blocked 0 (FP rate if merged=good: 0%).",
+    "not_claimed": [
+      "That all AI-assisted Airflow PRs should be blocked",
+      "That ChatGPT search totals equal AI-slop volume",
+      "% of 597 closed-unmerged that are AI slop"
+    ]
+  }
+}

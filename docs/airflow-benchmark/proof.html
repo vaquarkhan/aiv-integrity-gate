@@ -76,17 +76,20 @@ footer.site { max-width: 1080px; margin: 0 auto; padding: 18px 24px 40px; color:
 .badge.pass { background: #6b2fb3; }
 .badge.warn { background: #b7791f; }
 </style>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
+<script src="../assets/site-nav.js" data-depth="1" data-page="walkthrough"></script>
+
 <header class="site"><div class="inner">
-<a class="brand" href="index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
-<nav class="main" aria-label="Site"><a href="index.html" class="">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="current">Proof</a><a href="value.html" class="">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
+<a class="brand" href="../index.html">AIV Integrity Gate<small>Apache Airflow AI slop benchmark</small></a>
+<nav class="main" aria-label="Site"><a href="../index.html" class="">Overview</a><a href="problem.html" class="">The AI slop problem</a><a href="dataset.html" class="">Dataset</a><a href="methodology.html" class="">Methodology</a><a href="catches.html" class="">What AIV caught</a><a href="proof.html" class="current">Proof</a><a href="value.html" class="">Why AIV helps</a><a href="verification.html" class="">Verification</a></nav>
 </div></header>
 <main>
 <figure><img src="images/proof.png" alt="Proof" style="width:100%;border:1px solid #d7dce6;border-radius:10px"></figure>
 
 <h1>Proof</h1>
-<p class="lede">Three confusion matrices, three exact binomial lower bounds, and a full census of the stored corpus. Point estimates alone would flatter small samples, so the bounds are shown next to them.</p>
+<p class="lede">Three small designed-suite confusion matrices, their exact binomial lower bounds, and a separate full census of the stored corpus. The 35/35 numbers are not the 2,098-file run. Point estimates alone would flatter small samples, so the bounds are shown next to them.</p>
 <h2>Confusion matrices</h2>
 <div class="row">
 <div class="chart-wrap"><figure><svg class="chart" viewBox="0 0 420 250" width="100%" style="max-width:420px" role="img" aria-label="Fixture suite"><title>Fixture suite</title><text x="230" y="18" text-anchor="middle" class="axis">AIV result</text><text x="125" y="44" text-anchor="middle" class="axis small">blocked</text><text x="330" y="44" text-anchor="middle" class="axis small">passed</text><text x="14" y="100" class="axis small" transform="rotate(-90 14 100)" text-anchor="middle">expected block</text><text x="14" y="200" class="axis small" transform="rotate(-90 14 200)" text-anchor="middle">expected pass</text><rect x="30" y="52" width="190" height="88" rx="8" fill="#1f3a93"/><text x="125" y="94" text-anchor="middle" class="cell-big">35</text><text x="125" y="122" text-anchor="middle" class="cell-label">True positive</text><rect x="235" y="52" width="190" height="88" rx="8" fill="#8a94a6"/><text x="330" y="94" text-anchor="middle" class="cell-big">0</text><text x="330" y="122" text-anchor="middle" class="cell-label">False negative</text><rect x="30" y="150" width="190" height="88" rx="8" fill="#8a94a6"/><text x="125" y="192" text-anchor="middle" class="cell-big">0</text><text x="125" y="220" text-anchor="middle" class="cell-label">False positive</text><rect x="235" y="150" width="190" height="88" rx="8" fill="#6b2fb3"/><text x="330" y="192" text-anchor="middle" class="cell-big">15</text><text x="330" y="220" text-anchor="middle" class="cell-label">True negative</text></svg><figcaption>Fixture suite, 50 cases.</figcaption></figure></div>
@@ -111,11 +114,19 @@ suite has enough positives to clear the 75 percent target with statistical confi
 <tr><td>Selected real objective recall</td><td class="num">100.0%</td><td><code>results/selected-real-head-latest.json</code></td></tr>
 <tr><td>Share of all real AI slop caught</td><td class="num"><strong>unknown</strong></td><td>not measurable from this corpus</td></tr>
 <tr><td>Stored patch added line marker rate</td><td class="num">0.180%</td><td><code>results/professional-benchmark-latest.json</code></td></tr>
-<tr><td>Executed cases across suites</td><td class="num">55</td><td>sum of the three suites</td></tr>
+<tr><td>Executed cases across small designed suites</td><td class="num">55</td><td>sum of the three suites above — not the full corpus</td></tr>
+<tr><td>Full stored-patch run (separate)</td><td class="num">2,098 files · 113 blocked</td><td><code>docs/data/full-stored-patch-latest.json</code></td></tr>
 </tbody></table>
+<div class="callout navy">
+<h3>Two different results</h3>
+<p>The matrices and 55-case row above are designed fixture / structural / selected suites.
+The full end-to-end run scored every stored <code>prs/*.json</code> file: 2,098 files, 113 blocked, 1,803 passed, 182 unscored.
+Do not treat 35/35 or 38/38 as the full-corpus catch rate. Open the
+<a href="../benchmark/index.html">measured full stored-patch run</a>.</p>
+</div>
 <div class="callout">
 <h3>Executive verdict</h3>
-<p>AIV met the 75 percent point target on each executed objective suite; broad real-world AI-slop recall remains unmeasured.</p>
+<p>AIV met the 75 percent point target on each small designed objective suite; the separate full stored-patch run blocked 113 of 2,098 files; broad real-world AI-slop recall remains unmeasured.</p>
 </div>
 <p>Next: <a href="value.html">why this matters for a project trying to avoid AI slop</a>.</p>
 

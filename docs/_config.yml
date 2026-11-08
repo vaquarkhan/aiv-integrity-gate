@@ -1,10 +1,35 @@
 title: AIV Integrity Gate
-description: A fast, deterministic integrity gate for AI-generated code. No model calls, no API keys.
-theme: jekyll-theme-cayman
-liquid:
-  error_mode: warn
+description: Deterministic integrity gate for AI-era pull requests. Full 2,098-file stored-patch benchmark plus separate fixture proof.
+url: https://vaquarkhan.github.io
+baseurl: /aiv-integrity-gate
+
+# No remote theme — one shared layout/header (avoids Cayman double headers).
+plugins: []
+
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
 exclude:
   - deck/
+  - deck/**
   - reports/
-  - dashboard/
+  - dashboard/README.md
   - apache/
+  - images/generate_*.py
+  - images/validate_*.py
+  - "**/*.py"
+
+include:
+  - assets
+  - data
+  - .nojekyll
+
+liquid:
+  error_mode: warn
